@@ -1,25 +1,64 @@
-# SBOMber
+<p align="center">
+  <img src="./docs/assets/Banner.png" alt="SBOMber banner" width="100%" />
+</p>
 
-SBOMber is an open-source Go CLI for scanning directories of locally cloned Git repositories and generating software bill of materials (SBOM) artifacts at scale.
+<p align="center">
+  <a href="https://github.com/Xsamsx/SBOMber/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/Xsamsx/SBOMber/actions/workflows/ci.yml/badge.svg" /></a>
+  <img alt="Go version" src="https://img.shields.io/badge/Go-1.26-0f766e?style=flat-square&logo=go" />
+  <img alt="License" src="https://img.shields.io/badge/License-Apache--2.0-111827?style=flat-square" />
+  <img alt="Platforms" src="https://img.shields.io/badge/Platforms-macOS%20%7C%20Linux%20%7C%20Windows-c2410c?style=flat-square" />
+  <img alt="Targets" src="https://img.shields.io/badge/Stacks-npm%20%7C%20Python%20%7C%20Maven%20%7C%20Ruby%20%7C%20Go-1d4ed8?style=flat-square" />
+</p>
 
-The project starts with multi-repository discovery and SBOM generation, then expands into dependency metadata, outdated package detection, and supply-chain analysis.
+<p align="center">
+  <strong>Scan a folder full of repositories. Generate SBOMs without handholding.</strong>
+</p>
 
-## Why SBOMber
+SBOMber is an open-source Go CLI for scanning directories of locally cloned Git repositories and generating software bill of materials artifacts at scale.
 
-- Scan a parent folder that contains many repositories
-- Detect repositories recursively instead of handling one repo at a time
-- Build toward support for `npm`, `Python`, `Maven`, `Ruby`, and `Go`
-- Generate standards-based SBOM output such as `CycloneDX` and `SPDX`
-- Keep the tool scriptable, local-first, and friendly to automation
+The first milestone is clear: discover repositories, detect their ecosystems, and generate standards-based SBOMs. After that, the project expands into dependency metadata, outdated package analysis, vulnerability reporting, and supply-chain signals.
+
+## What It Is Built For
+
+- scanning a workspace that contains many Git repositories
+- detecting repo stacks from manifests and lockfiles
+- generating `CycloneDX` and `SPDX` output
+- handling direct and transitive dependencies
+- fitting into CI, scripts, and local security workflows
+
+## Platform Targets
+
+SBOMber is being built as a cross-platform Go CLI for:
+
+- `macOS`
+- `Linux`
+- `Windows`
+
+Current development is source-first. Planned distribution targets include:
+
+- GitHub Releases binaries
+- `go install`
+- Homebrew formula
+- Scoop package
+
+## Ecosystem Targets
+
+The current product direction is multi-stack support for repositories using:
+
+- `npm` / `package-lock.json`
+- `Python` / `requirements.txt`, `pyproject.toml`, lockfiles
+- `Maven` / `pom.xml`
+- `Ruby` / `Gemfile.lock`
+- `Go` / `go.mod`, `go.sum`
 
 ## Current Status
 
-The repository is scaffolded as a production-ready Go project with:
+The repo already has a clean foundation:
 
-- a working CLI entrypoint
+- working Go CLI entrypoint
 - recursive Git repository discovery
 - CI for formatting, vetting, and tests
-- OSS community files for contributions and issue reporting
+- OSS community files for issues, PRs, contributions, and security reporting
 
 SBOM extraction backends are the next implementation step.
 
@@ -29,7 +68,7 @@ SBOM extraction backends are the next implementation step.
 
 - Go `1.26` or newer
 
-### Run locally
+### Build from source
 
 ```bash
 make tidy
@@ -46,24 +85,27 @@ go run ./cmd/sbomber scan ../
 ## Example Output
 
 ```text
-Found 1 repository under ../
-- SBOMber  /absolute/path/to/SBOMber
+Found 3 repositories under /workspace
+- backend-api  /workspace/backend-api
+- design-system  /workspace/design-system
+- payments  /workspace/payments
 ```
 
 ## Roadmap
 
-- Repository discovery and workspace scanning
-- Ecosystem detection from manifests and lockfiles
+- repository discovery and workspace scanning
+- ecosystem detection from manifests and lockfiles
 - SBOM generation for supported stacks
-- Dependency metadata and outdated package reporting
-- Vulnerability and supply-chain analysis
+- metadata and outdated dependency reporting
+- vulnerability and supply-chain analysis
 
 ## Project Layout
 
 ```text
 cmd/sbomber/        CLI entrypoint
-internal/cli/       argument parsing and command execution
+internal/cli/       command parsing and execution
 internal/discovery/ repository scanning logic
+docs/assets/        branding and repository visuals
 .github/            CI and community health files
 ```
 
@@ -78,7 +120,7 @@ make ci
 
 ## Contributing
 
-See [CONTRIBUTING.md](./CONTRIBUTING.md) for local development guidance and contribution workflow.
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for setup and contribution workflow.
 
 ## License
 
