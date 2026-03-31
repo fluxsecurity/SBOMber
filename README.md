@@ -70,14 +70,17 @@ The current product direction is multi-stack support for repositories using:
 
 ## Current Status
 
-The repo already has a clean foundation:
+Phase 1 is in active development:
 
-- working Go CLI entrypoint
+- interactive CLI with scan menu and export format selection
 - recursive Git repository discovery
+- ecosystem detection for npm, Python, Maven, Ruby, and Go
+- npm direct dependency parsing from `package.json`
+- npm transitive dependency parsing from `yarn.lock`
 - CI for formatting, vetting, and tests
 - OSS community files for issues, PRs, contributions, and security reporting
 
-SBOM extraction backends are the next implementation step.
+Next up: CycloneDX and SPDX export to disk.
 
 ## Quick Start
 
@@ -85,27 +88,59 @@ SBOM extraction backends are the next implementation step.
 
 - Go `1.26` or newer
 
-### Build from source
+### Build and run
 
 ```bash
 make tidy
 make build
-./bin/sbomber scan ../
+./bin/sbomber
 ```
 
 ### Run without building
 
 ```bash
-go run ./cmd/sbomber scan ../
+# Launch interactive mode (landing screen with menu)
+make run
+
+# Scan a specific folder
+make scan SCAN_PATH=/path/to/your/projects
+
+# Scan with a specific export format
+make scan SCAN_PATH=/path/to/repo SCAN_ARGS='--format both'
+```
+
+### Run tests
+
+```bash
+make test
 ```
 
 ## Example Output
 
 ```text
-Found 3 repositories under /workspace
-- backend-api  /workspace/backend-api
-- design-system  /workspace/design-system
-- payments  /workspace/payments
+  ____  ____   ___  __  __ _
+ / ___|| __ ) / _ \|  \/  | |__   ___ _ __
+ \___ \|  _ \| | | | |\/| | '_ \ / _ \ '__|
+  ___) | |_) | |_| | |  | | |_) |  __/ |
+ |____/|____/ \___/|_|  |_|_.__/ \___|_|
+
+ Select an option:
+  1) Scan current folder
+  2) Scan custom folder
+  3) Version
+  4) Help
+```
+
+Scanning an npm project:
+
+```text
+Found 1 repository under /workspace/prettier
+  prettier  [npm]
+
+npm dependency summary for prettier:
+  Direct dependencies (package.json):  146
+  Transitive dependencies (yarn.lock): 953
+  Total known dependencies:            1099
 ```
 
 ## Roadmap
@@ -121,8 +156,11 @@ Found 3 repositories under /workspace
 
 ```text
 cmd/sbomber/        CLI entrypoint
-internal/cli/       command parsing and execution
-internal/discovery/ repository scanning logic
+internal/cli/       interactive CLI and scan flow
+internal/discovery/ recursive repository scanning
+internal/ecosystem/ manifest-based ecosystem detection
+internal/deps/      shared dependency data model
+internal/npm/       npm and yarn.lock parsing
 docs/assets/        branding and repository visuals
 .github/            CI and community health files
 ```
