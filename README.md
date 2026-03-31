@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/Xsamsx/SBOMber/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/Xsamsx/SBOMber/actions/workflows/ci.yml/badge.svg" /></a>
+  <a href="https://github.com/fluxsecurity/SBOMber/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/fluxsecurity/SBOMber/actions/workflows/ci.yml/badge.svg" /></a>
   <img alt="Go version" src="https://img.shields.io/badge/Go-1.26-0f766e?style=flat-square&logo=go" />
   <img alt="License" src="https://img.shields.io/badge/License-Apache--2.0-111827?style=flat-square" />
   <img alt="Platforms" src="https://img.shields.io/badge/Platforms-macOS%20%7C%20Linux%20%7C%20Windows-c2410c?style=flat-square" />
