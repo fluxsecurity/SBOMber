@@ -1,0 +1,1536 @@
+{
+  "$schema": "http://cyclonedx.org/schema/bom-1.6.schema.json",
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.6",
+  "serialNumber": "urn:uuid:b86d094c-fd51-43dc-9fca-a3cd5c570e46",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2026-09-06T05:22:10+00:00",
+    "tools": {
+      "components": [
+        {
+          "type": "application",
+          "manufacturer": {
+            "name": "Aqua Security Software Ltd."
+          },
+          "group": "aquasecurity",
+          "name": "trivy",
+          "version": "0.70.0"
+        }
+      ]
+    },
+    "component": {
+      "bom-ref": "1701b6a0-b902-47fd-bc68-bcdaf8d0cefb",
+      "type": "application",
+      "name": ".",
+      "properties": [
+        {
+          "name": "aquasecurity:trivy:SchemaVersion",
+          "value": "2"
+        }
+      ]
+    }
+  },
+  "components": [
+    {
+      "bom-ref": "b552e661-10d6-4f89-82cc-3b9f04832482",
+      "type": "application",
+      "name": "package-lock.json",
+      "properties": [
+        {
+          "name": "aquasecurity:trivy:Class",
+          "value": "lang-pkgs"
+        },
+        {
+          "name": "aquasecurity:trivy:Type",
+          "value": "npm"
+        }
+      ]
+    },
+    {
+      "bom-ref": "pkg:npm/accepts@1.3.8",
+      "type": "library",
+      "name": "accepts",
+      "version": "1.3.8",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/accepts@1.3.8",
+      "properties": [
+        {
+          "name": "aquasecurity:trivy:PkgID",
+          "value": "accepts@1.3.8"
+        },
+        {
+          "name": "aquasecurity:trivy:PkgType",
+          "value": "npm"
+        }
+      ]
+    },
+    {
+      "bom-ref": "pkg:npm/array-flatten@1.1.1",
+      "type": "library",
+      "name": "array-flatten",
+      "version": "1.1.1",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/array-flatten@1.1.1",
+      "properties": [
+        {
+          "name": "aquasecurity:trivy:PkgID",
+          "value": "array-flatten@1.1.1"
+        },
+        {
+          "name": "aquasecurity:trivy:PkgType",
+          "value": "npm"
+        }
+      ]
+    },
+    {
+      "bom-ref": "pkg:npm/body-parser@1.18.3",
+      "type": "library",
+      "name": "body-parser",
+      "version": "1.18.3",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/body-parser@1.18.3",
+      "properties": [
+        {
+          "name": "aquasecurity:trivy:PkgID",
+          "value": "body-parser@1.18.3"
+        },
+        {
+          "name": "aquasecurity:trivy:PkgType",
+          "value": "npm"
+        }
+      ]
+    },
+    {
+      "bom-ref": "pkg:npm/bytes@3.0.0",
+      "type": "library",
+      "name": "bytes",
+      "version": "3.0.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/bytes@3.0.0",
+      "properties": [
+        {
+          "name": "aquasecurity:trivy:PkgID",
+          "value": "bytes@3.0.0"
+        },
+        {
+          "name": "aquasecurity:trivy:PkgType",
+          "value": "npm"
+        }
+      ]
+    },
+    {
+      "bom-ref": "pkg:npm/content-disposition@0.5.2",
+      "type": "library",
+      "name": "content-disposition",
+      "version": "0.5.2",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/content-disposition@0.5.2",
+      "properties": [
+        {
+          "name": "aquasecurity:trivy:PkgID",
+          "value": "content-disposition@0.5.2"
+        },
+        {
+          "name": "aquasecurity:trivy:PkgType",
+          "value": "npm"
+        }
+      ]
+    },
+    {
+      "bom-ref": "pkg:npm/content-type@1.0.5",
+      "type": "library",
+      "name": "content-type",
+      "version": "1.0.5",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/content-type@1.0.5",
+      "properties": [
+        {
+          "name": "aquasecurity:trivy:PkgID",
+          "value": "content-type@1.0.5"
+        },
+        {
+          "name": "aquasecurity:trivy:PkgType",
+          "value": "npm"
+        }
+      ]
+    },
+    {
+      "bom-ref": "pkg:npm/cookie-signature@1.0.6",
+      "type": "library",
+      "name": "cookie-signature",
+      "version": "1.0.6",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/cookie-signature@1.0.6",
+      "properties": [
+        {
+          "name": "aquasecurity:trivy:PkgID",
+          "value": "cookie-signature@1.0.6"
+        },
+        {
+          "name": "aquasecurity:trivy:PkgType",
+          "value": "npm"
+        }
+      ]
+    },
+    {
+      "bom-ref": "pkg:npm/cookie@0.3.1",
+      "type": "library",
+      "name": "cookie",
+      "version": "0.3.1",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/cookie@0.3.1",
+      "properties": [
+        {
+          "name": "aquasecurity:trivy:PkgID",
+          "value": "cookie@0.3.1"
+        },
+        {
+          "name": "aquasecurity:trivy:PkgType",
+          "value": "npm"
+        }
+      ]
+    },
+    {
+      "bom-ref": "pkg:npm/debug@2.6.9",
+      "type": "library",
+      "name": "debug",
+      "version": "2.6.9",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/debug@2.6.9",
+      "properties": [
+        {
+          "name": "aquasecurity:trivy:PkgID",
+          "value": "debug@2.6.9"
+        },
+        {
+          "name": "aquasecurity:trivy:PkgType",
+          "value": "npm"
+        }
+      ]
+    },
+    {
+      "bom-ref": "pkg:npm/depd@1.1.2",
+      "type": "library",
+      "name": "depd",
+      "version": "1.1.2",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/depd@1.1.2",
+      "properties": [
+        {
+          "name": "aquasecurity:trivy:PkgID",
+          "value": "depd@1.1.2"
+        },
+        {
+          "name": "aquasecurity:trivy:PkgType",
+          "value": "npm"
+        }
+      ]
+    },
+    {
+      "bom-ref": "pkg:npm/destroy@1.0.4",
+      "type": "library",
+      "name": "destroy",
+      "version": "1.0.4",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/destroy@1.0.4",
+      "properties": [
+        {
+          "name": "aquasecurity:trivy:PkgID",
+          "value": "destroy@1.0.4"
+        },
+        {
+          "name": "aquasecurity:trivy:PkgType",
+          "value": "npm"
+        }
+      ]
+    },
+    {
+      "bom-ref": "pkg:npm/ee-first@1.1.1",
+      "type": "library",
+      "name": "ee-first",
+      "version": "1.1.1",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/ee-first@1.1.1",
+      "properties": [
+        {
+          "name": "aquasecurity:trivy:PkgID",
+          "value": "ee-first@1.1.1"
+        },
+        {
+          "name": "aquasecurity:trivy:PkgType",
+          "value": "npm"
+        }
+      ]
+    },
+    {
+      "bom-ref": "pkg:npm/encodeurl@1.0.2",
+      "type": "library",
+      "name": "encodeurl",
+      "version": "1.0.2",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/encodeurl@1.0.2",
+      "properties": [
+        {
+          "name": "aquasecurity:trivy:PkgID",
+          "value": "encodeurl@1.0.2"
+        },
+        {
+          "name": "aquasecurity:trivy:PkgType",
+          "value": "npm"
+        }
+      ]
+    },
+    {
+      "bom-ref": "pkg:npm/escape-html@1.0.3",
+      "type": "library",
+      "name": "escape-html",
+      "version": "1.0.3",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/escape-html@1.0.3",
+      "properties": [
+        {
+          "name": "aquasecurity:trivy:PkgID",
+          "value": "escape-html@1.0.3"
+        },
+        {
+          "name": "aquasecurity:trivy:PkgType",
+          "value": "npm"
+        }
+      ]
+    },
+    {
+      "bom-ref": "pkg:npm/etag@1.8.1",
+      "type": "library",
+      "name": "etag",
+      "version": "1.8.1",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/etag@1.8.1",
+      "properties": [
+        {
+          "name": "aquasecurity:trivy:PkgID",
+          "value": "etag@1.8.1"
+        },
+        {
+          "name": "aquasecurity:trivy:PkgType",
+          "value": "npm"
+        }
+      ]
+    },
+    {
+      "bom-ref": "pkg:npm/express@4.16.4",
+      "type": "library",
+      "name": "express",
+      "version": "4.16.4",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/express@4.16.4",
+      "properties": [
+        {
+          "name": "aquasecurity:trivy:PkgID",
+          "value": "express@4.16.4"
+        },
+        {
+          "name": "aquasecurity:trivy:PkgType",
+          "value": "npm"
+        }
+      ]
+    },
+    {
+      "bom-ref": "pkg:npm/finalhandler@1.1.1",
+      "type": "library",
+      "name": "finalhandler",
+      "version": "1.1.1",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/finalhandler@1.1.1",
+      "properties": [
+        {
+          "name": "aquasecurity:trivy:PkgID",
+          "value": "finalhandler@1.1.1"
+        },
+        {
+          "name": "aquasecurity:trivy:PkgType",
+          "value": "npm"
+        }
+      ]
+    },
+    {
+      "bom-ref": "pkg:npm/forwarded@0.2.0",
+      "type": "library",
+      "name": "forwarded",
+      "version": "0.2.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/forwarded@0.2.0",
+      "properties": [
+        {
+          "name": "aquasecurity:trivy:PkgID",
+          "value": "forwarded@0.2.0"
+        },
+        {
+          "name": "aquasecurity:trivy:PkgType",
+          "value": "npm"
+        }
+      ]
+    },
+    {
+      "bom-ref": "pkg:npm/fresh@0.5.2",
+      "type": "library",
+      "name": "fresh",
+      "version": "0.5.2",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/fresh@0.5.2",
+      "properties": [
+        {
+          "name": "aquasecurity:trivy:PkgID",
+          "value": "fresh@0.5.2"
+        },
+        {
+          "name": "aquasecurity:trivy:PkgType",
+          "value": "npm"
+        }
+      ]
+    },
+    {
+      "bom-ref": "pkg:npm/http-errors@1.6.3",
+      "type": "library",
+      "name": "http-errors",
+      "version": "1.6.3",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/http-errors@1.6.3",
+      "properties": [
+        {
+          "name": "aquasecurity:trivy:PkgID",
+          "value": "http-errors@1.6.3"
+        },
+        {
+          "name": "aquasecurity:trivy:PkgType",
+          "value": "npm"
+        }
+      ]
+    },
+    {
+      "bom-ref": "pkg:npm/iconv-lite@0.4.23",
+      "type": "library",
+      "name": "iconv-lite",
+      "version": "0.4.23",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/iconv-lite@0.4.23",
+      "properties": [
+        {
+          "name": "aquasecurity:trivy:PkgID",
+          "value": "iconv-lite@0.4.23"
+        },
+        {
+          "name": "aquasecurity:trivy:PkgType",
+          "value": "npm"
+        }
+      ]
+    },
+    {
+      "bom-ref": "pkg:npm/inherits@2.0.3",
+      "type": "library",
+      "name": "inherits",
+      "version": "2.0.3",
+      "licenses": [
+        {
+          "license": {
+            "id": "ISC"
+          }
+        }
+      ],
+      "purl": "pkg:npm/inherits@2.0.3",
+      "properties": [
+        {
+          "name": "aquasecurity:trivy:PkgID",
+          "value": "inherits@2.0.3"
+        },
+        {
+          "name": "aquasecurity:trivy:PkgType",
+          "value": "npm"
+        }
+      ]
+    },
+    {
+      "bom-ref": "pkg:npm/ipaddr.js@1.9.1",
+      "type": "library",
+      "name": "ipaddr.js",
+      "version": "1.9.1",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/ipaddr.js@1.9.1",
+      "properties": [
+        {
+          "name": "aquasecurity:trivy:PkgID",
+          "value": "ipaddr.js@1.9.1"
+        },
+        {
+          "name": "aquasecurity:trivy:PkgType",
+          "value": "npm"
+        }
+      ]
+    },
+    {
+      "bom-ref": "pkg:npm/lodash@4.17.4",
+      "type": "library",
+      "name": "lodash",
+      "version": "4.17.4",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/lodash@4.17.4",
+      "properties": [
+        {
+          "name": "aquasecurity:trivy:PkgID",
+          "value": "lodash@4.17.4"
+        },
+        {
+          "name": "aquasecurity:trivy:PkgType",
+          "value": "npm"
+        }
+      ]
+    },
+    {
+      "bom-ref": "pkg:npm/media-typer@0.3.0",
+      "type": "library",
+      "name": "media-typer",
+      "version": "0.3.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/media-typer@0.3.0",
+      "properties": [
+        {
+          "name": "aquasecurity:trivy:PkgID",
+          "value": "media-typer@0.3.0"
+        },
+        {
+          "name": "aquasecurity:trivy:PkgType",
+          "value": "npm"
+        }
+      ]
+    },
+    {
+      "bom-ref": "pkg:npm/merge-descriptors@1.0.1",
+      "type": "library",
+      "name": "merge-descriptors",
+      "version": "1.0.1",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/merge-descriptors@1.0.1",
+      "properties": [
+        {
+          "name": "aquasecurity:trivy:PkgID",
+          "value": "merge-descriptors@1.0.1"
+        },
+        {
+          "name": "aquasecurity:trivy:PkgType",
+          "value": "npm"
+        }
+      ]
+    },
+    {
+      "bom-ref": "pkg:npm/methods@1.1.2",
+      "type": "library",
+      "name": "methods",
+      "version": "1.1.2",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/methods@1.1.2",
+      "properties": [
+        {
+          "name": "aquasecurity:trivy:PkgID",
+          "value": "methods@1.1.2"
+        },
+        {
+          "name": "aquasecurity:trivy:PkgType",
+          "value": "npm"
+        }
+      ]
+    },
+    {
+      "bom-ref": "pkg:npm/mime-db@1.52.0",
+      "type": "library",
+      "name": "mime-db",
+      "version": "1.52.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/mime-db@1.52.0",
+      "properties": [
+        {
+          "name": "aquasecurity:trivy:PkgID",
+          "value": "mime-db@1.52.0"
+        },
+        {
+          "name": "aquasecurity:trivy:PkgType",
+          "value": "npm"
+        }
+      ]
+    },
+    {
+      "bom-ref": "pkg:npm/mime-types@2.1.35",
+      "type": "library",
+      "name": "mime-types",
+      "version": "2.1.35",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/mime-types@2.1.35",
+      "properties": [
+        {
+          "name": "aquasecurity:trivy:PkgID",
+          "value": "mime-types@2.1.35"
+        },
+        {
+          "name": "aquasecurity:trivy:PkgType",
+          "value": "npm"
+        }
+      ]
+    },
+    {
+      "bom-ref": "pkg:npm/mime@1.4.1",
+      "type": "library",
+      "name": "mime",
+      "version": "1.4.1",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/mime@1.4.1",
+      "properties": [
+        {
+          "name": "aquasecurity:trivy:PkgID",
+          "value": "mime@1.4.1"
+        },
+        {
+          "name": "aquasecurity:trivy:PkgType",
+          "value": "npm"
+        }
+      ]
+    },
+    {
+      "bom-ref": "pkg:npm/ms@2.0.0",
+      "type": "library",
+      "name": "ms",
+      "version": "2.0.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/ms@2.0.0",
+      "properties": [
+        {
+          "name": "aquasecurity:trivy:PkgID",
+          "value": "ms@2.0.0"
+        },
+        {
+          "name": "aquasecurity:trivy:PkgType",
+          "value": "npm"
+        }
+      ]
+    },
+    {
+      "bom-ref": "pkg:npm/negotiator@0.6.3",
+      "type": "library",
+      "name": "negotiator",
+      "version": "0.6.3",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/negotiator@0.6.3",
+      "properties": [
+        {
+          "name": "aquasecurity:trivy:PkgID",
+          "value": "negotiator@0.6.3"
+        },
+        {
+          "name": "aquasecurity:trivy:PkgType",
+          "value": "npm"
+        }
+      ]
+    },
+    {
+      "bom-ref": "pkg:npm/on-finished@2.3.0",
+      "type": "library",
+      "name": "on-finished",
+      "version": "2.3.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/on-finished@2.3.0",
+      "properties": [
+        {
+          "name": "aquasecurity:trivy:PkgID",
+          "value": "on-finished@2.3.0"
+        },
+        {
+          "name": "aquasecurity:trivy:PkgType",
+          "value": "npm"
+        }
+      ]
+    },
+    {
+      "bom-ref": "pkg:npm/parseurl@1.3.3",
+      "type": "library",
+      "name": "parseurl",
+      "version": "1.3.3",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/parseurl@1.3.3",
+      "properties": [
+        {
+          "name": "aquasecurity:trivy:PkgID",
+          "value": "parseurl@1.3.3"
+        },
+        {
+          "name": "aquasecurity:trivy:PkgType",
+          "value": "npm"
+        }
+      ]
+    },
+    {
+      "bom-ref": "pkg:npm/path-to-regexp@0.1.7",
+      "type": "library",
+      "name": "path-to-regexp",
+      "version": "0.1.7",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/path-to-regexp@0.1.7",
+      "properties": [
+        {
+          "name": "aquasecurity:trivy:PkgID",
+          "value": "path-to-regexp@0.1.7"
+        },
+        {
+          "name": "aquasecurity:trivy:PkgType",
+          "value": "npm"
+        }
+      ]
+    },
+    {
+      "bom-ref": "pkg:npm/proxy-addr@2.0.7",
+      "type": "library",
+      "name": "proxy-addr",
+      "version": "2.0.7",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/proxy-addr@2.0.7",
+      "properties": [
+        {
+          "name": "aquasecurity:trivy:PkgID",
+          "value": "proxy-addr@2.0.7"
+        },
+        {
+          "name": "aquasecurity:trivy:PkgType",
+          "value": "npm"
+        }
+      ]
+    },
+    {
+      "bom-ref": "pkg:npm/qs@6.5.2",
+      "type": "library",
+      "name": "qs",
+      "version": "6.5.2",
+      "licenses": [
+        {
+          "license": {
+            "id": "BSD-3-Clause"
+          }
+        }
+      ],
+      "purl": "pkg:npm/qs@6.5.2",
+      "properties": [
+        {
+          "name": "aquasecurity:trivy:PkgID",
+          "value": "qs@6.5.2"
+        },
+        {
+          "name": "aquasecurity:trivy:PkgType",
+          "value": "npm"
+        }
+      ]
+    },
+    {
+      "bom-ref": "pkg:npm/range-parser@1.2.1",
+      "type": "library",
+      "name": "range-parser",
+      "version": "1.2.1",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/range-parser@1.2.1",
+      "properties": [
+        {
+          "name": "aquasecurity:trivy:PkgID",
+          "value": "range-parser@1.2.1"
+        },
+        {
+          "name": "aquasecurity:trivy:PkgType",
+          "value": "npm"
+        }
+      ]
+    },
+    {
+      "bom-ref": "pkg:npm/raw-body@2.3.3",
+      "type": "library",
+      "name": "raw-body",
+      "version": "2.3.3",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/raw-body@2.3.3",
+      "properties": [
+        {
+          "name": "aquasecurity:trivy:PkgID",
+          "value": "raw-body@2.3.3"
+        },
+        {
+          "name": "aquasecurity:trivy:PkgType",
+          "value": "npm"
+        }
+      ]
+    },
+    {
+      "bom-ref": "pkg:npm/safe-buffer@5.1.2",
+      "type": "library",
+      "name": "safe-buffer",
+      "version": "5.1.2",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/safe-buffer@5.1.2",
+      "properties": [
+        {
+          "name": "aquasecurity:trivy:PkgID",
+          "value": "safe-buffer@5.1.2"
+        },
+        {
+          "name": "aquasecurity:trivy:PkgType",
+          "value": "npm"
+        }
+      ]
+    },
+    {
+      "bom-ref": "pkg:npm/safer-buffer@2.1.2",
+      "type": "library",
+      "name": "safer-buffer",
+      "version": "2.1.2",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/safer-buffer@2.1.2",
+      "properties": [
+        {
+          "name": "aquasecurity:trivy:PkgID",
+          "value": "safer-buffer@2.1.2"
+        },
+        {
+          "name": "aquasecurity:trivy:PkgType",
+          "value": "npm"
+        }
+      ]
+    },
+    {
+      "bom-ref": "pkg:npm/send@0.16.2",
+      "type": "library",
+      "name": "send",
+      "version": "0.16.2",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/send@0.16.2",
+      "properties": [
+        {
+          "name": "aquasecurity:trivy:PkgID",
+          "value": "send@0.16.2"
+        },
+        {
+          "name": "aquasecurity:trivy:PkgType",
+          "value": "npm"
+        }
+      ]
+    },
+    {
+      "bom-ref": "pkg:npm/serve-static@1.13.2",
+      "type": "library",
+      "name": "serve-static",
+      "version": "1.13.2",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/serve-static@1.13.2",
+      "properties": [
+        {
+          "name": "aquasecurity:trivy:PkgID",
+          "value": "serve-static@1.13.2"
+        },
+        {
+          "name": "aquasecurity:trivy:PkgType",
+          "value": "npm"
+        }
+      ]
+    },
+    {
+      "bom-ref": "pkg:npm/setprototypeof@1.1.0",
+      "type": "library",
+      "name": "setprototypeof",
+      "version": "1.1.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "ISC"
+          }
+        }
+      ],
+      "purl": "pkg:npm/setprototypeof@1.1.0",
+      "properties": [
+        {
+          "name": "aquasecurity:trivy:PkgID",
+          "value": "setprototypeof@1.1.0"
+        },
+        {
+          "name": "aquasecurity:trivy:PkgType",
+          "value": "npm"
+        }
+      ]
+    },
+    {
+      "bom-ref": "pkg:npm/statuses@1.4.0",
+      "type": "library",
+      "name": "statuses",
+      "version": "1.4.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/statuses@1.4.0",
+      "properties": [
+        {
+          "name": "aquasecurity:trivy:PkgID",
+          "value": "statuses@1.4.0"
+        },
+        {
+          "name": "aquasecurity:trivy:PkgType",
+          "value": "npm"
+        }
+      ]
+    },
+    {
+      "bom-ref": "pkg:npm/type-is@1.6.18",
+      "type": "library",
+      "name": "type-is",
+      "version": "1.6.18",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/type-is@1.6.18",
+      "properties": [
+        {
+          "name": "aquasecurity:trivy:PkgID",
+          "value": "type-is@1.6.18"
+        },
+        {
+          "name": "aquasecurity:trivy:PkgType",
+          "value": "npm"
+        }
+      ]
+    },
+    {
+      "bom-ref": "pkg:npm/unpipe@1.0.0",
+      "type": "library",
+      "name": "unpipe",
+      "version": "1.0.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/unpipe@1.0.0",
+      "properties": [
+        {
+          "name": "aquasecurity:trivy:PkgID",
+          "value": "unpipe@1.0.0"
+        },
+        {
+          "name": "aquasecurity:trivy:PkgType",
+          "value": "npm"
+        }
+      ]
+    },
+    {
+      "bom-ref": "pkg:npm/utils-merge@1.0.1",
+      "type": "library",
+      "name": "utils-merge",
+      "version": "1.0.1",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/utils-merge@1.0.1",
+      "properties": [
+        {
+          "name": "aquasecurity:trivy:PkgID",
+          "value": "utils-merge@1.0.1"
+        },
+        {
+          "name": "aquasecurity:trivy:PkgType",
+          "value": "npm"
+        }
+      ]
+    },
+    {
+      "bom-ref": "pkg:npm/vary@1.1.2",
+      "type": "library",
+      "name": "vary",
+      "version": "1.1.2",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/vary@1.1.2",
+      "properties": [
+        {
+          "name": "aquasecurity:trivy:PkgID",
+          "value": "vary@1.1.2"
+        },
+        {
+          "name": "aquasecurity:trivy:PkgType",
+          "value": "npm"
+        }
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "ref": "1701b6a0-b902-47fd-bc68-bcdaf8d0cefb",
+      "dependsOn": [
+        "b552e661-10d6-4f89-82cc-3b9f04832482"
+      ]
+    },
+    {
+      "ref": "b552e661-10d6-4f89-82cc-3b9f04832482",
+      "dependsOn": [
+        "pkg:npm/body-parser@1.18.3",
+        "pkg:npm/express@4.16.4",
+        "pkg:npm/lodash@4.17.4"
+      ]
+    },
+    {
+      "ref": "pkg:npm/accepts@1.3.8",
+      "dependsOn": [
+        "pkg:npm/mime-types@2.1.35",
+        "pkg:npm/negotiator@0.6.3"
+      ]
+    },
+    {
+      "ref": "pkg:npm/array-flatten@1.1.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/body-parser@1.18.3",
+      "dependsOn": [
+        "pkg:npm/bytes@3.0.0",
+        "pkg:npm/content-type@1.0.5",
+        "pkg:npm/debug@2.6.9",
+        "pkg:npm/depd@1.1.2",
+        "pkg:npm/http-errors@1.6.3",
+        "pkg:npm/iconv-lite@0.4.23",
+        "pkg:npm/on-finished@2.3.0",
+        "pkg:npm/qs@6.5.2",
+        "pkg:npm/raw-body@2.3.3",
+        "pkg:npm/type-is@1.6.18"
+      ]
+    },
+    {
+      "ref": "pkg:npm/bytes@3.0.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/content-disposition@0.5.2",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/content-type@1.0.5",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/cookie-signature@1.0.6",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/cookie@0.3.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/debug@2.6.9",
+      "dependsOn": [
+        "pkg:npm/ms@2.0.0"
+      ]
+    },
+    {
+      "ref": "pkg:npm/depd@1.1.2",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/destroy@1.0.4",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/ee-first@1.1.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/encodeurl@1.0.2",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/escape-html@1.0.3",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/etag@1.8.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/express@4.16.4",
+      "dependsOn": [
+        "pkg:npm/accepts@1.3.8",
+        "pkg:npm/array-flatten@1.1.1",
+        "pkg:npm/body-parser@1.18.3",
+        "pkg:npm/content-disposition@0.5.2",
+        "pkg:npm/content-type@1.0.5",
+        "pkg:npm/cookie-signature@1.0.6",
+        "pkg:npm/cookie@0.3.1",
+        "pkg:npm/debug@2.6.9",
+        "pkg:npm/depd@1.1.2",
+        "pkg:npm/encodeurl@1.0.2",
+        "pkg:npm/escape-html@1.0.3",
+        "pkg:npm/etag@1.8.1",
+        "pkg:npm/finalhandler@1.1.1",
+        "pkg:npm/fresh@0.5.2",
+        "pkg:npm/merge-descriptors@1.0.1",
+        "pkg:npm/methods@1.1.2",
+        "pkg:npm/on-finished@2.3.0",
+        "pkg:npm/parseurl@1.3.3",
+        "pkg:npm/path-to-regexp@0.1.7",
+        "pkg:npm/proxy-addr@2.0.7",
+        "pkg:npm/qs@6.5.2",
+        "pkg:npm/range-parser@1.2.1",
+        "pkg:npm/safe-buffer@5.1.2",
+        "pkg:npm/send@0.16.2",
+        "pkg:npm/serve-static@1.13.2",
+        "pkg:npm/setprototypeof@1.1.0",
+        "pkg:npm/statuses@1.4.0",
+        "pkg:npm/type-is@1.6.18",
+        "pkg:npm/utils-merge@1.0.1",
+        "pkg:npm/vary@1.1.2"
+      ]
+    },
+    {
+      "ref": "pkg:npm/finalhandler@1.1.1",
+      "dependsOn": [
+        "pkg:npm/debug@2.6.9",
+        "pkg:npm/encodeurl@1.0.2",
+        "pkg:npm/escape-html@1.0.3",
+        "pkg:npm/on-finished@2.3.0",
+        "pkg:npm/parseurl@1.3.3",
+        "pkg:npm/statuses@1.4.0",
+        "pkg:npm/unpipe@1.0.0"
+      ]
+    },
+    {
+      "ref": "pkg:npm/forwarded@0.2.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/fresh@0.5.2",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/http-errors@1.6.3",
+      "dependsOn": [
+        "pkg:npm/depd@1.1.2",
+        "pkg:npm/inherits@2.0.3",
+        "pkg:npm/setprototypeof@1.1.0",
+        "pkg:npm/statuses@1.4.0"
+      ]
+    },
+    {
+      "ref": "pkg:npm/iconv-lite@0.4.23",
+      "dependsOn": [
+        "pkg:npm/safer-buffer@2.1.2"
+      ]
+    },
+    {
+      "ref": "pkg:npm/inherits@2.0.3",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/ipaddr.js@1.9.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/lodash@4.17.4",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/media-typer@0.3.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/merge-descriptors@1.0.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/methods@1.1.2",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/mime-db@1.52.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/mime-types@2.1.35",
+      "dependsOn": [
+        "pkg:npm/mime-db@1.52.0"
+      ]
+    },
+    {
+      "ref": "pkg:npm/mime@1.4.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/ms@2.0.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/negotiator@0.6.3",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/on-finished@2.3.0",
+      "dependsOn": [
+        "pkg:npm/ee-first@1.1.1"
+      ]
+    },
+    {
+      "ref": "pkg:npm/parseurl@1.3.3",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/path-to-regexp@0.1.7",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/proxy-addr@2.0.7",
+      "dependsOn": [
+        "pkg:npm/forwarded@0.2.0",
+        "pkg:npm/ipaddr.js@1.9.1"
+      ]
+    },
+    {
+      "ref": "pkg:npm/qs@6.5.2",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/range-parser@1.2.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/raw-body@2.3.3",
+      "dependsOn": [
+        "pkg:npm/bytes@3.0.0",
+        "pkg:npm/http-errors@1.6.3",
+        "pkg:npm/iconv-lite@0.4.23",
+        "pkg:npm/unpipe@1.0.0"
+      ]
+    },
+    {
+      "ref": "pkg:npm/safe-buffer@5.1.2",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/safer-buffer@2.1.2",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/send@0.16.2",
+      "dependsOn": [
+        "pkg:npm/debug@2.6.9",
+        "pkg:npm/depd@1.1.2",
+        "pkg:npm/destroy@1.0.4",
+        "pkg:npm/encodeurl@1.0.2",
+        "pkg:npm/escape-html@1.0.3",
+        "pkg:npm/etag@1.8.1",
+        "pkg:npm/fresh@0.5.2",
+        "pkg:npm/http-errors@1.6.3",
+        "pkg:npm/mime@1.4.1",
+        "pkg:npm/ms@2.0.0",
+        "pkg:npm/on-finished@2.3.0",
+        "pkg:npm/range-parser@1.2.1",
+        "pkg:npm/statuses@1.4.0"
+      ]
+    },
+    {
+      "ref": "pkg:npm/serve-static@1.13.2",
+      "dependsOn": [
+        "pkg:npm/encodeurl@1.0.2",
+        "pkg:npm/escape-html@1.0.3",
+        "pkg:npm/parseurl@1.3.3",
+        "pkg:npm/send@0.16.2"
+      ]
+    },
+    {
+      "ref": "pkg:npm/setprototypeof@1.1.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/statuses@1.4.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/type-is@1.6.18",
+      "dependsOn": [
+        "pkg:npm/media-typer@0.3.0",
+        "pkg:npm/mime-types@2.1.35"
+      ]
+    },
+    {
+      "ref": "pkg:npm/unpipe@1.0.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/utils-merge@1.0.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:npm/vary@1.1.2",
+      "dependsOn": []
+    }
+  ],
+  "vulnerabilities": []
+}

@@ -1,0 +1,29 @@
+{
+  "@context": "https://openvex.dev/ns/v0.2.0",
+  "@id": "https://github.com/fluxsecurity/SBOMber/spikes/vex-format/samples/sample.openvex.json",
+  "author": "SBOMber Component 3 (S4-09 spike)",
+  "role": "Document Creator",
+  "timestamp": "2026-09-06T00:00:00Z",
+  "version": 1,
+  "statements": [
+    {
+      "vulnerability": { "name": "CVE-2018-16487", "aliases": ["GHSA-4xc9-xhrj-v574"] },
+      "products": [ { "@id": "pkg:npm/lodash@4.17.4" } ],
+      "status": "affected",
+      "action_statement": "Upgrade lodash to 4.17.11 or later. Application calls _.merge at index.js.",
+      "action_statement_timestamp": "2026-09-06T00:00:00Z"
+    },
+    {
+      "vulnerability": { "name": "CVE-2019-10744", "aliases": ["GHSA-jf85-cpcp-j695"] },
+      "products": [ { "@id": "pkg:npm/lodash@4.17.4" } ],
+      "status": "under_investigation"
+    },
+    {
+      "vulnerability": { "name": "CVE-2020-8203", "aliases": ["GHSA-p6mc-m468-83gw"] },
+      "products": [ { "@id": "pkg:npm/lodash@4.17.4" } ],
+      "status": "not_affected",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "SPIKE PROBE ONLY. Production never emits not_affected automatically; this statement exists to prove the consumer reads the document."
+    }
+  ]
+}

@@ -24,6 +24,7 @@ import (
 	"github.com/Xsamsx/SBOMber/internal/gitlab"
 	"github.com/Xsamsx/SBOMber/internal/golang"
 	"github.com/Xsamsx/SBOMber/internal/health"
+	"github.com/Xsamsx/SBOMber/internal/localisation"
 	"github.com/Xsamsx/SBOMber/internal/maven"
 	"github.com/Xsamsx/SBOMber/internal/npm"
 	"github.com/Xsamsx/SBOMber/internal/nuget"
@@ -100,6 +101,8 @@ func Main(args []string, stdin io.Reader, stdout io.Writer, stderr io.Writer) in
 		return runVerify(args[1:], stdout, stderr)
 	case "diff":
 		return runDiff(args[1:], stdout, stderr)
+	case "localise", "localize":
+		return runLocalise(args[1:], stdout, stderr)
 	case "demo":
 		return runDemo(stdout, stderr)
 	case "help", "--help", "-h":
@@ -1760,6 +1763,7 @@ Usage:
   sbomber trace <path> [package-name] [flags] [--no-color]
   sbomber verify <ground-truth-sbom> <generated-sbom> [--json]
   sbomber diff <old-sbom> <new-sbom> [--no-color]
+  sbomber localise --canonical-scan <canonical-scan.json> [--out localisation.json] [--trace trace.json]
   sbomber version
 
 Scan Flags:
@@ -1786,6 +1790,16 @@ Trace Flags:
 Verify Flags:
   --json                                Output results as JSON (for CI/CD)
 
+Localise Flags (Component 3: which function does an advisory implicate?):
+  --canonical-scan <file>               canonical-scan.json produced by the scan (required)
+  --out <file>                          localisation.json to write (default: localisation.json)
+  --trace <file>                        also write the per-method evidence trace
+  --all-methods                         run every method, not just until the first answer
+  --client-search                       also search commit messages for the vulnerability ID
+  --max-tarball-mb <n>                  npm tarball download limit (default: 30)
+  --timeout <duration>                  overall time budget (default: 15m)
+  GITHUB_TOKEN                          environment variable used for GitHub API requests
+
 Examples:
   sbomber
   sbomber scan .
@@ -1810,4 +1824,125 @@ func truncate(s string, maxLen int) string {
 		return s
 	}
 	return s[:maxLen-3] + "..."
+}
+
+// localiseInput is the subset of canonical-scan.json the localiser reads.
+type localiseInput struct {
+	Scan struct {
+		ScanID string `json:"scanId"`
+	} `json:"scan"`
+	Findings []struct {
+		FindingID       string   `json:"findingId"`
+		VulnerabilityID string   `json:"vulnerabilityId"`
+		Aliases         []string `json:"aliases"`
+		PURL            string   `json:"purl"`
+		FixedVersion    string   `json:"fixedVersion"`
+	} `json:"findings"`
+}
+
+// runLocalise reads canonical-scan.json and writes localisation.json:
+// for each finding, the candidate functions the advisory implicates and how
+// that was established. Downloaded package code is never executed.
+func runLocalise(args []string, stdout io.Writer, stderr io.Writer) int {
+	fs := flag.NewFlagSet("localise", flag.ContinueOnError)
+	fs.SetOutput(stderr)
+	in := fs.String("canonical-scan", "", "canonical-scan.json to read (required)")
+	out := fs.String("out", "localisation.json", "localisation.json to write")
+	tracePath := fs.String("trace", "", "write the per-method evidence trace to this file")
+	allMethods := fs.Bool("all-methods", false, "run every method even after one has answered")
+	clientSearch := fs.Bool("client-search", false, "search commit messages for the vulnerability ID (one GitHub search per finding)")
+	maxTarballMB := fs.Int64("max-tarball-mb", 30, "npm tarball download limit in MB")
+	timeout := fs.Duration("timeout", 15*time.Minute, "overall time budget")
+	osvURL := fs.String("osv-url", "", "OSV API base URL (default https://api.osv.dev)")
+	githubURL := fs.String("github-api-url", "", "GitHub API base URL (default https://api.github.com)")
+	registryURL := fs.String("registry-url", "", "npm registry base URL (default https://registry.npmjs.org)")
+
+	if err := fs.Parse(args); err != nil {
+		return flagErrorCode(err)
+	}
+	if *in == "" {
+		_, _ = fmt.Fprintf(stderr, "Usage: sbomber localise --canonical-scan <canonical-scan.json> [--out localisation.json] [--trace trace.json]\n")
+		return 2
+	}
+	data, err := os.ReadFile(*in)
+	if err != nil {
+		_, _ = fmt.Fprintf(stderr, "Error: read %s: %v\n", *in, err)
+		return 2
+	}
+	var input localiseInput
+	if err := json.Unmarshal(data, &input); err != nil {
+		_, _ = fmt.Fprintf(stderr, "Error: %s is not a canonical-scan.json document: %v\n", *in, err)
+		return 2
+	}
+	if input.Scan.ScanID == "" {
+		_, _ = fmt.Fprintf(stderr, "Error: %s has no scan.scanId\n", *in)
+		return 2
+	}
+
+	findings := make([]localisation.Finding, 0, len(input.Findings))
+	for _, f := range input.Findings {
+		findings = append(findings, localisation.Finding{
+			FindingID: f.FindingID, VulnerabilityID: f.VulnerabilityID, Aliases: f.Aliases,
+			PURL: f.PURL, FixedVersion: f.FixedVersion,
+		})
+	}
+
+	ctx, cancel := context.WithTimeout(context.Background(), *timeout)
+	defer cancel()
+	loc := localisation.New(localisation.Options{
+		GitHubToken:        os.Getenv("GITHUB_TOKEN"),
+		MaxTarballBytes:    *maxTarballMB << 20,
+		AllMethods:         *allMethods,
+		ClientMethodSearch: *clientSearch,
+		OSVBaseURL:         *osvURL,
+		GitHubAPIBaseURL:   *githubURL,
+		RegistryBaseURL:    *registryURL,
+	})
+
+	_, _ = fmt.Fprintf(stdout, "Localising %d finding(s) from %s\n", len(findings), input.Scan.ScanID)
+	doc, traces := loc.LocaliseAll(ctx, input.Scan.ScanID, findings)
+
+	for _, r := range doc.Results {
+		syms := make([]string, 0, len(r.CandidateSymbols))
+		for _, c := range r.CandidateSymbols {
+			syms = append(syms, c.Symbol)
+		}
+		if len(syms) > 6 {
+			syms = append(syms[:6], fmt.Sprintf("+%d more", len(r.CandidateSymbols)-6))
+		}
+		_, _ = fmt.Fprintf(stdout, "  %-8s %-16s %-36s %-18s %-6s %s\n",
+			r.FindingID, r.VulnerabilityID, r.PURL, r.Method, r.Confidence, strings.Join(syms, ", "))
+	}
+	if doc.Summary != nil {
+		_, _ = fmt.Fprintf(stdout, "Processed %d, unknown %d, by method %v\n",
+			doc.Summary.FindingsProcessed, doc.Summary.UnknownCount, doc.Summary.ByMethod)
+	}
+
+	if err := writeJSONFile(*out, doc); err != nil {
+		_, _ = fmt.Fprintf(stderr, "Error: %v\n", err)
+		return 2
+	}
+	_, _ = fmt.Fprintf(stdout, "Wrote %s\n", *out)
+	if *tracePath != "" {
+		if err := writeJSONFile(*tracePath, traces); err != nil {
+			_, _ = fmt.Fprintf(stderr, "Error: %v\n", err)
+			return 2
+		}
+		_, _ = fmt.Fprintf(stdout, "Wrote %s\n", *tracePath)
+	}
+	if ctx.Err() != nil {
+		_, _ = fmt.Fprintf(stderr, "Warning: time budget exhausted; later findings may be unknown for that reason\n")
+	}
+	return 0
+}
+
+func writeJSONFile(path string, v any) error {
+	data, err := json.MarshalIndent(v, "", "  ")
+	if err != nil {
+		return fmt.Errorf("encode %s: %w", path, err)
+	}
+	if err := os.WriteFile(path, append(data, '\n'), 0o644); err != nil {
+		return fmt.Errorf("write %s: %w", path, err)
+	}
+	return nil
 }

@@ -1,0 +1,12 @@
+{
+  "name": "vulnerable-chat",
+  "version": "1.0.0",
+  "description": "Mirror of Kirill89/prototype-pollution-explained @ d7b5d98 manifest, used as the VEX consumer fixture",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "1.18.3",
+    "express": "4.16.4",
+    "lodash": "4.17.4"
+  }
+}

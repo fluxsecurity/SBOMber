@@ -1,0 +1,9 @@
+{
+  "format": "openvex",
+  "investigationState": "under_investigation",
+  "decision": "S4-09 project selection, 6 September 2026",
+  "specVersion": "0.2.0",
+  "validator": "OpenVEX JSON Schema 0.2.0 via jsonschema 4.19.2 (spikes/vex-format/validate.py)",
+  "consumer": "Grype 0.112.0 (--vex, vex-add); Trivy 0.70.0 verified as secondary consumer",
+  "evidence": "spikes/vex-format/DECISION.md"
+}

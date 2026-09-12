@@ -1,0 +1,8 @@
+date: 2026-09-06T07:15:21Z
+Version:             0.112.0
+GoVersion:           go1.26.2
+Syft Version:        v1.44.0
+Schema:    v6.1.9
+Built:     2026-09-05T06:27:00Z
+Version: 0.70.0 Vulnerability DB:   Version: 2   UpdatedAt: 2026-09-06 01:00:31.976900695 +0000 UTC   NextUpdate: 2026-09-07 01:00:31.976900338 +0000 UTC   DownloadedAt: 2026-09-06 05:15:28.474559 +0000 UTC 
+fixture sbom serialNumber: urn:uuid:b86d094c-fd51-43dc-9fca-a3cd5c570e46
