@@ -29,21 +29,31 @@ Fixed before the runs:
   `fixture.cdx.json` (Trivy's CycloneDX 1.6 SBOM of the fixture; its
   `serialNumber` is what the CycloneDX VEX sample's BOM-Links reference)
 - `samples/sample.openvex.json` — schema-valid OpenVEX 0.2.0 sample
+  (**package-level** subject: the product is the vulnerable package)
+- `samples/sample.openvex.subcomponent.json` — schema-valid OpenVEX 0.2.0
+  sample in the **R5 subject model** (application as product, package as
+  versioned subcomponent). Neither pinned consumer acts on it; see
+  `DECISION.md`, "R5 subject model: unresolved"
 - `samples/sample.cdx-vex.json` — schema-valid CycloneDX 1.6 VEX sample
 - `samples/openvex_json_schema_0.2.0.json` — the OpenVEX schema, committed
   for reproducibility (source: github.com/openvex/spec, `main`, fetched
   2026-09-06)
 - `consumers/` — Grype configs for the ignore / `vex-add` experiments
 - `validate.py` — validates both samples against their official schemas
-- `run.sh` — reproduces every consumer run
+- `run.sh` — reproduces every consumer run of the format decision
+- `run-subject-model.sh` — reproduces the R5 subject-model probe
+  (`results/subject-model.jsonl`); it does not touch `results/runs.jsonl`
 - `results/runs.jsonl` — one summary line per run (counts and IDs)
 - `results/environment.txt` — tool and database versions at run time
+- `results/subject-model.jsonl`, `results/subject-model-environment.txt` —
+  the 13 September subject-model probe and its environment
 
 ## Reproduce
 
     python3 -m pip install jsonschema 'cyclonedx-python-lib[json-validation]'
     python3 spikes/vex-format/validate.py
     spikes/vex-format/run.sh > spikes/vex-format/results/runs.jsonl
+    spikes/vex-format/run-subject-model.sh   # writes results/subject-model.jsonl
 
 ## Run key
 
@@ -61,3 +71,7 @@ Fixed before the runs:
 
 Grype reports findings by GHSA ID, Trivy by CVE ID. Every statement lists
 both as `name` and `aliases`.
+
+Every run above uses the **package-level** document. The R5 subject model is
+tested separately by `run-subject-model.sh` (runs SM1–SM11), which varies the
+product identifier and the presence of subcomponents one at a time.

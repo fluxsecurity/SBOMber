@@ -1,0 +1,11 @@
+{"run":"SM1-product-package-no-sub","product":"pkg:npm/lodash@4.17.4","subcomponent":"none","grypeIgnored":1,"trivyModified":1,"applied":true}
+{"run":"SM2-product-package-with-sub","product":"pkg:npm/lodash@4.17.4","subcomponent":"pkg:npm/lodash@4.17.4","grypeIgnored":1,"trivyModified":1,"applied":true}
+{"run":"SM3-product-app-with-sub","product":"pkg:generic/vulnerable-chat@1.0.0","subcomponent":"pkg:npm/lodash@4.17.4","grypeIgnored":0,"trivyModified":0,"applied":false}
+{"run":"SM4-product-app-no-sub","product":"pkg:generic/vulnerable-chat@1.0.0","subcomponent":"none","grypeIgnored":0,"trivyModified":0,"applied":false}
+{"run":"SM5-product-dot-with-sub","product":".","subcomponent":"pkg:npm/lodash@4.17.4","grypeIgnored":0,"trivyModified":0,"applied":false}
+{"run":"SM6-product-dirtarget-with-sub","product":"dir:.","subcomponent":"pkg:npm/lodash@4.17.4","grypeIgnored":0,"trivyModified":0,"applied":false}
+{"run":"SM7-product-abspath-with-sub","product":"/Users/trysudo/Documents/project/SWIN/ICT_Project_A/SBOMber/spikes/vex-format/fixture","subcomponent":"pkg:npm/lodash@4.17.4","grypeIgnored":0,"trivyModified":0,"applied":false}
+{"run":"SM8-vexadd-UI-package-level","ignoredIds":["GHSA-4xc9-xhrj-v574","GHSA-p6mc-m468-83gw"],"matchersOnReadded":["javascript-matcher","openvex-matcher"],"reAdded":true}
+{"run":"SM9-vexadd-UI-subcomponent","ignoredIds":["GHSA-4xc9-xhrj-v574","GHSA-jf85-cpcp-j695"],"matchersOnReadded":[],"reAdded":false}
+{"run":"SM10-trivy-sbom-rooted-app-product","modified":[],"applied":false}
+{"run":"SM11-grype-sbom-rooted-app-product","ignored":0,"applied":false}

@@ -21,14 +21,19 @@ ok = True
 try:
     from jsonschema import Draft202012Validator
     schema = json.load(open(HERE / "samples" / "openvex_json_schema_0.2.0.json"))
-    doc = json.load(open(HERE / "samples" / "sample.openvex.json"))
-    errors = list(Draft202012Validator(schema).iter_errors(doc))
-    print("OpenVEX 0.2.0 schema:", "VALID" if not errors else "INVALID")
-    for e in errors:
-        ok = False
-        print("  -", "/".join(str(p) for p in e.path), e.message)
-    tokens = {s["status"] for s in doc["statements"]}
-    print("  statuses used:", sorted(tokens))
+    validator = Draft202012Validator(schema)
+    # sample.openvex.json is the shipped package-level document; the
+    # .subcomponent variant is the R5-shaped probe. Both must stay schema-valid:
+    # the R5 shape is rejected by the consumers, not by the spec.
+    for name in ("sample.openvex.json", "sample.openvex.subcomponent.json"):
+        doc = json.load(open(HERE / "samples" / name))
+        errors = list(validator.iter_errors(doc))
+        print(f"OpenVEX 0.2.0 schema ({name}):",
+              "VALID" if not errors else "INVALID")
+        for e in errors:
+            ok = False
+            print("  -", "/".join(str(p) for p in e.path), e.message)
+        print("  statuses used:", sorted({s["status"] for s in doc["statements"]}))
 except ImportError:
     print("OpenVEX: jsonschema not installed, skipped")
 
