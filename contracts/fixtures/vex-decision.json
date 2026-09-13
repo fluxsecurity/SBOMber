@@ -5,5 +5,8 @@
   "specVersion": "0.2.0",
   "validator": "OpenVEX JSON Schema 0.2.0 via jsonschema 4.19.2 (spikes/vex-format/validate.py)",
   "consumer": "Grype 0.112.0 (--vex, vex-add); Trivy 0.70.0 verified as secondary consumer",
-  "evidence": "spikes/vex-format/DECISION.md"
+  "evidence": "spikes/vex-format/DECISION.md",
+  "subjectModel": "package-level",
+  "subjectModelR5Conformant": false,
+  "subjectModelNote": "R5 rule 1 requires the scanned application as product with the package as a versioned subcomponent. Grype 0.112.0 and Trivy 0.70.0 match a statement's product @id against the vulnerable package's purl on directory and filesystem scans, so the R5 shape is schema-valid but not acted on by either consumer. Open production-integration decision; blocks the S5 exporter's subject model, not the format selection. Evidence: spikes/vex-format/results/subject-model.jsonl"
 }
