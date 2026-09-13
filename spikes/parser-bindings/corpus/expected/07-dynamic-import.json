@@ -5,7 +5,7 @@
   "imports": [
     {
       "specifier": "lodash",
-      "kind": "dynamic",
+      "kind": "dynamic_static_literal",
       "local": "mod",
       "imported": "*",
       "typeOnly": false,
@@ -13,8 +13,8 @@
       "column": 20
     },
     {
-      "specifier": "<computed>",
-      "kind": "dynamic",
+      "specifier": "NAME",
+      "kind": "dynamic_computed",
       "local": "mod",
       "imported": "*",
       "typeOnly": false,

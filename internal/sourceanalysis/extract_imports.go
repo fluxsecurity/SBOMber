@@ -31,11 +31,16 @@ func appendESMNamespaceImports(
 
 		line, column := nodeLocation(source, localNode)
 
+		kind := "esm_namespace"
+		if typeOnly {
+			kind = "esm_type_only"
+		}
+
 		result.Imports = append(
 			result.Imports,
 			Import{
 				Specifier: specifier,
-				Kind:      "esm_namespace",
+				Kind:      kind,
 				Local:     localNode.Utf8Text(source),
 				Imported:  "*",
 				TypeOnly:  typeOnly,
@@ -96,7 +101,7 @@ func appendRequireImports(
 			result.Imports,
 			Import{
 				Specifier: specifier,
-				Kind:      "cjs",
+				Kind:      "cjs_require",
 				Local:     binding.Utf8Text(source),
 				Imported:  "*",
 				TypeOnly:  false,
@@ -192,7 +197,7 @@ func appendDynamicImport(
 		return fmt.Errorf("dynamic import has no argument")
 	}
 
-	specifier := "<computed>"
+	specifier := argument.Utf8Text(source)
 	computed := true
 
 	if argument.Kind() == "string" {
@@ -210,11 +215,16 @@ func appendDynamicImport(
 
 	line, column := nodeLocation(source, call)
 
+	kind := "dynamic_computed"
+	if !computed {
+		kind = "dynamic_static_literal"
+	}
+
 	result.Imports = append(
 		result.Imports,
 		Import{
 			Specifier: specifier,
-			Kind:      "dynamic",
+			Kind:      kind,
 			Local:     localNode.Utf8Text(source),
 			Imported:  "*",
 			TypeOnly:  false,
