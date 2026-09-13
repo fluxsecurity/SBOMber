@@ -209,6 +209,24 @@ TypeScript `import type` declarations are retained as type-only evidence.
 They do not produce runtime-call evidence because they are removed by the
 TypeScript compiler.
 
+### Whole-module calls
+
+When a whole-module binding is called directly, Component 2 records
+`calledSymbol` as `default`.
+
+For example:
+
+    const minimist = require("minimist");
+    minimist(process.argv);
+
+produces `calledSymbol: "default"`.
+
+When a member of the whole-module binding is called, the property name is
+recorded instead. For example, `_.merge(...)` produces
+`calledSymbol: "merge"`.
+
+The application's local binding name is never used as the package-side
+symbol.
 
 ## 7. Package occurrence resolution
 
@@ -511,6 +529,10 @@ contain unnecessary source-code snippets.
 
 All Candidate A objects owning native resources must be closed
 deterministically.
+
+Files excluded because they are oversized, minified or vendored are counted
+in `filesSkipped`, not `filesParsed`. They cannot support a negative
+usage conclusion.
 
 ## 16. Known limitations
 
