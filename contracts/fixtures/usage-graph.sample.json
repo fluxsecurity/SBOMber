@@ -38,10 +38,10 @@
   ],
   "coverage": {
     "filesDiscovered": 142,
-    "filesParsed": 136,
-    "filesParsedWithErrors": 2,
-    "filesFailed": 2,
-    "filesSkipped": 2,
+    "filesParsed": 142,
+    "filesParsedWithErrors": 0,
+    "filesFailed": 0,
+    "filesSkipped": 0,
     "thirdPartyImportsResolved": 5,
     "thirdPartyImportsTypeOnly": 1,
     "thirdPartyImportsUnresolved": 1,
@@ -52,10 +52,10 @@
       {
         "repositoryId": "repo-demo-app",
         "filesDiscovered": 142,
-        "filesParsed": 136,
-        "filesParsedWithErrors": 2,
-        "filesFailed": 2,
-        "filesSkipped": 2
+        "filesParsed": 142,
+        "filesParsedWithErrors": 0,
+        "filesFailed": 0,
+        "filesSkipped": 0
       }
     ],
     "entryPointsDetected": 2,
@@ -266,19 +266,8 @@
       "occurrenceId": "occ-006",
       "purl": "pkg:npm/build-helper@4.0.2",
       "reason": "not_imported_by_analysed_source",
-      "detail": "Development-scope build tool. All 136 fully parsed source files were examined and no import of build-helper was found."
+      "detail": "Development-scope build tool. All 142 fully parsed source files were examined and no import of build-helper was found."
     }
   ],
-  "parseFailures": [
-    {
-      "repositoryId": "repo-demo-app",
-      "file": "src/vendor/legacy.min.js",
-      "reason": "minified bundle exceeded max token depth"
-    },
-    {
-      "repositoryId": "repo-demo-app",
-      "file": "src/experimental/decorators.ts",
-      "reason": "unsupported decorator syntax"
-    }
-  ]
+  "parseFailures": []
 }
