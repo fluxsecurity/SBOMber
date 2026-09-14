@@ -134,6 +134,48 @@ def validate_usage_graph(d, canon):
           len(d.get("parseFailures", [])) == cov["filesFailed"],
           f"{len(d.get('parseFailures', []))} parseFailures vs filesFailed {cov['filesFailed']}")
 
+    incomplete_files = (cov["filesParsedWithErrors"] + cov["filesFailed"]
+                        + cov["filesSkipped"])
+    limits_hit = cov.get("limitsHit", [])
+    check(c, "complete status has complete file coverage",
+          analysis_status != "complete" or (incomplete_files == 0 and not limits_hit),
+          f"analysis is complete with {incomplete_files} incomplete files and limits {limits_hit}")
+    check(c, "incomplete file coverage cannot be complete",
+          not (incomplete_files or limits_hit)
+          or analysis_status in ("partial", "failed"),
+          f"coverage has {incomplete_files} incomplete files or limits {limits_hit}, "
+          f"but analysis status is {analysis_status}")
+    check(c, "partial status explains itself in coverage",
+          analysis_status != "partial" or bool(incomplete_files or limits_hit),
+          "analysis is partial but coverage reports no incomplete files or limits")
+
+    repository_ids = set()
+    repository_totals = {
+        "filesDiscovered": 0,
+        "filesParsed": 0,
+        "filesParsedWithErrors": 0,
+        "filesFailed": 0,
+        "filesSkipped": 0,
+    }
+    for repository in cov.get("perRepository", []):
+        repository_id = repository["repositoryId"]
+        check(c, "per-repository id unique", repository_id not in repository_ids,
+              f"duplicate coverage for repository {repository_id}")
+        repository_ids.add(repository_id)
+        check(c, "per-repository file counts sum",
+              repository["filesDiscovered"] == repository["filesParsed"]
+              + repository.get("filesParsedWithErrors", 0) + repository["filesFailed"]
+              + repository.get("filesSkipped", 0),
+              f"repository {repository_id} file counters do not sum")
+        for field in repository_totals:
+            repository_totals[field] += repository.get(field, 0)
+
+    if cov.get("perRepository"):
+        check(c, "per-repository totals match global coverage",
+              all(repository_totals[field] == cov[field]
+                  for field in repository_totals),
+              f"per-repository totals {repository_totals} != global file coverage")
+
     n_resolved = n_typeonly = n_unresolved = 0
     cs_resolved = cs_unresolved = 0
     reachable = unknown_reach = 0
@@ -253,7 +295,8 @@ def validate_usage_graph(d, canon):
             "negativeEligible": {uid for uid, u in unan.items()
                                  if u["reason"] == "not_imported_by_analysed_source"} | observed_occurrences,
             "unanalysed": unan,
-            "analysisStatus": analysis_status}
+            "analysisStatus": analysis_status,
+            "filesDiscovered": cov["filesDiscovered"]}
 
 
 # ------------------------------------------------------------------ localisation
@@ -385,6 +428,12 @@ def validate_decisions(d, canon, usage, loc, vex_policy):
             check(c, "negative needs a completed analysis",
                   dec["basedOn"]["coverageSummary"].get("scanStatus") == "complete",
                   f"{fid} is no_usage_detected on a {dec['basedOn']['coverageSummary'].get('scanStatus')} scan")
+            check(c, "negative needs discovered source",
+                  usage["filesDiscovered"] > 0,
+                  f"{fid} is no_usage_detected but Component 2 discovered no source files")
+            check(c, "negative needs resolved imports in scope",
+                  dec["basedOn"]["coverageSummary"].get("unresolvedImportsInScope") == 0,
+                  f"{fid} is no_usage_detected with unresolved imports in scope")
 
         vex = dec.get("vexMapping", {})
         st = vex.get("statement")
