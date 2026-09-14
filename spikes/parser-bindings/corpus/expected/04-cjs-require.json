@@ -5,7 +5,7 @@
   "imports": [
     {
       "specifier": "lodash",
-      "kind": "cjs",
+      "kind": "cjs_require",
       "local": "_",
       "imported": "*",
       "typeOnly": false,
@@ -14,7 +14,7 @@
     },
     {
       "specifier": "node:path",
-      "kind": "cjs",
+      "kind": "cjs_require",
       "local": "path",
       "imported": "*",
       "typeOnly": false,

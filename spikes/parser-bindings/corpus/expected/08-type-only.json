@@ -5,7 +5,7 @@
   "imports": [
     {
       "specifier": "lodash",
-      "kind": "esm_named",
+      "kind": "esm_type_only",
       "local": "DebouncedFunc",
       "imported": "DebouncedFunc",
       "typeOnly": true,

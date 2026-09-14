@@ -515,11 +515,24 @@ Component 2 parses source code but never executes it.
 
 The selected Sprint 4 resource defaults are:
 
+- maximum source files analysed per repository: 10,000;
 - maximum individual source file size: 1,000,000 bytes;
+- minified-line threshold: 4,000 bytes;
 - per-file parse timeout: 5 seconds.
 
 Files outside a configured bound must be reported as skipped or unresolved,
 never silently omitted.
+
+Repository discovery does not descend into `.git`, `node_modules`, `dist`,
+`build`, `coverage`, `.next`, `out`, `generated` or `vendor` directories.
+Generated and minified filename patterns such as `*.bundle.js`, `*.min.js`
+and `*.generated.{js,ts,tsx}` are skipped. A source line longer than the
+minified-line threshold is also treated as a minified bundle. Every such
+exclusion is recorded with its reason.
+
+The repository walker does not follow symbolic links or read other
+non-regular files. This prevents source discovery from escaping through a
+linked tree or blocking on a device or named pipe.
 
 Repository-relative source locations should be emitted rather than
 machine-specific absolute paths where contract portability is required.
