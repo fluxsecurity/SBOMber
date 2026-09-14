@@ -52,11 +52,14 @@ PY
 
 matrix() { # $1 run id, $2 product, $3 subcomponent
   probe "$2" "$3" "$T/p.json"
-  local g t
+  local g t pdisp
+  # The scanner receives the real path; the committed record gets a placeholder,
+  # so reproducing on another machine does not change the evidence file.
+  pdisp="${2/$FIX/<fixture-dir>}"
   g=$(grype dir:. --vex "$T/p.json" -o json -q 2>/dev/null | jq '.ignoredMatches|length')
   t=$(trivy fs --quiet --scanners vuln --format json --show-suppressed --vex "$T/p.json" . 2>/dev/null \
       | jq '[.Results[]?.ExperimentalModifiedFindings[]?]|length')
-  jq -nc --arg run "$1" --arg p "$2" --arg s "${3:-none}" --argjson g "$g" --argjson t "$t" \
+  jq -nc --arg run "$1" --arg p "$pdisp" --arg s "${3:-none}" --argjson g "$g" --argjson t "$t" \
     '{run:$run, product:$p, subcomponent:$s, grypeIgnored:$g, trivyModified:$t,
       applied:(($g>0) and ($t>0))}'
 }
@@ -65,13 +68,19 @@ matrix() { # $1 run id, $2 product, $3 subcomponent
   echo "date: $(date -u +%Y-%m-%dT%H:%M:%SZ)"
   grype version | grep -E '^Version|Syft Version'
   trivy --version | tr '\n' ' '; echo
-} > "$OUT/subject-model-environment.txt"
+} | sed -e 's/[[:space:]]*$//' > "$OUT/subject-model-environment.txt"
 
 {
 # Controls: the shape the 6 Sep decision actually shipped.
 matrix SM1-product-package-no-sub        "pkg:npm/lodash@4.17.4"             ""
 # Isolates the subcomponent field: same matching product, subcomponent added.
+# NOTE: SM2 alone cannot show traversal -- product and subcomponent are the same
+# purl, so a product-only match explains it. SM2b and SM2c settle that: if a
+# subcomponent that matches nothing in the scan still leaves the statement
+# applied, the array is not consulted at all.
 matrix SM2-product-package-with-sub      "pkg:npm/lodash@4.17.4"             "pkg:npm/lodash@4.17.4"
+matrix SM2b-product-package-absent-sub   "pkg:npm/lodash@4.17.4"             "pkg:npm/does-not-exist@9.9.9"
+matrix SM2c-product-package-app-sub      "pkg:npm/lodash@4.17.4"             "pkg:generic/vulnerable-chat@1.0.0"
 # The R5 shape.
 matrix SM3-product-app-with-sub          "pkg:generic/vulnerable-chat@1.0.0" "pkg:npm/lodash@4.17.4"
 # Isolates the product id: app product, no subcomponent at all.

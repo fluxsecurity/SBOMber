@@ -74,4 +74,6 @@ both as `name` and `aliases`.
 
 Every run above uses the **package-level** document. The R5 subject model is
 tested separately by `run-subject-model.sh` (runs SM1–SM11), which varies the
-product identifier and the presence of subcomponents one at a time.
+product identifier and the presence of subcomponents one at a time. SM2b and
+SM2c use a subcomponent that matches nothing in the scan, which is what shows
+the `subcomponents` array is not consulted rather than merely harmless.

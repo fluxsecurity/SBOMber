@@ -103,8 +103,9 @@ without ever suppressing anything.
   named manual reviewer.
 - Both consumers match a statement's product `@id` against the vulnerable
   package's purl on directory and filesystem scans; an application-scoped
-  product is not matched. Found 13 September 2026 on Yevhen's PR #110 review,
-  after the original runs. See "R5 subject model: unresolved".
+  product is not matched, and the `subcomponents` array is not consulted at all
+  (SM2b, SM2c). Found 13 September 2026 on Yevhen's PR #110 review, after the
+  original runs. See "R5 subject model: unresolved".
 - Consumer versions are pinned to what the team has installed (Grype 0.112.0,
   Trivy 0.70.0). A newer Grype may add CycloneDX VEX; re-run `run.sh` before
   re-opening this decision.
@@ -133,20 +134,32 @@ Reproduce with `run-subject-model.sh`; evidence in `results/subject-model.jsonl`
 |---|---|---|---|---|
 | SM1 | `pkg:npm/lodash@4.17.4` | none | 1 | 1 |
 | SM2 | `pkg:npm/lodash@4.17.4` | `pkg:npm/lodash@4.17.4` | 1 | 1 |
+| SM2b | `pkg:npm/lodash@4.17.4` | `pkg:npm/does-not-exist@9.9.9` | 1 | 1 |
+| SM2c | `pkg:npm/lodash@4.17.4` | `pkg:generic/vulnerable-chat@1.0.0` | 1 | 1 |
 | SM3 | `pkg:generic/vulnerable-chat@1.0.0` | `pkg:npm/lodash@4.17.4` | **0** | **0** |
 | SM4 | `pkg:generic/vulnerable-chat@1.0.0` | none | **0** | **0** |
 | SM5 | `.` | `pkg:npm/lodash@4.17.4` | **0** | **0** |
 | SM6 | `dir:.` | `pkg:npm/lodash@4.17.4` | **0** | **0** |
 | SM7 | absolute fixture path | `pkg:npm/lodash@4.17.4` | **0** | **0** |
 
-**The subcomponent field is not what breaks it — the product identifier is.**
-SM2 adds a subcomponent while leaving the product matching, and both consumers
-still act on the statement. SM4 removes the subcomponent while leaving the
-application as the product, and both stop. At these versions Grype 0.112.0 and
-Trivy 0.70.0 resolve a statement's product `@id` against the **vulnerable
-package's own purl** on directory and filesystem scans. An application-scoped
-product never matches, with or without subcomponents, and no alternative
-spelling of the application identifier helped (SM5–SM7).
+**The product identifier decides the match, and the subcomponents array is not
+consulted at all.**
+
+SM2 on its own proves only that adding subcomponents does not *prevent* an
+already-matching product from working: product and subcomponent are the same
+purl there, so a product-only match fully explains the result. It is not
+evidence that either consumer traverses subcomponents. SM2b and SM2c settle
+that question — a subcomponent naming a package absent from the scan
+(`pkg:npm/does-not-exist@9.9.9`), and one naming the application, both leave the
+statement applied. Neither consumer traverses the array, and neither treats it
+as a constraint on the product match. At these versions it is inert.
+
+The product `@id` alone decides the match, and both consumers resolve it against
+the **vulnerable package's own purl** on directory and filesystem scans. SM4
+removes the subcomponent while leaving the application as the product and both
+stop, so an application-scoped product never matches, with or without
+subcomponents, and no alternative spelling of the application identifier helped
+(SM5–SM7).
 
 Grype's `under_investigation` re-addition — the one behaviour in the whole
 spike where a consumer distinguishes the investigation state from silence —
