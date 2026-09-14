@@ -103,7 +103,7 @@ without ever suppressing anything.
   named manual reviewer.
 - Both consumers match a statement's product `@id` against the vulnerable
   package's purl on directory and filesystem scans; an application-scoped
-  product is not matched, and the `subcomponents` array is not consulted at all
+  product is not matched, and the `subcomponents` array did not affect statement application in the tested matrix
   (SM2b, SM2c). Found 13 September 2026 on Yevhen's PR #110 review, after the
   original runs. See "R5 subject model: unresolved".
 - Consumer versions are pinned to what the team has installed (Grype 0.112.0,
@@ -151,8 +151,7 @@ purl there, so a product-only match fully explains the result. It is not
 evidence that either consumer traverses subcomponents. SM2b and SM2c settle
 that question — a subcomponent naming a package absent from the scan
 (`pkg:npm/does-not-exist@9.9.9`), and one naming the application, both leave the
-statement applied. Neither consumer traverses the array, and neither treats it
-as a constraint on the product match. At these versions it is inert.
+statement applied. In the tested matrix, neither consumer used the subcomponent identity to apply the statement or as a constraint on the product match. At these pinned versions, the array had no observed effect on statement application.
 
 The product `@id` alone decides the match, and both consumers resolve it against
 the **vulnerable package's own purl** on directory and filesystem scans. SM4
