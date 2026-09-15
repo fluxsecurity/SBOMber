@@ -271,6 +271,13 @@ func runGitHubScan(args []string, stdout io.Writer, stderr io.Writer) int {
 		_, _ = fmt.Fprintf(stdout, "  Dependencies: %d direct, %d transitive\n",
 			len(result.Summary.Direct), len(result.Summary.Transitive))
 
+		if result.Status != "" && result.Status != remote.StatusComplete {
+			_, _ = fmt.Fprintf(stdout, "  Status: %s\n", result.Status)
+			for _, skip := range result.Skipped {
+				_, _ = fmt.Fprintf(stdout, "    - %s\n", skip)
+			}
+		}
+
 		repoOutputDir := filepath.Join(outputDir, result.Owner+"_"+result.Repo)
 		if err := os.MkdirAll(repoOutputDir, 0755); err != nil {
 			_, _ = fmt.Fprintf(stderr, "  Error creating output dir: %v\n", err)
