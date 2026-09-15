@@ -36,7 +36,7 @@ import (
 	"github.com/Xsamsx/SBOMber/internal/vulnerability"
 )
 
-const version = "0.1.0"
+const version = "0.1.1"
 
 var (
 	colorReset = "\033[0m"
@@ -290,6 +290,13 @@ func runGitHubScan(args []string, stdout io.Writer, stderr io.Writer) int {
 		_, _ = fmt.Fprintf(stdout, "  Found %d manifests: %s\n", len(result.Manifests), strings.Join(result.Manifests, ", "))
 		_, _ = fmt.Fprintf(stdout, "  Dependencies: %d direct, %d transitive\n",
 			len(result.Summary.Direct), len(result.Summary.Transitive))
+
+		if result.Status != "" && result.Status != remote.StatusComplete {
+			_, _ = fmt.Fprintf(stdout, "  Status: %s\n", result.Status)
+			for _, skip := range result.Skipped {
+				_, _ = fmt.Fprintf(stdout, "    - %s\n", skip)
+			}
+		}
 
 		repoOutputDir := filepath.Join(outputDir, result.Owner+"_"+result.Repo)
 		if err := os.MkdirAll(repoOutputDir, 0755); err != nil {
@@ -1184,6 +1191,9 @@ func runInteractive(stdin io.Reader, stdout io.Writer, stderr io.Writer) int {
 					fmt.Print("\033[H\033[2J")
 					_, _ = fmt.Fprint(stdout, "Goodbye!\n")
 					return 0
+				} else {
+					// Increment interactive scan counter (UI gamification)
+					incrementScanCount()
 				}
 			case "github":
 				// Show scanning message
@@ -1235,6 +1245,9 @@ func runInteractive(stdin io.Reader, stdout io.Writer, stderr io.Writer) int {
 					fmt.Print("\033[H\033[2J")
 					_, _ = fmt.Fprint(stdout, "Goodbye!\n")
 					return 0
+				} else {
+					// Increment interactive scan counter (UI gamification)
+					incrementScanCount()
 				}
 			case "version":
 				if quit := showResultsScreen(fmt.Sprintf("SBOMber %s", version), ""); quit {
@@ -1758,8 +1771,8 @@ func printUsage(w io.Writer) {
 Usage:
   sbomber
   sbomber scan [path] [--format FORMAT] [--include-vulnerabilities] [--fail-on-vuln] [--no-color]
-  sbomber github [--health] [--include-vulnerabilities] [--fail-on-vuln] [--format FORMAT] <repo-url>...
-  sbomber gitlab [--health] [--include-vulnerabilities] [--fail-on-vuln] [--format FORMAT] [--instance URL] <repo-url>...
+  sbomber github [--health] [--include-vulnerabilities] [--fail-on-vuln] [--no-color] [--format FORMAT] <repo-url>...
+  sbomber gitlab [--health] [--include-vulnerabilities] [--fail-on-vuln] [--no-color] [--format FORMAT] [--instance URL] <repo-url>...
   sbomber trace <path> [package-name] [flags] [--no-color]
   sbomber verify <ground-truth-sbom> <generated-sbom> [--json]
   sbomber diff <old-sbom> <new-sbom> [--no-color]

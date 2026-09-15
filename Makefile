@@ -22,6 +22,9 @@ vet:
 lint:
 	CGO_ENABLED=$(CGO_ENABLED) GOCACHE=$(GOCACHE) golangci-lint run ./...
 
+lint:
+	golangci-lint run ./...
+
 fmt:
 	gofmt -w ./cmd ./internal
 

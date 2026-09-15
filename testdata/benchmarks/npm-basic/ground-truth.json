@@ -1,0 +1,20 @@
+{
+  "schemaVersion": "1.0",
+  "project": "npm-basic",
+  "components": [
+    {"name": "chalk", "version": "5.0.0", "purl": "pkg:npm/chalk@5.0.0"},
+    {"name": "ansi-styles", "version": "4.3.0", "purl": "pkg:npm/ansi-styles@4.3.0"},
+    {"name": "lodash", "version": "4.17.21", "purl": "pkg:npm/lodash@4.17.21"}
+  ],
+  "stats": {
+    "groundTruthCount": 3,
+    "generatedCount": 3,
+    "matchedCount": 3,
+    "missingCount": 0,
+    "extraCount": 0,
+    "precision": 100.0,
+    "recall": 100.0,
+    "f1Score": 100.0,
+    "versionAccuracy": 100.0
+  }
+}

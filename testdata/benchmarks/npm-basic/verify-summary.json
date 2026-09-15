@@ -1,0 +1,13 @@
+{
+  "ground_truth_count": 3,
+  "generated_count": 3,
+  "matched_count": 3,
+  "missing_count": 0,
+  "extra_count": 0,
+  "version_mismatch": 0,
+  "precision": 100.0,
+  "recall": 100.0,
+  "f1_score": 100.0,
+  "version_accuracy": 100.0,
+  "note": "Committed benchmark fixture for the npm-basic sample."
+}
