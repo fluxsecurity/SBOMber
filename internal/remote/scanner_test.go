@@ -7,7 +7,6 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"strings"
-	"sync"
 	"sync/atomic"
 	"testing"
 	"time"
@@ -28,8 +27,6 @@ type treeEntryJSON struct {
 // fakeGitHub simulates just enough of the GitHub REST API for ScanRepo:
 // the recursive tree endpoint and the file-contents endpoint.
 type fakeGitHub struct {
-	mu sync.Mutex
-
 	manifestPaths []string
 	truncated     bool
 
@@ -60,7 +57,7 @@ func (f *fakeGitHub) server() *httptest.Server {
 	return httptest.NewServer(mux)
 }
 
-func (f *fakeGitHub) serveTree(w http.ResponseWriter, r *http.Request) {
+func (f *fakeGitHub) serveTree(w http.ResponseWriter, _ *http.Request) {
 	entries := make([]treeEntryJSON, 0, len(f.manifestPaths))
 	for _, p := range f.manifestPaths {
 		entries = append(entries, treeEntryJSON{Path: p, Type: "blob", SHA: "abc123", Size: len(testPackageJSON)})
