@@ -26,6 +26,7 @@ import (
 	"github.com/Xsamsx/SBOMber/internal/health"
 	"github.com/Xsamsx/SBOMber/internal/localisation"
 	"github.com/Xsamsx/SBOMber/internal/maven"
+	"github.com/Xsamsx/SBOMber/internal/netstatus"
 	"github.com/Xsamsx/SBOMber/internal/npm"
 	"github.com/Xsamsx/SBOMber/internal/nuget"
 	"github.com/Xsamsx/SBOMber/internal/python"
@@ -431,6 +432,7 @@ func runGitHubScan(args []string, stdout io.Writer, stderr io.Writer) int {
 				_, _ = fmt.Fprintf(stdout, "  Report: %s\n", reportPath)
 			}
 		}
+		printNetworkStatus(stdout, vulnResults)
 
 		rateLimit := client.GetRateLimit()
 		if rateLimit.Remaining > 0 {
@@ -1096,6 +1098,7 @@ func runGitLabScan(args []string, stdout io.Writer, stderr io.Writer) int {
 				_, _ = fmt.Fprintf(stdout, "  Report: %s\n", rp)
 			}
 		}
+		printNetworkStatus(stdout, vulnResults)
 
 		_, _ = fmt.Fprintln(stdout)
 	}
@@ -1714,7 +1717,29 @@ func generateVulnReport(stdout io.Writer, stderr io.Writer, scanPath, outputDir,
 		return vulnResults.TotalCount
 	}
 	_, _ = fmt.Fprintf(stdout, "  HTML report: %s\n", filepath.Base(reportPath))
+	printNetworkStatus(stdout, vulnResults)
 	return vulnResults.TotalCount
+}
+
+// printNetworkStatus prints one line per enrichment source (EPSS, KEV,
+// GHSA, npm registry, malware) that did not succeed, so a source that
+// failed or was skipped is visible instead of looking identical to a
+// clean, empty result. Sources that reported success are not printed,
+// keeping the common case quiet.
+func printNetworkStatus(stdout io.Writer, vulnResults *vulnerability.ScanResults) {
+	if vulnResults == nil {
+		return
+	}
+	for _, r := range vulnResults.NetworkStatus {
+		if r.Status == netstatus.Success {
+			continue
+		}
+		if r.Detail != "" {
+			_, _ = fmt.Fprintf(stdout, "  [%s] %s: %s\n", r.Source, r.Status, r.Detail)
+		} else {
+			_, _ = fmt.Fprintf(stdout, "  [%s] %s\n", r.Source, r.Status)
+		}
+	}
 }
 
 func containsEcosystem(names []ecosystem.Name, candidate ecosystem.Name) bool {
