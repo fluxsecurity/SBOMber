@@ -146,9 +146,7 @@ func packageLockPackageName(path string) string {
 	if path == "" {
 		return ""
 	}
-	if strings.HasPrefix(path, "node_modules/") {
-		path = strings.TrimPrefix(path, "node_modules/")
-	}
+	path = strings.TrimPrefix(path, "node_modules/")
 	if idx := strings.LastIndex(path, "/node_modules/"); idx >= 0 {
 		return path[idx+len("/node_modules/"):]
 	}
