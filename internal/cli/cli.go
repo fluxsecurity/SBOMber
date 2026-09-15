@@ -5,6 +5,7 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
+	"errors"
 	"flag"
 	"fmt"
 	"io"
@@ -23,6 +24,7 @@ import (
 	"github.com/Xsamsx/SBOMber/internal/gitlab"
 	"github.com/Xsamsx/SBOMber/internal/golang"
 	"github.com/Xsamsx/SBOMber/internal/health"
+	"github.com/Xsamsx/SBOMber/internal/localisation"
 	"github.com/Xsamsx/SBOMber/internal/maven"
 	"github.com/Xsamsx/SBOMber/internal/npm"
 	"github.com/Xsamsx/SBOMber/internal/nuget"
@@ -36,24 +38,45 @@ import (
 
 const version = "0.1.1"
 
-const (
+var (
 	colorReset = "\033[0m"
 	colorCyan  = "\033[36m"
 	colorBlue  = "\033[34m"
 	colorBold  = "\033[1m"
+)
 
+const (
 	formatCycloneDX = "cyclonedx"
 	formatSPDX      = "spdx"
 	formatBoth      = "both"
 )
 
-var colorEnabled = true
-
-func withColor(prefix, text string) string {
-	if !colorEnabled {
-		return text
+func setColorOutput(enabled bool) {
+	if enabled {
+		colorReset = "\033[0m"
+		colorCyan = "\033[36m"
+		colorBlue = "\033[34m"
+		colorBold = "\033[1m"
+		return
 	}
-	return prefix + text + colorReset
+	colorReset = ""
+	colorCyan = ""
+	colorBlue = ""
+	colorBold = ""
+}
+
+func flagErrorCode(err error) int {
+	if err == nil || errors.Is(err, flag.ErrHelp) {
+		return 0
+	}
+	return 2
+}
+
+func validateVulnOptions(includeVulns, failOnVuln bool) error {
+	if failOnVuln && !includeVulns {
+		return fmt.Errorf("--fail-on-vuln requires --include-vulnerabilities")
+	}
+	return nil
 }
 
 // Main executes the CLI and returns the exit code.
@@ -78,6 +101,8 @@ func Main(args []string, stdin io.Reader, stdout io.Writer, stderr io.Writer) in
 		return runVerify(args[1:], stdout, stderr)
 	case "diff":
 		return runDiff(args[1:], stdout, stderr)
+	case "localise", "localize":
+		return runLocalise(args[1:], stdout, stderr)
 	case "demo":
 		return runDemo(stdout, stderr)
 	case "help", "--help", "-h":
@@ -86,7 +111,7 @@ func Main(args []string, stdin io.Reader, stdout io.Writer, stderr io.Writer) in
 	default:
 		_, _ = fmt.Fprintf(stderr, "unknown command %q\n\n", args[0])
 		printUsage(stderr)
-		return 1
+		return 2
 	}
 }
 
@@ -95,17 +120,22 @@ func runScan(args []string, stdout io.Writer, stderr io.Writer) int {
 	fs.SetOutput(stderr)
 	format := fs.String("format", formatCycloneDX, "export format: cyclonedx, spdx, or both")
 	includeVulnerabilities := fs.Bool("include-vulnerabilities", false, "scan for vulnerabilities using Grype")
-	failOnVuln := fs.Bool("fail-on-vuln", false, "exit non-zero when vulnerabilities are found (requires --include-vulnerabilities)")
+	failOnVuln := fs.Bool("fail-on-vuln", false, "exit with a non-zero status if any vulnerabilities are found")
 	noColor := fs.Bool("no-color", false, "disable ANSI color output")
 
 	if err := fs.Parse(args); err != nil {
-		return 2
+		return flagErrorCode(err)
 	}
 	if *noColor {
-		colorEnabled = false
+		setColorOutput(false)
 	}
-	if *failOnVuln && !*includeVulnerabilities {
-		_, _ = fmt.Fprintf(stderr, "error: --fail-on-vuln requires --include-vulnerabilities\n")
+	if err := validateVulnOptions(*includeVulnerabilities, *failOnVuln); err != nil {
+		_, _ = fmt.Fprintf(stderr, "%v\n", err)
+		return 2
+	}
+	if *includeVulnerabilities && !vulnerability.IsGrypeAvailable() {
+		_, _ = fmt.Fprintf(stderr, "ERROR: vulnerability scanning requested but Grype is not installed or not in PATH\n")
+		_, _ = fmt.Fprintf(stderr, "Install Grype from: https://github.com/anchore/grype\n")
 		return 2
 	}
 
@@ -117,11 +147,6 @@ func runScan(args []string, stdout io.Writer, stderr io.Writer) int {
 	absoluteRoot, err := resolveScanRoot(root)
 	if err != nil {
 		_, _ = fmt.Fprintf(stderr, "resolve path: %v\n", err)
-		return 2
-	}
-
-	if *includeVulnerabilities && !vulnerability.IsGrypeAvailable() {
-		_, _ = fmt.Fprintf(stderr, "error: vulnerability scanning requires Grype, but it is not installed or not on PATH\n")
 		return 2
 	}
 
@@ -149,15 +174,10 @@ func runScan(args []string, stdout io.Writer, stderr io.Writer) int {
 
 	_, _ = fmt.Fprintf(stdout, "Selected SBOM export format: %s\n", selectedFormat)
 	if *includeVulnerabilities {
-		if vulnerability.IsGrypeAvailable() {
-			_, _ = fmt.Fprintf(stdout, "Vulnerability scanning: enabled (Grype)\n")
-
-		} else {
-			_, _ = fmt.Fprintf(stderr, "WARNING: Vulnerability scanning requested but Grype not found in PATH\n")
-			_, _ = fmt.Fprintf(stderr, "Install Grype from: https://github.com/anchore/grype\n")
-		}
+		_, _ = fmt.Fprintf(stdout, "Vulnerability scanning: enabled (Grype)\n")
 	}
 	_, _ = fmt.Fprintf(stdout, "Found %d %s under %s\n", len(repos), plural, absoluteRoot)
+	vulnCount := 0
 	for _, repo := range repos {
 		detection, err := ecosystem.Detect(repo.Path)
 		if err != nil {
@@ -176,9 +196,12 @@ func runScan(args []string, stdout io.Writer, stderr io.Writer) int {
 		}
 
 		_, _ = fmt.Fprintf(stdout, "- %s  %s  [%s]\n", repo.Name, repo.Path, stack)
-		printDependencySummary(stdout, stderr, repo.Name, repo.Path, detection, selectedFormat, *includeVulnerabilities)
+		vulnCount += printDependencySummary(stdout, stderr, repo.Name, repo.Path, detection, selectedFormat, *includeVulnerabilities)
 	}
 	_, _ = fmt.Fprintf(stdout, "\nScan complete: %d repositories scanned\n", len(repos))
+	if *failOnVuln && vulnCount > 0 {
+		return 1
+	}
 	return 0
 }
 
@@ -187,18 +210,23 @@ func runGitHubScan(args []string, stdout io.Writer, stderr io.Writer) int {
 	fs.SetOutput(stderr)
 	includeHealth := fs.Bool("health", false, "include supply chain health metrics")
 	includeVulns := fs.Bool("include-vulnerabilities", false, "scan for vulnerabilities using Grype")
-	failOnVuln := fs.Bool("fail-on-vuln", false, "exit non-zero when vulnerabilities are found (requires --include-vulnerabilities)")
+	failOnVuln := fs.Bool("fail-on-vuln", false, "exit with a non-zero status if any vulnerabilities are found")
 	noColor := fs.Bool("no-color", false, "disable ANSI color output")
 	format := fs.String("format", formatCycloneDX, "export format: cyclonedx, spdx, or both")
 
 	if err := fs.Parse(args); err != nil {
-		return 2
+		return flagErrorCode(err)
 	}
 	if *noColor {
-		colorEnabled = false
+		setColorOutput(false)
 	}
-	if *failOnVuln && !*includeVulns {
-		_, _ = fmt.Fprintf(stderr, "error: --fail-on-vuln requires --include-vulnerabilities\n")
+	if err := validateVulnOptions(*includeVulns, *failOnVuln); err != nil {
+		_, _ = fmt.Fprintf(stderr, "%v\n", err)
+		return 2
+	}
+	if *includeVulns && !vulnerability.IsGrypeAvailable() {
+		_, _ = fmt.Fprintf(stderr, "ERROR: vulnerability scanning requested but Grype is not installed or not in PATH\n")
+		_, _ = fmt.Fprintf(stderr, "Install Grype from: https://github.com/anchore/grype\n\n")
 		return 2
 	}
 
@@ -227,16 +255,7 @@ func runGitHubScan(args []string, stdout io.Writer, stderr io.Writer) int {
 	}
 
 	if *includeVulns {
-		if !vulnerability.IsGrypeAvailable() {
-			_, _ = fmt.Fprintf(stderr, "error: vulnerability scanning requires Grype, but it is not installed or not on PATH\n")
-			return 2
-		}
-		if vulnerability.IsGrypeAvailable() {
-			_, _ = fmt.Fprintf(stdout, "Vulnerability scanning: enabled (Grype)\n")
-		} else {
-			_, _ = fmt.Fprintf(stderr, "WARNING: Vulnerability scanning requested but Grype not found in PATH\n")
-			_, _ = fmt.Fprintf(stderr, "Install Grype from: https://github.com/anchore/grype\n\n")
-		}
+		_, _ = fmt.Fprintf(stdout, "Vulnerability scanning: enabled (Grype)\n")
 	}
 
 	scanner := remote.NewScanner(client)
@@ -258,6 +277,7 @@ func runGitHubScan(args []string, stdout io.Writer, stderr io.Writer) int {
 		healthResolver = health.NewResolver(client)
 	}
 
+	vulnFound := false
 	for _, repoURL := range repoURLs {
 		_, _ = fmt.Fprintf(stdout, "Scanning: %s\n", repoURL)
 
@@ -420,6 +440,9 @@ func runGitHubScan(args []string, stdout io.Writer, stderr io.Writer) int {
 	}
 
 	_, _ = fmt.Fprintf(stdout, "GitHub scan complete. Output saved to: %s\n", outputDir)
+	if *failOnVuln && vulnFound {
+		return 1
+	}
 	return 0
 }
 
@@ -432,6 +455,7 @@ func runTrace(args []string, stdout io.Writer, stderr io.Writer) int {
 	showDot := fs.Bool("dot", false, "output DOT format for Graphviz visualization")
 	showConnections := fs.Bool("connections", false, "show detailed connection info for a package")
 	showFalsePositives := fs.Bool("fp", false, "highlight potential false positives")
+	noColor := fs.Bool("no-color", false, "disable ANSI color output")
 	filterEcosystem := fs.String("ecosystem", "", "filter by ecosystem (npm, maven, pypi, golang, rubygems)")
 	filterScope := fs.String("scope", "", "filter by build-scope (runtime, dev, test, build-tooling)")
 	filterType := fs.String("type", "", "filter by dependency-type (direct, transitive)")
@@ -440,7 +464,10 @@ func runTrace(args []string, stdout io.Writer, stderr io.Writer) int {
 	maxDepth := fs.Int("max-depth", -1, "maximum depth (-1 = no limit)")
 
 	if err := fs.Parse(args); err != nil {
-		return 1
+		return flagErrorCode(err)
+	}
+	if *noColor {
+		setColorOutput(false)
 	}
 
 	if fs.NArg() < 1 {
@@ -469,7 +496,7 @@ func runTrace(args []string, stdout io.Writer, stderr io.Writer) int {
 		_, _ = fmt.Fprintf(stderr, "  sbomber trace . --list --ecosystem npm\n")
 		_, _ = fmt.Fprintf(stderr, "  sbomber trace . --list --type transitive --min-depth 2\n")
 		_, _ = fmt.Fprintf(stderr, "  sbomber trace . --list --source-file package.json\n")
-		return 1
+		return 2
 	}
 
 	root := fs.Arg(0)
@@ -481,7 +508,7 @@ func runTrace(args []string, stdout io.Writer, stderr io.Writer) int {
 	absoluteRoot, err := resolveScanRoot(root)
 	if err != nil {
 		_, _ = fmt.Fprintf(stderr, "resolve path: %v\n", err)
-		return 1
+		return 2
 	}
 
 	repos, err := discovery.FindGitRepositories(absoluteRoot)
@@ -746,9 +773,13 @@ func runVerify(args []string, stdout io.Writer, stderr io.Writer) int {
 	fs := flag.NewFlagSet("verify", flag.ContinueOnError)
 	fs.SetOutput(stderr)
 	outputJSON := fs.Bool("json", false, "output results as JSON")
+	noColor := fs.Bool("no-color", false, "disable ANSI color output")
 
 	if err := fs.Parse(args); err != nil {
-		return 2
+		return flagErrorCode(err)
+	}
+	if *noColor {
+		setColorOutput(false)
 	}
 
 	if fs.NArg() < 2 {
@@ -773,7 +804,7 @@ func runVerify(args []string, stdout io.Writer, stderr io.Writer) int {
 	result, err := verify.VerifyFiles(groundTruthPath, generatedPath)
 	if err != nil {
 		_, _ = fmt.Fprintf(stderr, "Error: %v\n", err)
-		return 1
+		return 2
 	}
 
 	if *outputJSON {
@@ -826,9 +857,13 @@ func runVerify(args []string, stdout io.Writer, stderr io.Writer) int {
 func runDiff(args []string, stdout io.Writer, stderr io.Writer) int {
 	fs := flag.NewFlagSet("diff", flag.ContinueOnError)
 	fs.SetOutput(stderr)
+	noColor := fs.Bool("no-color", false, "disable ANSI color output")
 
 	if err := fs.Parse(args); err != nil {
-		return 2
+		return flagErrorCode(err)
+	}
+	if *noColor {
+		setColorOutput(false)
 	}
 
 	if fs.NArg() < 2 {
@@ -842,7 +877,7 @@ func runDiff(args []string, stdout io.Writer, stderr io.Writer) int {
 	result, err := diff.DiffFiles(fs.Arg(0), fs.Arg(1))
 	if err != nil {
 		_, _ = fmt.Fprintf(stderr, "Error: %v\n", err)
-		return 1
+		return 2
 	}
 
 	_, _ = fmt.Fprint(stdout, result.PrintReport())
@@ -880,19 +915,24 @@ func runGitLabScan(args []string, stdout io.Writer, stderr io.Writer) int {
 	fs.SetOutput(stderr)
 	includeHealth := fs.Bool("health", false, "include supply chain health metrics")
 	includeVulns := fs.Bool("include-vulnerabilities", false, "scan for vulnerabilities using Grype")
-	failOnVuln := fs.Bool("fail-on-vuln", false, "exit non-zero when vulnerabilities are found (requires --include-vulnerabilities)")
+	failOnVuln := fs.Bool("fail-on-vuln", false, "exit with a non-zero status if any vulnerabilities are found")
 	noColor := fs.Bool("no-color", false, "disable ANSI color output")
 	format := fs.String("format", formatCycloneDX, "export format: cyclonedx, cyclonedx-json, spdx, or both")
 	instanceURL := fs.String("instance", "", "GitLab instance URL (default: https://gitlab.com)")
 
 	if err := fs.Parse(args); err != nil {
-		return 2
+		return flagErrorCode(err)
 	}
 	if *noColor {
-		colorEnabled = false
+		setColorOutput(false)
 	}
-	if *failOnVuln && !*includeVulns {
-		_, _ = fmt.Fprintf(stderr, "error: --fail-on-vuln requires --include-vulnerabilities\n")
+	if err := validateVulnOptions(*includeVulns, *failOnVuln); err != nil {
+		_, _ = fmt.Fprintf(stderr, "%v\n", err)
+		return 2
+	}
+	if *includeVulns && !vulnerability.IsGrypeAvailable() {
+		_, _ = fmt.Fprintf(stderr, "ERROR: vulnerability scanning requested but Grype is not installed or not in PATH\n")
+		_, _ = fmt.Fprintf(stderr, "Install Grype from: https://github.com/anchore/grype\n\n")
 		return 2
 	}
 
@@ -918,8 +958,8 @@ func runGitLabScan(args []string, stdout io.Writer, stderr io.Writer) int {
 		return 2
 	}
 
-	if *includeVulns && !vulnerability.IsGrypeAvailable() {
-		_, _ = fmt.Fprintf(stderr, "WARNING: Vulnerability scanning requested but Grype not found in PATH\n\n")
+	if *includeVulns {
+		_, _ = fmt.Fprintf(stdout, "Vulnerability scanning: enabled (Grype)\n")
 	}
 
 	outputDir, err := sbom.GetOutputDir("gitlab-scan")
@@ -935,6 +975,7 @@ func runGitLabScan(args []string, stdout io.Writer, stderr io.Writer) int {
 	}
 
 	_, _ = fmt.Fprintf(stdout, "Scanning %d GitLab repositories...\n\n", fs.NArg())
+	vulnFound := false
 
 	for _, repoURL := range fs.Args() {
 		_, _ = fmt.Fprintf(stdout, "Scanning: %s\n", repoURL)
@@ -1038,6 +1079,9 @@ func runGitLabScan(args []string, stdout io.Writer, stderr io.Writer) int {
 				_, _ = fmt.Fprintf(stdout, "  Vulnerabilities: %d\n", vulnResults.TotalCount)
 			}
 		}
+		if vulnResults != nil && vulnResults.TotalCount > 0 {
+			vulnFound = true
+		}
 
 		if vulnResults != nil && len(healthMetrics) > 0 {
 			if rp, err := vulnerability.GenerateFullReport(repoOutputDir, project, vulnResults, healthMetrics); err == nil {
@@ -1057,6 +1101,9 @@ func runGitLabScan(args []string, stdout io.Writer, stderr io.Writer) int {
 	}
 
 	_, _ = fmt.Fprintf(stdout, "GitLab scan complete. Output saved to: %s\n", outputDir)
+	if *failOnVuln && vulnFound {
+		return 1
+	}
 	return 0
 }
 
@@ -1075,6 +1122,22 @@ func printChain(w io.Writer, chain string) {
 	}
 }
 
+// runInteractive branches on the bubbletea TUI vs. a plain-text numbered
+// prompt flow. In practice only the TUI branch is ever reached from the
+// real binary: cmd/sbomber/main.go always calls Main with the literal
+// os.Stdin/os.Stdout package values, so this identity check is true for
+// every real invocation regardless of whether stdin is a terminal, a pipe,
+// or a redirected file — Go doesn't change which *os.File value os.Stdin
+// holds based on what's connected to fd 0. The plain-text branch below
+// (promptExportFormat, promptVulnerabilityScan,
+// runScanAndOfferGroundTruthCheck) is exercised only by tests that call
+// Main directly with a substitute io.Reader/io.Writer (e.g.
+// strings.NewReader), which is a different Go value than os.Stdin. It is
+// real, tested code — just not reachable by running `sbomber`. Fixing
+// that would mean adding proper terminal detection (e.g.
+// golang.org/x/term.IsTerminal), which is a larger, separate change
+// affecting every existing prompt here, not just the ground-truth one
+// added alongside this comment; noted here rather than fixed silently.
 func runInteractive(stdin io.Reader, stdout io.Writer, stderr io.Writer) int {
 	if stdin == os.Stdin && stdout == os.Stdout {
 		for {
@@ -1093,13 +1156,13 @@ func runInteractive(stdin io.Reader, stdout io.Writer, stderr io.Writer) int {
 				// Resolve path (expand ~ and make absolute)
 				absPath, err := resolveScanRoot(scanPath)
 				if err != nil {
-					fmt.Fprintf(stderr, "Invalid path: %v\n", err)
+					_, _ = fmt.Fprintf(stderr, "Invalid path: %v\n", err)
 					continue
 				}
 				// Get central output folder in ~/.sbomber/reports/
 				outputFolder, err := sbom.GetOutputDir(absPath)
 				if err != nil {
-					fmt.Fprintf(stderr, "Failed to create output directory: %v\n", err)
+					_, _ = fmt.Fprintf(stderr, "Failed to create output directory: %v\n", err)
 					continue
 				}
 
@@ -1126,7 +1189,7 @@ func runInteractive(stdin io.Reader, stdout io.Writer, stderr io.Writer) int {
 
 				if quit := showResultsScreen(buf.String(), outputFolder); quit {
 					fmt.Print("\033[H\033[2J")
-					fmt.Fprint(stdout, "Goodbye!\n")
+					_, _ = fmt.Fprint(stdout, "Goodbye!\n")
 					return 0
 				} else {
 					// Increment interactive scan counter (UI gamification)
@@ -1164,7 +1227,7 @@ func runInteractive(stdin io.Reader, stdout io.Writer, stderr io.Writer) int {
 
 				// Set token in env if provided via TUI
 				if result.GitHubToken != "" {
-					os.Setenv("GITHUB_TOKEN", result.GitHubToken)
+					_ = os.Setenv("GITHUB_TOKEN", result.GitHubToken)
 				}
 
 				// Run with real-time output to stdout (not buffered)
@@ -1175,12 +1238,12 @@ func runInteractive(stdin io.Reader, stdout io.Writer, stderr io.Writer) int {
 
 				fmt.Println()
 				fmt.Println("  \033[90mPress Enter to continue...\033[0m")
-				bufio.NewReader(os.Stdin).ReadBytes('\n')
+				_, _ = bufio.NewReader(os.Stdin).ReadBytes('\n')
 
 				outputFolder, _ := sbom.GetOutputDir("github-scan")
 				if quit := showResultsScreen(buf.String(), outputFolder); quit {
 					fmt.Print("\033[H\033[2J")
-					fmt.Fprint(stdout, "Goodbye!\n")
+					_, _ = fmt.Fprint(stdout, "Goodbye!\n")
 					return 0
 				} else {
 					// Increment interactive scan counter (UI gamification)
@@ -1198,7 +1261,7 @@ func runInteractive(stdin io.Reader, stdout io.Writer, stderr io.Writer) int {
 				}
 			case "exit", "":
 				fmt.Print("\033[H\033[2J")
-				fmt.Fprint(stdout, "Goodbye!\n")
+				_, _ = fmt.Fprint(stdout, "Goodbye!\n")
 				return 0
 			}
 		}
@@ -1238,7 +1301,7 @@ func runInteractive(stdin io.Reader, stdout io.Writer, stderr io.Writer) int {
 		}
 		args = append(args, ".")
 
-		return runScan(args, stdout, stderr)
+		return runScanAndOfferGroundTruthCheck(args, reader, stdout, stderr)
 	case "2":
 		_, _ = fmt.Fprint(stdout, "Folder to scan: ")
 		path, err := reader.ReadString('\n')
@@ -1268,7 +1331,7 @@ func runInteractive(stdin io.Reader, stdout io.Writer, stderr io.Writer) int {
 		}
 		args = append(args, path)
 
-		return runScan(args, stdout, stderr)
+		return runScanAndOfferGroundTruthCheck(args, reader, stdout, stderr)
 	case "3":
 		_, _ = fmt.Fprintf(stdout, "sbomber %s\n", version)
 		return 0
@@ -1339,11 +1402,117 @@ func promptVulnerabilityScan(reader *bufio.Reader, stdout io.Writer, stderr io.W
 	}
 }
 
-func printDependencySummary(stdout io.Writer, stderr io.Writer, repoName, repoPath string, detection ecosystem.Detection, selectedFormat string, includeVulnerabilities bool) {
+// runScanAndOfferGroundTruthCheck runs a scan, prints its output, and then
+// — only when the scan produced exactly one repo's SBOM, since a
+// ground-truth comparison needs exactly one generated SBOM to compare
+// against — offers to check that SBOM's accuracy against a ground-truth
+// SBOM the user points to.
+func runScanAndOfferGroundTruthCheck(args []string, reader *bufio.Reader, stdout io.Writer, stderr io.Writer) int {
+	var buf bytes.Buffer
+	exitCode := runScan(args, &buf, &buf)
+	output := buf.String()
+	_, _ = fmt.Fprint(stdout, output)
+	if exitCode != 0 {
+		return exitCode
+	}
+
+	sbomPath := extractSingleScanSBOM(output)
+	if sbomPath == "" {
+		return 0
+	}
+
+	return promptGroundTruthCheck(reader, stdout, stderr, sbomPath)
+}
+
+// extractSingleScanSBOM parses a scan's captured output for exactly one
+// repo's "output folder:"/"exported SBOM:" lines (printed by
+// printDependencySummary), preferring the CycloneDX file when both formats
+// were exported. Returns "" when zero or more than one repo was scanned,
+// since there is then no single generated SBOM to offer a ground-truth
+// comparison against.
+func extractSingleScanSBOM(scanOutput string) string {
+	var outputDir string
+	var sbomFiles []string
+	repoCount := 0
+
+	for _, line := range strings.Split(scanOutput, "\n") {
+		trimmed := strings.TrimSpace(line)
+		if after, ok := strings.CutPrefix(trimmed, "output folder:"); ok {
+			repoCount++
+			outputDir = strings.TrimSpace(after)
+			sbomFiles = nil
+			continue
+		}
+		if after, ok := strings.CutPrefix(trimmed, "exported SBOM:"); ok {
+			sbomFiles = append(sbomFiles, strings.TrimSpace(after))
+		}
+	}
+
+	if repoCount != 1 || len(sbomFiles) == 0 {
+		return ""
+	}
+
+	for _, name := range sbomFiles {
+		if name == "sbom-cyclonedx.xml" {
+			return filepath.Join(outputDir, name)
+		}
+	}
+	return filepath.Join(outputDir, sbomFiles[0])
+}
+
+// promptGroundTruthCheck asks whether to check the just-generated SBOM's
+// accuracy against a ground-truth SBOM and, if so, for that file's path,
+// then runs the same comparison sbomber verify uses and prints the report.
+func promptGroundTruthCheck(reader *bufio.Reader, stdout io.Writer, stderr io.Writer, generatedSBOMPath string) int {
+	_, _ = fmt.Fprint(stdout, "\nCheck accuracy against a ground-truth SBOM? [y/N]: ")
+
+	choice, err := reader.ReadString('\n')
+	if err != nil && len(choice) == 0 {
+		_, _ = fmt.Fprintf(stderr, "read ground-truth choice: %v\n", err)
+		return 1
+	}
+
+	switch strings.ToLower(strings.TrimSpace(choice)) {
+	case "", "n", "no":
+		return 0
+	case "y", "yes":
+		// fall through to the path prompt below
+	default:
+		_, _ = fmt.Fprintf(stderr, "invalid ground-truth choice %q\n", strings.TrimSpace(choice))
+		return 1
+	}
+
+	_, _ = fmt.Fprint(stdout, "Path to ground-truth SBOM: ")
+	pathInput, err := reader.ReadString('\n')
+	if err != nil && len(pathInput) == 0 {
+		_, _ = fmt.Fprintf(stderr, "read ground-truth path: %v\n", err)
+		return 1
+	}
+
+	groundTruthPath := strings.TrimSpace(pathInput)
+	if groundTruthPath == "" {
+		_, _ = fmt.Fprintln(stderr, "no ground-truth path provided, skipping accuracy check")
+		return 0
+	}
+
+	result, err := verify.VerifyFiles(groundTruthPath, generatedSBOMPath)
+	if err != nil {
+		_, _ = fmt.Fprintf(stderr, "ground-truth check failed: %v\n", err)
+		return 2
+	}
+
+	_, _ = fmt.Fprint(stdout, result.PrintReport())
+	if result.F1Score < 70 {
+		return 1
+	}
+	return 0
+}
+
+func printDependencySummary(stdout io.Writer, stderr io.Writer, repoName, repoPath string, detection ecosystem.Detection, selectedFormat string, includeVulnerabilities bool) int {
 	summary, err := buildRepoDependencySummary(repoPath, detection)
 	if err != nil {
 		_, _ = fmt.Fprintf(stderr, "read npm dependencies for %s: %v\n", repoPath, err)
-		return
+		return 0
 	}
 
 	savedPaths, outputDir, err := sbom.SaveSBOM(repoPath, repoName, summary, selectedFormat)
@@ -1364,7 +1533,10 @@ func printDependencySummary(stdout io.Writer, stderr io.Writer, repoName, repoPa
 			if spdxPath != "" {
 				scanPath = "sbom:" + spdxPath
 			}
-			generateVulnReport(stdout, stderr, scanPath, outputDir, repoName)
+			vulnCount := generateVulnReport(stdout, stderr, scanPath, outputDir, repoName)
+			if vulnCount > 0 {
+				return vulnCount
+			}
 		}
 	}
 
@@ -1372,7 +1544,7 @@ func printDependencySummary(stdout io.Writer, stderr io.Writer, repoName, repoPa
 	totalTransitive := summary.TransitiveCount()
 
 	if totalDirect == 0 && totalTransitive == 0 {
-		return
+		return 0
 	}
 
 	_, _ = fmt.Fprintf(stdout, "  packages:  %d direct", totalDirect)
@@ -1422,10 +1594,11 @@ func printDependencySummary(stdout io.Writer, stderr io.Writer, repoName, repoPa
 
 	preview := summary.PreviewNames(5)
 	if len(preview) == 0 {
-		return
+		return 0
 	}
 
 	_, _ = fmt.Fprintf(stdout, "  sample packages: %s\n", strings.Join(preview, ", "))
+	return 0
 }
 
 func buildRepoDependencySummary(repoPath string, detection ecosystem.Detection) (deps.Summary, error) {
@@ -1442,8 +1615,7 @@ func buildRepoDependencySummary(repoPath string, detection ecosystem.Detection) 
 
 		if enriched, err := npm.EnrichFromYarnLock(repoPath, npmSummary); err == nil {
 			npmSummary = enriched
-		}
-		if enriched, err := npm.EnrichFromPackageLock(repoPath, npmSummary); err == nil {
+		} else if enriched, err := npm.EnrichFromPackageLock(repoPath, npmSummary); err == nil {
 			npmSummary = enriched
 		}
 
@@ -1511,17 +1683,17 @@ func buildRepoDependencySummary(repoPath string, detection ecosystem.Detection) 
 	return summary, nil
 }
 
-func generateVulnReport(stdout io.Writer, stderr io.Writer, scanPath, outputDir, repoName string) {
+func generateVulnReport(stdout io.Writer, stderr io.Writer, scanPath, outputDir, repoName string) int {
 	if !vulnerability.IsGrypeAvailable() {
 		_, _ = fmt.Fprintf(stderr, "  note: grype not available, skipping vulnerability scan\n")
-		return
+		return 0
 	}
 
 	ctx := context.Background()
 	vulnResults, err := vulnerability.ScanWithGrype(ctx, scanPath)
 	if err != nil {
 		_, _ = fmt.Fprintf(stderr, "  vulnerability scan failed: %v\n", err)
-		return
+		return 0
 	}
 
 	// Print summary to terminal
@@ -1539,9 +1711,10 @@ func generateVulnReport(stdout io.Writer, stderr io.Writer, scanPath, outputDir,
 	reportPath, err := vulnerability.GenerateHTMLReport(outputDir, repoName, vulnResults)
 	if err != nil {
 		_, _ = fmt.Fprintf(stderr, "  failed to generate HTML report: %v\n", err)
-		return
+		return vulnResults.TotalCount
 	}
 	_, _ = fmt.Fprintf(stdout, "  HTML report: %s\n", filepath.Base(reportPath))
+	return vulnResults.TotalCount
 }
 
 func containsEcosystem(names []ecosystem.Name, candidate ecosystem.Name) bool {
@@ -1600,15 +1773,16 @@ Usage:
   sbomber scan [path] [--format FORMAT] [--include-vulnerabilities] [--fail-on-vuln] [--no-color]
   sbomber github [--health] [--include-vulnerabilities] [--fail-on-vuln] [--no-color] [--format FORMAT] <repo-url>...
   sbomber gitlab [--health] [--include-vulnerabilities] [--fail-on-vuln] [--no-color] [--format FORMAT] [--instance URL] <repo-url>...
-  sbomber trace <path> [package-name] [flags]
+  sbomber trace <path> [package-name] [flags] [--no-color]
   sbomber verify <ground-truth-sbom> <generated-sbom> [--json]
-  sbomber diff <old-sbom> <new-sbom>
+  sbomber diff <old-sbom> <new-sbom> [--no-color]
+  sbomber localise --canonical-scan <canonical-scan.json> [--out localisation.json] [--trace trace.json]
   sbomber version
 
 Scan Flags:
   --format cyclonedx|cyclonedx-json|spdx|both   Export format (default: cyclonedx)
   --include-vulnerabilities                      Enable vulnerability scanning with Grype
-  --fail-on-vuln                                 Exit non-zero when vulnerabilities are found
+  --fail-on-vuln                                 Exit non-zero if any vulnerabilities are found
   --no-color                                     Disable ANSI color output
   --health                                       Supply chain health metrics (github/gitlab)
   --instance <url>                               GitLab instance URL (default: https://gitlab.com)
@@ -1628,6 +1802,16 @@ Trace Flags:
 
 Verify Flags:
   --json                                Output results as JSON (for CI/CD)
+
+Localise Flags (Component 3: which function does an advisory implicate?):
+  --canonical-scan <file>               canonical-scan.json produced by the scan (required)
+  --out <file>                          localisation.json to write (default: localisation.json)
+  --trace <file>                        also write the per-method evidence trace
+  --all-methods                         run every method, not just until the first answer
+  --client-search                       also search commit messages for the vulnerability ID
+  --max-tarball-mb <n>                  npm tarball download limit (default: 30)
+  --timeout <duration>                  overall time budget (default: 15m)
+  GITHUB_TOKEN                          environment variable used for GitHub API requests
 
 Examples:
   sbomber
@@ -1653,4 +1837,125 @@ func truncate(s string, maxLen int) string {
 		return s
 	}
 	return s[:maxLen-3] + "..."
+}
+
+// localiseInput is the subset of canonical-scan.json the localiser reads.
+type localiseInput struct {
+	Scan struct {
+		ScanID string `json:"scanId"`
+	} `json:"scan"`
+	Findings []struct {
+		FindingID       string   `json:"findingId"`
+		VulnerabilityID string   `json:"vulnerabilityId"`
+		Aliases         []string `json:"aliases"`
+		PURL            string   `json:"purl"`
+		FixedVersion    string   `json:"fixedVersion"`
+	} `json:"findings"`
+}
+
+// runLocalise reads canonical-scan.json and writes localisation.json:
+// for each finding, the candidate functions the advisory implicates and how
+// that was established. Downloaded package code is never executed.
+func runLocalise(args []string, stdout io.Writer, stderr io.Writer) int {
+	fs := flag.NewFlagSet("localise", flag.ContinueOnError)
+	fs.SetOutput(stderr)
+	in := fs.String("canonical-scan", "", "canonical-scan.json to read (required)")
+	out := fs.String("out", "localisation.json", "localisation.json to write")
+	tracePath := fs.String("trace", "", "write the per-method evidence trace to this file")
+	allMethods := fs.Bool("all-methods", false, "run every method even after one has answered")
+	clientSearch := fs.Bool("client-search", false, "search commit messages for the vulnerability ID (one GitHub search per finding)")
+	maxTarballMB := fs.Int64("max-tarball-mb", 30, "npm tarball download limit in MB")
+	timeout := fs.Duration("timeout", 15*time.Minute, "overall time budget")
+	osvURL := fs.String("osv-url", "", "OSV API base URL (default https://api.osv.dev)")
+	githubURL := fs.String("github-api-url", "", "GitHub API base URL (default https://api.github.com)")
+	registryURL := fs.String("registry-url", "", "npm registry base URL (default https://registry.npmjs.org)")
+
+	if err := fs.Parse(args); err != nil {
+		return flagErrorCode(err)
+	}
+	if *in == "" {
+		_, _ = fmt.Fprintf(stderr, "Usage: sbomber localise --canonical-scan <canonical-scan.json> [--out localisation.json] [--trace trace.json]\n")
+		return 2
+	}
+	data, err := os.ReadFile(*in)
+	if err != nil {
+		_, _ = fmt.Fprintf(stderr, "Error: read %s: %v\n", *in, err)
+		return 2
+	}
+	var input localiseInput
+	if err := json.Unmarshal(data, &input); err != nil {
+		_, _ = fmt.Fprintf(stderr, "Error: %s is not a canonical-scan.json document: %v\n", *in, err)
+		return 2
+	}
+	if input.Scan.ScanID == "" {
+		_, _ = fmt.Fprintf(stderr, "Error: %s has no scan.scanId\n", *in)
+		return 2
+	}
+
+	findings := make([]localisation.Finding, 0, len(input.Findings))
+	for _, f := range input.Findings {
+		findings = append(findings, localisation.Finding{
+			FindingID: f.FindingID, VulnerabilityID: f.VulnerabilityID, Aliases: f.Aliases,
+			PURL: f.PURL, FixedVersion: f.FixedVersion,
+		})
+	}
+
+	ctx, cancel := context.WithTimeout(context.Background(), *timeout)
+	defer cancel()
+	loc := localisation.New(localisation.Options{
+		GitHubToken:        os.Getenv("GITHUB_TOKEN"),
+		MaxTarballBytes:    *maxTarballMB << 20,
+		AllMethods:         *allMethods,
+		ClientMethodSearch: *clientSearch,
+		OSVBaseURL:         *osvURL,
+		GitHubAPIBaseURL:   *githubURL,
+		RegistryBaseURL:    *registryURL,
+	})
+
+	_, _ = fmt.Fprintf(stdout, "Localising %d finding(s) from %s\n", len(findings), input.Scan.ScanID)
+	doc, traces := loc.LocaliseAll(ctx, input.Scan.ScanID, findings)
+
+	for _, r := range doc.Results {
+		syms := make([]string, 0, len(r.CandidateSymbols))
+		for _, c := range r.CandidateSymbols {
+			syms = append(syms, c.Symbol)
+		}
+		if len(syms) > 6 {
+			syms = append(syms[:6], fmt.Sprintf("+%d more", len(r.CandidateSymbols)-6))
+		}
+		_, _ = fmt.Fprintf(stdout, "  %-8s %-16s %-36s %-18s %-6s %s\n",
+			r.FindingID, r.VulnerabilityID, r.PURL, r.Method, r.Confidence, strings.Join(syms, ", "))
+	}
+	if doc.Summary != nil {
+		_, _ = fmt.Fprintf(stdout, "Processed %d, unknown %d, by method %v\n",
+			doc.Summary.FindingsProcessed, doc.Summary.UnknownCount, doc.Summary.ByMethod)
+	}
+
+	if err := writeJSONFile(*out, doc); err != nil {
+		_, _ = fmt.Fprintf(stderr, "Error: %v\n", err)
+		return 2
+	}
+	_, _ = fmt.Fprintf(stdout, "Wrote %s\n", *out)
+	if *tracePath != "" {
+		if err := writeJSONFile(*tracePath, traces); err != nil {
+			_, _ = fmt.Fprintf(stderr, "Error: %v\n", err)
+			return 2
+		}
+		_, _ = fmt.Fprintf(stdout, "Wrote %s\n", *tracePath)
+	}
+	if ctx.Err() != nil {
+		_, _ = fmt.Fprintf(stderr, "Warning: time budget exhausted; later findings may be unknown for that reason\n")
+	}
+	return 0
+}
+
+func writeJSONFile(path string, v any) error {
+	data, err := json.MarshalIndent(v, "", "  ")
+	if err != nil {
+		return fmt.Errorf("encode %s: %w", path, err)
+	}
+	if err := os.WriteFile(path, append(data, '\n'), 0o644); err != nil {
+		return fmt.Errorf("write %s: %w", path, err)
+	}
+	return nil
 }

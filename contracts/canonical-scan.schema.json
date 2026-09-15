@@ -1,0 +1,217 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Xsamsx/SBOMber/contracts/canonical-scan.schema.json",
+  "title": "canonical-scan.json",
+  "description": "The shared identity model. Produced by component 1. Read by components 2, 3 and 4. Every other contract refers back to identities defined here.",
+  "type": "object",
+  "required": ["schemaVersion", "scan", "components", "occurrences", "findings"],
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "const": "1.0.0",
+      "description": "Bump on any breaking change, with agreement from producer and consumers."
+    },
+    "scan": {
+      "type": "object",
+      "required": ["scanId", "startedAt", "status", "repositories"],
+      "additionalProperties": false,
+      "properties": {
+        "scanId": { "type": "string", "description": "Unique per scan run." },
+        "startedAt": { "type": "string", "format": "date-time" },
+        "completedAt": { "type": "string", "format": "date-time" },
+        "toolVersions": {
+          "type": "object",
+          "description": "Pinned versions. Any accuracy claim must record these.",
+          "additionalProperties": { "type": "string" }
+        },
+        "status": {
+          "type": "string",
+          "enum": ["complete", "partial", "failed"],
+          "description": "partial means some inputs were skipped or truncated. A partial scan must not be reported as success."
+        },
+        "statusDetail": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "skippedFiles": { "type": "array", "items": { "type": "string" } },
+            "failedFiles": { "type": "array", "items": { "type": "string" } },
+            "truncatedTree": {
+              "type": "boolean",
+              "description": "True when GitHub reported a truncated tree. Must be surfaced, not ignored."
+            },
+            "limitsHit": { "type": "array", "items": { "type": "string" } }
+          }
+        },
+        "repositories": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["repositoryId", "path"],
+            "additionalProperties": false,
+            "properties": {
+              "repositoryId": { "type": "string" },
+              "path": { "type": "string" },
+              "commit": { "type": "string" },
+              "source": { "type": "string", "enum": ["local", "remote"] }
+            }
+          }
+        },
+        "enrichment": {
+          "type": "array",
+          "description": "One entry per enrichment source. A failed lookup must never look like a clean result.",
+          "items": {
+            "type": "object",
+            "required": ["source", "status"],
+            "additionalProperties": false,
+            "properties": {
+              "source": {
+                "type": "string",
+                "enum": ["epss", "cisa_kev", "ghsa", "registry", "malware"]
+              },
+              "status": {
+                "type": "string",
+                "enum": ["success", "unavailable", "timed_out", "rate_limited", "skipped"]
+              },
+              "detail": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "type": "array",
+      "description": "Identity = exact versioned PURL. One entry per distinct package version.",
+      "items": {
+        "type": "object",
+        "required": ["purl", "ecosystem", "name", "version"],
+        "additionalProperties": false,
+        "properties": {
+          "purl": {
+            "type": "string",
+            "pattern": "^pkg:",
+            "description": "Exact versioned PURL, e.g. pkg:npm/lodash@4.17.20. Maven carries the namespace: pkg:maven/groupId/artifactId@version."
+          },
+          "ecosystem": {
+            "type": "string",
+            "enum": ["npm", "pypi", "maven", "gem", "golang"]
+          },
+          "name": { "type": "string", "description": "Normalised package name." },
+          "version": {
+            "type": "string",
+            "description": "Exact installed version. Never a range, never an operator."
+          },
+          "versionKnown": {
+            "type": "boolean",
+            "default": true,
+            "description": "False where only a constraint was available, e.g. requirements.txt with no lockfile. Do not invent a resolved version."
+          },
+          "declaredConstraint": {
+            "type": "string",
+            "description": "The range or constraint as declared, e.g. ^4.17.0 or ==1.2.3. Recorded separately from version, never as the version."
+          }
+        }
+      }
+    },
+    "occurrences": {
+      "type": "array",
+      "description": "Identity = PURL + workspace + manifest + dependency path. The same package version can appear in several workspaces, direct in one and transitive in another.",
+      "items": {
+        "type": "object",
+        "required": ["occurrenceId", "purl", "repositoryId", "manifest", "relationship"],
+        "additionalProperties": false,
+        "properties": {
+          "occurrenceId": { "type": "string" },
+          "purl": { "type": "string", "pattern": "^pkg:" },
+          "repositoryId": { "type": "string" },
+          "workspace": { "type": "string", "description": "Monorepo workspace or package folder. Omit if none." },
+          "manifest": { "type": "string", "description": "The file this occurrence was read from." },
+          "relationship": { "type": "string", "enum": ["direct", "transitive"] },
+          "dependencyPath": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "PURLs from the direct dependency down to this one. Empty for direct dependencies."
+          },
+          "installPath": {
+            "type": "string",
+            "description": "Physical location, e.g. node_modules/foo/node_modules/lodash. Distinguishes nested versions."
+          },
+          "scope": {
+            "type": "string",
+            "enum": ["runtime", "development", "optional", "test"],
+            "description": "Actual dependency scope. Transitive status lives in relationship, not here."
+          }
+        }
+      }
+    },
+    "findings": {
+      "type": "array",
+      "description": "Identity = vulnerability ID + component PURL.",
+      "items": {
+        "type": "object",
+        "required": ["findingId", "vulnerabilityId", "purl", "severity"],
+        "additionalProperties": false,
+        "properties": {
+          "findingId": { "type": "string" },
+          "vulnerabilityId": { "type": "string", "description": "CVE or GHSA identifier." },
+          "aliases": { "type": "array", "items": { "type": "string" } },
+          "purl": { "type": "string", "pattern": "^pkg:" },
+          "occurrenceIds": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Which occurrences this finding applies to."
+          },
+          "severity": {
+            "type": "string",
+            "enum": ["critical", "high", "medium", "low", "negligible", "unknown"]
+          },
+          "cvssScore": { "type": "number", "minimum": 0, "maximum": 10 },
+          "fixedVersion": {
+            "type": "string",
+            "description": "Advisory- or scanner-reported fixed version. Omit when none is reported; do not guess."
+          },
+          "epss": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "score": { "type": "number", "minimum": 0, "maximum": 1 },
+              "percentile": { "type": "number", "minimum": 0, "maximum": 1 }
+            }
+          },
+          "cisaKev": { "type": "boolean" },
+          "provenance": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "scanner": { "type": "string" },
+              "scannerVersion": { "type": "string" },
+              "enrichedBy": { "type": "array", "items": { "type": "string" } }
+            }
+          }
+        }
+      }
+    },
+    "supplyChainWarnings": {
+      "type": "array",
+      "description": "Findings with no CVE — dependency confusion, malware warnings, health signals.",
+      "items": {
+        "type": "object",
+        "required": ["warningId", "purl", "kind"],
+        "additionalProperties": false,
+        "properties": {
+          "warningId": { "type": "string" },
+          "purl": { "type": "string", "pattern": "^pkg:" },
+          "kind": {
+            "type": "string",
+            "enum": ["dependency_confusion", "malware_package_level", "stale", "single_maintainer", "low_adoption", "deprecated"]
+          },
+          "detail": {
+            "type": "string",
+            "description": "For malware_package_level: this is a package-level warning from OSV by name and ecosystem, not proof the installed version is malicious."
+          }
+        }
+      }
+    }
+  }
+}

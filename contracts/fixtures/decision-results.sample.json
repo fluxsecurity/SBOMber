@@ -1,0 +1,235 @@
+{
+  "schemaVersion": "1.1.0",
+  "scanId": "scan-2026-08-12-0001",
+  "distribution": {
+    "totalFindings": 4,
+    "usageDetected": 1,
+    "noUsageDetected": 1,
+    "unknown": 2,
+    "unsupported": 0
+  },
+  "decisions": [
+    {
+      "findingId": "find-001",
+      "vulnerabilityId": "CVE-2021-23337",
+      "purl": "pkg:npm/lodash@4.17.20",
+      "state": "usage_detected",
+      "analysisConfidence": "high",
+      "confidenceCriteria": [
+        "localisation method advisory_metadata",
+        "parse coverage 97.2 percent",
+        "no unresolved imports for this package",
+        "direct call site with file and line"
+      ],
+      "riskPriority": {
+        "band": "act_now",
+        "severity": "high",
+        "cvssScore": 7.2,
+        "epssScore": 0.0142,
+        "cisaKev": false,
+        "relationship": "direct",
+        "fixAvailable": true
+      },
+      "justification": "The advisory names lodash.template as the affected function. The application imports lodash and calls template at src/render/email.js:47 and :92. The call at :47 is reachable from the postWelcome route handler via sendWelcome and renderWelcomeEmail; no path resolved for :92, which changes nothing. Upgrade to 4.17.21.",
+      "basedOn": {
+        "usageObservationIds": [
+          "obs-001"
+        ],
+        "localisationMethod": "advisory_metadata",
+        "localisationConfidence": "high",
+        "matchedSymbols": [
+          "template"
+        ],
+        "evidenceLevel": 3,
+        "coverageSummary": {
+          "parseCoveragePercent": 95.8,
+          "unresolvedImportsInScope": 0,
+          "scanStatus": "complete"
+        }
+      },
+      "remediation": {
+        "reportedFixedVersion": "4.17.21",
+        "resolvesFindingIds": [
+          "find-001"
+        ]
+      },
+      "vexMapping": {
+        "statement": "affected",
+        "actionStatement": "Upgrade lodash to 4.17.21 or later."
+      }
+    },
+    {
+      "findingId": "find-002",
+      "vulnerabilityId": "CVE-2020-28168",
+      "purl": "pkg:npm/axios@0.21.0",
+      "state": "no_usage_detected",
+      "analysisConfidence": "medium",
+      "confidenceCriteria": [
+        "localisation method version_diff with two candidates",
+        "parse coverage 95.8 percent",
+        "one unresolved computed member access on this package at src/api/dispatch.js:24"
+      ],
+      "riskPriority": {
+        "band": "lower_priority",
+        "severity": "medium",
+        "cvssScore": 5.9,
+        "epssScore": 0.0031,
+        "cisaKev": false,
+        "relationship": "direct",
+        "fixAvailable": true
+      },
+      "justification": "No usage evidence found within the analysed scope. The application calls axios.get, but neither candidate symbol (isURLSameOrigin, redirect) appears in application code. One computed member access on axios at src/api/dispatch.js:24 could not be resolved, and code inside dependencies is not analysed. This is not proof of safety.",
+      "basedOn": {
+        "usageObservationIds": [
+          "obs-003",
+          "obs-005"
+        ],
+        "localisationMethod": "version_diff",
+        "localisationConfidence": "medium",
+        "matchedSymbols": [],
+        "evidenceLevel": 2,
+        "coverageSummary": {
+          "parseCoveragePercent": 95.8,
+          "unresolvedImportsInScope": 1,
+          "scanStatus": "complete"
+        }
+      },
+      "remediation": {
+        "reportedFixedVersion": "0.21.1",
+        "resolvesFindingIds": [
+          "find-002"
+        ]
+      },
+      "vexMapping": {
+        "statement": "under_investigation"
+      }
+    },
+    {
+      "findingId": "find-003",
+      "vulnerabilityId": "CVE-2021-44906",
+      "purl": "pkg:npm/minimist@1.2.5",
+      "state": "unknown",
+      "analysisConfidence": "low",
+      "confidenceCriteria": [
+        "localisation returned unknown",
+        "no implicated symbol to match against the usage graph"
+      ],
+      "riskPriority": {
+        "band": "insufficient_information",
+        "severity": "critical",
+        "cvssScore": 9.8,
+        "epssScore": 0.0087,
+        "cisaKev": false,
+        "relationship": "transitive",
+        "fixAvailable": true
+      },
+      "justification": "Could not determine which function this advisory implicates, so no usage comparison was possible. Prototype pollution affects argument parsing generally. Treated at package level; a critical severity with no determination should be reviewed manually.",
+      "basedOn": {
+        "usageObservationIds": [],
+        "localisationMethod": "unknown",
+        "localisationConfidence": "none",
+        "matchedSymbols": [],
+        "evidenceLevel": 1,
+        "coverageSummary": {
+          "parseCoveragePercent": 95.8,
+          "unresolvedImportsInScope": 0,
+          "scanStatus": "complete"
+        }
+      },
+      "remediation": {
+        "reportedFixedVersion": "1.2.6",
+        "resolvesFindingIds": [
+          "find-003"
+        ]
+      },
+      "vexMapping": {
+        "statement": "under_investigation"
+      }
+    },
+    {
+      "findingId": "find-004",
+      "vulnerabilityId": "CVE-2019-10744",
+      "purl": "pkg:npm/lodash@3.10.1",
+      "state": "unknown",
+      "analysisConfidence": "low",
+      "confidenceCriteria": [
+        "localisation method patch_reference, high confidence",
+        "occurrence occ-002 reported unanalysed by component 2, reason nested_under_dependency",
+        "package is nested inside a dependency; dependency-internal calls are not analysed"
+      ],
+      "riskPriority": {
+        "band": "insufficient_information",
+        "severity": "critical",
+        "cvssScore": 9.1,
+        "epssScore": 0.0203,
+        "cisaKev": false,
+        "relationship": "transitive",
+        "fixAvailable": true
+      },
+      "justification": "The vulnerable function defaultsDeep was identified with high confidence, but this lodash 3.10.1 is installed under legacy-reporter. Component 2 reported the occurrence as unanalysed because any call would originate inside legacy-reporter, and SBOMber analyses application source only. This cannot be determined either way.",
+      "basedOn": {
+        "usageObservationIds": [],
+        "localisationMethod": "patch_reference",
+        "localisationConfidence": "high",
+        "matchedSymbols": [],
+        "evidenceLevel": 1,
+        "coverageSummary": {
+          "parseCoveragePercent": 95.8,
+          "unresolvedImportsInScope": 1,
+          "scanStatus": "complete"
+        }
+      },
+      "remediation": {
+        "reportedFixedVersion": "4.17.12",
+        "resolvesFindingIds": [
+          "find-004"
+        ]
+      },
+      "vexMapping": {
+        "statement": "under_investigation"
+      }
+    }
+  ],
+  "remediationGroups": [
+    {
+      "purl": "pkg:npm/lodash@4.17.20",
+      "installedVersion": "4.17.20",
+      "reportedFixedVersion": "4.17.21",
+      "findingIds": [
+        "find-001"
+      ],
+      "highestBand": "act_now",
+      "relationship": "direct"
+    },
+    {
+      "purl": "pkg:npm/lodash@3.10.1",
+      "installedVersion": "3.10.1",
+      "reportedFixedVersion": "4.17.12",
+      "findingIds": [
+        "find-004"
+      ],
+      "highestBand": "insufficient_information",
+      "relationship": "transitive"
+    },
+    {
+      "purl": "pkg:npm/axios@0.21.0",
+      "installedVersion": "0.21.0",
+      "reportedFixedVersion": "0.21.1",
+      "findingIds": [
+        "find-002"
+      ],
+      "highestBand": "lower_priority",
+      "relationship": "direct"
+    },
+    {
+      "purl": "pkg:npm/minimist@1.2.5",
+      "installedVersion": "1.2.5",
+      "reportedFixedVersion": "1.2.6",
+      "findingIds": [
+        "find-003"
+      ],
+      "highestBand": "insufficient_information",
+      "relationship": "transitive"
+    }
+  ]
+}

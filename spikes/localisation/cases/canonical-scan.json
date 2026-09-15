@@ -1,0 +1,388 @@
+{
+  "schemaVersion": "1.0.0",
+  "scan": {
+    "scanId": "scan-2026-09-06-localisation-eval",
+    "startedAt": "2026-08-12T09:14:02Z",
+    "completedAt": "2026-08-12T09:14:48Z",
+    "toolVersions": {
+      "sbomber": "0.9.0-projectb",
+      "grype": "0.79.2",
+      "go": "1.26.0"
+    },
+    "status": "complete",
+    "statusDetail": {
+      "skippedFiles": [],
+      "failedFiles": [],
+      "truncatedTree": false,
+      "limitsHit": []
+    },
+    "repositories": [
+      {
+        "repositoryId": "repo-eval",
+        "path": "spikes/localisation/cases",
+        "commit": "0000000000000000000000000000000000000000",
+        "source": "local"
+      }
+    ],
+    "enrichment": [
+      {
+        "source": "epss",
+        "status": "success"
+      },
+      {
+        "source": "cisa_kev",
+        "status": "success"
+      },
+      {
+        "source": "ghsa",
+        "status": "success"
+      },
+      {
+        "source": "registry",
+        "status": "success"
+      },
+      {
+        "source": "malware",
+        "status": "timed_out",
+        "detail": "OSV malware endpoint exceeded 15s; results absent, not clean"
+      }
+    ]
+  },
+  "components": [
+    {
+      "purl": "pkg:npm/lodash@4.17.20",
+      "ecosystem": "npm",
+      "name": "lodash",
+      "version": "4.17.20",
+      "versionKnown": true,
+      "declaredConstraint": "^4.17.0"
+    },
+    {
+      "purl": "pkg:npm/lodash@4.17.4",
+      "ecosystem": "npm",
+      "name": "lodash",
+      "version": "4.17.4",
+      "versionKnown": true,
+      "declaredConstraint": "^4.17.0"
+    },
+    {
+      "purl": "pkg:npm/lodash@4.17.11",
+      "ecosystem": "npm",
+      "name": "lodash",
+      "version": "4.17.11",
+      "versionKnown": true,
+      "declaredConstraint": "^4.17.0"
+    },
+    {
+      "purl": "pkg:npm/ini@1.3.5",
+      "ecosystem": "npm",
+      "name": "ini",
+      "version": "1.3.5",
+      "versionKnown": true,
+      "declaredConstraint": "^4.17.0"
+    },
+    {
+      "purl": "pkg:npm/semver@7.5.1",
+      "ecosystem": "npm",
+      "name": "semver",
+      "version": "7.5.1",
+      "versionKnown": true,
+      "declaredConstraint": "^4.17.0"
+    },
+    {
+      "purl": "pkg:npm/minimist@1.2.2",
+      "ecosystem": "npm",
+      "name": "minimist",
+      "version": "1.2.2",
+      "versionKnown": true,
+      "declaredConstraint": "^4.17.0"
+    },
+    {
+      "purl": "pkg:npm/qs@6.10.2",
+      "ecosystem": "npm",
+      "name": "qs",
+      "version": "6.10.2",
+      "versionKnown": true,
+      "declaredConstraint": "^4.17.0"
+    },
+    {
+      "purl": "pkg:npm/node-fetch@2.6.6",
+      "ecosystem": "npm",
+      "name": "node-fetch",
+      "version": "2.6.6",
+      "versionKnown": true,
+      "declaredConstraint": "^4.17.0"
+    },
+    {
+      "purl": "pkg:npm/ansi-regex@5.0.0",
+      "ecosystem": "npm",
+      "name": "ansi-regex",
+      "version": "5.0.0",
+      "versionKnown": true,
+      "declaredConstraint": "^4.17.0"
+    },
+    {
+      "purl": "pkg:npm/decode-uri-component@0.2.0",
+      "ecosystem": "npm",
+      "name": "decode-uri-component",
+      "version": "0.2.0",
+      "versionKnown": true,
+      "declaredConstraint": "^4.17.0"
+    }
+  ],
+  "occurrences": [
+    {
+      "occurrenceId": "occ-001",
+      "purl": "pkg:npm/lodash@4.17.20",
+      "repositoryId": "repo-eval",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [
+        "pkg:npm/lodash@4.17.20"
+      ],
+      "installPath": "node_modules/lodash",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-002",
+      "purl": "pkg:npm/lodash@4.17.4",
+      "repositoryId": "repo-eval",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [
+        "pkg:npm/lodash@4.17.4"
+      ],
+      "installPath": "node_modules/lodash",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-003",
+      "purl": "pkg:npm/lodash@4.17.11",
+      "repositoryId": "repo-eval",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [
+        "pkg:npm/lodash@4.17.11"
+      ],
+      "installPath": "node_modules/lodash",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-004",
+      "purl": "pkg:npm/ini@1.3.5",
+      "repositoryId": "repo-eval",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [
+        "pkg:npm/ini@1.3.5"
+      ],
+      "installPath": "node_modules/ini",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-005",
+      "purl": "pkg:npm/semver@7.5.1",
+      "repositoryId": "repo-eval",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [
+        "pkg:npm/semver@7.5.1"
+      ],
+      "installPath": "node_modules/semver",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-006",
+      "purl": "pkg:npm/minimist@1.2.2",
+      "repositoryId": "repo-eval",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [
+        "pkg:npm/minimist@1.2.2"
+      ],
+      "installPath": "node_modules/minimist",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-007",
+      "purl": "pkg:npm/qs@6.10.2",
+      "repositoryId": "repo-eval",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [
+        "pkg:npm/qs@6.10.2"
+      ],
+      "installPath": "node_modules/qs",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-008",
+      "purl": "pkg:npm/node-fetch@2.6.6",
+      "repositoryId": "repo-eval",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [
+        "pkg:npm/node-fetch@2.6.6"
+      ],
+      "installPath": "node_modules/node-fetch",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-009",
+      "purl": "pkg:npm/ansi-regex@5.0.0",
+      "repositoryId": "repo-eval",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [
+        "pkg:npm/ansi-regex@5.0.0"
+      ],
+      "installPath": "node_modules/ansi-regex",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-010",
+      "purl": "pkg:npm/decode-uri-component@0.2.0",
+      "repositoryId": "repo-eval",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [
+        "pkg:npm/decode-uri-component@0.2.0"
+      ],
+      "installPath": "node_modules/decode-uri-component",
+      "scope": "runtime"
+    }
+  ],
+  "findings": [
+    {
+      "findingId": "c01",
+      "vulnerabilityId": "CVE-2021-23337",
+      "aliases": [
+        "GHSA-35jh-r3h4-6jhm"
+      ],
+      "purl": "pkg:npm/lodash@4.17.20",
+      "occurrenceIds": [
+        "occ-001"
+      ],
+      "severity": "high",
+      "fixedVersion": "4.17.21"
+    },
+    {
+      "findingId": "c02",
+      "vulnerabilityId": "CVE-2018-16487",
+      "aliases": [
+        "GHSA-4xc9-xhrj-v574"
+      ],
+      "purl": "pkg:npm/lodash@4.17.4",
+      "occurrenceIds": [
+        "occ-002"
+      ],
+      "severity": "high",
+      "fixedVersion": "4.17.11"
+    },
+    {
+      "findingId": "c03",
+      "vulnerabilityId": "CVE-2019-10744",
+      "aliases": [
+        "GHSA-jf85-cpcp-j695"
+      ],
+      "purl": "pkg:npm/lodash@4.17.11",
+      "occurrenceIds": [
+        "occ-003"
+      ],
+      "severity": "high",
+      "fixedVersion": "4.17.12"
+    },
+    {
+      "findingId": "c04",
+      "vulnerabilityId": "CVE-2020-7788",
+      "aliases": [
+        "GHSA-qqgx-2p2h-9c37"
+      ],
+      "purl": "pkg:npm/ini@1.3.5",
+      "occurrenceIds": [
+        "occ-004"
+      ],
+      "severity": "high",
+      "fixedVersion": "1.3.6"
+    },
+    {
+      "findingId": "c05",
+      "vulnerabilityId": "CVE-2022-25883",
+      "aliases": [
+        "GHSA-c2qf-rxjj-qqgw"
+      ],
+      "purl": "pkg:npm/semver@7.5.1",
+      "occurrenceIds": [
+        "occ-005"
+      ],
+      "severity": "high",
+      "fixedVersion": "7.5.2"
+    },
+    {
+      "findingId": "c06",
+      "vulnerabilityId": "CVE-2020-7598",
+      "aliases": [
+        "GHSA-vh95-rmgr-6w4m"
+      ],
+      "purl": "pkg:npm/minimist@1.2.2",
+      "occurrenceIds": [
+        "occ-006"
+      ],
+      "severity": "high",
+      "fixedVersion": "1.2.3"
+    },
+    {
+      "findingId": "c07",
+      "vulnerabilityId": "CVE-2022-24999",
+      "aliases": [
+        "GHSA-hrpp-h998-j3pp"
+      ],
+      "purl": "pkg:npm/qs@6.10.2",
+      "occurrenceIds": [
+        "occ-007"
+      ],
+      "severity": "high",
+      "fixedVersion": "6.10.3"
+    },
+    {
+      "findingId": "c08",
+      "vulnerabilityId": "CVE-2022-0235",
+      "aliases": [
+        "GHSA-r683-j2x4-v87g"
+      ],
+      "purl": "pkg:npm/node-fetch@2.6.6",
+      "occurrenceIds": [
+        "occ-008"
+      ],
+      "severity": "high",
+      "fixedVersion": "2.6.7"
+    },
+    {
+      "findingId": "c09",
+      "vulnerabilityId": "CVE-2021-3807",
+      "aliases": [
+        "GHSA-93q8-gq69-wqmw"
+      ],
+      "purl": "pkg:npm/ansi-regex@5.0.0",
+      "occurrenceIds": [
+        "occ-009"
+      ],
+      "severity": "high",
+      "fixedVersion": "5.0.1"
+    },
+    {
+      "findingId": "c10",
+      "vulnerabilityId": "CVE-2022-38900",
+      "aliases": [
+        "GHSA-w573-4hg7-7wgq"
+      ],
+      "purl": "pkg:npm/decode-uri-component@0.2.0",
+      "occurrenceIds": [
+        "occ-010"
+      ],
+      "severity": "high",
+      "fixedVersion": "0.2.1"
+    }
+  ],
+  "supplyChainWarnings": []
+}

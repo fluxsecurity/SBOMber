@@ -1,0 +1,120 @@
+{
+  "schemaVersion": "1.0.0",
+  "scanId": "scan-2026-08-12-0001",
+  "summary": {
+    "findingsProcessed": 4,
+    "byMethod": {
+      "advisory_metadata": 1,
+      "version_diff": 1,
+      "patch_reference": 1,
+      "unknown": 1
+    },
+    "unknownCount": 1
+  },
+  "results": [
+    {
+      "findingId": "find-001",
+      "vulnerabilityId": "CVE-2021-23337",
+      "purl": "pkg:npm/lodash@4.17.20",
+      "method": "advisory_metadata",
+      "confidence": "high",
+      "candidateSymbols": [
+        {
+          "symbol": "template",
+          "modulePath": "lodash.js",
+          "changeKind": "modified",
+          "note": "Named directly in the GHSA advisory text"
+        }
+      ],
+      "vulnerableVersion": "4.17.20",
+      "fixedVersion": "4.17.21",
+      "provenance": {
+        "advisorySource": "ghsa",
+        "advisoryUrl": "https://github.com/advisories/GHSA-35jh-r3h4-6jhm",
+        "patchCommit": "3469357cff396a26c363f8c1b5a91dde28ba4b1c"
+      },
+      "notes": "Advisory names the affected function, so no diff was needed."
+    },
+    {
+      "findingId": "find-002",
+      "vulnerabilityId": "CVE-2020-28168",
+      "purl": "pkg:npm/axios@0.21.0",
+      "method": "version_diff",
+      "confidence": "medium",
+      "candidateSymbols": [
+        {
+          "symbol": "isURLSameOrigin",
+          "modulePath": "lib/helpers/isURLSameOrigin.js",
+          "changeKind": "modified"
+        },
+        {
+          "symbol": "redirect",
+          "modulePath": "lib/adapters/http.js",
+          "changeKind": "modified",
+          "note": "Same patch also refactored header handling; both retained as candidates"
+        }
+      ],
+      "vulnerableVersion": "0.21.0",
+      "fixedVersion": "0.21.1",
+      "provenance": {
+        "advisorySource": "osv",
+        "advisoryUrl": "https://osv.dev/vulnerability/CVE-2020-28168",
+        "artefacts": [
+          {
+            "url": "https://registry.npmjs.org/axios/-/axios-0.21.0.tgz",
+            "sha256": "a1b2c3d4e5f60718293a4b5c6d7e8f90a1b2c3d4e5f60718293a4b5c6d7e8f90",
+            "sizeBytes": 421887,
+            "verified": true,
+            "executed": false
+          },
+          {
+            "url": "https://registry.npmjs.org/axios/-/axios-0.21.1.tgz",
+            "sha256": "f0e1d2c3b4a59687756453342312f0e1d2c3b4a59687756453342312f0e1d2c3",
+            "sizeBytes": 423104,
+            "verified": true,
+            "executed": false
+          }
+        ]
+      },
+      "excludedChanges": ["docs", "tests", "ci_config"],
+      "notes": "Advisory did not name a function. Diff produced two candidates; neither is proven to be the vulnerable one."
+    },
+    {
+      "findingId": "find-003",
+      "vulnerabilityId": "CVE-2021-44906",
+      "purl": "pkg:npm/minimist@1.2.5",
+      "method": "unknown",
+      "confidence": "none",
+      "candidateSymbols": [],
+      "vulnerableVersion": "1.2.5",
+      "fixedVersion": "1.2.6",
+      "provenance": {
+        "advisorySource": "osv",
+        "advisoryUrl": "https://osv.dev/vulnerability/CVE-2021-44906"
+      },
+      "notes": "Prototype pollution in argument parsing; no single implicated symbol. Falls back to package-level treatment."
+    },
+    {
+      "findingId": "find-004",
+      "vulnerabilityId": "CVE-2019-10744",
+      "purl": "pkg:npm/lodash@3.10.1",
+      "method": "patch_reference",
+      "confidence": "high",
+      "candidateSymbols": [
+        {
+          "symbol": "defaultsDeep",
+          "modulePath": "lodash.js",
+          "changeKind": "modified"
+        }
+      ],
+      "vulnerableVersion": "3.10.1",
+      "fixedVersion": "4.17.12",
+      "provenance": {
+        "advisorySource": "ghsa",
+        "advisoryUrl": "https://github.com/advisories/GHSA-jf85-cpcp-j695",
+        "patchCommit": "5c08f18d365b64063bfbfa686cbb97cdd6267347"
+      },
+      "notes": "Maintainer security commit identifies the function directly."
+    }
+  ]
+}

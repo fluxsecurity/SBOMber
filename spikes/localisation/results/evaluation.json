@@ -1,0 +1,1059 @@
+{
+  "summary": {
+    "cases": 10,
+    "unknownCount": 0,
+    "unknownRate": 0.0,
+    "selectedChangedHit": 10,
+    "selectedPublicHit": 5,
+    "clientMethod": {
+      "searched": 10,
+      "matched": 1
+    },
+    "perMethod": {
+      "advisory_metadata": {
+        "attempted": 10,
+        "hit": 0,
+        "changed_hit": 0,
+        "public_hit": 0,
+        "empty": 10,
+        "error": 0,
+        "non_code": 0,
+        "skipped": 0,
+        "unbounded": 0,
+        "candidates": null,
+        "medianCandidates": null
+      },
+      "patch_reference": {
+        "attempted": 10,
+        "hit": 10,
+        "changed_hit": 10,
+        "public_hit": 5,
+        "empty": 0,
+        "error": 0,
+        "non_code": 0,
+        "skipped": 0,
+        "unbounded": 0,
+        "candidates": 3.5,
+        "medianCandidates": 2
+      },
+      "advisory_text": {
+        "attempted": 10,
+        "hit": 6,
+        "changed_hit": 1,
+        "public_hit": 4,
+        "empty": 4,
+        "error": 0,
+        "non_code": 0,
+        "skipped": 0,
+        "unbounded": 0,
+        "candidates": 1.8,
+        "medianCandidates": 1
+      },
+      "version_diff": {
+        "attempted": 10,
+        "hit": 10,
+        "changed_hit": 10,
+        "public_hit": 4,
+        "empty": 0,
+        "error": 0,
+        "non_code": 0,
+        "skipped": 0,
+        "unbounded": 0,
+        "candidates": 7.1,
+        "medianCandidates": 7
+      }
+    }
+  },
+  "cases": [
+    {
+      "id": "c01",
+      "vulnerabilityId": "CVE-2021-23337",
+      "package": "lodash",
+      "advisoryNamesFunction": true,
+      "expectedChanged": [
+        "template"
+      ],
+      "expectedPublic": [
+        "template"
+      ],
+      "selected": "patch_reference",
+      "confidence": "high",
+      "selectedSymbols": [
+        "template"
+      ],
+      "methods": {
+        "advisory_metadata": {
+          "outcome": "empty",
+          "candidates": [],
+          "changedHit": false,
+          "publicHit": false,
+          "nonFunctionChanges": [],
+          "notes": [
+            "OSV record has no ecosystem_specific block for this npm package; no structured function field exists"
+          ]
+        },
+        "patch_reference": {
+          "outcome": "hit",
+          "candidates": [
+            "template"
+          ],
+          "changedHit": true,
+          "publicHit": true,
+          "nonFunctionChanges": [],
+          "notes": [
+            "lodash.js: 3 changed line(s) at module level outside any function",
+            "lodash.js: 1 changed line(s) at module level outside any function"
+          ]
+        },
+        "advisory_text": {
+          "outcome": "hit",
+          "candidates": [
+            "template"
+          ],
+          "changedHit": true,
+          "publicHit": true,
+          "nonFunctionChanges": [],
+          "notes": []
+        },
+        "version_diff": {
+          "outcome": "hit",
+          "candidates": [
+            "baseTrim",
+            "default",
+            "template",
+            "toNumber",
+            "trim",
+            "trimEnd",
+            "trimmedEndIndex"
+          ],
+          "changedHit": true,
+          "publicHit": true,
+          "nonFunctionChanges": [
+            "trimmedEndIndex (_baseTrim.js)",
+            "reTrimStart (_baseTrim.js)",
+            "reWhitespace (_trimmedEndIndex.js)",
+            "INVALID_TEMPL_VAR_ERROR_TEXT (template.js)",
+            "reForbiddenIdentifierChars (template.js)",
+            "baseTrim (toNumber.js)",
+            "isObject (toNumber.js)",
+            "reTrim (toNumber.js)",
+            "baseTrim (trim.js)",
+            "reTrim (trim.js)",
+            "toString (trimEnd.js)",
+            "trimmedEndIndex (trimEnd.js)",
+            "reTrimEnd (trimEnd.js)"
+          ],
+          "notes": [
+            "12 source file(s) differ between 4.17.20 and 4.17.21",
+            "_baseTrim.js: 1 changed line(s) at module level outside any function",
+            "_trimmedEndIndex.js: 1 changed line(s) at module level outside any function",
+            "core.js: 1 changed line(s) at module level outside any function",
+            "core.js: 1 changed line(s) at module level outside any function",
+            "core.min.js: minified, not attributed",
+            "core.min.js: minified, not attributed",
+            "lodash.js: 6 changed line(s) at module level outside any function",
+            "lodash.js: 5 changed line(s) at module level outside any function",
+            "lodash.min.js: minified, not attributed",
+            "lodash.min.js: minified, not attributed"
+          ]
+        }
+      },
+      "clientMethod": {
+        "repository": "lodash/lodash",
+        "query": "GHSA-35jh-r3h4-6jhm CVE-2021-23337 CVE-2026-4800 GHSA-r5fr-rjxr-66jc",
+        "commitsMatched": 1,
+        "commitSHAs": [
+          "879aaa93132d78c2f8d20c60279da9f8b21576d6"
+        ]
+      },
+      "selectedChangedHit": true,
+      "selectedPublicHit": true
+    },
+    {
+      "id": "c02",
+      "vulnerabilityId": "CVE-2018-16487",
+      "package": "lodash",
+      "advisoryNamesFunction": true,
+      "expectedChanged": [
+        "safeGet"
+      ],
+      "expectedPublic": [
+        "merge",
+        "mergeWith",
+        "defaultsDeep"
+      ],
+      "selected": "patch_reference",
+      "confidence": "high",
+      "selectedSymbols": [
+        "safeGet"
+      ],
+      "methods": {
+        "advisory_metadata": {
+          "outcome": "empty",
+          "candidates": [],
+          "changedHit": false,
+          "publicHit": false,
+          "nonFunctionChanges": [],
+          "notes": [
+            "OSV record has no ecosystem_specific block for this npm package; no structured function field exists"
+          ]
+        },
+        "patch_reference": {
+          "outcome": "hit",
+          "candidates": [
+            "safeGet"
+          ],
+          "changedHit": true,
+          "publicHit": false,
+          "nonFunctionChanges": [],
+          "notes": []
+        },
+        "advisory_text": {
+          "outcome": "hit",
+          "candidates": [
+            "are",
+            "defaultsDeep",
+            "mergeWith",
+            "vulnerable"
+          ],
+          "changedHit": false,
+          "publicHit": true,
+          "nonFunctionChanges": [],
+          "notes": [
+            "4 identifiers extracted from prose; heuristic extraction is over-inclusive"
+          ]
+        },
+        "version_diff": {
+          "outcome": "hit",
+          "candidates": [
+            "addMapEntry",
+            "addSetEntry",
+            "baseClone",
+            "baseConvert",
+            "baseMerge",
+            "baseMergeDeep",
+            "cloneByPath",
+            "cloneMap",
+            "cloneSet",
+            "customDefaultsAssignIn",
+            "default",
+            "initCloneArray",
+            "initCloneByTag",
+            "isIndex",
+            "isIterateeCall",
+            "remainingWait",
+            "runInContext",
+            "safeGet",
+            "wrap"
+          ],
+          "changedHit": true,
+          "publicHit": false,
+          "nonFunctionChanges": [
+            "isMap (_baseClone.js)",
+            "isSet (_baseClone.js)",
+            "keysIn (_baseMerge.js)",
+            "safeGet (_baseMerge.js)",
+            "safeGet (_baseMergeDeep.js)",
+            "addMapEntry (_cloneMap.js)",
+            "arrayReduce (_cloneMap.js)",
+            "mapToArray (_cloneMap.js)",
+            "CLONE_DEEP_FLAG (_cloneMap.js)",
+            "addSetEntry (_cloneSet.js)",
+            "arrayReduce (_cloneSet.js)",
+            "setToArray (_cloneSet.js)",
+            "CLONE_DEEP_FLAG (_cloneSet.js)",
+            "reHasUnicodeWord (_hasUnicodeWord.js)",
+            "cloneMap (_initCloneByTag.js)",
+            "cloneSet (_initCloneByTag.js)",
+            "nodeUtil (_nodeUtil.js)",
+            "rePropName (_stringToPath.js)",
+            "stringToPath (_stringToPath.js)",
+            "reLeadingDot (_stringToPath.js)",
+            "rsOrdLower (_unicodeWords.js)",
+            "rsOrdUpper (_unicodeWords.js)",
+            "baseRest (defaults.js)",
+            "eq (defaults.js)",
+            "isIterateeCall (defaults.js)",
+            "keysIn (defaults.js)",
+            "objectProto (defaults.js)",
+            "hasOwnProperty (defaults.js)",
+            "defaults (defaults.js)",
+            "apply (defaults.js)",
+            "assignInWith (defaults.js)",
+            "customDefaultsAssignIn (defaults.js)",
+            "objectProto (invert.js)",
+            "nativeObjectToString (invert.js)",
+            "invert (invert.js)",
+            "nativeObjectToString (invertBy.js)",
+            "invertBy (invertBy.js)"
+          ],
+          "notes": [
+            "26 source file(s) differ between 4.17.4 and 4.17.11",
+            "_addMapEntry.js: 1 changed line(s) at module level outside any function",
+            "_addSetEntry.js: 1 changed line(s) at module level outside any function",
+            "_cloneMap.js: 1 changed line(s) at module level outside any function",
+            "_cloneSet.js: 1 changed line(s) at module level outside any function",
+            "_safeGet.js: 1 changed line(s) at module level outside any function",
+            "core.js: 25 changed line(s) at module level outside any function",
+            "core.js: 7 changed line(s) at module level outside any function",
+            "core.min.js: minified, not attributed",
+            "core.min.js: minified, not attributed",
+            "fp/_mapping.js: 8 changed line(s) at module level outside any function",
+            "fp/_util.js: 2 changed line(s) at module level outside any function",
+            "lodash.js: 8 changed line(s) at module level outside any function",
+            "lodash.js: 5 changed line(s) at module level outside any function",
+            "lodash.min.js: minified, not attributed",
+            "lodash.min.js: minified, not attributed"
+          ]
+        }
+      },
+      "clientMethod": {
+        "repository": "lodash/lodash",
+        "query": "GHSA-4xc9-xhrj-v574 CVE-2018-16487",
+        "commitsMatched": 0
+      },
+      "selectedChangedHit": true,
+      "selectedPublicHit": false
+    },
+    {
+      "id": "c03",
+      "vulnerabilityId": "CVE-2019-10744",
+      "package": "lodash",
+      "advisoryNamesFunction": true,
+      "expectedChanged": [
+        "safeGet"
+      ],
+      "expectedPublic": [
+        "defaultsDeep"
+      ],
+      "selected": "patch_reference",
+      "confidence": "high",
+      "selectedSymbols": [
+        "safeGet"
+      ],
+      "methods": {
+        "advisory_metadata": {
+          "outcome": "empty",
+          "candidates": [],
+          "changedHit": false,
+          "publicHit": false,
+          "nonFunctionChanges": [],
+          "notes": [
+            "OSV record has no ecosystem_specific block for this npm package; no structured function field exists"
+          ]
+        },
+        "patch_reference": {
+          "outcome": "hit",
+          "candidates": [
+            "safeGet"
+          ],
+          "changedHit": true,
+          "publicHit": false,
+          "nonFunctionChanges": [],
+          "notes": [
+            "pull request lodash/lodash#4336 resolved to 1 commit(s)"
+          ]
+        },
+        "advisory_text": {
+          "outcome": "hit",
+          "candidates": [
+            "defaultsDeep"
+          ],
+          "changedHit": false,
+          "publicHit": true,
+          "nonFunctionChanges": [],
+          "notes": []
+        },
+        "version_diff": {
+          "outcome": "hit",
+          "candidates": [
+            "baseClone",
+            "baseMerge",
+            "createRound",
+            "debounced",
+            "default",
+            "runInContext",
+            "safeGet",
+            "template"
+          ],
+          "changedHit": true,
+          "publicHit": false,
+          "nonFunctionChanges": [
+            "nativeIsFinite (_createRound.js)",
+            "nativeMin (_createRound.js)",
+            "fs (org.js)",
+            "path (org.js)",
+            "_ (org.js)",
+            "glob (org.js)",
+            "moment (org.js)",
+            "ncp (org.js)",
+            "cwd (org.js)",
+            "packages (org.js)",
+            "grouped (org.js)",
+            "objectProto (template.js)",
+            "hasOwnProperty (template.js)"
+          ],
+          "notes": [
+            "11 source file(s) differ between 4.17.11 and 4.17.12",
+            "core.js: 1 changed line(s) at module level outside any function",
+            "core.js: 1 changed line(s) at module level outside any function",
+            "core.min.js: minified, not attributed",
+            "core.min.js: minified, not attributed",
+            "lodash.js: 1 changed line(s) at module level outside any function",
+            "lodash.js: 1 changed line(s) at module level outside any function",
+            "lodash.min.js: minified, not attributed",
+            "lodash.min.js: minified, not attributed",
+            "org.js: 17 changed line(s) at module level outside any function"
+          ]
+        }
+      },
+      "clientMethod": {
+        "repository": "lodash/lodash",
+        "query": "GHSA-jf85-cpcp-j695 CVE-2019-10744",
+        "commitsMatched": 0
+      },
+      "selectedChangedHit": true,
+      "selectedPublicHit": false
+    },
+    {
+      "id": "c04",
+      "vulnerabilityId": "CVE-2020-7788",
+      "package": "ini",
+      "advisoryNamesFunction": true,
+      "expectedChanged": [
+        "decode"
+      ],
+      "expectedPublic": [
+        "parse",
+        "decode"
+      ],
+      "selected": "patch_reference",
+      "confidence": "high",
+      "selectedSymbols": [
+        "decode",
+        "parse"
+      ],
+      "methods": {
+        "advisory_metadata": {
+          "outcome": "empty",
+          "candidates": [],
+          "changedHit": false,
+          "publicHit": false,
+          "nonFunctionChanges": [],
+          "notes": [
+            "OSV record has no ecosystem_specific block for this npm package; no structured function field exists"
+          ]
+        },
+        "patch_reference": {
+          "outcome": "hit",
+          "candidates": [
+            "decode",
+            "parse"
+          ],
+          "changedHit": true,
+          "publicHit": true,
+          "nonFunctionChanges": [],
+          "notes": []
+        },
+        "advisory_text": {
+          "outcome": "hit",
+          "candidates": [
+            "parse"
+          ],
+          "changedHit": false,
+          "publicHit": true,
+          "nonFunctionChanges": [],
+          "notes": []
+        },
+        "version_diff": {
+          "outcome": "hit",
+          "candidates": [
+            "decode",
+            "parse"
+          ],
+          "changedHit": true,
+          "publicHit": true,
+          "nonFunctionChanges": [],
+          "notes": [
+            "1 source file(s) differ between 1.3.5 and 1.3.6"
+          ]
+        }
+      },
+      "clientMethod": {
+        "repository": "npm/ini",
+        "query": "GHSA-qqgx-2p2h-9c37 CVE-2020-7788",
+        "commitsMatched": 0
+      },
+      "selectedChangedHit": true,
+      "selectedPublicHit": true
+    },
+    {
+      "id": "c05",
+      "vulnerabilityId": "CVE-2022-25883",
+      "package": "semver",
+      "advisoryNamesFunction": true,
+      "expectedChanged": [
+        "Range",
+        "format",
+        "parseRange",
+        "replaceTildes",
+        "replaceCarets",
+        "replaceXRanges",
+        "Comparator"
+      ],
+      "expectedPublic": [
+        "Range"
+      ],
+      "selected": "patch_reference",
+      "confidence": "low",
+      "selectedSymbols": [
+        "makeSafeRe",
+        "parse",
+        "SemVer",
+        "default",
+        "Comparator",
+        "Range",
+        "parseRange",
+        "replaceTilde",
+        "replaceCaret",
+        "replaceXRange",
+        "replaceStars",
+        "coerce",
+        "constructor",
+        "constructor",
+        "format",
+        "replaceTildes",
+        "replaceCarets",
+        "replaceXRanges",
+        "replaceStars",
+        "replaceGTE0",
+        "hyphenReplace",
+        "parseRange",
+        "createToken"
+      ],
+      "methods": {
+        "advisory_metadata": {
+          "outcome": "empty",
+          "candidates": [],
+          "changedHit": false,
+          "publicHit": false,
+          "nonFunctionChanges": [],
+          "notes": [
+            "OSV record has no ecosystem_specific block for this npm package; no structured function field exists"
+          ]
+        },
+        "patch_reference": {
+          "outcome": "hit",
+          "candidates": [
+            "Comparator",
+            "Range",
+            "SemVer",
+            "coerce",
+            "constructor",
+            "createToken",
+            "default",
+            "format",
+            "hyphenReplace",
+            "makeSafeRe",
+            "parse",
+            "parseRange",
+            "replaceCaret",
+            "replaceCarets",
+            "replaceGTE0",
+            "replaceStars",
+            "replaceTilde",
+            "replaceTildes",
+            "replaceXRange",
+            "replaceXRanges"
+          ],
+          "changedHit": true,
+          "publicHit": true,
+          "nonFunctionChanges": [
+            "MAX_SAFE_BUILD_LENGTH (semver.js)",
+            "safeRe (semver.js)",
+            "LETTERDASHNUMBER (semver.js)",
+            "safeRegexReplacements (semver.js)",
+            "safeRe (internal/re.js)"
+          ],
+          "notes": [
+            "pull request npm/node-semver#564 resolved to 1 commit(s)",
+            "pull request npm/node-semver#585 resolved to 1 commit(s)",
+            "pull request npm/node-semver#593 resolved to 1 commit(s)",
+            "commit b717044e57 changes no source code (release or docs commit)",
+            "semver.js: 7 changed line(s) at module level outside any function",
+            "semver.js: 3 changed line(s) at module level outside any function",
+            "classes/comparator.js: 1 changed line(s) at module level outside any function",
+            "classes/comparator.js: 1 changed line(s) at module level outside any function",
+            "classes/range.js: 1 changed line(s) at module level outside any function",
+            "classes/range.js: 1 changed line(s) at module level outside any function",
+            "classes/semver.js: 1 changed line(s) at module level outside any function",
+            "classes/semver.js: 1 changed line(s) at module level outside any function",
+            "functions/coerce.js: 1 changed line(s) at module level outside any function",
+            "functions/coerce.js: 1 changed line(s) at module level outside any function",
+            "semver.js: 8 changed line(s) at module level outside any function",
+            "semver.js: 3 changed line(s) at module level outside any function",
+            "classes/comparator.js: 1 changed line(s) at module level outside any function",
+            "classes/comparator.js: 1 changed line(s) at module level outside any function",
+            "classes/range.js: 1 changed line(s) at module level outside any function",
+            "classes/range.js: 1 changed line(s) at module level outside any function",
+            "classes/semver.js: 1 changed line(s) at module level outside any function",
+            "classes/semver.js: 1 changed line(s) at module level outside any function",
+            "functions/coerce.js: 1 changed line(s) at module level outside any function",
+            "functions/coerce.js: 1 changed line(s) at module level outside any function",
+            "semver.js: 7 changed line(s) at module level outside any function",
+            "semver.js: 3 changed line(s) at module level outside any function",
+            "5 commits attributed and merged: npm/node-semver@2f8fd41487, npm/node-semver@717534ee35, npm/node-semver@928e56d211, npm/node-semver@b6db78d8c9, npm/node-semver@d4530b8c97"
+          ]
+        },
+        "advisory_text": {
+          "outcome": "empty",
+          "candidates": [],
+          "changedHit": false,
+          "publicHit": false,
+          "nonFunctionChanges": [],
+          "notes": [
+            "advisory prose names no function-like identifier"
+          ]
+        },
+        "version_diff": {
+          "outcome": "hit",
+          "candidates": [
+            "constructor",
+            "createToken",
+            "default",
+            "diff",
+            "format",
+            "hyphenReplace",
+            "inc",
+            "parseRange",
+            "replaceCarets",
+            "replaceGTE0",
+            "replaceStars",
+            "replaceTildes",
+            "replaceXRanges"
+          ],
+          "changedHit": true,
+          "publicHit": false,
+          "nonFunctionChanges": [
+            "safeRe (internal/re.js)"
+          ],
+          "notes": [
+            "6 source file(s) differ between 7.5.1 and 7.5.2",
+            "classes/comparator.js: 1 changed line(s) at module level outside any function",
+            "classes/comparator.js: 1 changed line(s) at module level outside any function",
+            "classes/range.js: 1 changed line(s) at module level outside any function",
+            "classes/range.js: 1 changed line(s) at module level outside any function",
+            "classes/semver.js: 1 changed line(s) at module level outside any function",
+            "classes/semver.js: 1 changed line(s) at module level outside any function",
+            "functions/coerce.js: 1 changed line(s) at module level outside any function",
+            "functions/coerce.js: 1 changed line(s) at module level outside any function"
+          ]
+        }
+      },
+      "clientMethod": {
+        "repository": "npm/node-semver",
+        "query": "GHSA-c2qf-rxjj-qqgw CVE-2022-25883",
+        "commitsMatched": 0
+      },
+      "selectedChangedHit": true,
+      "selectedPublicHit": true
+    },
+    {
+      "id": "c06",
+      "vulnerabilityId": "CVE-2020-7598",
+      "package": "minimist",
+      "advisoryNamesFunction": false,
+      "expectedChanged": [
+        "setKey"
+      ],
+      "expectedPublic": [
+        "default"
+      ],
+      "selected": "patch_reference",
+      "confidence": "high",
+      "selectedSymbols": [
+        "setKey"
+      ],
+      "methods": {
+        "advisory_metadata": {
+          "outcome": "empty",
+          "candidates": [],
+          "changedHit": false,
+          "publicHit": false,
+          "nonFunctionChanges": [],
+          "notes": [
+            "OSV record has no ecosystem_specific block for this npm package; no structured function field exists"
+          ]
+        },
+        "patch_reference": {
+          "outcome": "hit",
+          "candidates": [
+            "setKey"
+          ],
+          "changedHit": true,
+          "publicHit": false,
+          "nonFunctionChanges": [],
+          "notes": [
+            "commit 4cf1354839 changes no source code (release or docs commit)",
+            "3 commits attributed and merged: minimistjs/minimist@10bd4cdf49, minimistjs/minimist@38a4d1caea, minimistjs/minimist@63e7ed05aa"
+          ]
+        },
+        "advisory_text": {
+          "outcome": "hit",
+          "candidates": [
+            "Polluted"
+          ],
+          "changedHit": false,
+          "publicHit": false,
+          "nonFunctionChanges": [],
+          "notes": []
+        },
+        "version_diff": {
+          "outcome": "hit",
+          "candidates": [
+            "setKey"
+          ],
+          "changedHit": true,
+          "publicHit": false,
+          "nonFunctionChanges": [],
+          "notes": [
+            "2 source file(s) differ between 1.2.2 and 1.2.3"
+          ]
+        }
+      },
+      "clientMethod": {
+        "repository": "substack/minimist",
+        "query": "",
+        "commitsMatched": 0,
+        "error": "HTTP 422 for https://api.github.com/search/commits?per_page=10&q=repo%3Asubstack%2Fminimist+GHSA-vh95-rmgr-6w4m"
+      },
+      "selectedChangedHit": true,
+      "selectedPublicHit": false
+    },
+    {
+      "id": "c07",
+      "vulnerabilityId": "CVE-2022-24999",
+      "package": "qs",
+      "advisoryNamesFunction": false,
+      "expectedChanged": [
+        "parseObject"
+      ],
+      "expectedPublic": [
+        "parse"
+      ],
+      "selected": "patch_reference",
+      "confidence": "high",
+      "selectedSymbols": [
+        "parseObject",
+        "parseObjectRecursive"
+      ],
+      "methods": {
+        "advisory_metadata": {
+          "outcome": "empty",
+          "candidates": [],
+          "changedHit": false,
+          "publicHit": false,
+          "nonFunctionChanges": [],
+          "notes": [
+            "OSV record has no ecosystem_specific block for this npm package; no structured function field exists"
+          ]
+        },
+        "patch_reference": {
+          "outcome": "hit",
+          "candidates": [
+            "parseObject",
+            "parseObjectRecursive"
+          ],
+          "changedHit": true,
+          "publicHit": false,
+          "nonFunctionChanges": [],
+          "notes": [
+            "pull request ljharb/qs#428 resolved to 1 commit(s)",
+            "9 commits attributed and merged: ljharb/qs@4310742efb, ljharb/qs@727ef5d346, ljharb/qs@7320525993, ljharb/qs@8b4cc14cda, ljharb/qs@ba24e74dd1, ljharb/qs@e799ba57e5, ljharb/qs@ed0f5dcbef, ljharb/qs@f945393cfe, ljharb/qs@fc36827766"
+          ]
+        },
+        "advisory_text": {
+          "outcome": "empty",
+          "candidates": [],
+          "changedHit": false,
+          "publicHit": false,
+          "nonFunctionChanges": [],
+          "notes": [
+            "advisory prose names no function-like identifier"
+          ]
+        },
+        "version_diff": {
+          "outcome": "hit",
+          "candidates": [
+            "addNumericSeparator",
+            "arrObjKeys",
+            "collectionOf",
+            "default",
+            "getIndent",
+            "indentedJoin",
+            "inspect",
+            "inspectString",
+            "inspect_",
+            "lowbyte",
+            "nameOf",
+            "normalizeStringifyOptions",
+            "parseObject",
+            "quote",
+            "stringify"
+          ],
+          "changedHit": true,
+          "publicHit": false,
+          "nonFunctionChanges": [],
+          "notes": [
+            "4 source file(s) differ between 6.10.2 and 6.10.3",
+            "dist/qs.js: 13 changed line(s) at module level outside any function",
+            "dist/qs.js: 2 changed line(s) at module level outside any function"
+          ]
+        }
+      },
+      "clientMethod": {
+        "repository": "ljharb/qs",
+        "query": "GHSA-hrpp-h998-j3pp CVE-2022-24999",
+        "commitsMatched": 0
+      },
+      "selectedChangedHit": true,
+      "selectedPublicHit": false
+    },
+    {
+      "id": "c08",
+      "vulnerabilityId": "CVE-2022-0235",
+      "package": "node-fetch",
+      "advisoryNamesFunction": false,
+      "expectedChanged": [
+        "fetch",
+        "isDomainOrSubdomain"
+      ],
+      "expectedPublic": [
+        "default"
+      ],
+      "selected": "patch_reference",
+      "confidence": "high",
+      "selectedSymbols": [
+        "isDomainOrSubdomain",
+        "fetch",
+        "default"
+      ],
+      "methods": {
+        "advisory_metadata": {
+          "outcome": "empty",
+          "candidates": [],
+          "changedHit": false,
+          "publicHit": false,
+          "nonFunctionChanges": [],
+          "notes": [
+            "OSV record has no ecosystem_specific block for this npm package; no structured function field exists"
+          ]
+        },
+        "patch_reference": {
+          "outcome": "hit",
+          "candidates": [
+            "default",
+            "fetch",
+            "isDomainOrSubdomain"
+          ],
+          "changedHit": true,
+          "publicHit": true,
+          "nonFunctionChanges": [
+            "URL (src/index.js)",
+            "resolve_url (src/index.js)"
+          ],
+          "notes": [
+            "pull request node-fetch/node-fetch#1453 resolved to 2 commit(s)",
+            "commit 1ef4b560a1 is the registry gitHead of node-fetch@2.6.7; other referenced commits ignored",
+            "src/index.js: 7 changed line(s) at module level outside any function",
+            "src/index.js: 6 changed line(s) at module level outside any function"
+          ]
+        },
+        "advisory_text": {
+          "outcome": "hit",
+          "candidates": [
+            "authorization",
+            "cookie",
+            "cookie2"
+          ],
+          "changedHit": false,
+          "publicHit": false,
+          "nonFunctionChanges": [],
+          "notes": []
+        },
+        "version_diff": {
+          "outcome": "hit",
+          "candidates": [
+            "default",
+            "fetch",
+            "isDomainOrSubdomain"
+          ],
+          "changedHit": true,
+          "publicHit": true,
+          "nonFunctionChanges": [
+            "URL$1 (lib/index.es.js)",
+            "resolve_url (lib/index.es.js)",
+            "URL$1 (lib/index.js)",
+            "resolve_url (lib/index.js)",
+            "URL$1 (lib/index.mjs)",
+            "resolve_url (lib/index.mjs)"
+          ],
+          "notes": [
+            "3 source file(s) differ between 2.6.6 and 2.6.7"
+          ]
+        }
+      },
+      "clientMethod": {
+        "repository": "node-fetch/node-fetch",
+        "query": "GHSA-r683-j2x4-v87g CVE-2022-0235",
+        "commitsMatched": 0
+      },
+      "selectedChangedHit": true,
+      "selectedPublicHit": true
+    },
+    {
+      "id": "c09",
+      "vulnerabilityId": "CVE-2021-3807",
+      "package": "ansi-regex",
+      "advisoryNamesFunction": false,
+      "expectedChanged": [
+        "default"
+      ],
+      "expectedPublic": [
+        "default"
+      ],
+      "selected": "patch_reference",
+      "confidence": "high",
+      "selectedSymbols": [
+        "default",
+        "ansiRegex"
+      ],
+      "methods": {
+        "advisory_metadata": {
+          "outcome": "empty",
+          "candidates": [],
+          "changedHit": false,
+          "publicHit": false,
+          "nonFunctionChanges": [],
+          "notes": [
+            "OSV record has no ecosystem_specific block for this npm package; no structured function field exists"
+          ]
+        },
+        "patch_reference": {
+          "outcome": "hit",
+          "candidates": [
+            "ansiRegex",
+            "default"
+          ],
+          "changedHit": true,
+          "publicHit": true,
+          "nonFunctionChanges": [],
+          "notes": [
+            "4 commits attributed and merged: chalk/ansi-regex@419250fa51, chalk/ansi-regex@75a657da7a, chalk/ansi-regex@8d1d7cdb58, chalk/ansi-regex@c3c0b3f273"
+          ]
+        },
+        "advisory_text": {
+          "outcome": "empty",
+          "candidates": [],
+          "changedHit": false,
+          "publicHit": false,
+          "nonFunctionChanges": [],
+          "notes": [
+            "advisory prose names no function-like identifier"
+          ]
+        },
+        "version_diff": {
+          "outcome": "hit",
+          "candidates": [
+            "default"
+          ],
+          "changedHit": true,
+          "publicHit": true,
+          "nonFunctionChanges": [],
+          "notes": [
+            "1 source file(s) differ between 5.0.0 and 5.0.1"
+          ]
+        }
+      },
+      "clientMethod": {
+        "repository": "chalk/ansi-regex",
+        "query": "GHSA-93q8-gq69-wqmw CVE-2021-3807",
+        "commitsMatched": 0
+      },
+      "selectedChangedHit": true,
+      "selectedPublicHit": true
+    },
+    {
+      "id": "c10",
+      "vulnerabilityId": "CVE-2022-38900",
+      "package": "decode-uri-component",
+      "advisoryNamesFunction": false,
+      "expectedChanged": [
+        "decodeComponents",
+        "decode"
+      ],
+      "expectedPublic": [
+        "default"
+      ],
+      "selected": "patch_reference",
+      "confidence": "high",
+      "selectedSymbols": [
+        "decodeComponents",
+        "decode"
+      ],
+      "methods": {
+        "advisory_metadata": {
+          "outcome": "empty",
+          "candidates": [],
+          "changedHit": false,
+          "publicHit": false,
+          "nonFunctionChanges": [],
+          "notes": [
+            "OSV record has no ecosystem_specific block for this npm package; no structured function field exists"
+          ]
+        },
+        "patch_reference": {
+          "outcome": "hit",
+          "candidates": [
+            "decode",
+            "decodeComponents"
+          ],
+          "changedHit": true,
+          "publicHit": false,
+          "nonFunctionChanges": [],
+          "notes": []
+        },
+        "advisory_text": {
+          "outcome": "empty",
+          "candidates": [],
+          "changedHit": false,
+          "publicHit": false,
+          "nonFunctionChanges": [],
+          "notes": [
+            "advisory prose names no function-like identifier"
+          ]
+        },
+        "version_diff": {
+          "outcome": "hit",
+          "candidates": [
+            "decode",
+            "decodeComponents"
+          ],
+          "changedHit": true,
+          "publicHit": false,
+          "nonFunctionChanges": [],
+          "notes": [
+            "1 source file(s) differ between 0.2.0 and 0.2.1"
+          ]
+        }
+      },
+      "clientMethod": {
+        "repository": "SamVerschueren/decode-uri-component",
+        "query": "GHSA-w573-4hg7-7wgq CVE-2022-38900",
+        "commitsMatched": 0
+      },
+      "selectedChangedHit": true,
+      "selectedPublicHit": false
+    }
+  ]
+}

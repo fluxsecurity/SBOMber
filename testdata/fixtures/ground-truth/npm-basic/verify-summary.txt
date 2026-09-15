@@ -1,0 +1,28 @@
+
+╔══════════════════════════════════════════════════════════════╗
+║                    SBOM VERIFICATION REPORT                  ║
+╚══════════════════════════════════════════════════════════════╝
+
+┌─────────────────────────────────────────────────────────────┐
+│ SUMMARY                                                     │
+├─────────────────────────────────────────────────────────────┤
+│ Ground Truth Components:  1                                  │
+│ Generated Components:     1                                  │
+│ Matched:                  1                                  │
+│ Missing:                  0                                  │
+│ Extra:                    0                                  │
+│ Version Mismatches:       0                                  │
+└─────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────┐
+│ ACCURACY METRICS                                            │
+├─────────────────────────────────────────────────────────────┤
+│ Precision:        100.0%  (correct / total reported)       │
+│ Recall:           100.0%  (found / total in ground truth)  │
+│ F1 Score:         100.0%  (harmonic mean)                  │
+│ Version Accuracy: 100.0%  (exact version matches)          │
+└─────────────────────────────────────────────────────────────┘
+
+Overall Grade: A+ (Excellent)
+
+Verification note saved: testdata\fixtures\ground-truth\npm-basic\sbom-verify-note.txt

@@ -189,7 +189,7 @@ func (r *Resolver) resolveNpmRepo(name string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	defer resp.Body.Close()
+	defer func() { _ = resp.Body.Close() }()
 
 	if resp.StatusCode != 200 {
 		return "", fmt.Errorf("npm registry returned %d", resp.StatusCode)
@@ -226,7 +226,7 @@ func (r *Resolver) resolvePyPIRepo(name string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	defer resp.Body.Close()
+	defer func() { _ = resp.Body.Close() }()
 
 	if resp.StatusCode != 200 {
 		return "", fmt.Errorf("PyPI returned %d", resp.StatusCode)
@@ -279,7 +279,7 @@ func (r *Resolver) resolveRubyRepo(name string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	defer resp.Body.Close()
+	defer func() { _ = resp.Body.Close() }()
 
 	if resp.StatusCode != 200 {
 		return "", fmt.Errorf("RubyGems returned %d", resp.StatusCode)
@@ -330,7 +330,7 @@ func (r *Resolver) resolveMavenRepo(name string) (string, error) {
 	if err != nil {
 		return "", fmt.Errorf("maven search request failed: %w", err)
 	}
-	defer resp.Body.Close()
+	defer func() { _ = resp.Body.Close() }()
 
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
@@ -353,7 +353,7 @@ func (r *Resolver) resolveMavenRepo(name string) (string, error) {
 	if err != nil {
 		return "", fmt.Errorf("pom fetch failed: %w", err)
 	}
-	defer pomResp.Body.Close()
+	defer func() { _ = pomResp.Body.Close() }()
 
 	pomBody, err := io.ReadAll(pomResp.Body)
 	if err != nil {

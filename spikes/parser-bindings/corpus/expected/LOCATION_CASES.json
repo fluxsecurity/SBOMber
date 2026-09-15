@@ -1,0 +1,56 @@
+{
+  "coordinateConvention": {
+    "lineBase": 1,
+    "columnBase": 0,
+    "columnUnit": "utf8_bytes",
+    "endByte": "exclusive",
+    "bomIncludedInByteOffsets": true,
+    "bomExcludedFromVisibleColumns": true
+  },
+  "cases": [
+    {
+      "fixture": "04-cjs-require.js",
+      "expression": "require(\"node:path\")",
+      "startByte": 42,
+      "endByte": 62,
+      "line": 2,
+      "column": 13
+    },
+    {
+      "fixture": "12-edge.js",
+      "expression": "template",
+      "role": "imported local binding",
+      "startByte": 12,
+      "endByte": 20,
+      "line": 1,
+      "column": 9
+    },
+    {
+      "fixture": "12-edge.js",
+      "expression": "café",
+      "role": "declared identifier",
+      "startByte": 45,
+      "endByte": 50,
+      "line": 2,
+      "column": 6
+    },
+    {
+      "fixture": "12-edge.js",
+      "expression": "template(\"x\")",
+      "role": "call expression",
+      "startByte": 53,
+      "endByte": 66,
+      "line": 2,
+      "column": 14
+    },
+    {
+      "fixture": "12-edge.js",
+      "expression": "café",
+      "role": "default export identifier",
+      "startByte": 84,
+      "endByte": 89,
+      "line": 3,
+      "column": 15
+    }
+  ]
+}

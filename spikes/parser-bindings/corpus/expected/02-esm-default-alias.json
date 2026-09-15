@@ -1,0 +1,48 @@
+{
+  "fixture": "02-esm-default-alias.js",
+  "language": "javascript",
+  "hasError": false,
+  "imports": [
+    {
+      "specifier": "axios",
+      "kind": "esm_default",
+      "local": "axios",
+      "imported": "default",
+      "typeOnly": false,
+      "line": 1,
+      "column": 7
+    },
+    {
+      "specifier": "axios",
+      "kind": "esm_named",
+      "local": "httpGet",
+      "imported": "get",
+      "typeOnly": false,
+      "line": 2,
+      "column": 16
+    }
+  ],
+  "calls": [
+    {
+      "callee": "post",
+      "receiver": "axios",
+      "line": 5,
+      "column": 8
+    },
+    {
+      "callee": "httpGet",
+      "receiver": null,
+      "line": 6,
+      "column": 9
+    }
+  ],
+  "functions": [
+    {
+      "name": "fetchOne",
+      "line": 4,
+      "column": 22,
+      "exported": true
+    }
+  ],
+  "unresolved": []
+}

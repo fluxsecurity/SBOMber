@@ -1,0 +1,148 @@
+==============================================================================
+01-esm-named.js
+total bytes: 109
+==============================================================================
+line=01 startByte=000 content='import { template } from "lodash";'
+line=02 startByte=035 content=''
+line=03 startByte=036 content='export function render(data) {'
+line=04 startByte=067 content='  return template("<%= name %>")(data);'
+line=05 startByte=107 content='}'
+
+==============================================================================
+02-esm-default-alias.js
+total bytes: 160
+==============================================================================
+line=01 startByte=000 content='import axios from "axios";'
+line=02 startByte=027 content='import { get as httpGet } from "axios";'
+line=03 startByte=067 content=''
+line=04 startByte=068 content='export async function fetchOne(url) {'
+line=05 startByte=106 content='  await axios.post(url, {});'
+line=06 startByte=135 content='  return httpGet(url);'
+line=07 startByte=158 content='}'
+
+==============================================================================
+03-esm-namespace.js
+total bytes: 207
+==============================================================================
+line=01 startByte=000 content='import * as _ from "lodash";'
+line=02 startByte=029 content=''
+line=03 startByte=030 content='const method = "template";'
+line=04 startByte=057 content=''
+line=05 startByte=058 content='export function build(src, data) {'
+line=06 startByte=093 content='  const compiled = _.template(src);'
+line=07 startByte=129 content='  const dynamic = _[method](src);'
+line=08 startByte=163 content='  return [compiled(data), dynamic(data)];'
+line=09 startByte=205 content='}'
+
+==============================================================================
+04-cjs-require.js
+total bytes: 147
+==============================================================================
+line=01 startByte=000 content='const _ = require("lodash");'
+line=02 startByte=029 content='const path = require("node:path");'
+line=03 startByte=064 content=''
+line=04 startByte=065 content='module.exports = function join(parts) {'
+line=05 startByte=105 content='  return _.uniq(parts).join(path.sep);'
+line=06 startByte=144 content='};'
+
+==============================================================================
+05-cjs-destructured.js
+total bytes: 154
+==============================================================================
+line=01 startByte=000 content='const { template, merge: mergeDeep } = require("lodash");'
+line=02 startByte=058 content=''
+line=03 startByte=059 content='module.exports.apply = function apply(src, a, b) {'
+line=04 startByte=110 content='  return template(src)(mergeDeep(a, b));'
+line=05 startByte=151 content='};'
+
+==============================================================================
+06-subpath.js
+total bytes: 168
+==============================================================================
+line=01 startByte=000 content='import template from "lodash/template";'
+line=02 startByte=040 content='import parser from "@babel/parser/lib/index.js";'
+line=03 startByte=089 content=''
+line=04 startByte=090 content='export function compile(src) {'
+line=05 startByte=121 content='  parser.parse(src);'
+line=06 startByte=142 content='  return template(src);'
+line=07 startByte=166 content='}'
+
+==============================================================================
+07-dynamic-import.js
+total bytes: 223
+==============================================================================
+line=01 startByte=000 content='const NAME = "lodash";'
+line=02 startByte=023 content=''
+line=03 startByte=024 content='export async function loadStatic() {'
+line=04 startByte=061 content='  const mod = await import("lodash");'
+line=05 startByte=099 content='  return mod.template;'
+line=06 startByte=122 content='}'
+line=07 startByte=124 content=''
+line=08 startByte=125 content='export async function loadComputed() {'
+line=09 startByte=164 content='  const mod = await import(NAME);'
+line=10 startByte=198 content='  return mod.template;'
+line=11 startByte=221 content='}'
+
+==============================================================================
+08-type-only.ts
+total bytes: 177
+==============================================================================
+line=01 startByte=000 content='import type { DebouncedFunc } from "lodash";'
+line=02 startByte=045 content='import { debounce } from "lodash";'
+line=03 startByte=080 content=''
+line=04 startByte=081 content='export function wrap(fn: () => void): DebouncedFunc<() => void> {'
+line=05 startByte=147 content='  return debounce(fn, 100);'
+line=06 startByte=175 content='}'
+
+==============================================================================
+09-tsx-component.tsx
+total bytes: 148
+==============================================================================
+line=01 startByte=000 content='import * as React from "react";'
+line=02 startByte=032 content='import { format } from "date-fns";'
+line=03 startByte=067 content=''
+line=04 startByte=068 content='export const Stamp = ({ at }: { at: Date }) => <span>{format(at, "PP")}</span>;'
+
+==============================================================================
+10-reachability.js
+total bytes: 332
+==============================================================================
+line=01 startByte=000 content='import express from "express";'
+line=02 startByte=031 content='import { template } from "lodash";'
+line=03 startByte=066 content=''
+line=04 startByte=067 content='const app = express();'
+line=05 startByte=090 content=''
+line=06 startByte=091 content='function renderWelcome(name) {'
+line=07 startByte=122 content='  return template("hi <%= n %>")({ n: name });'
+line=08 startByte=169 content='}'
+line=09 startByte=171 content=''
+line=10 startByte=172 content='function sendWelcome(res, name) {'
+line=11 startByte=206 content='  res.send(renderWelcome(name));'
+line=12 startByte=239 content='}'
+line=13 startByte=241 content=''
+line=14 startByte=242 content='app.get("/welcome", (req, res) => sendWelcome(res, req.query.name));'
+line=15 startByte=311 content=''
+line=16 startByte=312 content='export default app;'
+
+==============================================================================
+11-invalid.js
+total bytes: 80
+==============================================================================
+line=01 startByte=000 content='import { template } from "lodash"'
+line=02 startByte=034 content=''
+line=03 startByte=035 content='export function broken( {'
+line=04 startByte=061 content='  return template('
+
+==============================================================================
+12-edge.js
+total bytes: 92
+==============================================================================
+line=01 startByte=000 content='\ufeffimport { template } from "lodash";'
+line=02 startByte=039 content='const café = template("x");'
+line=03 startByte=069 content='export default café;'
+
+==============================================================================
+13-empty.js
+total bytes: 0
+==============================================================================
+empty file

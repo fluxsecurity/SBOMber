@@ -1,0 +1,61 @@
+{
+  "mode": "close",
+  "fixture": "corpus/micro/10-reachability.js",
+  "sourceBytes": 332,
+  "repeats": 5000,
+  "sampleEvery": 500,
+  "setLanguageOK": true,
+  "parseErrors": 0,
+  "samples": [
+    {
+      "iteration": 0,
+      "rssKB": 5332
+    },
+    {
+      "iteration": 500,
+      "rssKB": 5780
+    },
+    {
+      "iteration": 1000,
+      "rssKB": 5888
+    },
+    {
+      "iteration": 1500,
+      "rssKB": 5876
+    },
+    {
+      "iteration": 2000,
+      "rssKB": 5892
+    },
+    {
+      "iteration": 2500,
+      "rssKB": 5920
+    },
+    {
+      "iteration": 3000,
+      "rssKB": 5924
+    },
+    {
+      "iteration": 3500,
+      "rssKB": 5928
+    },
+    {
+      "iteration": 4000,
+      "rssKB": 5928
+    },
+    {
+      "iteration": 4500,
+      "rssKB": 5932
+    },
+    {
+      "iteration": 5000,
+      "rssKB": 5916
+    }
+  ],
+  "initialRSSKB": 5332,
+  "finalRSSKB": 5916,
+  "deltaRSSKB": 584,
+  "peakRSSKB": 5932,
+  "elapsedMillis": 514,
+  "retainedTreeCount": 0
+}

@@ -1,0 +1,284 @@
+{
+  "schemaVersion": "1.2.0",
+  "scanId": "scan-2026-08-12-0001",
+  "analysis": {
+    "status": "complete",
+    "ecosystem": "npm",
+    "analyzerId": "component2-js-ts-tree-sitter"
+  },
+  "analyser": {
+    "parser": "tree-sitter",
+    "binding": "github.com/tree-sitter/go-tree-sitter",
+    "bindingVersion": "0.25.0",
+    "cgoEnabled": true,
+    "grammarVersions": {
+      "javascript": "0.25.0",
+      "typescript": "0.23.2"
+    },
+    "ecosystems": ["npm"],
+    "reachabilityAnalysed": true
+  },
+  "entryPoints": [
+    {
+      "entryPointId": "ep-001",
+      "kind": "route_handler",
+      "function": "postWelcome",
+      "file": "src/routes/users.js",
+      "line": 18,
+      "repositoryId": "repo-demo-app"
+    },
+    {
+      "entryPointId": "ep-002",
+      "kind": "package_bin",
+      "function": "main",
+      "file": "bin/cli.js",
+      "line": 9,
+      "repositoryId": "repo-demo-app"
+    }
+  ],
+  "coverage": {
+    "filesDiscovered": 142,
+    "filesParsed": 136,
+    "filesParsedWithErrors": 2,
+    "filesFailed": 2,
+    "filesSkipped": 2,
+    "thirdPartyImportsResolved": 5,
+    "thirdPartyImportsTypeOnly": 1,
+    "thirdPartyImportsUnresolved": 1,
+    "thirdPartyCallSitesResolved": 5,
+    "thirdPartyCallSitesUnresolved": 1,
+    "limitsHit": [],
+    "perRepository": [
+      {
+        "repositoryId": "repo-demo-app",
+        "filesDiscovered": 142,
+        "filesParsed": 136,
+        "filesParsedWithErrors": 2,
+        "filesFailed": 2,
+        "filesSkipped": 2
+      }
+    ],
+    "entryPointsDetected": 2,
+    "callPathsResolved": 1,
+    "callPathsUnresolved": 4
+  },
+  "observations": [
+    {
+      "observationId": "obs-001",
+      "occurrenceId": "occ-001",
+      "purl": "pkg:npm/lodash@4.17.20",
+      "importedSpecifier": "lodash",
+      "localAlias": "_",
+      "importKind": "esm_namespace",
+      "resolution": "resolved",
+      "location": {
+        "repositoryId": "repo-demo-app",
+        "file": "src/render/email.js",
+        "line": 3,
+        "column": 1
+      },
+      "evidenceLevel": 3,
+      "callSites": [
+        {
+          "file": "src/render/email.js",
+          "line": 47,
+          "column": 18,
+          "calledSymbol": "template",
+          "enclosingFunction": "renderWelcomeEmail",
+          "resolution": "resolved",
+          "reachability": "reachable",
+          "entryPointId": "ep-001",
+          "callPath": [
+            { "function": "postWelcome", "file": "src/routes/users.js", "line": 18 },
+            { "function": "sendWelcome", "file": "src/mail/send.js", "line": 12 },
+            { "function": "renderWelcomeEmail", "file": "src/render/email.js", "line": 44 }
+          ]
+        },
+        {
+          "file": "src/render/email.js",
+          "line": 92,
+          "column": 12,
+          "calledSymbol": "template",
+          "enclosingFunction": "renderReceipt",
+          "resolution": "resolved",
+          "reachability": "unknown"
+        }
+      ]
+    },
+    {
+      "observationId": "obs-002",
+      "occurrenceId": "occ-001",
+      "purl": "pkg:npm/lodash@4.17.20",
+      "importedSpecifier": "lodash/merge",
+      "subpath": "merge",
+      "localAlias": "merge",
+      "importedSymbol": "merge",
+      "importKind": "esm_default",
+      "resolution": "resolved",
+      "location": {
+        "repositoryId": "repo-demo-app",
+        "file": "src/config/load.js",
+        "line": 2,
+        "column": 1
+      },
+      "evidenceLevel": 2,
+      "callSites": [
+        {
+          "file": "src/config/load.js",
+          "line": 31,
+          "column": 10,
+          "calledSymbol": "merge",
+          "enclosingFunction": "loadConfig",
+          "resolution": "resolved",
+          "reachability": "unknown"
+        }
+      ]
+    },
+    {
+      "observationId": "obs-003",
+      "occurrenceId": "occ-003",
+      "purl": "pkg:npm/axios@0.21.0",
+      "importedSpecifier": "axios",
+      "localAlias": "axios",
+      "importKind": "cjs_require",
+      "resolution": "resolved",
+      "location": {
+        "repositoryId": "repo-demo-app",
+        "file": "src/api/client.js",
+        "line": 1,
+        "column": 1
+      },
+      "evidenceLevel": 2,
+      "callSites": [
+        {
+          "file": "src/api/client.js",
+          "line": 22,
+          "column": 16,
+          "calledSymbol": "get",
+          "enclosingFunction": "fetchUser",
+          "resolution": "resolved",
+          "reachability": "unknown"
+        }
+      ]
+    },
+    {
+      "observationId": "obs-004",
+      "occurrenceId": "occ-001",
+      "purl": "pkg:npm/lodash@4.17.20",
+      "importedSpecifier": "lodash",
+      "importedSymbol": "Dictionary",
+      "importKind": "esm_type_only",
+      "resolution": "type_only",
+      "location": {
+        "repositoryId": "repo-demo-app",
+        "file": "src/types/index.ts",
+        "line": 4,
+        "column": 1
+      },
+      "evidenceLevel": 1,
+      "callSites": []
+    },
+    {
+      "observationId": "obs-005",
+      "occurrenceId": "occ-003",
+      "purl": "pkg:npm/axios@0.21.0",
+      "importedSpecifier": "axios",
+      "localAlias": "http",
+      "importKind": "esm_namespace",
+      "resolution": "resolved",
+      "location": {
+        "repositoryId": "repo-demo-app",
+        "file": "src/api/dispatch.js",
+        "line": 8,
+        "column": 1
+      },
+      "evidenceLevel": 1,
+      "callSites": [
+        {
+          "file": "src/api/dispatch.js",
+          "line": 24,
+          "column": 11,
+          "enclosingFunction": "dispatch",
+          "resolution": "unresolved",
+          "unresolvedReason": "computed_member_access",
+          "reachability": "not_analysed"
+        }
+      ]
+    },
+    {
+      "observationId": "obs-006",
+      "importedSpecifier": "`./plugins/${name}`",
+      "computedSpecifier": true,
+      "importKind": "dynamic_computed",
+      "resolution": "unresolved",
+      "unresolvedReason": "computed_specifier",
+      "location": {
+        "repositoryId": "repo-demo-app",
+        "file": "src/plugins/load.js",
+        "line": 14,
+        "column": 20
+      },
+      "evidenceLevel": 1,
+      "callSites": []
+    },
+    {
+      "observationId": "obs-007",
+      "occurrenceId": "occ-005",
+      "purl": "pkg:npm/legacy-reporter@2.1.0",
+      "importedSpecifier": "legacy-reporter",
+      "localAlias": "report",
+      "importKind": "cjs_require",
+      "resolution": "resolved",
+      "location": {
+        "repositoryId": "repo-demo-app",
+        "file": "src/reports/monthly.js",
+        "line": 5,
+        "column": 1
+      },
+      "evidenceLevel": 2,
+      "callSites": [
+        {
+          "file": "src/reports/monthly.js",
+          "line": 63,
+          "column": 9,
+          "calledSymbol": "generateReport",
+          "enclosingFunction": "buildMonthlyReport",
+          "resolution": "resolved",
+          "reachability": "unknown"
+        }
+      ]
+    }
+  ],
+  "unanalysedOccurrences": [
+    {
+      "occurrenceId": "occ-002",
+      "purl": "pkg:npm/lodash@3.10.1",
+      "reason": "nested_under_dependency",
+      "detail": "Installed at node_modules/legacy-reporter/node_modules/lodash. The application imports legacy-reporter (obs-007) but not this lodash; any call would originate inside legacy-reporter, whose source is not parsed."
+    },
+    {
+      "occurrenceId": "occ-004",
+      "purl": "pkg:npm/minimist@1.2.5",
+      "reason": "nested_under_dependency",
+      "detail": "Installed at node_modules/build-helper/node_modules/minimist. Not reachable from application source."
+    },
+    {
+      "occurrenceId": "occ-006",
+      "purl": "pkg:npm/build-helper@4.0.2",
+      "reason": "not_imported_by_analysed_source",
+      "detail": "Development-scope build tool. All 136 fully parsed source files were examined and no import of build-helper was found."
+    }
+  ],
+  "parseFailures": [
+    {
+      "repositoryId": "repo-demo-app",
+      "file": "src/vendor/legacy.min.js",
+      "reason": "minified bundle exceeded max token depth"
+    },
+    {
+      "repositoryId": "repo-demo-app",
+      "file": "src/experimental/decorators.ts",
+      "reason": "unsupported decorator syntax"
+    }
+  ]
+}

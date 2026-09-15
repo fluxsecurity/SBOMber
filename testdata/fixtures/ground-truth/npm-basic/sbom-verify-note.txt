@@ -1,0 +1,23 @@
+SBOM Verification Note
+======================
+Generated:     2026-08-25 09:35:37
+Ground truth:  ground-truth.cdx.json
+Generated SBOM:generated.cdx.xml
+
+Scores
+------
+Precision         100.0%
+Recall            100.0%
+F1 Score          100.0%
+Version Accuracy  100.0%
+
+Grade: A+  (Excellent)
+
+Components
+----------
+Ground truth : 1
+Generated    : 1
+Matched      : 1
+Missing      : 0
+Extra        : 0
+Version delta: 0

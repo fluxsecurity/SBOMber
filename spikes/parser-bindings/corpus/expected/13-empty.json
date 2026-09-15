@@ -1,0 +1,9 @@
+{
+  "fixture": "13-empty.js",
+  "language": "javascript",
+  "hasError": false,
+  "imports": [],
+  "calls": [],
+  "functions": [],
+  "unresolved": []
+}

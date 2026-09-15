@@ -1,0 +1,20 @@
+=== T2b S-expression Normalization ===
+2026-08-21T11:58:31+10:00
+
+Candidate A Node.ToSexp includes Tree-sitter field labels,
+for example name:, source:, declaration: and function:.
+
+Candidate B SExpr emits the same named-node hierarchy without
+field labels.
+
+Canonical T2b form:
+- named node types and nesting are retained;
+- Candidate A serializer-only field labels are removed;
+- node names and parentheses are not changed.
+
+Scope:
+T2b measures named-node structural parity.
+Field-name semantics are tested separately through the shared
+usage query and candidate capture tests.
+
+The raw Candidate A output and pre-normalization diff are retained.

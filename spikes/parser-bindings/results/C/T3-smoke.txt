@@ -1,0 +1,17 @@
+=== RUN   TestJavaScriptASTNodes
+    main_test.go:144: JavaScript AST: imports=1 calls=4
+--- PASS: TestJavaScriptASTNodes (0.00s)
+=== RUN   TestTypeScriptASTNodes
+    main_test.go:169: TypeScript AST: imports=2 calls=1
+--- PASS: TestTypeScriptASTNodes (0.00s)
+=== RUN   TestTSXASTNodes
+    main_test.go:194: TSX AST: imports=1 JSX elements=1
+--- PASS: TestTSXASTNodes (0.00s)
+=== RUN   TestInvalidJavaScriptContainsError
+    main_test.go:212: invalid JavaScript correctly produced a parser error
+--- PASS: TestInvalidJavaScriptContainsError (0.00s)
+=== RUN   TestCallExpressionLocation
+    main_test.go:279: cursor call="require(\"node:path\")" bytes=60-80 line=3 column=14 endLine=3 endColumn=34
+--- PASS: TestCallExpressionLocation (0.00s)
+PASS
+ok  	github.com/Xsamsx/SBOMber/spikes/parser-bindings/purego-treesitter	0.011s

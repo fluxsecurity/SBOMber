@@ -1,0 +1,4 @@
+basic.js: PASS root=program hasError=false children=3
+basic.ts: PASS root=program hasError=false children=3
+basic.tsx: PASS root=program hasError=false children=3
+invalid.js: PASS root=program hasError=true children=2

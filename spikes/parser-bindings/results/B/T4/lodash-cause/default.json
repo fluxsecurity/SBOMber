@@ -1,0 +1,11 @@
+{
+  "fixture": "corpus/perf/lodash.min.js",
+  "sourceBytes": 73015,
+  "stoppedEarly": false,
+  "stopReason": "no_stacks_alive",
+  "runtime": "truncated=true stopReason=no_stacks_alive forestFastPath=false tokenEOFEarly=false tokens=41455 lastTokenEnd=73008 expectedEOF=73015 lastTokenSymbol=1 lastTokenEOF=false iterations=43815/2190450 nodes=112006/3796780 arena=20695224/536870912 scratch=7020192(entry=3145728 gss=2117632)/536870912 peakDepth=49/146030 maxStacks=8 stopDiag={cRecovery=false recoverAction=false stackState=1 stackByte=73003 stackDepth=2 token=1[73004:73008] noLookahead=false root=\"program\"[0:73003] rootErr=true firstError=true[0:73002] cRecoveryGateReason=not_enabled_by_default condense={errorCostCompetitionEnabled=false anyReduced=false hasPaused=false hasCRec=false hasMissingGroup=false condenseSkippedDueToAnyReduced=false condenseRan=false condenseResumed=false}}",
+  "rootType": "program",
+  "rootHasError": true,
+  "rootStartByte": 0,
+  "rootEndByte": 73003
+}

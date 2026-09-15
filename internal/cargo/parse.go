@@ -24,7 +24,7 @@ func ParseCargoLock(root string) (deps.Summary, error) {
 	if err != nil {
 		return deps.Summary{}, err
 	}
-	defer f.Close()
+	defer func() { _ = f.Close() }()
 
 	packages, err := parseCargoLock(f)
 	if err != nil {

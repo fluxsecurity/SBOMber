@@ -1,0 +1,15 @@
+2026-08-20T23:26:12+10:00
+Linux SBOM35 7.0.0-22-generic #22-Ubuntu SMP PREEMPT_DYNAMIC Mon May 25 15:54:34 UTC 2026 x86_64 GNU/Linux
+Description:	Ubuntu 26.04 LTS
+go version go1.26.0 linux/amd64
+linux
+amd64
+1
+
+gcc (Ubuntu 15.2.0-16ubuntu1) 15.2.0
+CPU(s):                                  4
+Model name:                              12th Gen Intel(R) Core(TM) i7-1255U
+NUMA node0 CPU(s):                       0-3
+               total        used        free      shared  buff/cache   available
+Mem:           3.3Gi       1.9Gi       100Mi        60Mi       1.5Gi       1.4Gi
+VM: VMware Workstation; host OS: Windows; allocated resources: 4 vCPU, 4 GB RAM, 50 GB disk

@@ -107,7 +107,7 @@ func (c *Client) GetFileContent(namespace, project, path, ref string) (*FileCont
 	if err != nil {
 		return nil, err
 	}
-	defer resp.Body.Close()
+	defer func() { _ = resp.Body.Close() }()
 
 	if resp.StatusCode == http.StatusNotFound {
 		return nil, fmt.Errorf("file not found: %s", path)
@@ -155,7 +155,7 @@ func (c *Client) getWithPagination(apiURL string) ([]byte, string, error) {
 	if err != nil {
 		return nil, "", err
 	}
-	defer resp.Body.Close()
+	defer func() { _ = resp.Body.Close() }()
 
 	if resp.StatusCode != http.StatusOK {
 		body, _ := io.ReadAll(resp.Body)

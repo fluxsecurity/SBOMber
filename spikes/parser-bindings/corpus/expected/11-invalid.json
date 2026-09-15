@@ -1,0 +1,9 @@
+{
+  "fixture": "11-invalid.js",
+  "language": "javascript",
+  "hasError": true,
+  "imports": [],
+  "calls": [],
+  "functions": [],
+  "unresolved": []
+}

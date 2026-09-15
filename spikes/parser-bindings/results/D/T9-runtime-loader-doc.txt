@@ -1,0 +1,34 @@
+49-go get github.com/tree-sitter/tree-sitter-javascript@latest
+50-```
+51-
+52:Alternatively you can also load grammars at runtime from a shared library via [purego](https://github.com/ebitengine/purego).
+53-
+54-The example below shows how to load the JavaScript grammar from a shared library (`libtree-sitter-PARSER_NAME.so`) at runtime on Linux & macOS:
+55-
+56-For more information on other platforms, see the [purego documentation](https://github.com/ebitengine/purego#supported-platforms)
+57-
+58-```go
+59-package main
+60-
+61-import (
+62-	tree_sitter "github.com/tree-sitter/go-tree-sitter"
+63-	"github.com/ebitengine/purego"
+64-)
+65-
+66-func main() {
+67-	path := "/path/to/your/parser.so"
+68-	lib, err := purego.Dlopen(path, purego.RTLD_NOW|purego.RTLD_GLOBAL)
+69-	if err != nil {
+70-        // handle error
+71-    }
+72-
+73-	var javascriptLanguage func() uintptr
+74-	purego.RegisterLibFunc(&javascriptLanguage, lib, "tree_sitter_javascript")
+75-
+76-	language := tree_sitter.NewLanguage(unsafe.Pointer(javascriptLanguage()))
+77-}
+78-```
+79-
+80-> [!NOTE]
+81-> Due to [bugs with `runtime.SetFinalizer` and CGO](https://groups.google.com/g/golang-nuts/c/LIWj6Gl--es), you must always call `Close`
+82-> on an object that allocates memory from C. This must be done for the `Parser`, `Tree`, `TreeCursor`, `Query`, `QueryCursor`, and `LookaheadIterator` objects.

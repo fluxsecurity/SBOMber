@@ -91,41 +91,41 @@ func (r *Result) PrintReport() string {
 	sb.WriteString("╔══════════════════════════════════════════════════════════════╗\n")
 	sb.WriteString("║                        SBOM DIFF REPORT                      ║\n")
 	sb.WriteString("╚══════════════════════════════════════════════════════════════╝\n\n")
-	sb.WriteString(fmt.Sprintf("  Old: %s\n", r.OldPath))
-	sb.WriteString(fmt.Sprintf("  New: %s\n\n", r.NewPath))
+	_, _ = fmt.Fprintf(&sb, "  Old: %s\n", r.OldPath)
+	_, _ = fmt.Fprintf(&sb, "  New: %s\n\n", r.NewPath)
 
 	total := len(r.Added) + len(r.Removed) + len(r.Upgraded) + len(r.Downgraded)
-	sb.WriteString(fmt.Sprintf("  Changes: %d  (+ %d added, - %d removed, ↑ %d upgraded, ↓ %d downgraded, = %d unchanged)\n\n",
-		total, len(r.Added), len(r.Removed), len(r.Upgraded), len(r.Downgraded), r.Unchanged))
+	_, _ = fmt.Fprintf(&sb, "  Changes: %d  (+ %d added, - %d removed, ↑ %d upgraded, ↓ %d downgraded, = %d unchanged)\n\n",
+		total, len(r.Added), len(r.Removed), len(r.Upgraded), len(r.Downgraded), r.Unchanged)
 
 	if len(r.Added) > 0 {
-		sb.WriteString(fmt.Sprintf("+ Added (%d):\n", len(r.Added)))
+		_, _ = fmt.Fprintf(&sb, "+ Added (%d):\n", len(r.Added))
 		for _, c := range r.Added {
-			sb.WriteString(fmt.Sprintf("  + %-40s %s\n", c.Name, c.NewVersion))
+			_, _ = fmt.Fprintf(&sb, "  + %-40s %s\n", c.Name, c.NewVersion)
 		}
 		sb.WriteString("\n")
 	}
 
 	if len(r.Removed) > 0 {
-		sb.WriteString(fmt.Sprintf("- Removed (%d):\n", len(r.Removed)))
+		_, _ = fmt.Fprintf(&sb, "- Removed (%d):\n", len(r.Removed))
 		for _, c := range r.Removed {
-			sb.WriteString(fmt.Sprintf("  - %-40s %s\n", c.Name, c.OldVersion))
+			_, _ = fmt.Fprintf(&sb, "  - %-40s %s\n", c.Name, c.OldVersion)
 		}
 		sb.WriteString("\n")
 	}
 
 	if len(r.Upgraded) > 0 {
-		sb.WriteString(fmt.Sprintf("↑ Upgraded (%d):\n", len(r.Upgraded)))
+		_, _ = fmt.Fprintf(&sb, "↑ Upgraded (%d):\n", len(r.Upgraded))
 		for _, c := range r.Upgraded {
-			sb.WriteString(fmt.Sprintf("  ↑ %-40s %s → %s\n", c.Name, c.OldVersion, c.NewVersion))
+			_, _ = fmt.Fprintf(&sb, "  ↑ %-40s %s → %s\n", c.Name, c.OldVersion, c.NewVersion)
 		}
 		sb.WriteString("\n")
 	}
 
 	if len(r.Downgraded) > 0 {
-		sb.WriteString(fmt.Sprintf("↓ Downgraded (%d):\n", len(r.Downgraded)))
+		_, _ = fmt.Fprintf(&sb, "↓ Downgraded (%d):\n", len(r.Downgraded))
 		for _, c := range r.Downgraded {
-			sb.WriteString(fmt.Sprintf("  ↓ %-40s %s → %s\n", c.Name, c.OldVersion, c.NewVersion))
+			_, _ = fmt.Fprintf(&sb, "  ↓ %-40s %s → %s\n", c.Name, c.OldVersion, c.NewVersion)
 		}
 		sb.WriteString("\n")
 	}

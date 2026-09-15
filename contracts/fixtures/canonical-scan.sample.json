@@ -1,0 +1,278 @@
+{
+  "schemaVersion": "1.0.0",
+  "scan": {
+    "scanId": "scan-2026-08-12-0001",
+    "startedAt": "2026-08-12T09:14:02Z",
+    "completedAt": "2026-08-12T09:14:48Z",
+    "toolVersions": {
+      "sbomber": "0.9.0-projectb",
+      "grype": "0.79.2",
+      "go": "1.26.0"
+    },
+    "status": "complete",
+    "statusDetail": {
+      "skippedFiles": [],
+      "failedFiles": [],
+      "truncatedTree": false,
+      "limitsHit": []
+    },
+    "repositories": [
+      {
+        "repositoryId": "repo-demo-app",
+        "path": "/scan/demo-app",
+        "commit": "8f2a1c9d4e7b3a5f6c8d9e0a1b2c3d4e5f6a7b8c",
+        "source": "local"
+      }
+    ],
+    "enrichment": [
+      {
+        "source": "epss",
+        "status": "success"
+      },
+      {
+        "source": "cisa_kev",
+        "status": "success"
+      },
+      {
+        "source": "ghsa",
+        "status": "success"
+      },
+      {
+        "source": "registry",
+        "status": "success"
+      },
+      {
+        "source": "malware",
+        "status": "timed_out",
+        "detail": "OSV malware endpoint exceeded 15s; results absent, not clean"
+      }
+    ]
+  },
+  "components": [
+    {
+      "purl": "pkg:npm/lodash@4.17.20",
+      "ecosystem": "npm",
+      "name": "lodash",
+      "version": "4.17.20",
+      "versionKnown": true,
+      "declaredConstraint": "^4.17.0"
+    },
+    {
+      "purl": "pkg:npm/lodash@3.10.1",
+      "ecosystem": "npm",
+      "name": "lodash",
+      "version": "3.10.1",
+      "versionKnown": true
+    },
+    {
+      "purl": "pkg:npm/axios@0.21.0",
+      "ecosystem": "npm",
+      "name": "axios",
+      "version": "0.21.0",
+      "versionKnown": true,
+      "declaredConstraint": "^0.21.0"
+    },
+    {
+      "purl": "pkg:npm/minimist@1.2.5",
+      "ecosystem": "npm",
+      "name": "minimist",
+      "version": "1.2.5",
+      "versionKnown": true
+    },
+    {
+      "purl": "pkg:npm/legacy-reporter@2.1.0",
+      "ecosystem": "npm",
+      "name": "legacy-reporter",
+      "version": "2.1.0",
+      "versionKnown": true,
+      "declaredConstraint": "^2.1.0"
+    },
+    {
+      "purl": "pkg:npm/build-helper@4.0.2",
+      "ecosystem": "npm",
+      "name": "build-helper",
+      "version": "4.0.2",
+      "versionKnown": true,
+      "declaredConstraint": "^4.0.0"
+    }
+  ],
+  "occurrences": [
+    {
+      "occurrenceId": "occ-001",
+      "purl": "pkg:npm/lodash@4.17.20",
+      "repositoryId": "repo-demo-app",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/lodash",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-002",
+      "purl": "pkg:npm/lodash@3.10.1",
+      "repositoryId": "repo-demo-app",
+      "manifest": "package-lock.json",
+      "relationship": "transitive",
+      "dependencyPath": [
+        "pkg:npm/legacy-reporter@2.1.0"
+      ],
+      "installPath": "node_modules/legacy-reporter/node_modules/lodash",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-003",
+      "purl": "pkg:npm/axios@0.21.0",
+      "repositoryId": "repo-demo-app",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/axios",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-004",
+      "purl": "pkg:npm/minimist@1.2.5",
+      "repositoryId": "repo-demo-app",
+      "manifest": "package-lock.json",
+      "relationship": "transitive",
+      "dependencyPath": [
+        "pkg:npm/build-helper@4.0.2"
+      ],
+      "installPath": "node_modules/build-helper/node_modules/minimist",
+      "scope": "development"
+    },
+    {
+      "occurrenceId": "occ-005",
+      "purl": "pkg:npm/legacy-reporter@2.1.0",
+      "repositoryId": "repo-demo-app",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/legacy-reporter",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-006",
+      "purl": "pkg:npm/build-helper@4.0.2",
+      "repositoryId": "repo-demo-app",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/build-helper",
+      "scope": "development"
+    }
+  ],
+  "findings": [
+    {
+      "findingId": "find-001",
+      "vulnerabilityId": "CVE-2021-23337",
+      "aliases": [
+        "GHSA-35jh-r3h4-6jhm"
+      ],
+      "purl": "pkg:npm/lodash@4.17.20",
+      "occurrenceIds": [
+        "occ-001"
+      ],
+      "severity": "high",
+      "cvssScore": 7.2,
+      "fixedVersion": "4.17.21",
+      "epss": {
+        "score": 0.0142,
+        "percentile": 0.842
+      },
+      "cisaKev": false,
+      "provenance": {
+        "scanner": "grype",
+        "scannerVersion": "0.79.2",
+        "enrichedBy": [
+          "epss",
+          "cisa_kev",
+          "ghsa"
+        ]
+      }
+    },
+    {
+      "findingId": "find-002",
+      "vulnerabilityId": "CVE-2020-28168",
+      "purl": "pkg:npm/axios@0.21.0",
+      "occurrenceIds": [
+        "occ-003"
+      ],
+      "severity": "medium",
+      "cvssScore": 5.9,
+      "fixedVersion": "0.21.1",
+      "epss": {
+        "score": 0.0031,
+        "percentile": 0.612
+      },
+      "cisaKev": false,
+      "provenance": {
+        "scanner": "grype",
+        "scannerVersion": "0.79.2",
+        "enrichedBy": [
+          "epss",
+          "cisa_kev",
+          "ghsa"
+        ]
+      }
+    },
+    {
+      "findingId": "find-003",
+      "vulnerabilityId": "CVE-2021-44906",
+      "purl": "pkg:npm/minimist@1.2.5",
+      "occurrenceIds": [
+        "occ-004"
+      ],
+      "severity": "critical",
+      "cvssScore": 9.8,
+      "fixedVersion": "1.2.6",
+      "epss": {
+        "score": 0.0087,
+        "percentile": 0.781
+      },
+      "cisaKev": false,
+      "provenance": {
+        "scanner": "grype",
+        "scannerVersion": "0.79.2",
+        "enrichedBy": [
+          "epss",
+          "cisa_kev",
+          "ghsa"
+        ]
+      }
+    },
+    {
+      "findingId": "find-004",
+      "vulnerabilityId": "CVE-2019-10744",
+      "purl": "pkg:npm/lodash@3.10.1",
+      "occurrenceIds": [
+        "occ-002"
+      ],
+      "severity": "critical",
+      "cvssScore": 9.1,
+      "fixedVersion": "4.17.12",
+      "epss": {
+        "score": 0.0203,
+        "percentile": 0.869
+      },
+      "cisaKev": false,
+      "provenance": {
+        "scanner": "grype",
+        "scannerVersion": "0.79.2",
+        "enrichedBy": [
+          "epss",
+          "cisa_kev",
+          "ghsa"
+        ]
+      }
+    }
+  ],
+  "supplyChainWarnings": [
+    {
+      "warningId": "warn-001",
+      "purl": "pkg:npm/lodash@3.10.1",
+      "kind": "stale",
+      "detail": "No release since 2016; nested under legacy-reporter"
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "fixture": "09-tsx-component.tsx",
+  "language": "tsx",
+  "hasError": false,
+  "imports": [
+    {
+      "specifier": "react",
+      "kind": "esm_namespace",
+      "local": "React",
+      "imported": "*",
+      "typeOnly": false,
+      "line": 1,
+      "column": 12
+    },
+    {
+      "specifier": "date-fns",
+      "kind": "esm_named",
+      "local": "format",
+      "imported": "format",
+      "typeOnly": false,
+      "line": 2,
+      "column": 9
+    }
+  ],
+  "calls": [
+    {
+      "callee": "format",
+      "receiver": null,
+      "line": 4,
+      "column": 54
+    }
+  ],
+  "functions": [
+    {
+      "name": "Stamp",
+      "line": 4,
+      "column": 13,
+      "exported": true
+    }
+  ],
+  "unresolved": []
+}

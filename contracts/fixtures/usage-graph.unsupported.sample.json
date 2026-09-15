@@ -1,0 +1,79 @@
+{
+  "schemaVersion": "1.2.0",
+  "scanId": "scan-2026-08-12-0001",
+  "analysis": {
+    "status": "unsupported",
+    "ecosystem": "npm",
+    "reasonCode": "ecosystem_unsupported"
+  },
+  "analyser": {
+    "parser": "tree-sitter",
+    "binding": "github.com/tree-sitter/go-tree-sitter",
+    "bindingVersion": "0.25.0",
+    "cgoEnabled": true,
+    "grammarVersions": {
+      "javascript": "0.25.0",
+      "typescript": "0.23.2"
+    },
+    "ecosystems": [],
+    "reachabilityAnalysed": false
+  },
+  "entryPoints": [],
+  "coverage": {
+    "filesDiscovered": 0,
+    "filesParsed": 0,
+    "filesParsedWithErrors": 0,
+    "filesFailed": 0,
+    "filesSkipped": 0,
+    "thirdPartyImportsResolved": 0,
+    "thirdPartyImportsTypeOnly": 0,
+    "thirdPartyImportsUnresolved": 0,
+    "thirdPartyCallSitesResolved": 0,
+    "thirdPartyCallSitesUnresolved": 0,
+    "limitsHit": [],
+    "perRepository": [],
+    "entryPointsDetected": 0,
+    "callPathsResolved": 0,
+    "callPathsUnresolved": 0
+  },
+  "observations": [],
+  "unanalysedOccurrences": [
+    {
+      "occurrenceId": "occ-001",
+      "purl": "pkg:npm/lodash@4.17.20",
+      "reason": "ecosystem_unsupported",
+      "detail": "Synthetic unsupported fixture for S4-07 contract validation."
+    },
+    {
+      "occurrenceId": "occ-002",
+      "purl": "pkg:npm/lodash@3.10.1",
+      "reason": "ecosystem_unsupported",
+      "detail": "Synthetic unsupported fixture for S4-07 contract validation."
+    },
+    {
+      "occurrenceId": "occ-003",
+      "purl": "pkg:npm/axios@0.21.0",
+      "reason": "ecosystem_unsupported",
+      "detail": "Synthetic unsupported fixture for S4-07 contract validation."
+    },
+    {
+      "occurrenceId": "occ-004",
+      "purl": "pkg:npm/minimist@1.2.5",
+      "reason": "ecosystem_unsupported",
+      "detail": "Synthetic unsupported fixture for S4-07 contract validation."
+    },
+    {
+      "occurrenceId": "occ-005",
+      "purl": "pkg:npm/legacy-reporter@2.1.0",
+      "reason": "ecosystem_unsupported",
+      "detail": "Synthetic unsupported fixture for S4-07 contract validation."
+    },
+    {
+      "occurrenceId": "occ-006",
+      "purl": "pkg:npm/build-helper@4.0.2",
+      "reason": "ecosystem_unsupported",
+      "detail": "Synthetic unsupported fixture for S4-07 contract validation."
+    }
+  ],
+  "parseFailures": []
+}

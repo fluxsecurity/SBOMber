@@ -1,0 +1,48 @@
+{
+  "fixture": "06-subpath.js",
+  "language": "javascript",
+  "hasError": false,
+  "imports": [
+    {
+      "specifier": "lodash/template",
+      "kind": "esm_default",
+      "local": "template",
+      "imported": "default",
+      "typeOnly": false,
+      "line": 1,
+      "column": 7
+    },
+    {
+      "specifier": "@babel/parser/lib/index.js",
+      "kind": "esm_default",
+      "local": "parser",
+      "imported": "default",
+      "typeOnly": false,
+      "line": 2,
+      "column": 7
+    }
+  ],
+  "calls": [
+    {
+      "callee": "parse",
+      "receiver": "parser",
+      "line": 5,
+      "column": 2
+    },
+    {
+      "callee": "template",
+      "receiver": null,
+      "line": 6,
+      "column": 9
+    }
+  ],
+  "functions": [
+    {
+      "name": "compile",
+      "line": 4,
+      "column": 16,
+      "exported": true
+    }
+  ],
+  "unresolved": []
+}

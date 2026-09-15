@@ -1,0 +1,131 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Xsamsx/SBOMber/contracts/localisation.schema.json",
+  "title": "localisation.json",
+  "description": "Candidate vulnerable functions per finding. Produced by component 3, read by component 4. A function changed by a security patch is a CANDIDATE, not a proven culprit — patches routinely bundle refactoring with the fix.",
+  "type": "object",
+  "required": ["schemaVersion", "scanId", "results"],
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": { "type": "string", "const": "1.0.0" },
+    "scanId": { "type": "string", "description": "Matches canonical-scan.json." },
+    "summary": {
+      "type": "object",
+      "description": "Per-method counts. The unknown rate is a reportable result, not a failure.",
+      "additionalProperties": false,
+      "properties": {
+        "findingsProcessed": { "type": "integer", "minimum": 0 },
+        "byMethod": {
+          "type": "object",
+          "additionalProperties": { "type": "integer", "minimum": 0 }
+        },
+        "unknownCount": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "results": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["findingId", "vulnerabilityId", "purl", "method", "confidence"],
+        "additionalProperties": false,
+        "properties": {
+          "findingId": { "type": "string", "description": "From canonical-scan.json." },
+          "vulnerabilityId": { "type": "string" },
+          "purl": { "type": "string", "pattern": "^pkg:" },
+          "method": {
+            "type": "string",
+            "enum": [
+              "advisory_metadata",
+              "patch_reference",
+              "advisory_text",
+              "version_diff",
+              "llm_suggested",
+              "unknown"
+            ],
+            "description": "Fallback order, cheapest and most reliable first. unknown is an honest outcome; the finding falls back to package-level treatment."
+          },
+          "confidence": {
+            "type": "string",
+            "enum": ["high", "medium", "low", "none"],
+            "description": "Categorical, with published criteria. Not a numeric formula."
+          },
+          "candidateSymbols": {
+            "type": "array",
+            "description": "A SET, not a single guess. Multi-function patches produce several candidates.",
+            "items": {
+              "type": "object",
+              "required": ["symbol"],
+              "additionalProperties": false,
+              "properties": {
+                "symbol": { "type": "string", "description": "e.g. template, merge, defaultsDeep." },
+                "modulePath": { "type": "string", "description": "Path within the package, e.g. lib/template.js." },
+                "changeKind": {
+                  "type": "string",
+                  "enum": ["modified", "added", "removed", "unknown"]
+                },
+                "note": { "type": "string" }
+              }
+            }
+          },
+          "vulnerableVersion": { "type": "string" },
+          "fixedVersion": { "type": "string" },
+          "provenance": {
+            "type": "object",
+            "description": "Every candidate must be traceable to its source artefact.",
+            "additionalProperties": false,
+            "properties": {
+              "advisorySource": { "type": "string", "enum": ["osv", "ghsa", "nvd", "vendor"] },
+              "advisoryUrl": { "type": "string" },
+              "patchCommit": { "type": "string" },
+              "patchUrl": { "type": "string" },
+              "artefacts": {
+                "type": "array",
+                "description": "Downloaded artefacts. Bounded, verified, and NEVER executed.",
+                "items": {
+                  "type": "object",
+                  "required": ["url", "verified"],
+                  "additionalProperties": false,
+                  "properties": {
+                    "url": { "type": "string" },
+                    "sha256": { "type": "string" },
+                    "sizeBytes": { "type": "integer", "minimum": 0 },
+                    "verified": {
+                      "type": "boolean",
+                      "description": "Tag or checksum verified against the published artefact."
+                    },
+                    "executed": {
+                      "type": "boolean",
+                      "const": false,
+                      "description": "Always false. Downloaded package code is never executed."
+                    }
+                  }
+                }
+              },
+              "llm": {
+                "type": "object",
+                "description": "Present only when method is llm_suggested. Never the sole basis for a negative finding or any VEX statement.",
+                "additionalProperties": false,
+                "properties": {
+                  "provider": { "type": "string" },
+                  "model": { "type": "string" },
+                  "promptVersion": { "type": "string" },
+                  "corroboratedBy": {
+                    "type": "string",
+                    "enum": ["advisory_metadata", "patch_reference", "version_diff", "none"],
+                    "description": "none means this candidate may only raise a finding from unknown; it cannot support a negative conclusion."
+                  }
+                }
+              }
+            }
+          },
+          "excludedChanges": {
+            "type": "array",
+            "items": { "type": "string", "enum": ["docs", "tests", "ci_config", "build", "formatting"] },
+            "description": "Non-code changes excluded from the candidate set."
+          },
+          "notes": { "type": "string" }
+        }
+      }
+    }
+  }
+}

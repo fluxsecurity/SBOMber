@@ -331,22 +331,22 @@ func (r *ComparisonResult) PrintReport() string {
 	sb.WriteString("┌─────────────────────────────────────────────────────────────┐\n")
 	sb.WriteString("│ SUMMARY                                                     │\n")
 	sb.WriteString("├─────────────────────────────────────────────────────────────┤\n")
-	sb.WriteString(fmt.Sprintf("│ Ground Truth Components:  %-34d │\n", r.GroundTruthCount))
-	sb.WriteString(fmt.Sprintf("│ Generated Components:     %-34d │\n", r.GeneratedCount))
-	sb.WriteString(fmt.Sprintf("│ Matched:                  %-34d │\n", r.MatchedCount))
-	sb.WriteString(fmt.Sprintf("│ Missing:                  %-34d │\n", r.MissingCount))
-	sb.WriteString(fmt.Sprintf("│ Extra:                    %-34d │\n", r.ExtraCount))
-	sb.WriteString(fmt.Sprintf("│ Version Mismatches:       %-34d │\n", r.VersionMismatch))
+	_, _ = fmt.Fprintf(&sb, "│ Ground Truth Components:  %-34d │\n", r.GroundTruthCount)
+	_, _ = fmt.Fprintf(&sb, "│ Generated Components:     %-34d │\n", r.GeneratedCount)
+	_, _ = fmt.Fprintf(&sb, "│ Matched:                  %-34d │\n", r.MatchedCount)
+	_, _ = fmt.Fprintf(&sb, "│ Missing:                  %-34d │\n", r.MissingCount)
+	_, _ = fmt.Fprintf(&sb, "│ Extra:                    %-34d │\n", r.ExtraCount)
+	_, _ = fmt.Fprintf(&sb, "│ Version Mismatches:       %-34d │\n", r.VersionMismatch)
 	sb.WriteString("└─────────────────────────────────────────────────────────────┘\n\n")
 
 	// Metrics
 	sb.WriteString("┌─────────────────────────────────────────────────────────────┐\n")
 	sb.WriteString("│ ACCURACY METRICS                                            │\n")
 	sb.WriteString("├─────────────────────────────────────────────────────────────┤\n")
-	sb.WriteString(fmt.Sprintf("│ Precision:        %5.1f%%  (correct / total reported)       │\n", r.Precision))
-	sb.WriteString(fmt.Sprintf("│ Recall:           %5.1f%%  (found / total in ground truth)  │\n", r.Recall))
-	sb.WriteString(fmt.Sprintf("│ F1 Score:         %5.1f%%  (harmonic mean)                  │\n", r.F1Score))
-	sb.WriteString(fmt.Sprintf("│ Version Accuracy: %5.1f%%  (exact version matches)          │\n", r.VersionAccuracy))
+	_, _ = fmt.Fprintf(&sb, "│ Precision:        %5.1f%%  (correct / total reported)       │\n", r.Precision)
+	_, _ = fmt.Fprintf(&sb, "│ Recall:           %5.1f%%  (found / total in ground truth)  │\n", r.Recall)
+	_, _ = fmt.Fprintf(&sb, "│ F1 Score:         %5.1f%%  (harmonic mean)                  │\n", r.F1Score)
+	_, _ = fmt.Fprintf(&sb, "│ Version Accuracy: %5.1f%%  (exact version matches)          │\n", r.VersionAccuracy)
 	sb.WriteString("└─────────────────────────────────────────────────────────────┘\n")
 
 	// Missing dependencies
@@ -356,7 +356,7 @@ func (r *ComparisonResult) PrintReport() string {
 		sb.WriteString("├─────────────────────────────────────────────────────────────┤\n")
 		for i, m := range r.Missing {
 			if i >= 20 {
-				sb.WriteString(fmt.Sprintf("│ ... and %d more                                             │\n", len(r.Missing)-20))
+				_, _ = fmt.Fprintf(&sb, "│ ... and %d more                                             │\n", len(r.Missing)-20)
 				break
 			}
 			line := fmt.Sprintf("│ • %-40s %-16s │\n", truncate(m.Name, 40), truncate(m.Version, 16))
@@ -372,7 +372,7 @@ func (r *ComparisonResult) PrintReport() string {
 		sb.WriteString("├─────────────────────────────────────────────────────────────┤\n")
 		for i, e := range r.Extra {
 			if i >= 20 {
-				sb.WriteString(fmt.Sprintf("│ ... and %d more                                             │\n", len(r.Extra)-20))
+				_, _ = fmt.Fprintf(&sb, "│ ... and %d more                                             │\n", len(r.Extra)-20)
 				break
 			}
 			line := fmt.Sprintf("│ • %-40s %-16s │\n", truncate(e.Name, 40), truncate(e.Version, 16))
@@ -388,7 +388,7 @@ func (r *ComparisonResult) PrintReport() string {
 		sb.WriteString("├─────────────────────────────────────────────────────────────┤\n")
 		for i, m := range r.Mismatch {
 			if i >= 20 {
-				sb.WriteString(fmt.Sprintf("│ ... and %d more                                             │\n", len(r.Mismatch)-20))
+				_, _ = fmt.Fprintf(&sb, "│ ... and %d more                                             │\n", len(r.Mismatch)-20)
 				break
 			}
 			line := fmt.Sprintf("│ • %-30s expected: %-8s got: %-8s │\n",
@@ -403,7 +403,7 @@ func (r *ComparisonResult) PrintReport() string {
 	// Grade
 	sb.WriteString("\n")
 	grade := calculateGrade(r.F1Score)
-	sb.WriteString(fmt.Sprintf("Overall Grade: %s\n", grade))
+	_, _ = fmt.Fprintf(&sb, "Overall Grade: %s\n", grade)
 
 	return sb.String()
 }
@@ -443,27 +443,27 @@ func (r *ComparisonResult) SaveNote(notePath, groundTruthPath, generatedPath str
 	var sb strings.Builder
 	sb.WriteString("SBOM Verification Note\n")
 	sb.WriteString("======================\n")
-	sb.WriteString(fmt.Sprintf("Generated:     %s\n", time.Now().Format("2006-01-02 15:04:05")))
-	sb.WriteString(fmt.Sprintf("Ground truth:  %s\n", filepath.Base(groundTruthPath)))
-	sb.WriteString(fmt.Sprintf("Generated SBOM:%s\n\n", filepath.Base(generatedPath)))
+	_, _ = fmt.Fprintf(&sb, "Generated:     %s\n", time.Now().Format("2006-01-02 15:04:05"))
+	_, _ = fmt.Fprintf(&sb, "Ground truth:  %s\n", filepath.Base(groundTruthPath))
+	_, _ = fmt.Fprintf(&sb, "Generated SBOM:%s\n\n", filepath.Base(generatedPath))
 
 	sb.WriteString("Scores\n")
 	sb.WriteString("------\n")
-	sb.WriteString(fmt.Sprintf("Precision        %6.1f%%\n", r.Precision))
-	sb.WriteString(fmt.Sprintf("Recall           %6.1f%%\n", r.Recall))
-	sb.WriteString(fmt.Sprintf("F1 Score         %6.1f%%\n", r.F1Score))
-	sb.WriteString(fmt.Sprintf("Version Accuracy %6.1f%%\n\n", r.VersionAccuracy))
+	_, _ = fmt.Fprintf(&sb, "Precision        %6.1f%%\n", r.Precision)
+	_, _ = fmt.Fprintf(&sb, "Recall           %6.1f%%\n", r.Recall)
+	_, _ = fmt.Fprintf(&sb, "F1 Score         %6.1f%%\n", r.F1Score)
+	_, _ = fmt.Fprintf(&sb, "Version Accuracy %6.1f%%\n\n", r.VersionAccuracy)
 
-	sb.WriteString(fmt.Sprintf("Grade: %s  %s\n\n", grade, desc))
+	_, _ = fmt.Fprintf(&sb, "Grade: %s  %s\n\n", grade, desc)
 
 	sb.WriteString("Components\n")
 	sb.WriteString("----------\n")
-	sb.WriteString(fmt.Sprintf("Ground truth : %d\n", r.GroundTruthCount))
-	sb.WriteString(fmt.Sprintf("Generated    : %d\n", r.GeneratedCount))
-	sb.WriteString(fmt.Sprintf("Matched      : %d\n", r.MatchedCount))
-	sb.WriteString(fmt.Sprintf("Missing      : %d\n", r.MissingCount))
-	sb.WriteString(fmt.Sprintf("Extra        : %d\n", r.ExtraCount))
-	sb.WriteString(fmt.Sprintf("Version delta: %d\n", r.VersionMismatch))
+	_, _ = fmt.Fprintf(&sb, "Ground truth : %d\n", r.GroundTruthCount)
+	_, _ = fmt.Fprintf(&sb, "Generated    : %d\n", r.GeneratedCount)
+	_, _ = fmt.Fprintf(&sb, "Matched      : %d\n", r.MatchedCount)
+	_, _ = fmt.Fprintf(&sb, "Missing      : %d\n", r.MissingCount)
+	_, _ = fmt.Fprintf(&sb, "Extra        : %d\n", r.ExtraCount)
+	_, _ = fmt.Fprintf(&sb, "Version delta: %d\n", r.VersionMismatch)
 
 	return os.WriteFile(notePath, []byte(sb.String()), 0644)
 }

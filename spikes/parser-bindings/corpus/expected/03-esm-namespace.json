@@ -1,0 +1,60 @@
+{
+  "fixture": "03-esm-namespace.js",
+  "language": "javascript",
+  "hasError": false,
+  "imports": [
+    {
+      "specifier": "lodash",
+      "kind": "esm_namespace",
+      "local": "_",
+      "imported": "*",
+      "typeOnly": false,
+      "line": 1,
+      "column": 12
+    }
+  ],
+  "calls": [
+    {
+      "callee": "template",
+      "receiver": "_",
+      "line": 6,
+      "column": 19
+    },
+    {
+      "callee": null,
+      "receiver": "_",
+      "line": 7,
+      "column": 18,
+      "note": "computed member property"
+    },
+    {
+      "callee": "compiled",
+      "receiver": null,
+      "line": 8,
+      "column": 10
+    },
+    {
+      "callee": "dynamic",
+      "receiver": null,
+      "line": 8,
+      "column": 26
+    }
+  ],
+  "functions": [
+    {
+      "name": "build",
+      "line": 5,
+      "column": 16,
+      "exported": true
+    }
+  ],
+  "unresolved": [
+    {
+      "kind": "computed_member",
+      "expression": "_[method](src)",
+      "line": 7,
+      "column": 18,
+      "reason": "property name is computed at runtime"
+    }
+  ]
+}

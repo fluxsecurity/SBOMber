@@ -1,0 +1,42 @@
+{
+  "fixture": "08-type-only.ts",
+  "language": "typescript",
+  "hasError": false,
+  "imports": [
+    {
+      "specifier": "lodash",
+      "kind": "esm_type_only",
+      "local": "DebouncedFunc",
+      "imported": "DebouncedFunc",
+      "typeOnly": true,
+      "line": 1,
+      "column": 14
+    },
+    {
+      "specifier": "lodash",
+      "kind": "esm_named",
+      "local": "debounce",
+      "imported": "debounce",
+      "typeOnly": false,
+      "line": 2,
+      "column": 9
+    }
+  ],
+  "calls": [
+    {
+      "callee": "debounce",
+      "receiver": null,
+      "line": 5,
+      "column": 9
+    }
+  ],
+  "functions": [
+    {
+      "name": "wrap",
+      "line": 4,
+      "column": 16,
+      "exported": true
+    }
+  ],
+  "unresolved": []
+}

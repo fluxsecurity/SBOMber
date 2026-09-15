@@ -1,0 +1,85 @@
+{
+  "fixture": "10-reachability.js",
+  "language": "javascript",
+  "hasError": false,
+  "imports": [
+    {
+      "specifier": "express",
+      "kind": "esm_default",
+      "local": "express",
+      "imported": "default",
+      "typeOnly": false,
+      "line": 1,
+      "column": 7
+    },
+    {
+      "specifier": "lodash",
+      "kind": "esm_named",
+      "local": "template",
+      "imported": "template",
+      "typeOnly": false,
+      "line": 2,
+      "column": 9
+    }
+  ],
+  "calls": [
+    {
+      "callee": "express",
+      "receiver": null,
+      "line": 4,
+      "column": 12
+    },
+    {
+      "callee": "template",
+      "receiver": null,
+      "line": 7,
+      "column": 9
+    },
+    {
+      "callee": null,
+      "receiver": null,
+      "line": 7,
+      "column": 9,
+      "note": "immediately-invoked result"
+    },
+    {
+      "callee": "send",
+      "receiver": "res",
+      "line": 11,
+      "column": 2
+    },
+    {
+      "callee": "renderWelcome",
+      "receiver": null,
+      "line": 11,
+      "column": 11
+    },
+    {
+      "callee": "get",
+      "receiver": "app",
+      "line": 14,
+      "column": 0
+    },
+    {
+      "callee": "sendWelcome",
+      "receiver": null,
+      "line": 14,
+      "column": 34
+    }
+  ],
+  "functions": [
+    {
+      "name": "renderWelcome",
+      "line": 6,
+      "column": 9,
+      "exported": false
+    },
+    {
+      "name": "sendWelcome",
+      "line": 10,
+      "column": 9,
+      "exported": false
+    }
+  ],
+  "unresolved": []
+}

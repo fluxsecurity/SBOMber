@@ -1,0 +1,409 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Xsamsx/SBOMber/contracts/usage-graph.schema.json",
+  "title": "usage-graph.json",
+  "description": "Function-usage evidence and reachability. Produced by component 2, read by component 4. Records what the application imports and calls, and - for the committed narrow reachability slice - whether an individual call site is connected to a declared application entry point. Contains no vulnerability data: component 2 does not know which findings exist or which symbols are implicated.",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "scanId",
+    "analysis",
+    "analyser",
+    "coverage",
+    "observations",
+    "unanalysedOccurrences"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "const": "1.2.0"
+    },
+    "scanId": {
+      "type": "string",
+      "description": "Matches canonical-scan.json."
+    },
+
+    "analysis": {
+      "type": "object",
+      "description": "Overall Component 2 analysis outcome. Prevents an empty unsupported, failed or partial analysis from being mistaken for completed analysis with no usage.",
+      "required": ["status", "ecosystem"],
+      "additionalProperties": false,
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["complete", "partial", "unsupported", "failed"]
+        },
+        "ecosystem": {
+          "type": "string",
+          "minLength": 1
+        },
+        "analyzerId": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Required for complete and partial analysis."
+        },
+        "reasonCode": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Required for unsupported and failed analysis."
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": { "enum": ["complete", "partial"] }
+            }
+          },
+          "then": {
+            "required": ["analyzerId"]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": { "enum": ["unsupported", "failed"] }
+            }
+          },
+          "then": {
+            "required": ["reasonCode"]
+          }
+        }
+      ]
+    },
+
+    "analyser": {
+      "type": "object",
+      "description": "What produced this file. Any accuracy or reachability figure must record these values alongside it.",
+      "required": ["parser", "binding", "bindingVersion", "grammarVersions", "ecosystems"],
+      "additionalProperties": false,
+      "properties": {
+        "parser": { "type": "string", "description": "Parser technology, e.g. tree-sitter." },
+        "binding": {
+          "type": "string",
+          "description": "The language binding actually used, e.g. github.com/tree-sitter/go-tree-sitter. Recorded because the binding, not the parser, is what constrains packaging and what a reproduction must match."
+        },
+        "bindingVersion": { "type": "string" },
+        "cgoEnabled": {
+          "type": "boolean",
+          "description": "True when the selected binding requires CGO. Constrains component 1's release packaging."
+        },
+        "grammarVersions": {
+          "type": "object",
+          "additionalProperties": { "type": "string" }
+        },
+        "ecosystems": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Ecosystems analysed. Anything absent here is unsupported downstream, not clean."
+        },
+        "reachabilityAnalysed": {
+          "type": "boolean",
+          "description": "False when the level-3 pass did not run at all. Every call site then reports reachability 'not_analysed', which is different from having run and resolved nothing."
+        }
+      }
+    },
+
+    "entryPoints": {
+      "type": "array",
+      "description": "Application entry points used for level-3 reachability. Declared in configuration or detected from package.json bin/main, exported module functions and statically recognisable route handlers. An empty list means reachability was not analysed, not that nothing is reachable.",
+      "items": {
+        "type": "object",
+        "required": ["entryPointId", "kind", "function", "file", "line"],
+        "additionalProperties": false,
+        "properties": {
+          "entryPointId": { "type": "string" },
+          "kind": {
+            "type": "string",
+            "enum": ["declared", "package_bin", "package_main", "exported_module", "route_handler"],
+            "description": "How this entry point was identified. 'declared' means configured by the user."
+          },
+          "function": { "type": "string" },
+          "file": { "type": "string" },
+          "line": { "type": "integer", "minimum": 1 },
+          "repositoryId": { "type": "string" }
+        }
+      }
+    },
+
+    "coverage": {
+      "type": "object",
+      "description": "Mandatory on every scan. Component 4's confidence rating is computed from these numbers, so every counter states its scope explicitly. Counters prefixed thirdParty count only imports and calls that resolve to a package occurrence in canonical-scan.json - relative and built-in module imports are out of scope and are not counted anywhere.",
+      "required": [
+        "filesDiscovered",
+        "filesParsed",
+        "filesParsedWithErrors",
+        "filesFailed",
+        "filesSkipped",
+        "thirdPartyImportsResolved",
+        "thirdPartyImportsTypeOnly",
+        "thirdPartyImportsUnresolved",
+        "thirdPartyCallSitesResolved",
+        "thirdPartyCallSitesUnresolved",
+        "entryPointsDetected",
+        "callPathsResolved",
+        "callPathsUnresolved"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "filesDiscovered": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Must equal filesParsed + filesParsedWithErrors + filesFailed + filesSkipped."
+        },
+        "filesParsed": { "type": "integer", "minimum": 0, "description": "Parsed with no error nodes." },
+        "filesParsedWithErrors": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Parsed to a usable tree containing error nodes. Evidence from these files is real but the file is not fully covered."
+        },
+        "filesFailed": { "type": "integer", "minimum": 0, "description": "No usable tree. Listed in parseFailures." },
+        "filesSkipped": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Excluded by design or by policy: node_modules, build output, minified bundles, files over the size limit."
+        },
+        "thirdPartyImportsResolved": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Observations with resolution 'resolved'."
+        },
+        "thirdPartyImportsTypeOnly": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Observations with resolution 'type_only'. Counted separately because type imports are erased at compile time and are never runtime evidence."
+        },
+        "thirdPartyImportsUnresolved": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Observations with resolution 'unresolved'."
+        },
+        "thirdPartyCallSitesResolved": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Call sites across all observations with resolution 'resolved'."
+        },
+        "thirdPartyCallSitesUnresolved": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Call sites with resolution 'unresolved', e.g. computed member access on a resolved binding. Recorded, never dropped."
+        },
+        "limitsHit": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "e.g. max_files, max_file_size. Present means the graph is incomplete by policy and the scan is partial."
+        },
+        "perRepository": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["repositoryId", "filesDiscovered", "filesParsed", "filesFailed"],
+            "additionalProperties": false,
+            "properties": {
+              "repositoryId": { "type": "string" },
+              "filesDiscovered": { "type": "integer", "minimum": 0 },
+              "filesParsed": { "type": "integer", "minimum": 0 },
+              "filesParsedWithErrors": { "type": "integer", "minimum": 0 },
+              "filesFailed": { "type": "integer", "minimum": 0 },
+              "filesSkipped": { "type": "integer", "minimum": 0 }
+            }
+          }
+        },
+        "entryPointsDetected": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Level-3 only. Zero means no entry point was found, so no path could resolve for any call site."
+        },
+        "callPathsResolved": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Level-3 only. Counted per CALL SITE, not per observation: the number of call sites with reachability 'reachable'."
+        },
+        "callPathsUnresolved": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Level-3 only. Counted per CALL SITE: the number of call sites with reachability 'unknown'. These are unknown, never evidence of unreachability."
+        }
+      }
+    },
+
+    "observations": {
+      "type": "array",
+      "description": "One observation per third-party import binding. Identity = package occurrence + imported symbol + import file + import line. Call sites hang off the observation and carry their own reachability, because two calls through the same import can differ.",
+      "items": {
+        "type": "object",
+        "required": ["observationId", "importedSpecifier", "importKind", "resolution", "location", "evidenceLevel", "callSites"],
+        "additionalProperties": false,
+        "properties": {
+          "observationId": {
+            "type": "string",
+            "description": "Stable across runs. Derived from occurrenceId (or the raw specifier when unresolved) + importedSymbol + import file + import line, so two runs over an unchanged tree produce the same identifier."
+          },
+          "occurrenceId": {
+            "type": "string",
+            "description": "From canonical-scan.json. Ties the import to a specific installed package. Absent only when resolution is 'unresolved' and no package could be determined."
+          },
+          "purl": { "type": "string", "pattern": "^pkg:" },
+          "importedSpecifier": {
+            "type": "string",
+            "description": "The module specifier as written in source, e.g. lodash, lodash/template, @scope/pkg/subpath. When computedSpecifier is true this holds the source text of the expression, for human reading only - never join on it. Placeholder values such as <computed> are forbidden."
+          },
+          "computedSpecifier": {
+            "type": "boolean",
+            "default": false,
+            "description": "True when the import specifier is an expression rather than a string literal, e.g. import(name). Such an import is always resolution 'unresolved' with reason 'computed_specifier'."
+          },
+          "subpath": {
+            "type": "string",
+            "description": "Present when the import targets a package subpath. Maps to the same component."
+          },
+          "localAlias": {
+            "type": "string",
+            "description": "Local binding name, e.g. _ for import * as _ from 'lodash'."
+          },
+          "importedSymbol": {
+            "type": "string",
+            "description": "The specific symbol, where one is named at the import. Absent for namespace and whole-module imports, where the symbol is only known at the call site."
+          },
+          "importKind": {
+            "type": "string",
+            "enum": [
+              "esm_named",
+              "esm_default",
+              "esm_namespace",
+              "esm_type_only",
+              "cjs_require",
+              "cjs_destructured",
+              "dynamic_static_literal",
+              "dynamic_computed"
+            ]
+          },
+          "resolution": {
+            "type": "string",
+            "enum": ["resolved", "unresolved", "type_only"],
+            "description": "Describes the IMPORT BINDING only, never the calls made through it. A namespace import is 'resolved' - the binding resolves - even when a computed member access on it cannot be resolved; that unresolved access is recorded as a call site with resolution 'unresolved'. 'type_only' is TypeScript import type: recorded, excluded from runtime-call evidence. 'unresolved' means the import itself could not be tied to a package."
+          },
+          "unresolvedReason": {
+            "type": "string",
+            "enum": ["computed_specifier", "reexport_chain", "not_in_inventory", "parse_failure", "outside_supported_syntax"],
+            "description": "Required when resolution is 'unresolved'. computed_member_access is NOT a value here - it is a call-site reason, not an import reason."
+          },
+          "location": {
+            "type": "object",
+            "description": "Where the import statement appears.",
+            "required": ["repositoryId", "file", "line"],
+            "additionalProperties": false,
+            "properties": {
+              "repositoryId": { "type": "string" },
+              "file": { "type": "string", "description": "Repository-relative path. Never absolute, never inside node_modules." },
+              "line": { "type": "integer", "minimum": 1 },
+              "column": { "type": "integer", "minimum": 1 }
+            }
+          },
+          "evidenceLevel": {
+            "type": "integer",
+            "enum": [1, 2, 3],
+            "description": "Derived, not asserted: the maximum level across this observation's call sites. 1 = package imported, no resolved call site. 2 = at least one resolved call site. 3 = at least one call site with reachability 'reachable'. Only level 3 supports unqualified reachability language."
+          },
+          "callSites": {
+            "type": "array",
+            "description": "Where the binding is used. An observation with no call sites is level-1 evidence only. Required, possibly empty - an absent array would be indistinguishable from an unexamined one.",
+            "items": {
+              "type": "object",
+              "required": ["file", "line", "resolution", "reachability"],
+              "additionalProperties": false,
+              "properties": {
+                "file": { "type": "string" },
+                "line": { "type": "integer", "minimum": 1 },
+                "column": { "type": "integer", "minimum": 1 },
+                "calledSymbol": {
+                  "type": "string",
+                  "description": "Resolved symbol on the package, e.g. template for _.template(...). Required when resolution is 'resolved'; absent when the access could not be resolved to a name."
+                },
+                "enclosingFunction": {
+                  "type": "string",
+                  "description": "The named application function containing this call. Absent for top-level or anonymous scopes, which is itself a reason a path may not resolve."
+                },
+                "resolution": {
+                  "type": "string",
+                  "enum": ["resolved", "unresolved"],
+                  "description": "'unresolved' for computed member access and calls through variables holding function references. Recorded so component 4 can lower confidence rather than treating absence as evidence."
+                },
+                "unresolvedReason": {
+                  "type": "string",
+                  "enum": ["computed_member_access", "call_through_variable", "reexport_chain", "outside_supported_syntax"],
+                  "description": "Required when the call site resolution is 'unresolved'."
+                },
+                "reachability": {
+                  "type": "string",
+                  "enum": ["reachable", "unknown", "not_analysed"],
+                  "description": "Level-3 result for THIS call site. 'reachable' requires a resolved callPath and an entryPointId. 'unknown' means the level-3 pass ran and no path resolved within the committed scope. 'not_analysed' means the pass did not run for this call site. There is deliberately no 'not_reachable': within an application-source-only analysis the absence of a path describes the analysis, not the code - the same reasoning that forbids automated VEX not_affected."
+                },
+                "entryPointId": {
+                  "type": "string",
+                  "description": "References entryPoints[].entryPointId. Required when reachability is 'reachable', forbidden otherwise."
+                },
+                "callPath": {
+                  "type": "array",
+                  "description": "Ordered application functions from the entry point to this call site. First element corresponds to entryPointId, last is the enclosing function. Required and non-empty when reachability is 'reachable', forbidden otherwise.",
+                  "items": {
+                    "type": "object",
+                    "required": ["function", "file", "line"],
+                    "additionalProperties": false,
+                    "properties": {
+                      "function": { "type": "string" },
+                      "file": { "type": "string" },
+                      "line": { "type": "integer", "minimum": 1 }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "unanalysedOccurrences": {
+      "type": "array",
+      "description": "Package occurrences from canonical-scan.json that this analysis did not or could not examine. THIS IS THE SAFETY-CRITICAL ARRAY. Without it, 'analysed and found no usage' and 'never analysed' both look like an occurrence with no observations, and component 4 cannot tell no_usage_detected from unknown. An occurrence listed here must not support a negative finding, except when reason is 'not_imported_by_analysed_source', which means the analysed application source was checked and no import was found.",
+      "items": {
+        "type": "object",
+        "required": ["occurrenceId", "reason"],
+        "additionalProperties": false,
+        "properties": {
+          "occurrenceId": { "type": "string" },
+          "purl": { "type": "string", "pattern": "^pkg:" },
+          "reason": {
+            "type": "string",
+            "enum": [
+              "nested_under_dependency",
+              "not_imported_by_analysed_source",
+              "ecosystem_unsupported",
+              "import_site_parse_failed",
+              "excluded_by_limits"
+            ],
+            "description": "nested_under_dependency: reachable only from inside another package, whose source is not parsed - resolves to unknown, never no_usage_detected. not_imported_by_analysed_source: the analysis completed and found no import - this is the only reason that may support no_usage_detected. ecosystem_unsupported: outside the analysed ecosystems. import_site_parse_failed / excluded_by_limits: the analysis was incomplete."
+          },
+          "detail": { "type": "string" }
+        }
+      }
+    },
+
+    "parseFailures": {
+      "type": "array",
+      "description": "Logged and counted, never fatal. A failed file increments filesFailed and must not stop the repository scan.",
+      "items": {
+        "type": "object",
+        "required": ["file", "reason"],
+        "additionalProperties": false,
+        "properties": {
+          "repositoryId": { "type": "string" },
+          "file": { "type": "string" },
+          "reason": { "type": "string" }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "fixture": "05-cjs-destructured.js",
+  "language": "javascript",
+  "hasError": false,
+  "imports": [
+    {
+      "specifier": "lodash",
+      "kind": "cjs_destructured",
+      "local": "template",
+      "imported": "template",
+      "typeOnly": false,
+      "line": 1,
+      "column": 8
+    },
+    {
+      "specifier": "lodash",
+      "kind": "cjs_destructured",
+      "local": "mergeDeep",
+      "imported": "merge",
+      "typeOnly": false,
+      "line": 1,
+      "column": 25
+    }
+  ],
+  "calls": [
+    {
+      "callee": "require",
+      "receiver": null,
+      "line": 1,
+      "column": 39
+    },
+    {
+      "callee": "template",
+      "receiver": null,
+      "line": 4,
+      "column": 9
+    },
+    {
+      "callee": null,
+      "receiver": null,
+      "line": 4,
+      "column": 9,
+      "note": "immediately-invoked result"
+    },
+    {
+      "callee": "mergeDeep",
+      "receiver": null,
+      "line": 4,
+      "column": 23
+    }
+  ],
+  "functions": [
+    {
+      "name": "apply",
+      "line": 3,
+      "column": 32,
+      "exported": true
+    }
+  ],
+  "unresolved": []
+}

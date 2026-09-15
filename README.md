@@ -77,6 +77,8 @@ make build
 
 Navigate with arrow keys, select with Enter. The TUI provides guided workflows for all features.
 
+After a local scan of a single repo, the results screen offers **Check ground-truth accuracy** — point it at a ground-truth SBOM (see [Verified accuracy](#verified-accuracy) below) and it runs the same comparison `sbomber verify` does, inline. Only offered when the scan covered exactly one repo, since a comparison needs exactly one generated SBOM to be meaningful.
+
 ### Local Scanning
 
 ```bash
@@ -135,29 +137,81 @@ Understand how dependencies enter your project.
 ./bin/sbomber trace . --fp --list
 ```
 
-### SBOM Verification
+### Vulnerable-function localisation
 
-Compare your generated SBOM against a committed ground truth to measure accuracy.
-
-> The repository includes a verified benchmark fixture at `testdata/benchmarks/npm-basic/ground-truth.json`. Accuracy figures are only meaningful when the reference SBOM is committed and verified in-repo.
+Work out which function an advisory actually implicates, so usage evidence
+can be compared against it instead of against the whole package.
 
 ```bash
-# Compare against a committed reference SBOM
-./bin/sbomber verify testdata/benchmarks/npm-basic/ground-truth.json testdata/benchmarks/npm-basic/generated.json
+# Read the scan's canonical-scan.json, write localisation.json
+./bin/sbomber localise --canonical-scan out/canonical-scan.json --out out/localisation.json
+
+# Keep the per-method evidence trace and run every method for comparison
+GITHUB_TOKEN=$(gh auth token) ./bin/sbomber localise --canonical-scan out/canonical-scan.json \
+  --out out/localisation.json --trace out/localisation-trace.json --all-methods
+```
+
+Methods run in fallback order, cheapest and most reliable first: structured
+advisory metadata, the fix commit the advisory links to, function names in the
+advisory prose, and finally a diff of the vulnerable and fixed npm tarballs.
+A finding no method can localise is reported as `unknown` and falls back to
+package-level treatment; the unknown rate is a result, not a failure.
+
+Downloaded package code is **never executed**. Tarballs are verified against
+the registry's integrity value, read in memory, and every artefact records
+`executed: false`. The output follows `contracts/localisation.schema.json`.
+Measured behaviour on ten curated CVEs is in `spikes/localisation/`.
+
+### SBOM Verification
+
+Compare your generated SBOM against a ground truth to measure accuracy.
+
+```bash
+# Compare against a reference SBOM
+./bin/sbomber verify reference.cdx.xml my-output.cdx.xml
 
 # Output as JSON (for CI/CD)
-./bin/sbomber verify testdata/benchmarks/npm-basic/ground-truth.json testdata/benchmarks/npm-basic/generated.json --json
+./bin/sbomber verify reference.json generated.json --json
 ```
 
-**Verified benchmark result for the committed fixture:**
+**Output format** (field layout only — these are placeholder digits, not a
+measured result; see *Verified accuracy* below for a real one):
 ```
-Precision:        100.0%
-Recall:           100.0%
-F1 Score:         100.0%
-Version Accuracy: 100.0%
+╔══════════════════════════════════════════════════════════════╗
+║                    SBOM VERIFICATION REPORT                  ║
+╚══════════════════════════════════════════════════════════════╝
 
-Overall Grade: A+ (Excellent)
+│ Precision:        NN.N%  (correct / total reported)          │
+│ Recall:           NN.N%  (found / total in ground truth)     │
+│ F1 Score:         NN.N%  (harmonic mean)                     │
+
+Overall Grade: <grade>
 ```
+
+### Verified accuracy
+
+No accuracy figure for SBOMber is quoted anywhere (README, report, poster,
+client conversation) unless it has a committed ground-truth fixture and a
+`sbomber verify` run behind it — an unsourced percentage is an integrity
+problem, not just an accuracy one.
+
+The one currently on record:
+[`testdata/fixtures/ground-truth/npm-basic`](testdata/fixtures/ground-truth/npm-basic)
+— method, fixture, and full `sbomber verify` output committed, run twice:
+before and after the npm package-lock reconciliation fix
+([`docs/design/npm-identity-reconciliation.md`](docs/design/npm-identity-reconciliation.md)).
+Precision/Recall/F1 were 100% in both runs; **Version Accuracy went from 0%
+to 100%** once the parser started reconciling `package.json` ranges against
+`package-lock.json` resolutions instead of reporting the raw semver range.
+See the fixture's `METHOD.md` for both runs' numbers and what's still not
+covered by this one small fixture (the nested-version case, covered instead
+by dedicated unit tests — see that same design doc).
+
+That comparison is no longer just a one-time snapshot: `go test ./...`
+reruns it automatically (`TestGroundTruthFixturesDoNotRegress`) and fails
+the build if a future change drops any metric below what's committed —
+the same mechanism that would have caught the bug above the moment it was
+reintroduced, rather than requiring someone to notice.
 
 ---
 

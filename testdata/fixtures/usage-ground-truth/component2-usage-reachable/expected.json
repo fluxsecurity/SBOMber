@@ -1,0 +1,45 @@
+{
+  "fixture": "component2-usage-reachable",
+  "labelMethod": "hand-authored before analyser execution",
+  "language": "javascript",
+  "expected": {
+    "entryPoints": [
+      {
+        "name": "postWelcome",
+        "kind": "exported_module",
+        "file": "src/index.js",
+        "line": 3
+      }
+    ],
+    "thirdPartyImports": [
+      {
+        "specifier": "lodash",
+        "imported": "merge",
+        "local": "merge",
+        "kind": "esm_named",
+        "file": "src/service.js",
+        "line": 1
+      }
+    ],
+    "thirdPartyCalls": [
+      {
+        "symbol": "merge",
+        "file": "src/service.js",
+        "line": 4,
+        "resolution": "resolved",
+        "reachability": "reachable",
+        "entryPoint": "postWelcome",
+        "callPath": [
+          "postWelcome",
+          "handleRequest"
+        ],
+        "evidenceLevel": 3
+      }
+    ],
+    "coverage": {
+      "entryPointsDetected": 1,
+      "callPathsResolved": 1,
+      "callPathsUnresolved": 0
+    }
+  }
+}

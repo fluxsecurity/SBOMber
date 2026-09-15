@@ -204,16 +204,20 @@ func saveCycloneDXJSON(repoDir, repoName string, summary deps.Summary) (string, 
 		Dependencies: make([]cycloneDXJSONDep, 0),
 	}
 
-	bomRefMap := make(map[string]string)
+	// nameRefs tracks every bom-ref (exact PURL, so two occurrences of the
+	// same package at different versions never collide) seen for a given
+	// package name. It is used only to resolve a Children entry (a bare
+	// name, not a versioned reference — see buildJSONProperties and
+	// Dependency.Children) when there is exactly one occurrence of that
+	// name. When a name has more than one occurrence, a bare-name child
+	// reference is inherently ambiguous about which version it depends on,
+	// so it is left unresolved rather than guessed. See
+	// docs/design/canonical-scan.md.
+	nameRefs := make(map[string][]string)
 
 	addComponent := func(dep deps.Dependency, isDirect bool) {
 		purl := dep.Purl()
-		bomRefMap[dep.Name] = purl
-
-		scope := "optional"
-		if isDirect {
-			scope = mapScopeToRequired(dep.Scope)
-		}
+		nameRefs[dep.Name] = append(nameRefs[dep.Name], purl)
 
 		props := buildJSONProperties(dep, isDirect)
 		bom.Components = append(bom.Components, cycloneDXJSONComponent{
@@ -221,7 +225,7 @@ func saveCycloneDXJSON(repoDir, repoName string, summary deps.Summary) (string, 
 			BOMRef:     purl,
 			Name:       dep.Name,
 			Version:    dep.Version,
-			Scope:      scope,
+			Scope:      cycloneDXScope(dep),
 			Purl:       purl,
 			Properties: props,
 		})
@@ -234,26 +238,29 @@ func saveCycloneDXJSON(repoDir, repoName string, summary deps.Summary) (string, 
 		addComponent(d, false)
 	}
 
+	resolveChildRef := func(name string) (string, bool) {
+		refs := nameRefs[name]
+		if len(refs) != 1 {
+			return "", false
+		}
+		return refs[0], true
+	}
+
 	// Root dependency entry
 	rootDeps := make([]string, 0, len(summary.Direct))
 	for _, d := range summary.Direct {
-		if ref, ok := bomRefMap[d.Name]; ok {
-			rootDeps = append(rootDeps, ref)
-		}
+		rootDeps = append(rootDeps, d.Purl())
 	}
 	bom.Dependencies = append(bom.Dependencies, cycloneDXJSONDep{Ref: rootPurl, DependsOn: rootDeps})
 
-	for _, dep := range append(summary.Direct, summary.Transitive...) {
+	for _, dep := range append(append([]deps.Dependency{}, summary.Direct...), summary.Transitive...) {
 		if len(dep.Children) == 0 {
 			continue
 		}
-		ref, ok := bomRefMap[dep.Name]
-		if !ok {
-			continue
-		}
+		ref := dep.Purl()
 		childRefs := make([]string, 0, len(dep.Children))
 		for _, child := range dep.Children {
-			if cr, ok := bomRefMap[child]; ok {
+			if cr, ok := resolveChildRef(child); ok {
 				childRefs = append(childRefs, cr)
 			}
 		}
@@ -324,12 +331,17 @@ func saveCycloneDX(repoDir, repoName string, summary deps.Summary) (string, erro
 	}
 
 	components := make([]cycloneDXComponent, 0, len(summary.Direct)+len(summary.Transitive))
-	bomRefMap := make(map[string]string) // maps package name to bom-ref
+	// nameRefs tracks every bom-ref (exact PURL) seen for a given package
+	// name, so buildDependenciesSection can resolve a Children entry (a
+	// bare name) when there is exactly one occurrence of that name. See
+	// the equivalent comment in saveCycloneDXJSON and
+	// docs/design/canonical-scan.md.
+	nameRefs := make(map[string][]string)
 
 	// Process direct dependencies
 	for _, dependency := range summary.Direct {
 		purl := dependency.Purl()
-		bomRefMap[dependency.Name] = purl
+		nameRefs[dependency.Name] = append(nameRefs[dependency.Name], purl)
 
 		props := buildProperties(dependency, true)
 		components = append(components, cycloneDXComponent{
@@ -337,7 +349,7 @@ func saveCycloneDX(repoDir, repoName string, summary deps.Summary) (string, erro
 			BomRef:     purl,
 			Name:       dependency.Name,
 			Version:    dependency.Version,
-			Scope:      mapScopeToRequired(dependency.Scope),
+			Scope:      cycloneDXScope(dependency),
 			Purl:       purl,
 			Properties: props,
 		})
@@ -346,7 +358,7 @@ func saveCycloneDX(repoDir, repoName string, summary deps.Summary) (string, erro
 	// Process transitive dependencies
 	for _, dependency := range summary.Transitive {
 		purl := dependency.Purl()
-		bomRefMap[dependency.Name] = purl
+		nameRefs[dependency.Name] = append(nameRefs[dependency.Name], purl)
 
 		props := buildProperties(dependency, false)
 		components = append(components, cycloneDXComponent{
@@ -354,7 +366,7 @@ func saveCycloneDX(repoDir, repoName string, summary deps.Summary) (string, erro
 			BomRef:     purl,
 			Name:       dependency.Name,
 			Version:    dependency.Version,
-			Scope:      "optional", // CycloneDX uses optional for transitive
+			Scope:      cycloneDXScope(dependency),
 			Purl:       purl,
 			Properties: props,
 		})
@@ -365,7 +377,7 @@ func saveCycloneDX(repoDir, repoName string, summary deps.Summary) (string, erro
 	}
 
 	// Build dependencies section
-	dependencies := buildDependenciesSection(rootPurl, summary, bomRefMap)
+	dependencies := buildDependenciesSection(rootPurl, summary, nameRefs)
 	if len(dependencies) > 0 {
 		bom.Dependencies = &dependenciesList{Dependencies: dependencies}
 	}
@@ -426,15 +438,25 @@ func buildProperties(dep deps.Dependency, isDirect bool) *propertiesList {
 }
 
 // buildDependenciesSection creates the CycloneDX dependencies mapping.
-func buildDependenciesSection(rootRef string, summary deps.Summary, bomRefMap map[string]string) []cycloneDXDependency {
+// nameRefs maps a package name to every bom-ref (exact PURL) it occurs
+// under; a Children entry (a bare name) resolves only when its name has
+// exactly one occurrence, since a name with several versioned occurrences
+// gives no way to tell which one a bare name reference actually meant.
+func buildDependenciesSection(rootRef string, summary deps.Summary, nameRefs map[string][]string) []cycloneDXDependency {
 	dependencies := make([]cycloneDXDependency, 0)
+
+	resolveRef := func(name string) (string, bool) {
+		refs := nameRefs[name]
+		if len(refs) != 1 {
+			return "", false
+		}
+		return refs[0], true
+	}
 
 	// Root depends on all direct dependencies
 	rootDeps := make([]dependencyRef, 0, len(summary.Direct))
 	for _, d := range summary.Direct {
-		if ref, ok := bomRefMap[d.Name]; ok {
-			rootDeps = append(rootDeps, dependencyRef{Ref: ref})
-		}
+		rootDeps = append(rootDeps, dependencyRef{Ref: d.Purl()})
 	}
 	if len(rootDeps) > 0 {
 		dependencies = append(dependencies, cycloneDXDependency{
@@ -444,20 +466,19 @@ func buildDependenciesSection(rootRef string, summary deps.Summary, bomRefMap ma
 	}
 
 	// Add dependency relationships for all packages
-	allDeps := append(summary.Direct, summary.Transitive...)
+	allDeps := make([]deps.Dependency, 0, len(summary.Direct)+len(summary.Transitive))
+	allDeps = append(allDeps, summary.Direct...)
+	allDeps = append(allDeps, summary.Transitive...)
 	for _, dep := range allDeps {
 		if len(dep.Children) == 0 {
 			continue
 		}
 
-		ref := bomRefMap[dep.Name]
-		if ref == "" {
-			continue
-		}
+		ref := dep.Purl()
 
 		childRefs := make([]dependencyRef, 0, len(dep.Children))
 		for _, childName := range dep.Children {
-			if childRef, ok := bomRefMap[childName]; ok {
+			if childRef, ok := resolveRef(childName); ok {
 				childRefs = append(childRefs, dependencyRef{Ref: childRef})
 			}
 		}
@@ -473,12 +494,16 @@ func buildDependenciesSection(rootRef string, summary deps.Summary, bomRefMap ma
 	return dependencies
 }
 
-// mapScopeToRequired maps internal scope to CycloneDX scope (required/optional).
-func mapScopeToRequired(scope deps.Scope) string {
-	switch scope {
-	case deps.ScopeRuntime:
-		return "required"
-	case deps.ScopeDev, deps.ScopeTest, deps.ScopeBuild:
+// cycloneDXScope maps a dependency's build scope to CycloneDX's
+// required/optional scope, independent of whether it is a direct or
+// transitive dependency. CycloneDX's "optional" scope means "not needed to
+// build or run" (e.g. dev/test/build tooling) — it does not mean
+// "transitive". A transitive runtime dependency is exactly as required as
+// a direct one; whether a component is direct or transitive is already
+// carried separately via the "supplychain:dependency-type" property.
+func cycloneDXScope(dep deps.Dependency) string {
+	switch dep.BuildScope() {
+	case "dev", "test", "build-tooling":
 		return "optional"
 	default:
 		return "required"
@@ -545,16 +570,4 @@ func saveSPDX(repoDir, repoName string, summary deps.Summary) (string, error) {
 	}
 
 	return path, nil
-}
-
-// buildPurl constructs a Package URL (purl) for a dependency.
-// The purl format is: pkg:<type>/<name>@<version>
-func buildPurl(name, version, purlType string) string {
-	if name == "" {
-		return ""
-	}
-	if version == "" {
-		return fmt.Sprintf("pkg:%s/%s", purlType, name)
-	}
-	return fmt.Sprintf("pkg:%s/%s@%s", purlType, name, version)
 }

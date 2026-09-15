@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bom xmlns="http://cyclonedx.org/schema/bom/1.5" version="1">
+  <metadata>
+    <timestamp>2026-08-24T23:35:09Z</timestamp>
+    <component type="application" bom-ref="pkg:generic/repo">
+      <name>repo</name>
+    </component>
+  </metadata>
+  <components>
+    <component type="library" bom-ref="pkg:npm/lodash@4.18.1">
+      <name>lodash</name>
+      <version>4.18.1</version>
+      <scope>required</scope>
+      <purl>pkg:npm/lodash@4.18.1</purl>
+      <properties>
+        <property name="supplychain:dependency-type">direct</property>
+        <property name="supplychain:ecosystem">npm</property>
+        <property name="supplychain:build-scope">runtime</property>
+        <property name="supplychain:depth">0</property>
+        <property name="supplychain:chain">repo &gt; lodash</property>
+        <property name="supplychain:source-file">package.json</property>
+        <property name="supplychain:source-location">C:\Users\sadma\AppData\Local\Temp\claude\d--Project-Uni-SBOMber-main\2aee857f-ac69-4b9d-afc6-b56d5232c6e9\scratchpad\gt-npm-basic-v2\repo\package.json</property>
+      </properties>
+    </component>
+  </components>
+  <dependencies>
+    <dependency ref="pkg:generic/repo">
+      <dependency ref="pkg:npm/lodash@4.18.1"></dependency>
+    </dependency>
+  </dependencies>
+</bom>

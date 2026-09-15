@@ -247,7 +247,7 @@ func (s *Summary) GetDependencyTree(packageName string, indent string, visited m
 	if dep.IsDirect {
 		depType = "direct"
 	}
-	b.WriteString(fmt.Sprintf("%s%s@%s [%s, depth=%d]\n", indent, dep.Name, dep.Version, depType, dep.Depth))
+	_, _ = fmt.Fprintf(&b, "%s%s@%s [%s, depth=%d]\n", indent, dep.Name, dep.Version, depType, dep.Depth)
 
 	for _, child := range dep.Children {
 		b.WriteString(s.GetDependencyTree(child, indent+"  ", visited))
@@ -466,7 +466,7 @@ func (s *Summary) GenerateDOTGraph(rootName string) string {
 	b.WriteString("\n")
 
 	// Root node
-	b.WriteString(fmt.Sprintf("  \"%s\" [fillcolor=\"#58a6ff\", fontcolor=white, label=\"%s\\n(root)\"];\n", rootName, rootName))
+	_, _ = fmt.Fprintf(&b, "  \"%s\" [fillcolor=\"#58a6ff\", fontcolor=white, label=\"%s\\n(root)\"];\n", rootName, rootName)
 
 	// Add all dependency nodes
 	for _, dep := range s.Direct {
@@ -475,7 +475,7 @@ func (s *Summary) GenerateDOTGraph(rootName string) string {
 			color = "#d29922" // yellow for potential false positive
 		}
 		label := fmt.Sprintf("%s\\n%s", dep.Name, dep.Version)
-		b.WriteString(fmt.Sprintf("  \"%s\" [fillcolor=\"%s\", label=\"%s\"];\n", dep.Name, color, label))
+		_, _ = fmt.Fprintf(&b, "  \"%s\" [fillcolor=\"%s\", label=\"%s\"];\n", dep.Name, color, label)
 	}
 
 	for _, dep := range s.Transitive {
@@ -484,20 +484,20 @@ func (s *Summary) GenerateDOTGraph(rootName string) string {
 			color = "#d29922" // yellow for potential false positive
 		}
 		label := fmt.Sprintf("%s\\n%s", dep.Name, dep.Version)
-		b.WriteString(fmt.Sprintf("  \"%s\" [fillcolor=\"%s\", label=\"%s\"];\n", dep.Name, color, label))
+		_, _ = fmt.Fprintf(&b, "  \"%s\" [fillcolor=\"%s\", label=\"%s\"];\n", dep.Name, color, label)
 	}
 
 	b.WriteString("\n  // Edges\n")
 
 	// Root -> direct deps
 	for _, dep := range s.Direct {
-		b.WriteString(fmt.Sprintf("  \"%s\" -> \"%s\";\n", rootName, dep.Name))
+		_, _ = fmt.Fprintf(&b, "  \"%s\" -> \"%s\";\n", rootName, dep.Name)
 	}
 
 	// Dependency -> children
 	for _, dep := range s.AllDependencies() {
 		for _, child := range dep.Children {
-			b.WriteString(fmt.Sprintf("  \"%s\" -> \"%s\";\n", dep.Name, child))
+			_, _ = fmt.Fprintf(&b, "  \"%s\" -> \"%s\";\n", dep.Name, child)
 		}
 	}
 
@@ -509,7 +509,7 @@ func (s *Summary) GenerateDOTGraph(rootName string) string {
 func (s *Summary) GenerateASCIITree(rootName string) string {
 	var b strings.Builder
 
-	b.WriteString(fmt.Sprintf("%s\n", rootName))
+	_, _ = fmt.Fprintf(&b, "%s\n", rootName)
 
 	directCount := len(s.Direct)
 	for i, dep := range s.Direct {
@@ -524,7 +524,7 @@ func (s *Summary) GenerateASCIITree(rootName string) string {
 			fpMarker = " ⚠️  [" + dep.FPReason + "]"
 		}
 
-		b.WriteString(fmt.Sprintf("%s%s@%s (%s)%s\n", prefix, dep.Name, dep.Version, dep.SourceFile, fpMarker))
+		_, _ = fmt.Fprintf(&b, "%s%s@%s (%s)%s\n", prefix, dep.Name, dep.Version, dep.SourceFile, fpMarker)
 
 		// Print children
 		childPrefix := "│   "
@@ -567,11 +567,11 @@ func (s *Summary) printChildren(b *strings.Builder, depName, prefix string, visi
 		}
 
 		if visited[childName] {
-			b.WriteString(fmt.Sprintf("%s%s%s@%s (circular)%s\n", prefix, connector, child.Name, child.Version, fpMarker))
+			_, _ = fmt.Fprintf(b, "%s%s%s@%s (circular)%s\n", prefix, connector, child.Name, child.Version, fpMarker)
 			continue
 		}
 
-		b.WriteString(fmt.Sprintf("%s%s%s@%s%s\n", prefix, connector, child.Name, child.Version, fpMarker))
+		_, _ = fmt.Fprintf(b, "%s%s%s@%s%s\n", prefix, connector, child.Name, child.Version, fpMarker)
 
 		newPrefix := prefix + "│   "
 		if isLast {

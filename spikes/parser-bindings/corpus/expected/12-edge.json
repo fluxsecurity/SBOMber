@@ -1,0 +1,26 @@
+{
+  "fixture": "12-edge.js",
+  "language": "javascript",
+  "hasError": false,
+  "imports": [
+    {
+      "specifier": "lodash",
+      "kind": "esm_named",
+      "local": "template",
+      "imported": "template",
+      "typeOnly": false,
+      "line": 1,
+      "column": 9
+    }
+  ],
+  "calls": [
+    {
+      "callee": "template",
+      "receiver": null,
+      "line": 2,
+      "column": 14
+    }
+  ],
+  "functions": [],
+  "unresolved": []
+}

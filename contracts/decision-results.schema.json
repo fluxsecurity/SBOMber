@@ -1,0 +1,151 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Xsamsx/SBOMber/contracts/decision-results.schema.json",
+  "title": "decision-results.json",
+  "description": "The verdict. Produced by component 4, read by component 3 (VEX exporter) and component 1 (CI policy). Analysis confidence and risk priority are independent — EPSS never touches confidence.",
+  "type": "object",
+  "required": ["schemaVersion", "scanId", "decisions"],
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": { "type": "string", "const": "1.1.0" },
+    "scanId": { "type": "string", "description": "Matches canonical-scan.json." },
+    "distribution": {
+      "type": "object",
+      "description": "Prioritisation distribution, NOT noise reduction. Reclassifying a finding is not proof it was a false positive.",
+      "additionalProperties": false,
+      "properties": {
+        "totalFindings": { "type": "integer", "minimum": 0 },
+        "usageDetected": { "type": "integer", "minimum": 0 },
+        "noUsageDetected": { "type": "integer", "minimum": 0 },
+        "unknown": { "type": "integer", "minimum": 0 },
+        "unsupported": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "decisions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["findingId", "state", "analysisConfidence", "riskPriority", "justification", "basedOn"],
+        "additionalProperties": false,
+        "properties": {
+          "findingId": { "type": "string" },
+          "vulnerabilityId": { "type": "string" },
+          "purl": { "type": "string", "pattern": "^pkg:" },
+          "state": {
+            "type": "string",
+            "enum": ["usage_detected", "no_usage_detected", "unknown", "unsupported"],
+            "description": "no_usage_detected means no evidence within the analysed scope. It is NOT proof of safety and must never be displayed as 'safe' or 'not affected'. unsupported means SBOMber did not analyse this case — the vulnerability may still apply."
+          },
+          "analysisConfidence": {
+            "type": "string",
+            "enum": ["high", "medium", "low"],
+            "description": "How much to trust this tool's determination. Inputs: localisation method quality, parse coverage, import-resolution rate, unresolved call count, agreement between deterministic methods. EPSS is NOT an input."
+          },
+          "confidenceCriteria": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Which published criteria were met, so the rating is auditable."
+          },
+          "riskPriority": {
+            "type": "object",
+            "description": "How urgent the finding is. Separate from confidence, because a frightening CVE must never inflate trust in our own analysis.",
+            "required": ["band"],
+            "additionalProperties": false,
+            "properties": {
+              "band": { "type": "string", "enum": ["act_now", "lower_priority", "insufficient_information"] },
+              "severity": { "type": "string" },
+              "cvssScore": { "type": "number", "minimum": 0, "maximum": 10 },
+              "epssScore": { "type": "number", "minimum": 0, "maximum": 1 },
+              "cisaKev": { "type": "boolean" },
+              "relationship": { "type": "string", "enum": ["direct", "transitive"] },
+              "fixAvailable": { "type": "boolean" }
+            }
+          },
+          "justification": {
+            "type": "string",
+            "description": "Human-readable, shown in the report. Must state what was checked and what could not be seen."
+          },
+          "basedOn": {
+            "type": "object",
+            "description": "The evidence the verdict rests on. A determination is only as good as the analysis behind it, so the analysis travels with it.",
+            "required": ["coverageSummary"],
+            "additionalProperties": false,
+            "properties": {
+              "usageObservationIds": { "type": "array", "items": { "type": "string" } },
+              "localisationMethod": {
+                "type": "string",
+                "enum": ["advisory_metadata", "patch_reference", "advisory_text", "version_diff", "llm_suggested", "unknown"]
+              },
+              "localisationConfidence": { "type": "string", "enum": ["high", "medium", "low", "none"] },
+              "matchedSymbols": { "type": "array", "items": { "type": "string" } },
+              "evidenceLevel": { "type": "integer", "enum": [1, 2, 3] },
+              "coverageSummary": {
+                "type": "object",
+                "required": ["parseCoveragePercent", "unresolvedImportsInScope"],
+                "additionalProperties": false,
+                "properties": {
+                  "parseCoveragePercent": { "type": "number", "minimum": 0, "maximum": 100 },
+                  "unresolvedImportsInScope": { "type": "integer", "minimum": 0 },
+                  "scanStatus": { "type": "string", "enum": ["complete", "partial", "failed"] }
+                }
+              }
+            }
+          },
+          "remediation": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "reportedFixedVersion": {
+                "type": "string",
+                "description": "Advisory- or scanner-reported. There is not always a single safe upgrade target; omit rather than guess."
+              },
+              "resolvesFindingIds": {
+                "type": "array",
+                "items": { "type": "string" },
+                "description": "Other findings the same upgrade would resolve. Drives grouped remediation."
+              }
+            }
+          },
+          "vexMapping": {
+            "type": "object",
+            "description": "Consumed by component 3. not_affected is NOT produced automatically: application-source-only analysis cannot prove vulnerable code is outside the execution path, and VEX consumers suppress not_affected findings.",
+            "required": ["statement"],
+            "additionalProperties": false,
+            "properties": {
+              "statement": {
+                "type": "string",
+                "enum": ["affected", "under_investigation", "in_triage", "not_affected", "omit"],
+                "description": "Investigation vocabulary is format-aware: under_investigation for OpenVEX or in_triage for CycloneDX VEX. validate.py checks the selected VEX decision record and rejects mixed vocabularies. affected requires ALL THREE: affected installed version, reliable localisation, direct call evidence. omit is for unsupported findings. not_affected is allowed only where deterministically or manually proven, outside the automated pipeline."
+              },
+              "actionStatement": {
+                "type": "string",
+                "description": "Required by OpenVEX for affected statements."
+              },
+              "manuallyReviewedBy": {
+                "type": "string",
+                "description": "Required when statement is not_affected."
+              }
+            }
+          }
+        }
+      }
+    },
+    "remediationGroups": {
+      "type": "array",
+      "description": "Answers the developer's real question: which package do I update first, why, and what will that fix?",
+      "items": {
+        "type": "object",
+        "required": ["purl", "findingIds"],
+        "additionalProperties": false,
+        "properties": {
+          "purl": { "type": "string", "pattern": "^pkg:" },
+          "installedVersion": { "type": "string" },
+          "reportedFixedVersion": { "type": "string" },
+          "findingIds": { "type": "array", "items": { "type": "string" } },
+          "highestBand": { "type": "string", "enum": ["act_now", "lower_priority", "insufficient_information"] },
+          "relationship": { "type": "string", "enum": ["direct", "transitive"] }
+        }
+      }
+    }
+  }
+}

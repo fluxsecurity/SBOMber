@@ -1,0 +1,40 @@
+{
+  "fixture": "component2-usage-unknown",
+  "labelMethod": "hand-authored before analyser execution",
+  "language": "javascript",
+  "expected": {
+    "entryPoints": [
+      {
+        "name": "postWelcome",
+        "kind": "exported_module",
+        "file": "src/index.js",
+        "line": 1
+      }
+    ],
+    "thirdPartyImports": [
+      {
+        "specifier": "lodash",
+        "imported": "merge",
+        "local": "merge",
+        "kind": "esm_named",
+        "file": "src/orphan.js",
+        "line": 1
+      }
+    ],
+    "thirdPartyCalls": [
+      {
+        "symbol": "merge",
+        "file": "src/orphan.js",
+        "line": 4,
+        "resolution": "resolved",
+        "reachability": "unknown",
+        "evidenceLevel": 2
+      }
+    ],
+    "coverage": {
+      "entryPointsDetected": 1,
+      "callPathsResolved": 0,
+      "callPathsUnresolved": 1
+    }
+  }
+}

@@ -13,6 +13,8 @@ import (
 
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
+
+	"github.com/Xsamsx/SBOMber/internal/verify"
 )
 
 // Styles - using ANSI 256 colors for better light/dark terminal compatibility
@@ -47,12 +49,6 @@ var (
 	bannerStyle = lipgloss.NewStyle().
 			Bold(true).
 			Foreground(lipgloss.Color("39")). // Cyan
-			MarginLeft(2)
-
-	menuBoxStyle = lipgloss.NewStyle().
-			Border(lipgloss.RoundedBorder()).
-			BorderForeground(lipgloss.Color("240")).
-			Padding(1, 2).
 			MarginLeft(2)
 
 	inputStyle = lipgloss.NewStyle().
@@ -96,7 +92,6 @@ type model struct {
 	scanFormat    string
 	includeVulns  bool
 	pathInput     string
-	scanOutput    string
 	quitting      bool
 	githubToken   string
 	githubURLs    string
@@ -308,7 +303,11 @@ func (m model) updateGitHubToken(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 	switch msg.Type {
 	case tea.KeyEnter:
 		if m.githubToken != "" {
-			saveGitHubToken(m.githubToken)
+			if err := saveGitHubToken(m.githubToken); err != nil {
+				m.tokenSaved = false
+				m.state = viewGitHubURLs
+				return m, nil
+			}
 			m.tokenSaved = true
 			m.state = viewGitHubURLs
 		}
@@ -710,15 +709,15 @@ func renderHelp() string {
 	var b strings.Builder
 
 	b.WriteString(titleStyle.MarginLeft(2).Render("  USAGE") + "\n\n")
-	b.WriteString(fmt.Sprintf("  %s                                     %s\n", accentStyle.Render("  sbomber"), dimStyle.Render("Interactive mode")))
-	b.WriteString(fmt.Sprintf("  %s [path] [flags]                 %s\n", accentStyle.Render("  sbomber scan"), dimStyle.Render("Scan repositories")))
-	b.WriteString(fmt.Sprintf("  %s <url> [flags]              %s\n", accentStyle.Render("  sbomber github"), dimStyle.Render("Scan GitHub repos")))
-	b.WriteString(fmt.Sprintf("  %s                             %s\n\n", accentStyle.Render("  sbomber version"), dimStyle.Render("Show version")))
+	_, _ = fmt.Fprintf(&b, "  %s                                     %s\n", accentStyle.Render("  sbomber"), dimStyle.Render("Interactive mode"))
+	_, _ = fmt.Fprintf(&b, "  %s [path] [flags]                 %s\n", accentStyle.Render("  sbomber scan"), dimStyle.Render("Scan repositories"))
+	_, _ = fmt.Fprintf(&b, "  %s <url> [flags]              %s\n", accentStyle.Render("  sbomber github"), dimStyle.Render("Scan GitHub repos"))
+	_, _ = fmt.Fprintf(&b, "  %s                             %s\n\n", accentStyle.Render("  sbomber version"), dimStyle.Render("Show version"))
 
 	b.WriteString(titleStyle.MarginLeft(2).Render("  FLAGS") + "\n\n")
-	b.WriteString(fmt.Sprintf("  %s   cyclonedx | spdx | both          %s\n", accentStyle.Render("  --format"), dimStyle.Render("(default: cyclonedx)")))
-	b.WriteString(fmt.Sprintf("  %s             %s\n", accentStyle.Render("  --include-vulnerabilities"), dimStyle.Render("scan vulnerabilities with Grype")))
-	b.WriteString(fmt.Sprintf("  %s                          %s\n\n", accentStyle.Render("  --health"), dimStyle.Render("include supply chain health metrics")))
+	_, _ = fmt.Fprintf(&b, "  %s   cyclonedx | spdx | both          %s\n", accentStyle.Render("  --format"), dimStyle.Render("(default: cyclonedx)"))
+	_, _ = fmt.Fprintf(&b, "  %s             %s\n", accentStyle.Render("  --include-vulnerabilities"), dimStyle.Render("scan vulnerabilities with Grype"))
+	_, _ = fmt.Fprintf(&b, "  %s                          %s\n\n", accentStyle.Render("  --health"), dimStyle.Render("include supply chain health metrics"))
 
 	b.WriteString(titleStyle.MarginLeft(2).Render("  VULNERABILITY SCANNING") + "\n\n")
 	b.WriteString(dimStyle.MarginLeft(2).Render("  SBOMber uses Grype when vulnerability scanning is enabled.") + "\n")
@@ -768,7 +767,7 @@ func fetchGitHubRateLimit(token string) string {
 		b.WriteString(dimStyle.MarginLeft(2).Render("  Error connecting to GitHub API") + "\n")
 		return b.String()
 	}
-	defer resp.Body.Close()
+	defer func() { _ = resp.Body.Close() }()
 
 	var result struct {
 		Resources struct {
@@ -799,9 +798,9 @@ func fetchGitHubRateLimit(token string) string {
 	}
 
 	b.WriteString(dimStyle.MarginLeft(2).Render("  Rate Limit:") + "\n")
-	b.WriteString(fmt.Sprintf("    Remaining: %s / %d\n", remainingStyle.Render(fmt.Sprintf("%d", core.Remaining)), core.Limit))
-	b.WriteString(fmt.Sprintf("    Resets in: %s\n", dimStyle.Render(timeUntilReset.String())))
-	b.WriteString(fmt.Sprintf("    Reset at:  %s\n\n", dimStyle.Render(resetTime.Format("15:04:05"))))
+	_, _ = fmt.Fprintf(&b, "    Remaining: %s / %d\n", remainingStyle.Render(fmt.Sprintf("%d", core.Remaining)), core.Limit)
+	_, _ = fmt.Fprintf(&b, "    Resets in: %s\n", dimStyle.Render(timeUntilReset.String()))
+	_, _ = fmt.Fprintf(&b, "    Reset at:  %s\n\n", dimStyle.Render(resetTime.Format("15:04:05")))
 
 	// Estimate repos that can be scanned
 	// ~10 requests per repo (tree + manifests + health checks)
@@ -936,8 +935,8 @@ func (m model) renderGitHubStatusView() string {
 
 // removeGitHubToken clears the saved token from both the config file and env.
 func removeGitHubToken() {
-	os.Setenv("GITHUB_TOKEN", "")
-	saveGitHubToken("")
+	_ = os.Setenv("GITHUB_TOKEN", "")
+	_ = saveGitHubToken("")
 }
 
 func (m model) renderGitHubURLs() string {
@@ -1066,12 +1065,6 @@ type TUIResult struct {
 	IncludeHealth bool
 }
 
-// runTUI launches the bubbletea interactive TUI and returns the user's choice.
-func runTUI() (action string, scanPath string, scanFormat string, includeVulns bool) {
-	result := runTUIFull()
-	return result.Action, result.ScanPath, result.ScanFormat, result.IncludeVulns
-}
-
 // runTUIFull launches the TUI and returns all results including GitHub options
 func runTUIFull() TUIResult {
 	m := newModel()
@@ -1145,21 +1138,45 @@ func saveGitHubToken(token string) error {
 }
 
 // resultsModel for showing scan results with actions
+// Ground-truth accuracy check sub-states within the results screen.
+const (
+	gtStateMenu = iota
+	gtStatePathInput
+	gtStateReport
+)
+
 type resultsModel struct {
 	content    string
 	outputPath string
 	cursor     int
 	actions    []string
 	quitting   bool
-	openFolder bool
+
+	// Ground-truth accuracy check. groundTruthSBOM is the single
+	// generated SBOM to compare against, derived from content via
+	// extractSingleScanSBOM; the action is only offered (see actions
+	// above) when that derivation succeeds, i.e. exactly one repo was
+	// scanned. See docs/design/canonical-scan.md for why a comparison
+	// needs exactly one generated SBOM to be meaningful.
+	groundTruthSBOM string
+	gtState         int
+	gtPathInput     string
+	gtReport        string
+	gtErr           string
 }
 
 func newResultsModel(content, outputPath string) resultsModel {
+	actions := []string{"Back to menu", "Open output folder", "Quit"}
+	sbomPath := extractSingleScanSBOM(content)
+	if sbomPath != "" {
+		actions = append(actions, "Check ground-truth accuracy")
+	}
 	return resultsModel{
-		content:    content,
-		outputPath: outputPath,
-		cursor:     0,
-		actions:    []string{"Back to menu", "Open output folder", "Quit"},
+		content:         content,
+		outputPath:      outputPath,
+		cursor:          0,
+		actions:         actions,
+		groundTruthSBOM: sbomPath,
 	}
 }
 
@@ -1168,6 +1185,13 @@ func (m resultsModel) Init() tea.Cmd {
 }
 
 func (m resultsModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
+	switch m.gtState {
+	case gtStatePathInput:
+		return m.updateGroundTruthPathInput(msg)
+	case gtStateReport:
+		return m.updateGroundTruthReport(msg)
+	}
+
 	switch msg := msg.(type) {
 	case tea.KeyMsg:
 		switch msg.String() {
@@ -1180,19 +1204,23 @@ func (m resultsModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				m.cursor++
 			}
 		case "enter":
-			switch m.cursor {
-			case 0: // Back to menu
+			switch m.actions[m.cursor] {
+			case "Back to menu":
 				m.quitting = true
 				return m, tea.Quit
-			case 1: // Open folder - open and stay
+			case "Open output folder":
 				if m.outputPath != "" {
 					openFolder(m.outputPath)
 				}
 				return m, nil // Stay on results screen
-			case 2: // Quit
+			case "Quit":
 				m.quitting = true
 				m.cursor = 2 // Mark as quit
 				return m, tea.Quit
+			case "Check ground-truth accuracy":
+				m.gtState = gtStatePathInput
+				m.gtPathInput = ""
+				m.gtErr = ""
 			}
 		case "q", "ctrl+c", "esc":
 			m.quitting = true
@@ -1202,9 +1230,77 @@ func (m resultsModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	return m, nil
 }
 
+// updateGroundTruthPathInput handles free-text entry of the ground-truth
+// SBOM path, mirroring model.updatePathInput's key handling.
+func (m resultsModel) updateGroundTruthPathInput(msg tea.Msg) (tea.Model, tea.Cmd) {
+	keyMsg, ok := msg.(tea.KeyMsg)
+	if !ok {
+		return m, nil
+	}
+
+	switch keyMsg.Type {
+	case tea.KeyEnter:
+		path := strings.TrimSpace(m.gtPathInput)
+		if path == "" {
+			m.gtErr = "enter a path to a ground-truth SBOM"
+			return m, nil
+		}
+		result, err := verify.VerifyFiles(path, m.groundTruthSBOM)
+		if err != nil {
+			m.gtErr = err.Error()
+			return m, nil
+		}
+		m.gtReport = result.PrintReport()
+		m.gtErr = ""
+		m.gtState = gtStateReport
+	case tea.KeyBackspace:
+		if len(m.gtPathInput) > 0 {
+			m.gtPathInput = m.gtPathInput[:len(m.gtPathInput)-1]
+		}
+	case tea.KeyEsc:
+		m.gtState = gtStateMenu
+		m.gtErr = ""
+	case tea.KeyCtrlC:
+		m.quitting = true
+		return m, tea.Quit
+	case tea.KeyTab:
+		m.gtPathInput = expandPathWithTab(m.gtPathInput)
+	case tea.KeySpace:
+		m.gtPathInput += " "
+	case tea.KeyRunes:
+		m.gtPathInput += string(keyMsg.Runes)
+	}
+	return m, nil
+}
+
+// updateGroundTruthReport handles the report screen shown after a
+// successful ground-truth comparison: any key other than quit returns to
+// the results menu.
+func (m resultsModel) updateGroundTruthReport(msg tea.Msg) (tea.Model, tea.Cmd) {
+	keyMsg, ok := msg.(tea.KeyMsg)
+	if !ok {
+		return m, nil
+	}
+
+	switch keyMsg.String() {
+	case "q", "ctrl+c":
+		m.quitting = true
+		return m, tea.Quit
+	default:
+		m.gtState = gtStateMenu
+	}
+	return m, nil
+}
+
 func (m resultsModel) View() string {
 	if m.quitting {
 		return ""
+	}
+	switch m.gtState {
+	case gtStatePathInput:
+		return m.viewGroundTruthPathInput()
+	case gtStateReport:
+		return m.viewGroundTruthReport()
 	}
 
 	var b strings.Builder
@@ -1267,6 +1363,47 @@ func (m resultsModel) View() string {
 	b.WriteString("\n")
 	b.WriteString(dimStyle.MarginLeft(4).Render("↑/↓ navigate  enter select") + "\n")
 
+	return b.String()
+}
+
+func (m resultsModel) viewGroundTruthPathInput() string {
+	var b strings.Builder
+	b.WriteString("\n")
+	b.WriteString(renderBanner())
+
+	header := titleStyle.MarginLeft(4).Render("  GROUND-TRUTH ACCURACY CHECK")
+	b.WriteString(header + "\n\n")
+	b.WriteString(dimStyle.MarginLeft(4).Render("  Compares the SBOM just generated against a ground-truth") + "\n")
+	b.WriteString(dimStyle.MarginLeft(4).Render("  SBOM you provide — see docs/design/canonical-scan.md.") + "\n\n")
+
+	prompt := inputStyle.Render("  Ground-truth SBOM path: ")
+	cursor := accentStyle.Render("█")
+	input := accentStyle.Render(m.gtPathInput)
+	b.WriteString("  " + prompt + input + cursor + "\n\n")
+
+	if m.gtErr != "" {
+		errStyle := lipgloss.NewStyle().Foreground(lipgloss.Color("#f85149")).MarginLeft(4)
+		b.WriteString(errStyle.Render("Error: "+m.gtErr) + "\n\n")
+	}
+
+	b.WriteString(dimStyle.MarginLeft(4).Render("  enter check  esc back") + "\n")
+	return b.String()
+}
+
+func (m resultsModel) viewGroundTruthReport() string {
+	var b strings.Builder
+	b.WriteString("\n")
+	b.WriteString(renderBanner())
+
+	header := titleStyle.MarginLeft(4).Render("  GROUND-TRUTH ACCURACY CHECK")
+	b.WriteString(header + "\n\n")
+
+	for _, line := range strings.Split(m.gtReport, "\n") {
+		b.WriteString("    " + line + "\n")
+	}
+
+	b.WriteString("\n")
+	b.WriteString(dimStyle.MarginLeft(4).Render("  any key back  q quit") + "\n")
 	return b.String()
 }
 

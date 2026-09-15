@@ -1,0 +1,106 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/fluxsecurity/SBOMber/docs/schema/canonical-scan.schema.json",
+  "title": "SBOMber canonical scan output",
+  "description": "Contract for the canonical scan output shared across SBOMber components. Separates four distinct identities so that a component, a specific occurrence of it in a workspace, a vulnerability finding against it, and an observed usage of it are never conflated into one record. See docs/design/canonical-scan.md for the rationale and current implementation status.",
+  "type": "object",
+  "required": ["schemaVersion", "scan", "components", "occurrences", "findings", "usageObservations"],
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": {
+      "description": "Semantic version of this schema, independent of the SBOMber CLI version. Bump the major segment on any breaking change to a required field or identity key.",
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "scan": {
+      "description": "Metadata about the scan run that produced this document.",
+      "type": "object",
+      "required": ["scannedAt", "sbomberVersion", "root"],
+      "additionalProperties": false,
+      "properties": {
+        "scannedAt": { "type": "string", "format": "date-time" },
+        "sbomberVersion": { "type": "string" },
+        "root": { "type": "string", "description": "Absolute or repo-relative path that was scanned." }
+      }
+    },
+    "components": {
+      "description": "Identity 1: a component is an exact versioned package, identified solely by its PURL. Two components with the same name but different versions are different components. Deduplicated: at most one entry per purl in this array.",
+      "type": "array",
+      "items": { "$ref": "#/$defs/component" }
+    },
+    "occurrences": {
+      "description": "Identity 2: a package occurrence is a specific appearance of a component in a workspace — the same component PURL can have multiple occurrences if it appears under different manifests, workspaces, or dependency paths (e.g. two different resolved versions under different node_modules paths are two occurrences, not one).",
+      "type": "array",
+      "items": { "$ref": "#/$defs/occurrence" }
+    },
+    "findings": {
+      "description": "Identity 3: a vulnerability finding is keyed by (vulnerability ID, component PURL) — not by occurrence. The same finding applies to every occurrence of that exact component PURL.",
+      "type": "array",
+      "items": { "$ref": "#/$defs/finding" }
+    },
+    "usageObservations": {
+      "description": "Identity 4: a usage observation ties a package occurrence to a concrete call site — an imported symbol, file, line, and call expression. This identity is defined by the schema for forward compatibility but is NOT populated by the current SBOMber scanner (no static call-site analysis exists yet). Expect this array to be empty until that capability ships; do not treat an empty array here as evidence a component is unused.",
+      "type": "array",
+      "items": { "$ref": "#/$defs/usageObservation" }
+    }
+  },
+  "$defs": {
+    "component": {
+      "type": "object",
+      "required": ["purl", "name", "version", "ecosystem"],
+      "additionalProperties": false,
+      "properties": {
+        "purl": { "type": "string", "description": "Package URL, e.g. pkg:npm/lodash@4.18.1. This is the sole identity key for a component." },
+        "name": { "type": "string" },
+        "version": { "type": "string", "description": "The exact resolved/installed version, never a semver range." },
+        "ecosystem": { "type": "string", "enum": ["npm", "pypi", "maven", "golang", "rubygems", "cargo", "nuget", "composer"] },
+        "license": { "type": "string" }
+      }
+    },
+    "occurrence": {
+      "type": "object",
+      "required": ["occurrenceId", "componentPurl", "workspace", "manifestPath", "dependencyPath", "scope", "buildScope"],
+      "additionalProperties": false,
+      "properties": {
+        "occurrenceId": { "type": "string", "description": "Stable identity key for this identity class: componentPurl + workspace + manifestPath + dependencyPath. Two occurrences with the same componentPurl but different dependencyPath (e.g. nested under different parents at different resolved versions) MUST have different occurrenceId values." },
+        "componentPurl": { "type": "string", "description": "References components[].purl." },
+        "workspace": { "type": "string", "description": "Repository or workspace name this occurrence was found in." },
+        "manifestPath": { "type": "string", "description": "Path to the manifest/lockfile this occurrence was declared or resolved in, relative to workspace root." },
+        "dependencyPath": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Chain from the workspace root to this occurrence, e.g. [\"repo\", \"webpack\", \"lodash\"]. Distinguishes occurrences of the same component reached via different parents."
+        },
+        "scope": { "type": "string", "enum": ["direct", "transitive"] },
+        "buildScope": { "type": "string", "enum": ["runtime", "dev", "test", "build-tooling"] },
+        "depth": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "finding": {
+      "type": "object",
+      "required": ["findingId", "vulnerabilityId", "componentPurl", "severity"],
+      "additionalProperties": false,
+      "properties": {
+        "findingId": { "type": "string", "description": "Stable identity key for this identity class: vulnerabilityId + componentPurl." },
+        "vulnerabilityId": { "type": "string", "description": "e.g. a CVE or GHSA identifier." },
+        "componentPurl": { "type": "string", "description": "References components[].purl. Note: NOT an occurrenceId — a finding applies to the component everywhere it occurs." },
+        "severity": { "type": "string", "enum": ["critical", "high", "medium", "low", "negligible", "unknown"] },
+        "fixedVersion": { "type": "string" },
+        "fixState": { "type": "string", "enum": ["fixed", "not-fixed", "wont-fix", "unknown"] },
+        "source": { "type": "string", "description": "Scanner or feed that produced this finding, e.g. grype, kev, epss, ghsa." }
+      }
+    },
+    "usageObservation": {
+      "type": "object",
+      "required": ["occurrenceId", "symbol", "file", "line"],
+      "additionalProperties": false,
+      "properties": {
+        "occurrenceId": { "type": "string", "description": "References occurrences[].occurrenceId." },
+        "symbol": { "type": "string", "description": "The imported symbol observed at the call site, e.g. a function or class name." },
+        "file": { "type": "string", "description": "Source file the usage was observed in, relative to workspace root." },
+        "line": { "type": "integer", "minimum": 1 },
+        "callSite": { "type": "string", "description": "The literal call expression observed, e.g. \"_.debounce(fn, 200)\"." }
+      }
+    }
+  }
+}

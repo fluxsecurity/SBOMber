@@ -51,7 +51,7 @@ func ParseRequirements(root string) (deps.Summary, error) {
 			}
 			return err
 		}
-		defer f.Close()
+		defer func() { _ = f.Close() }()
 
 		scanner := bufio.NewScanner(f)
 		for scanner.Scan() {

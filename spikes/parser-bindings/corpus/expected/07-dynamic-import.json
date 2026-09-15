@@ -1,0 +1,62 @@
+{
+  "fixture": "07-dynamic-import.js",
+  "language": "javascript",
+  "hasError": false,
+  "imports": [
+    {
+      "specifier": "lodash",
+      "kind": "dynamic_static_literal",
+      "local": "mod",
+      "imported": "*",
+      "typeOnly": false,
+      "line": 4,
+      "column": 20
+    },
+    {
+      "specifier": "NAME",
+      "kind": "dynamic_computed",
+      "local": "mod",
+      "imported": "*",
+      "typeOnly": false,
+      "line": 9,
+      "column": 20
+    }
+  ],
+  "calls": [
+    {
+      "callee": "import",
+      "receiver": null,
+      "line": 4,
+      "column": 20
+    },
+    {
+      "callee": "import",
+      "receiver": null,
+      "line": 9,
+      "column": 20
+    }
+  ],
+  "functions": [
+    {
+      "name": "loadStatic",
+      "line": 3,
+      "column": 22,
+      "exported": true
+    },
+    {
+      "name": "loadComputed",
+      "line": 8,
+      "column": 22,
+      "exported": true
+    }
+  ],
+  "unresolved": [
+    {
+      "kind": "computed_dynamic_import",
+      "expression": "import(NAME)",
+      "line": 9,
+      "column": 20,
+      "reason": "module specifier is computed at runtime"
+    }
+  ]
+}

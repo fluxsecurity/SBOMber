@@ -1,0 +1,5 @@
+WASM runtime: PASS language=C root=translation_unit children=1
+Required language check:
+JavaScript: NOT AVAILABLE
+TypeScript: NOT AVAILABLE
+TSX: NOT AVAILABLE

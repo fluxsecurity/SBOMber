@@ -1,22 +1,26 @@
 APP_NAME := sbomber
 GOCACHE ?= $(CURDIR)/.cache/go-build
+CGO_ENABLED ?= 1
 
 .PHONY: build run scan test vet lint fmt tidy ci
 
 build:
-	GOCACHE=$(GOCACHE) go build -o ./bin/$(APP_NAME) ./cmd/$(APP_NAME)
+	CGO_ENABLED=$(CGO_ENABLED) GOCACHE=$(GOCACHE) go build -o ./bin/$(APP_NAME) ./cmd/$(APP_NAME)
 
 run:
-	GOCACHE=$(GOCACHE) go run ./cmd/$(APP_NAME)
+	CGO_ENABLED=$(CGO_ENABLED) GOCACHE=$(GOCACHE) go run ./cmd/$(APP_NAME)
 
 scan:
-	GOCACHE=$(GOCACHE) go run ./cmd/$(APP_NAME) scan $(SCAN_ARGS) $(if $(SCAN_PATH),$(SCAN_PATH),..)
+	CGO_ENABLED=$(CGO_ENABLED) GOCACHE=$(GOCACHE) go run ./cmd/$(APP_NAME) scan $(SCAN_ARGS) $(if $(SCAN_PATH),$(SCAN_PATH),..)
 
 test:
-	GOCACHE=$(GOCACHE) go test ./...
+	CGO_ENABLED=$(CGO_ENABLED) GOCACHE=$(GOCACHE) go test ./...
 
 vet:
-	GOCACHE=$(GOCACHE) go vet ./...
+	CGO_ENABLED=$(CGO_ENABLED) GOCACHE=$(GOCACHE) go vet ./...
+
+lint:
+	CGO_ENABLED=$(CGO_ENABLED) GOCACHE=$(GOCACHE) golangci-lint run ./...
 
 lint:
 	golangci-lint run ./...
@@ -25,6 +29,6 @@ fmt:
 	gofmt -w ./cmd ./internal
 
 tidy:
-	go mod tidy
+	CGO_ENABLED=$(CGO_ENABLED) go mod tidy
 
 ci: fmt vet lint test

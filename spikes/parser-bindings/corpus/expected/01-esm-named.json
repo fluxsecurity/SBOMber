@@ -1,0 +1,40 @@
+{
+  "fixture": "01-esm-named.js",
+  "language": "javascript",
+  "hasError": false,
+  "imports": [
+    {
+      "specifier": "lodash",
+      "kind": "esm_named",
+      "local": "template",
+      "imported": "template",
+      "typeOnly": false,
+      "line": 1,
+      "column": 9
+    }
+  ],
+  "calls": [
+    {
+      "callee": "template",
+      "receiver": null,
+      "line": 4,
+      "column": 9
+    },
+    {
+      "callee": null,
+      "receiver": null,
+      "line": 4,
+      "column": 9,
+      "note": "immediately-invoked result"
+    }
+  ],
+  "functions": [
+    {
+      "name": "render",
+      "line": 3,
+      "column": 16,
+      "exported": true
+    }
+  ],
+  "unresolved": []
+}

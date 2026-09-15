@@ -1,0 +1,41 @@
+{
+  "schemaVersion": "0.1.0",
+  "scan": {
+    "scannedAt": "2026-08-25T09:20:06Z",
+    "sbomberVersion": "0.1.0",
+    "root": "testdata/fixtures/npm-basic"
+  },
+  "components": [
+    {
+      "purl": "pkg:npm/lodash@4.18.1",
+      "name": "lodash",
+      "version": "4.18.1",
+      "ecosystem": "npm",
+      "license": "MIT"
+    }
+  ],
+  "occurrences": [
+    {
+      "occurrenceId": "pkg:npm/lodash@4.18.1|repo|package-lock.json|repo>lodash",
+      "componentPurl": "pkg:npm/lodash@4.18.1",
+      "workspace": "repo",
+      "manifestPath": "package-lock.json",
+      "dependencyPath": ["repo", "lodash"],
+      "scope": "direct",
+      "buildScope": "runtime",
+      "depth": 0
+    }
+  ],
+  "findings": [
+    {
+      "findingId": "SAMPLE-FIXTURE-VULN-0001|pkg:npm/lodash@4.18.1",
+      "vulnerabilityId": "SAMPLE-FIXTURE-VULN-0001",
+      "componentPurl": "pkg:npm/lodash@4.18.1",
+      "severity": "medium",
+      "fixedVersion": "4.19.0",
+      "fixState": "fixed",
+      "source": "fixture"
+    }
+  ],
+  "usageObservations": []
+}

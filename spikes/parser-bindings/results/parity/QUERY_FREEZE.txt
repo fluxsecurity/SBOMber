@@ -1,0 +1,18 @@
+=== Shared Query Freeze Record ===
+2026-08-21T11:53:08+10:00
+
+The original query omitted immediately-invoked call results.
+Original SHA-256:
+97731712ecd0a6bae1900d19d04d1bdffbfd395738079226cc0a3a188555fab5
+
+The query was corrected during Candidate B fixture 01 development,
+before Candidate A/B cross-candidate comparison began.
+Ground truth was not changed.
+
+Frozen query:
+a47429d70dcde4fcbccd760e2eae9afe6f03a8b00600b14dde36ff80575f7864  queries/usage.scm
+
+Expected frozen SHA-256:
+a47429d70dcde4fcbccd760e2eae9afe6f03a8b00600b14dde36ff80575f7864
+
+Any later query change requires every A and B fixture to be rerun.

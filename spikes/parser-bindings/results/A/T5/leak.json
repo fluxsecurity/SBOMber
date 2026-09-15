@@ -1,0 +1,61 @@
+{
+  "mode": "deliberate-leak",
+  "fixture": "corpus/micro/10-reachability.js",
+  "sourceBytes": 332,
+  "repeats": 5000,
+  "sampleEvery": 500,
+  "setLanguageOK": true,
+  "parseErrors": 0,
+  "samples": [
+    {
+      "iteration": 0,
+      "rssKB": 5304
+    },
+    {
+      "iteration": 500,
+      "rssKB": 12220
+    },
+    {
+      "iteration": 1000,
+      "rssKB": 18776
+    },
+    {
+      "iteration": 1500,
+      "rssKB": 25252
+    },
+    {
+      "iteration": 2000,
+      "rssKB": 31740
+    },
+    {
+      "iteration": 2500,
+      "rssKB": 38212
+    },
+    {
+      "iteration": 3000,
+      "rssKB": 44704
+    },
+    {
+      "iteration": 3500,
+      "rssKB": 51180
+    },
+    {
+      "iteration": 4000,
+      "rssKB": 57672
+    },
+    {
+      "iteration": 4500,
+      "rssKB": 64148
+    },
+    {
+      "iteration": 5000,
+      "rssKB": 70648
+    }
+  ],
+  "initialRSSKB": 5304,
+  "finalRSSKB": 70648,
+  "deltaRSSKB": 65344,
+  "peakRSSKB": 70648,
+  "elapsedMillis": 500,
+  "retainedTreeCount": 5000
+}

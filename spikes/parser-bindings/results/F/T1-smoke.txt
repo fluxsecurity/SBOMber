@@ -1,0 +1,7 @@
+basic.js: PARSE FAILED: Unexpected reserved word
+Illegal return statement
+basic.ts: PARSE FAILED: Unexpected reserved word
+Illegal return statement
+basic.tsx: PARSE FAILED: Unexpected reserved word
+Illegal return statement
+invalid.js: PARSE FAILED: Unexpected reserved word

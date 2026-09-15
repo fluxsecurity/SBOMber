@@ -1,0 +1,6 @@
+=== T9 CGO-disabled Build ===
+2026-08-21T13:39:01+10:00
+exit=1
+
+github.com/tree-sitter/tree-sitter-javascript/bindings/go: build constraints exclude all Go files in $GOMODCACHE/github.com/tree-sitter/tree-sitter-javascript@v0.25.0/bindings/go
+github.com/tree-sitter/tree-sitter-typescript/bindings/go: build constraints exclude all Go files in $GOMODCACHE/github.com/tree-sitter/tree-sitter-typescript@v0.23.2/bindings/go
