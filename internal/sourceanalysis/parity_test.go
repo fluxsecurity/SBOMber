@@ -61,6 +61,13 @@ func TestSourceAnalyzerExactLabelledCorpus(t *testing.T) {
 				t.Fatalf("AnalyzeSource(%q): %v", sourcePath, err)
 			}
 
+			// Function end ranges support reachability but are deliberately
+			// excluded from the semantic-extraction JSON contract.
+			for index := range got.Functions {
+				got.Functions[index].EndLine = 0
+				got.Functions[index].EndColumn = 0
+			}
+
 			expectedPath := filepath.Join(
 				expectedDir,
 				stem+".json",

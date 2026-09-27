@@ -180,13 +180,19 @@ func appendAdditionalFunctions(
 		}
 
 		line, column := nodeLocation(source, name)
+		endLine, endColumn := nodeEndLocation(
+			source,
+			expression,
+		)
 
 		result.Functions = append(
 			result.Functions,
 			Function{
-				Name:   name.Utf8Text(source),
-				Line:   line,
-				Column: column,
+				Name:      name.Utf8Text(source),
+				Line:      line,
+				Column:    column,
+				EndLine:   endLine,
+				EndColumn: endColumn,
 				Exported: isCommonJSExportAssignment(
 					expression,
 					source,
@@ -207,14 +213,20 @@ func appendAdditionalFunctions(
 		}
 
 		line, column := nodeLocation(source, name)
+		endLine, endColumn := nodeEndLocation(
+			source,
+			arrow,
+		)
 
 		result.Functions = append(
 			result.Functions,
 			Function{
-				Name:     name.Utf8Text(source),
-				Line:     line,
-				Column:   column,
-				Exported: exported,
+				Name:      name.Utf8Text(source),
+				Line:      line,
+				Column:    column,
+				EndLine:   endLine,
+				EndColumn: endColumn,
+				Exported:  exported,
 			},
 		)
 	}

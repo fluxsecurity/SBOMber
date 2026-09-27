@@ -25,6 +25,22 @@ func nodeLocation(
 	return int(point.Row) + 1, column
 }
 
+func nodeEndLocation(
+	source []byte,
+	node *treesitter.Node,
+) (int, int) {
+	point := node.EndPosition()
+	column := int(point.Column)
+
+	if point.Row == 0 &&
+		bytes.HasPrefix(source, []byte{0xef, 0xbb, 0xbf}) &&
+		column >= 3 {
+		column -= 3
+	}
+
+	return int(point.Row) + 1, column
+}
+
 func stringPointer(value string) *string {
 	return &value
 }
