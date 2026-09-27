@@ -46,14 +46,18 @@ type AnalyzedSource struct {
 // SkippedSource records exclusions explicitly so they cannot be mistaken for
 // analysed files. Path can name either a file or a pruned directory.
 type SkippedSource struct {
-	Path   string
-	Reason string
+	Path        string
+	Reason      string
+	IsDirectory bool
 }
 
-// FailedSource records a per-file failure without stopping the repository.
+// FailedSource records a file or traversal failure without stopping the
+// repository. IsDirectory lets public coverage avoid counting a pruned tree as
+// one failed source file while still marking the scan partial.
 type FailedSource struct {
-	Path   string
-	Reason string
+	Path        string
+	Reason      string
+	IsDirectory bool
 }
 
 // RepositoryResult is the internal repository-analysis result. #116 maps
@@ -182,7 +186,12 @@ func AnalyzeRepository(root string, options RepositoryOptions) (RepositoryResult
 		relative := repositoryRelativePath(root, path)
 
 		if walkErr != nil {
-			result.Failed = append(result.Failed, FailedSource{Path: relative, Reason: walkErr.Error()})
+			isDirectory := entry != nil && entry.IsDir()
+			result.Failed = append(result.Failed, FailedSource{
+				Path:        relative,
+				Reason:      walkErr.Error(),
+				IsDirectory: isDirectory,
+			})
 			if entry != nil && entry.IsDir() {
 				return filepath.SkipDir
 			}
@@ -195,7 +204,11 @@ func AnalyzeRepository(root string, options RepositoryOptions) (RepositoryResult
 
 		if entry.IsDir() {
 			if excludedDirectory(entry.Name()) {
-				result.Skipped = append(result.Skipped, SkippedSource{Path: relative, Reason: SkipExcludedDirectory})
+				result.Skipped = append(result.Skipped, SkippedSource{
+					Path:        relative,
+					Reason:      SkipExcludedDirectory,
+					IsDirectory: true,
+				})
 				return filepath.SkipDir
 			}
 			return nil

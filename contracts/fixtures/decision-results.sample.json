@@ -42,7 +42,7 @@
         ],
         "evidenceLevel": 3,
         "coverageSummary": {
-          "parseCoveragePercent": 95.8,
+          "parseCoveragePercent": 100,
           "unresolvedImportsInScope": 0,
           "scanStatus": "complete"
         }
@@ -89,8 +89,8 @@
         "matchedSymbols": [],
         "evidenceLevel": 2,
         "coverageSummary": {
-          "parseCoveragePercent": 95.8,
-          "unresolvedImportsInScope": 1,
+          "parseCoveragePercent": 100,
+          "unresolvedImportsInScope": 0,
           "scanStatus": "complete"
         }
       },
@@ -131,7 +131,7 @@
         "matchedSymbols": [],
         "evidenceLevel": 1,
         "coverageSummary": {
-          "parseCoveragePercent": 95.8,
+          "parseCoveragePercent": 100,
           "unresolvedImportsInScope": 0,
           "scanStatus": "complete"
         }
@@ -174,7 +174,7 @@
         "matchedSymbols": [],
         "evidenceLevel": 1,
         "coverageSummary": {
-          "parseCoveragePercent": 95.8,
+          "parseCoveragePercent": 100,
           "unresolvedImportsInScope": 1,
           "scanStatus": "complete"
         }
