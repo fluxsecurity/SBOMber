@@ -66,6 +66,7 @@ func TestSourceAnalyzerExactLabelledCorpus(t *testing.T) {
 			for index := range got.Functions {
 				got.Functions[index].EndLine = 0
 				got.Functions[index].EndColumn = 0
+				got.Functions[index].ExportedNames = nil
 			}
 
 			expectedPath := filepath.Join(

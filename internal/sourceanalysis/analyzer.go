@@ -41,12 +41,13 @@ type Call struct {
 }
 
 type Function struct {
-	Name      string `json:"name"`
-	Line      int    `json:"line"`
-	Column    int    `json:"column"`
-	EndLine   int    `json:"-"`
-	EndColumn int    `json:"-"`
-	Exported  bool   `json:"exported"`
+	Name          string   `json:"name"`
+	Line          int      `json:"line"`
+	Column        int      `json:"column"`
+	EndLine       int      `json:"-"`
+	EndColumn     int      `json:"-"`
+	ExportedNames []string `json:"-"`
+	Exported      bool     `json:"exported"`
 }
 
 type Unresolved struct {

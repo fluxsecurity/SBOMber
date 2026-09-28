@@ -618,6 +618,8 @@ func extractFile(
 		return Result{}, err
 	}
 
+	resolveFunctionExports(&result, root, source)
+
 	sortResult(&result)
 
 	return result, nil
