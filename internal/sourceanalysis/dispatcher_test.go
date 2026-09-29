@@ -8,9 +8,12 @@ import (
 func TestAnalyzerForPathSupportedLanguages(t *testing.T) {
 	for _, path := range []string{
 		"app.js",
+		"app.jsx",
 		"app.mjs",
 		"app.cjs",
 		"app.ts",
+		"app.mts",
+		"app.cts",
 		"app.tsx",
 	} {
 		t.Run(path, func(t *testing.T) {

@@ -17,7 +17,7 @@
   "properties": {
     "schemaVersion": {
       "type": "string",
-      "const": "1.2.0"
+      "const": "1.3.0"
     },
     "scanId": {
       "type": "string",
@@ -107,7 +107,7 @@
 
     "entryPoints": {
       "type": "array",
-      "description": "Application entry points used for level-3 reachability. Declared in configuration or detected from package.json bin/main, exported module functions and statically recognisable route handlers. An empty list means reachability was not analysed, not that nothing is reachable.",
+      "description": "Application entry points used for level-3 reachability. Declared in configuration or detected from package.json bin/main, exported module functions and statically recognisable route handlers. An empty list can also mean the pass ran but found no supported entry points; inspect analyser.reachabilityAnalysed.",
       "items": {
         "type": "object",
         "required": ["entryPointId", "kind", "function", "file", "line"],
@@ -238,7 +238,7 @@
         "properties": {
           "observationId": {
             "type": "string",
-            "description": "Stable across runs. Derived from occurrenceId (or the raw specifier when unresolved) + importedSymbol + import file + import line, so two runs over an unchanged tree produce the same identifier."
+            "description": "Stable across runs. Derived from occurrenceId (or the raw specifier when unresolved) + importedSymbol + import file + import line, so two runs over an unchanged tree produce the same identifier. An import with no local binding (re-export, side-effect import, unbound require or import()) also includes the import column, since several can share one line."
           },
           "occurrenceId": {
             "type": "string",
@@ -264,7 +264,7 @@
           },
           "importedSymbol": {
             "type": "string",
-            "description": "The specific symbol, where one is named at the import. Absent for namespace and whole-module imports, where the symbol is only known at the call site."
+            "description": "The specific symbol, where one is named at the import. Absent for namespace and whole-module imports, where the symbol is only known at the call site. For esm_reexport, the re-exported name, or * for export *."
           },
           "importKind": {
             "type": "string",
@@ -276,8 +276,11 @@
               "cjs_require",
               "cjs_destructured",
               "dynamic_static_literal",
-              "dynamic_computed"
-            ]
+              "dynamic_computed",
+              "esm_reexport",
+              "esm_side_effect"
+            ],
+            "description": "esm_reexport: export { x } from 'pkg' or export * from 'pkg'. The package is loaded but its symbols leave the file under names this analysis does not follow, so the observation carries an unresolved call site with reason reexport_chain. esm_side_effect: import 'pkg', level-1 evidence with no binding. dynamic_computed also covers require(expression), which can load any package."
           },
           "resolution": {
             "type": "string",
@@ -286,7 +289,7 @@
           },
           "unresolvedReason": {
             "type": "string",
-            "enum": ["computed_specifier", "reexport_chain", "not_in_inventory", "parse_failure", "outside_supported_syntax"],
+            "enum": ["computed_specifier", "reexport_chain", "not_in_inventory", "ambiguous_occurrence", "parse_failure", "outside_supported_syntax"],
             "description": "Required when resolution is 'unresolved'. computed_member_access is NOT a value here - it is a call-site reason, not an import reason."
           },
           "location": {
@@ -333,7 +336,7 @@
                 "unresolvedReason": {
                   "type": "string",
                   "enum": ["computed_member_access", "call_through_variable", "reexport_chain", "outside_supported_syntax"],
-                  "description": "Required when the call site resolution is 'unresolved'."
+                  "description": "Required when the call site resolution is 'unresolved'. reexport_chain: the binding is re-exported and used elsewhere under a name this analysis does not follow. outside_supported_syntax: the imported value escapes into an expression that is not tracked, e.g. passed as an argument; such a call site is located at the import itself."
                 },
                 "reachability": {
                   "type": "string",
@@ -379,12 +382,14 @@
             "type": "string",
             "enum": [
               "nested_under_dependency",
+              "ambiguous_occurrence",
+              "computed_specifier",
               "not_imported_by_analysed_source",
               "ecosystem_unsupported",
               "import_site_parse_failed",
               "excluded_by_limits"
             ],
-            "description": "nested_under_dependency: reachable only from inside another package, whose source is not parsed - resolves to unknown, never no_usage_detected. not_imported_by_analysed_source: the analysis completed and found no import - this is the only reason that may support no_usage_detected. ecosystem_unsupported: outside the analysed ecosystems. import_site_parse_failed / excluded_by_limits: the analysis was incomplete."
+            "description": "nested_under_dependency: source inside a dependency was not parsed. ambiguous_occurrence: an import matched multiple direct occurrences and could not be assigned safely. computed_specifier: a dynamic import could refer to this occurrence. These reasons never support no_usage_detected. not_imported_by_analysed_source: the analysis completed and found no import; this is the only reason that may support no_usage_detected. ecosystem_unsupported: outside the analysed ecosystems. import_site_parse_failed / excluded_by_limits: the analysis was incomplete."
           },
           "detail": { "type": "string" }
         }
