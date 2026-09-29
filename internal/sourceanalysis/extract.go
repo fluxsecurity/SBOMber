@@ -275,6 +275,29 @@ func appendFunction(
 
 func sortResult(result *Result) {
 	sort.SliceStable(
+		result.RouteHandlers,
+		func(left, right int) bool {
+			a := result.RouteHandlers[left]
+			b := result.RouteHandlers[right]
+
+			if a.Line != b.Line {
+				return a.Line < b.Line
+			}
+			if a.Column != b.Column {
+				return a.Column < b.Column
+			}
+			if a.Receiver != b.Receiver {
+				return a.Receiver < b.Receiver
+			}
+			if a.Method != b.Method {
+				return a.Method < b.Method
+			}
+
+			return a.Function < b.Function
+		},
+	)
+
+	sort.SliceStable(
 		result.Imports,
 		func(left, right int) bool {
 			a := result.Imports[left]
@@ -611,6 +634,14 @@ func extractFile(
 	}
 
 	if err := appendAdditionalFunctions(
+		&result,
+		root,
+		source,
+	); err != nil {
+		return Result{}, err
+	}
+
+	if err := appendRouteHandlers(
 		&result,
 		root,
 		source,

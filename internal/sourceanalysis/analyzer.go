@@ -13,13 +13,14 @@ type SourceAnalyzer interface {
 }
 
 type Result struct {
-	Fixture    string       `json:"fixture"`
-	Language   string       `json:"language"`
-	HasError   bool         `json:"hasError"`
-	Imports    []Import     `json:"imports"`
-	Calls      []Call       `json:"calls"`
-	Functions  []Function   `json:"functions"`
-	Unresolved []Unresolved `json:"unresolved"`
+	Fixture       string         `json:"fixture"`
+	Language      string         `json:"language"`
+	HasError      bool           `json:"hasError"`
+	Imports       []Import       `json:"imports"`
+	Calls         []Call         `json:"calls"`
+	Functions     []Function     `json:"functions"`
+	RouteHandlers []RouteHandler `json:"-"`
+	Unresolved    []Unresolved   `json:"unresolved"`
 }
 
 type Import struct {
@@ -48,6 +49,18 @@ type Function struct {
 	EndColumn     int      `json:"-"`
 	ExportedNames []string `json:"-"`
 	Exported      bool     `json:"exported"`
+}
+
+// RouteHandler is a statically recognised Express-style entry candidate.
+type RouteHandler struct {
+	Receiver  string
+	Method    string
+	Function  string
+	Line      int
+	Column    int
+	EndLine   int
+	EndColumn int
+	Synthetic bool
 }
 
 type Unresolved struct {
