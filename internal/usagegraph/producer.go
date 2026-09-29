@@ -101,7 +101,12 @@ func Produce(
 		return Graph{}, fmt.Errorf("build usage graph coverage: %w", err)
 	}
 
+	analysed := make(map[string]struct{}, len(repositories))
+	for _, repository := range repositories {
+		analysed[repository.RepositoryID] = struct{}{}
+	}
 	unanalysed := buildUnanalysedOccurrences(
+		analysed,
 		occurrences,
 		matchedOccurrences,
 		ambiguousOccurrences,
@@ -123,6 +128,7 @@ func Produce(
 }
 
 func buildUnanalysedOccurrences(
+	analysedRepositories map[string]struct{},
 	occurrences []OccurrenceInput,
 	matched map[string]struct{},
 	ambiguous map[string]struct{},
@@ -130,6 +136,12 @@ func buildUnanalysedOccurrences(
 	coverage Result,
 ) []UnanalysedOccurrence {
 	result := []UnanalysedOccurrence{}
+	emptyRepositories := make(map[string]struct{})
+	for _, repository := range coverage.Coverage.PerRepository {
+		if repository.FilesDiscovered == 0 {
+			emptyRepositories[repository.RepositoryID] = struct{}{}
+		}
+	}
 	computedRepositories := make(map[string]struct{})
 	for _, observation := range observations {
 		if observation.ComputedSpecifier {
@@ -143,7 +155,22 @@ func buildUnanalysedOccurrences(
 		}
 
 		reason := "not_imported_by_analysed_source"
-		if _, couldBeImported := ambiguous[occurrence.OccurrenceID]; couldBeImported {
+		detail := ""
+		_, isNPM := npmPackageFromPURL(occurrence.ComponentPurl)
+		_, repositoryAnalysed := analysedRepositories[input.RepositoryID]
+		if !isNPM {
+			// Only npm packages are joined to JS/TS imports. Any other
+			// ecosystem was never looked at, so it cannot read as unused.
+			reason = "ecosystem_unsupported"
+		} else if !repositoryAnalysed {
+			reason = "excluded_by_limits"
+			detail = "repository source was not analysed in this run"
+		} else if _, empty := emptyRepositories[input.RepositoryID]; empty {
+			// Nothing was parsed, so "no import found" would rest on no
+			// evidence at all (#121 acceptance case 6).
+			reason = "excluded_by_limits"
+			detail = "no JavaScript or TypeScript source files were found in the repository"
+		} else if _, couldBeImported := ambiguous[occurrence.OccurrenceID]; couldBeImported {
 			reason = "ambiguous_occurrence"
 		} else if occurrence.Scope == "transitive" ||
 			len(occurrence.DependencyPath) != 0 ||
@@ -164,6 +191,7 @@ func buildUnanalysedOccurrences(
 			OccurrenceID: occurrence.OccurrenceID,
 			PURL:         occurrence.ComponentPurl,
 			Reason:       reason,
+			Detail:       detail,
 		})
 	}
 
@@ -171,4 +199,42 @@ func buildUnanalysedOccurrences(
 		return result[left].OccurrenceID < result[right].OccurrenceID
 	})
 	return result
+}
+
+// ProduceUnavailable builds a graph for a scan whose application source could
+// not be analysed at all, for example when every repository is remote
+// (manifest-only). Every occurrence is listed as unanalysed, so none can
+// support a negative finding, and the analysis status says why.
+func ProduceUnavailable(
+	scanID string,
+	status string,
+	reasonCode string,
+	occurrences []OccurrenceInput,
+) (Graph, error) {
+	if scanID == "" {
+		return Graph{}, fmt.Errorf("usage graph scan ID is required")
+	}
+	result, err := Unavailable(status, "npm", reasonCode)
+	if err != nil {
+		return Graph{}, err
+	}
+	unanalysed := buildUnanalysedOccurrences(
+		map[string]struct{}{},
+		occurrences,
+		map[string]struct{}{},
+		map[string]struct{}{},
+		nil,
+		result,
+	)
+	return Graph{
+		SchemaVersion:         SchemaVersion,
+		ScanID:                scanID,
+		Analysis:              result.Analysis,
+		Analyser:              result.Analyser,
+		EntryPoints:           []EntryPoint{},
+		Coverage:              result.Coverage,
+		Observations:          []Observation{},
+		UnanalysedOccurrences: unanalysed,
+		ParseFailures:         result.ParseFailures,
+	}, nil
 }

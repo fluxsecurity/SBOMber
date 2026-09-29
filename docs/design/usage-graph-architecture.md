@@ -132,13 +132,42 @@ Component 4 to change its input contract.
 Candidate A's semantic extraction adapter has reproduced the 13 labelled
 parser fixtures exactly.
 
-The following are still not claimed complete by this architecture document:
-
-- production usage-graph generation;
-- production level-3 reachability implementation.
+Production usage-graph generation and the committed level-3 reachability
+slice (R1.3) are implemented. Measured precision, recall and reachability
+resolution rates are Sprint 6 work and are not claimed here.
 
 Candidate A remains the selected binding. Its parser field assignments were
 verified before the production adapter work.
+
+### Command
+
+`sbomber usage` produces `usage-graph.json` from a real run:
+
+    sbomber usage --canonical-scan canonical-scan.json --out usage-graph.json
+
+- It reads `canonical-scan.json` using the contract's field names (`purl`,
+  `manifest`, `relationship`, `repositoryId`), not the internal
+  `canonicalscan` Go types, whose names differ.
+- It analyses every repository in `scan.repositories` whose source is local.
+  Relative paths are resolved from the directory holding
+  `canonical-scan.json`; `--repo [repositoryId=]path` overrides a path or
+  supplies source for a remote repository.
+- Remote (manifest-only) repositories are not analysed. Their npm packages are
+  listed as `excluded_by_limits`. If no repository has local source, the graph
+  has status `unsupported` with reason code `no_local_source`.
+- Packages from other ecosystems are listed as `ecosystem_unsupported`.
+- A repository with no JavaScript or TypeScript source files lists its npm
+  packages as `excluded_by_limits`, so zero files parsed can never support
+  `no_usage_detected`.
+- `--entry [repositoryId=]file:function[:line]` declares an entry point;
+  `<module>` means a file's top-level code. The root `package.json` supplies
+  `main` and `bin` entry points automatically.
+- Exit codes: 0 for a complete analysis; 2 for bad input, a missing source
+  directory, or a partial, failed or unsupported analysis. A partial graph is
+  still written. `--allow-partial` returns 0 for a partial analysis.
+- Input is bounded: `canonical-scan.json` (64 MiB by default), each source
+  file (`--max-file-bytes`), source files per repository (`--max-files`) and
+  the root `package.json` (1 MiB).
 
 
 ## 5. Parser decision and packaging
