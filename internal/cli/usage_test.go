@@ -356,3 +356,31 @@ func TestUsageCommandZeroSourceFilesIsNotNegative(t *testing.T) {
 		t.Fatalf("zero source files produced reason %q", reason)
 	}
 }
+
+func TestUsageCommandReadsTSConfigAliases(t *testing.T) {
+	dir := t.TempDir()
+	writeUsageSource(t, filepath.Join(dir, "app"), map[string]string{
+		"tsconfig.json": "{\n  // app aliases\n  \"compilerOptions\": { \"paths\": { \"@app/*\": [\"./src/*\"], }, },\n}\n",
+		"src/index.ts":  "import { handle } from '@app/api';\nexport function main() { return handle(); }\n",
+		"src/api.ts":    "import { merge } from 'lodash';\nexport function handle() { return merge({}, {}); }\n",
+	})
+	scan := writeUsageScan(t, dir,
+		[]usageRepo{{id: "repo-app", path: "app"}},
+		[]usageOcc{{"occ-lodash", "pkg:npm/lodash@4.17.21", "repo-app", "direct"}})
+	out := filepath.Join(dir, "usage-graph.json")
+
+	if code, _, stderr := runUsageCommand(t, "--canonical-scan", scan, "--out", out); code != 0 {
+		t.Fatalf("exit %d, stderr %s", code, stderr)
+	}
+	graph := readUsageGraph(t, out)
+	if graph.Coverage.ThirdPartyImportsUnresolved != 0 {
+		t.Fatalf("alias import counted as an unresolved package: %+v", graph.Coverage)
+	}
+
+	// A broken tsconfig.json is a warning, not a failure.
+	writeUsageSource(t, filepath.Join(dir, "app"), map[string]string{"tsconfig.json": "{ broken"})
+	code, _, stderr := runUsageCommand(t, "--canonical-scan", scan, "--out", out)
+	if code != 0 || !strings.Contains(stderr, "path aliases ignored") {
+		t.Fatalf("exit %d, stderr %q", code, stderr)
+	}
+}

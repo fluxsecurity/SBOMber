@@ -50,9 +50,10 @@ func localBindingNames(node *treesitter.Node, source []byte) []string {
 		case "identifier", "shorthand_property_identifier_pattern":
 			candidates = append(candidates, binding)
 		default:
-			candidates = append(candidates, collectNodesByType(binding, "identifier")...)
-			candidates = append(candidates,
-				collectNodesByType(binding, "shorthand_property_identifier_pattern")...)
+			found := collectNodesByTypes(binding,
+				"identifier", "shorthand_property_identifier_pattern")
+			candidates = append(candidates, found["identifier"]...)
+			candidates = append(candidates, found["shorthand_property_identifier_pattern"]...)
 		}
 		for _, candidate := range candidates {
 			name := candidate.Utf8Text(source)
@@ -64,7 +65,16 @@ func localBindingNames(node *treesitter.Node, source []byte) []string {
 		}
 	}
 
-	for _, declarator := range collectNodesByType(body, "variable_declarator") {
+	nodes := collectNodesByTypes(body,
+		"variable_declarator", "for_in_statement", "catch_clause",
+		"function_declaration", "generator_function_declaration", "class_declaration")
+
+	for _, declarator := range nodes["variable_declarator"] {
+		if declaresDynamicImport(declarator) {
+			// const m = await import("x") is the import binding itself; the
+			// usage graph scopes it to this function instead.
+			continue
+		}
 		if declaration := declarator.Parent(); declaration != nil &&
 			sameNode(declaration.Parent(), body) &&
 			declaresTrackedFunction(declarator, source) {
@@ -72,10 +82,10 @@ func localBindingNames(node *treesitter.Node, source []byte) []string {
 		}
 		add(declarator.ChildByFieldName("name"))
 	}
-	for _, loop := range collectNodesByType(body, "for_in_statement") {
+	for _, loop := range nodes["for_in_statement"] {
 		add(loop.ChildByFieldName("left"))
 	}
-	for _, clause := range collectNodesByType(body, "catch_clause") {
+	for _, clause := range nodes["catch_clause"] {
 		add(clause.ChildByFieldName("parameter"))
 	}
 	// A function declared directly in this body is tracked. Declarations
@@ -86,7 +96,7 @@ func localBindingNames(node *treesitter.Node, source []byte) []string {
 		"generator_function_declaration",
 		"class_declaration",
 	} {
-		for _, declaration := range collectNodesByType(body, kind) {
+		for _, declaration := range nodes[kind] {
 			if kind == "function_declaration" &&
 				sameNode(declaration.Parent(), body) {
 				continue
@@ -114,4 +124,18 @@ func declaresTrackedFunction(declarator *treesitter.Node, source []byte) bool {
 		return own != nil && own.Utf8Text(source) == name.Utf8Text(source)
 	}
 	return false
+}
+
+// declaresDynamicImport reports const m = await import("x") and
+// const { a } = await import("x").
+func declaresDynamicImport(declarator *treesitter.Node) bool {
+	value := declarator.ChildByFieldName("value")
+	if value != nil && value.Kind() == "await_expression" {
+		value = firstNamedChild(value)
+	}
+	if value == nil || value.Kind() != "call_expression" {
+		return false
+	}
+	function := value.ChildByFieldName("function")
+	return function != nil && function.Kind() == "import"
 }

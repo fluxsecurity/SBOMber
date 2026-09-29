@@ -106,6 +106,7 @@ func Produce(
 		analysed[repository.RepositoryID] = struct{}{}
 	}
 	unanalysed := buildUnanalysedOccurrences(
+		repositories,
 		analysed,
 		occurrences,
 		matchedOccurrences,
@@ -128,6 +129,7 @@ func Produce(
 }
 
 func buildUnanalysedOccurrences(
+	repositories []RepositoryInput,
 	analysedRepositories map[string]struct{},
 	occurrences []OccurrenceInput,
 	matched map[string]struct{},
@@ -136,16 +138,25 @@ func buildUnanalysedOccurrences(
 	coverage Result,
 ) []UnanalysedOccurrence {
 	result := []UnanalysedOccurrence{}
+	unresolvedAliases := unresolvedPathAliasRepositories(repositories)
 	emptyRepositories := make(map[string]struct{})
 	for _, repository := range coverage.Coverage.PerRepository {
 		if repository.FilesDiscovered == 0 {
 			emptyRepositories[repository.RepositoryID] = struct{}{}
 		}
 	}
-	computedRepositories := make(map[string]struct{})
+	// The first computed import per repository (observations are sorted by
+	// location) is named in the detail, so a reviewer can see which line
+	// keeps every unmatched package from reading as unused.
+	computedRepositories := make(map[string]string)
 	for _, observation := range observations {
-		if observation.ComputedSpecifier {
-			computedRepositories[observation.Location.RepositoryID] = struct{}{}
+		if !observation.ComputedSpecifier {
+			continue
+		}
+		if _, seen := computedRepositories[observation.Location.RepositoryID]; !seen {
+			computedRepositories[observation.Location.RepositoryID] = fmt.Sprintf(
+				"computed import at %s:%d could load this package",
+				observation.Location.File, observation.Location.Line)
 		}
 	}
 	for _, input := range occurrences {
@@ -176,8 +187,12 @@ func buildUnanalysedOccurrences(
 			len(occurrence.DependencyPath) != 0 ||
 			occurrence.Depth > 0 {
 			reason = "nested_under_dependency"
-		} else if _, computed := computedRepositories[input.RepositoryID]; computed {
+		} else if where, unresolved := unresolvedAliases[input.RepositoryID]; unresolved {
+			reason = "excluded_by_limits"
+			detail = where
+		} else if where, computed := computedRepositories[input.RepositoryID]; computed {
 			reason = "computed_specifier"
+			detail = where
 		} else if coverage.Analysis.Status == AnalysisPartial {
 			if coverage.Coverage.FilesFailed != 0 ||
 				coverage.Coverage.FilesParsedWithErrors != 0 {
@@ -219,6 +234,7 @@ func ProduceUnavailable(
 		return Graph{}, err
 	}
 	unanalysed := buildUnanalysedOccurrences(
+		nil,
 		map[string]struct{}{},
 		occurrences,
 		map[string]struct{}{},

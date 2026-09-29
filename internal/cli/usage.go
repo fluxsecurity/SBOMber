@@ -137,10 +137,17 @@ func runUsage(args []string, stdout io.Writer, stderr io.Writer) int {
 		if err != nil {
 			return fail("repository %s: %v", id, err)
 		}
+		aliases, err := readPathAliases(root)
+		if err != nil {
+			// Aliases only reclassify imports that match no package, so
+			// without them the graph is noisier but never less safe.
+			_, _ = fmt.Fprintf(stderr, "Warning: repository %s: %v; path aliases ignored\n", id, err)
+		}
 		repositories = append(repositories, usagegraph.RepositoryInput{
 			RepositoryID: id,
 			Result:       result,
 			PackageJSON:  packageJSON,
+			PathAliases:  aliases,
 		})
 	}
 
@@ -223,6 +230,16 @@ func repositoryPaths(
 		paths[id] = filepath.Clean(path)
 	}
 	return paths, nil
+}
+
+// readPathAliases reads compilerOptions.paths from the root tsconfig.json,
+// if there is one.
+func readPathAliases(root string) ([]usagegraph.PathAlias, error) {
+	data, err := readBoundedFile(filepath.Join(root, "tsconfig.json"), maxPackageJSONBytes)
+	if err != nil || data == nil {
+		return nil, err
+	}
+	return usagegraph.ParseTSConfigPaths(data)
 }
 
 // readBoundedFile returns nil when the file does not exist.

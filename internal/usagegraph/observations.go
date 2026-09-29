@@ -48,6 +48,19 @@ func buildObservations(
 				)
 				observation.Subpath = subpath
 
+				if imported.Kind != "dynamic_computed" &&
+					packageKnown && len(occurrenceIndex[occurrenceKey{
+					repositoryID: repository.RepositoryID,
+					packageName:  packageName,
+				}]) == 0 {
+					// A tsconfig path alias names the application's own code.
+					// Only an import that matches no inventory package is
+					// reclassified, so an alias can never hide a real package.
+					if _, aliased := matchPathAlias(repository.PathAliases, imported.Specifier); aliased {
+						continue
+					}
+				}
+
 				var occurrenceID string
 				if imported.Kind == "dynamic_computed" || !packageKnown {
 					observation.Resolution = ImportUnresolved
@@ -249,7 +262,7 @@ func observationCallSites(
 	for _, call := range result.Calls {
 		calledSymbol, resolution, unresolvedReason, matches :=
 			thirdPartyCall(imported, call)
-		if !matches {
+		if !matches || !dynamicImportVisible(result, imported, call) {
 			continue
 		}
 		add(call, calledSymbol, resolution, unresolvedReason)
@@ -318,7 +331,17 @@ func thirdPartyCall(
 			return "", CallUnresolved, "outside_supported_syntax", true
 		}
 		return imported.Imported, CallResolved, "", true
-	case "esm_default", "cjs_require", "dynamic_static_literal":
+	case "dynamic_static_literal":
+		// const { merge } = await import("pkg") binds a named export.
+		if imported.Imported != "" && imported.Imported != "*" {
+			return imported.Imported, CallResolved, "", true
+		}
+		_, subpath, _ := npmImportParts(imported.Specifier)
+		if subpath != "" {
+			return path.Base(subpath), CallResolved, "", true
+		}
+		return "default", CallResolved, "", true
+	case "esm_default", "cjs_require":
 		_, subpath, _ := npmImportParts(imported.Specifier)
 		if subpath != "" {
 			return path.Base(subpath), CallResolved, "", true

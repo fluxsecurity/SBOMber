@@ -100,3 +100,47 @@ func anonymousContainsCall(span sourceanalysis.Function, call sourceanalysis.Cal
 	}
 	return true
 }
+
+// dynamicImportVisible limits an import() binding to the function that
+// declares it: const m = await import("x") inside one function says nothing
+// about an m in another. Static imports are module-scoped and always visible.
+func dynamicImportVisible(
+	result sourceanalysis.Result,
+	imported sourceanalysis.Import,
+	call sourceanalysis.Call,
+) bool {
+	if imported.Kind != "dynamic_static_literal" && imported.Kind != "dynamic_computed" {
+		return true
+	}
+	if imported.Local != "" {
+		// A block-scoped binding cannot be used before its declaration
+		// or after the lexical block ends.
+		if positionBefore(call.Line, call.Column, imported.Line, imported.Column) {
+			return false
+		}
+		if imported.BindingScopeEndLine != 0 &&
+			!positionBefore(call.Line, call.Column,
+				imported.BindingScopeEndLine, imported.BindingScopeEndColumn) {
+			return false
+		}
+	}
+	declared := sourceanalysis.Call{Line: imported.Line, Column: imported.Column}
+	var innermost *sourceanalysis.Function
+	for _, functions := range [][]sourceanalysis.Function{
+		graphFunctions(result),
+		result.AnonymousFunctions,
+	} {
+		for index := range functions {
+			function := &functions[index]
+			if !anonymousContainsCall(*function, declared) {
+				continue
+			}
+			if innermost == nil || positionBefore(
+				innermost.Line, innermost.Column, function.Line, function.Column,
+			) {
+				innermost = function
+			}
+		}
+	}
+	return innermost == nil || anonymousContainsCall(*innermost, call)
+}

@@ -5,6 +5,7 @@ import (
 	"os"
 	"path/filepath"
 	"sort"
+	"sync"
 
 	treesitter "github.com/tree-sitter/go-tree-sitter"
 )
@@ -434,10 +435,11 @@ func extractFile(
 		)
 	}
 
-	language, err := treeSitterLanguageForPath(fixturePath)
+	compiled, err := compiledUsageQuery(resultLanguage)
 	if err != nil {
 		return Result{}, err
 	}
+	language := compiled.language
 
 	parser := treesitter.NewParser()
 	if parser == nil {
@@ -478,19 +480,7 @@ func extractFile(
 		return result, nil
 	}
 
-	querySource := usageQuery
-
-	query, queryErr := treesitter.NewQuery(
-		language,
-		string(querySource),
-	)
-	if queryErr != nil {
-		return Result{}, fmt.Errorf(
-			"compile usage query: %v",
-			queryErr,
-		)
-	}
-	defer query.Close()
+	query := compiled.query
 
 	cursor := treesitter.NewQueryCursor()
 	if cursor == nil {
@@ -706,4 +696,37 @@ func extractFile(
 	sortResult(&result)
 
 	return result, nil
+}
+
+// usageQueries caches the compiled usage query per grammar. Compiling the
+// query costs far more than parsing a typical file, and a compiled query is
+// read-only, so every file of a language shares one.
+var usageQueries = struct {
+	sync.Mutex
+	byLanguage map[string]compiledQuery
+}{byLanguage: make(map[string]compiledQuery)}
+
+type compiledQuery struct {
+	language *treesitter.Language
+	query    *treesitter.Query
+}
+
+func compiledUsageQuery(languageName string) (compiledQuery, error) {
+	usageQueries.Lock()
+	defer usageQueries.Unlock()
+
+	if cached, ok := usageQueries.byLanguage[languageName]; ok {
+		return cached, nil
+	}
+	language, err := treeSitterLanguage(languageName)
+	if err != nil {
+		return compiledQuery{}, err
+	}
+	query, queryErr := treesitter.NewQuery(language, string(usageQuery))
+	if queryErr != nil {
+		return compiledQuery{}, fmt.Errorf("compile usage query: %v", queryErr)
+	}
+	compiled := compiledQuery{language: language, query: query}
+	usageQueries.byLanguage[languageName] = compiled
+	return compiled, nil
 }
