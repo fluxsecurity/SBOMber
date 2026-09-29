@@ -112,7 +112,7 @@ func buildApplicationCallGraph(
 			}
 
 			owner, ok := graphCallOwner(result, call)
-			if !ok {
+			if !ok || shadowedParameterCall(result, call) {
 				continue
 			}
 
@@ -265,15 +265,18 @@ func resolveRelativeSourceFile(
 		return sourceFileID{}, false
 	}
 
-	candidatePaths := make([]string, 0, 11)
+	candidatePaths := make([]string, 0, 16)
 	if isSupportedSourceExtension(path.Ext(base)) {
 		candidatePaths = append(candidatePaths, base)
 	} else {
 		for _, extension := range []string{
 			".js",
+			".jsx",
 			".mjs",
 			".cjs",
 			".ts",
+			".mts",
+			".cts",
 			".tsx",
 		} {
 			candidatePaths = append(
@@ -303,7 +306,7 @@ func resolveRelativeSourceFile(
 
 func isSupportedSourceExtension(extension string) bool {
 	switch strings.ToLower(extension) {
-	case ".js", ".mjs", ".cjs", ".ts", ".tsx":
+	case ".js", ".jsx", ".mjs", ".cjs", ".ts", ".mts", ".cts", ".tsx":
 		return true
 	default:
 		return false

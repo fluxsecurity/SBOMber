@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"fmt"
 	"strconv"
+	"strings"
 
 	treesitter "github.com/tree-sitter/go-tree-sitter"
 )
@@ -53,7 +54,47 @@ func unquoteJavaScriptString(value string) (string, error) {
 		)
 	}
 
-	unquoted, err := strconv.Unquote(value)
+	literal := value
+	if value[0] == '\'' && value[len(value)-1] == '\'' {
+		var converted strings.Builder
+		converted.WriteByte('"')
+		for index := 1; index < len(value)-1; index++ {
+			current := value[index]
+			if current == '\\' && index+1 < len(value)-1 {
+				switch value[index+1] {
+				case '\\':
+					converted.WriteString(`\\`)
+					index++
+					continue
+				case '\'':
+					converted.WriteByte('\'')
+					index++
+					continue
+				case '"':
+					converted.WriteString(`\"`)
+					index++
+					continue
+				case '/':
+					converted.WriteByte('/')
+					index++
+					continue
+				case '0':
+					converted.WriteString(`\x00`)
+					index++
+					continue
+				}
+			}
+			if current == '"' {
+				converted.WriteString(`\"`)
+			} else {
+				converted.WriteByte(current)
+			}
+		}
+		converted.WriteByte('"')
+		literal = converted.String()
+	}
+
+	unquoted, err := strconv.Unquote(literal)
 	if err != nil {
 		return "", fmt.Errorf(
 			"unquote JavaScript string %q: %w",

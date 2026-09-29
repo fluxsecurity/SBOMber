@@ -158,3 +158,53 @@ function helper(input) {
 		t.Fatalf("bare reference created a call-graph path: %+v", path)
 	}
 }
+
+func TestRelativeCallPathIntoNewSourceExtensions(t *testing.T) {
+	for _, extension := range []string{".jsx", ".mts", ".cts"} {
+		t.Run(extension, func(t *testing.T) {
+			root := t.TempDir()
+			src := filepath.Join(root, "src")
+			if err := os.MkdirAll(src, 0o755); err != nil {
+				t.Fatal(err)
+			}
+			index := `import { helper } from "./helper";
+export function start() { return helper(); }
+`
+			helper := `import { merge } from "lodash";
+export function helper() { return merge({}, {}); }
+`
+			if err := os.WriteFile(filepath.Join(src, "index.js"),
+				[]byte(index), 0o600); err != nil {
+				t.Fatal(err)
+			}
+			if err := os.WriteFile(filepath.Join(src, "helper"+extension),
+				[]byte(helper), 0o600); err != nil {
+				t.Fatal(err)
+			}
+			result, err := sourceanalysis.AnalyzeRepository(
+				root, sourceanalysis.RepositoryOptions{})
+			if err != nil {
+				t.Fatal(err)
+			}
+			graph, err := Produce(
+				[]RepositoryInput{{RepositoryID: "repo-app", Result: result}},
+				[]OccurrenceInput{fixtureOccurrence()},
+				ProduceOptions{
+					ScanID:               "scan-extension-path",
+					Ecosystem:            "npm",
+					AnalyzerID:           AnalyzerID,
+					ReachabilityAnalysed: true,
+				},
+			)
+			if err != nil {
+				t.Fatal(err)
+			}
+			observation := requireObservationForSymbol(t, graph, "merge")
+			if len(observation.CallSites) != 1 ||
+				observation.CallSites[0].Reachability != Reachable ||
+				len(observation.CallSites[0].CallPath) != 2 {
+				t.Fatalf("relative path = %+v", observation.CallSites)
+			}
+		})
+	}
+}

@@ -49,6 +49,7 @@ type Function struct {
 	EndLine       int      `json:"-"`
 	EndColumn     int      `json:"-"`
 	ExportedNames []string `json:"-"`
+	Parameters    []string `json:"-"`
 	Exported      bool     `json:"exported"`
 }
 
@@ -93,9 +94,12 @@ func languageForPath(path string) (string, error) {
 	switch {
 	case strings.HasSuffix(lower, ".tsx"):
 		return "tsx", nil
-	case strings.HasSuffix(lower, ".ts"):
+	case strings.HasSuffix(lower, ".ts"),
+		strings.HasSuffix(lower, ".mts"),
+		strings.HasSuffix(lower, ".cts"):
 		return "typescript", nil
 	case strings.HasSuffix(lower, ".js"),
+		strings.HasSuffix(lower, ".jsx"),
 		strings.HasSuffix(lower, ".mjs"),
 		strings.HasSuffix(lower, ".cjs"):
 		return "javascript", nil

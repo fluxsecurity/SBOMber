@@ -62,11 +62,10 @@ func Produce(
 		graph = built
 	}
 
-	observations, matchedOccurrences, err := buildObservations(
+	observations, matchedOccurrences, ambiguousOccurrences, err := buildObservations(
 		repositories,
 		occurrences,
-		entryPoints,
-		graph,
+		graph.pathsFrom(entryPoints),
 		options.ReachabilityAnalysed,
 	)
 	if err != nil {
@@ -105,6 +104,8 @@ func Produce(
 	unanalysed := buildUnanalysedOccurrences(
 		occurrences,
 		matchedOccurrences,
+		ambiguousOccurrences,
+		observations,
 		coverageResult,
 	)
 
@@ -124,9 +125,17 @@ func Produce(
 func buildUnanalysedOccurrences(
 	occurrences []OccurrenceInput,
 	matched map[string]struct{},
+	ambiguous map[string]struct{},
+	observations []Observation,
 	coverage Result,
 ) []UnanalysedOccurrence {
 	result := []UnanalysedOccurrence{}
+	computedRepositories := make(map[string]struct{})
+	for _, observation := range observations {
+		if observation.ComputedSpecifier {
+			computedRepositories[observation.Location.RepositoryID] = struct{}{}
+		}
+	}
 	for _, input := range occurrences {
 		occurrence := input.Occurrence
 		if _, ok := matched[occurrence.OccurrenceID]; ok {
@@ -134,10 +143,14 @@ func buildUnanalysedOccurrences(
 		}
 
 		reason := "not_imported_by_analysed_source"
-		if occurrence.Scope == "transitive" ||
+		if _, couldBeImported := ambiguous[occurrence.OccurrenceID]; couldBeImported {
+			reason = "ambiguous_occurrence"
+		} else if occurrence.Scope == "transitive" ||
 			len(occurrence.DependencyPath) != 0 ||
 			occurrence.Depth > 0 {
 			reason = "nested_under_dependency"
+		} else if _, computed := computedRepositories[input.RepositoryID]; computed {
+			reason = "computed_specifier"
 		} else if coverage.Analysis.Status == AnalysisPartial {
 			if coverage.Coverage.FilesFailed != 0 ||
 				coverage.Coverage.FilesParsedWithErrors != 0 {

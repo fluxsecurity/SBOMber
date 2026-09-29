@@ -286,7 +286,7 @@
           },
           "unresolvedReason": {
             "type": "string",
-            "enum": ["computed_specifier", "reexport_chain", "not_in_inventory", "parse_failure", "outside_supported_syntax"],
+            "enum": ["computed_specifier", "reexport_chain", "not_in_inventory", "ambiguous_occurrence", "parse_failure", "outside_supported_syntax"],
             "description": "Required when resolution is 'unresolved'. computed_member_access is NOT a value here - it is a call-site reason, not an import reason."
           },
           "location": {
@@ -379,12 +379,14 @@
             "type": "string",
             "enum": [
               "nested_under_dependency",
+              "ambiguous_occurrence",
+              "computed_specifier",
               "not_imported_by_analysed_source",
               "ecosystem_unsupported",
               "import_site_parse_failed",
               "excluded_by_limits"
             ],
-            "description": "nested_under_dependency: reachable only from inside another package, whose source is not parsed - resolves to unknown, never no_usage_detected. not_imported_by_analysed_source: the analysis completed and found no import - this is the only reason that may support no_usage_detected. ecosystem_unsupported: outside the analysed ecosystems. import_site_parse_failed / excluded_by_limits: the analysis was incomplete."
+            "description": "nested_under_dependency: source inside a dependency was not parsed. ambiguous_occurrence: an import matched multiple direct occurrences and could not be assigned safely. computed_specifier: a dynamic import could refer to this occurrence. These reasons never support no_usage_detected. not_imported_by_analysed_source: the analysis completed and found no import; this is the only reason that may support no_usage_detected. ecosystem_unsupported: outside the analysed ecosystems. import_site_parse_failed / excluded_by_limits: the analysis was incomplete."
           },
           "detail": { "type": "string" }
         }

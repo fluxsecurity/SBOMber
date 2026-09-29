@@ -172,24 +172,12 @@ func appendDynamicImport(
 		)
 	}
 
-	declarator := nearestAncestorByType(
-		call,
-		"variable_declarator",
-	)
-	if declarator == nil {
-		return fmt.Errorf(
-			"dynamic import at bytes %d-%d has no variable declarator",
-			call.StartByte(),
-			call.EndByte(),
-		)
-	}
-
-	localNode := declarator.ChildByFieldName("name")
-	if localNode == nil ||
-		localNode.Kind() != "identifier" {
-		return fmt.Errorf(
-			"dynamic import declarator has no identifier binding",
-		)
+	local := ""
+	if declarator := nearestAncestorByType(call, "variable_declarator"); declarator != nil {
+		if name := declarator.ChildByFieldName("name"); name != nil &&
+			name.Kind() == "identifier" {
+			local = name.Utf8Text(source)
+		}
 	}
 
 	argument := firstNamedChild(arguments)
@@ -225,7 +213,7 @@ func appendDynamicImport(
 		Import{
 			Specifier: specifier,
 			Kind:      kind,
-			Local:     localNode.Utf8Text(source),
+			Local:     local,
 			Imported:  "*",
 			TypeOnly:  false,
 			Line:      line,

@@ -75,6 +75,8 @@ Schema conformance is the easy half. These are the rules a JSON Schema cannot ex
 - File counts sum: discovered = parsed + parsedWithErrors + failed + skipped
 - Import locations are never inside `node_modules` — only application source is parsed
 - **Every occurrence in `canonical-scan.json` appears either in `observations` or in `unanalysedOccurrences`.** This is the safety-critical rule: without it, "analysed and found nothing" and "never analysed" both look like silence
+- If an import could match more than one direct occurrence, each candidate is recorded as `ambiguous_occurrence`; none can support `no_usage_detected`.
+- If a computed dynamic import could load an unknown package, unmatched direct occurrences in that repository are recorded as `computed_specifier`; none can support `no_usage_detected`.
 
 **There is no `not_reachable`.** `reachability` is `reachable`, `unknown` or `not_analysed`. Within an application-source-only analysis, failing to resolve a path describes the analysis, not the code — the same reasoning that forbids automated `not_affected`. The schema makes the unsafe value unrepresentable rather than relying on anyone remembering the rule.
 

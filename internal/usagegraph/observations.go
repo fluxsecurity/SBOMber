@@ -19,17 +19,17 @@ type occurrenceKey struct {
 func buildObservations(
 	repositories []RepositoryInput,
 	occurrences []OccurrenceInput,
-	entryPoints []EntryPoint,
-	graph applicationCallGraph,
+	paths graphPaths,
 	reachabilityAnalysed bool,
-) ([]Observation, map[string]struct{}, error) {
+) ([]Observation, map[string]struct{}, map[string]struct{}, error) {
 	occurrenceIndex, err := indexOccurrences(occurrences)
 	if err != nil {
-		return nil, nil, err
+		return nil, nil, nil, err
 	}
 
 	observations := []Observation{}
 	matchedOccurrences := make(map[string]struct{})
+	ambiguousOccurrences := make(map[string]struct{})
 
 	for _, repository := range repositories {
 		for _, file := range repository.Result.Files {
@@ -58,8 +58,8 @@ func buildObservations(
 						repositoryID: repository.RepositoryID,
 						packageName:  packageName,
 					}]
-					if len(candidates) == 1 {
-						occurrence := candidates[0].Occurrence
+					if candidate, unique := selectDirectOccurrence(candidates, file.Path); unique {
+						occurrence := candidate.Occurrence
 						occurrenceID = occurrence.OccurrenceID
 						observation.OccurrenceID = occurrenceID
 						observation.PURL = occurrence.ComponentPurl
@@ -72,6 +72,12 @@ func buildObservations(
 					} else {
 						observation.Resolution = ImportUnresolved
 						observation.UnresolvedReason = "not_in_inventory"
+						if len(candidates) > 1 {
+							observation.UnresolvedReason = "ambiguous_occurrence"
+							for _, candidate := range candidates {
+								ambiguousOccurrences[candidate.Occurrence.OccurrenceID] = struct{}{}
+							}
+						}
 					}
 				}
 
@@ -82,8 +88,7 @@ func buildObservations(
 						file.Result,
 						imported,
 						observation.Resolution,
-						entryPoints,
-						graph,
+						paths,
 						reachabilityAnalysed,
 					)
 				}
@@ -110,7 +115,7 @@ func buildObservations(
 	}
 
 	sortObservations(observations)
-	return observations, matchedOccurrences, nil
+	return observations, matchedOccurrences, ambiguousOccurrences, nil
 }
 
 func indexOccurrences(
@@ -188,8 +193,7 @@ func observationCallSites(
 	result sourceanalysis.Result,
 	imported sourceanalysis.Import,
 	importResolution string,
-	entryPoints []EntryPoint,
-	graph applicationCallGraph,
+	paths graphPaths,
 	reachabilityAnalysed bool,
 ) []CallSite {
 	callSites := []CallSite{}
@@ -225,10 +229,7 @@ func observationCallSites(
 					Name:         owner.Name,
 					StartLine:    owner.Line,
 				}
-				entryPoint, callPath, reachable := graph.pathTo(
-					entryPoints,
-					target,
-				)
+				entryPoint, callPath, reachable := paths.pathTo(target)
 				if reachable && len(callPath) != 0 {
 					callSite.Reachability = Reachable
 					callSite.EntryPointID = entryPoint.EntryPointID

@@ -17,6 +17,7 @@ func appendAnonymousFunctionRanges(
 				Function{
 					Line: line, Column: column,
 					EndLine: endLine, EndColumn: endColumn,
+					Parameters: parameterNames(node, source),
 				},
 			)
 		}

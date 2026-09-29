@@ -69,7 +69,7 @@ func TestAmbiguousOccurrenceCannotBeReachable(t *testing.T) {
 	}
 	observation := graph.Observations[0]
 	if observation.Resolution != ImportUnresolved ||
-		observation.UnresolvedReason != "not_in_inventory" ||
+		observation.UnresolvedReason != "ambiguous_occurrence" ||
 		observation.OccurrenceID != "" || observation.PURL != "" {
 		t.Fatalf("ambiguous occurrence was resolved: %+v", observation)
 	}

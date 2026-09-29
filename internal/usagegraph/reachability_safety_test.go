@@ -142,3 +142,53 @@ func TestPathSelectionIsDeterministic(t *testing.T) {
 		}
 	}
 }
+
+func TestParameterShadowDoesNotCreateDirectCallEdge(t *testing.T) {
+	root := t.TempDir()
+	sourcePath := filepath.Join(root, "src", "index.js")
+	if err := os.MkdirAll(filepath.Dir(sourcePath), 0o755); err != nil {
+		t.Fatal(err)
+	}
+	source := `import { merge } from "lodash";
+export function main(helper) {
+  helper();
+}
+function helper() {
+  return merge({}, {});
+}
+`
+	if err := os.WriteFile(sourcePath, []byte(source), 0o600); err != nil {
+		t.Fatal(err)
+	}
+	result, err := sourceanalysis.AnalyzeRepository(
+		root, sourceanalysis.RepositoryOptions{})
+	if err != nil {
+		t.Fatal(err)
+	}
+	graph, err := Produce(
+		[]RepositoryInput{{RepositoryID: "repo-app", Result: result}},
+		[]OccurrenceInput{fixtureOccurrence()},
+		ProduceOptions{
+			ScanID:               "scan-shadow",
+			Ecosystem:            "npm",
+			AnalyzerID:           AnalyzerID,
+			ReachabilityAnalysed: true,
+		},
+	)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(graph.EntryPoints) != 1 ||
+		graph.EntryPoints[0].Function != "main" {
+		t.Fatalf("entry points = %+v", graph.EntryPoints)
+	}
+	observation := requireObservationForSymbol(t, graph, "merge")
+	if len(observation.CallSites) != 1 {
+		t.Fatalf("merge calls = %+v", observation.CallSites)
+	}
+	call := observation.CallSites[0]
+	if call.Reachability != ReachUnknown ||
+		call.EntryPointID != "" || len(call.CallPath) != 0 {
+		t.Fatalf("shadowed parameter created a path: %+v", call)
+	}
+}
