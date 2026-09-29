@@ -115,7 +115,7 @@ type Options struct {
 }
 
 // Result is the portion of usage-graph.json built by coverage reporting.
-// ScopeExclusions remains internal because the v1.2.0 public contract has no
+// ScopeExclusions remains internal because the v1.3.0 public contract has no
 // directory-exclusion array.
 type Result struct {
 	Analysis        Analysis         `json:"analysis"`

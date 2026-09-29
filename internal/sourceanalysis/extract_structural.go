@@ -188,12 +188,13 @@ func appendAdditionalFunctions(
 		result.Functions = append(
 			result.Functions,
 			Function{
-				Name:       name.Utf8Text(source),
-				Line:       line,
-				Column:     column,
-				EndLine:    endLine,
-				EndColumn:  endColumn,
-				Parameters: parameterNames(expression, source),
+				Name:          name.Utf8Text(source),
+				Line:          line,
+				Column:        column,
+				EndLine:       endLine,
+				EndColumn:     endColumn,
+				Parameters:    parameterNames(expression, source),
+				LocalBindings: localBindingNames(expression, source),
 				Exported: isCommonJSExportAssignment(
 					expression,
 					source,
@@ -222,13 +223,14 @@ func appendAdditionalFunctions(
 		result.Functions = append(
 			result.Functions,
 			Function{
-				Name:       name.Utf8Text(source),
-				Line:       line,
-				Column:     column,
-				EndLine:    endLine,
-				EndColumn:  endColumn,
-				Parameters: parameterNames(arrow, source),
-				Exported:   exported,
+				Name:          name.Utf8Text(source),
+				Line:          line,
+				Column:        column,
+				EndLine:       endLine,
+				EndColumn:     endColumn,
+				Parameters:    parameterNames(arrow, source),
+				LocalBindings: localBindingNames(arrow, source),
+				Exported:      exported,
 			},
 		)
 	}

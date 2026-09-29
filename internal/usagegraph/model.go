@@ -1,9 +1,9 @@
 package usagegraph
 
 // SchemaVersion is the public usage-graph contract version produced here.
-const SchemaVersion = "1.2.0"
+const SchemaVersion = "1.3.0"
 
-// Graph is the complete public usage-graph.json 1.2.0 document.
+// Graph is the complete public usage-graph.json 1.3.0 document.
 type Graph struct {
 	SchemaVersion         string                 `json:"schemaVersion"`
 	ScanID                string                 `json:"scanId"`

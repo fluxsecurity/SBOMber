@@ -11,7 +11,7 @@ where statically resolvable, a call path may connect a recognised application
 entry point to a third-party call site.
 
 Component 2 consumes the agreed `canonical-scan.json` contract and produces
-the agreed `usage-graph.json` 1.2.0 contract.
+the agreed `usage-graph.json` 1.3.0 contract.
 
 It does not consume vulnerability findings or localisation results and does
 not decide whether a vulnerability affects the application. Those joins and
@@ -24,7 +24,7 @@ The project uses versioned JSON contract fixtures so that components can be
 developed independently.
 
 Component 2 consumes `canonical-scan.json` 1.0.0 and produces
-`usage-graph.json` 1.2.0.
+`usage-graph.json` 1.3.0.
 
 Component 2 can therefore work against the agreed canonical-scan fixture
 without waiting for the production Component 1 exporter.
@@ -49,7 +49,7 @@ fixed versions or vulnerable-function localisation.
 
 ### Output
 
-Component 2 produces `usage-graph.json` schema version `1.2.0`.
+Component 2 produces `usage-graph.json` schema version `1.3.0`.
 
 The root output contains:
 
@@ -108,7 +108,7 @@ objects remain internal.
 
 The usage-graph producer resolves extracted imports against package
 occurrences supplied by `canonical-scan.json` and converts the internal
-representation into the agreed `usage-graph.json` 1.2.0 structure.
+representation into the agreed `usage-graph.json` 1.3.0 structure.
 
 This separation allows the parser implementation to change without requiring
 Component 4 to change its input contract.
@@ -163,7 +163,7 @@ must be verified directly before the Candidate A adapter is accepted.
 ## 6. Import and alias representation
 
 Component 2 records imports using the public representation defined by
-`usage-graph.json` 1.2.0.
+`usage-graph.json` 1.3.0.
 
 Supported import kinds are:
 
@@ -174,7 +174,28 @@ Supported import kinds are:
 - `cjs_require`;
 - `cjs_destructured`;
 - `dynamic_static_literal`;
-- `dynamic_computed`.
+- `dynamic_computed`;
+- `esm_reexport`;
+- `esm_side_effect`.
+
+Every import form the parser recognises produces an observation; none is
+dropped. The less common forms are handled as follows:
+
+| Source | Recorded as |
+|---|---|
+| `import "pkg"` | `esm_side_effect`, no binding, level 1 |
+| `export { a } from "pkg"`, `export * from "pkg"` | `esm_reexport` with one unresolved call site, reason `reexport_chain` |
+| `require(name)`, `` require(`x${y}`) `` | `dynamic_computed`, like `import(name)` |
+| `` require(`pkg`) `` (no substitutions) | treated as the literal `"pkg"` |
+| `require("pkg");` as a statement | `cjs_require`, no binding, level 1 |
+| `const m = require("pkg").merge` | `cjs_destructured`, `importedSymbol` = `merge` |
+| `require("pkg").merge(x)` | `cjs_require` with a resolved call site, `calledSymbol` = `merge` |
+| `x = require("pkg")` | `cjs_require`, `localAlias` = `x` |
+| `foo(require("pkg"))`, `module.exports = require("pkg")`, array or nested patterns | `cjs_require` with one unresolved call site at the import, reason `outside_supported_syntax` |
+| `import x = require("pkg")` (TypeScript) | `cjs_require`, `localAlias` = `x` |
+
+The unresolved call site is what keeps an escaped import honest: the package
+is imported, something may call it, and the analysis cannot say what.
 
 The original package specifier is preserved in `importedSpecifier`.
 
@@ -619,7 +640,16 @@ The current design intentionally does not claim support for:
 - callback indirection through third-party code;
 - framework-injected invocation;
 - full taint/data-flow analysis;
-- remote source-code analysis without a local checkout.
+- remote source-code analysis without a local checkout;
+- Vue, Svelte, Astro, MDX and Marko files. These are counted as skipped with
+  reason `unsupported_source_format`, which makes the analysis `partial`, so
+  an import that exists only in such a file cannot support a negative.
+
+Call-graph edges are not added through a name that a parameter or local
+declaration (`const`/`let`/`var`, `for...of`, `catch`, nested function or
+class) could shadow in any enclosing function. This is deliberately
+over-conservative: a shadowing check that misses a case would fabricate a
+path, while an extra check only turns a path into `unknown`.
 
 The application-source-only boundary is particularly important.
 
@@ -636,13 +666,13 @@ conclusion.
 Component 2 targets the agreed project contracts:
 
 - `canonical-scan.json` 1.0.0 as its upstream identity contract;
-- `usage-graph.json` 1.2.0 as its public output contract.
+- `usage-graph.json` 1.3.0 as its public output contract.
 
 The shared fixtures define the interface used during independent Sprint 4
 development. Component 2 does not wait for another component's production
 implementation before working against that interface.
 
-The 1.2.0 usage graph keeps reachability on individual call sites and requires
+The 1.3.0 usage graph keeps reachability on individual call sites and requires
 canonical package occurrences to be explicitly accounted for through either
 `observations` or `unanalysedOccurrences`.
 

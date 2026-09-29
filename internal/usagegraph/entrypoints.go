@@ -156,11 +156,7 @@ func detectRouteEntryPoints(repositories []RepositoryInput) []EntryPoint {
 func isConventionalExportedModule(path string) bool {
 	path = filepath.ToSlash(filepath.Clean(path))
 	extension := strings.ToLower(filepath.Ext(path))
-	if extension != ".js" &&
-		extension != ".mjs" &&
-		extension != ".cjs" &&
-		extension != ".ts" &&
-		extension != ".tsx" {
+	if !isSupportedSourceExtension(extension) {
 		return false
 	}
 

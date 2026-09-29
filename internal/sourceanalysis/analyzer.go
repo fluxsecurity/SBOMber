@@ -32,6 +32,15 @@ type Import struct {
 	TypeOnly  bool   `json:"typeOnly"`
 	Line      int    `json:"line"`
 	Column    int    `json:"column"`
+
+	// InlineCalls are member calls made directly on an unbound import
+	// expression, for example require("x").merge(). Internal only.
+	InlineCalls []Call `json:"-"`
+	// UnresolvedUse names why the imported value escapes static tracking,
+	// for example a re-export or require() passed as an argument. The usage
+	// graph records one unresolved call site for it so downstream components
+	// cannot read the import as unused. Internal only.
+	UnresolvedUse string `json:"-"`
 }
 
 type Call struct {
@@ -50,6 +59,7 @@ type Function struct {
 	EndColumn     int      `json:"-"`
 	ExportedNames []string `json:"-"`
 	Parameters    []string `json:"-"`
+	LocalBindings []string `json:"-"`
 	Exported      bool     `json:"exported"`
 }
 

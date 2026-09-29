@@ -25,3 +25,62 @@ func parameterNames(node *treesitter.Node, source []byte) []string {
 	}
 	return names
 }
+
+// localBindingNames records names declared anywhere inside a function body:
+// const/let/var declarators (including destructuring), for-in/for-of
+// bindings, catch parameters, and nested function and class names. Any of
+// these can hide a same-named module function or import, so call
+// resolution treats them the same way as parameters. Collection is
+// deliberately over-inclusive: a name declared in a nested block or nested
+// function still blocks an edge, which can only turn a path into unknown.
+func localBindingNames(node *treesitter.Node, source []byte) []string {
+	body := node.ChildByFieldName("body")
+	if body == nil {
+		return nil
+	}
+
+	names := make([]string, 0)
+	seen := make(map[string]struct{})
+	add := func(binding *treesitter.Node) {
+		if binding == nil {
+			return
+		}
+		candidates := []*treesitter.Node{}
+		switch binding.Kind() {
+		case "identifier", "shorthand_property_identifier_pattern":
+			candidates = append(candidates, binding)
+		default:
+			candidates = append(candidates, collectNodesByType(binding, "identifier")...)
+			candidates = append(candidates,
+				collectNodesByType(binding, "shorthand_property_identifier_pattern")...)
+		}
+		for _, candidate := range candidates {
+			name := candidate.Utf8Text(source)
+			if _, exists := seen[name]; exists {
+				continue
+			}
+			seen[name] = struct{}{}
+			names = append(names, name)
+		}
+	}
+
+	for _, declarator := range collectNodesByType(body, "variable_declarator") {
+		add(declarator.ChildByFieldName("name"))
+	}
+	for _, loop := range collectNodesByType(body, "for_in_statement") {
+		add(loop.ChildByFieldName("left"))
+	}
+	for _, clause := range collectNodesByType(body, "catch_clause") {
+		add(clause.ChildByFieldName("parameter"))
+	}
+	for _, kind := range []string{
+		"function_declaration",
+		"generator_function_declaration",
+		"class_declaration",
+	} {
+		for _, declaration := range collectNodesByType(body, kind) {
+			add(declaration.ChildByFieldName("name"))
+		}
+	}
+	return names
+}

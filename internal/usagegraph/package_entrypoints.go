@@ -86,7 +86,7 @@ func resolvePackageEntryFile(
 	if isSupportedSourceExtension(path.Ext(base)) {
 		candidates = append(candidates, base)
 	} else {
-		for _, extension := range []string{".js", ".mjs", ".cjs", ".ts", ".tsx"} {
+		for _, extension := range sourceExtensions {
 			candidates = append(candidates, base+extension, path.Join(base, "index"+extension))
 		}
 	}

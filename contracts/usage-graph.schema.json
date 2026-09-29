@@ -17,7 +17,7 @@
   "properties": {
     "schemaVersion": {
       "type": "string",
-      "const": "1.2.0"
+      "const": "1.3.0"
     },
     "scanId": {
       "type": "string",
@@ -238,7 +238,7 @@
         "properties": {
           "observationId": {
             "type": "string",
-            "description": "Stable across runs. Derived from occurrenceId (or the raw specifier when unresolved) + importedSymbol + import file + import line, so two runs over an unchanged tree produce the same identifier."
+            "description": "Stable across runs. Derived from occurrenceId (or the raw specifier when unresolved) + importedSymbol + import file + import line, so two runs over an unchanged tree produce the same identifier. An import with no local binding (re-export, side-effect import, unbound require or import()) also includes the import column, since several can share one line."
           },
           "occurrenceId": {
             "type": "string",
@@ -264,7 +264,7 @@
           },
           "importedSymbol": {
             "type": "string",
-            "description": "The specific symbol, where one is named at the import. Absent for namespace and whole-module imports, where the symbol is only known at the call site."
+            "description": "The specific symbol, where one is named at the import. Absent for namespace and whole-module imports, where the symbol is only known at the call site. For esm_reexport, the re-exported name, or * for export *."
           },
           "importKind": {
             "type": "string",
@@ -276,8 +276,11 @@
               "cjs_require",
               "cjs_destructured",
               "dynamic_static_literal",
-              "dynamic_computed"
-            ]
+              "dynamic_computed",
+              "esm_reexport",
+              "esm_side_effect"
+            ],
+            "description": "esm_reexport: export { x } from 'pkg' or export * from 'pkg'. The package is loaded but its symbols leave the file under names this analysis does not follow, so the observation carries an unresolved call site with reason reexport_chain. esm_side_effect: import 'pkg', level-1 evidence with no binding. dynamic_computed also covers require(expression), which can load any package."
           },
           "resolution": {
             "type": "string",
@@ -333,7 +336,7 @@
                 "unresolvedReason": {
                   "type": "string",
                   "enum": ["computed_member_access", "call_through_variable", "reexport_chain", "outside_supported_syntax"],
-                  "description": "Required when the call site resolution is 'unresolved'."
+                  "description": "Required when the call site resolution is 'unresolved'. reexport_chain: the binding is re-exported and used elsewhere under a name this analysis does not follow. outside_supported_syntax: the imported value escapes into an expression that is not tracked, e.g. passed as an argument; such a call site is located at the import itself."
                 },
                 "reachability": {
                   "type": "string",

@@ -45,3 +45,22 @@ func TestJavaScriptImportStringQuotes(t *testing.T) {
 		})
 	}
 }
+
+func TestJavaScriptStringEscapesMatchModuleNames(t *testing.T) {
+	for _, test := range []struct {
+		literal string
+		want    string
+	}{
+		{`'lod\ash'`, "lodash"},
+		{`'lod\u{61}sh'`, "lodash"},
+		{`"lod\u{61}sh"`, "lodash"},
+		{`'lod\x61sh'`, "lodash"},
+		{`'lod\ash\u{61}'`, "lodasha"},
+	} {
+		got, err := unquoteJavaScriptString(test.literal)
+		if err != nil || got != test.want {
+			t.Errorf("unquote %q = %q, %v; want %q",
+				test.literal, got, err, test.want)
+		}
+	}
+}

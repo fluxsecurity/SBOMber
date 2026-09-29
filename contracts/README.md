@@ -1,6 +1,6 @@
 # SBOMber contracts
 
-**Schema versions: `canonical-scan` 1.0.0 · `usage-graph` 1.2.0 · `localisation` 1.0.0 · `decision-results` 1.1.0**
+**Schema versions: `canonical-scan` 1.0.0 · `usage-graph` 1.3.0 · `localisation` 1.0.0 · `decision-results` 1.1.0**
 
 Four JSON contracts. Each component reads and writes **files**, never another component's running code — that is what lets four people build in parallel and integrate in Sprint 5 instead of queueing behind each other.
 
@@ -77,6 +77,7 @@ Schema conformance is the easy half. These are the rules a JSON Schema cannot ex
 - **Every occurrence in `canonical-scan.json` appears either in `observations` or in `unanalysedOccurrences`.** This is the safety-critical rule: without it, "analysed and found nothing" and "never analysed" both look like silence
 - If an import could match more than one direct occurrence, each candidate is recorded as `ambiguous_occurrence`; none can support `no_usage_detected`.
 - If a computed dynamic import could load an unknown package, unmatched direct occurrences in that repository are recorded as `computed_specifier`; none can support `no_usage_detected`.
+- Every import form the parser recognises produces an observation. Forms whose value cannot be followed — re-exports (`esm_reexport`), `require()` passed as an argument or returned — carry one unresolved call site (`reexport_chain` / `outside_supported_syntax`), so the package is never read as imported-but-unused. `require(expression)` is `dynamic_computed`.
 
 **There is no `not_reachable`.** `reachability` is `reachable`, `unknown` or `not_analysed`. Within an application-source-only analysis, failing to resolve a path describes the analysis, not the code — the same reasoning that forbids automated `not_affected`. The schema makes the unsafe value unrepresentable rather than relying on anyone remembering the rule.
 

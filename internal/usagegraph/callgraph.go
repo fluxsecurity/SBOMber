@@ -112,7 +112,7 @@ func buildApplicationCallGraph(
 			}
 
 			owner, ok := graphCallOwner(result, call)
-			if !ok || shadowedParameterCall(result, call) {
+			if !ok || shadowedLocalCall(result, call) {
 				continue
 			}
 
@@ -268,17 +268,26 @@ func resolveRelativeSourceFile(
 	candidatePaths := make([]string, 0, 16)
 	if isSupportedSourceExtension(path.Ext(base)) {
 		candidatePaths = append(candidatePaths, base)
+		// TypeScript NodeNext source commonly spells its runtime import
+		// with .js even when the analysed source is .ts, .tsx or .mts.
+		// Prefer an actual .js file; only fall back when it is absent.
+		switch strings.ToLower(path.Ext(current.file)) {
+		case ".ts", ".tsx", ".mts", ".cts":
+			if path.Ext(base) == ".js" {
+				exact := sourceFileID{
+					repositoryID: current.repositoryID,
+					file:         base,
+				}
+				if _, exists := files[exact]; !exists {
+					stem := strings.TrimSuffix(base, ".js")
+					for _, extension := range []string{".ts", ".tsx", ".mts"} {
+						candidatePaths = append(candidatePaths, stem+extension)
+					}
+				}
+			}
+		}
 	} else {
-		for _, extension := range []string{
-			".js",
-			".jsx",
-			".mjs",
-			".cjs",
-			".ts",
-			".mts",
-			".cts",
-			".tsx",
-		} {
+		for _, extension := range sourceExtensions {
 			candidatePaths = append(
 				candidatePaths,
 				base+extension,
@@ -304,13 +313,17 @@ func resolveRelativeSourceFile(
 	return matched, matchCount == 1
 }
 
+var sourceExtensions = [...]string{
+	".js", ".jsx", ".mjs", ".cjs", ".ts", ".mts", ".cts", ".tsx",
+}
+
 func isSupportedSourceExtension(extension string) bool {
-	switch strings.ToLower(extension) {
-	case ".js", ".jsx", ".mjs", ".cjs", ".ts", ".mts", ".cts", ".tsx":
-		return true
-	default:
-		return false
+	for _, supported := range sourceExtensions {
+		if strings.EqualFold(extension, supported) {
+			return true
+		}
 	}
+	return false
 }
 
 func sortFunctionIDs(ids []sourceanalysis.FunctionID) {

@@ -99,8 +99,7 @@ func buildObservations(
 				if identity == "" {
 					identity = imported.Specifier
 				}
-				observation.ObservationID = stableID(
-					"obs",
+				idParts := []string{
 					identity,
 					repository.RepositoryID,
 					file.Path,
@@ -108,7 +107,15 @@ func buildObservations(
 					imported.Imported,
 					imported.Local,
 					imported.Kind,
-				)
+				}
+				if imported.Local == "" {
+					// Unbound imports (re-exports, bare or chained require,
+					// bare import()) can repeat on one line with nothing
+					// else to tell them apart. Bound imports keep their
+					// existing identity.
+					idParts = append(idParts, strconv.Itoa(imported.Column))
+				}
+				observation.ObservationID = stableID("obs", idParts...)
 				observations = append(observations, observation)
 			}
 		}
@@ -197,13 +204,12 @@ func observationCallSites(
 	reachabilityAnalysed bool,
 ) []CallSite {
 	callSites := []CallSite{}
-	for _, call := range result.Calls {
-		calledSymbol, resolution, unresolvedReason, matches :=
-			thirdPartyCall(imported, call)
-		if !matches {
-			continue
-		}
-
+	add := func(
+		call sourceanalysis.Call,
+		calledSymbol string,
+		resolution string,
+		unresolvedReason string,
+	) {
 		callSite := CallSite{
 			File:             file,
 			Line:             call.Line,
@@ -238,6 +244,37 @@ func observationCallSites(
 			}
 		}
 		callSites = append(callSites, callSite)
+	}
+
+	for _, call := range result.Calls {
+		calledSymbol, resolution, unresolvedReason, matches :=
+			thirdPartyCall(imported, call)
+		if !matches {
+			continue
+		}
+		add(call, calledSymbol, resolution, unresolvedReason)
+	}
+
+	// require("pkg").name(...) has no local binding; the parser attaches
+	// the member call to the import itself.
+	for _, call := range imported.InlineCalls {
+		if call.Callee == nil {
+			add(call, "", CallUnresolved, "computed_member_access")
+			continue
+		}
+		add(call, *call.Callee, CallResolved, "")
+	}
+
+	// The imported value escapes static tracking (re-export, argument,
+	// return value, ...). One unresolved call site at the import keeps
+	// the package from reading as imported-but-unused.
+	if imported.UnresolvedUse != "" {
+		add(
+			sourceanalysis.Call{Line: imported.Line, Column: imported.Column},
+			"",
+			CallUnresolved,
+			imported.UnresolvedUse,
+		)
 	}
 
 	sort.Slice(callSites, func(left, right int) bool {

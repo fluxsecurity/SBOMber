@@ -2,9 +2,10 @@ package usagegraph
 
 import "github.com/Xsamsx/SBOMber/internal/sourceanalysis"
 
-// A parameter in any containing function can hide a same-named function or
-// relative import. Do not add a direct-call edge through that identifier.
-func shadowedParameterCall(result sourceanalysis.Result, call sourceanalysis.Call) bool {
+// A parameter or local declaration in any containing function can hide a
+// same-named module function or relative import. Do not add a direct-call
+// edge through that identifier.
+func shadowedLocalCall(result sourceanalysis.Result, call sourceanalysis.Call) bool {
 	if call.Callee == nil {
 		return false
 	}
@@ -12,24 +13,26 @@ func shadowedParameterCall(result sourceanalysis.Result, call sourceanalysis.Cal
 	if call.Receiver != nil {
 		binding = *call.Receiver
 	}
-	for _, function := range result.Functions {
-		if anonymousContainsCall(function, call) &&
-			hasParameter(function.Parameters, binding) {
-			return true
-		}
-	}
-	for _, function := range result.AnonymousFunctions {
-		if anonymousContainsCall(function, call) &&
-			hasParameter(function.Parameters, binding) {
-			return true
+	for _, functions := range [][]sourceanalysis.Function{
+		result.Functions,
+		result.AnonymousFunctions,
+	} {
+		for _, function := range functions {
+			if !anonymousContainsCall(function, call) {
+				continue
+			}
+			if hasName(function.Parameters, binding) ||
+				hasName(function.LocalBindings, binding) {
+				return true
+			}
 		}
 	}
 	return false
 }
 
-func hasParameter(parameters []string, name string) bool {
-	for _, parameter := range parameters {
-		if parameter == name {
+func hasName(names []string, name string) bool {
+	for _, candidate := range names {
+		if candidate == name {
 			return true
 		}
 	}

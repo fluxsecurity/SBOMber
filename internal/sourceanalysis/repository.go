@@ -22,6 +22,11 @@ const (
 	SkipNonRegularFile    = "non_regular_file"
 	SkipSourceTooLarge    = "source_too_large"
 	SkipSourceFileLimit   = "source_file_limit"
+	// SkipUnsupportedSource marks application source in a format this
+	// analyser cannot parse, such as a Vue or Svelte single-file component.
+	// These files can import packages, so skipping them makes the analysis
+	// partial instead of silently shrinking the analysed scope.
+	SkipUnsupportedSource = "unsupported_source_format"
 )
 
 const (
@@ -90,6 +95,17 @@ func normalizeRepositoryOptions(options RepositoryOptions) (RepositoryOptions, e
 func excludedDirectory(name string) bool {
 	switch strings.ToLower(name) {
 	case ".git", ".next", "build", "coverage", "dist", "generated", "node_modules", "out", "vendor":
+		return true
+	default:
+		return false
+	}
+}
+
+// unsupportedApplicationSource reports file formats that embed JavaScript or
+// TypeScript imports but are not parsed by this analyser.
+func unsupportedApplicationSource(name string) bool {
+	switch strings.ToLower(filepath.Ext(name)) {
+	case ".vue", ".svelte", ".astro", ".mdx", ".marko":
 		return true
 	default:
 		return false
@@ -224,6 +240,9 @@ func AnalyzeRepository(root string, options RepositoryOptions) (RepositoryResult
 		}
 
 		if _, languageErr := languageForPath(path); languageErr != nil {
+			if unsupportedApplicationSource(entry.Name()) {
+				result.Skipped = append(result.Skipped, SkippedSource{Path: relative, Reason: SkipUnsupportedSource})
+			}
 			return nil
 		}
 
