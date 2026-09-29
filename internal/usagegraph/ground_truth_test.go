@@ -119,6 +119,7 @@ func TestFrozenUsageGroundTruth(t *testing.T) {
 		"component2-usage-reachable",
 		"component2-usage-unknown",
 		"component2-usage-callback",
+		"component2-usage-route",
 	}
 
 	for _, fixture := range fixtures {

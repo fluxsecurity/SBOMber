@@ -63,6 +63,12 @@ func buildApplicationCallGraph(
 				)
 			}
 			files[fileID] = file.Result
+			graph.functions[sourceanalysis.FunctionID{
+				RepositoryID: repository.RepositoryID,
+				File:         filePath,
+				Name:         syntheticModuleName,
+				StartLine:    1,
+			}] = struct{}{}
 			functionsByName[fileID] = make(
 				map[string][]sourceanalysis.FunctionID,
 			)
@@ -70,7 +76,7 @@ func buildApplicationCallGraph(
 				map[string][]sourceanalysis.FunctionID,
 			)
 
-			for _, function := range file.Result.Functions {
+			for _, function := range graphFunctions(file.Result) {
 				functionID := sourceanalysis.FunctionID{
 					RepositoryID: repository.RepositoryID,
 					File:         filePath,
@@ -105,10 +111,7 @@ func buildApplicationCallGraph(
 				continue
 			}
 
-			owner, ok := sourceanalysis.EnclosingFunction(
-				result.Functions,
-				call,
-			)
+			owner, ok := graphCallOwner(result, call)
 			if !ok {
 				continue
 			}

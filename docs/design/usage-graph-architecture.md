@@ -350,6 +350,37 @@ These represent configured entry points, `package.json` bin/main entries,
 exported application modules or functions, and statically recognisable route
 handlers.
 
+The implementation accepts explicit declarations through
+`ProduceOptions.DeclaredEntryPoints`. A declaration names a repository,
+analysed source file and unique named function; it may give a line to
+disambiguate duplicate names. Declaring `<module>` selects that file's
+top-level execution. Missing or ambiguous targets add no entry point.
+
+Root `package.json` contents are supplied as `RepositoryInput.PackageJSON`.
+`main` and string or object `bin` paths become entry points only when a path
+uniquely resolves to an analysed application source file. There is no inferred
+default file. These entry points use a synthetic `<module>` node at line 1.
+Only statically resolved top-level direct calls create edges from that node.
+
+A conventional exported `index` module supplies `exported_module` entries.
+Static `app.*` and `router.*` calls supply `route_handler` entries when the
+handler can be identified uniquely. An inline handler uses the synthetic
+`<route_handler>` name at its actual source location. Its entry point and
+first path step use the same name, file and line. Synthetic nodes are internal
+to the usage graph and are not added to the parser's public `Functions` array.
+
+A path has one element when a resolved third-party call is inside the entry
+function or directly at module top level. Relative cross-file calls use the
+exported symbol name; a default import resolves against the exported name
+`default`. Repeated runs select the same shortest path.
+
+A bare function reference does not create a call edge. Calls nested inside
+ordinary anonymous callbacks do not inherit the containing route or module
+entry. Unsupported dynamic dispatch, computed targets, dependency injection,
+framework lifecycle calls and dependency-source paths remain `unknown`.
+When the pass did not run, call sites report `not_analysed`. No
+`not_reachable` value is produced.
+
 Within the committed scope, paths follow statically resolvable direct calls
 between named application functions, including intra-file and cross-file
 calls where the target resolves without inference.

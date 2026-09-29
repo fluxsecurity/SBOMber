@@ -16,12 +16,22 @@ type OccurrenceInput struct {
 	Occurrence   canonicalscan.Occurrence
 }
 
+// DeclaredEntryPoint identifies a configured application entry.
+// Line is optional for a uniquely named function; <module> uses line 1.
+type DeclaredEntryPoint struct {
+	RepositoryID string
+	File         string
+	Function     string
+	Line         int
+}
+
 // ProduceOptions controls construction of a complete usage-graph document.
 type ProduceOptions struct {
 	ScanID               string
 	Ecosystem            string
 	AnalyzerID           string
 	ReachabilityAnalysed bool
+	DeclaredEntryPoints  []DeclaredEntryPoint
 }
 
 // Produce converts parser-independent repository results into a complete
@@ -43,7 +53,7 @@ func Produce(
 		),
 	}
 	if options.ReachabilityAnalysed {
-		entryPoints = detectExportedModuleEntryPoints(repositories)
+		entryPoints = detectEntryPoints(repositories, options.DeclaredEntryPoints)
 
 		built, err := buildApplicationCallGraph(repositories)
 		if err != nil {

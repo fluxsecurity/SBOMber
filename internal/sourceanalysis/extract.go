@@ -649,6 +649,8 @@ func extractFile(
 		return Result{}, err
 	}
 
+	appendAnonymousFunctionRanges(&result, root, source)
+
 	resolveFunctionExports(&result, root, source)
 
 	sortResult(&result)

@@ -88,6 +88,7 @@ type ScopeExclusion struct {
 type RepositoryInput struct {
 	RepositoryID string
 	Result       sourceanalysis.RepositoryResult
+	PackageJSON  []byte // Optional root package.json contents for entry detection.
 }
 
 // ObservationInput is the coverage-relevant subset of a normalised public

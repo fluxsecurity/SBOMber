@@ -71,3 +71,33 @@ func TestWriteGraphReportsOutputPath(t *testing.T) {
 		t.Fatalf("write error does not name output path: %v", err)
 	}
 }
+
+func TestGeneratedRouteGraphIsDeterministic(t *testing.T) {
+	first := produceFixtureGraph(t, "component2-usage-route")
+	second := produceFixtureGraph(t, "component2-usage-route")
+	root := t.TempDir()
+	firstPath := filepath.Join(root, "first.json")
+	secondPath := filepath.Join(root, "second.json")
+	if err := WriteGraph(firstPath, first); err != nil {
+		t.Fatal(err)
+	}
+	if err := WriteGraph(secondPath, second); err != nil {
+		t.Fatal(err)
+	}
+	firstJSON, err := os.ReadFile(firstPath)
+	if err != nil {
+		t.Fatal(err)
+	}
+	secondJSON, err := os.ReadFile(secondPath)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !bytes.Equal(firstJSON, secondJSON) {
+		t.Fatal("independent Produce runs generated different JSON")
+	}
+	if output := os.Getenv("SBOMBER_USAGE_GRAPH_EVIDENCE"); output != "" {
+		if err := WriteGraph(output, first); err != nil {
+			t.Fatal(err)
+		}
+	}
+}

@@ -69,6 +69,7 @@ func TestSourceAnalyzerExactLabelledCorpus(t *testing.T) {
 				got.Functions[index].ExportedNames = nil
 			}
 			got.RouteHandlers = nil
+			got.AnonymousFunctions = nil
 
 			expectedPath := filepath.Join(
 				expectedDir,

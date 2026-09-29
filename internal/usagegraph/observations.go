@@ -210,10 +210,7 @@ func observationCallSites(
 			Reachability:     NotAnalysed,
 		}
 
-		owner, hasOwner := sourceanalysis.EnclosingFunction(
-			result.Functions,
-			call,
-		)
+		owner, hasOwner := graphCallOwner(result, call)
 		if hasOwner {
 			callSite.EnclosingFunction = owner.Name
 		}

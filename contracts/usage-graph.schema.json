@@ -107,7 +107,7 @@
 
     "entryPoints": {
       "type": "array",
-      "description": "Application entry points used for level-3 reachability. Declared in configuration or detected from package.json bin/main, exported module functions and statically recognisable route handlers. An empty list means reachability was not analysed, not that nothing is reachable.",
+      "description": "Application entry points used for level-3 reachability. Declared in configuration or detected from package.json bin/main, exported module functions and statically recognisable route handlers. An empty list can also mean the pass ran but found no supported entry points; inspect analyser.reachabilityAnalysed.",
       "items": {
         "type": "object",
         "required": ["entryPointId", "kind", "function", "file", "line"],
