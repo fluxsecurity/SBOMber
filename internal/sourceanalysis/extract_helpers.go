@@ -160,27 +160,41 @@ func collectNodesByType(
 	node *treesitter.Node,
 	nodeType string,
 ) []*treesitter.Node {
+	return collectNodesByTypes(node, nodeType)[nodeType]
+}
+
+// collectNodesByTypes walks the subtree once, in pre-order (a node before its
+// children, children left to right), and groups the nodes of each requested
+// kind. A tree cursor keeps the walk linear: indexing children with
+// Node.Child(i) restarts from the first child on every call.
+func collectNodesByTypes(
+	node *treesitter.Node,
+	nodeTypes ...string,
+) map[string][]*treesitter.Node {
+	found := make(map[string][]*treesitter.Node, len(nodeTypes))
+	for _, nodeType := range nodeTypes {
+		found[nodeType] = make([]*treesitter.Node, 0)
+	}
 	if node == nil {
-		return nil
+		return found
 	}
 
-	nodes := make([]*treesitter.Node, 0)
-
-	if node.Kind() == nodeType {
-		nodes = append(nodes, node)
+	cursor := node.Walk()
+	defer cursor.Close()
+	for {
+		current := cursor.Node()
+		if matches, wanted := found[current.Kind()]; wanted {
+			found[current.Kind()] = append(matches, current)
+		}
+		if cursor.GotoFirstChild() {
+			continue
+		}
+		for !cursor.GotoNextSibling() {
+			if !cursor.GotoParent() {
+				return found
+			}
+		}
 	}
-
-	for index := uint(0); index < node.ChildCount(); index++ {
-		nodes = append(
-			nodes,
-			collectNodesByType(
-				node.Child(index),
-				nodeType,
-			)...,
-		)
-	}
-
-	return nodes
 }
 
 func nodeHasDirectChildType(

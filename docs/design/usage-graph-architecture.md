@@ -132,13 +132,46 @@ Component 4 to change its input contract.
 Candidate A's semantic extraction adapter has reproduced the 13 labelled
 parser fixtures exactly.
 
-The following are still not claimed complete by this architecture document:
-
-- production usage-graph generation;
-- production level-3 reachability implementation.
+Production usage-graph generation and the committed level-3 reachability
+slice (R1.3) are implemented. Measured precision, recall and reachability
+resolution rates are Sprint 6 work and are not claimed here.
 
 Candidate A remains the selected binding. Its parser field assignments were
 verified before the production adapter work.
+
+### Command
+
+`sbomber usage` produces `usage-graph.json` from a real run:
+
+    sbomber usage --canonical-scan canonical-scan.json --out usage-graph.json
+
+- It reads `canonical-scan.json` using the contract's field names (`purl`,
+  `manifest`, `relationship`, `repositoryId`), not the internal
+  `canonicalscan` Go types, whose names differ.
+- It analyses every repository in `scan.repositories` whose source is local.
+  Relative paths are resolved from the directory holding
+  `canonical-scan.json`; `--repo [repositoryId=]path` overrides a path or
+  supplies source for a remote repository.
+- Remote (manifest-only) repositories are not analysed. Their npm packages are
+  listed as `excluded_by_limits`. If no repository has local source, the graph
+  has status `unsupported` with reason code `no_local_source`.
+- Packages from other ecosystems are listed as `ecosystem_unsupported`.
+- A repository with no JavaScript or TypeScript source files lists its npm
+  packages as `excluded_by_limits`, so zero files parsed can never support
+  `no_usage_detected`.
+- The root `tsconfig.json` `compilerOptions.paths` (and `baseUrl`) are read.
+  An import that matches an alias and no inventory package is the
+  application's own code: it is not reported as a package, and call edges
+  follow it like a relative import. An alias can never hide a real package.
+- `--entry [repositoryId=]file:function[:line]` declares an entry point;
+  `<module>` means a file's top-level code. The root `package.json` supplies
+  `main` and `bin` entry points automatically.
+- Exit codes: 0 for a complete analysis; 2 for bad input, a missing source
+  directory, or a partial, failed or unsupported analysis. A partial graph is
+  still written. `--allow-partial` returns 0 for a partial analysis.
+- Input is bounded: `canonical-scan.json` (64 MiB by default), each source
+  file (`--max-file-bytes`), source files per repository (`--max-files`) and
+  the root `package.json` (1 MiB).
 
 
 ## 5. Parser decision and packaging
@@ -194,6 +227,9 @@ dropped. The less common forms are handled as follows:
 | `x = require("pkg")` | `cjs_require`, `localAlias` = `x` |
 | `foo(require("pkg"))`, `module.exports = require("pkg")`, array or nested patterns | `cjs_require` with one unresolved call site at the import, reason `outside_supported_syntax` |
 | `import x = require("pkg")` (TypeScript) | `cjs_require`, `localAlias` = `x` |
+| `const m = await import("pkg")` | `dynamic_static_literal`, `localAlias` = `m`, member calls resolve by name |
+| `const { merge } = await import("pkg")` | `dynamic_static_literal`, `importedSymbol` = `merge` |
+| `import("pkg").then(...)`, `const p = import("pkg")` | `dynamic_static_literal` with one unresolved call site, reason `outside_supported_syntax` |
 
 The unresolved call site is what keeps an escaped import honest: the package
 is imported, something may call it, and the analysis cannot say what.
@@ -645,6 +681,25 @@ The current design intentionally does not claim support for:
 - Vue, Svelte, Astro, MDX and Marko files. These are counted as skipped with
   reason `unsupported_source_format`, which makes the analysis `partial`, so
   an import that exists only in such a file cannot support a negative.
+
+Also not handled, and stated here so results are read correctly:
+
+- Files with syntax errors contribute no usage evidence at all. They are
+  counted as parsed with errors and make the analysis `partial`.
+- One computed import anywhere in a repository, including a build script,
+  keeps every unmatched package in that repository from reading as unused.
+  The `unanalysedOccurrences` detail names the line responsible.
+- A path alias without a unique analysed source target blocks negative
+  findings for unmatched packages in that repository.
+- Only the root `tsconfig.json` is read; `extends` and nested tsconfig files
+  (for example a separate frontend project) are not followed.
+- Route handlers passed as factory calls (`app.use(path, route())`) are not
+  entry points, and default-exported anonymous functions
+  (`export default async () => {}`) have no name for a call edge to reach.
+- An `import()` binding is limited to its lexical block and enclosing
+  function; a call outside that block cannot inherit its module identity.
+  A module kept as a promise (`const p = import("x")`, `.then(...)`) is
+  reported as an unresolved use.
 
 Call-graph edges are not added through a name that a parameter or local
 declaration (`const`/`let`/`var`, `for...of`, `catch`, generator or class)

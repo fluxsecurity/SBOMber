@@ -75,6 +75,8 @@ func TestSourceAnalyzerExactLabelledCorpus(t *testing.T) {
 			for index := range got.Imports {
 				got.Imports[index].InlineCalls = nil
 				got.Imports[index].UnresolvedUse = ""
+				got.Imports[index].BindingScopeEndLine = 0
+				got.Imports[index].BindingScopeEndColumn = 0
 			}
 			got.RouteHandlers = nil
 			got.AnonymousFunctions = nil

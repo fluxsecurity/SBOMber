@@ -89,6 +89,10 @@ type RepositoryInput struct {
 	RepositoryID string
 	Result       sourceanalysis.RepositoryResult
 	PackageJSON  []byte // Optional root package.json contents for entry detection.
+	// PathAliases are the root tsconfig.json compilerOptions.paths entries.
+	// An import that matches one and matches no inventory package is the
+	// application's own code, and call edges follow it like a relative import.
+	PathAliases []PathAlias
 }
 
 // ObservationInput is the coverage-relevant subset of a normalised public
