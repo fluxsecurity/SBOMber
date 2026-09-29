@@ -653,6 +653,10 @@ in that function body (`function helper()`, `const helper = () => ...`,
 `const helper = function helper()`) can receive a call path. Declarations
 inside a deeper function or block still block a same-named call outside
 their scope; a same-named module function also leaves the target ambiguous.
+A same-file call only resolves to a function that is in scope at the call:
+a function nested inside another function is a candidate only when the call
+is inside that enclosing function, so `other()` cannot reach a helper
+declared inside `main()`.
 This is deliberately over-conservative: a shadowing check that misses a
 case would fabricate a path, while an extra check only turns a path into
 `unknown`.

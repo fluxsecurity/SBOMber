@@ -33,6 +33,7 @@ func buildApplicationCallGraph(
 	exportsByName := make(
 		map[sourceFileID]map[string][]sourceanalysis.FunctionID,
 	)
+	scopes := make(map[sourceanalysis.FunctionID]declarationScope)
 	seenRepositories := make(map[string]struct{})
 
 	for _, repository := range repositories {
@@ -76,7 +77,8 @@ func buildApplicationCallGraph(
 				map[string][]sourceanalysis.FunctionID,
 			)
 
-			for _, function := range graphFunctions(file.Result) {
+			functions := graphFunctions(file.Result)
+			for _, function := range functions {
 				functionID := sourceanalysis.FunctionID{
 					RepositoryID: repository.RepositoryID,
 					File:         filePath,
@@ -90,6 +92,11 @@ func buildApplicationCallGraph(
 					)
 				}
 				graph.functions[functionID] = struct{}{}
+				scopes[functionID] = enclosingScope(
+					function,
+					functions,
+					file.Result.AnonymousFunctions,
+				)
 				functionsByName[fileID][function.Name] = append(
 					functionsByName[fileID][function.Name],
 					functionID,
@@ -133,6 +140,7 @@ func buildApplicationCallGraph(
 				files,
 				functionsByName,
 				exportsByName,
+				scopes,
 			)
 			if len(targets) != 1 {
 				continue
@@ -167,12 +175,16 @@ func resolveApplicationCallTargets(
 	files map[sourceFileID]sourceanalysis.Result,
 	functionsByName map[sourceFileID]map[string][]sourceanalysis.FunctionID,
 	exportsByName map[sourceFileID]map[string][]sourceanalysis.FunctionID,
+	scopes map[sourceanalysis.FunctionID]declarationScope,
 ) []sourceanalysis.FunctionID {
 	candidates := make(map[sourceanalysis.FunctionID]struct{})
 	callee := *call.Callee
 
 	if call.Receiver == nil {
 		for _, target := range functionsByName[fileID][callee] {
+			if !scopes[target].visibleAt(call) {
+				continue
+			}
 			candidates[target] = struct{}{}
 		}
 	}
@@ -343,4 +355,48 @@ func sortFunctionIDs(ids []sourceanalysis.FunctionID) {
 
 		return a.Name < b.Name
 	})
+}
+
+// declarationScope is the innermost function that encloses a function's
+// declaration. A nested function can only be named from inside that scope.
+// Block scope is handled separately by local-binding shadowing.
+type declarationScope struct {
+	enclosing sourceanalysis.Function
+	nested    bool
+}
+
+func (scope declarationScope) visibleAt(call sourceanalysis.Call) bool {
+	return !scope.nested || anonymousContainsCall(scope.enclosing, call)
+}
+
+// enclosingScope finds the innermost function range containing the
+// declaration. Ranges nest, so the one starting last is the innermost; if
+// the call is inside it, it is inside every outer one too.
+func enclosingScope(
+	target sourceanalysis.Function,
+	functions []sourceanalysis.Function,
+	anonymous []sourceanalysis.Function,
+) declarationScope {
+	declared := sourceanalysis.Call{Line: target.Line, Column: target.Column}
+	scope := declarationScope{}
+	for _, candidates := range [][]sourceanalysis.Function{functions, anonymous} {
+		for _, enclosing := range candidates {
+			// Skip the target's own node: a named function expression or
+			// arrow also appears as an anonymous range ending where it ends.
+			if enclosing.EndLine == target.EndLine &&
+				enclosing.EndColumn == target.EndColumn {
+				continue
+			}
+			if !anonymousContainsCall(enclosing, declared) {
+				continue
+			}
+			if !scope.nested || positionBefore(
+				scope.enclosing.Line, scope.enclosing.Column,
+				enclosing.Line, enclosing.Column,
+			) {
+				scope = declarationScope{enclosing: enclosing, nested: true}
+			}
+		}
+	}
+	return scope
 }

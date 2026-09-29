@@ -412,3 +412,98 @@ export function main() {
 		})
 	}
 }
+
+// A function nested inside one function is not in scope in another. These
+// resolved by name alone and produced paths that cannot happen at runtime.
+func TestNestedHelperIsNotVisibleFromOtherFunctions(t *testing.T) {
+	for _, test := range []struct {
+		name   string
+		source string
+	}{
+		{
+			name: "nested arrow called from a sibling function",
+			source: `import { merge } from 'lodash';
+export function main() {
+  const helper = () => merge({}, {});
+  return 0;
+}
+export function other() { return helper(); }
+`,
+		},
+		{
+			name: "nested declaration called from a sibling function",
+			source: `import { merge } from 'lodash';
+export function main() {
+  function helper() { return merge({}, {}); }
+  return 0;
+}
+export function other() { return helper(); }
+`,
+		},
+		{
+			name: "helper inside an unrelated function",
+			source: `import { merge } from 'lodash';
+export function main() { return helper(); }
+function wrap() {
+  const helper = () => merge({}, {});
+  return helper;
+}
+`,
+		},
+	} {
+		t.Run(test.name, func(t *testing.T) {
+			graph := produceSourceTree(t, map[string]string{
+				"src/index.js": test.source,
+			})
+			callSite := lodashReachability(t, graph)
+			if callSite.Reachability != ReachUnknown ||
+				len(callSite.CallPath) != 0 {
+				t.Fatalf("out-of-scope helper gained a path: %+v", callSite)
+			}
+		})
+	}
+
+	// Control: a module-level helper stays visible everywhere, and a nested
+	// helper stays visible inside its own function.
+	t.Run("module-level helper stays visible", func(t *testing.T) {
+		graph := produceSourceTree(t, map[string]string{
+			"src/index.js": `import { merge } from 'lodash';
+const helper = () => merge({}, {});
+export function main() { return helper(); }
+`,
+		})
+		callSite := lodashReachability(t, graph)
+		if callSite.Reachability != Reachable || len(callSite.CallPath) != 2 {
+			t.Fatalf("module-level helper lost its path: %+v", callSite)
+		}
+	})
+	t.Run("recursive named function expression stays visible", func(t *testing.T) {
+		graph := produceSourceTree(t, map[string]string{
+			"src/index.js": `import { merge } from 'lodash';
+export function main(x) {
+  const walk = function walk(n) { return n ? walk(n - 1) : merge({}, {}); };
+  return walk(x);
+}
+`,
+		})
+		callSite := lodashReachability(t, graph)
+		if callSite.Reachability != Reachable ||
+			callSite.CallPath[len(callSite.CallPath)-1].Function != "walk" {
+			t.Fatalf("named function expression lost its path: %+v", callSite)
+		}
+	})
+}
+
+func TestCoTerminalNamedFunctionDoesNotEscapeArrow(t *testing.T) {
+	graph := produceSourceTree(t, map[string]string{
+		"src/index.js": `import { merge } from 'lodash';
+export const main = () => function helper() { return merge({}, {}); };
+export function other() { return helper(); }
+`,
+	})
+	callSite := lodashReachability(t, graph)
+	if callSite.Reachability != ReachUnknown ||
+		len(callSite.CallPath) != 0 {
+		t.Fatalf("co-terminal helper gained a path: %+v", callSite)
+	}
+}
