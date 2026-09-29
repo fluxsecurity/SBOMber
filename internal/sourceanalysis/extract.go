@@ -262,6 +262,7 @@ func appendFunction(
 	}
 
 	line, column := nodeLocation(source, name)
+	declarationLine, declarationColumn := nodeLocation(source, declaration)
 	endLine, endColumn := nodeEndLocation(
 		source,
 		declaration,
@@ -283,6 +284,8 @@ func appendFunction(
 			Column:        column,
 			EndLine:       endLine,
 			EndColumn:     endColumn,
+			NodeLine:      declarationLine,
+			NodeColumn:    declarationColumn,
 			Parameters:    parameterNames(declaration, source),
 			LocalBindings: localBindingNames(declaration, source),
 			Exported:      exported,

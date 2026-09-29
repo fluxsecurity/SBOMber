@@ -494,6 +494,52 @@ export function main(x) {
 	})
 }
 
+// The output-level check below passes even without a correct scope check,
+// because graphCallOwner separately refuses to attribute calls inside
+// co-terminal bodies. Check the call graph itself as well.
+func TestCoTerminalNamedFunctionHasNoOutsideEdge(t *testing.T) {
+	for name, source := range map[string]string{
+		"arrow returning a named function expression": `import { merge } from 'lodash';
+export const main = () => function helper() { return merge({}, {}); };
+export function other() { return helper(); }
+`,
+		"arrow returning an arrow bound in a closure": `import { merge } from 'lodash';
+export const main = () => { const helper = () => merge({}, {}); return helper; };
+export function other() { return helper(); }
+`,
+	} {
+		t.Run(name, func(t *testing.T) {
+			root := t.TempDir()
+			if err := os.MkdirAll(filepath.Join(root, "src"), 0o755); err != nil {
+				t.Fatal(err)
+			}
+			if err := os.WriteFile(
+				filepath.Join(root, "src", "index.js"), []byte(source), 0o600,
+			); err != nil {
+				t.Fatal(err)
+			}
+			result, err := sourceanalysis.AnalyzeRepository(
+				root, sourceanalysis.RepositoryOptions{})
+			if err != nil {
+				t.Fatal(err)
+			}
+			graph, err := buildApplicationCallGraph([]RepositoryInput{
+				{RepositoryID: "repo-app", Result: result},
+			})
+			if err != nil {
+				t.Fatal(err)
+			}
+			for caller, targets := range graph.edges {
+				for _, target := range targets {
+					if caller.Name == "other" && target.Name == "helper" {
+						t.Fatalf("out-of-scope edge %+v -> %+v", caller, target)
+					}
+				}
+			}
+		})
+	}
+}
+
 func TestCoTerminalNamedFunctionDoesNotEscapeArrow(t *testing.T) {
 	graph := produceSourceTree(t, map[string]string{
 		"src/index.js": `import { merge } from 'lodash';

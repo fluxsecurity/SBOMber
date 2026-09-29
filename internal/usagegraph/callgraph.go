@@ -378,12 +378,18 @@ func enclosingScope(
 	anonymous []sourceanalysis.Function,
 ) declarationScope {
 	declared := sourceanalysis.Call{Line: target.Line, Column: target.Column}
+	targetLine, targetColumn := nodeStart(target)
 	scope := declarationScope{}
 	for _, candidates := range [][]sourceanalysis.Function{functions, anonymous} {
 		for _, enclosing := range candidates {
-			// Skip the target's own node: a named function expression or
-			// arrow also appears as an anonymous range ending where it ends.
-			if enclosing.EndLine == target.EndLine &&
+			// Skip the target's own node: an arrow or named function
+			// expression also appears as an anonymous range. Match on the
+			// exact node span; an end position alone is shared by
+			// co-terminal nodes such as () => function helper() {}.
+			enclosingLine, enclosingColumn := nodeStart(enclosing)
+			if enclosingLine == targetLine &&
+				enclosingColumn == targetColumn &&
+				enclosing.EndLine == target.EndLine &&
 				enclosing.EndColumn == target.EndColumn {
 				continue
 			}
@@ -399,4 +405,13 @@ func enclosingScope(
 		}
 	}
 	return scope
+}
+
+// nodeStart returns where a function's syntax node begins, falling back to
+// its name position for callers that do not record the node start.
+func nodeStart(function sourceanalysis.Function) (int, int) {
+	if function.NodeLine == 0 {
+		return function.Line, function.Column
+	}
+	return function.NodeLine, function.NodeColumn
 }

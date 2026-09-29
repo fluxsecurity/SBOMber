@@ -26,6 +26,9 @@ func graphFunctions(result sourceanalysis.Result) []sourceanalysis.Function {
 			Column:    route.Column,
 			EndLine:   route.EndLine,
 			EndColumn: route.EndColumn,
+			// An inline handler is named at its own node start.
+			NodeLine:   route.Line,
+			NodeColumn: route.Column,
 		})
 	}
 	return functions

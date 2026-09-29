@@ -52,11 +52,16 @@ type Call struct {
 }
 
 type Function struct {
-	Name          string   `json:"name"`
-	Line          int      `json:"line"`
-	Column        int      `json:"column"`
-	EndLine       int      `json:"-"`
-	EndColumn     int      `json:"-"`
+	Name      string `json:"name"`
+	Line      int    `json:"line"`
+	Column    int    `json:"column"`
+	EndLine   int    `json:"-"`
+	EndColumn int    `json:"-"`
+	// NodeLine and NodeColumn locate the start of the function's own syntax
+	// node (Line and Column locate its name). Anonymous ranges start at the
+	// node, so this identifies a function's own range exactly. Internal only.
+	NodeLine      int      `json:"-"`
+	NodeColumn    int      `json:"-"`
 	ExportedNames []string `json:"-"`
 	Parameters    []string `json:"-"`
 	LocalBindings []string `json:"-"`

@@ -180,6 +180,7 @@ func appendAdditionalFunctions(
 		}
 
 		line, column := nodeLocation(source, name)
+		expressionLine, expressionColumn := nodeLocation(source, expression)
 		endLine, endColumn := nodeEndLocation(
 			source,
 			expression,
@@ -193,6 +194,8 @@ func appendAdditionalFunctions(
 				Column:        column,
 				EndLine:       endLine,
 				EndColumn:     endColumn,
+				NodeLine:      expressionLine,
+				NodeColumn:    expressionColumn,
 				Parameters:    parameterNames(expression, source),
 				LocalBindings: localBindingNames(expression, source),
 				Exported: isCommonJSExportAssignment(
@@ -215,6 +218,7 @@ func appendAdditionalFunctions(
 		}
 
 		line, column := nodeLocation(source, name)
+		arrowLine, arrowColumn := nodeLocation(source, arrow)
 		endLine, endColumn := nodeEndLocation(
 			source,
 			arrow,
@@ -228,6 +232,8 @@ func appendAdditionalFunctions(
 				Column:        column,
 				EndLine:       endLine,
 				EndColumn:     endColumn,
+				NodeLine:      arrowLine,
+				NodeColumn:    arrowColumn,
 				Parameters:    parameterNames(arrow, source),
 				LocalBindings: localBindingNames(arrow, source),
 				Exported:      exported,

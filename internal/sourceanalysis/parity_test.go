@@ -69,6 +69,8 @@ func TestSourceAnalyzerExactLabelledCorpus(t *testing.T) {
 				got.Functions[index].ExportedNames = nil
 				got.Functions[index].Parameters = nil
 				got.Functions[index].LocalBindings = nil
+				got.Functions[index].NodeLine = 0
+				got.Functions[index].NodeColumn = 0
 			}
 			for index := range got.Imports {
 				got.Imports[index].InlineCalls = nil
