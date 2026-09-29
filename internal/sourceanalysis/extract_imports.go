@@ -128,6 +128,26 @@ func appendRequireImports(
 			return nil
 		}
 
+	case parent != nil && parent.Kind() == "call_expression" &&
+		sameNode(parent.ChildByFieldName("function"), call):
+		// require("pkg")(...) calls the module's default export directly,
+		// e.g. require("debug")("app").
+		line, column := nodeLocation(source, call)
+		callLine, callColumn := nodeLocation(source, parent)
+		result.Imports = append(result.Imports, Import{
+			Specifier: specifier,
+			Kind:      "cjs_require",
+			Imported:  "*",
+			Line:      line,
+			Column:    column,
+			InlineCalls: []Call{{
+				Callee: stringPointer("default"),
+				Line:   callLine,
+				Column: callColumn,
+			}},
+		})
+		return nil
+
 	case parent != nil && parent.Kind() == "expression_statement":
 		// require("x"); loads the module for its side effects only.
 		// Nothing can be called through it.

@@ -145,6 +145,22 @@ func TestRequireMemberCallsResolveSymbol(t *testing.T) {
 		}
 	})
 
+	t.Run("directly called require reports default", func(t *testing.T) {
+		graph := produceSourceTree(t, map[string]string{
+			"src/index.js": "export function main() { return require('lodash')('x'); }\n",
+		})
+		observation := singleObservation(t, graph)
+		if len(observation.CallSites) != 1 {
+			t.Fatalf("direct require call = %+v", observation)
+		}
+		callSite := observation.CallSites[0]
+		if callSite.CalledSymbol != "default" ||
+			callSite.Resolution != CallResolved ||
+			callSite.Reachability != Reachable {
+			t.Fatalf("direct require call site = %+v", callSite)
+		}
+	})
+
 	t.Run("member bound to a name reports the member", func(t *testing.T) {
 		graph := produceSourceTree(t, map[string]string{
 			"src/util.js": "const merge = require('lodash').merge;\nexport function f(x) { return merge({}, x); }\n",
@@ -228,6 +244,49 @@ func TestLocalDeclarationsBlockShadowedEdges(t *testing.T) {
 		}
 	})
 
+	// Nested helpers are real functions, not shadows. These resolved before
+	// the local-binding check was added and must keep resolving.
+	nested := map[string]string{
+		"nested function declaration":      "import { merge } from 'lodash';\nexport function main(x) {\n  return helper(x);\n  function helper(y) { return merge({}, y); }\n}\n",
+		"nested arrow":                     "import { merge } from 'lodash';\nexport function main(x) {\n  const helper = (y) => merge({}, y);\n  return helper(x);\n}\n",
+		"nested named function expression": "import { merge } from 'lodash';\nexport function main(x) {\n  const helper = function helper(y) { return merge({}, y); };\n  return helper(x);\n}\n",
+	}
+	for name, source := range nested {
+		t.Run(name, func(t *testing.T) {
+			graph := produceSourceTree(t, map[string]string{"src/index.js": source})
+			callSite := lodashReachability(t, graph)
+			if callSite.Reachability != Reachable ||
+				len(callSite.CallPath) != 2 ||
+				callSite.CallPath[1].Function != "helper" {
+				t.Fatalf("nested helper lost its path: %+v", callSite)
+			}
+		})
+	}
+
+	// A nested helper with the same name as a module function is ambiguous:
+	// no edge, whichever one the call means.
+	t.Run("nested helper shadowing a module function", func(t *testing.T) {
+		graph := produceSourceTree(t, map[string]string{
+			"src/index.js": helper + "export function main(x) {\n  const helper = (y) => y;\n  return helper(x);\n}\n",
+		})
+		callSite := lodashReachability(t, graph)
+		if callSite.Reachability != ReachUnknown {
+			t.Fatalf("ambiguous nested helper produced a path: %+v", callSite)
+		}
+	})
+
+	// An anonymous function expression is not tracked by name, so its
+	// binding must still shadow the module function.
+	t.Run("anonymous function expression still shadows", func(t *testing.T) {
+		graph := produceSourceTree(t, map[string]string{
+			"src/index.js": helper + "export function main(x) {\n  const helper = function (y) { return y; };\n  return helper(x);\n}\n",
+		})
+		callSite := lodashReachability(t, graph)
+		if callSite.Reachability != ReachUnknown {
+			t.Fatalf("anonymous shadow produced a path: %+v", callSite)
+		}
+	})
+
 	// Control: without shadowing the same code still resolves, so the check
 	// is not simply blocking every edge.
 	t.Run("unshadowed control stays reachable", func(t *testing.T) {
@@ -289,6 +348,66 @@ func TestEscapedModuleNamesResolveToOccurrence(t *testing.T) {
 				graph.Observations[0].Resolution != ImportResolved ||
 				graph.Observations[0].OccurrenceID != "occ-lodash" {
 				t.Fatalf("escaped import did not resolve: %+v", graph.Observations)
+			}
+		})
+	}
+}
+
+func TestNestedHelperDoesNotEscapeItsScope(t *testing.T) {
+	graph := produceSourceTree(t, map[string]string{
+		"src/index.js": `import { merge } from 'lodash';
+export function main() {
+  function inner() {
+    const helper = () => merge({}, {});
+    return 0;
+  }
+  return helper();
+}
+`,
+	})
+	callSite := lodashReachability(t, graph)
+	if callSite.Reachability != ReachUnknown ||
+		len(callSite.CallPath) != 0 {
+		t.Fatalf("out-of-scope helper gained a path: %+v", callSite)
+	}
+}
+
+func TestTrackedHelpersInNestedScopesDoNotCreatePaths(t *testing.T) {
+	for _, test := range []struct {
+		name   string
+		source string
+	}{
+		{
+			name: "block scoped arrow",
+			source: `import { merge } from 'lodash';
+export function main() {
+  if (true) {
+    const helper = () => merge({}, {});
+  }
+  return helper();
+}
+`,
+		},
+		{
+			name: "function declaration inside another helper",
+			source: `import { merge } from 'lodash';
+export function main() {
+  function inner() {
+    function helper() { return merge({}, {}); }
+  }
+  return helper();
+}
+`,
+		},
+	} {
+		t.Run(test.name, func(t *testing.T) {
+			graph := produceSourceTree(t, map[string]string{
+				"src/index.js": test.source,
+			})
+			callSite := lodashReachability(t, graph)
+			if callSite.Reachability != ReachUnknown ||
+				len(callSite.CallPath) != 0 {
+				t.Fatalf("nested-scope helper gained a path: %+v", callSite)
 			}
 		})
 	}

@@ -190,6 +190,7 @@ dropped. The less common forms are handled as follows:
 | `require("pkg");` as a statement | `cjs_require`, no binding, level 1 |
 | `const m = require("pkg").merge` | `cjs_destructured`, `importedSymbol` = `merge` |
 | `require("pkg").merge(x)` | `cjs_require` with a resolved call site, `calledSymbol` = `merge` |
+| `require("pkg")(x)`, e.g. `require("debug")("app")` | `cjs_require` with a resolved call site, `calledSymbol` = `default` |
 | `x = require("pkg")` | `cjs_require`, `localAlias` = `x` |
 | `foo(require("pkg"))`, `module.exports = require("pkg")`, array or nested patterns | `cjs_require` with one unresolved call site at the import, reason `outside_supported_syntax` |
 | `import x = require("pkg")` (TypeScript) | `cjs_require`, `localAlias` = `x` |
@@ -646,10 +647,15 @@ The current design intentionally does not claim support for:
   an import that exists only in such a file cannot support a negative.
 
 Call-graph edges are not added through a name that a parameter or local
-declaration (`const`/`let`/`var`, `for...of`, `catch`, nested function or
-class) could shadow in any enclosing function. This is deliberately
-over-conservative: a shadowing check that misses a case would fabricate a
-path, while an extra check only turns a path into `unknown`.
+declaration (`const`/`let`/`var`, `for...of`, `catch`, generator or class)
+could shadow in any enclosing function. Tracked helpers declared directly
+in that function body (`function helper()`, `const helper = () => ...`,
+`const helper = function helper()`) can receive a call path. Declarations
+inside a deeper function or block still block a same-named call outside
+their scope; a same-named module function also leaves the target ambiguous.
+This is deliberately over-conservative: a shadowing check that misses a
+case would fabricate a path, while an extra check only turns a path into
+`unknown`.
 
 The application-source-only boundary is particularly important.
 

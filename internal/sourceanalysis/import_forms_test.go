@@ -65,6 +65,12 @@ func TestImportFormsAreRecordedNotDropped(t *testing.T) {
 			want:   []wantImport{{specifier: "lodash", kind: "cjs_require", imported: "*", inlineCallee: "merge"}},
 		},
 		{
+			name:   "require called directly",
+			file:   "a.js",
+			source: "const log = require('debug')('app');\n",
+			want:   []wantImport{{specifier: "debug", kind: "cjs_require", imported: "*", inlineCallee: "default"}},
+		},
+		{
 			name:   "member of require bound to a name",
 			file:   "a.js",
 			source: "const merge = require('lodash').merge;\n",

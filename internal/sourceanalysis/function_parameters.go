@@ -65,6 +65,11 @@ func localBindingNames(node *treesitter.Node, source []byte) []string {
 	}
 
 	for _, declarator := range collectNodesByType(body, "variable_declarator") {
+		if declaration := declarator.Parent(); declaration != nil &&
+			sameNode(declaration.Parent(), body) &&
+			declaresTrackedFunction(declarator, source) {
+			continue
+		}
 		add(declarator.ChildByFieldName("name"))
 	}
 	for _, loop := range collectNodesByType(body, "for_in_statement") {
@@ -73,14 +78,40 @@ func localBindingNames(node *treesitter.Node, source []byte) []string {
 	for _, clause := range collectNodesByType(body, "catch_clause") {
 		add(clause.ChildByFieldName("parameter"))
 	}
+	// A function declared directly in this body is tracked. Declarations
+	// in deeper blocks or functions remain conservative shadows. Generators
+	// and classes are not tracked, so they also remain shadows.
 	for _, kind := range []string{
 		"function_declaration",
 		"generator_function_declaration",
 		"class_declaration",
 	} {
 		for _, declaration := range collectNodesByType(body, kind) {
+			if kind == "function_declaration" &&
+				sameNode(declaration.Parent(), body) {
+				continue
+			}
 			add(declaration.ChildByFieldName("name"))
 		}
 	}
 	return names
+}
+
+// declaresTrackedFunction reports const f = () => ... and
+// const f = function f() {...}: the parser records these as functions named
+// f, so f is resolved directly instead of being treated as a shadow.
+func declaresTrackedFunction(declarator *treesitter.Node, source []byte) bool {
+	name := declarator.ChildByFieldName("name")
+	value := declarator.ChildByFieldName("value")
+	if name == nil || value == nil || name.Kind() != "identifier" {
+		return false
+	}
+	switch value.Kind() {
+	case "arrow_function":
+		return true
+	case "function_expression":
+		own := value.ChildByFieldName("name")
+		return own != nil && own.Utf8Text(source) == name.Utf8Text(source)
+	}
+	return false
 }
