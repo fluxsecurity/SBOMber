@@ -491,16 +491,86 @@ func renderBanner() string {
   ___) | |_) | |_| | |  | | |_) |  __/ |
  |____/|____/ \___/|_|  |_|____/ \___|_|`
 
+	// Show small gamification state: scans completed and badge
+	st := loadUIState()
+	scansText := fmt.Sprintf("Scans completed: %d", st.Scans)
+	badge := badgeForScans(st.Scans)
+
 	return bannerStyle.Render(banner) + "\n" +
 		lipgloss.NewStyle().MarginLeft(2).Foreground(lipgloss.Color("#666666")).Render("  v"+version) + "\n\n" +
-		lipgloss.NewStyle().MarginLeft(2).Foreground(lipgloss.Color("#888888")).Render("  A lightweight CLI for scanning local repositories and generating SBOMs.") + "\n\n"
+		lipgloss.NewStyle().MarginLeft(2).Foreground(lipgloss.Color("#888888")).Render("  A lightweight CLI for scanning local repositories and generating SBOMs.") + "\n\n" +
+		lipgloss.NewStyle().MarginLeft(2).Foreground(lipgloss.Color("39")).Bold(true).Render("  "+badge+" ") + lipgloss.NewStyle().MarginLeft(0).Foreground(lipgloss.Color("245")).Render(" "+scansText) + "\n\n"
+}
+
+// uiState holds persistent interactive UI metadata
+type uiState struct {
+	Scans    int    `json:"scans"`
+	LastScan string `json:"last_scan,omitempty"`
+}
+
+func stateFilePath() string {
+	home, err := os.UserHomeDir()
+	if err != nil {
+		return ""
+	}
+	dir := filepath.Join(home, ".sbomber")
+	_ = os.MkdirAll(dir, 0755)
+	return filepath.Join(dir, "state.json")
+}
+
+func loadUIState() uiState {
+	path := stateFilePath()
+	if path == "" {
+		return uiState{}
+	}
+	data, err := os.ReadFile(path)
+	if err != nil {
+		return uiState{}
+	}
+	var s uiState
+	if err := json.Unmarshal(data, &s); err != nil {
+		return uiState{}
+	}
+	return s
+}
+
+func saveUIState(s uiState) {
+	path := stateFilePath()
+	if path == "" {
+		return
+	}
+	data, _ := json.MarshalIndent(s, "", "  ")
+	_ = os.WriteFile(path, data, 0644)
+}
+
+func incrementScanCount() {
+	s := loadUIState()
+	s.Scans++
+	s.LastScan = time.Now().Format(time.RFC3339)
+	saveUIState(s)
+}
+
+func badgeForScans(n int) string {
+	switch {
+	case n >= 100:
+		return "🏆 Legend"
+	case n >= 50:
+		return "🥇 Veteran"
+	case n >= 10:
+		return "🎖️ Explorer"
+	case n >= 1:
+		return "✨ Rookie"
+	default:
+		return "🌱 Newbie"
+	}
 }
 
 func (m model) renderMenu() string {
 	var b strings.Builder
 
 	header := titleStyle.MarginLeft(2).Render("  SELECT AN OPTION")
-	b.WriteString(header + "\n\n")
+	b.WriteString(header)
+	b.WriteString("\n\n")
 
 	for i, item := range m.items {
 		cursor := "  "
@@ -516,11 +586,13 @@ func (m model) renderMenu() string {
 		}
 
 		line := fmt.Sprintf("  %s %s %s  %s", cursor, bullet, label, desc)
-		b.WriteString(line + "\n")
+		b.WriteString(line)
+		b.WriteString("\n")
 	}
 
 	b.WriteString("\n")
-	b.WriteString(dimStyle.MarginLeft(2).Render("  ↑/↓ navigate  enter select  q quit") + "\n")
+	b.WriteString(dimStyle.MarginLeft(2).Render("  ↑/↓ navigate  enter select  q quit"))
+	b.WriteString("\n")
 
 	return b.String()
 }
@@ -529,10 +601,13 @@ func (m model) renderFormatSelect() string {
 	var b strings.Builder
 
 	header := titleStyle.MarginLeft(2).Render("  SBOM EXPORT FORMAT")
-	b.WriteString(header + "\n\n")
+	b.WriteString(header)
+	b.WriteString("\n\n")
 
 	scanLabel := accentStyle.Render(m.scanPath)
-	b.WriteString(dimStyle.MarginLeft(2).Render("  Scanning: ") + scanLabel + "\n\n")
+	b.WriteString(dimStyle.MarginLeft(2).Render("  Scanning: "))
+	b.WriteString(scanLabel)
+	b.WriteString("\n\n")
 
 	for i, item := range m.formats {
 		cursor := "  "
@@ -548,11 +623,13 @@ func (m model) renderFormatSelect() string {
 		}
 
 		line := fmt.Sprintf("  %s %s %s  %s", cursor, bullet, label, desc)
-		b.WriteString(line + "\n")
+		b.WriteString(line)
+		b.WriteString("\n")
 	}
 
 	b.WriteString("\n")
-	b.WriteString(dimStyle.MarginLeft(2).Render("  ↑/↓ navigate  enter select  esc back") + "\n")
+	b.WriteString(dimStyle.MarginLeft(2).Render("  ↑/↓ navigate  enter select  esc back"))
+	b.WriteString("\n")
 
 	return b.String()
 }
@@ -561,14 +638,20 @@ func (m model) renderVulnScan() string {
 	var b strings.Builder
 
 	header := titleStyle.MarginLeft(2).Render("  VULNERABILITY SCANNING")
-	b.WriteString(header + "\n\n")
+	b.WriteString(header)
+	b.WriteString("\n\n")
 
 	scanLabel := accentStyle.Render(m.scanPath)
 	formatLabel := accentStyle.Render(m.scanFormat)
-	b.WriteString(dimStyle.MarginLeft(2).Render("  Scanning: ") + scanLabel + "\n")
-	b.WriteString(dimStyle.MarginLeft(2).Render("  Format: ") + formatLabel + "\n\n")
+	b.WriteString(dimStyle.MarginLeft(2).Render("  Scanning: "))
+	b.WriteString(scanLabel)
+	b.WriteString("\n")
+	b.WriteString(dimStyle.MarginLeft(2).Render("  Format: "))
+	b.WriteString(formatLabel)
+	b.WriteString("\n\n")
 
-	b.WriteString(dimStyle.MarginLeft(2).Render("  Include vulnerability scan with Grype?") + "\n\n")
+	b.WriteString(dimStyle.MarginLeft(2).Render("  Include vulnerability scan with Grype?"))
+	b.WriteString("\n\n")
 
 	for i, item := range m.vulnOptions {
 		cursor := "  "
@@ -584,11 +667,13 @@ func (m model) renderVulnScan() string {
 		}
 
 		line := fmt.Sprintf("  %s %s %s  %s", cursor, bullet, label, desc)
-		b.WriteString(line + "\n")
+		b.WriteString(line)
+		b.WriteString("\n")
 	}
 
 	b.WriteString("\n")
-	b.WriteString(dimStyle.MarginLeft(2).Render("  ↑/↓ navigate  enter select  esc back") + "\n")
+	b.WriteString(dimStyle.MarginLeft(2).Render("  ↑/↓ navigate  enter select  esc back"))
+	b.WriteString("\n")
 
 	return b.String()
 }
@@ -597,14 +682,20 @@ func (m model) renderPathInput() string {
 	var b strings.Builder
 
 	header := titleStyle.MarginLeft(2).Render("  ENTER FOLDER PATH")
-	b.WriteString(header + "\n\n")
+	b.WriteString(header)
+	b.WriteString("\n\n")
 
 	prompt := inputStyle.Render("  Path: ")
 	cursor := accentStyle.Render("█")
 	input := accentStyle.Render(m.pathInput)
 
-	b.WriteString("  " + prompt + input + cursor + "\n\n")
-	b.WriteString(dimStyle.MarginLeft(2).Render("  enter confirm  esc back") + "\n")
+	b.WriteString("  ")
+	b.WriteString(prompt)
+	b.WriteString(input)
+	b.WriteString(cursor)
+	b.WriteString("\n\n")
+	b.WriteString(dimStyle.MarginLeft(2).Render("  enter confirm  esc back"))
+	b.WriteString("\n")
 
 	return b.String()
 }
@@ -615,22 +706,30 @@ func (m model) renderDone() string {
 	switch m.selected {
 	case "version":
 		ver := accentStyle.Render("SBOMber") + " " + dimStyle.Render("v"+version)
-		b.WriteString("  " + ver + "\n\n")
-		b.WriteString(dimStyle.MarginLeft(2).Render("  Press Enter to return to menu") + "\n")
+		b.WriteString("  ")
+		b.WriteString(ver)
+		b.WriteString("\n\n")
+		b.WriteString(dimStyle.MarginLeft(2).Render("  Press Enter to return to menu"))
+		b.WriteString("\n")
 	case "help":
 		b.WriteString(renderHelp())
 		b.WriteString("\n")
-		b.WriteString(dimStyle.MarginLeft(2).Render("  Press Enter to return to menu") + "\n")
+		b.WriteString(dimStyle.MarginLeft(2).Render("  Press Enter to return to menu"))
+		b.WriteString("\n")
 	case "github-status":
 		b.WriteString(renderGitHubStatus())
 		b.WriteString("\n")
-		b.WriteString(dimStyle.MarginLeft(2).Render("  Press Enter to return to menu") + "\n")
+		b.WriteString(dimStyle.MarginLeft(2).Render("  Press Enter to return to menu"))
+		b.WriteString("\n")
 	case "open-reports":
-		b.WriteString(titleStyle.MarginLeft(2).Render("  OPENING REPORTS FOLDER") + "\n\n")
+		b.WriteString(titleStyle.MarginLeft(2).Render("  OPENING REPORTS FOLDER"))
+		b.WriteString("\n\n")
 		reportsDir := filepath.Join(os.Getenv("HOME"), ".sbomber", "reports")
-		b.WriteString(dimStyle.MarginLeft(2).Render("  "+reportsDir) + "\n\n")
+		b.WriteString(dimStyle.MarginLeft(2).Render("  " + reportsDir))
+		b.WriteString("\n\n")
 		openFolder(reportsDir)
-		b.WriteString(dimStyle.MarginLeft(2).Render("  Press Enter to return to menu") + "\n")
+		b.WriteString(dimStyle.MarginLeft(2).Render("  Press Enter to return to menu"))
+		b.WriteString("\n")
 	}
 
 	return b.String()
@@ -639,20 +738,25 @@ func (m model) renderDone() string {
 func renderHelp() string {
 	var b strings.Builder
 
-	b.WriteString(titleStyle.MarginLeft(2).Render("  USAGE") + "\n\n")
+	b.WriteString(titleStyle.MarginLeft(2).Render("  USAGE"))
+	b.WriteString("\n\n")
 	_, _ = fmt.Fprintf(&b, "  %s                                     %s\n", accentStyle.Render("  sbomber"), dimStyle.Render("Interactive mode"))
 	_, _ = fmt.Fprintf(&b, "  %s [path] [flags]                 %s\n", accentStyle.Render("  sbomber scan"), dimStyle.Render("Scan repositories"))
 	_, _ = fmt.Fprintf(&b, "  %s <url> [flags]              %s\n", accentStyle.Render("  sbomber github"), dimStyle.Render("Scan GitHub repos"))
 	_, _ = fmt.Fprintf(&b, "  %s                             %s\n\n", accentStyle.Render("  sbomber version"), dimStyle.Render("Show version"))
 
-	b.WriteString(titleStyle.MarginLeft(2).Render("  FLAGS") + "\n\n")
+	b.WriteString(titleStyle.MarginLeft(2).Render("  FLAGS"))
+	b.WriteString("\n\n")
 	_, _ = fmt.Fprintf(&b, "  %s   cyclonedx | spdx | both          %s\n", accentStyle.Render("  --format"), dimStyle.Render("(default: cyclonedx)"))
 	_, _ = fmt.Fprintf(&b, "  %s             %s\n", accentStyle.Render("  --include-vulnerabilities"), dimStyle.Render("scan vulnerabilities with Grype"))
 	_, _ = fmt.Fprintf(&b, "  %s                          %s\n\n", accentStyle.Render("  --health"), dimStyle.Render("include supply chain health metrics"))
 
-	b.WriteString(titleStyle.MarginLeft(2).Render("  VULNERABILITY SCANNING") + "\n\n")
-	b.WriteString(dimStyle.MarginLeft(2).Render("  SBOMber uses Grype when vulnerability scanning is enabled.") + "\n")
-	b.WriteString(dimStyle.MarginLeft(2).Render("  Install Grype from https://github.com/anchore/grype.") + "\n")
+	b.WriteString(titleStyle.MarginLeft(2).Render("  VULNERABILITY SCANNING"))
+	b.WriteString("\n\n")
+	b.WriteString(dimStyle.MarginLeft(2).Render("  SBOMber uses Grype when vulnerability scanning is enabled."))
+	b.WriteString("\n")
+	b.WriteString(dimStyle.MarginLeft(2).Render("  Install Grype from https://github.com/anchore/grype."))
+	b.WriteString("\n")
 
 	return b.String()
 }
@@ -660,18 +764,26 @@ func renderHelp() string {
 func renderGitHubStatus() string {
 	var b strings.Builder
 
-	b.WriteString(titleStyle.MarginLeft(2).Render("  GITHUB API STATUS") + "\n\n")
+	b.WriteString(titleStyle.MarginLeft(2).Render("  GITHUB API STATUS"))
+	b.WriteString("\n\n")
 
 	token := getGitHubToken()
 	if token == "" {
-		b.WriteString(dimStyle.MarginLeft(2).Render("  Token: ") + lipgloss.NewStyle().Foreground(lipgloss.Color("#f85149")).Render("Not configured") + "\n")
-		b.WriteString(dimStyle.MarginLeft(2).Render("  Rate limit: 60 requests/hour (unauthenticated)") + "\n\n")
-		b.WriteString(dimStyle.MarginLeft(2).Render("  Set up a token via 'Scan GitHub repos' menu option") + "\n")
-		b.WriteString(dimStyle.MarginLeft(2).Render("  or set GITHUB_TOKEN environment variable.") + "\n")
+		b.WriteString(dimStyle.MarginLeft(2).Render("  Token: "))
+		b.WriteString(lipgloss.NewStyle().Foreground(lipgloss.Color("#f85149")).Render("Not configured"))
+		b.WriteString("\n")
+		b.WriteString(dimStyle.MarginLeft(2).Render("  Rate limit: 60 requests/hour (unauthenticated)"))
+		b.WriteString("\n\n")
+		b.WriteString(dimStyle.MarginLeft(2).Render("  Set up a token via 'Scan GitHub repos' menu option"))
+		b.WriteString("\n")
+		b.WriteString(dimStyle.MarginLeft(2).Render("  or set GITHUB_TOKEN environment variable."))
+		b.WriteString("\n")
 		return b.String()
 	}
 
-	b.WriteString(dimStyle.MarginLeft(2).Render("  Token: ") + successStyle.Render("Configured ✓") + "\n\n")
+	b.WriteString(dimStyle.MarginLeft(2).Render("  Token: "))
+	b.WriteString(successStyle.Render("Configured ✓"))
+	b.WriteString("\n\n")
 
 	// Fetch actual rate limit from GitHub API
 	status := fetchGitHubRateLimit(token)
@@ -686,7 +798,8 @@ func fetchGitHubRateLimit(token string) string {
 	client := &http.Client{Timeout: 10 * time.Second}
 	req, err := http.NewRequest("GET", "https://api.github.com/rate_limit", nil)
 	if err != nil {
-		b.WriteString(dimStyle.MarginLeft(2).Render("  Error fetching rate limit") + "\n")
+		b.WriteString(dimStyle.MarginLeft(2).Render("  Error fetching rate limit"))
+		b.WriteString("\n")
 		return b.String()
 	}
 
@@ -695,7 +808,8 @@ func fetchGitHubRateLimit(token string) string {
 
 	resp, err := client.Do(req)
 	if err != nil {
-		b.WriteString(dimStyle.MarginLeft(2).Render("  Error connecting to GitHub API") + "\n")
+		b.WriteString(dimStyle.MarginLeft(2).Render("  Error connecting to GitHub API"))
+		b.WriteString("\n")
 		return b.String()
 	}
 	defer func() { _ = resp.Body.Close() }()
@@ -711,7 +825,8 @@ func fetchGitHubRateLimit(token string) string {
 	}
 
 	if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
-		b.WriteString(dimStyle.MarginLeft(2).Render("  Error parsing response") + "\n")
+		b.WriteString(dimStyle.MarginLeft(2).Render("  Error parsing response"))
+		b.WriteString("\n")
 		return b.String()
 	}
 
@@ -728,7 +843,8 @@ func fetchGitHubRateLimit(token string) string {
 		remainingStyle = lipgloss.NewStyle().Foreground(lipgloss.Color("#f85149"))
 	}
 
-	b.WriteString(dimStyle.MarginLeft(2).Render("  Rate Limit:") + "\n")
+	b.WriteString(dimStyle.MarginLeft(2).Render("  Rate Limit:"))
+	b.WriteString("\n")
 	_, _ = fmt.Fprintf(&b, "    Remaining: %s / %d\n", remainingStyle.Render(fmt.Sprintf("%d", core.Remaining)), core.Limit)
 	_, _ = fmt.Fprintf(&b, "    Resets in: %s\n", dimStyle.Render(timeUntilReset.String()))
 	_, _ = fmt.Fprintf(&b, "    Reset at:  %s\n\n", dimStyle.Render(resetTime.Format("15:04:05")))
@@ -736,8 +852,10 @@ func fetchGitHubRateLimit(token string) string {
 	// Estimate repos that can be scanned
 	// ~10 requests per repo (tree + manifests + health checks)
 	estimatedRepos := core.Remaining / 15
-	b.WriteString(dimStyle.MarginLeft(2).Render(fmt.Sprintf("  Estimated repos scannable: ~%d (with health metrics)", estimatedRepos)) + "\n")
-	b.WriteString(dimStyle.MarginLeft(2).Render(fmt.Sprintf("  Without health metrics: ~%d repos", core.Remaining/3)) + "\n")
+	b.WriteString(dimStyle.MarginLeft(2).Render(fmt.Sprintf("  Estimated repos scannable: ~%d (with health metrics)", estimatedRepos)))
+	b.WriteString("\n")
+	b.WriteString(dimStyle.MarginLeft(2).Render(fmt.Sprintf("  Without health metrics: ~%d repos", core.Remaining/3)))
+	b.WriteString("\n")
 
 	return b.String()
 }
@@ -746,20 +864,30 @@ func (m model) renderGitHubToken() string {
 	var b strings.Builder
 
 	header := titleStyle.MarginLeft(2).Render("  GITHUB API TOKEN")
-	b.WriteString(header + "\n\n")
+	b.WriteString(header)
+	b.WriteString("\n\n")
 
-	b.WriteString(dimStyle.MarginLeft(2).Render("  A GitHub token is required for scanning remote repositories.") + "\n")
-	b.WriteString(dimStyle.MarginLeft(2).Render("  Without a token: 60 requests/hour. With token: 5000/hour.") + "\n\n")
-	b.WriteString(dimStyle.MarginLeft(2).Render("  Create one at: github.com/settings/tokens") + "\n\n")
+	b.WriteString(dimStyle.MarginLeft(2).Render("  A GitHub token is required for scanning remote repositories."))
+	b.WriteString("\n")
+	b.WriteString(dimStyle.MarginLeft(2).Render("  Without a token: 60 requests/hour. With token: 5000/hour."))
+	b.WriteString("\n\n")
+	b.WriteString(dimStyle.MarginLeft(2).Render("  Create one at: github.com/settings/tokens"))
+	b.WriteString("\n\n")
 
 	prompt := inputStyle.Render("  Token: ")
 	cursor := accentStyle.Render("█")
 	masked := strings.Repeat("•", len(m.githubToken))
 	input := accentStyle.Render(masked)
 
-	b.WriteString("  " + prompt + input + cursor + "\n\n")
-	b.WriteString(dimStyle.MarginLeft(2).Render("  Token will be saved to ~/.sbomber/config.json") + "\n\n")
-	b.WriteString(dimStyle.MarginLeft(2).Render("  enter continue  esc back") + "\n")
+	b.WriteString("  ")
+	b.WriteString(prompt)
+	b.WriteString(input)
+	b.WriteString(cursor)
+	b.WriteString("\n\n")
+	b.WriteString(dimStyle.MarginLeft(2).Render("  Token will be saved to ~/.sbomber/config.json"))
+	b.WriteString("\n\n")
+	b.WriteString(dimStyle.MarginLeft(2).Render("  enter continue  esc back"))
+	b.WriteString("\n")
 
 	return b.String()
 }
@@ -821,25 +949,32 @@ func (m model) updateGitHubStatus(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 func (m model) renderGitHubStatusView() string {
 	var b strings.Builder
 
-	b.WriteString(titleStyle.MarginLeft(2).Render("  GITHUB API STATUS") + "\n\n")
+	b.WriteString(titleStyle.MarginLeft(2).Render("  GITHUB API STATUS"))
+	b.WriteString("\n\n")
 
 	token := getGitHubToken()
 
 	if token == "" {
-		b.WriteString(dimStyle.MarginLeft(2).Render("  Token: ") +
-			lipgloss.NewStyle().Foreground(lipgloss.Color("#f85149")).Render("Not configured") + "\n")
-		b.WriteString(dimStyle.MarginLeft(2).Render("  Rate limit: 60 requests/hour (unauthenticated)") + "\n\n")
+		b.WriteString(dimStyle.MarginLeft(2).Render("  Token: "))
+		b.WriteString(lipgloss.NewStyle().Foreground(lipgloss.Color("#f85149")).Render("Not configured"))
+		b.WriteString("\n")
+		b.WriteString(dimStyle.MarginLeft(2).Render("  Rate limit: 60 requests/hour (unauthenticated)"))
+		b.WriteString("\n\n")
 
 		actions := []string{"Set up token", "Back"}
 		for i, action := range actions {
 			if m.cursor == i {
-				b.WriteString(selectedStyle.Render("  ▸ "+action) + "\n")
+				b.WriteString(selectedStyle.Render("  ▸ " + action))
+				b.WriteString("\n")
 			} else {
-				b.WriteString(unselectedStyle.Render("    "+action) + "\n")
+				b.WriteString(unselectedStyle.Render("    " + action))
+				b.WriteString("\n")
 			}
 		}
 	} else {
-		b.WriteString(dimStyle.MarginLeft(2).Render("  Token: ") + successStyle.Render("Configured ✓") + "\n\n")
+		b.WriteString(dimStyle.MarginLeft(2).Render("  Token: "))
+		b.WriteString(successStyle.Render("Configured ✓"))
+		b.WriteString("\n\n")
 
 		status := fetchGitHubRateLimit(token)
 		b.WriteString(status)
@@ -852,14 +987,18 @@ func (m model) renderGitHubStatusView() string {
 				if action == "Remove token" {
 					label = lipgloss.NewStyle().Foreground(lipgloss.Color("#f85149")).Bold(true).Render("  ▸ " + action)
 				}
-				b.WriteString(label + "\n")
+				b.WriteString(label)
+				b.WriteString("\n")
 			} else {
-				b.WriteString(unselectedStyle.Render("    "+action) + "\n")
+				b.WriteString(unselectedStyle.Render("    " + action))
+				b.WriteString("\n")
 			}
 		}
 	}
 
-	b.WriteString("\n" + dimStyle.MarginLeft(2).Render("  ↑↓ navigate  enter select  esc back") + "\n")
+	b.WriteString("\n")
+	b.WriteString(dimStyle.MarginLeft(2).Render("  ↑↓ navigate  enter select  esc back"))
+	b.WriteString("\n")
 
 	return b.String()
 }
@@ -874,21 +1013,30 @@ func (m model) renderGitHubURLs() string {
 	var b strings.Builder
 
 	header := titleStyle.MarginLeft(2).Render("  GITHUB REPOSITORY URLS")
-	b.WriteString(header + "\n\n")
+	b.WriteString(header)
+	b.WriteString("\n\n")
 
 	if m.tokenSaved {
-		b.WriteString(successStyle.MarginLeft(2).Render("  ✓ GitHub token configured") + "\n\n")
+		b.WriteString(successStyle.MarginLeft(2).Render("  ✓ GitHub token configured"))
+		b.WriteString("\n\n")
 	}
 
-	b.WriteString(dimStyle.MarginLeft(2).Render("  Enter GitHub URLs separated by spaces or commas.") + "\n")
-	b.WriteString(dimStyle.MarginLeft(2).Render("  Example: https://github.com/expressjs/express") + "\n\n")
+	b.WriteString(dimStyle.MarginLeft(2).Render("  Enter GitHub URLs separated by spaces or commas."))
+	b.WriteString("\n")
+	b.WriteString(dimStyle.MarginLeft(2).Render("  Example: https://github.com/expressjs/express"))
+	b.WriteString("\n\n")
 
 	prompt := inputStyle.Render("  URLs: ")
 	cursor := accentStyle.Render("█")
 	input := accentStyle.Render(m.githubURLs)
 
-	b.WriteString("  " + prompt + input + cursor + "\n\n")
-	b.WriteString(dimStyle.MarginLeft(2).Render("  enter continue  esc back") + "\n")
+	b.WriteString("  ")
+	b.WriteString(prompt)
+	b.WriteString(input)
+	b.WriteString(cursor)
+	b.WriteString("\n\n")
+	b.WriteString(dimStyle.MarginLeft(2).Render("  enter continue  esc back"))
+	b.WriteString("\n")
 
 	return b.String()
 }
@@ -897,7 +1045,8 @@ func (m model) renderGitHubFormat() string {
 	var b strings.Builder
 
 	header := titleStyle.MarginLeft(2).Render("  SBOM EXPORT FORMAT")
-	b.WriteString(header + "\n\n")
+	b.WriteString(header)
+	b.WriteString("\n\n")
 
 	for i, item := range m.formats {
 		cursor := "  "
@@ -913,11 +1062,13 @@ func (m model) renderGitHubFormat() string {
 		}
 
 		line := fmt.Sprintf("  %s %s %s  %s", cursor, bullet, label, desc)
-		b.WriteString(line + "\n")
+		b.WriteString(line)
+		b.WriteString("\n")
 	}
 
 	b.WriteString("\n")
-	b.WriteString(dimStyle.MarginLeft(2).Render("  ↑/↓ navigate  enter select  esc back") + "\n")
+	b.WriteString(dimStyle.MarginLeft(2).Render("  ↑/↓ navigate  enter select  esc back"))
+	b.WriteString("\n")
 
 	return b.String()
 }
@@ -926,9 +1077,11 @@ func (m model) renderGitHubHealth() string {
 	var b strings.Builder
 
 	header := titleStyle.MarginLeft(2).Render("  INCLUDE HEALTH METRICS?")
-	b.WriteString(header + "\n\n")
+	b.WriteString(header)
+	b.WriteString("\n\n")
 
-	b.WriteString(dimStyle.MarginLeft(2).Render("  Health metrics show dependency risk: activity, contributors, stars.") + "\n\n")
+	b.WriteString(dimStyle.MarginLeft(2).Render("  Health metrics show dependency risk: activity, contributors, stars."))
+	b.WriteString("\n\n")
 
 	for i, item := range m.healthOptions {
 		cursor := "  "
@@ -944,11 +1097,13 @@ func (m model) renderGitHubHealth() string {
 		}
 
 		line := fmt.Sprintf("  %s %s %s  %s", cursor, bullet, label, desc)
-		b.WriteString(line + "\n")
+		b.WriteString(line)
+		b.WriteString("\n")
 	}
 
 	b.WriteString("\n")
-	b.WriteString(dimStyle.MarginLeft(2).Render("  ↑/↓ navigate  enter select  esc back") + "\n")
+	b.WriteString(dimStyle.MarginLeft(2).Render("  ↑/↓ navigate  enter select  esc back"))
+	b.WriteString("\n")
 
 	return b.String()
 }
@@ -957,10 +1112,13 @@ func (m model) renderGitHubVulns() string {
 	var b strings.Builder
 
 	header := titleStyle.MarginLeft(2).Render("  INCLUDE VULNERABILITY SCANNING?")
-	b.WriteString(header + "\n\n")
+	b.WriteString(header)
+	b.WriteString("\n\n")
 
-	b.WriteString(dimStyle.MarginLeft(2).Render("  Scans the generated SBOM for CVEs using Grype.") + "\n")
-	b.WriteString(dimStyle.MarginLeft(2).Render("  Requires Grype to be installed.") + "\n\n")
+	b.WriteString(dimStyle.MarginLeft(2).Render("  Scans the generated SBOM for CVEs using Grype."))
+	b.WriteString("\n")
+	b.WriteString(dimStyle.MarginLeft(2).Render("  Requires Grype to be installed."))
+	b.WriteString("\n\n")
 
 	for i, item := range m.vulnOptions {
 		cursor := "  "
@@ -976,11 +1134,13 @@ func (m model) renderGitHubVulns() string {
 		}
 
 		line := fmt.Sprintf("  %s %s %s  %s", cursor, bullet, label, desc)
-		b.WriteString(line + "\n")
+		b.WriteString(line)
+		b.WriteString("\n")
 	}
 
 	b.WriteString("\n")
-	b.WriteString(dimStyle.MarginLeft(2).Render("  ↑/↓ navigate  enter select  esc back") + "\n")
+	b.WriteString(dimStyle.MarginLeft(2).Render("  ↑/↓ navigate  enter select  esc back"))
+	b.WriteString("\n")
 
 	return b.String()
 }
@@ -1244,12 +1404,15 @@ func (m resultsModel) View() string {
 		Foreground(lipgloss.Color("#00FF88")).
 		MarginLeft(4).
 		MarginBottom(1)
-	b.WriteString(headerBox.Render("SCAN COMPLETE") + "\n\n")
+	b.WriteString(headerBox.Render("SCAN COMPLETE"))
+	b.WriteString("\n\n")
 
 	// Content - no color styling so it works on light and dark terminals
 	// Render each line with just margin
 	for _, line := range strings.Split(m.content, "\n") {
-		b.WriteString("    " + line + "\n")
+		b.WriteString("    ")
+		b.WriteString(line)
+		b.WriteString("\n")
 	}
 	b.WriteString("\n")
 
@@ -1260,21 +1423,25 @@ func (m resultsModel) View() string {
 			Foreground(lipgloss.Color("#888888"))
 		pathValue := lipgloss.NewStyle().
 			Foreground(lipgloss.Color("#00D4FF"))
-		b.WriteString(pathStyle.Render("Output: ") + pathValue.Render(m.outputPath) + "\n\n")
+		b.WriteString(pathStyle.Render("Output: "))
+		b.WriteString(pathValue.Render(m.outputPath))
+		b.WriteString("\n\n")
 	}
 
 	// Divider
 	divider := lipgloss.NewStyle().
 		MarginLeft(4).
 		Foreground(lipgloss.Color("#444444"))
-	b.WriteString(divider.Render("─────────────────────────────────────────") + "\n\n")
+	b.WriteString(divider.Render("─────────────────────────────────────────"))
+	b.WriteString("\n\n")
 
 	// Actions
 	actionHeader := lipgloss.NewStyle().
 		Bold(true).
 		Foreground(lipgloss.Color("#00D4FF")).
 		MarginLeft(4)
-	b.WriteString(actionHeader.Render("WHAT'S NEXT?") + "\n\n")
+	b.WriteString(actionHeader.Render("WHAT'S NEXT?"))
+	b.WriteString("\n\n")
 
 	for i, action := range m.actions {
 		cursor := "  "
@@ -1288,11 +1455,13 @@ func (m resultsModel) View() string {
 		}
 
 		line := fmt.Sprintf("  %s %s %s", cursor, bullet, label)
-		b.WriteString(lipgloss.NewStyle().MarginLeft(2).Render(line) + "\n")
+		b.WriteString(lipgloss.NewStyle().MarginLeft(2).Render(line))
+		b.WriteString("\n")
 	}
 
 	b.WriteString("\n")
-	b.WriteString(dimStyle.MarginLeft(4).Render("↑/↓ navigate  enter select") + "\n")
+	b.WriteString(dimStyle.MarginLeft(4).Render("↑/↓ navigate  enter select"))
+	b.WriteString("\n")
 
 	return b.String()
 }
@@ -1303,21 +1472,30 @@ func (m resultsModel) viewGroundTruthPathInput() string {
 	b.WriteString(renderBanner())
 
 	header := titleStyle.MarginLeft(4).Render("  GROUND-TRUTH ACCURACY CHECK")
-	b.WriteString(header + "\n\n")
-	b.WriteString(dimStyle.MarginLeft(4).Render("  Compares the SBOM just generated against a ground-truth") + "\n")
-	b.WriteString(dimStyle.MarginLeft(4).Render("  SBOM you provide — see docs/design/canonical-scan.md.") + "\n\n")
+	b.WriteString(header)
+	b.WriteString("\n\n")
+	b.WriteString(dimStyle.MarginLeft(4).Render("  Compares the SBOM just generated against a ground-truth"))
+	b.WriteString("\n")
+	b.WriteString(dimStyle.MarginLeft(4).Render("  SBOM you provide — see docs/design/canonical-scan.md."))
+	b.WriteString("\n\n")
 
 	prompt := inputStyle.Render("  Ground-truth SBOM path: ")
 	cursor := accentStyle.Render("█")
 	input := accentStyle.Render(m.gtPathInput)
-	b.WriteString("  " + prompt + input + cursor + "\n\n")
+	b.WriteString("  ")
+	b.WriteString(prompt)
+	b.WriteString(input)
+	b.WriteString(cursor)
+	b.WriteString("\n\n")
 
 	if m.gtErr != "" {
 		errStyle := lipgloss.NewStyle().Foreground(lipgloss.Color("#f85149")).MarginLeft(4)
-		b.WriteString(errStyle.Render("Error: "+m.gtErr) + "\n\n")
+		b.WriteString(errStyle.Render("Error: " + m.gtErr))
+		b.WriteString("\n\n")
 	}
 
-	b.WriteString(dimStyle.MarginLeft(4).Render("  enter check  esc back") + "\n")
+	b.WriteString(dimStyle.MarginLeft(4).Render("  enter check  esc back"))
+	b.WriteString("\n")
 	return b.String()
 }
 
@@ -1327,14 +1505,18 @@ func (m resultsModel) viewGroundTruthReport() string {
 	b.WriteString(renderBanner())
 
 	header := titleStyle.MarginLeft(4).Render("  GROUND-TRUTH ACCURACY CHECK")
-	b.WriteString(header + "\n\n")
+	b.WriteString(header)
+	b.WriteString("\n\n")
 
 	for _, line := range strings.Split(m.gtReport, "\n") {
-		b.WriteString("    " + line + "\n")
+		b.WriteString("    ")
+		b.WriteString(line)
+		b.WriteString("\n")
 	}
 
 	b.WriteString("\n")
-	b.WriteString(dimStyle.MarginLeft(4).Render("  any key back  q quit") + "\n")
+	b.WriteString(dimStyle.MarginLeft(4).Render("  any key back  q quit"))
+	b.WriteString("\n")
 	return b.String()
 }
 

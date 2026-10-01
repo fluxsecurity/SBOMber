@@ -1,6 +1,7 @@
 package github
 
 import (
+	"context"
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
@@ -15,14 +16,21 @@ import (
 )
 
 const (
-	baseURL        = "https://api.github.com"
+	defaultBaseURL = "https://api.github.com"
 	defaultTimeout = 30 * time.Second
+
+	// maxResponseBodyBytes bounds how much of any single API response we will
+	// buffer in memory. Without this, a malicious or misbehaving endpoint
+	// (or a very large file/tree response) can exhaust memory via a bare
+	// io.ReadAll.
+	maxResponseBodyBytes = 50 << 20 // 50 MiB
 )
 
 // Client provides access to GitHub API with rate limiting and caching.
 type Client struct {
 	httpClient    *http.Client
 	token         string
+	baseURL       string
 	rateLimit     RateLimit
 	rateLimitSeen bool // true once we have received at least one X-RateLimit header
 	rateMu        sync.RWMutex
@@ -54,8 +62,18 @@ func NewClient(token string) *Client {
 	return &Client{
 		httpClient: &http.Client{Timeout: defaultTimeout},
 		token:      token,
+		baseURL:    defaultBaseURL,
 		cache:      newCache(),
 	}
+}
+
+// NewClientWithBaseURL creates a GitHub API client pointed at a custom base
+// URL. This exists so tests can point the client at an httptest server
+// instead of the real GitHub API.
+func NewClientWithBaseURL(token, base string) *Client {
+	c := NewClient(token)
+	c.baseURL = base
+	return c
 }
 
 // HasToken returns true if the client has authentication configured.
@@ -112,8 +130,8 @@ func (c *Client) GetRepoInfo(owner, repo string) (*RepoInfo, error) {
 	}
 	c.cache.mu.RUnlock()
 
-	endpoint := fmt.Sprintf("%s/repos/%s/%s", baseURL, owner, repo)
-	body, err := c.doRequest("GET", endpoint)
+	endpoint := fmt.Sprintf("%s/repos/%s/%s", c.baseURL, owner, repo)
+	body, err := c.doRequest(context.Background(), "GET", endpoint)
 	if err != nil {
 		return nil, err
 	}
@@ -153,21 +171,24 @@ func (c *Client) GetRepoInfo(owner, repo string) (*RepoInfo, error) {
 	return info, nil
 }
 
-// GetRepoTree fetches the full file tree for a repository.
-func (c *Client) GetRepoTree(owner, repo, branch string) ([]TreeEntry, error) {
+// GetRepoTree fetches the full file tree for a repository. The returned bool
+// reports whether the GitHub API truncated the listing (see the "truncated"
+// field in the tree API): when true, the returned entries are known to be
+// incomplete and callers must not treat the listing as exhaustive.
+func (c *Client) GetRepoTree(ctx context.Context, owner, repo, branch string) ([]TreeEntry, bool, error) {
 	if branch == "" {
 		branch = "HEAD"
 	}
 
-	endpoint := fmt.Sprintf("%s/repos/%s/%s/git/trees/%s?recursive=1", baseURL, owner, repo, branch)
-	body, err := c.doRequest("GET", endpoint)
+	endpoint := fmt.Sprintf("%s/repos/%s/%s/git/trees/%s?recursive=1", c.baseURL, owner, repo, branch)
+	body, err := c.doRequest(ctx, "GET", endpoint)
 	if err != nil {
-		return nil, err
+		return nil, false, err
 	}
 
 	var resp apiTreeResponse
 	if err := json.Unmarshal(body, &resp); err != nil {
-		return nil, fmt.Errorf("failed to parse tree: %w", err)
+		return nil, false, fmt.Errorf("failed to parse tree: %w", err)
 	}
 
 	entries := make([]TreeEntry, 0, len(resp.Tree))
@@ -180,11 +201,11 @@ func (c *Client) GetRepoTree(owner, repo, branch string) ([]TreeEntry, error) {
 		})
 	}
 
-	return entries, nil
+	return entries, resp.Truncated, nil
 }
 
 // GetFileContent fetches the content of a single file.
-func (c *Client) GetFileContent(owner, repo, path string) (*FileContent, error) {
+func (c *Client) GetFileContent(ctx context.Context, owner, repo, path string) (*FileContent, error) {
 	key := fmt.Sprintf("%s/%s/%s", owner, repo, path)
 
 	c.cache.mu.RLock()
@@ -194,8 +215,8 @@ func (c *Client) GetFileContent(owner, repo, path string) (*FileContent, error) 
 	}
 	c.cache.mu.RUnlock()
 
-	endpoint := fmt.Sprintf("%s/repos/%s/%s/contents/%s", baseURL, owner, repo, path)
-	body, err := c.doRequest("GET", endpoint)
+	endpoint := fmt.Sprintf("%s/repos/%s/%s/contents/%s", c.baseURL, owner, repo, path)
+	body, err := c.doRequest(ctx, "GET", endpoint)
 	if err != nil {
 		return nil, err
 	}
@@ -230,9 +251,9 @@ func (c *Client) GetFileContent(owner, repo, path string) (*FileContent, error) 
 // GetContributors fetches contributor stats for a repository.
 func (c *Client) GetContributors(owner, repo string) (*ContributorStats, error) {
 	// Fetch up to 100 contributors per page, use Link header for total if more
-	endpoint := fmt.Sprintf("%s/repos/%s/%s/contributors?per_page=100&anon=1", baseURL, owner, repo)
+	endpoint := fmt.Sprintf("%s/repos/%s/%s/contributors?per_page=100&anon=1", c.baseURL, owner, repo)
 
-	req, err := http.NewRequest("GET", endpoint, nil)
+	req, err := http.NewRequestWithContext(context.Background(), "GET", endpoint, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -255,8 +276,9 @@ func (c *Client) GetContributors(owner, repo string) (*ContributorStats, error) 
 		return &ContributorStats{TotalContributors: 0}, nil
 	}
 
-	// Read the response body
-	body, err := io.ReadAll(resp.Body)
+	// Read the response body, bounded so a huge/misbehaving response cannot
+	// exhaust memory.
+	body, err := readLimitedBody(resp.Body)
 	if err != nil {
 		return &ContributorStats{TotalContributors: 0}, nil
 	}
@@ -393,7 +415,7 @@ func calculateRiskLevel(m *HealthMetrics) string {
 	}
 }
 
-func (c *Client) doRequest(method, endpoint string) ([]byte, error) {
+func (c *Client) doRequest(ctx context.Context, method, endpoint string) ([]byte, error) {
 	c.rateMu.RLock()
 	if c.rateLimitSeen && c.rateLimit.Remaining == 0 && time.Now().Before(c.rateLimit.Reset) {
 		c.rateMu.RUnlock()
@@ -401,7 +423,7 @@ func (c *Client) doRequest(method, endpoint string) ([]byte, error) {
 	}
 	c.rateMu.RUnlock()
 
-	req, err := http.NewRequest(method, endpoint, nil)
+	req, err := http.NewRequestWithContext(ctx, method, endpoint, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -423,7 +445,7 @@ func (c *Client) doRequest(method, endpoint string) ([]byte, error) {
 	if resp.StatusCode == 401 {
 		// Invalid/expired token — retry without auth so public repos still work.
 		if c.token != "" {
-			req2, err2 := http.NewRequest(method, endpoint, nil)
+			req2, err2 := http.NewRequestWithContext(ctx, method, endpoint, nil)
 			if err2 != nil {
 				return nil, fmt.Errorf("authentication failed (check GITHUB_TOKEN): %s", endpoint)
 			}
@@ -436,7 +458,7 @@ func (c *Client) doRequest(method, endpoint string) ([]byte, error) {
 			defer func() { _ = resp2.Body.Close() }()
 			c.updateRateLimit(resp2.Header)
 			if resp2.StatusCode == 200 {
-				return io.ReadAll(resp2.Body)
+				return readLimitedBody(resp2.Body)
 			}
 		}
 		return nil, fmt.Errorf("authentication failed (GITHUB_TOKEN is invalid or expired): %s", endpoint)
@@ -451,7 +473,21 @@ func (c *Client) doRequest(method, endpoint string) ([]byte, error) {
 		return nil, fmt.Errorf("unexpected status %d: %s", resp.StatusCode, endpoint)
 	}
 
-	return io.ReadAll(resp.Body)
+	return readLimitedBody(resp.Body)
+}
+
+// readLimitedBody reads r, refusing to buffer more than maxResponseBodyBytes.
+// A bare io.ReadAll on an HTTP response body has no upper bound, so a large
+// or misbehaving response can exhaust memory; this caps that risk.
+func readLimitedBody(r io.Reader) ([]byte, error) {
+	body, err := io.ReadAll(io.LimitReader(r, maxResponseBodyBytes+1))
+	if err != nil {
+		return nil, err
+	}
+	if len(body) > maxResponseBodyBytes {
+		return nil, fmt.Errorf("response body exceeds %d byte limit", maxResponseBodyBytes)
+	}
+	return body, nil
 }
 
 func (c *Client) updateRateLimit(headers http.Header) {
