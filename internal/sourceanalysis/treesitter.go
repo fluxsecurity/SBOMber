@@ -24,7 +24,10 @@ func treeSitterLanguageForPath(path string) (*treesitter.Language, error) {
 	if err != nil {
 		return nil, err
 	}
+	return treeSitterLanguage(language)
+}
 
+func treeSitterLanguage(language string) (*treesitter.Language, error) {
 	switch language {
 	case "javascript":
 		return treesitter.NewLanguage(javascript.Language()), nil

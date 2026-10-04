@@ -104,6 +104,10 @@ func Main(args []string, stdin io.Reader, stdout io.Writer, stderr io.Writer) in
 		return runDiff(args[1:], stdout, stderr)
 	case "localise", "localize":
 		return runLocalise(args[1:], stdout, stderr)
+	case "usage":
+		return runUsage(args[1:], stdout, stderr)
+	case "decide":
+		return runDecide(args[1:], stdout, stderr)
 	case "vex":
 		return runVEX(args[1:], stdout, stderr)
 	case "demo":
@@ -1767,6 +1771,8 @@ Usage:
   sbomber verify <ground-truth-sbom> <generated-sbom> [--json]
   sbomber diff <old-sbom> <new-sbom> [--no-color]
   sbomber localise --canonical-scan <canonical-scan.json> [--out localisation.json] [--trace trace.json]
+  sbomber usage --canonical-scan <canonical-scan.json> [--out usage-graph.json] [--entry file:function]
+  sbomber decide --canonical-scan <file> --usage-graph <file> --localisation <file> [--out decision-results.json]
   sbomber vex --decisions <decision-results.json> [--canonical-scan <file>] [--subject application|package] [--product <id>] [--out vex.openvex.json]
   sbomber version
 
@@ -1804,6 +1810,22 @@ Localise Flags (Component 3: which function does an advisory implicate?):
   --timeout <duration>                  overall time budget (default: 15m)
   GITHUB_TOKEN                          environment variable used for GitHub API requests
 
+Usage Flags (Component 2: which package functions does the app import and call?):
+  --canonical-scan <file>               canonical-scan.json produced by the scan (required)
+  --out <file>                          usage-graph.json to write (default: usage-graph.json)
+  --repo [repositoryId=]<path>          local source for a repository (default: paths in the scan,
+                                        relative to the canonical-scan.json file)
+  --entry [repositoryId=]<file>:<fn>[:line]
+                                        declared entry point; <module> means top-level code (repeatable)
+  --no-reachability                     skip the reachability pass
+  --allow-partial                       exit 0 when the analysis is partial (default: exit 2)
+  --max-files <n>                       source files parsed per repository (default: 10000)
+  --max-file-bytes <n>                  largest source file parsed (default: 1000000)
+Decide Flags (Component 4: state, confidence, risk priority, justification):
+  --canonical-scan <file>               canonical-scan.json (required)
+  --usage-graph <file>                  usage-graph.json (required)
+  --localisation <file>                 localisation.json (required)
+  --out <file>                          decision-results.json to write (default: decision-results.json)
 VEX Flags (Component 3: OpenVEX 0.2.0 from decision-results.json):
   --decisions <file>                    decision-results.json produced by the decision engine (required)
   --canonical-scan <file>               repository commit for the application subject, and alias IDs

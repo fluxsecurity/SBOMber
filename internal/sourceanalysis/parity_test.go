@@ -61,6 +61,26 @@ func TestSourceAnalyzerExactLabelledCorpus(t *testing.T) {
 				t.Fatalf("AnalyzeSource(%q): %v", sourcePath, err)
 			}
 
+			// Reachability-only ranges, export identities and route candidates
+			// are excluded from the semantic-extraction JSON contract.
+			for index := range got.Functions {
+				got.Functions[index].EndLine = 0
+				got.Functions[index].EndColumn = 0
+				got.Functions[index].ExportedNames = nil
+				got.Functions[index].Parameters = nil
+				got.Functions[index].LocalBindings = nil
+				got.Functions[index].NodeLine = 0
+				got.Functions[index].NodeColumn = 0
+			}
+			for index := range got.Imports {
+				got.Imports[index].InlineCalls = nil
+				got.Imports[index].UnresolvedUse = ""
+				got.Imports[index].BindingScopeEndLine = 0
+				got.Imports[index].BindingScopeEndColumn = 0
+			}
+			got.RouteHandlers = nil
+			got.AnonymousFunctions = nil
+
 			expectedPath := filepath.Join(
 				expectedDir,
 				stem+".json",
