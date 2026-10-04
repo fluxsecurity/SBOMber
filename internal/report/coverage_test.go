@@ -155,3 +155,35 @@ func TestRenderText_CoverageWordingGuard(t *testing.T) {
 		}
 	}
 }
+
+func TestCoverage_MatchesScan(t *testing.T) {
+	c, err := LoadCoverage(fixtureUsageGraph)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err := c.MatchesScan("scan-2026-08-12-0001"); err != nil {
+		t.Errorf("same scan rejected: %v", err)
+	}
+	if err := c.MatchesScan("scan-other"); err == nil {
+		t.Error("coverage from a different scan was accepted")
+	}
+}
+
+func TestLoadDecisionResults_RejectsOtherDocuments(t *testing.T) {
+	if _, err := LoadDecisionResults(fixtureUsageGraph); err == nil {
+		t.Fatal("a usage-graph file was accepted as decision-results")
+	}
+}
+
+func TestReport_FindingCounts(t *testing.T) {
+	got := BuildReport(mixedResults()).FindingCounts()
+	want := map[Section]int{SectionUpdateFirst: 2, SectionInsufficientInfo: 0, SectionNoDirectUsage: 3}
+	if len(got) != len(want) {
+		t.Fatalf("got %+v", got)
+	}
+	for _, c := range got {
+		if want[c.Section] != c.Findings {
+			t.Errorf("%s: %d findings, want %d", c.Section, c.Findings, want[c.Section])
+		}
+	}
+}

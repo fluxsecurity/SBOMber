@@ -107,6 +107,8 @@ func Main(args []string, stdin io.Reader, stdout io.Writer, stderr io.Writer) in
 		return runUsage(args[1:], stdout, stderr)
 	case "decide":
 		return runDecide(args[1:], stdout, stderr)
+	case "report":
+		return runReport(args[1:], stdout, stderr)
 	case "demo":
 		return runDemo(stdout, stderr)
 	case "help", "--help", "-h":
@@ -1770,6 +1772,7 @@ Usage:
   sbomber localise --canonical-scan <canonical-scan.json> [--out localisation.json] [--trace trace.json]
   sbomber usage --canonical-scan <canonical-scan.json> [--out usage-graph.json] [--entry file:function]
   sbomber decide --canonical-scan <file> --usage-graph <file> --localisation <file> [--out decision-results.json]
+  sbomber report --decision-results <file> [--usage-graph <file>] [--format html|text] [--out <file>|-]
   sbomber version
 
 Scan Flags:
@@ -1822,6 +1825,13 @@ Decide Flags (Component 4: state, confidence, risk priority, justification):
   --usage-graph <file>                  usage-graph.json (required)
   --localisation <file>                 localisation.json (required)
   --out <file>                          decision-results.json to write (default: decision-results.json)
+
+Report Flags (Component 4: which package to update first, why, and what it fixes):
+  --decision-results <file>             decision-results.json from sbomber decide (required)
+  --usage-graph <file>                  usage-graph.json the decisions rest on; shows analysis coverage
+  --format html|text                    output format (default: html)
+  --out <file>|-                        file to write, - for stdout (default: remediation-report.html
+                                        for html, stdout for text)
 
 Examples:
   sbomber

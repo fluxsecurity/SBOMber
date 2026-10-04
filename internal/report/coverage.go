@@ -13,6 +13,7 @@ import (
 // decision, 13 September 2026). The decision-results file only carries a
 // per-finding summary, so the report reads the graph's own counts directly.
 type Coverage struct {
+	ScanID        string                 `json:"scanId"`
 	Analysis      CoverageAnalysis       `json:"analysis"`
 	Counts        CoverageCounts         `json:"coverage"`
 	Unanalysed    []UnanalysedOccurrence `json:"unanalysedOccurrences"`
@@ -75,6 +76,16 @@ func LoadCoverage(path string) (*Coverage, error) {
 		return nil, fmt.Errorf("%s has no analysis.status; is it a usage-graph.json?", path)
 	}
 	return &c, nil
+}
+
+// MatchesScan refuses coverage from a different scan than the decisions:
+// pairing a report with another scan's coverage would misstate what was
+// analysed.
+func (c *Coverage) MatchesScan(scanID string) error {
+	if c.ScanID != "" && scanID != "" && c.ScanID != scanID {
+		return fmt.Errorf("usage graph is for scan %q but the decisions are for scan %q", c.ScanID, scanID)
+	}
+	return nil
 }
 
 // Incomplete reports whether the analysis behind this report was not a

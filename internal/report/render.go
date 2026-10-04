@@ -54,6 +54,26 @@ func incompleteBanner(c *Coverage) string {
 	return "The analysis behind this report was incomplete; see \"" + string(SectionInsufficientInfo) + "\" for what was and was not analysed."
 }
 
+// FindingCounts is the number of findings listed under each section, in
+// section order, for a one-line summary.
+func (r Report) FindingCounts() []SectionCount {
+	out := make([]SectionCount, 0, len(r.Sections))
+	for _, sg := range r.Sections {
+		n := 0
+		for _, pg := range sg.Groups {
+			n += len(pg.Findings)
+		}
+		out = append(out, SectionCount{Section: sg.Section, Findings: n})
+	}
+	return out
+}
+
+// SectionCount is one section's finding count.
+type SectionCount struct {
+	Section  Section
+	Findings int
+}
+
 func findingCount(r Report) int {
 	n := 0
 	for _, sg := range r.Sections {
