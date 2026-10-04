@@ -209,6 +209,24 @@ TypeScript `import type` declarations are retained as type-only evidence.
 They do not produce runtime-call evidence because they are removed by the
 TypeScript compiler.
 
+### Whole-module calls
+
+When a whole-module binding is called directly, Component 2 records
+`calledSymbol` as `default`.
+
+For example:
+
+    const minimist = require("minimist");
+    minimist(process.argv);
+
+produces `calledSymbol: "default"`.
+
+When a member of the whole-module binding is called, the property name is
+recorded instead. For example, `_.merge(...)` produces
+`calledSymbol: "merge"`.
+
+The application's local binding name is never used as the package-side
+symbol.
 
 ## 7. Package occurrence resolution
 
@@ -390,7 +408,13 @@ The public coverage distinguishes:
 - `filesParsed` — usable tree with no parser error nodes;
 - `filesParsedWithErrors` — usable tree containing error nodes;
 - `filesFailed` — no usable tree;
-- `filesSkipped` — intentionally excluded or excluded by policy/limits.
+- `filesSkipped` — an in-scope source candidate intentionally not parsed
+  because of file-level policy or limits.
+
+Pruned directory trees such as `node_modules`, `dist` and `build` are outside
+the declared application-source scope. Their contents are not traversed merely
+to inflate the denominator and a directory entry is not counted as one skipped
+file. The internal repository result retains the scope exclusion for audit.
 
 Files with no usable tree are also recorded in `parseFailures`.
 
@@ -491,17 +515,53 @@ Coverage may also contain `limitsHit` and per-repository file counters.
 
 Component 4 may use these measured values when determining analysis
 confidence, so incomplete analysis must remain visible.
+
+### Analysis status derived from coverage
+
+The producer derives status from measured coverage rather than accepting a
+caller-supplied claim:
+
+- `complete` requires every discovered in-scope file to parse cleanly, with no
+  partially parsed, failed or skipped file and no limit or traversal failure;
+- `partial` is emitted when any in-scope file is partially parsed, failed or
+  skipped, or when a bound or repository traversal prevents complete analysis;
+- `failed` means no usable Component 2 analysis was produced;
+- `unsupported` means the source ecosystem is outside Component 2 support.
+
+An unresolved import or call is counted separately and does not automatically
+make the repository parse partial. A package-relevant unresolved observation
+still blocks `no_usage_detected` in Component 4. Positive resolved evidence may
+remain `usage_detected` on a partial scan; missing evidence may not.
+
+Parse coverage percentage is cleanly parsed files divided by discovered
+in-scope files. A zero denominator reports zero and cannot support a negative
+usage decision.
 ## 15. Security and resource boundaries
 
 Component 2 parses source code but never executes it.
 
 The selected Sprint 4 resource defaults are:
 
+- maximum source files analysed per repository: 10,000;
 - maximum individual source file size: 1,000,000 bytes;
+- minified-line threshold: 4,000 bytes;
 - per-file parse timeout: 5 seconds.
 
 Files outside a configured bound must be reported as skipped or unresolved,
 never silently omitted.
+
+Repository discovery does not descend into `.git`, `node_modules`, `dist`,
+`build`, `coverage`, `.next`, `out`, `generated` or `vendor` directories.
+Generated and minified filename patterns such as `*.bundle.js`, `*.min.js`
+and `*.generated.{js,ts,tsx}` are skipped. A source line longer than the
+minified-line threshold is also treated as a minified bundle. Directory scope
+exclusions are retained internally but stay outside the public file counters;
+in-scope file exclusions are counted in `filesSkipped`. Every exclusion is
+recorded with its reason.
+
+The repository walker does not follow symbolic links or read other
+non-regular files. This prevents source discovery from escaping through a
+linked tree or blocking on a device or named pipe.
 
 Repository-relative source locations should be emitted rather than
 machine-specific absolute paths where contract portability is required.
@@ -511,6 +571,11 @@ contain unnecessary source-code snippets.
 
 All Candidate A objects owning native resources must be closed
 deterministically.
+
+In-scope files excluded because they are oversized, generated or minified are
+counted in `filesSkipped`, not `filesParsed`. Pruned vendored directory trees
+are outside the denominator. Neither case can support a negative usage
+conclusion.
 
 ## 16. Known limitations
 
@@ -565,6 +630,8 @@ Parser-selection evidence is retained under:
 
 The parser selection was merged in PR #71 at merge commit `e9e6b2e`.
 
-The Candidate A semantic adapter, production usage-graph generation and
-production reachability implementation are tracked separately and are not
-claimed complete by this architecture document.
+The Candidate A semantic adapter and bounded repository discovery are in
+production code. Coverage aggregation derives file, import, call-site and
+reachability counters plus parser metadata for the public usage graph.
+Production package-occurrence resolution and reachability implementation are
+tracked separately and are not claimed complete by this architecture document.

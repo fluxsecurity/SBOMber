@@ -1,0 +1,6 @@
+ignore:
+  - vulnerability: GHSA-jf85-cpcp-j695
+  - vulnerability: GHSA-4xc9-xhrj-v574
+vex-add:
+
+  - under_investigation

@@ -83,11 +83,16 @@ func appendESMImports(
 
 			line, column := nodeLocation(source, child)
 
+			kind := "esm_default"
+			if statementTypeOnly {
+				kind = "esm_type_only"
+			}
+
 			result.Imports = append(
 				result.Imports,
 				Import{
 					Specifier: specifier,
-					Kind:      "esm_default",
+					Kind:      kind,
 					Local:     child.Utf8Text(source),
 					Imported:  "default",
 					TypeOnly:  statementTypeOnly,
@@ -124,20 +129,27 @@ func appendESMImports(
 
 		line, column := nodeLocation(source, localNode)
 
+		typeOnly := statementTypeOnly ||
+			nodeHasDirectChildType(
+				importSpecifier,
+				"type",
+			)
+
+		kind := "esm_named"
+		if typeOnly {
+			kind = "esm_type_only"
+		}
+
 		result.Imports = append(
 			result.Imports,
 			Import{
 				Specifier: specifier,
-				Kind:      "esm_named",
+				Kind:      kind,
 				Local:     localNode.Utf8Text(source),
 				Imported:  nameNode.Utf8Text(source),
-				TypeOnly: statementTypeOnly ||
-					nodeHasDirectChildType(
-						importSpecifier,
-						"type",
-					),
-				Line:   line,
-				Column: column,
+				TypeOnly:  typeOnly,
+				Line:      line,
+				Column:    column,
 			},
 		)
 	}

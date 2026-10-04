@@ -27,10 +27,18 @@ against the formal micro-fixture corpus.
   import observation.
 - For dynamic imports, the location is the beginning of the `import` keyword.
 - A literal dynamic import has its literal package specifier.
-- A computed dynamic import uses the specifier `<computed>` and is also
-  recorded in `unresolved`.
-- A TypeScript `import type` is retained with `typeOnly: true`.
+- A computed dynamic import preserves its source expression as the specifier
+  and is also recorded in `unresolved`. Placeholder values such as
+  `<computed>` are not used by the production contract.
+- A TypeScript `import type` is retained with kind `esm_type_only` and
+  `typeOnly: true`.
 - Type-only imports do not create runtime-call evidence.
+
+The S5 production adapter uses the public usage-graph import-kind names:
+`cjs_require`, `dynamic_static_literal` and `dynamic_computed`. This is a
+contract-normalisation correction to the labels, not a change to the source
+constructs or their expected locations. The original S4 research labels
+remain preserved at tag `s4-05-research-history`.
 
 ## Call locations
 

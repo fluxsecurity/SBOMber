@@ -1,0 +1,193 @@
+{
+  "purpose": "S4-18 curated localisation evaluation cases. Ground truth fixed BEFORE the localisation tool was run against it. Cases with no defensible ground truth were dropped, not guessed.",
+  "groundTruthFixedAt": "2026-09-06",
+  "howEstablished": "For every case the maintainer fix commit was read in full (GitHub commits API, application/vnd.github.diff) and the enclosing function of each changed non-test line was recorded by hand. The advisory text (GHSA and OSV records fetched 2026-09-06) was read to decide whether it names a function. The fixed release's registry gitHead was checked where npm publishes one.",
+  "conventions": {
+    "expectedChangedFunctions": "functions whose body the security fix changed; 'default' means the anonymous function assigned to module.exports",
+    "expectedPublicSymbols": "the exported name an application would import or call, i.e. what Component 2 records as importedSymbol/calledSymbol",
+    "advisoryNamesFunction": "true when the GHSA/OSV prose names a function or method"
+  },
+  "cases": [
+    {
+      "id": "c01",
+      "vulnerabilityId": "CVE-2021-23337",
+      "aliases": ["GHSA-35jh-r3h4-6jhm"],
+      "package": "lodash",
+      "vulnerableVersion": "4.17.20",
+      "fixedVersion": "4.17.21",
+      "purl": "pkg:npm/lodash@4.17.20",
+      "advisoryNamesFunction": true,
+      "advisoryNamedSymbols": ["template"],
+      "expectedChangedFunctions": ["template"],
+      "expectedPublicSymbols": ["template"],
+      "nonFunctionChanges": ["reForbiddenIdentifierChars", "INVALID_TEMPL_VAR_ERROR_TEXT"],
+      "fixCommits": [{"repo": "lodash/lodash", "sha": "3469357cff396a26c363f8c1b5a91dde28ba4b1c", "source": "GHSA reference"}],
+      "methodExercised": "advisory_text",
+      "notes": "Baseline case: advisory names the function and the fix lands inside it. The diff hunk header is empty because every lodash function is indented inside an IIFE. 4.17.21 also fixes CVE-2020-28500 (toNumber/trim/trimEnd), so a version diff will show unrelated candidates."
+    },
+    {
+      "id": "c02",
+      "vulnerabilityId": "CVE-2018-16487",
+      "aliases": ["GHSA-4xc9-xhrj-v574"],
+      "package": "lodash",
+      "vulnerableVersion": "4.17.4",
+      "fixedVersion": "4.17.11",
+      "purl": "pkg:npm/lodash@4.17.4",
+      "advisoryNamesFunction": true,
+      "advisoryNamedSymbols": ["defaultsDeep", "merge", "mergeWith"],
+      "expectedChangedFunctions": ["safeGet"],
+      "expectedPublicSymbols": ["merge", "mergeWith", "defaultsDeep"],
+      "fixCommits": [{"repo": "lodash/lodash", "sha": "90e6199a161b6445b01454517b40ef65ebecd2ad", "source": "GHSA reference"}],
+      "methodExercised": "advisory_text",
+      "notes": "The evaluation repository case (S4-20: Kirill89/prototype-pollution-explained calls _.merge on lodash 4.17.4). The fix changes only the private helper safeGet, which merge, mergeWith and defaultsDeep call through baseMergeDeep. A diff can name the helper; attributing it to the public API needs the advisory or a call graph. 4.17.4 to 4.17.11 spans seven releases."
+    },
+    {
+      "id": "c03",
+      "vulnerabilityId": "CVE-2019-10744",
+      "aliases": ["GHSA-jf85-cpcp-j695"],
+      "package": "lodash",
+      "vulnerableVersion": "4.17.11",
+      "fixedVersion": "4.17.12",
+      "purl": "pkg:npm/lodash@4.17.11",
+      "advisoryNamesFunction": true,
+      "advisoryNamedSymbols": ["defaultsDeep"],
+      "expectedChangedFunctions": ["safeGet"],
+      "expectedPublicSymbols": ["defaultsDeep"],
+      "fixCommits": [{"repo": "lodash/lodash", "sha": "a01e4fa727e7294cb7b2845570ba96b206926790", "source": "GHSA references pull request lodash/lodash#4336; single commit"}],
+      "methodExercised": "patch_reference",
+      "notes": "The only advisory reference is a pull request URL, not a commit, so the patch_reference path must resolve PR to commits. Same private-helper pattern as c02."
+    },
+    {
+      "id": "c04",
+      "vulnerabilityId": "CVE-2020-7788",
+      "aliases": ["GHSA-qqgx-2p2h-9c37"],
+      "package": "ini",
+      "vulnerableVersion": "1.3.5",
+      "fixedVersion": "1.3.6",
+      "purl": "pkg:npm/ini@1.3.5",
+      "advisoryNamesFunction": true,
+      "advisoryNamedSymbols": ["parse"],
+      "expectedChangedFunctions": ["decode"],
+      "expectedPublicSymbols": ["parse", "decode"],
+      "fixCommits": [{"repo": "npm/ini", "sha": "56d2805e07ccd94e2ba0984ac9240ff02d44b6f1", "source": "GHSA reference"}],
+      "methodExercised": "advisory_text",
+      "notes": "Alias case. The advisory names ini.parse; the changed function is decode, exported as `exports.parse = exports.decode = decode`. A diff-only method reports decode; joining to an application's ini.parse call needs export-alias resolution."
+    },
+    {
+      "id": "c05",
+      "vulnerabilityId": "CVE-2022-25883",
+      "aliases": ["GHSA-c2qf-rxjj-qqgw"],
+      "package": "semver",
+      "vulnerableVersion": "7.5.1",
+      "fixedVersion": "7.5.2",
+      "purl": "pkg:npm/semver@7.5.1",
+      "advisoryNamesFunction": true,
+      "advisoryNamedSymbols": ["Range"],
+      "expectedChangedFunctions": ["Range", "format", "parseRange", "replaceTildes", "replaceCarets", "replaceXRanges", "Comparator"],
+      "expectedPublicSymbols": ["Range"],
+      "nonFunctionChanges": ["internal/re.js token regexes (safeRe)"],
+      "fixCommits": [{"repo": "npm/node-semver", "sha": "717534ee353682f3bcf33e60a8af4292626d4441", "source": "GHSA reference"}],
+      "methodExercised": "advisory_text",
+      "notes": "Multi-file, multi-function fix. The advisory names `new Range`; the diff touches the Range constructor, three Range methods, three module-level arrow helpers, the Comparator class and the regex table in internal/re.js. Measures how large a candidate set the diff methods produce when the fix is a refactor."
+    },
+    {
+      "id": "c06",
+      "vulnerabilityId": "CVE-2020-7598",
+      "aliases": ["GHSA-vh95-rmgr-6w4m"],
+      "package": "minimist",
+      "vulnerableVersion": "1.2.2",
+      "fixedVersion": "1.2.3",
+      "purl": "pkg:npm/minimist@1.2.2",
+      "advisoryNamesFunction": false,
+      "advisoryNamedSymbols": [],
+      "expectedChangedFunctions": ["setKey"],
+      "expectedPublicSymbols": ["default"],
+      "fixCommits": [
+        {"repo": "minimistjs/minimist", "sha": "38a4d1caead72ef99e824bb420a2528eec03d9ab", "source": "GHSA reference; 1.x line"},
+        {"repo": "minimistjs/minimist", "sha": "10bd4cdf49d9686d48214be9d579a9cdfda37c68", "source": "GHSA reference; 0.x line (v0.2.1), not applicable to 1.2.x"}
+      ],
+      "methodExercised": "version_diff",
+      "notes": "No function named. setKey is nested inside the anonymous default export (module.exports = function (args, opts)); the public symbol is the module itself. Two referenced commits belong to different release lines, so the tool must pick or report both."
+    },
+    {
+      "id": "c07",
+      "vulnerabilityId": "CVE-2022-24999",
+      "aliases": ["GHSA-hrpp-h998-j3pp"],
+      "package": "qs",
+      "vulnerableVersion": "6.10.2",
+      "fixedVersion": "6.10.3",
+      "purl": "pkg:npm/qs@6.10.2",
+      "advisoryNamesFunction": false,
+      "advisoryNamedSymbols": [],
+      "expectedChangedFunctions": ["parseObject"],
+      "expectedPublicSymbols": ["parse"],
+      "fixCommits": [
+        {"repo": "ljharb/qs", "sha": "4310742efbd8c03f6495f07906b45213da0a32ec", "source": "GHSA reference"},
+        {"repo": "ljharb/qs", "sha": "727ef5d34605108acb3513f72d5435972ed15b68", "source": "GHSA reference; backport, identical hunk"}
+      ],
+      "methodExercised": "version_diff",
+      "notes": "No function named. One-line fix in lib/parse.js inside `var parseObject = function parseObjectRecursive(...)`, which has two names. The public entry is qs.parse in lib/index.js, a different file, so in-file alias resolution cannot bridge it."
+    },
+    {
+      "id": "c08",
+      "vulnerabilityId": "CVE-2022-0235",
+      "aliases": ["GHSA-r683-j2x4-v87g"],
+      "package": "node-fetch",
+      "vulnerableVersion": "2.6.6",
+      "fixedVersion": "2.6.7",
+      "purl": "pkg:npm/node-fetch@2.6.6",
+      "advisoryNamesFunction": false,
+      "advisoryNamedSymbols": [],
+      "expectedChangedFunctions": ["fetch", "isDomainOrSubdomain"],
+      "expectedPublicSymbols": ["default"],
+      "fixCommits": [
+        {"repo": "node-fetch/node-fetch", "sha": "1ef4b560a17e644a02a3bfdea7631ffeee578b35", "source": "GHSA reference; 2.x backport of #1449 and the v2.6.7 tag"},
+        {"repo": "node-fetch/node-fetch", "sha": "5c32f002fdd65b1c6a8f1e3620210813d45c7e60", "source": "GHSA reference; 3.x fix, not the installed line"},
+        {"repo": "node-fetch/node-fetch", "sha": "36e47e8a6406185921e4985dcbeff140d73eaa10", "source": "GHSA reference; 3.1.1 release commit, changes CHANGELOG and package.json only"}
+      ],
+      "methodExercised": "version_diff",
+      "notes": "No function named. Three referenced commits: one is the real 2.x fix, one is the 3.x fix, one changes no code at all. The npm tarball ships only the compiled lib/index.js bundle, so version_diff inspects generated code."
+    },
+    {
+      "id": "c09",
+      "vulnerabilityId": "CVE-2021-3807",
+      "aliases": ["GHSA-93q8-gq69-wqmw"],
+      "package": "ansi-regex",
+      "vulnerableVersion": "5.0.0",
+      "fixedVersion": "5.0.1",
+      "purl": "pkg:npm/ansi-regex@5.0.0",
+      "advisoryNamesFunction": false,
+      "advisoryNamedSymbols": [],
+      "expectedChangedFunctions": ["default"],
+      "expectedPublicSymbols": ["default"],
+      "fixCommits": [
+        {"repo": "chalk/ansi-regex", "sha": "419250fa510bf31b4cc672e76537a64f9332e1f1", "source": "GHSA reference; 5.x line (5.0.1)"},
+        {"repo": "chalk/ansi-regex", "sha": "8d1d7cdb586269882c4bdc1b7325d0c58c8f76f9", "source": "GHSA reference; 6.x line"},
+        {"repo": "chalk/ansi-regex", "sha": "75a657da7af875b2e2724fd6331bf0a4b23d3c9a", "source": "GHSA reference; 4.x line"}
+      ],
+      "methodExercised": "version_diff",
+      "notes": "No function named. The whole package is one anonymous arrow function assigned to module.exports; the fix changes a regex string inside it. Tests the 'default' symbol convention and per-release-line commit selection."
+    },
+    {
+      "id": "c10",
+      "vulnerabilityId": "CVE-2022-38900",
+      "aliases": ["GHSA-w573-4hg7-7wgq"],
+      "package": "decode-uri-component",
+      "vulnerableVersion": "0.2.0",
+      "fixedVersion": "0.2.1",
+      "purl": "pkg:npm/decode-uri-component@0.2.0",
+      "advisoryNamesFunction": false,
+      "advisoryNamedSymbols": [],
+      "expectedChangedFunctions": ["decodeComponents", "decode"],
+      "expectedPublicSymbols": ["default"],
+      "fixCommits": [{"repo": "SamVerschueren/decode-uri-component", "sha": "746ca5dcb6667c5d364e782d53c542830e4c10b9", "source": "GHSA reference"}],
+      "methodExercised": "version_diff",
+      "notes": "No function named. Two private helpers change; the public symbol is the anonymous module.exports function that calls them via customDecodeURIComponent."
+    }
+  ],
+  "dropped": [
+    {"vulnerabilityId": "CVE-2020-7774", "package": "y18n", "reason": "Two fix commits across three release lines with different internal structure; no single defensible changed-function set without deeper reading than the budget allowed."},
+    {"vulnerabilityId": "CVE-2021-32803", "package": "tar", "reason": "Fix spans three commits and a directory-cache state machine; expected function set not defensible."},
+    {"vulnerabilityId": "CVE-2020-28168", "package": "axios", "reason": "Already used as the contract fixture case (find-002); kept out of the evaluation set so the fixture does not grade itself."}
+  ]
+}
