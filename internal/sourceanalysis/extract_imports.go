@@ -486,14 +486,6 @@ func appendDynamicImport(
 		)
 	}
 
-	local := ""
-	if declarator := nearestAncestorByType(call, "variable_declarator"); declarator != nil {
-		if name := declarator.ChildByFieldName("name"); name != nil &&
-			name.Kind() == "identifier" {
-			local = name.Utf8Text(source)
-		}
-	}
-
 	argument := firstNamedChild(arguments)
 	if argument == nil {
 		return fmt.Errorf("dynamic import has no argument")
@@ -515,18 +507,40 @@ func appendDynamicImport(
 		kind = "dynamic_static_literal"
 	}
 
-	result.Imports = append(
-		result.Imports,
-		Import{
-			Specifier: specifier,
-			Kind:      kind,
-			Local:     local,
-			Imported:  "*",
-			TypeOnly:  false,
-			Line:      line,
-			Column:    column,
-		},
-	)
+	bindings, unresolvedUse := dynamicImportBindings(call, source)
+	scopeEndLine, scopeEndColumn := 0, 0
+	if scope := dynamicBindingScope(call); scope != nil {
+		scopeEndLine, scopeEndColumn = nodeEndLocation(source, scope)
+	}
+	if computed {
+		// A computed import already keeps every package in the repository
+		// from reading as unused; only a whole-module name is useful here.
+		unresolvedUse = ""
+		if len(bindings) != 1 || bindings[0].imported != "*" {
+			bindings = nil
+		}
+	}
+	if len(bindings) == 0 {
+		bindings = []dynamicBinding{{imported: "*"}}
+	}
+	for _, binding := range bindings {
+		result.Imports = append(
+			result.Imports,
+			Import{
+				Specifier:             specifier,
+				Kind:                  kind,
+				Local:                 binding.local,
+				Imported:              binding.imported,
+				TypeOnly:              false,
+				Line:                  line,
+				Column:                column,
+				UnresolvedUse:         unresolvedUse,
+				BindingScopeEndLine:   scopeEndLine,
+				BindingScopeEndColumn: scopeEndColumn,
+			},
+		)
+		unresolvedUse = ""
+	}
 
 	result.Calls = append(
 		result.Calls,
@@ -553,4 +567,112 @@ func appendDynamicImport(
 	}
 
 	return nil
+}
+
+// A block-scoped import binding is visible only up to this boundary.
+// Loop headers and switch bodies also limit visibility. Restricting var
+// assignments here can lose a real edge, which is the safe direction.
+func dynamicBindingScope(call *treesitter.Node) *treesitter.Node {
+	for node := call.Parent(); node != nil; node = node.Parent() {
+		switch node.Kind() {
+		case "statement_block", "for_statement", "for_in_statement", "switch_body":
+			return node
+		}
+	}
+	return nil
+}
+
+type dynamicBinding struct {
+	local    string
+	imported string
+}
+
+// dynamicImportBindings works out what an import() call binds. Only an
+// awaited import yields the module itself:
+//
+//	const m = await import("pkg")          -> m is the namespace
+//	const { merge, a: b } = await import() -> named bindings
+//	m = await import("pkg")                -> m is the namespace
+//	await import("pkg"); / import("pkg");  -> loaded for side effects only
+//
+// Anything else (a promise kept in a variable, .then(...), an argument) lets
+// the module escape static tracking, so it is reported as an unresolved use.
+func dynamicImportBindings(
+	call *treesitter.Node,
+	source []byte,
+) ([]dynamicBinding, string) {
+	const escaped = "outside_supported_syntax"
+
+	value := call
+	awaited := false
+	if parent := call.Parent(); parent != nil && parent.Kind() == "await_expression" {
+		value = parent
+		awaited = true
+	}
+	parent := value.Parent()
+	if parent == nil {
+		return nil, escaped
+	}
+
+	switch {
+	case parent.Kind() == "expression_statement":
+		return nil, ""
+
+	case awaited && parent.Kind() == "variable_declarator" &&
+		sameNode(parent.ChildByFieldName("value"), value):
+		name := parent.ChildByFieldName("name")
+		if name == nil {
+			return nil, escaped
+		}
+		switch name.Kind() {
+		case "identifier":
+			return []dynamicBinding{{local: name.Utf8Text(source), imported: "*"}}, ""
+		case "object_pattern":
+			return objectPatternBindings(name, source)
+		}
+		return nil, escaped
+
+	case awaited && parent.Kind() == "assignment_expression" &&
+		sameNode(parent.ChildByFieldName("right"), value):
+		if left := parent.ChildByFieldName("left"); left != nil && left.Kind() == "identifier" {
+			return []dynamicBinding{{local: left.Utf8Text(source), imported: "*"}}, ""
+		}
+	}
+	return nil, escaped
+}
+
+// objectPatternBindings reads { a, b: c } destructuring. Defaults, nested
+// patterns and rest elements are not tracked, so any of them adds an
+// unresolved use alongside the names that were read.
+func objectPatternBindings(
+	pattern *treesitter.Node,
+	source []byte,
+) ([]dynamicBinding, string) {
+	bindings := []dynamicBinding{}
+	unresolvedUse := ""
+	for index := uint(0); index < pattern.NamedChildCount(); index++ {
+		child := pattern.NamedChild(index)
+		if child == nil {
+			continue
+		}
+		switch child.Kind() {
+		case "shorthand_property_identifier_pattern":
+			name := child.Utf8Text(source)
+			bindings = append(bindings, dynamicBinding{local: name, imported: name})
+			continue
+		case "pair_pattern":
+			key := child.ChildByFieldName("key")
+			value := child.ChildByFieldName("value")
+			if key != nil && value != nil && value.Kind() == "identifier" &&
+				(key.Kind() == "property_identifier" || key.Kind() == "identifier") {
+				bindings = append(bindings, dynamicBinding{
+					local:    value.Utf8Text(source),
+					imported: key.Utf8Text(source),
+				})
+				continue
+			}
+		}
+		unresolvedUse = "outside_supported_syntax"
+	}
+	return bindings, unresolvedUse
 }

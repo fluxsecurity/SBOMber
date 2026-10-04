@@ -41,6 +41,10 @@ type Import struct {
 	// graph records one unresolved call site for it so downstream components
 	// cannot read the import as unused. Internal only.
 	UnresolvedUse string `json:"-"`
+	// BindingScopeEnd bounds a dynamic import binding to its lexical block.
+	// Zero means the binding is at module level or has no block boundary.
+	BindingScopeEndLine   int `json:"-"`
+	BindingScopeEndColumn int `json:"-"`
 }
 
 type Call struct {

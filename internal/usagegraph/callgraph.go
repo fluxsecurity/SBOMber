@@ -34,6 +34,7 @@ func buildApplicationCallGraph(
 		map[sourceFileID]map[string][]sourceanalysis.FunctionID,
 	)
 	scopes := make(map[sourceanalysis.FunctionID]declarationScope)
+	aliases := make(map[string][]PathAlias)
 	seenRepositories := make(map[string]struct{})
 
 	for _, repository := range repositories {
@@ -49,6 +50,7 @@ func buildApplicationCallGraph(
 			)
 		}
 		seenRepositories[repository.RepositoryID] = struct{}{}
+		aliases[repository.RepositoryID] = repository.PathAliases
 
 		for _, file := range repository.Result.Files {
 			filePath := path.Clean(file.Path)
@@ -141,6 +143,7 @@ func buildApplicationCallGraph(
 				functionsByName,
 				exportsByName,
 				scopes,
+				aliases[fileID.repositoryID],
 			)
 			if len(targets) != 1 {
 				continue
@@ -176,6 +179,7 @@ func resolveApplicationCallTargets(
 	functionsByName map[sourceFileID]map[string][]sourceanalysis.FunctionID,
 	exportsByName map[sourceFileID]map[string][]sourceanalysis.FunctionID,
 	scopes map[sourceanalysis.FunctionID]declarationScope,
+	aliases []PathAlias,
 ) []sourceanalysis.FunctionID {
 	candidates := make(map[sourceanalysis.FunctionID]struct{})
 	callee := *call.Callee
@@ -194,15 +198,21 @@ func resolveApplicationCallTargets(
 			imported,
 			call,
 		)
-		if !matches || !isRelativeSpecifier(imported.Specifier) {
+		if !matches || !dynamicImportVisible(result, imported, call) {
 			continue
 		}
 
-		targetFile, ok := resolveRelativeSourceFile(
-			fileID,
-			imported.Specifier,
-			files,
-		)
+		var targetFile sourceFileID
+		var ok bool
+		if isRelativeSpecifier(imported.Specifier) {
+			targetFile, ok = resolveRelativeSourceFile(
+				fileID,
+				imported.Specifier,
+				files,
+			)
+		} else if bases, aliased := matchPathAlias(aliases, imported.Specifier); aliased {
+			targetFile, ok = resolveAliasSourceFile(fileID, bases, files)
+		}
 		if !ok {
 			continue
 		}
@@ -243,7 +253,13 @@ func importedApplicationCall(
 			}
 			return imported.Imported, true
 
-		case "esm_default", "cjs_require", "dynamic_static_literal":
+		case "dynamic_static_literal":
+			if imported.Imported != "" && imported.Imported != "*" {
+				return imported.Imported, true
+			}
+			return "default", true
+
+		case "esm_default", "cjs_require":
 			return "default", true
 		}
 
@@ -257,6 +273,12 @@ func importedApplicationCall(
 	switch imported.Kind {
 	case "esm_namespace", "cjs_require":
 		return *call.Callee, true
+	case "dynamic_static_literal":
+		// const server = await import("./server"); server.start()
+		if imported.Imported == "*" {
+			return *call.Callee, true
+		}
+		return "", false
 	default:
 		return "", false
 	}
@@ -276,7 +298,38 @@ func resolveRelativeSourceFile(
 	if base == ".." || strings.HasPrefix(base, "../") {
 		return sourceFileID{}, false
 	}
+	return resolveSourceBase(current, base, files)
+}
 
+// resolveAliasSourceFile resolves a tsconfig path alias. Several targets may
+// be listed; the call resolves only if exactly one file matches across them.
+func resolveAliasSourceFile(
+	current sourceFileID,
+	bases []string,
+	files map[sourceFileID]sourceanalysis.Result,
+) (sourceFileID, bool) {
+	var matched sourceFileID
+	found := false
+	for _, base := range bases {
+		target, ok := resolveSourceBase(current, base, files)
+		if !ok {
+			continue
+		}
+		if found && target != matched {
+			return sourceFileID{}, false
+		}
+		matched, found = target, true
+	}
+	return matched, found
+}
+
+// resolveSourceBase finds the single analysed file a module path names,
+// trying the source extensions and index files as Node and TypeScript do.
+func resolveSourceBase(
+	current sourceFileID,
+	base string,
+	files map[sourceFileID]sourceanalysis.Result,
+) (sourceFileID, bool) {
 	candidatePaths := make([]string, 0, 16)
 	if isSupportedSourceExtension(path.Ext(base)) {
 		candidatePaths = append(candidatePaths, base)

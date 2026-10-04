@@ -156,7 +156,7 @@
         "filesParsedWithErrors": {
           "type": "integer",
           "minimum": 0,
-          "description": "Parsed to a usable tree containing error nodes. Evidence from these files is real but the file is not fully covered."
+          "description": "Parsed, but the tree contains syntax errors. No usage evidence is extracted from these files, and they make the analysis partial."
         },
         "filesFailed": { "type": "integer", "minimum": 0, "description": "No usable tree. Listed in parseFailures." },
         "filesSkipped": {
