@@ -23,3 +23,13 @@
 The exporter defaults to the application subject (R5 rule 1) through `vex.DefaultSubject`. That stays until #128 is decided. `--subject package` produces the shape the consumers act on.
 
 Grype runs with `GRYPE_DB_AUTO_UPDATE=false GRYPE_DB_VALIDATE_AGE=false`, so all runs use the same local DB. Its build date is in `environment.txt`.
+
+## On real Component 4 output
+
+`run-real-decide.sh` runs the real join (`sbomber decide`, PR #142) on the
+contract sample inputs and feeds its `decision-results.json` straight into
+`sbomber vex`, with no adapter. Results in `results/s5-07/real-decide/`:
+the decide output passes `contracts/validate.py`, and both subject modes are
+valid OpenVEX 0.2.0. Under the agreed join rule (#139) `find-002` (axios) is
+`unknown`, not `no_usage_detected` — its localisation set is open — so it is
+exported as `under_investigation`.

@@ -1,0 +1,195 @@
+{
+  "schemaVersion": "1.1.0",
+  "scanId": "scan-2026-08-12-0001",
+  "distribution": {
+    "totalFindings": 4,
+    "usageDetected": 1,
+    "noUsageDetected": 0,
+    "unknown": 3,
+    "unsupported": 0
+  },
+  "decisions": [
+    {
+      "findingId": "find-001",
+      "vulnerabilityId": "CVE-2021-23337",
+      "purl": "pkg:npm/lodash@4.17.20",
+      "state": "usage_detected",
+      "analysisConfidence": "high",
+      "confidenceCriteria": [
+        "localisation method advisory_metadata",
+        "parse coverage 100.0 percent",
+        "no unresolved imports for this package",
+        "no unresolved call sites for this package",
+        "agreement between independent deterministic methods"
+      ],
+      "riskPriority": {
+        "band": "act_now",
+        "severity": "high",
+        "cvssScore": 7.2,
+        "epssScore": 0.0142,
+        "cisaKev": false,
+        "relationship": "direct",
+        "fixAvailable": true
+      },
+      "justification": "The application calls template, which localisation names as a candidate or a public entry point to one.",
+      "basedOn": {
+        "usageObservationIds": [
+          "obs-001",
+          "obs-002",
+          "obs-004"
+        ],
+        "localisationMethod": "advisory_metadata",
+        "localisationConfidence": "high",
+        "matchedSymbols": [
+          "template"
+        ],
+        "evidenceLevel": 3,
+        "coverageSummary": {
+          "parseCoveragePercent": 100,
+          "unresolvedImportsInScope": 0,
+          "scanStatus": "complete"
+        }
+      },
+      "remediation": {
+        "reportedFixedVersion": "4.17.21",
+        "resolvesFindingIds": [
+          "find-001"
+        ]
+      },
+      "vexMapping": {
+        "statement": "affected",
+        "actionStatement": "Upgrade lodash to 4.17.21 or later."
+      }
+    },
+    {
+      "findingId": "find-002",
+      "vulnerabilityId": "CVE-2020-28168",
+      "purl": "pkg:npm/axios@0.21.0",
+      "state": "unknown",
+      "analysisConfidence": "medium",
+      "confidenceCriteria": [
+        "localisation method version_diff",
+        "parse coverage 100.0 percent",
+        "1 unresolved call site(s) for this package",
+        "no second deterministic method available to corroborate"
+      ],
+      "riskPriority": {
+        "band": "insufficient_information",
+        "severity": "medium",
+        "cvssScore": 5.9,
+        "epssScore": 0.0031,
+        "cisaKev": false,
+        "relationship": "direct",
+        "fixAvailable": true
+      },
+      "justification": "A call on this package at src/api/dispatch.js:24 could not be resolved (computed_member_access) and could reach a candidate function. Localised to an internal function with no resolved public entry point (localisation 1.0.0 does not record whether isURLSameOrigin and redirect is public or internal).",
+      "basedOn": {
+        "usageObservationIds": [
+          "obs-003",
+          "obs-005"
+        ],
+        "localisationMethod": "version_diff",
+        "localisationConfidence": "medium",
+        "matchedSymbols": [],
+        "evidenceLevel": 2,
+        "coverageSummary": {
+          "parseCoveragePercent": 100,
+          "unresolvedImportsInScope": 0,
+          "scanStatus": "complete"
+        }
+      },
+      "remediation": {
+        "reportedFixedVersion": "0.21.1",
+        "resolvesFindingIds": [
+          "find-002"
+        ]
+      },
+      "vexMapping": {
+        "statement": "under_investigation"
+      }
+    },
+    {
+      "findingId": "find-003",
+      "vulnerabilityId": "CVE-2021-44906",
+      "purl": "pkg:npm/minimist@1.2.5",
+      "state": "unknown",
+      "analysisConfidence": "low",
+      "confidenceCriteria": [
+        "localisation method unknown",
+        "no reliable candidate symbol to evaluate"
+      ],
+      "riskPriority": {
+        "band": "insufficient_information",
+        "severity": "critical",
+        "cvssScore": 9.8,
+        "epssScore": 0.0087,
+        "cisaKev": false,
+        "relationship": "transitive",
+        "fixAvailable": true
+      },
+      "justification": "Localisation could not name a candidate function to compare against usage evidence.",
+      "basedOn": {
+        "usageObservationIds": [],
+        "localisationMethod": "unknown",
+        "localisationConfidence": "none",
+        "matchedSymbols": [],
+        "coverageSummary": {
+          "parseCoveragePercent": 100,
+          "unresolvedImportsInScope": 0,
+          "scanStatus": "complete"
+        }
+      },
+      "remediation": {
+        "reportedFixedVersion": "1.2.6",
+        "resolvesFindingIds": [
+          "find-003"
+        ]
+      },
+      "vexMapping": {
+        "statement": "under_investigation"
+      }
+    },
+    {
+      "findingId": "find-004",
+      "vulnerabilityId": "CVE-2019-10744",
+      "purl": "pkg:npm/lodash@3.10.1",
+      "state": "unknown",
+      "analysisConfidence": "medium",
+      "confidenceCriteria": [
+        "localisation method patch_reference",
+        "parse coverage 100.0 percent",
+        "no second deterministic method available to corroborate"
+      ],
+      "riskPriority": {
+        "band": "insufficient_information",
+        "severity": "critical",
+        "cvssScore": 9.1,
+        "epssScore": 0.0203,
+        "cisaKev": false,
+        "relationship": "transitive",
+        "fixAvailable": true
+      },
+      "justification": "A package occurrence for this finding is nested under a dependency, whose internals are not parsed.",
+      "basedOn": {
+        "usageObservationIds": [],
+        "localisationMethod": "patch_reference",
+        "localisationConfidence": "high",
+        "matchedSymbols": [],
+        "coverageSummary": {
+          "parseCoveragePercent": 100,
+          "unresolvedImportsInScope": 0,
+          "scanStatus": "complete"
+        }
+      },
+      "remediation": {
+        "reportedFixedVersion": "4.17.12",
+        "resolvesFindingIds": [
+          "find-004"
+        ]
+      },
+      "vexMapping": {
+        "statement": "under_investigation"
+      }
+    }
+  ]
+}
