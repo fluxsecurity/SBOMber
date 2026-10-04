@@ -33,6 +33,7 @@ import (
 	"github.com/Xsamsx/SBOMber/internal/ruby"
 	"github.com/Xsamsx/SBOMber/internal/sbom"
 	"github.com/Xsamsx/SBOMber/internal/verify"
+	"github.com/Xsamsx/SBOMber/internal/vex"
 	"github.com/Xsamsx/SBOMber/internal/vulnerability"
 )
 
@@ -103,6 +104,8 @@ func Main(args []string, stdin io.Reader, stdout io.Writer, stderr io.Writer) in
 		return runDiff(args[1:], stdout, stderr)
 	case "localise", "localize":
 		return runLocalise(args[1:], stdout, stderr)
+	case "vex":
+		return runVEX(args[1:], stdout, stderr)
 	case "demo":
 		return runDemo(stdout, stderr)
 	case "help", "--help", "-h":
@@ -1764,6 +1767,7 @@ Usage:
   sbomber verify <ground-truth-sbom> <generated-sbom> [--json]
   sbomber diff <old-sbom> <new-sbom> [--no-color]
   sbomber localise --canonical-scan <canonical-scan.json> [--out localisation.json] [--trace trace.json]
+  sbomber vex --decisions <decision-results.json> [--canonical-scan <file>] [--subject application|package] [--product <id>] [--out vex.openvex.json]
   sbomber version
 
 Scan Flags:
@@ -1799,6 +1803,17 @@ Localise Flags (Component 3: which function does an advisory implicate?):
   --max-tarball-mb <n>                  npm tarball download limit (default: 30)
   --timeout <duration>                  overall time budget (default: 15m)
   GITHUB_TOKEN                          environment variable used for GitHub API requests
+
+VEX Flags (Component 3: OpenVEX 0.2.0 from decision-results.json):
+  --decisions <file>                    decision-results.json produced by the decision engine (required)
+  --canonical-scan <file>               repository commit for the application subject, and alias IDs
+  --subject application|package         statement product (default: application)
+                                          application: the repository at its commit, package as subcomponent
+                                          package: the package purl, the shape Grype and Trivy act on
+  --product <id>                        application product @id override, e.g. pkg:github/org/repo@<sha>
+  --out <file>                          OpenVEX document to write (default: vex.openvex.json)
+  usage_detected -> affected, no_usage_detected and unknown -> under_investigation,
+  unsupported -> omitted. not_affected is never produced automatically.
 
 Examples:
   sbomber
@@ -1933,6 +1948,64 @@ func runLocalise(args []string, stdout io.Writer, stderr io.Writer) int {
 	if ctx.Err() != nil {
 		_, _ = fmt.Fprintf(stderr, "Warning: time budget exhausted; later findings may be unknown for that reason\n")
 	}
+	return 0
+}
+
+// runVEX reads decision-results.json and writes an OpenVEX document. The
+// status mapping lives in internal/vex.Map; this only wires files to it.
+func runVEX(args []string, stdout io.Writer, stderr io.Writer) int {
+	fs := flag.NewFlagSet("vex", flag.ContinueOnError)
+	fs.SetOutput(stderr)
+	in := fs.String("decisions", "", "decision-results.json to read (required)")
+	scanPath := fs.String("canonical-scan", "", "canonical-scan.json for the repository identity and alias IDs")
+	subjectFlag := fs.String("subject", string(vex.DefaultSubject), "statement product: application or package")
+	product := fs.String("product", "", "application product @id override")
+	out := fs.String("out", "vex.openvex.json", "OpenVEX document to write")
+
+	if err := fs.Parse(args); err != nil {
+		return flagErrorCode(err)
+	}
+	if *in == "" {
+		_, _ = fmt.Fprintf(stderr, "Usage: sbomber vex --decisions <decision-results.json> [--canonical-scan <file>] [--subject application|package] [--product <id>] [--out vex.openvex.json]\n")
+		return 2
+	}
+	subject, err := vex.ParseSubject(*subjectFlag)
+	if err != nil {
+		_, _ = fmt.Fprintf(stderr, "Error: %v\n", err)
+		return 2
+	}
+	dr, err := vex.LoadDecisionResults(*in)
+	if err != nil {
+		_, _ = fmt.Fprintf(stderr, "Error: %v\n", err)
+		return 2
+	}
+	opts := vex.Options{Subject: subject, Product: *product, Tooling: "sbomber " + version}
+	if *scanPath != "" {
+		if opts.Scan, err = vex.LoadCanonicalScan(*scanPath); err != nil {
+			_, _ = fmt.Fprintf(stderr, "Error: %v\n", err)
+			return 2
+		}
+	}
+
+	res, err := vex.Export(dr, opts)
+	if err != nil {
+		_, _ = fmt.Fprintf(stderr, "Error: %v\n", err)
+		return 2
+	}
+	s := res.Summary
+	_, _ = fmt.Fprintf(stdout, "OpenVEX from %s (%s subject): %d decision(s), %d affected, %d under_investigation, %d not_affected (manual), %d omitted\n",
+		dr.ScanID, subject, s.Decisions, s.Affected, s.UnderInvestigation, s.NotAffected, s.Omitted)
+	if s.Omitted > 0 {
+		_, _ = fmt.Fprintf(stdout, "  omitted as unsupported, still shown in the report: %s\n", strings.Join(s.OmittedFindingIDs, ", "))
+	}
+	if subject == vex.SubjectApplication {
+		_, _ = fmt.Fprintf(stdout, "  note: Grype 0.112.0 and Trivy 0.70.0 do not act on application-scoped statements (issue #128); use --subject package for a document those consumers act on\n")
+	}
+	if err := writeJSONFile(*out, res.Document); err != nil {
+		_, _ = fmt.Fprintf(stderr, "Error: %v\n", err)
+		return 2
+	}
+	_, _ = fmt.Fprintf(stdout, "Wrote %s\n", *out)
 	return 0
 }
 
