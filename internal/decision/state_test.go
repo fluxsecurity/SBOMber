@@ -62,15 +62,18 @@ func TestDetermineState_FailureOrUnknownPath_LocalisationUnknown(t *testing.T) {
 	}
 }
 
-// TestDetermineState_Success_NoUsageDetected mirrors find-002: axios 0.21.0,
-// analysis completed, no unanalysed occurrences, and no resolved evidence
-// matching the candidates. This is the ONLY combination of inputs that may
-// legally produce no_usage_detected.
+// TestDetermineState_Success_NoUsageDetected: analysis completed, source
+// files discovered, no unanalysed occurrences, no relevant unresolved
+// import or call, a closed candidate set, and no resolved evidence matching
+// a join key. This is the ONLY combination of inputs that may legally
+// produce no_usage_detected (#119 rules 3-6, #139 rule 4).
 func TestDetermineState_Success_NoUsageDetected(t *testing.T) {
 	got := DetermineState(StateInputs{
 		AnalysisStatus:           AnalysisComplete,
 		LocalisationMethod:       LocalisationVersionDiff,
 		HasResolvedUsageEvidence: false,
+		FilesDiscovered:          142,
+		CandidateSetClosed:       true,
 	})
 
 	if got.State != StateNoUsageDetected {
