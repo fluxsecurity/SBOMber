@@ -351,7 +351,11 @@ func whyText(s Section, findings []PackageFinding, kevElsewhere int) string {
 			parts = append(parts, "CISA KEV-listed (known exploited)")
 		}
 		if kevElsewhere > 0 {
-			parts = append(parts, fmt.Sprintf("%s listed under %q CISA KEV-listed (known exploited)", plural(kevElsewhere, "finding"), string(SectionNoDirectUsage)))
+			verb := "is"
+			if kevElsewhere > 1 {
+				verb = "are"
+			}
+			parts = append(parts, fmt.Sprintf("%s listed under %q %s CISA KEV-listed (known exploited)", plural(kevElsewhere, "finding"), string(SectionNoDirectUsage), verb))
 		}
 	case SectionInsufficientInfo:
 		parts = append(parts, fmt.Sprintf("SBOMber could not determine usage for %s", plural(undetermined, "finding")))

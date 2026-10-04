@@ -127,7 +127,13 @@ func findingTags(f PackageFinding) []string {
 	if f.Severity != "" {
 		tags = append(tags, f.Severity)
 	}
-	tags = append(tags, fmt.Sprintf("EPSS %.4f", f.EPSSScore))
+	// decision-results.json omits epssScore when EPSS was unavailable,
+	// which decodes as 0 here; show that as not reported, never as a score.
+	if f.EPSSScore > 0 {
+		tags = append(tags, fmt.Sprintf("EPSS %.4f", f.EPSSScore))
+	} else {
+		tags = append(tags, "EPSS not reported")
+	}
 	if f.CISAKev {
 		tags = append(tags, "KEV")
 	}
