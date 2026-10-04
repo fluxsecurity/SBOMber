@@ -19,7 +19,9 @@ func RenderText(r Report) string {
 	if r.Coverage.Incomplete() {
 		fmt.Fprintf(&b, "\n%s\n", incompleteBanner(r.Coverage))
 	}
-	if findingCount(r) == 0 {
+	if r.FilterDescription != "" {
+		fmt.Fprintf(&b, "\n%s\n", filterLine(r))
+	} else if findingCount(r) == 0 {
 		b.WriteString("\nNo findings were listed in this decision-results file.\n")
 	}
 
@@ -34,7 +36,9 @@ func RenderText(r Report) string {
 		case SectionNoDirectUsage:
 			fmt.Fprintf(&b, "%s\n", noDirectUsageNote)
 		}
-		if len(sg.Groups) == 0 {
+		if sg.Hidden > 0 {
+			fmt.Fprintf(&b, "\n%s\n", hiddenLine(sg.Hidden))
+		} else if len(sg.Groups) == 0 {
 			b.WriteString("\nNo findings in this section.\n")
 		}
 		for _, pg := range sg.Groups {

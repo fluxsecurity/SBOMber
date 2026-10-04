@@ -20,15 +20,21 @@ func RenderHTML(r Report) (string, error) {
 		ScanID:       r.ScanID,
 		Incomplete:   r.Coverage.Incomplete(),
 		Banner:       incompleteBanner(r.Coverage),
-		NoFindings:   findingCount(r) == 0,
+		NoFindings:   r.FilterDescription == "" && findingCount(r) == 0,
 		CoverageHead: "Analysis coverage",
 		Coverage:     coverageLines(r.Coverage),
+	}
+	if r.FilterDescription != "" {
+		view.FilterLine = filterLine(r)
 	}
 	for _, sg := range r.Sections {
 		sv := htmlSection{
 			ID:      sectionID(sg.Section),
 			Class:   sectionClass(sg.Section),
 			Heading: string(sg.Section),
+		}
+		if sg.Hidden > 0 {
+			sv.Hidden = hiddenLine(sg.Hidden)
 		}
 		switch sg.Section {
 		case SectionInsufficientInfo:
@@ -82,6 +88,7 @@ type htmlView struct {
 	Incomplete   bool
 	Banner       string
 	NoFindings   bool
+	FilterLine   string
 	CoverageHead string
 	Coverage     []string
 	Sections     []htmlSection
@@ -93,6 +100,7 @@ type htmlSection struct {
 	Heading      string
 	Note         string
 	ShowCoverage bool
+	Hidden       string
 	Groups       []htmlGroup
 }
 
@@ -213,6 +221,7 @@ td.id { white-space: nowrap; font-family: ui-monospace, SFMono-Regular, Menlo, m
 <p class="scan">{{.ScanID}}</p>
 {{if .Incomplete}}<p class="banner">{{.Banner}}</p>{{end}}
 {{if .NoFindings}}<p>No findings were listed in this decision-results file.</p>{{end}}
+{{if .FilterLine}}<p class="banner">{{.FilterLine}}</p>{{end}}
 <nav aria-label="Sections"><ul>
 {{range .Sections}}<li><a href="#{{.ID}}">{{.Heading}}</a></li>
 {{end}}</ul></nav>
@@ -223,7 +232,7 @@ td.id { white-space: nowrap; font-family: ui-monospace, SFMono-Regular, Menlo, m
 {{if .ShowCoverage}}<div class="coverage"><h3>{{$.CoverageHead}}</h3><ul>
 {{range $.Coverage}}<li>{{.}}</li>
 {{end}}</ul></div>{{end}}
-{{if not .Groups}}<p class="empty">No findings in this section.</p>{{end}}
+{{if .Hidden}}<p class="empty">{{.Hidden}}</p>{{else if not .Groups}}<p class="empty">No findings in this section.</p>{{end}}
 {{range .Groups}}
 <article>
 <h3>{{.PURL}}{{if .InstalledVersion}} <span class="meta">installed {{.InstalledVersion}}</span>{{end}}{{if .Relationship}} <span class="meta">[{{.Relationship}}]</span>{{end}}</h3>

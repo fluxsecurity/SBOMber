@@ -121,6 +121,10 @@ type Report struct {
 	// Coverage is the usage-graph.json coverage the verdicts rest on, or
 	// nil when the report was built without it (which the report says).
 	Coverage *Coverage
+	// FilterDescription and TotalBeforeFilter are set by Apply; empty and
+	// zero for an unfiltered report.
+	FilterDescription string
+	TotalBeforeFilter int
 }
 
 // SectionGroup is one section heading plus the package entries filed under
@@ -129,6 +133,8 @@ type Report struct {
 type SectionGroup struct {
 	Section Section
 	Groups  []PackageGroup
+	// Hidden is how many of this section's findings a filter hid.
+	Hidden int
 }
 
 // BuildReport groups a decision-results.json payload by package using its

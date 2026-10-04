@@ -10,7 +10,7 @@ import (
 	"github.com/Xsamsx/SBOMber/internal/report"
 )
 
-const reportUsage = "Usage: sbomber report --decision-results <decision-results.json> [--usage-graph <usage-graph.json>] [--format html|text] [--out <file>|-]\n"
+const reportUsage = "Usage: sbomber report --decision-results <decision-results.json> [--usage-graph <usage-graph.json>] [--format html|text] [--out <file>|-] [--section ...] [--band ...] [--state ...] [--package ...]\n"
 
 // defaultHTMLReport is where the HTML report goes when --out is not given.
 const defaultHTMLReport = "remediation-report.html"
@@ -31,6 +31,10 @@ func runReport(args []string, stdout io.Writer, stderr io.Writer) int {
 	ugPath := fs.String("usage-graph", "", "usage-graph.json the decisions rest on (shows analysis coverage)")
 	format := fs.String("format", "html", "output format: html or text")
 	out := fs.String("out", "", "file to write, or - for stdout (default: "+defaultHTMLReport+" for html, stdout for text)")
+	sections := fs.String("section", "", "show only these sections (comma-separated): update-first, insufficient-information, no-direct-usage, lower-priority")
+	bands := fs.String("band", "", "show only these risk bands (comma-separated): act_now, lower_priority, insufficient_information")
+	states := fs.String("state", "", "show only these states (comma-separated): usage_detected, no_usage_detected, unknown, unsupported")
+	packages := fs.String("package", "", "show only packages whose purl contains one of these (comma-separated)")
 
 	if err := fs.Parse(args); err != nil {
 		return flagErrorCode(err)
@@ -66,6 +70,18 @@ func runReport(args []string, stdout io.Writer, stderr io.Writer) int {
 		_, _ = fmt.Fprintf(stderr, "Warning: no --usage-graph; the report states that analysis coverage was not provided\n")
 	}
 
+	filter := report.Filter{
+		Sections: report.ParseList(*sections),
+		Bands:    report.ParseList(*bands),
+		States:   report.ParseList(*states),
+		Packages: report.ParseList(*packages),
+	}
+	if err := filter.Validate(); err != nil {
+		_, _ = fmt.Fprintf(stderr, "Error: %v\n", err)
+		return 2
+	}
+	r = r.Apply(filter)
+
 	var body string
 	if *format == "html" {
 		body, err = report.RenderHTML(r)
@@ -97,6 +113,10 @@ func runReport(args []string, stdout io.Writer, stderr io.Writer) int {
 	for _, c := range r.FindingCounts() {
 		parts = append(parts, fmt.Sprintf("%d %s", c.Findings, c.Section))
 	}
-	_, _ = fmt.Fprintf(stdout, "Wrote %s for %s: %s\n", dest, dr.ScanID, strings.Join(parts, "; "))
+	suffix := ""
+	if filter.Active() {
+		suffix = " (filtered view: " + filter.String() + ")"
+	}
+	_, _ = fmt.Fprintf(stdout, "Wrote %s for %s: %s%s\n", dest, dr.ScanID, strings.Join(parts, "; "), suffix)
 	return 0
 }

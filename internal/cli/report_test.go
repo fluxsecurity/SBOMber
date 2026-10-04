@@ -120,3 +120,29 @@ func TestReport_InputErrors(t *testing.T) {
 		}
 	}
 }
+
+func TestReport_Filters(t *testing.T) {
+	dr := decideSample(t)
+	code, stdout, stderr := runReportCmd(t, "--decision-results", dr, "--format", "text",
+		"--usage-graph", contractFixtures+"usage-graph.sample.json", "--state", "unknown")
+	if code != 0 {
+		t.Fatalf("exit %d, stderr: %s", code, stderr)
+	}
+	if !strings.Contains(stdout, "showing 3 of 4 finding(s)") {
+		t.Errorf("filtered text report missing the filter line:\n%s", stdout)
+	}
+	if !strings.Contains(stdout, "1 finding in this section hidden by the filter.") {
+		t.Errorf("filtered text report missing the hidden count:\n%s", stdout)
+	}
+
+	for name, args := range map[string][]string{
+		"bad section": {"--section", "Update first"},
+		"bad band":    {"--band", "urgent"},
+		"bad state":   {"--state", "safe"},
+	} {
+		code, _, _ := runReportCmd(t, append([]string{"--decision-results", dr}, args...)...)
+		if code != 2 {
+			t.Errorf("%s: exit %d, want 2", name, code)
+		}
+	}
+}

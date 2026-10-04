@@ -310,9 +310,11 @@ func TestBuildReport_UngroupedDecisionIsListed(t *testing.T) {
 // Component 4's decision text (linted by internal/decision), so a test can
 // check only the wording this package writes.
 func withoutJustifications(r Report) Report {
-	out := Report{ScanID: r.ScanID}
+	out := r
+	out.Sections = nil
 	for _, sg := range r.Sections {
-		nsg := SectionGroup{Section: sg.Section}
+		nsg := sg
+		nsg.Groups = nil
 		for _, pg := range sg.Groups {
 			fs := append([]PackageFinding(nil), pg.Findings...)
 			for i := range fs {

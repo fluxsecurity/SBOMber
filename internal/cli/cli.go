@@ -1772,7 +1772,7 @@ Usage:
   sbomber localise --canonical-scan <canonical-scan.json> [--out localisation.json] [--trace trace.json]
   sbomber usage --canonical-scan <canonical-scan.json> [--out usage-graph.json] [--entry file:function]
   sbomber decide --canonical-scan <file> --usage-graph <file> --localisation <file> [--out decision-results.json]
-  sbomber report --decision-results <file> [--usage-graph <file>] [--format html|text] [--out <file>|-]
+  sbomber report --decision-results <file> [--usage-graph <file>] [--format html|text] [--out <file>|-] [filters]
   sbomber version
 
 Scan Flags:
@@ -1832,6 +1832,13 @@ Report Flags (Component 4: which package to update first, why, and what it fixes
   --format html|text                    output format (default: html)
   --out <file>|-                        file to write, - for stdout (default: remediation-report.html
                                         for html, stdout for text)
+  --section <ids>                       only these sections: update-first, insufficient-information,
+                                        no-direct-usage, lower-priority (comma-separated)
+  --band <bands>                        only these bands: act_now, lower_priority, insufficient_information
+  --state <states>                      only these states: usage_detected, no_usage_detected, unknown,
+                                        unsupported
+  --package <text>                      only packages whose purl contains this (comma-separated)
+                                        Filters change the view only; the report says how many findings they hid.
 
 Examples:
   sbomber
