@@ -1,14 +1,19 @@
 name: SBOMber scan (reference)
 
 # Reference workflow for consumers of ./action.yml: check out the
-# repository to scan, then run the SBOMber action against it. Runs here on
-# pushes to main and on demand, so the action is continuously validated
-# against SBOMber's own repository as well as documented as an example.
+# repository to scan, then run the SBOMber action against it. Runs on pushes
+# to main, on demand, and on any PR that touches the action itself — so
+# changes to action.yml are validated against a real Actions runner before
+# merging, without this becoming a gate on unrelated PRs.
 
 on:
   push:
     branches:
       - main
+  pull_request:
+    paths:
+      - "action.yml"
+      - ".github/workflows/sbomber-scan.yml"
   workflow_dispatch:
 
 jobs:
