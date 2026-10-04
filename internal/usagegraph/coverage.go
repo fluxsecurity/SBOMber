@@ -119,7 +119,7 @@ type Options struct {
 }
 
 // Result is the portion of usage-graph.json built by coverage reporting.
-// ScopeExclusions remains internal because the v1.3.0 public contract has no
+// ScopeExclusions remains internal because the v1.4.0 public contract has no
 // directory-exclusion array.
 type Result struct {
 	Analysis        Analysis         `json:"analysis"`
@@ -161,7 +161,7 @@ func Build(repositories []RepositoryInput, observations []ObservationInput, opti
 
 	seenRepositories := make(map[string]struct{}, len(repositories))
 	limitSet := make(map[string]struct{})
-	partial := false
+	partial := len(repositories) == 0
 
 	for _, repository := range repositories {
 		if repository.RepositoryID == "" {
@@ -222,6 +222,10 @@ func Build(repositories []RepositoryInput, observations []ObservationInput, opti
 			perRepository.FilesParsedWithErrors +
 			perRepository.FilesFailed +
 			perRepository.FilesSkipped
+
+		if perRepository.FilesDiscovered == 0 {
+			partial = true
+		}
 
 		result.Coverage.FilesDiscovered += perRepository.FilesDiscovered
 		result.Coverage.FilesParsed += perRepository.FilesParsed
@@ -303,6 +307,9 @@ func Build(repositories []RepositoryInput, observations []ObservationInput, opti
 
 	if partial {
 		result.Analysis.Status = AnalysisPartial
+	}
+	if result.Coverage.FilesDiscovered == 0 {
+		result.Analysis.ReasonCode = "no_source_files"
 	}
 
 	return result, nil

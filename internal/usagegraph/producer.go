@@ -176,10 +176,13 @@ func buildUnanalysedOccurrences(
 		} else if !repositoryAnalysed {
 			reason = "excluded_by_limits"
 			detail = "repository source was not analysed in this run"
+			if coverage.Analysis.ReasonCode == "no_source_files" {
+				reason = "no_source_files"
+			}
 		} else if _, empty := emptyRepositories[input.RepositoryID]; empty {
-			// Nothing was parsed, so "no import found" would rest on no
-			// evidence at all (#121 acceptance case 6).
-			reason = "excluded_by_limits"
+			// No source was discovered, so absence of imports cannot
+			// support a negative finding (#121 acceptance case 6).
+			reason = "no_source_files"
 			detail = "no JavaScript or TypeScript source files were found in the repository"
 		} else if _, couldBeImported := ambiguous[occurrence.OccurrenceID]; couldBeImported {
 			reason = "ambiguous_occurrence"

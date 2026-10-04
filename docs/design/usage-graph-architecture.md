@@ -11,7 +11,7 @@ where statically resolvable, a call path may connect a recognised application
 entry point to a third-party call site.
 
 Component 2 consumes the agreed `canonical-scan.json` contract and produces
-the agreed `usage-graph.json` 1.3.0 contract.
+the agreed `usage-graph.json` 1.4.0 contract.
 
 It does not consume vulnerability findings or localisation results and does
 not decide whether a vulnerability affects the application. Those joins and
@@ -24,7 +24,7 @@ The project uses versioned JSON contract fixtures so that components can be
 developed independently.
 
 Component 2 consumes `canonical-scan.json` 1.0.0 and produces
-`usage-graph.json` 1.3.0.
+`usage-graph.json` 1.4.0.
 
 Component 2 can therefore work against the agreed canonical-scan fixture
 without waiting for the production Component 1 exporter.
@@ -49,7 +49,7 @@ fixed versions or vulnerable-function localisation.
 
 ### Output
 
-Component 2 produces `usage-graph.json` schema version `1.3.0`.
+Component 2 produces `usage-graph.json` schema version `1.4.0`.
 
 The root output contains:
 
@@ -108,7 +108,7 @@ objects remain internal.
 
 The usage-graph producer resolves extracted imports against package
 occurrences supplied by `canonical-scan.json` and converts the internal
-representation into the agreed `usage-graph.json` 1.3.0 structure.
+representation into the agreed `usage-graph.json` 1.4.0 structure.
 
 This separation allows the parser implementation to change without requiring
 Component 4 to change its input contract.
@@ -156,9 +156,10 @@ verified before the production adapter work.
   listed as `excluded_by_limits`. If no repository has local source, the graph
   has status `unsupported` with reason code `no_local_source`.
 - Packages from other ecosystems are listed as `ecosystem_unsupported`.
-- A repository with no JavaScript or TypeScript source files lists its npm
-  packages as `excluded_by_limits`, so zero files parsed can never support
-  `no_usage_detected`.
+- A repository with no discovered JavaScript or TypeScript source files makes
+  analysis `partial` and lists its npm packages as `no_source_files`. The CLI
+  writes the graph and exits 2, or exits 0 with `--allow-partial`. The status
+  and reason remain partial and blocking even when that flag is used.
 - The root `tsconfig.json` `compilerOptions.paths` (and `baseUrl`) are read.
   An import that matches an alias and no inventory package is the
   application's own code: it is not reported as a package, and call edges
@@ -196,7 +197,7 @@ must be verified directly before the Candidate A adapter is accepted.
 ## 6. Import and alias representation
 
 Component 2 records imports using the public representation defined by
-`usage-graph.json` 1.3.0.
+`usage-graph.json` 1.4.0.
 
 Supported import kinds are:
 
@@ -315,7 +316,10 @@ found" from "this occurrence was never or could not be analysed".
 Supported reasons are:
 
 - `nested_under_dependency`;
+- `ambiguous_occurrence`;
+- `computed_specifier`;
 - `not_imported_by_analysed_source`;
+- `no_source_files`;
 - `ecosystem_unsupported`;
 - `import_site_parse_failed`;
 - `excluded_by_limits`.
@@ -731,13 +735,13 @@ conclusion.
 Component 2 targets the agreed project contracts:
 
 - `canonical-scan.json` 1.0.0 as its upstream identity contract;
-- `usage-graph.json` 1.3.0 as its public output contract.
+- `usage-graph.json` 1.4.0 as its public output contract.
 
 The shared fixtures define the interface used during independent Sprint 4
 development. Component 2 does not wait for another component's production
 implementation before working against that interface.
 
-The 1.3.0 usage graph keeps reachability on individual call sites and requires
+The 1.4.0 usage graph keeps reachability on individual call sites and requires
 canonical package occurrences to be explicitly accounted for through either
 `observations` or `unanalysedOccurrences`.
 
@@ -761,3 +765,15 @@ production code. Coverage aggregation derives file, import, call-site and
 reachability counters plus parser metadata for the public usage graph.
 Production package-occurrence resolution and reachability implementation are
 tracked separately and are not claimed complete by this architecture document.
+
+### Empty source scope (PR #135 review)
+
+A repository with zero discovered in-scope source files makes the analysis
+`partial`; unmatched direct occurrences in that repository use `no_source_files`.
+This reason always blocks a negative finding. If the whole scan discovers zero
+files, `analysis.reasonCode` is also `no_source_files`. No file counts or scan
+limits are invented. A clean repository alongside an empty one cannot hide the
+empty scope. The additive reason changes the usage-graph contract to 1.4.0.
+
+The reachability safety tests exercise the production multi-source path index.
+The per-target search remains a reference for explicit equivalence tests only.

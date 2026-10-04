@@ -1,6 +1,6 @@
 # SBOMber contracts
 
-**Schema versions: `canonical-scan` 1.0.0 · `usage-graph` 1.3.0 · `localisation` 1.0.0 · `decision-results` 1.1.0**
+**Schema versions: `canonical-scan` 1.0.0 · `usage-graph` 1.4.0 · `localisation` 1.0.0 · `decision-results` 1.1.0**
 
 Four JSON contracts. Each component reads and writes **files**, never another component's running code — that is what lets four people build in parallel and integrate in Sprint 5 instead of queueing behind each other.
 
@@ -96,6 +96,7 @@ Schema conformance is the easy half. These are the rules a JSON Schema cannot ex
 - Localisation `unknown` cannot produce `no_usage_detected`; it produces `unknown`
 - Justification text cannot contain "not affected", "is safe", "no risk" or "false positive"
 - Distribution counts must match the decisions
+- **Empty source scope:** a repository with zero discovered in-scope files makes analysis `partial`. Unmatched direct occurrences in that repository carry `no_source_files`, which always blocks `no_usage_detected`. An entirely empty scan also has `analysis.reasonCode: no_source_files`.
 - **A negative verdict requires that component 2 actually looked.** `no_usage_detected` is forbidden where the finding's occurrence was reported unanalysed for any reason other than `not_imported_by_analysed_source`
 
 **Honesty**

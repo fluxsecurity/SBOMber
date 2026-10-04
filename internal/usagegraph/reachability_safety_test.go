@@ -52,7 +52,7 @@ function helper() {}
 			Name:         "helper",
 			StartLine:    line,
 		}
-		if _, path, ok := graph.pathTo(entryPoints, target); ok || len(path) != 0 {
+		if _, path, ok := graph.pathsFrom(entryPoints).pathTo(target); ok || len(path) != 0 {
 			t.Fatalf("ambiguous call resolved to line %d: %+v", line, path)
 		}
 	}
@@ -76,7 +76,7 @@ func TestZeroEntryPointsHasNoPath(t *testing.T) {
 		Name:         "handleRequest",
 		StartLine:    3,
 	}
-	if _, path, ok := graph.pathTo(nil, target); ok || len(path) != 0 {
+	if _, path, ok := graph.pathsFrom(nil).pathTo(target); ok || len(path) != 0 {
 		t.Fatalf("zero entry points produced a path: %+v", path)
 	}
 }
@@ -130,7 +130,7 @@ func TestPathSelectionIsDeterministic(t *testing.T) {
 		{entryB, entryA},
 		{entryA, entryB},
 	} {
-		entryPoint, path, ok := graph.pathTo(entryPoints, target)
+		entryPoint, path, ok := graph.pathsFrom(entryPoints).pathTo(target)
 		if !ok {
 			t.Fatal("expected a path to target")
 		}

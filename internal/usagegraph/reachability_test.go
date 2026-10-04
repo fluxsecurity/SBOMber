@@ -58,7 +58,7 @@ func TestFrozenReachabilityPath(t *testing.T) {
 		Name:         "handleRequest",
 		StartLine:    3,
 	}
-	entryPoint, path, ok := graph.pathTo(entryPoints, target)
+	entryPoint, path, ok := graph.pathsFrom(entryPoints).pathTo(target)
 	if !ok {
 		t.Fatal("expected a resolved path to handleRequest")
 	}
@@ -97,7 +97,7 @@ func TestFrozenDisconnectedCallHasNoPath(t *testing.T) {
 		Name:         "orphanHelper",
 		StartLine:    3,
 	}
-	if _, path, ok := graph.pathTo(entryPoints, target); ok || len(path) != 0 {
+	if _, path, ok := graph.pathsFrom(entryPoints).pathTo(target); ok || len(path) != 0 {
 		t.Fatalf("disconnected function received path: %+v", path)
 	}
 }
@@ -154,7 +154,7 @@ function helper(input) {
 		Name:         "helper",
 		StartLine:    5,
 	}
-	if _, path, ok := graph.pathTo(entryPoints, target); ok || len(path) != 0 {
+	if _, path, ok := graph.pathsFrom(entryPoints).pathTo(target); ok || len(path) != 0 {
 		t.Fatalf("bare reference created a call-graph path: %+v", path)
 	}
 }

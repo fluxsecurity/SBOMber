@@ -345,15 +345,36 @@ func TestUsageCommandZeroSourceFilesIsNotNegative(t *testing.T) {
 		[]usageOcc{{"occ-lodash", "pkg:npm/lodash@4.17.21", "repo-app", "direct"}})
 	out := filepath.Join(dir, "usage-graph.json")
 
-	if code, _, stderr := runUsageCommand(t, "--canonical-scan", scan, "--out", out); code != 0 {
-		t.Fatalf("exit %d, stderr %s", code, stderr)
-	}
-	graph := readUsageGraph(t, out)
-	if graph.Coverage.FilesDiscovered != 0 {
-		t.Fatalf("files discovered = %d", graph.Coverage.FilesDiscovered)
-	}
-	if reason := unanalysedReasons(graph)["occ-lodash"]; reason == "not_imported_by_analysed_source" || reason == "" {
-		t.Fatalf("zero source files produced reason %q", reason)
+	for _, test := range []struct {
+		name string
+		args []string
+		want int
+	}{
+		{name: "default", want: 2},
+		{name: "allow partial", args: []string{"--allow-partial"}, want: 0},
+		{name: "without reachability", args: []string{"--no-reachability"}, want: 2},
+		{name: "allow partial without reachability", args: []string{"--allow-partial", "--no-reachability"}, want: 0},
+	} {
+		t.Run(test.name, func(t *testing.T) {
+			args := append([]string{"--canonical-scan", scan, "--out", out}, test.args...)
+			code, _, stderr := runUsageCommand(t, args...)
+			if code != test.want {
+				t.Fatalf("exit %d, want %d; stderr %s", code, test.want, stderr)
+			}
+			graph := readUsageGraph(t, out)
+			if graph.Analysis.Status != usagegraph.AnalysisPartial ||
+				graph.Analysis.ReasonCode != "no_source_files" ||
+				graph.Coverage.FilesDiscovered != 0 ||
+				unanalysedReasons(graph)["occ-lodash"] != "no_source_files" {
+				t.Fatalf("empty source graph = %+v", graph)
+			}
+			if graph.SchemaVersion != "1.4.0" {
+				t.Fatalf("schema version = %q, want 1.4.0", graph.SchemaVersion)
+			}
+			if test.want == 2 && !strings.Contains(stderr, "Analysis is partial") {
+				t.Fatalf("partial exit omitted its explanation: %q", stderr)
+			}
+		})
 	}
 }
 
@@ -382,5 +403,45 @@ func TestUsageCommandReadsTSConfigAliases(t *testing.T) {
 	code, _, stderr := runUsageCommand(t, "--canonical-scan", scan, "--out", out)
 	if code != 0 || !strings.Contains(stderr, "path aliases ignored") {
 		t.Fatalf("exit %d, stderr %q", code, stderr)
+	}
+}
+
+func TestUsageCommandEmptyRepositoryAlongsideReachableSource(t *testing.T) {
+	dir := t.TempDir()
+	writeUsageSource(t, filepath.Join(dir, "app"), map[string]string{
+		"index.js": "import { merge } from 'lodash';\nexport function main() { return merge({}, {}); }\n",
+	})
+	writeUsageSource(t, filepath.Join(dir, "empty"), map[string]string{
+		"package.json": `{"name":"empty"}`,
+	})
+	scan := writeUsageScan(t, dir,
+		[]usageRepo{{id: "repo-app", path: "app"}, {id: "repo-empty", path: "empty"}},
+		[]usageOcc{
+			{"occ-app", "pkg:npm/lodash@4.17.21", "repo-app", "direct"},
+			{"occ-empty", "pkg:npm/chalk@5.3.0", "repo-empty", "direct"},
+		})
+	out := filepath.Join(dir, "usage-graph.json")
+	for _, allowPartial := range []bool{false, true} {
+		args := []string{"--canonical-scan", scan, "--out", out}
+		want := 2
+		if allowPartial {
+			args = append(args, "--allow-partial")
+			want = 0
+		}
+		code, _, stderr := runUsageCommand(t, args...)
+		if code != want {
+			t.Fatalf("exit %d, want %d; stderr %s", code, want, stderr)
+		}
+		graph := readUsageGraph(t, out)
+		if graph.Analysis.Status != usagegraph.AnalysisPartial ||
+			graph.Coverage.FilesDiscovered != 1 || graph.Coverage.FilesParsed != 1 ||
+			unanalysedReasons(graph)["occ-empty"] != "no_source_files" {
+			t.Fatalf("mixed repository graph = %+v", graph)
+		}
+		if len(graph.Observations) != 1 || graph.Observations[0].OccurrenceID != "occ-app" ||
+			len(graph.Observations[0].CallSites) != 1 ||
+			graph.Observations[0].CallSites[0].Reachability != usagegraph.Reachable {
+			t.Fatalf("positive evidence lost: %+v", graph.Observations)
+		}
 	}
 }
