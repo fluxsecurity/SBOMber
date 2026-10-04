@@ -1,0 +1,23 @@
+SBOM Verification Note
+======================
+Generated:     2026-08-16 13:48:39
+Ground truth:  ground-truth.json
+Generated SBOM:generated.json
+
+Scores
+------
+Precision         100.0%
+Recall            100.0%
+F1 Score          100.0%
+Version Accuracy  100.0%
+
+Grade: A+  (Excellent)
+
+Components
+----------
+Ground truth : 3
+Generated    : 3
+Matched      : 3
+Missing      : 0
+Extra        : 0
+Version delta: 0
