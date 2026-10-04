@@ -1,0 +1,389 @@
+{
+  "set": "S4-18 localisation evaluation cases",
+  "tag": "localisation-set-v1",
+  "frozenAt": "2026-10-04",
+  "groundTruthFixedAt": "2026-09-06",
+  "casesFile": "cases/cases.json",
+  "casesSha256": "461ebc12548ee5babe01470a6e9c3ea5a4146eab7c65d342b7512fc2de728123",
+  "caseCount": 10,
+  "rule": "cases.json is frozen. Any change to an expected answer is a new set with a new tag, never an edit to this one.",
+  "cases": [
+    {
+      "id": "c01",
+      "vulnerabilityId": "CVE-2021-23337",
+      "purl": "pkg:npm/lodash@4.17.20",
+      "expectedChangedFunctions": [
+        "template"
+      ],
+      "expectedPublicSymbols": [
+        "template"
+      ],
+      "answerSource": [
+        {
+          "repo": "lodash/lodash",
+          "sha": "3469357cff396a26c363f8c1b5a91dde28ba4b1c",
+          "source": "GHSA reference"
+        }
+      ],
+      "artefacts": [
+        {
+          "version": "4.17.20",
+          "tarball": "https://registry.npmjs.org/lodash/-/lodash-4.17.20.tgz",
+          "integrity": "sha512-PlhdFcillOINfeV7Ni6oF1TAEayyZBoZ8bcshTHqOYJYlrqzRK5hagpagky5o4HfCzzd1TRkXPMFq6cKk9rGmA==",
+          "shasum": "b44a9b6297bcb698f1c51a3545a2b3b368d59c52",
+          "gitHead": "f2e7063ee409ff40a60b14370c58dceee1a2efd4"
+        },
+        {
+          "version": "4.17.21",
+          "tarball": "https://registry.npmjs.org/lodash/-/lodash-4.17.21.tgz",
+          "integrity": "sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==",
+          "shasum": "679591c564c3bffaae8454cf0b3df370c3d6911c",
+          "gitHead": "c6e281b878b315c7a10d90f9c2af4cdb112d9625"
+        }
+      ]
+    },
+    {
+      "id": "c02",
+      "vulnerabilityId": "CVE-2018-16487",
+      "purl": "pkg:npm/lodash@4.17.4",
+      "expectedChangedFunctions": [
+        "safeGet"
+      ],
+      "expectedPublicSymbols": [
+        "merge",
+        "mergeWith",
+        "defaultsDeep"
+      ],
+      "answerSource": [
+        {
+          "repo": "lodash/lodash",
+          "sha": "90e6199a161b6445b01454517b40ef65ebecd2ad",
+          "source": "GHSA reference"
+        }
+      ],
+      "artefacts": [
+        {
+          "version": "4.17.4",
+          "tarball": "https://registry.npmjs.org/lodash/-/lodash-4.17.4.tgz",
+          "integrity": "sha512-6X37Sq9KCpLSXEh8uM12AKYlviHPNNk4RxiGBn4cmKGJinbXBneWIV7iE/nXkM928O7ytHcHb6+X6Svl0f4hXg==",
+          "shasum": "78203a4d1c328ae1d86dca6460e369b57f4055ae"
+        },
+        {
+          "version": "4.17.11",
+          "tarball": "https://registry.npmjs.org/lodash/-/lodash-4.17.11.tgz",
+          "integrity": "sha512-cQKh8igo5QUhZ7lg38DYWAxMvjSAKG0A8wGSVimP07SIUEK2UO+arSRKbRZWtelMtN5V0Hkwh5ryOto/SshYIg==",
+          "shasum": "b39ea6229ef607ecd89e2c8df12536891cac9b8d"
+        }
+      ]
+    },
+    {
+      "id": "c03",
+      "vulnerabilityId": "CVE-2019-10744",
+      "purl": "pkg:npm/lodash@4.17.11",
+      "expectedChangedFunctions": [
+        "safeGet"
+      ],
+      "expectedPublicSymbols": [
+        "defaultsDeep"
+      ],
+      "answerSource": [
+        {
+          "repo": "lodash/lodash",
+          "sha": "a01e4fa727e7294cb7b2845570ba96b206926790",
+          "source": "GHSA references pull request lodash/lodash#4336; single commit"
+        }
+      ],
+      "artefacts": [
+        {
+          "version": "4.17.11",
+          "tarball": "https://registry.npmjs.org/lodash/-/lodash-4.17.11.tgz",
+          "integrity": "sha512-cQKh8igo5QUhZ7lg38DYWAxMvjSAKG0A8wGSVimP07SIUEK2UO+arSRKbRZWtelMtN5V0Hkwh5ryOto/SshYIg==",
+          "shasum": "b39ea6229ef607ecd89e2c8df12536891cac9b8d"
+        },
+        {
+          "version": "4.17.12",
+          "tarball": "https://registry.npmjs.org/lodash/-/lodash-4.17.12.tgz",
+          "integrity": "sha512-+CiwtLnsJhX03p20mwXuvhoebatoh5B3tt+VvYlrPgZC1g36y+RRbkufX95Xa+X4I59aWEacDFYwnJZiyBh9gA==",
+          "shasum": "a712c74fdc31f7ecb20fe44f157d802d208097ef"
+        }
+      ]
+    },
+    {
+      "id": "c04",
+      "vulnerabilityId": "CVE-2020-7788",
+      "purl": "pkg:npm/ini@1.3.5",
+      "expectedChangedFunctions": [
+        "decode"
+      ],
+      "expectedPublicSymbols": [
+        "parse",
+        "decode"
+      ],
+      "answerSource": [
+        {
+          "repo": "npm/ini",
+          "sha": "56d2805e07ccd94e2ba0984ac9240ff02d44b6f1",
+          "source": "GHSA reference"
+        }
+      ],
+      "artefacts": [
+        {
+          "version": "1.3.5",
+          "tarball": "https://registry.npmjs.org/ini/-/ini-1.3.5.tgz",
+          "integrity": "sha512-RZY5huIKCMRWDUqZlEi72f/lmXKMvuszcMBduliQ3nnWbx9X/ZBQO7DijMEYS9EhHBb2qacRUMtC7svLwe0lcw==",
+          "shasum": "eee25f56db1c9ec6085e0c22778083f596abf927",
+          "gitHead": "738eca59d77d8cfdddf5c477c17a0d8f8fbfe0fd"
+        },
+        {
+          "version": "1.3.6",
+          "tarball": "https://registry.npmjs.org/ini/-/ini-1.3.6.tgz",
+          "integrity": "sha512-IZUoxEjNjubzrmvzZU4lKP7OnYmX72XRl3sqkfJhBKweKi5rnGi5+IUdlj/H1M+Ip5JQ1WzaDMOBRY90Ajc5jg==",
+          "shasum": "f1c46a2a93a253e7b3905115e74d527cd23061a1",
+          "gitHead": "2da90391ef70db41d10f013e3a87f9a8c5d01a72"
+        }
+      ]
+    },
+    {
+      "id": "c05",
+      "vulnerabilityId": "CVE-2022-25883",
+      "purl": "pkg:npm/semver@7.5.1",
+      "expectedChangedFunctions": [
+        "Range",
+        "format",
+        "parseRange",
+        "replaceTildes",
+        "replaceCarets",
+        "replaceXRanges",
+        "Comparator"
+      ],
+      "expectedPublicSymbols": [
+        "Range"
+      ],
+      "answerSource": [
+        {
+          "repo": "npm/node-semver",
+          "sha": "717534ee353682f3bcf33e60a8af4292626d4441",
+          "source": "GHSA reference"
+        }
+      ],
+      "artefacts": [
+        {
+          "version": "7.5.1",
+          "tarball": "https://registry.npmjs.org/semver/-/semver-7.5.1.tgz",
+          "integrity": "sha512-Wvss5ivl8TMRZXXESstBA4uR5iXgEN/VC5/sOcuXdVLzcdkz4HWetIoRfG5gb5X+ij/G9rw9YoGn3QoQ8OCSpw==",
+          "shasum": "c90c4d631cf74720e46b21c1d37ea07edfab91ec",
+          "gitHead": "aa016a67162c195938f7873ea29a73dac47ff9ba"
+        },
+        {
+          "version": "7.5.2",
+          "tarball": "https://registry.npmjs.org/semver/-/semver-7.5.2.tgz",
+          "integrity": "sha512-SoftuTROv/cRjCze/scjGyiDtcUyxw1rgYQSZY7XTmtR5hX+dm76iDbTH8TkLPHCQmlbQVSSbNZCPM2hb0knnQ==",
+          "shasum": "5b851e66d1be07c1cdaf37dfc856f543325a2beb",
+          "gitHead": "e7b78de06eb14a7fa2075cedf9f167040d8d31af"
+        }
+      ]
+    },
+    {
+      "id": "c06",
+      "vulnerabilityId": "CVE-2020-7598",
+      "purl": "pkg:npm/minimist@1.2.2",
+      "expectedChangedFunctions": [
+        "setKey"
+      ],
+      "expectedPublicSymbols": [
+        "default"
+      ],
+      "answerSource": [
+        {
+          "repo": "minimistjs/minimist",
+          "sha": "38a4d1caead72ef99e824bb420a2528eec03d9ab",
+          "source": "GHSA reference; 1.x line"
+        },
+        {
+          "repo": "minimistjs/minimist",
+          "sha": "10bd4cdf49d9686d48214be9d579a9cdfda37c68",
+          "source": "GHSA reference; 0.x line (v0.2.1), not applicable to 1.2.x"
+        }
+      ],
+      "artefacts": [
+        {
+          "version": "1.2.2",
+          "tarball": "https://registry.npmjs.org/minimist/-/minimist-1.2.2.tgz",
+          "integrity": "sha512-rIqbOrKb8GJmx/5bc2M0QchhUouMXSpd1RTclXsB41JdL+VtnojfaJR+h7F9k18/4kHUsBFgk80Uk+q569vjPA==",
+          "shasum": "b00a00230a1108c48c169e69a291aafda3aacd63",
+          "gitHead": "f34df077a6b2bee1344188849a95e66777109e89"
+        },
+        {
+          "version": "1.2.3",
+          "tarball": "https://registry.npmjs.org/minimist/-/minimist-1.2.3.tgz",
+          "integrity": "sha512-+bMdgqjMN/Z77a6NlY/I3U5LlRDbnmaAk6lDveAPKwSpcPM4tKAuYsvYF8xjhOPXhOYGe/73vVLVez5PW+jqhw==",
+          "shasum": "3db5c0765545ab8637be71f333a104a965a9ca3f",
+          "gitHead": "6457d7440a47f329c12c4a5abfbce211c4235b93"
+        }
+      ]
+    },
+    {
+      "id": "c07",
+      "vulnerabilityId": "CVE-2022-24999",
+      "purl": "pkg:npm/qs@6.10.2",
+      "expectedChangedFunctions": [
+        "parseObject"
+      ],
+      "expectedPublicSymbols": [
+        "parse"
+      ],
+      "answerSource": [
+        {
+          "repo": "ljharb/qs",
+          "sha": "4310742efbd8c03f6495f07906b45213da0a32ec",
+          "source": "GHSA reference"
+        },
+        {
+          "repo": "ljharb/qs",
+          "sha": "727ef5d34605108acb3513f72d5435972ed15b68",
+          "source": "GHSA reference; backport, identical hunk"
+        }
+      ],
+      "artefacts": [
+        {
+          "version": "6.10.2",
+          "tarball": "https://registry.npmjs.org/qs/-/qs-6.10.2.tgz",
+          "integrity": "sha512-mSIdjzqznWgfd4pMii7sHtaYF8rx8861hBO80SraY5GT0XQibWZWJSid0avzHGkDIZLImux2S5mXO0Hfct2QCw==",
+          "shasum": "c1431bea37fc5b24c5bdbafa20f16bdf2a4b9ffe",
+          "gitHead": "408ff95f1ab94ea73027bc8a7443afb62d41a72d"
+        },
+        {
+          "version": "6.10.3",
+          "tarball": "https://registry.npmjs.org/qs/-/qs-6.10.3.tgz",
+          "integrity": "sha512-wr7M2E0OFRfIfJZjKGieI8lBKb7fRCH4Fv5KNPEs7gJ8jadvotdsS08PzOKR7opXhZ/Xkjtt3WF9g38drmyRqQ==",
+          "shasum": "d6cde1b2ffca87b5aa57889816c5f81535e22e8e",
+          "gitHead": "f92ddb56089ae2c74f5ca7b0447fef3a97e8c9bc"
+        }
+      ]
+    },
+    {
+      "id": "c08",
+      "vulnerabilityId": "CVE-2022-0235",
+      "purl": "pkg:npm/node-fetch@2.6.6",
+      "expectedChangedFunctions": [
+        "fetch",
+        "isDomainOrSubdomain"
+      ],
+      "expectedPublicSymbols": [
+        "default"
+      ],
+      "answerSource": [
+        {
+          "repo": "node-fetch/node-fetch",
+          "sha": "1ef4b560a17e644a02a3bfdea7631ffeee578b35",
+          "source": "GHSA reference; 2.x backport of #1449 and the v2.6.7 tag"
+        },
+        {
+          "repo": "node-fetch/node-fetch",
+          "sha": "5c32f002fdd65b1c6a8f1e3620210813d45c7e60",
+          "source": "GHSA reference; 3.x fix, not the installed line"
+        },
+        {
+          "repo": "node-fetch/node-fetch",
+          "sha": "36e47e8a6406185921e4985dcbeff140d73eaa10",
+          "source": "GHSA reference; 3.1.1 release commit, changes CHANGELOG and package.json only"
+        }
+      ],
+      "artefacts": [
+        {
+          "version": "2.6.6",
+          "tarball": "https://registry.npmjs.org/node-fetch/-/node-fetch-2.6.6.tgz",
+          "integrity": "sha512-Z8/6vRlTUChSdIgMa51jxQ4lrw/Jy5SOW10ObaA47/RElsAN2c5Pn8bTgFGWn/ibwzXTE8qwr1Yzx28vsecXEA==",
+          "shasum": "1751a7c01834e8e1697758732e9efb6eeadfaf89",
+          "gitHead": "f56b0c66d3dd2ef185436de1f2fd40f66bfea8f4"
+        },
+        {
+          "version": "2.6.7",
+          "tarball": "https://registry.npmjs.org/node-fetch/-/node-fetch-2.6.7.tgz",
+          "integrity": "sha512-ZjMPFEfVx5j+y2yF35Kzx5sF7kDzxuDj6ziH4FFbOp87zKDZNx8yExJIb05OGF4Nlt9IHFIMBkRl41VdvcNdbQ==",
+          "shasum": "24de9fba827e3b4ae44dc8b20256a379160052ad",
+          "gitHead": "1ef4b560a17e644a02a3bfdea7631ffeee578b35"
+        }
+      ]
+    },
+    {
+      "id": "c09",
+      "vulnerabilityId": "CVE-2021-3807",
+      "purl": "pkg:npm/ansi-regex@5.0.0",
+      "expectedChangedFunctions": [
+        "default"
+      ],
+      "expectedPublicSymbols": [
+        "default"
+      ],
+      "answerSource": [
+        {
+          "repo": "chalk/ansi-regex",
+          "sha": "419250fa510bf31b4cc672e76537a64f9332e1f1",
+          "source": "GHSA reference; 5.x line (5.0.1)"
+        },
+        {
+          "repo": "chalk/ansi-regex",
+          "sha": "8d1d7cdb586269882c4bdc1b7325d0c58c8f76f9",
+          "source": "GHSA reference; 6.x line"
+        },
+        {
+          "repo": "chalk/ansi-regex",
+          "sha": "75a657da7af875b2e2724fd6331bf0a4b23d3c9a",
+          "source": "GHSA reference; 4.x line"
+        }
+      ],
+      "artefacts": [
+        {
+          "version": "5.0.0",
+          "tarball": "https://registry.npmjs.org/ansi-regex/-/ansi-regex-5.0.0.tgz",
+          "integrity": "sha512-bY6fj56OUQ0hU1KjFNDQuJFezqKdrAyFdIevADiqrWHwSlbmBNMHp5ak2f40Pm8JTFyM2mqxkG6ngkHO11f/lg==",
+          "shasum": "388539f55179bf39339c81af30a654d69f87cb75",
+          "gitHead": "2b56fb0c7a07108e5b54241e8faec160d393aedb"
+        },
+        {
+          "version": "5.0.1",
+          "tarball": "https://registry.npmjs.org/ansi-regex/-/ansi-regex-5.0.1.tgz",
+          "integrity": "sha512-quJQXlTSUGL2LH9SUXo8VwsY4soanhgo6LNSm84E1LBcE8s3O0wpdiRzyR9z/ZZJMlMWv37qOOb9pdJlMUEKFQ==",
+          "shasum": "082cb2c89c9fe8659a311a53bd6a4dc5301db304",
+          "gitHead": "a9babce885cf19c363cf1d1c645f834592c3f7a4"
+        }
+      ]
+    },
+    {
+      "id": "c10",
+      "vulnerabilityId": "CVE-2022-38900",
+      "purl": "pkg:npm/decode-uri-component@0.2.0",
+      "expectedChangedFunctions": [
+        "decodeComponents",
+        "decode"
+      ],
+      "expectedPublicSymbols": [
+        "default"
+      ],
+      "answerSource": [
+        {
+          "repo": "SamVerschueren/decode-uri-component",
+          "sha": "746ca5dcb6667c5d364e782d53c542830e4c10b9",
+          "source": "GHSA reference"
+        }
+      ],
+      "artefacts": [
+        {
+          "version": "0.2.0",
+          "tarball": "https://registry.npmjs.org/decode-uri-component/-/decode-uri-component-0.2.0.tgz",
+          "integrity": "sha512-hjf+xovcEn31w/EUYdTXQh/8smFL/dzYjohQGEIgjyNavaJfBY2p5F527Bo1VPATxv0VYTUC2bOcXvqFwk78Og==",
+          "shasum": "eb3913333458775cb84cd1a1fae062106bb87545",
+          "gitHead": "52782a347527a6a05fed02434ffcf8f2ba1b19a3"
+        },
+        {
+          "version": "0.2.1",
+          "tarball": "https://registry.npmjs.org/decode-uri-component/-/decode-uri-component-0.2.1.tgz",
+          "integrity": "sha512-XZHyaFJ6QMWhYmlz+UcmtaLeecNiXwkTGzCqG5WByt+1P1HnU6Siwf0TeP3OsZmlnGqQRSEMIxue0LLCaGY3dw==",
+          "shasum": "e9d7afd716fc1a7ec6ae7cc0aa3e540a1eac2e9d",
+          "gitHead": "3c8a373dd4837e89b3f970e01295dd03e1405a33"
+        }
+      ]
+    }
+  ]
+}
