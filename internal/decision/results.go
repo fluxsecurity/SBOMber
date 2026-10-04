@@ -142,14 +142,7 @@ func BuildResults(scan CanonicalScan, graph UsageGraph, loc LocalisationReport) 
 		res.Decisions = append(res.Decisions, rd)
 	}
 
-	d := Tally(decisions)
-	res.Distribution = ResultsDistribution{
-		TotalFindings:   d.TotalFindings,
-		UsageDetected:   d.UsageDetected,
-		NoUsageDetected: d.NoUsageDetected,
-		Unknown:         d.Unknown,
-		Unsupported:     d.Unsupported,
-	}
+	res.Distribution = ResultsDistribution(Tally(decisions))
 	if res.Decisions == nil {
 		res.Decisions = []ResultDecision{}
 	}
