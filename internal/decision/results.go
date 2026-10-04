@@ -9,7 +9,7 @@ import (
 //
 // These types mirror contracts/decision-results.schema.json field for field
 // (additionalProperties is false there, so nothing extra may be emitted).
-// remediationGroups is S5-09's (#120) and is not produced here.
+// remediationGroups (S5-09, #120) is built in remediation.go.
 
 // ResultsSchemaVersion is decision-results.schema.json's const.
 const ResultsSchemaVersion = "1.1.0"
@@ -20,6 +20,8 @@ type Results struct {
 	ScanID        string              `json:"scanId"`
 	Distribution  ResultsDistribution `json:"distribution"`
 	Decisions     []ResultDecision    `json:"decisions"`
+
+	RemediationGroups []RemediationGroup `json:"remediationGroups,omitempty"`
 }
 
 // ResultsDistribution is the prioritisation distribution, not noise reduction.
@@ -146,6 +148,7 @@ func BuildResults(scan CanonicalScan, graph UsageGraph, loc LocalisationReport) 
 	if res.Decisions == nil {
 		res.Decisions = []ResultDecision{}
 	}
+	res.RemediationGroups = BuildRemediationGroups(res.Decisions, scan.Findings)
 	return res, nil
 }
 
@@ -232,7 +235,7 @@ func basedOn(e Evidence) BasedOn {
 
 // remediation records the scanner-reported fix and, conservatively, which
 // findings the same upgrade resolves: findings on the same purl reporting
-// the identical fixed version. Grouping by package is S5-09's job.
+// the identical fixed version. Grouping by package is BuildRemediationGroups.
 func remediation(f ScanFinding, all []ScanFinding) *ResultRemediation {
 	if f.FixedVersion == "" {
 		return nil
