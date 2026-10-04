@@ -15,8 +15,9 @@ This option requires CGO and native platform builds.
 
 Fallback: `gotreesitter` v0.51.0.
 
-Candidate B contains the working extraction prototype. Candidate A was
-selected for production, but its semantic adapter still needs implementation.
+Candidate B contains the original extraction prototype. Candidate A is the
+selected production parser and its semantic adapter is implemented in
+`internal/sourceanalysis`.
 
 ## Contents
 

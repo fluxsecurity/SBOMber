@@ -1,0 +1,453 @@
+{
+  "schemaVersion": "1.0.0",
+  "scanId": "scan-2026-09-06-localisation-eval",
+  "summary": {
+    "findingsProcessed": 10,
+    "byMethod": {
+      "patch_reference": 10
+    },
+    "unknownCount": 0
+  },
+  "results": [
+    {
+      "findingId": "c01",
+      "vulnerabilityId": "CVE-2021-23337",
+      "purl": "pkg:npm/lodash@4.17.20",
+      "method": "patch_reference",
+      "confidence": "high",
+      "candidateSymbols": [
+        {
+          "symbol": "template",
+          "modulePath": "lodash.js",
+          "changeKind": "modified",
+          "note": "nested in runInContext"
+        }
+      ],
+      "vulnerableVersion": "4.17.20",
+      "fixedVersion": "4.17.21",
+      "provenance": {
+        "advisorySource": "osv",
+        "advisoryUrl": "https://osv.dev/vulnerability/GHSA-35jh-r3h4-6jhm",
+        "patchCommit": "3469357cff396a26c363f8c1b5a91dde28ba4b1c",
+        "patchUrl": "https://github.com/lodash/lodash/commit/3469357cff396a26c363f8c1b5a91dde28ba4b1c"
+      },
+      "excludedChanges": [
+        "tests"
+      ],
+      "notes": "Selected patch_reference with 1 candidate symbol(s). advisory_metadata: empty. advisory_text: hit (1). version_diff: hit (18). Commit-message search for the vulnerability ID in lodash/lodash matched 1 commit(s)."
+    },
+    {
+      "findingId": "c02",
+      "vulnerabilityId": "CVE-2018-16487",
+      "purl": "pkg:npm/lodash@4.17.4",
+      "method": "patch_reference",
+      "confidence": "high",
+      "candidateSymbols": [
+        {
+          "symbol": "safeGet",
+          "modulePath": "lodash.js",
+          "changeKind": "modified",
+          "note": "nested in runInContext"
+        }
+      ],
+      "vulnerableVersion": "4.17.4",
+      "fixedVersion": "4.17.11",
+      "provenance": {
+        "advisorySource": "osv",
+        "advisoryUrl": "https://osv.dev/vulnerability/GHSA-4xc9-xhrj-v574",
+        "patchCommit": "90e6199a161b6445b01454517b40ef65ebecd2ad",
+        "patchUrl": "https://github.com/lodash/lodash/commit/90e6199a161b6445b01454517b40ef65ebecd2ad"
+      },
+      "excludedChanges": [
+        "tests"
+      ],
+      "notes": "Selected patch_reference with 1 candidate symbol(s). advisory_metadata: empty. advisory_text: hit (4). version_diff: hit (43). Commit-message search for the vulnerability ID in lodash/lodash matched 0 commit(s)."
+    },
+    {
+      "findingId": "c03",
+      "vulnerabilityId": "CVE-2019-10744",
+      "purl": "pkg:npm/lodash@4.17.11",
+      "method": "patch_reference",
+      "confidence": "high",
+      "candidateSymbols": [
+        {
+          "symbol": "safeGet",
+          "modulePath": "lodash.js",
+          "changeKind": "modified",
+          "note": "nested in runInContext"
+        }
+      ],
+      "vulnerableVersion": "4.17.11",
+      "fixedVersion": "4.17.12",
+      "provenance": {
+        "advisorySource": "osv",
+        "advisoryUrl": "https://osv.dev/vulnerability/GHSA-jf85-cpcp-j695",
+        "patchCommit": "a01e4fa727e7294cb7b2845570ba96b206926790",
+        "patchUrl": "https://github.com/lodash/lodash/commit/a01e4fa727e7294cb7b2845570ba96b206926790"
+      },
+      "excludedChanges": [
+        "tests"
+      ],
+      "notes": "Selected patch_reference with 1 candidate symbol(s). advisory_metadata: empty. advisory_text: hit (1). version_diff: hit (18). Commit-message search for the vulnerability ID in lodash/lodash matched 0 commit(s)."
+    },
+    {
+      "findingId": "c04",
+      "vulnerabilityId": "CVE-2020-7788",
+      "purl": "pkg:npm/ini@1.3.5",
+      "method": "patch_reference",
+      "confidence": "high",
+      "candidateSymbols": [
+        {
+          "symbol": "decode",
+          "modulePath": "ini.js",
+          "changeKind": "modified",
+          "note": "exported as parse, decode"
+        },
+        {
+          "symbol": "parse",
+          "modulePath": "ini.js",
+          "changeKind": "modified",
+          "note": "export alias of decode"
+        }
+      ],
+      "vulnerableVersion": "1.3.5",
+      "fixedVersion": "1.3.6",
+      "provenance": {
+        "advisorySource": "osv",
+        "advisoryUrl": "https://osv.dev/vulnerability/GHSA-qqgx-2p2h-9c37",
+        "patchCommit": "56d2805e07ccd94e2ba0984ac9240ff02d44b6f1",
+        "patchUrl": "https://github.com/npm/ini/commit/56d2805e07ccd94e2ba0984ac9240ff02d44b6f1"
+      },
+      "excludedChanges": [
+        "tests"
+      ],
+      "notes": "Selected patch_reference with 2 candidate symbol(s). advisory_metadata: empty. advisory_text: hit (1). version_diff: hit (2). Commit-message search for the vulnerability ID in npm/ini matched 0 commit(s)."
+    },
+    {
+      "findingId": "c05",
+      "vulnerabilityId": "CVE-2022-25883",
+      "purl": "pkg:npm/semver@7.5.1",
+      "method": "patch_reference",
+      "confidence": "low",
+      "candidateSymbols": [
+        {
+          "symbol": "makeSafeRe",
+          "modulePath": "semver.js",
+          "changeKind": "modified",
+          "note": "not exported from this file"
+        },
+        {
+          "symbol": "parse",
+          "modulePath": "semver.js",
+          "changeKind": "modified",
+          "note": "exported as parse"
+        },
+        {
+          "symbol": "SemVer",
+          "modulePath": "semver.js",
+          "changeKind": "modified",
+          "note": "exported as default, SemVer"
+        },
+        {
+          "symbol": "default",
+          "modulePath": "semver.js",
+          "changeKind": "modified",
+          "note": "export alias of SemVer"
+        },
+        {
+          "symbol": "Comparator",
+          "modulePath": "semver.js",
+          "changeKind": "modified",
+          "note": "exported as Comparator"
+        },
+        {
+          "symbol": "Range",
+          "modulePath": "semver.js",
+          "changeKind": "modified",
+          "note": "exported as Range"
+        },
+        {
+          "symbol": "parseRange",
+          "modulePath": "semver.js",
+          "changeKind": "modified",
+          "note": "not exported from this file"
+        },
+        {
+          "symbol": "replaceTilde",
+          "modulePath": "semver.js",
+          "changeKind": "modified",
+          "note": "not exported from this file"
+        },
+        {
+          "symbol": "replaceCaret",
+          "modulePath": "semver.js",
+          "changeKind": "modified",
+          "note": "not exported from this file"
+        },
+        {
+          "symbol": "replaceXRange",
+          "modulePath": "semver.js",
+          "changeKind": "modified",
+          "note": "not exported from this file"
+        },
+        {
+          "symbol": "replaceStars",
+          "modulePath": "semver.js",
+          "changeKind": "modified",
+          "note": "not exported from this file"
+        },
+        {
+          "symbol": "coerce",
+          "modulePath": "semver.js",
+          "changeKind": "modified",
+          "note": "exported as coerce"
+        },
+        {
+          "symbol": "constructor",
+          "modulePath": "classes/comparator.js",
+          "changeKind": "modified",
+          "note": "method of class Comparator"
+        },
+        {
+          "symbol": "constructor",
+          "modulePath": "classes/range.js",
+          "changeKind": "modified",
+          "note": "method of class Range"
+        },
+        {
+          "symbol": "format",
+          "modulePath": "classes/range.js",
+          "changeKind": "modified",
+          "note": "method of class Range"
+        },
+        {
+          "symbol": "replaceTildes",
+          "modulePath": "classes/range.js",
+          "changeKind": "modified",
+          "note": "not exported from this file"
+        },
+        {
+          "symbol": "replaceCarets",
+          "modulePath": "classes/range.js",
+          "changeKind": "modified",
+          "note": "not exported from this file"
+        },
+        {
+          "symbol": "replaceXRanges",
+          "modulePath": "classes/range.js",
+          "changeKind": "modified",
+          "note": "not exported from this file"
+        },
+        {
+          "symbol": "replaceStars",
+          "modulePath": "classes/range.js",
+          "changeKind": "modified",
+          "note": "not exported from this file"
+        },
+        {
+          "symbol": "replaceGTE0",
+          "modulePath": "classes/range.js",
+          "changeKind": "modified",
+          "note": "not exported from this file"
+        },
+        {
+          "symbol": "hyphenReplace",
+          "modulePath": "classes/range.js",
+          "changeKind": "modified",
+          "note": "not exported from this file"
+        },
+        {
+          "symbol": "parseRange",
+          "modulePath": "classes/range.js",
+          "changeKind": "modified",
+          "note": "method of class Range"
+        },
+        {
+          "symbol": "createToken",
+          "modulePath": "internal/re.js",
+          "changeKind": "modified",
+          "note": "not exported from this file"
+        }
+      ],
+      "vulnerableVersion": "7.5.1",
+      "fixedVersion": "7.5.2",
+      "provenance": {
+        "advisorySource": "osv",
+        "advisoryUrl": "https://osv.dev/vulnerability/GHSA-c2qf-rxjj-qqgw",
+        "patchCommit": "2f8fd41487acf380194579ecb6f8b1bbfe116be0",
+        "patchUrl": "https://github.com/npm/node-semver/commit/2f8fd41487acf380194579ecb6f8b1bbfe116be0"
+      },
+      "excludedChanges": [
+        "build",
+        "docs",
+        "tests"
+      ],
+      "notes": "Selected patch_reference with 23 candidate symbol(s). advisory_metadata: empty. advisory_text: empty. version_diff: hit (14). Non-function changes: MAX_SAFE_BUILD_LENGTH (semver.js), safeRe (semver.js), LETTERDASHNUMBER (semver.js), safeRegexReplacements (semver.js), safeRe (internal/re.js). Commit-message search for the vulnerability ID in npm/node-semver matched 0 commit(s)."
+    },
+    {
+      "findingId": "c06",
+      "vulnerabilityId": "CVE-2020-7598",
+      "purl": "pkg:npm/minimist@1.2.2",
+      "method": "patch_reference",
+      "confidence": "high",
+      "candidateSymbols": [
+        {
+          "symbol": "setKey",
+          "modulePath": "index.js",
+          "changeKind": "modified",
+          "note": "not exported from this file"
+        }
+      ],
+      "vulnerableVersion": "1.2.2",
+      "fixedVersion": "1.2.3",
+      "provenance": {
+        "advisorySource": "osv",
+        "advisoryUrl": "https://osv.dev/vulnerability/GHSA-vh95-rmgr-6w4m",
+        "patchCommit": "10bd4cdf49d9686d48214be9d579a9cdfda37c68",
+        "patchUrl": "https://github.com/minimistjs/minimist/commit/10bd4cdf49d9686d48214be9d579a9cdfda37c68"
+      },
+      "excludedChanges": [
+        "build",
+        "docs",
+        "tests"
+      ],
+      "notes": "Selected patch_reference with 1 candidate symbol(s). advisory_metadata: empty. advisory_text: hit (1). version_diff: hit (1). Commit-message search for the vulnerability ID in substack/minimist matched 0 commit(s)."
+    },
+    {
+      "findingId": "c07",
+      "vulnerabilityId": "CVE-2022-24999",
+      "purl": "pkg:npm/qs@6.10.2",
+      "method": "patch_reference",
+      "confidence": "high",
+      "candidateSymbols": [
+        {
+          "symbol": "parseObject",
+          "modulePath": "lib/parse.js",
+          "changeKind": "modified",
+          "note": "not exported from this file"
+        },
+        {
+          "symbol": "parseObjectRecursive",
+          "modulePath": "lib/parse.js",
+          "changeKind": "modified",
+          "note": "also named parseObjectRecursive (function expression name of parseObject)"
+        }
+      ],
+      "vulnerableVersion": "6.10.2",
+      "fixedVersion": "6.10.3",
+      "provenance": {
+        "advisorySource": "osv",
+        "advisoryUrl": "https://osv.dev/vulnerability/GHSA-hrpp-h998-j3pp",
+        "patchCommit": "4310742efbd8c03f6495f07906b45213da0a32ec",
+        "patchUrl": "https://github.com/ljharb/qs/commit/4310742efbd8c03f6495f07906b45213da0a32ec"
+      },
+      "excludedChanges": [
+        "tests"
+      ],
+      "notes": "Selected patch_reference with 2 candidate symbol(s). advisory_metadata: empty. advisory_text: empty. version_diff: hit (18). Commit-message search for the vulnerability ID in ljharb/qs matched 0 commit(s)."
+    },
+    {
+      "findingId": "c08",
+      "vulnerabilityId": "CVE-2022-0235",
+      "purl": "pkg:npm/node-fetch@2.6.6",
+      "method": "patch_reference",
+      "confidence": "high",
+      "candidateSymbols": [
+        {
+          "symbol": "isDomainOrSubdomain",
+          "modulePath": "src/index.js",
+          "changeKind": "modified",
+          "note": "not exported from this file"
+        },
+        {
+          "symbol": "fetch",
+          "modulePath": "src/index.js",
+          "changeKind": "modified",
+          "note": "exported as default"
+        },
+        {
+          "symbol": "default",
+          "modulePath": "src/index.js",
+          "changeKind": "modified",
+          "note": "export alias of fetch"
+        }
+      ],
+      "vulnerableVersion": "2.6.6",
+      "fixedVersion": "2.6.7",
+      "provenance": {
+        "advisorySource": "osv",
+        "advisoryUrl": "https://osv.dev/vulnerability/GHSA-r683-j2x4-v87g",
+        "patchCommit": "1ef4b560a17e644a02a3bfdea7631ffeee578b35",
+        "patchUrl": "https://github.com/node-fetch/node-fetch/commit/1ef4b560a17e644a02a3bfdea7631ffeee578b35"
+      },
+      "excludedChanges": [
+        "build",
+        "tests"
+      ],
+      "notes": "Selected patch_reference with 3 candidate symbol(s). advisory_metadata: empty. advisory_text: hit (3). version_diff: hit (9). Non-function changes: URL (src/index.js), resolve_url (src/index.js). Commit-message search for the vulnerability ID in node-fetch/node-fetch matched 0 commit(s)."
+    },
+    {
+      "findingId": "c09",
+      "vulnerabilityId": "CVE-2021-3807",
+      "purl": "pkg:npm/ansi-regex@5.0.0",
+      "method": "patch_reference",
+      "confidence": "high",
+      "candidateSymbols": [
+        {
+          "symbol": "default",
+          "modulePath": "index.js",
+          "changeKind": "modified",
+          "note": "exported as default"
+        },
+        {
+          "symbol": "ansiRegex",
+          "modulePath": "index.js",
+          "changeKind": "modified",
+          "note": "exported as default"
+        }
+      ],
+      "vulnerableVersion": "5.0.0",
+      "fixedVersion": "5.0.1",
+      "provenance": {
+        "advisorySource": "osv",
+        "advisoryUrl": "https://osv.dev/vulnerability/GHSA-93q8-gq69-wqmw",
+        "patchCommit": "419250fa510bf31b4cc672e76537a64f9332e1f1",
+        "patchUrl": "https://github.com/chalk/ansi-regex/commit/419250fa510bf31b4cc672e76537a64f9332e1f1"
+      },
+      "notes": "Selected patch_reference with 2 candidate symbol(s). advisory_metadata: empty. advisory_text: empty. version_diff: hit (1). Commit-message search for the vulnerability ID in chalk/ansi-regex matched 0 commit(s)."
+    },
+    {
+      "findingId": "c10",
+      "vulnerabilityId": "CVE-2022-38900",
+      "purl": "pkg:npm/decode-uri-component@0.2.0",
+      "method": "patch_reference",
+      "confidence": "high",
+      "candidateSymbols": [
+        {
+          "symbol": "decodeComponents",
+          "modulePath": "index.js",
+          "changeKind": "modified",
+          "note": "not exported from this file"
+        },
+        {
+          "symbol": "decode",
+          "modulePath": "index.js",
+          "changeKind": "modified",
+          "note": "not exported from this file"
+        }
+      ],
+      "vulnerableVersion": "0.2.0",
+      "fixedVersion": "0.2.1",
+      "provenance": {
+        "advisorySource": "osv",
+        "advisoryUrl": "https://osv.dev/vulnerability/GHSA-w573-4hg7-7wgq",
+        "patchCommit": "746ca5dcb6667c5d364e782d53c542830e4c10b9",
+        "patchUrl": "https://github.com/SamVerschueren/decode-uri-component/commit/746ca5dcb6667c5d364e782d53c542830e4c10b9"
+      },
+      "excludedChanges": [
+        "tests"
+      ],
+      "notes": "Selected patch_reference with 2 candidate symbol(s). advisory_metadata: empty. advisory_text: empty. version_diff: hit (2). Commit-message search for the vulnerability ID in SamVerschueren/decode-uri-component matched 0 commit(s)."
+    }
+  ]
+}

@@ -162,7 +162,7 @@
         "filesSkipped": {
           "type": "integer",
           "minimum": 0,
-          "description": "Excluded by design or by policy: node_modules, build output, minified bundles, files over the size limit."
+          "description": "Discovered in-scope source candidates intentionally not parsed, for example minified bundles or files over a configured limit. Pruned directory trees such as node_modules and build output are outside the declared source scope and are not counted in the file denominator."
         },
         "thirdPartyImportsResolved": {
           "type": "integer",
@@ -192,7 +192,7 @@
         "limitsHit": {
           "type": "array",
           "items": { "type": "string" },
-          "description": "e.g. max_files, max_file_size. Present means the graph is incomplete by policy and the scan is partial."
+          "description": "e.g. max_files, max_file_size, repository_traversal. Present means the graph is incomplete by policy and the scan is partial."
         },
         "perRepository": {
           "type": "array",

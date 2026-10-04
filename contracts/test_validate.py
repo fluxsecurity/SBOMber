@@ -168,6 +168,43 @@ class ContractValidatorTests(unittest.TestCase):
 
         self.save_json(path, decisions)
 
+    def make_partial_decisions(self, base):
+        path = base / "decision-results.sample.json"
+        decisions = self.load_json(path)
+
+        for decision in decisions["decisions"]:
+            summary = decision["basedOn"]["coverageSummary"]
+            summary["scanStatus"] = "partial"
+            summary["parseCoveragePercent"] = 99.3
+
+            if decision["state"] == "no_usage_detected":
+                decision["state"] = "unknown"
+                decision["analysisConfidence"] = "low"
+                decision["confidenceCriteria"] = [
+                    "Component 2 source coverage was partial"
+                ]
+                decision["justification"] = (
+                    "Component 2 did not analyse every in-scope source file, "
+                    "so no negative usage determination was made."
+                )
+
+        decisions["distribution"] = {
+            "totalFindings": len(decisions["decisions"]),
+            "usageDetected": sum(
+                d["state"] == "usage_detected" for d in decisions["decisions"]
+            ),
+            "noUsageDetected": sum(
+                d["state"] == "no_usage_detected" for d in decisions["decisions"]
+            ),
+            "unknown": sum(
+                d["state"] == "unknown" for d in decisions["decisions"]
+            ),
+            "unsupported": sum(
+                d["state"] == "unsupported" for d in decisions["decisions"]
+            ),
+        }
+        self.save_json(path, decisions)
+
     def use_unsupported_usage(self, base):
         shutil.copy(
             FIXTURES / "usage-graph.unsupported.sample.json",
@@ -198,6 +235,119 @@ class ContractValidatorTests(unittest.TestCase):
                 result.returncode,
                 0,
                 msg=result.stdout + result.stderr,
+            )
+        finally:
+            tmp.cleanup()
+
+    def test_usage_graph_partial_analysis_is_valid(self):
+        tmp, base = self.make_fixture_dir()
+        try:
+            path = base / "usage-graph.sample.json"
+            usage = self.load_json(path)
+            usage["analysis"]["status"] = "partial"
+            usage["coverage"]["filesParsed"] = 141
+            usage["coverage"]["filesSkipped"] = 1
+            repository = usage["coverage"]["perRepository"][0]
+            repository["filesParsed"] = 141
+            repository["filesSkipped"] = 1
+            self.save_json(path, usage)
+            self.make_partial_decisions(base)
+
+            result = self.run_validator(base)
+
+            self.assertEqual(
+                result.returncode,
+                0,
+                msg=result.stdout + result.stderr,
+            )
+        finally:
+            tmp.cleanup()
+
+    def test_complete_analysis_rejects_incomplete_file_coverage(self):
+        tmp, base = self.make_fixture_dir()
+        try:
+            path = base / "usage-graph.sample.json"
+            usage = self.load_json(path)
+            usage["coverage"]["filesParsed"] = 141
+            usage["coverage"]["filesSkipped"] = 1
+            repository = usage["coverage"]["perRepository"][0]
+            repository["filesParsed"] = 141
+            repository["filesSkipped"] = 1
+            self.save_json(path, usage)
+
+            result = self.run_validator(base)
+
+            self.assertNotEqual(result.returncode, 0)
+            self.assertIn(
+                "complete status has complete file coverage",
+                result.stdout + result.stderr,
+            )
+        finally:
+            tmp.cleanup()
+
+    def test_per_repository_file_totals_must_match_global_coverage(self):
+        tmp, base = self.make_fixture_dir()
+        try:
+            path = base / "usage-graph.sample.json"
+            usage = self.load_json(path)
+            usage["coverage"]["perRepository"][0]["filesParsed"] -= 1
+            usage["coverage"]["perRepository"][0]["filesDiscovered"] -= 1
+            self.save_json(path, usage)
+
+            result = self.run_validator(base)
+
+            self.assertNotEqual(result.returncode, 0)
+            self.assertIn(
+                "per-repository totals match global coverage",
+                result.stdout + result.stderr,
+            )
+        finally:
+            tmp.cleanup()
+
+    def test_zero_discovered_source_cannot_support_negative_decision(self):
+        tmp, base = self.make_fixture_dir()
+        try:
+            path = base / "usage-graph.sample.json"
+            usage = self.load_json(path)
+            for field in (
+                "filesDiscovered",
+                "filesParsed",
+                "filesParsedWithErrors",
+                "filesFailed",
+                "filesSkipped",
+            ):
+                usage["coverage"][field] = 0
+            usage["coverage"]["perRepository"] = []
+            self.save_json(path, usage)
+
+            result = self.run_validator(base)
+
+            self.assertNotEqual(result.returncode, 0)
+            self.assertIn(
+                "negative needs discovered source",
+                result.stdout + result.stderr,
+            )
+        finally:
+            tmp.cleanup()
+
+    def test_unresolved_import_in_scope_blocks_negative_decision(self):
+        tmp, base = self.make_fixture_dir()
+        try:
+            path = base / "decision-results.sample.json"
+            decisions = self.load_json(path)
+            target = next(
+                d for d in decisions["decisions"]
+                if d["state"] == "no_usage_detected"
+            )
+            target["basedOn"]["coverageSummary"]["unresolvedImportsInScope"] = 1
+            self.save_json(path, decisions)
+
+            result = self.run_validator(base)
+
+            self.assertNotEqual(result.returncode, 0)
+            self.assertIn(
+                "negative needs resolved imports in scope",
+                result.stdout + result.stderr,
             )
         finally:
             tmp.cleanup()

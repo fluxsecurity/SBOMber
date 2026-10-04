@@ -1,0 +1,1877 @@
+[
+  {
+    "findingId": "c01",
+    "vulnerabilityId": "CVE-2021-23337",
+    "purl": "pkg:npm/lodash@4.17.20",
+    "attempts": [
+      {
+        "method": "advisory_metadata",
+        "outcome": "empty",
+        "notes": [
+          "OSV record has no ecosystem_specific block for this npm package; no structured function field exists"
+        ]
+      },
+      {
+        "method": "patch_reference",
+        "outcome": "hit",
+        "candidates": [
+          {
+            "symbol": "template",
+            "modulePath": "lodash.js",
+            "changeKind": "modified",
+            "note": "nested in runInContext"
+          }
+        ],
+        "provenance": {
+          "patchCommit": "3469357cff396a26c363f8c1b5a91dde28ba4b1c",
+          "patchUrl": "https://github.com/lodash/lodash/commit/3469357cff396a26c363f8c1b5a91dde28ba4b1c"
+        },
+        "excludedChanges": [
+          "tests"
+        ],
+        "notes": [
+          "lodash.js: 3 changed line(s) at module level outside any function",
+          "lodash.js: 1 changed line(s) at module level outside any function"
+        ],
+        "clientMethod": {
+          "repository": "lodash/lodash",
+          "query": "GHSA-35jh-r3h4-6jhm CVE-2021-23337 CVE-2026-4800 GHSA-r5fr-rjxr-66jc",
+          "commitsMatched": 1,
+          "commitSHAs": [
+            "879aaa93132d78c2f8d20c60279da9f8b21576d6"
+          ]
+        }
+      },
+      {
+        "method": "advisory_text",
+        "outcome": "hit",
+        "candidates": [
+          {
+            "symbol": "template",
+            "note": "named in advisory text"
+          }
+        ]
+      },
+      {
+        "method": "version_diff",
+        "outcome": "hit",
+        "candidates": [
+          {
+            "symbol": "baseTrim",
+            "modulePath": "_baseTrim.js",
+            "changeKind": "added",
+            "note": "exported as default"
+          },
+          {
+            "symbol": "default",
+            "modulePath": "_baseTrim.js",
+            "changeKind": "added",
+            "note": "export alias of baseTrim"
+          },
+          {
+            "symbol": "trimmedEndIndex",
+            "modulePath": "_trimmedEndIndex.js",
+            "changeKind": "added",
+            "note": "exported as default"
+          },
+          {
+            "symbol": "default",
+            "modulePath": "_trimmedEndIndex.js",
+            "changeKind": "added",
+            "note": "export alias of trimmedEndIndex"
+          },
+          {
+            "symbol": "baseTrim",
+            "modulePath": "lodash.js",
+            "changeKind": "modified"
+          },
+          {
+            "symbol": "trimmedEndIndex",
+            "modulePath": "lodash.js",
+            "changeKind": "modified"
+          },
+          {
+            "symbol": "toNumber",
+            "modulePath": "lodash.js",
+            "changeKind": "modified",
+            "note": "nested in runInContext"
+          },
+          {
+            "symbol": "template",
+            "modulePath": "lodash.js",
+            "changeKind": "modified",
+            "note": "nested in runInContext"
+          },
+          {
+            "symbol": "trim",
+            "modulePath": "lodash.js",
+            "changeKind": "modified",
+            "note": "nested in runInContext"
+          },
+          {
+            "symbol": "trimEnd",
+            "modulePath": "lodash.js",
+            "changeKind": "modified",
+            "note": "nested in runInContext"
+          },
+          {
+            "symbol": "template",
+            "modulePath": "template.js",
+            "changeKind": "modified",
+            "note": "exported as default"
+          },
+          {
+            "symbol": "default",
+            "modulePath": "template.js",
+            "changeKind": "modified",
+            "note": "export alias of template"
+          },
+          {
+            "symbol": "toNumber",
+            "modulePath": "toNumber.js",
+            "changeKind": "modified",
+            "note": "exported as default"
+          },
+          {
+            "symbol": "default",
+            "modulePath": "toNumber.js",
+            "changeKind": "modified",
+            "note": "export alias of toNumber"
+          },
+          {
+            "symbol": "trim",
+            "modulePath": "trim.js",
+            "changeKind": "modified",
+            "note": "exported as default"
+          },
+          {
+            "symbol": "default",
+            "modulePath": "trim.js",
+            "changeKind": "modified",
+            "note": "export alias of trim"
+          },
+          {
+            "symbol": "trimEnd",
+            "modulePath": "trimEnd.js",
+            "changeKind": "modified",
+            "note": "exported as default"
+          },
+          {
+            "symbol": "default",
+            "modulePath": "trimEnd.js",
+            "changeKind": "modified",
+            "note": "export alias of trimEnd"
+          }
+        ],
+        "nonFunctionChanges": [
+          "trimmedEndIndex (_baseTrim.js)",
+          "reTrimStart (_baseTrim.js)",
+          "reWhitespace (_trimmedEndIndex.js)",
+          "INVALID_TEMPL_VAR_ERROR_TEXT (template.js)",
+          "reForbiddenIdentifierChars (template.js)",
+          "baseTrim (toNumber.js)",
+          "isObject (toNumber.js)",
+          "reTrim (toNumber.js)",
+          "baseTrim (trim.js)",
+          "reTrim (trim.js)",
+          "toString (trimEnd.js)",
+          "trimmedEndIndex (trimEnd.js)",
+          "reTrimEnd (trimEnd.js)"
+        ],
+        "provenance": {
+          "artefacts": [
+            {
+              "url": "https://registry.npmjs.org/lodash/-/lodash-4.17.20.tgz",
+              "sha256": "d2aa8c6afc3c8591765785a37d1c5acae482a8eb3ab9729ed28922692454f2e2",
+              "sizeBytes": 316680,
+              "verified": true,
+              "executed": false
+            },
+            {
+              "url": "https://registry.npmjs.org/lodash/-/lodash-4.17.21.tgz",
+              "sha256": "6a087ac9e5702a0c9d60fbcd48696012646ec8df1491dea472b150e79fcaf804",
+              "sizeBytes": 318961,
+              "verified": true,
+              "executed": false
+            }
+          ]
+        },
+        "notes": [
+          "12 source file(s) differ between 4.17.20 and 4.17.21",
+          "_baseTrim.js: 1 changed line(s) at module level outside any function",
+          "_trimmedEndIndex.js: 1 changed line(s) at module level outside any function",
+          "core.js: 1 changed line(s) at module level outside any function",
+          "core.js: 1 changed line(s) at module level outside any function",
+          "core.min.js: minified, not attributed",
+          "core.min.js: minified, not attributed",
+          "lodash.js: 6 changed line(s) at module level outside any function",
+          "lodash.js: 5 changed line(s) at module level outside any function",
+          "lodash.min.js: minified, not attributed",
+          "lodash.min.js: minified, not attributed"
+        ]
+      }
+    ],
+    "selected": "patch_reference"
+  },
+  {
+    "findingId": "c02",
+    "vulnerabilityId": "CVE-2018-16487",
+    "purl": "pkg:npm/lodash@4.17.4",
+    "attempts": [
+      {
+        "method": "advisory_metadata",
+        "outcome": "empty",
+        "notes": [
+          "OSV record has no ecosystem_specific block for this npm package; no structured function field exists"
+        ]
+      },
+      {
+        "method": "patch_reference",
+        "outcome": "hit",
+        "candidates": [
+          {
+            "symbol": "safeGet",
+            "modulePath": "lodash.js",
+            "changeKind": "modified",
+            "note": "nested in runInContext"
+          }
+        ],
+        "provenance": {
+          "patchCommit": "90e6199a161b6445b01454517b40ef65ebecd2ad",
+          "patchUrl": "https://github.com/lodash/lodash/commit/90e6199a161b6445b01454517b40ef65ebecd2ad"
+        },
+        "excludedChanges": [
+          "tests"
+        ],
+        "clientMethod": {
+          "repository": "lodash/lodash",
+          "query": "GHSA-4xc9-xhrj-v574 CVE-2018-16487",
+          "commitsMatched": 0
+        }
+      },
+      {
+        "method": "advisory_text",
+        "outcome": "hit",
+        "candidates": [
+          {
+            "symbol": "are",
+            "note": "named in advisory text"
+          },
+          {
+            "symbol": "defaultsDeep",
+            "note": "named in advisory text"
+          },
+          {
+            "symbol": "mergeWith",
+            "note": "named in advisory text"
+          },
+          {
+            "symbol": "vulnerable",
+            "note": "named in advisory text"
+          }
+        ],
+        "notes": [
+          "4 identifiers extracted from prose; heuristic extraction is over-inclusive"
+        ]
+      },
+      {
+        "method": "version_diff",
+        "outcome": "hit",
+        "candidates": [
+          {
+            "symbol": "addMapEntry",
+            "modulePath": "_addMapEntry.js",
+            "changeKind": "removed",
+            "note": "exported as default"
+          },
+          {
+            "symbol": "default",
+            "modulePath": "_addMapEntry.js",
+            "changeKind": "removed",
+            "note": "export alias of addMapEntry"
+          },
+          {
+            "symbol": "addSetEntry",
+            "modulePath": "_addSetEntry.js",
+            "changeKind": "removed",
+            "note": "exported as default"
+          },
+          {
+            "symbol": "default",
+            "modulePath": "_addSetEntry.js",
+            "changeKind": "removed",
+            "note": "export alias of addSetEntry"
+          },
+          {
+            "symbol": "baseClone",
+            "modulePath": "_baseClone.js",
+            "changeKind": "modified",
+            "note": "exported as default"
+          },
+          {
+            "symbol": "default",
+            "modulePath": "_baseClone.js",
+            "changeKind": "modified",
+            "note": "export alias of baseClone"
+          },
+          {
+            "symbol": "baseMerge",
+            "modulePath": "_baseMerge.js",
+            "changeKind": "modified",
+            "note": "exported as default"
+          },
+          {
+            "symbol": "default",
+            "modulePath": "_baseMerge.js",
+            "changeKind": "modified",
+            "note": "export alias of baseMerge"
+          },
+          {
+            "symbol": "baseMergeDeep",
+            "modulePath": "_baseMergeDeep.js",
+            "changeKind": "modified",
+            "note": "exported as default"
+          },
+          {
+            "symbol": "default",
+            "modulePath": "_baseMergeDeep.js",
+            "changeKind": "modified",
+            "note": "export alias of baseMergeDeep"
+          },
+          {
+            "symbol": "cloneMap",
+            "modulePath": "_cloneMap.js",
+            "changeKind": "removed",
+            "note": "exported as default"
+          },
+          {
+            "symbol": "default",
+            "modulePath": "_cloneMap.js",
+            "changeKind": "removed",
+            "note": "export alias of cloneMap"
+          },
+          {
+            "symbol": "cloneSet",
+            "modulePath": "_cloneSet.js",
+            "changeKind": "removed",
+            "note": "exported as default"
+          },
+          {
+            "symbol": "default",
+            "modulePath": "_cloneSet.js",
+            "changeKind": "removed",
+            "note": "export alias of cloneSet"
+          },
+          {
+            "symbol": "initCloneArray",
+            "modulePath": "_initCloneArray.js",
+            "changeKind": "modified",
+            "note": "exported as default"
+          },
+          {
+            "symbol": "default",
+            "modulePath": "_initCloneArray.js",
+            "changeKind": "modified",
+            "note": "export alias of initCloneArray"
+          },
+          {
+            "symbol": "initCloneByTag",
+            "modulePath": "_initCloneByTag.js",
+            "changeKind": "modified",
+            "note": "exported as default"
+          },
+          {
+            "symbol": "default",
+            "modulePath": "_initCloneByTag.js",
+            "changeKind": "modified",
+            "note": "export alias of initCloneByTag"
+          },
+          {
+            "symbol": "isIndex",
+            "modulePath": "_isIndex.js",
+            "changeKind": "modified",
+            "note": "exported as default"
+          },
+          {
+            "symbol": "default",
+            "modulePath": "_isIndex.js",
+            "changeKind": "modified",
+            "note": "export alias of isIndex"
+          },
+          {
+            "symbol": "safeGet",
+            "modulePath": "_safeGet.js",
+            "changeKind": "added",
+            "note": "exported as default"
+          },
+          {
+            "symbol": "default",
+            "modulePath": "_safeGet.js",
+            "changeKind": "added",
+            "note": "export alias of safeGet"
+          },
+          {
+            "symbol": "isIndex",
+            "modulePath": "core.js",
+            "changeKind": "modified"
+          },
+          {
+            "symbol": "isIterateeCall",
+            "modulePath": "core.js",
+            "changeKind": "modified"
+          },
+          {
+            "symbol": "customDefaultsAssignIn",
+            "modulePath": "core.js",
+            "changeKind": "modified"
+          },
+          {
+            "symbol": "remainingWait",
+            "modulePath": "debounce.js",
+            "changeKind": "modified",
+            "note": "nested in debounce"
+          },
+          {
+            "symbol": "baseConvert",
+            "modulePath": "fp/_baseConvert.js",
+            "changeKind": "modified",
+            "note": "exported as default"
+          },
+          {
+            "symbol": "default",
+            "modulePath": "fp/_baseConvert.js",
+            "changeKind": "modified",
+            "note": "export alias of baseConvert"
+          },
+          {
+            "symbol": "cloneByPath",
+            "modulePath": "fp/_baseConvert.js",
+            "changeKind": "modified",
+            "note": "nested in baseConvert"
+          },
+          {
+            "symbol": "wrap",
+            "modulePath": "fp/_baseConvert.js",
+            "changeKind": "modified",
+            "note": "nested in baseConvert"
+          },
+          {
+            "symbol": "baseClone",
+            "modulePath": "lodash.js",
+            "changeKind": "modified",
+            "note": "nested in runInContext"
+          },
+          {
+            "symbol": "baseMerge",
+            "modulePath": "lodash.js",
+            "changeKind": "modified",
+            "note": "nested in runInContext"
+          },
+          {
+            "symbol": "baseMergeDeep",
+            "modulePath": "lodash.js",
+            "changeKind": "modified",
+            "note": "nested in runInContext"
+          },
+          {
+            "symbol": "initCloneArray",
+            "modulePath": "lodash.js",
+            "changeKind": "modified",
+            "note": "nested in runInContext"
+          },
+          {
+            "symbol": "initCloneByTag",
+            "modulePath": "lodash.js",
+            "changeKind": "modified",
+            "note": "nested in runInContext"
+          },
+          {
+            "symbol": "isIndex",
+            "modulePath": "lodash.js",
+            "changeKind": "modified",
+            "note": "nested in runInContext"
+          },
+          {
+            "symbol": "safeGet",
+            "modulePath": "lodash.js",
+            "changeKind": "modified",
+            "note": "nested in runInContext"
+          },
+          {
+            "symbol": "runInContext",
+            "modulePath": "lodash.js",
+            "changeKind": "modified"
+          },
+          {
+            "symbol": "remainingWait",
+            "modulePath": "lodash.js",
+            "changeKind": "modified",
+            "note": "nested in debounce"
+          },
+          {
+            "symbol": "addMapEntry",
+            "modulePath": "lodash.js",
+            "changeKind": "modified"
+          },
+          {
+            "symbol": "addSetEntry",
+            "modulePath": "lodash.js",
+            "changeKind": "modified"
+          },
+          {
+            "symbol": "cloneMap",
+            "modulePath": "lodash.js",
+            "changeKind": "modified",
+            "note": "nested in runInContext"
+          },
+          {
+            "symbol": "cloneSet",
+            "modulePath": "lodash.js",
+            "changeKind": "modified",
+            "note": "nested in runInContext"
+          }
+        ],
+        "nonFunctionChanges": [
+          "isMap (_baseClone.js)",
+          "isSet (_baseClone.js)",
+          "keysIn (_baseMerge.js)",
+          "safeGet (_baseMerge.js)",
+          "safeGet (_baseMergeDeep.js)",
+          "addMapEntry (_cloneMap.js)",
+          "arrayReduce (_cloneMap.js)",
+          "mapToArray (_cloneMap.js)",
+          "CLONE_DEEP_FLAG (_cloneMap.js)",
+          "addSetEntry (_cloneSet.js)",
+          "arrayReduce (_cloneSet.js)",
+          "setToArray (_cloneSet.js)",
+          "CLONE_DEEP_FLAG (_cloneSet.js)",
+          "reHasUnicodeWord (_hasUnicodeWord.js)",
+          "cloneMap (_initCloneByTag.js)",
+          "cloneSet (_initCloneByTag.js)",
+          "nodeUtil (_nodeUtil.js)",
+          "rePropName (_stringToPath.js)",
+          "stringToPath (_stringToPath.js)",
+          "reLeadingDot (_stringToPath.js)",
+          "rsOrdLower (_unicodeWords.js)",
+          "rsOrdUpper (_unicodeWords.js)",
+          "baseRest (defaults.js)",
+          "eq (defaults.js)",
+          "isIterateeCall (defaults.js)",
+          "keysIn (defaults.js)",
+          "objectProto (defaults.js)",
+          "hasOwnProperty (defaults.js)",
+          "defaults (defaults.js)",
+          "apply (defaults.js)",
+          "assignInWith (defaults.js)",
+          "customDefaultsAssignIn (defaults.js)",
+          "objectProto (invert.js)",
+          "nativeObjectToString (invert.js)",
+          "invert (invert.js)",
+          "nativeObjectToString (invertBy.js)",
+          "invertBy (invertBy.js)"
+        ],
+        "provenance": {
+          "artefacts": [
+            {
+              "url": "https://registry.npmjs.org/lodash/-/lodash-4.17.4.tgz",
+              "sha256": "f14bfa44822bd45ec6ae995f8c5a0067cfddc680e74f105b03c8e28a9104c59d",
+              "sizeBytes": 310669,
+              "verified": true,
+              "executed": false
+            },
+            {
+              "url": "https://registry.npmjs.org/lodash/-/lodash-4.17.11.tgz",
+              "sha256": "8eb2165aed24a7e42c841114a3d9d92585cb922ef41e2d1fda72f5a4a8976b9b",
+              "sizeBytes": 305584,
+              "verified": true,
+              "executed": false
+            }
+          ]
+        },
+        "notes": [
+          "26 source file(s) differ between 4.17.4 and 4.17.11",
+          "_addMapEntry.js: 1 changed line(s) at module level outside any function",
+          "_addSetEntry.js: 1 changed line(s) at module level outside any function",
+          "_cloneMap.js: 1 changed line(s) at module level outside any function",
+          "_cloneSet.js: 1 changed line(s) at module level outside any function",
+          "_safeGet.js: 1 changed line(s) at module level outside any function",
+          "core.js: 25 changed line(s) at module level outside any function",
+          "core.js: 7 changed line(s) at module level outside any function",
+          "core.min.js: minified, not attributed",
+          "core.min.js: minified, not attributed",
+          "fp/_mapping.js: 8 changed line(s) at module level outside any function",
+          "fp/_util.js: 2 changed line(s) at module level outside any function",
+          "lodash.js: 8 changed line(s) at module level outside any function",
+          "lodash.js: 5 changed line(s) at module level outside any function",
+          "lodash.min.js: minified, not attributed",
+          "lodash.min.js: minified, not attributed"
+        ]
+      }
+    ],
+    "selected": "patch_reference"
+  },
+  {
+    "findingId": "c03",
+    "vulnerabilityId": "CVE-2019-10744",
+    "purl": "pkg:npm/lodash@4.17.11",
+    "attempts": [
+      {
+        "method": "advisory_metadata",
+        "outcome": "empty",
+        "notes": [
+          "OSV record has no ecosystem_specific block for this npm package; no structured function field exists"
+        ]
+      },
+      {
+        "method": "patch_reference",
+        "outcome": "hit",
+        "candidates": [
+          {
+            "symbol": "safeGet",
+            "modulePath": "lodash.js",
+            "changeKind": "modified",
+            "note": "nested in runInContext"
+          }
+        ],
+        "provenance": {
+          "patchCommit": "a01e4fa727e7294cb7b2845570ba96b206926790",
+          "patchUrl": "https://github.com/lodash/lodash/commit/a01e4fa727e7294cb7b2845570ba96b206926790"
+        },
+        "excludedChanges": [
+          "tests"
+        ],
+        "notes": [
+          "pull request lodash/lodash#4336 resolved to 1 commit(s)"
+        ],
+        "clientMethod": {
+          "repository": "lodash/lodash",
+          "query": "GHSA-jf85-cpcp-j695 CVE-2019-10744",
+          "commitsMatched": 0
+        }
+      },
+      {
+        "method": "advisory_text",
+        "outcome": "hit",
+        "candidates": [
+          {
+            "symbol": "defaultsDeep",
+            "note": "named in advisory text"
+          }
+        ]
+      },
+      {
+        "method": "version_diff",
+        "outcome": "hit",
+        "candidates": [
+          {
+            "symbol": "baseClone",
+            "modulePath": "_baseClone.js",
+            "changeKind": "modified",
+            "note": "exported as default"
+          },
+          {
+            "symbol": "default",
+            "modulePath": "_baseClone.js",
+            "changeKind": "modified",
+            "note": "export alias of baseClone"
+          },
+          {
+            "symbol": "baseMerge",
+            "modulePath": "_baseMerge.js",
+            "changeKind": "modified",
+            "note": "exported as default"
+          },
+          {
+            "symbol": "default",
+            "modulePath": "_baseMerge.js",
+            "changeKind": "modified",
+            "note": "export alias of baseMerge"
+          },
+          {
+            "symbol": "createRound",
+            "modulePath": "_createRound.js",
+            "changeKind": "modified",
+            "note": "exported as default"
+          },
+          {
+            "symbol": "default",
+            "modulePath": "_createRound.js",
+            "changeKind": "modified",
+            "note": "export alias of createRound"
+          },
+          {
+            "symbol": "safeGet",
+            "modulePath": "_safeGet.js",
+            "changeKind": "modified",
+            "note": "exported as default"
+          },
+          {
+            "symbol": "default",
+            "modulePath": "_safeGet.js",
+            "changeKind": "modified",
+            "note": "export alias of safeGet"
+          },
+          {
+            "symbol": "debounced",
+            "modulePath": "debounce.js",
+            "changeKind": "modified",
+            "note": "nested in debounce"
+          },
+          {
+            "symbol": "baseClone",
+            "modulePath": "lodash.js",
+            "changeKind": "modified",
+            "note": "nested in runInContext"
+          },
+          {
+            "symbol": "baseMerge",
+            "modulePath": "lodash.js",
+            "changeKind": "modified",
+            "note": "nested in runInContext"
+          },
+          {
+            "symbol": "createRound",
+            "modulePath": "lodash.js",
+            "changeKind": "modified",
+            "note": "nested in runInContext"
+          },
+          {
+            "symbol": "safeGet",
+            "modulePath": "lodash.js",
+            "changeKind": "modified",
+            "note": "nested in runInContext"
+          },
+          {
+            "symbol": "debounced",
+            "modulePath": "lodash.js",
+            "changeKind": "modified",
+            "note": "nested in debounce"
+          },
+          {
+            "symbol": "template",
+            "modulePath": "lodash.js",
+            "changeKind": "modified",
+            "note": "nested in runInContext"
+          },
+          {
+            "symbol": "runInContext",
+            "modulePath": "lodash.js",
+            "changeKind": "modified"
+          },
+          {
+            "symbol": "template",
+            "modulePath": "template.js",
+            "changeKind": "modified",
+            "note": "exported as default"
+          },
+          {
+            "symbol": "default",
+            "modulePath": "template.js",
+            "changeKind": "modified",
+            "note": "export alias of template"
+          }
+        ],
+        "nonFunctionChanges": [
+          "nativeIsFinite (_createRound.js)",
+          "nativeMin (_createRound.js)",
+          "fs (org.js)",
+          "path (org.js)",
+          "_ (org.js)",
+          "glob (org.js)",
+          "moment (org.js)",
+          "ncp (org.js)",
+          "cwd (org.js)",
+          "packages (org.js)",
+          "grouped (org.js)",
+          "objectProto (template.js)",
+          "hasOwnProperty (template.js)"
+        ],
+        "provenance": {
+          "artefacts": [
+            {
+              "url": "https://registry.npmjs.org/lodash/-/lodash-4.17.11.tgz",
+              "sha256": "8eb2165aed24a7e42c841114a3d9d92585cb922ef41e2d1fda72f5a4a8976b9b",
+              "sizeBytes": 305584,
+              "verified": true,
+              "executed": false
+            },
+            {
+              "url": "https://registry.npmjs.org/lodash/-/lodash-4.17.12.tgz",
+              "sha256": "d2d37fc85a77669b01dfd7ef12aae279d486fd0486581826eb15cf2fb22f2a9f",
+              "sizeBytes": 306705,
+              "verified": true,
+              "executed": false
+            }
+          ]
+        },
+        "notes": [
+          "11 source file(s) differ between 4.17.11 and 4.17.12",
+          "core.js: 1 changed line(s) at module level outside any function",
+          "core.js: 1 changed line(s) at module level outside any function",
+          "core.min.js: minified, not attributed",
+          "core.min.js: minified, not attributed",
+          "lodash.js: 1 changed line(s) at module level outside any function",
+          "lodash.js: 1 changed line(s) at module level outside any function",
+          "lodash.min.js: minified, not attributed",
+          "lodash.min.js: minified, not attributed",
+          "org.js: 17 changed line(s) at module level outside any function"
+        ]
+      }
+    ],
+    "selected": "patch_reference"
+  },
+  {
+    "findingId": "c04",
+    "vulnerabilityId": "CVE-2020-7788",
+    "purl": "pkg:npm/ini@1.3.5",
+    "attempts": [
+      {
+        "method": "advisory_metadata",
+        "outcome": "empty",
+        "notes": [
+          "OSV record has no ecosystem_specific block for this npm package; no structured function field exists"
+        ]
+      },
+      {
+        "method": "patch_reference",
+        "outcome": "hit",
+        "candidates": [
+          {
+            "symbol": "decode",
+            "modulePath": "ini.js",
+            "changeKind": "modified",
+            "note": "exported as parse, decode"
+          },
+          {
+            "symbol": "parse",
+            "modulePath": "ini.js",
+            "changeKind": "modified",
+            "note": "export alias of decode"
+          }
+        ],
+        "provenance": {
+          "patchCommit": "56d2805e07ccd94e2ba0984ac9240ff02d44b6f1",
+          "patchUrl": "https://github.com/npm/ini/commit/56d2805e07ccd94e2ba0984ac9240ff02d44b6f1"
+        },
+        "excludedChanges": [
+          "tests"
+        ],
+        "clientMethod": {
+          "repository": "npm/ini",
+          "query": "GHSA-qqgx-2p2h-9c37 CVE-2020-7788",
+          "commitsMatched": 0
+        }
+      },
+      {
+        "method": "advisory_text",
+        "outcome": "hit",
+        "candidates": [
+          {
+            "symbol": "parse",
+            "note": "named in advisory text"
+          }
+        ]
+      },
+      {
+        "method": "version_diff",
+        "outcome": "hit",
+        "candidates": [
+          {
+            "symbol": "decode",
+            "modulePath": "ini.js",
+            "changeKind": "modified",
+            "note": "exported as parse, decode"
+          },
+          {
+            "symbol": "parse",
+            "modulePath": "ini.js",
+            "changeKind": "modified",
+            "note": "export alias of decode"
+          }
+        ],
+        "provenance": {
+          "artefacts": [
+            {
+              "url": "https://registry.npmjs.org/ini/-/ini-1.3.5.tgz",
+              "sha256": "fe8ebd87cc87404eeb3ec89880bc49d83df337f8b95a504366c4674f3646785d",
+              "sizeBytes": 3890,
+              "verified": true,
+              "executed": false
+            },
+            {
+              "url": "https://registry.npmjs.org/ini/-/ini-1.3.6.tgz",
+              "sha256": "20dca0a306e5d836e81ae4471b6f6e9d73f1256b7941ae711bf215c1c4965a4f",
+              "sizeBytes": 3950,
+              "verified": true,
+              "executed": false
+            }
+          ]
+        },
+        "notes": [
+          "1 source file(s) differ between 1.3.5 and 1.3.6"
+        ]
+      }
+    ],
+    "selected": "patch_reference"
+  },
+  {
+    "findingId": "c05",
+    "vulnerabilityId": "CVE-2022-25883",
+    "purl": "pkg:npm/semver@7.5.1",
+    "attempts": [
+      {
+        "method": "advisory_metadata",
+        "outcome": "empty",
+        "notes": [
+          "OSV record has no ecosystem_specific block for this npm package; no structured function field exists"
+        ]
+      },
+      {
+        "method": "patch_reference",
+        "outcome": "hit",
+        "candidates": [
+          {
+            "symbol": "makeSafeRe",
+            "modulePath": "semver.js",
+            "changeKind": "modified",
+            "note": "not exported from this file"
+          },
+          {
+            "symbol": "parse",
+            "modulePath": "semver.js",
+            "changeKind": "modified",
+            "note": "exported as parse"
+          },
+          {
+            "symbol": "SemVer",
+            "modulePath": "semver.js",
+            "changeKind": "modified",
+            "note": "exported as default, SemVer"
+          },
+          {
+            "symbol": "default",
+            "modulePath": "semver.js",
+            "changeKind": "modified",
+            "note": "export alias of SemVer"
+          },
+          {
+            "symbol": "Comparator",
+            "modulePath": "semver.js",
+            "changeKind": "modified",
+            "note": "exported as Comparator"
+          },
+          {
+            "symbol": "Range",
+            "modulePath": "semver.js",
+            "changeKind": "modified",
+            "note": "exported as Range"
+          },
+          {
+            "symbol": "parseRange",
+            "modulePath": "semver.js",
+            "changeKind": "modified",
+            "note": "not exported from this file"
+          },
+          {
+            "symbol": "replaceTilde",
+            "modulePath": "semver.js",
+            "changeKind": "modified",
+            "note": "not exported from this file"
+          },
+          {
+            "symbol": "replaceCaret",
+            "modulePath": "semver.js",
+            "changeKind": "modified",
+            "note": "not exported from this file"
+          },
+          {
+            "symbol": "replaceXRange",
+            "modulePath": "semver.js",
+            "changeKind": "modified",
+            "note": "not exported from this file"
+          },
+          {
+            "symbol": "replaceStars",
+            "modulePath": "semver.js",
+            "changeKind": "modified",
+            "note": "not exported from this file"
+          },
+          {
+            "symbol": "coerce",
+            "modulePath": "semver.js",
+            "changeKind": "modified",
+            "note": "exported as coerce"
+          },
+          {
+            "symbol": "constructor",
+            "modulePath": "classes/comparator.js",
+            "changeKind": "modified",
+            "note": "method of class Comparator"
+          },
+          {
+            "symbol": "constructor",
+            "modulePath": "classes/range.js",
+            "changeKind": "modified",
+            "note": "method of class Range"
+          },
+          {
+            "symbol": "format",
+            "modulePath": "classes/range.js",
+            "changeKind": "modified",
+            "note": "method of class Range"
+          },
+          {
+            "symbol": "replaceTildes",
+            "modulePath": "classes/range.js",
+            "changeKind": "modified",
+            "note": "not exported from this file"
+          },
+          {
+            "symbol": "replaceCarets",
+            "modulePath": "classes/range.js",
+            "changeKind": "modified",
+            "note": "not exported from this file"
+          },
+          {
+            "symbol": "replaceXRanges",
+            "modulePath": "classes/range.js",
+            "changeKind": "modified",
+            "note": "not exported from this file"
+          },
+          {
+            "symbol": "replaceStars",
+            "modulePath": "classes/range.js",
+            "changeKind": "modified",
+            "note": "not exported from this file"
+          },
+          {
+            "symbol": "replaceGTE0",
+            "modulePath": "classes/range.js",
+            "changeKind": "modified",
+            "note": "not exported from this file"
+          },
+          {
+            "symbol": "hyphenReplace",
+            "modulePath": "classes/range.js",
+            "changeKind": "modified",
+            "note": "not exported from this file"
+          },
+          {
+            "symbol": "parseRange",
+            "modulePath": "classes/range.js",
+            "changeKind": "modified",
+            "note": "method of class Range"
+          },
+          {
+            "symbol": "createToken",
+            "modulePath": "internal/re.js",
+            "changeKind": "modified",
+            "note": "not exported from this file"
+          }
+        ],
+        "nonFunctionChanges": [
+          "MAX_SAFE_BUILD_LENGTH (semver.js)",
+          "safeRe (semver.js)",
+          "LETTERDASHNUMBER (semver.js)",
+          "safeRegexReplacements (semver.js)",
+          "safeRe (internal/re.js)"
+        ],
+        "provenance": {
+          "patchCommit": "2f8fd41487acf380194579ecb6f8b1bbfe116be0",
+          "patchUrl": "https://github.com/npm/node-semver/commit/2f8fd41487acf380194579ecb6f8b1bbfe116be0"
+        },
+        "excludedChanges": [
+          "build",
+          "docs",
+          "tests"
+        ],
+        "notes": [
+          "pull request npm/node-semver#564 resolved to 1 commit(s)",
+          "pull request npm/node-semver#585 resolved to 1 commit(s)",
+          "pull request npm/node-semver#593 resolved to 1 commit(s)",
+          "commit b717044e57 changes no source code (release or docs commit)",
+          "semver.js: 7 changed line(s) at module level outside any function",
+          "semver.js: 3 changed line(s) at module level outside any function",
+          "classes/comparator.js: 1 changed line(s) at module level outside any function",
+          "classes/comparator.js: 1 changed line(s) at module level outside any function",
+          "classes/range.js: 1 changed line(s) at module level outside any function",
+          "classes/range.js: 1 changed line(s) at module level outside any function",
+          "classes/semver.js: 1 changed line(s) at module level outside any function",
+          "classes/semver.js: 1 changed line(s) at module level outside any function",
+          "functions/coerce.js: 1 changed line(s) at module level outside any function",
+          "functions/coerce.js: 1 changed line(s) at module level outside any function",
+          "semver.js: 8 changed line(s) at module level outside any function",
+          "semver.js: 3 changed line(s) at module level outside any function",
+          "classes/comparator.js: 1 changed line(s) at module level outside any function",
+          "classes/comparator.js: 1 changed line(s) at module level outside any function",
+          "classes/range.js: 1 changed line(s) at module level outside any function",
+          "classes/range.js: 1 changed line(s) at module level outside any function",
+          "classes/semver.js: 1 changed line(s) at module level outside any function",
+          "classes/semver.js: 1 changed line(s) at module level outside any function",
+          "functions/coerce.js: 1 changed line(s) at module level outside any function",
+          "functions/coerce.js: 1 changed line(s) at module level outside any function",
+          "semver.js: 7 changed line(s) at module level outside any function",
+          "semver.js: 3 changed line(s) at module level outside any function",
+          "5 commits attributed and merged: npm/node-semver@2f8fd41487, npm/node-semver@717534ee35, npm/node-semver@928e56d211, npm/node-semver@b6db78d8c9, npm/node-semver@d4530b8c97"
+        ],
+        "clientMethod": {
+          "repository": "npm/node-semver",
+          "query": "GHSA-c2qf-rxjj-qqgw CVE-2022-25883",
+          "commitsMatched": 0
+        }
+      },
+      {
+        "method": "advisory_text",
+        "outcome": "empty",
+        "notes": [
+          "advisory prose names no function-like identifier"
+        ]
+      },
+      {
+        "method": "version_diff",
+        "outcome": "hit",
+        "candidates": [
+          {
+            "symbol": "constructor",
+            "modulePath": "classes/comparator.js",
+            "changeKind": "modified",
+            "note": "method of class Comparator"
+          },
+          {
+            "symbol": "constructor",
+            "modulePath": "classes/range.js",
+            "changeKind": "modified",
+            "note": "method of class Range"
+          },
+          {
+            "symbol": "format",
+            "modulePath": "classes/range.js",
+            "changeKind": "modified",
+            "note": "method of class Range"
+          },
+          {
+            "symbol": "replaceTildes",
+            "modulePath": "classes/range.js",
+            "changeKind": "modified",
+            "note": "not exported from this file"
+          },
+          {
+            "symbol": "replaceCarets",
+            "modulePath": "classes/range.js",
+            "changeKind": "modified",
+            "note": "not exported from this file"
+          },
+          {
+            "symbol": "replaceXRanges",
+            "modulePath": "classes/range.js",
+            "changeKind": "modified",
+            "note": "not exported from this file"
+          },
+          {
+            "symbol": "replaceStars",
+            "modulePath": "classes/range.js",
+            "changeKind": "modified",
+            "note": "not exported from this file"
+          },
+          {
+            "symbol": "replaceGTE0",
+            "modulePath": "classes/range.js",
+            "changeKind": "modified",
+            "note": "not exported from this file"
+          },
+          {
+            "symbol": "hyphenReplace",
+            "modulePath": "classes/range.js",
+            "changeKind": "modified",
+            "note": "not exported from this file"
+          },
+          {
+            "symbol": "parseRange",
+            "modulePath": "classes/range.js",
+            "changeKind": "modified",
+            "note": "method of class Range"
+          },
+          {
+            "symbol": "inc",
+            "modulePath": "classes/semver.js",
+            "changeKind": "modified",
+            "note": "method of class SemVer"
+          },
+          {
+            "symbol": "diff",
+            "modulePath": "functions/diff.js",
+            "changeKind": "modified",
+            "note": "exported as default"
+          },
+          {
+            "symbol": "default",
+            "modulePath": "functions/diff.js",
+            "changeKind": "modified",
+            "note": "export alias of diff"
+          },
+          {
+            "symbol": "createToken",
+            "modulePath": "internal/re.js",
+            "changeKind": "modified",
+            "note": "not exported from this file"
+          }
+        ],
+        "nonFunctionChanges": [
+          "safeRe (internal/re.js)"
+        ],
+        "provenance": {
+          "artefacts": [
+            {
+              "url": "https://registry.npmjs.org/semver/-/semver-7.5.1.tgz",
+              "sha256": "7466d0ee934d67f66045210449c0c38176c237aa6ddef92d72ad8536579e19c7",
+              "sizeBytes": 26100,
+              "verified": true,
+              "executed": false
+            },
+            {
+              "url": "https://registry.npmjs.org/semver/-/semver-7.5.2.tgz",
+              "sha256": "32f78290c12246206449f9a18cf3f7fab44828f06c17448b7e8954ff54ce0a9a",
+              "sizeBytes": 26617,
+              "verified": true,
+              "executed": false
+            }
+          ]
+        },
+        "notes": [
+          "6 source file(s) differ between 7.5.1 and 7.5.2",
+          "classes/comparator.js: 1 changed line(s) at module level outside any function",
+          "classes/comparator.js: 1 changed line(s) at module level outside any function",
+          "classes/range.js: 1 changed line(s) at module level outside any function",
+          "classes/range.js: 1 changed line(s) at module level outside any function",
+          "classes/semver.js: 1 changed line(s) at module level outside any function",
+          "classes/semver.js: 1 changed line(s) at module level outside any function",
+          "functions/coerce.js: 1 changed line(s) at module level outside any function",
+          "functions/coerce.js: 1 changed line(s) at module level outside any function"
+        ]
+      }
+    ],
+    "selected": "patch_reference"
+  },
+  {
+    "findingId": "c06",
+    "vulnerabilityId": "CVE-2020-7598",
+    "purl": "pkg:npm/minimist@1.2.2",
+    "attempts": [
+      {
+        "method": "advisory_metadata",
+        "outcome": "empty",
+        "notes": [
+          "OSV record has no ecosystem_specific block for this npm package; no structured function field exists"
+        ]
+      },
+      {
+        "method": "patch_reference",
+        "outcome": "hit",
+        "candidates": [
+          {
+            "symbol": "setKey",
+            "modulePath": "index.js",
+            "changeKind": "modified",
+            "note": "not exported from this file"
+          }
+        ],
+        "provenance": {
+          "patchCommit": "10bd4cdf49d9686d48214be9d579a9cdfda37c68",
+          "patchUrl": "https://github.com/minimistjs/minimist/commit/10bd4cdf49d9686d48214be9d579a9cdfda37c68"
+        },
+        "excludedChanges": [
+          "build",
+          "docs",
+          "tests"
+        ],
+        "notes": [
+          "commit 4cf1354839 changes no source code (release or docs commit)",
+          "3 commits attributed and merged: minimistjs/minimist@10bd4cdf49, minimistjs/minimist@38a4d1caea, minimistjs/minimist@63e7ed05aa"
+        ],
+        "clientMethod": {
+          "repository": "substack/minimist",
+          "query": "",
+          "commitsMatched": 0,
+          "error": "HTTP 422 for https://api.github.com/search/commits?per_page=10\u0026q=repo%3Asubstack%2Fminimist+GHSA-vh95-rmgr-6w4m"
+        }
+      },
+      {
+        "method": "advisory_text",
+        "outcome": "hit",
+        "candidates": [
+          {
+            "symbol": "Polluted",
+            "note": "named in advisory text"
+          }
+        ]
+      },
+      {
+        "method": "version_diff",
+        "outcome": "hit",
+        "candidates": [
+          {
+            "symbol": "setKey",
+            "modulePath": "index.js",
+            "changeKind": "modified",
+            "note": "nested in default"
+          }
+        ],
+        "provenance": {
+          "artefacts": [
+            {
+              "url": "https://registry.npmjs.org/minimist/-/minimist-1.2.2.tgz",
+              "sha256": "acf56629c0cf954d6e7680070f438305a6482c6179157e2b66fef715917186e8",
+              "sizeBytes": 7897,
+              "verified": true,
+              "executed": false
+            },
+            {
+              "url": "https://registry.npmjs.org/minimist/-/minimist-1.2.3.tgz",
+              "sha256": "fd59ccaa47bb3190a18c791d46599bb10de4f6ef2d2e0817d1637760e9350341",
+              "sizeBytes": 8075,
+              "verified": true,
+              "executed": false
+            }
+          ]
+        },
+        "excludedChanges": [
+          "tests"
+        ],
+        "notes": [
+          "2 source file(s) differ between 1.2.2 and 1.2.3"
+        ]
+      }
+    ],
+    "selected": "patch_reference"
+  },
+  {
+    "findingId": "c07",
+    "vulnerabilityId": "CVE-2022-24999",
+    "purl": "pkg:npm/qs@6.10.2",
+    "attempts": [
+      {
+        "method": "advisory_metadata",
+        "outcome": "empty",
+        "notes": [
+          "OSV record has no ecosystem_specific block for this npm package; no structured function field exists"
+        ]
+      },
+      {
+        "method": "patch_reference",
+        "outcome": "hit",
+        "candidates": [
+          {
+            "symbol": "parseObject",
+            "modulePath": "lib/parse.js",
+            "changeKind": "modified",
+            "note": "not exported from this file"
+          },
+          {
+            "symbol": "parseObjectRecursive",
+            "modulePath": "lib/parse.js",
+            "changeKind": "modified",
+            "note": "also named parseObjectRecursive (function expression name of parseObject)"
+          }
+        ],
+        "provenance": {
+          "patchCommit": "4310742efbd8c03f6495f07906b45213da0a32ec",
+          "patchUrl": "https://github.com/ljharb/qs/commit/4310742efbd8c03f6495f07906b45213da0a32ec"
+        },
+        "excludedChanges": [
+          "tests"
+        ],
+        "notes": [
+          "pull request ljharb/qs#428 resolved to 1 commit(s)",
+          "9 commits attributed and merged: ljharb/qs@4310742efb, ljharb/qs@727ef5d346, ljharb/qs@7320525993, ljharb/qs@8b4cc14cda, ljharb/qs@ba24e74dd1, ljharb/qs@e799ba57e5, ljharb/qs@ed0f5dcbef, ljharb/qs@f945393cfe, ljharb/qs@fc36827766"
+        ],
+        "clientMethod": {
+          "repository": "ljharb/qs",
+          "query": "GHSA-hrpp-h998-j3pp CVE-2022-24999",
+          "commitsMatched": 0
+        }
+      },
+      {
+        "method": "advisory_text",
+        "outcome": "empty",
+        "notes": [
+          "advisory prose names no function-like identifier"
+        ]
+      },
+      {
+        "method": "version_diff",
+        "outcome": "hit",
+        "candidates": [
+          {
+            "symbol": "parseObject",
+            "modulePath": "dist/qs.js",
+            "changeKind": "modified"
+          },
+          {
+            "symbol": "stringify",
+            "modulePath": "dist/qs.js",
+            "changeKind": "modified",
+            "note": "exported as stringify"
+          },
+          {
+            "symbol": "normalizeStringifyOptions",
+            "modulePath": "dist/qs.js",
+            "changeKind": "modified"
+          },
+          {
+            "symbol": "addNumericSeparator",
+            "modulePath": "dist/qs.js",
+            "changeKind": "modified"
+          },
+          {
+            "symbol": "default",
+            "modulePath": "dist/qs.js",
+            "changeKind": "modified",
+            "note": "exported as default"
+          },
+          {
+            "symbol": "inspect_",
+            "modulePath": "dist/qs.js",
+            "changeKind": "modified",
+            "note": "also named inspect_ (function expression name of default)"
+          },
+          {
+            "symbol": "inspect",
+            "modulePath": "dist/qs.js",
+            "changeKind": "modified",
+            "note": "nested in default"
+          },
+          {
+            "symbol": "quote",
+            "modulePath": "dist/qs.js",
+            "changeKind": "modified"
+          },
+          {
+            "symbol": "nameOf",
+            "modulePath": "dist/qs.js",
+            "changeKind": "modified"
+          },
+          {
+            "symbol": "inspectString",
+            "modulePath": "dist/qs.js",
+            "changeKind": "modified"
+          },
+          {
+            "symbol": "lowbyte",
+            "modulePath": "dist/qs.js",
+            "changeKind": "modified"
+          },
+          {
+            "symbol": "collectionOf",
+            "modulePath": "dist/qs.js",
+            "changeKind": "modified"
+          },
+          {
+            "symbol": "getIndent",
+            "modulePath": "dist/qs.js",
+            "changeKind": "modified"
+          },
+          {
+            "symbol": "indentedJoin",
+            "modulePath": "dist/qs.js",
+            "changeKind": "modified"
+          },
+          {
+            "symbol": "arrObjKeys",
+            "modulePath": "dist/qs.js",
+            "changeKind": "modified"
+          },
+          {
+            "symbol": "parseObject",
+            "modulePath": "lib/parse.js",
+            "changeKind": "modified",
+            "note": "not exported from this file"
+          },
+          {
+            "symbol": "stringify",
+            "modulePath": "lib/stringify.js",
+            "changeKind": "modified",
+            "note": "not exported from this file"
+          },
+          {
+            "symbol": "normalizeStringifyOptions",
+            "modulePath": "lib/stringify.js",
+            "changeKind": "modified",
+            "note": "not exported from this file"
+          }
+        ],
+        "provenance": {
+          "artefacts": [
+            {
+              "url": "https://registry.npmjs.org/qs/-/qs-6.10.2.tgz",
+              "sha256": "02094e21dbd238fd54ade4e287b683c5518f19bc1519f542c6a3a1f38bbe5487",
+              "sizeBytes": 48776,
+              "verified": true,
+              "executed": false
+            },
+            {
+              "url": "https://registry.npmjs.org/qs/-/qs-6.10.3.tgz",
+              "sha256": "a870fe3cc87d4bdbedc5dd3fb83ead68b4cc6b01bf790daab4a432c4ba841617",
+              "sizeBytes": 49727,
+              "verified": true,
+              "executed": false
+            }
+          ]
+        },
+        "excludedChanges": [
+          "tests"
+        ],
+        "notes": [
+          "4 source file(s) differ between 6.10.2 and 6.10.3",
+          "dist/qs.js: 13 changed line(s) at module level outside any function",
+          "dist/qs.js: 2 changed line(s) at module level outside any function"
+        ]
+      }
+    ],
+    "selected": "patch_reference"
+  },
+  {
+    "findingId": "c08",
+    "vulnerabilityId": "CVE-2022-0235",
+    "purl": "pkg:npm/node-fetch@2.6.6",
+    "attempts": [
+      {
+        "method": "advisory_metadata",
+        "outcome": "empty",
+        "notes": [
+          "OSV record has no ecosystem_specific block for this npm package; no structured function field exists"
+        ]
+      },
+      {
+        "method": "patch_reference",
+        "outcome": "hit",
+        "candidates": [
+          {
+            "symbol": "isDomainOrSubdomain",
+            "modulePath": "src/index.js",
+            "changeKind": "modified",
+            "note": "not exported from this file"
+          },
+          {
+            "symbol": "fetch",
+            "modulePath": "src/index.js",
+            "changeKind": "modified",
+            "note": "exported as default"
+          },
+          {
+            "symbol": "default",
+            "modulePath": "src/index.js",
+            "changeKind": "modified",
+            "note": "export alias of fetch"
+          }
+        ],
+        "nonFunctionChanges": [
+          "URL (src/index.js)",
+          "resolve_url (src/index.js)"
+        ],
+        "provenance": {
+          "patchCommit": "1ef4b560a17e644a02a3bfdea7631ffeee578b35",
+          "patchUrl": "https://github.com/node-fetch/node-fetch/commit/1ef4b560a17e644a02a3bfdea7631ffeee578b35"
+        },
+        "excludedChanges": [
+          "build",
+          "tests"
+        ],
+        "notes": [
+          "pull request node-fetch/node-fetch#1453 resolved to 2 commit(s)",
+          "commit 1ef4b560a1 is the registry gitHead of node-fetch@2.6.7; other referenced commits ignored",
+          "src/index.js: 7 changed line(s) at module level outside any function",
+          "src/index.js: 6 changed line(s) at module level outside any function"
+        ],
+        "clientMethod": {
+          "repository": "node-fetch/node-fetch",
+          "query": "GHSA-r683-j2x4-v87g CVE-2022-0235",
+          "commitsMatched": 0
+        }
+      },
+      {
+        "method": "advisory_text",
+        "outcome": "hit",
+        "candidates": [
+          {
+            "symbol": "authorization",
+            "note": "named in advisory text"
+          },
+          {
+            "symbol": "cookie",
+            "note": "named in advisory text"
+          },
+          {
+            "symbol": "cookie2",
+            "note": "named in advisory text"
+          }
+        ]
+      },
+      {
+        "method": "version_diff",
+        "outcome": "hit",
+        "candidates": [
+          {
+            "symbol": "isDomainOrSubdomain",
+            "modulePath": "lib/index.es.js",
+            "changeKind": "modified",
+            "note": "not exported from this file"
+          },
+          {
+            "symbol": "fetch",
+            "modulePath": "lib/index.es.js",
+            "changeKind": "modified",
+            "note": "exported as default"
+          },
+          {
+            "symbol": "default",
+            "modulePath": "lib/index.es.js",
+            "changeKind": "modified",
+            "note": "export alias of fetch"
+          },
+          {
+            "symbol": "isDomainOrSubdomain",
+            "modulePath": "lib/index.js",
+            "changeKind": "modified",
+            "note": "not exported from this file"
+          },
+          {
+            "symbol": "fetch",
+            "modulePath": "lib/index.js",
+            "changeKind": "modified",
+            "note": "exported as default"
+          },
+          {
+            "symbol": "default",
+            "modulePath": "lib/index.js",
+            "changeKind": "modified",
+            "note": "export alias of fetch"
+          },
+          {
+            "symbol": "isDomainOrSubdomain",
+            "modulePath": "lib/index.mjs",
+            "changeKind": "modified",
+            "note": "not exported from this file"
+          },
+          {
+            "symbol": "fetch",
+            "modulePath": "lib/index.mjs",
+            "changeKind": "modified",
+            "note": "exported as default"
+          },
+          {
+            "symbol": "default",
+            "modulePath": "lib/index.mjs",
+            "changeKind": "modified",
+            "note": "export alias of fetch"
+          }
+        ],
+        "nonFunctionChanges": [
+          "URL$1 (lib/index.es.js)",
+          "resolve_url (lib/index.es.js)",
+          "URL$1 (lib/index.js)",
+          "resolve_url (lib/index.js)",
+          "URL$1 (lib/index.mjs)",
+          "resolve_url (lib/index.mjs)"
+        ],
+        "provenance": {
+          "artefacts": [
+            {
+              "url": "https://registry.npmjs.org/node-fetch/-/node-fetch-2.6.6.tgz",
+              "sha256": "023e40f57ee7fd06c5ae2b20a8e9ee1abcb6469c3e5d733d5a47f4fe9c6c9ebc",
+              "sizeBytes": 40891,
+              "verified": true,
+              "executed": false
+            },
+            {
+              "url": "https://registry.npmjs.org/node-fetch/-/node-fetch-2.6.7.tgz",
+              "sha256": "2e324daf5a20e92f679046740fc316d076e41c34470e21893d9d337a0849e484",
+              "sizeBytes": 41745,
+              "verified": true,
+              "executed": false
+            }
+          ]
+        },
+        "notes": [
+          "3 source file(s) differ between 2.6.6 and 2.6.7"
+        ]
+      }
+    ],
+    "selected": "patch_reference"
+  },
+  {
+    "findingId": "c09",
+    "vulnerabilityId": "CVE-2021-3807",
+    "purl": "pkg:npm/ansi-regex@5.0.0",
+    "attempts": [
+      {
+        "method": "advisory_metadata",
+        "outcome": "empty",
+        "notes": [
+          "OSV record has no ecosystem_specific block for this npm package; no structured function field exists"
+        ]
+      },
+      {
+        "method": "patch_reference",
+        "outcome": "hit",
+        "candidates": [
+          {
+            "symbol": "default",
+            "modulePath": "index.js",
+            "changeKind": "modified",
+            "note": "exported as default"
+          },
+          {
+            "symbol": "ansiRegex",
+            "modulePath": "index.js",
+            "changeKind": "modified",
+            "note": "exported as default"
+          }
+        ],
+        "provenance": {
+          "patchCommit": "419250fa510bf31b4cc672e76537a64f9332e1f1",
+          "patchUrl": "https://github.com/chalk/ansi-regex/commit/419250fa510bf31b4cc672e76537a64f9332e1f1"
+        },
+        "notes": [
+          "4 commits attributed and merged: chalk/ansi-regex@419250fa51, chalk/ansi-regex@75a657da7a, chalk/ansi-regex@8d1d7cdb58, chalk/ansi-regex@c3c0b3f273"
+        ],
+        "clientMethod": {
+          "repository": "chalk/ansi-regex",
+          "query": "GHSA-93q8-gq69-wqmw CVE-2021-3807",
+          "commitsMatched": 0
+        }
+      },
+      {
+        "method": "advisory_text",
+        "outcome": "empty",
+        "notes": [
+          "advisory prose names no function-like identifier"
+        ]
+      },
+      {
+        "method": "version_diff",
+        "outcome": "hit",
+        "candidates": [
+          {
+            "symbol": "default",
+            "modulePath": "index.js",
+            "changeKind": "modified",
+            "note": "exported as default"
+          }
+        ],
+        "provenance": {
+          "artefacts": [
+            {
+              "url": "https://registry.npmjs.org/ansi-regex/-/ansi-regex-5.0.0.tgz",
+              "sha256": "6ee1bda34e578b6da23ca5ffda9dc971748c3c542f5fa999f818df5dc0323b99",
+              "sizeBytes": 2821,
+              "verified": true,
+              "executed": false
+            },
+            {
+              "url": "https://registry.npmjs.org/ansi-regex/-/ansi-regex-5.0.1.tgz",
+              "sha256": "0e0eadcdaada805db5d85b53ad5cdca0760b996ee199ec9658e7b34aa6c8e0d9",
+              "sizeBytes": 2768,
+              "verified": true,
+              "executed": false
+            }
+          ]
+        },
+        "notes": [
+          "1 source file(s) differ between 5.0.0 and 5.0.1"
+        ]
+      }
+    ],
+    "selected": "patch_reference"
+  },
+  {
+    "findingId": "c10",
+    "vulnerabilityId": "CVE-2022-38900",
+    "purl": "pkg:npm/decode-uri-component@0.2.0",
+    "attempts": [
+      {
+        "method": "advisory_metadata",
+        "outcome": "empty",
+        "notes": [
+          "OSV record has no ecosystem_specific block for this npm package; no structured function field exists"
+        ]
+      },
+      {
+        "method": "patch_reference",
+        "outcome": "hit",
+        "candidates": [
+          {
+            "symbol": "decodeComponents",
+            "modulePath": "index.js",
+            "changeKind": "modified",
+            "note": "not exported from this file"
+          },
+          {
+            "symbol": "decode",
+            "modulePath": "index.js",
+            "changeKind": "modified",
+            "note": "not exported from this file"
+          }
+        ],
+        "provenance": {
+          "patchCommit": "746ca5dcb6667c5d364e782d53c542830e4c10b9",
+          "patchUrl": "https://github.com/SamVerschueren/decode-uri-component/commit/746ca5dcb6667c5d364e782d53c542830e4c10b9"
+        },
+        "excludedChanges": [
+          "tests"
+        ],
+        "clientMethod": {
+          "repository": "SamVerschueren/decode-uri-component",
+          "query": "GHSA-w573-4hg7-7wgq CVE-2022-38900",
+          "commitsMatched": 0
+        }
+      },
+      {
+        "method": "advisory_text",
+        "outcome": "empty",
+        "notes": [
+          "advisory prose names no function-like identifier"
+        ]
+      },
+      {
+        "method": "version_diff",
+        "outcome": "hit",
+        "candidates": [
+          {
+            "symbol": "decodeComponents",
+            "modulePath": "index.js",
+            "changeKind": "modified",
+            "note": "not exported from this file"
+          },
+          {
+            "symbol": "decode",
+            "modulePath": "index.js",
+            "changeKind": "modified",
+            "note": "not exported from this file"
+          }
+        ],
+        "provenance": {
+          "artefacts": [
+            {
+              "url": "https://registry.npmjs.org/decode-uri-component/-/decode-uri-component-0.2.0.tgz",
+              "sha256": "0a3e427c86cd249b0b402907132bf8ba85efb2a34ed1d2b3aa4694fd21730ad6",
+              "sizeBytes": 2691,
+              "verified": true,
+              "executed": false
+            },
+            {
+              "url": "https://registry.npmjs.org/decode-uri-component/-/decode-uri-component-0.2.1.tgz",
+              "sha256": "0ffec42329beb9f9af7fbb599701b97f5ae870452df66332ff58bb5d2a19b5a9",
+              "sizeBytes": 2875,
+              "verified": true,
+              "executed": false
+            }
+          ]
+        },
+        "notes": [
+          "1 source file(s) differ between 0.2.0 and 0.2.1"
+        ]
+      }
+    ],
+    "selected": "patch_reference"
+  }
+]

@@ -137,6 +137,31 @@ Understand how dependencies enter your project.
 ./bin/sbomber trace . --fp --list
 ```
 
+### Vulnerable-function localisation
+
+Work out which function an advisory actually implicates, so usage evidence
+can be compared against it instead of against the whole package.
+
+```bash
+# Read the scan's canonical-scan.json, write localisation.json
+./bin/sbomber localise --canonical-scan out/canonical-scan.json --out out/localisation.json
+
+# Keep the per-method evidence trace and run every method for comparison
+GITHUB_TOKEN=$(gh auth token) ./bin/sbomber localise --canonical-scan out/canonical-scan.json \
+  --out out/localisation.json --trace out/localisation-trace.json --all-methods
+```
+
+Methods run in fallback order, cheapest and most reliable first: structured
+advisory metadata, the fix commit the advisory links to, function names in the
+advisory prose, and finally a diff of the vulnerable and fixed npm tarballs.
+A finding no method can localise is reported as `unknown` and falls back to
+package-level treatment; the unknown rate is a result, not a failure.
+
+Downloaded package code is **never executed**. Tarballs are verified against
+the registry's integrity value, read in memory, and every artefact records
+`executed: false`. The output follows `contracts/localisation.schema.json`.
+Measured behaviour on ten curated CVEs is in `spikes/localisation/`.
+
 ### SBOM Verification
 
 Compare your generated SBOM against a ground truth to measure accuracy.

@@ -1,0 +1,6 @@
+date: 2026-09-06T08:30:00Z
+sbomber: branch feature/component-3-localisation-vex (localisation tool commit, see git log)
+go version go1.26.2 darwin/arm64
+tree-sitter: v0.25.0 javascript v0.25.0 typescript v0.23.2
+network: api.osv.dev, api.github.com (authenticated), registry.npmjs.org
+run time: ~70 s for 10 findings, --all-methods --client-search
