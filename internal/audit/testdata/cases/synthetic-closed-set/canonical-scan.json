@@ -1,0 +1,27 @@
+{
+  "schemaVersion": "1.0.0",
+  "scan": { "scanId": "scan-audit-synthetic" },
+  "occurrences": [
+    { "occurrenceId": "occ-lodash", "purl": "pkg:npm/lodash@4.17.4", "relationship": "direct" }
+  ],
+  "findings": [
+    {
+      "findingId": "find-001",
+      "vulnerabilityId": "CVE-2018-16487",
+      "purl": "pkg:npm/lodash@4.17.4",
+      "occurrenceIds": ["occ-lodash"],
+      "severity": "high",
+      "fixedVersion": "4.17.11",
+      "cisaKev": false
+    },
+    {
+      "findingId": "find-002",
+      "vulnerabilityId": "CVE-2021-23337",
+      "purl": "pkg:npm/lodash@4.17.4",
+      "occurrenceIds": ["occ-lodash"],
+      "severity": "high",
+      "fixedVersion": "4.17.21",
+      "cisaKev": false
+    }
+  ]
+}

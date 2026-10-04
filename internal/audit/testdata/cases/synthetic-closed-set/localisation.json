@@ -1,0 +1,19 @@
+{
+  "schemaVersion": "1.1.0",
+  "results": [
+    {
+      "findingId": "find-001",
+      "purl": "pkg:npm/lodash@4.17.4",
+      "method": "patch_reference",
+      "confidence": "high",
+      "candidateSymbols": [ { "symbol": "merge", "visibility": "public" } ]
+    },
+    {
+      "findingId": "find-002",
+      "purl": "pkg:npm/lodash@4.17.4",
+      "method": "patch_reference",
+      "confidence": "high",
+      "candidateSymbols": [ { "symbol": "template", "visibility": "public" } ]
+    }
+  ]
+}
