@@ -27,9 +27,12 @@ func TestEngine_ConsumesAllThreeFixturesAndEmitsJustifiedDecisions(t *testing.T)
 		t.Fatalf("got %d findings from the fixtures, want 4 (find-001..find-004)", len(inputs))
 	}
 
+	// find-002 is unknown, not no_usage_detected: the sample graph has an
+	// unresolved computed member access on axios (#119 rule 4) and the 1.0.0
+	// localisation set is open (#139 rule 5).
 	wantStates := map[string]State{
 		"find-001": StateUsageDetected,
-		"find-002": StateNoUsageDetected,
+		"find-002": StateUnknown,
 		"find-003": StateUnknown,
 		"find-004": StateUnknown,
 	}
@@ -51,7 +54,7 @@ func TestEngine_ConsumesAllThreeFixturesAndEmitsJustifiedDecisions(t *testing.T)
 	}
 
 	dist := Tally(decisions)
-	if dist.TotalFindings != 4 || dist.UsageDetected != 1 || dist.NoUsageDetected != 1 || dist.Unknown != 2 {
+	if dist.TotalFindings != 4 || dist.UsageDetected != 1 || dist.NoUsageDetected != 0 || dist.Unknown != 3 {
 		t.Errorf("unexpected distribution: %+v", dist)
 	}
 }

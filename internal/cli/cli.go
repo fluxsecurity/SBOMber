@@ -105,6 +105,8 @@ func Main(args []string, stdin io.Reader, stdout io.Writer, stderr io.Writer) in
 		return runLocalise(args[1:], stdout, stderr)
 	case "usage":
 		return runUsage(args[1:], stdout, stderr)
+	case "decide":
+		return runDecide(args[1:], stdout, stderr)
 	case "demo":
 		return runDemo(stdout, stderr)
 	case "help", "--help", "-h":
@@ -1767,6 +1769,7 @@ Usage:
   sbomber diff <old-sbom> <new-sbom> [--no-color]
   sbomber localise --canonical-scan <canonical-scan.json> [--out localisation.json] [--trace trace.json]
   sbomber usage --canonical-scan <canonical-scan.json> [--out usage-graph.json] [--entry file:function]
+  sbomber decide --canonical-scan <file> --usage-graph <file> --localisation <file> [--out decision-results.json]
   sbomber version
 
 Scan Flags:
@@ -1814,6 +1817,11 @@ Usage Flags (Component 2: which package functions does the app import and call?)
   --allow-partial                       exit 0 when the analysis is partial (default: exit 2)
   --max-files <n>                       source files parsed per repository (default: 10000)
   --max-file-bytes <n>                  largest source file parsed (default: 1000000)
+Decide Flags (Component 4: state, confidence, risk priority, justification):
+  --canonical-scan <file>               canonical-scan.json (required)
+  --usage-graph <file>                  usage-graph.json (required)
+  --localisation <file>                 localisation.json (required)
+  --out <file>                          decision-results.json to write (default: decision-results.json)
 
 Examples:
   sbomber
