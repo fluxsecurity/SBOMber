@@ -71,3 +71,12 @@ downgrade path is exercised by the hand-built case in
    and note why in `CASE.md`.
 7. One label per finding in `canonical-scan.json`; the harness fails on an
    unlabelled finding or a label for a finding that no longer exists.
+8. Label by whether code that ships executes the vulnerable code path, not by
+   whether the input reaching it is attacker-controlled. A call with constant
+   arguments that executes the path is `genuine_usage`. When the advisory's
+   trigger needs an option or configuration the application does not set (an
+   invalid `limit`, `parseNested: true`, `extended` URL encoding), label
+   `no_genuine_usage`, cite the call and state which trigger is absent. When the
+   advisory names one function but the fix changes shared code that a called
+   function reaches, label `genuine_usage` and cite the fix lines in the
+   reasoning.
