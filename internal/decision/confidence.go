@@ -40,7 +40,15 @@ type ConfidenceInputs struct {
 	// single deterministic method with no second method to check it
 	// against should leave this false rather than assumed true.
 	DeterministicMethodsAgree bool
+
+	// MatchFromAdvisoryTextOnly is true when the only join keys that
+	// matched came from advisory prose. Per the #139 sign-off (condition
+	// 3), such a finding rates no higher than medium and says why.
+	MatchFromAdvisoryTextOnly bool
 }
+
+// proseOnlyCriterion is shown whenever a rating rests on a prose-only match.
+const proseOnlyCriterion = "matched name came from advisory text only, so confidence is capped at medium"
 
 // Rating is a confidence rating together with the published criteria that
 // produced it. Per S4-11: "Every category is displayed with the evidence
@@ -61,6 +69,18 @@ type Rating struct {
 // averages its inputs into a score. Each branch names the specific
 // criteria that were or were not met.
 func Rate(in ConfidenceInputs) Rating {
+	r := rate(in)
+	if !in.MatchFromAdvisoryTextOnly {
+		return r
+	}
+	if r.Confidence == ConfidenceHigh {
+		r.Confidence = ConfidenceMedium
+	}
+	r.Criteria = append(r.Criteria, proseOnlyCriterion)
+	return r
+}
+
+func rate(in ConfidenceInputs) Rating {
 	coverage := clampPercent(in.ParseCoveragePercent)
 
 	methodQuality := localisationMethodQuality(in.LocalisationMethod)
