@@ -1,0 +1,146 @@
+name: "SBOMber Scan"
+description: >-
+  Generate an SBOM (CycloneDX/SPDX) and optionally scan for vulnerabilities
+  with Grype, directly against the checked-out repository. Builds SBOMber
+  from source, uploads the SBOM and vulnerability report as workflow
+  artifacts, and writes a job summary.
+author: "fluxsecurity"
+branding:
+  icon: "shield"
+  color: "blue"
+
+inputs:
+  scan-path:
+    description: >-
+      Path to scan, relative to the checked-out repository root. Defaults to
+      the repository root.
+    required: false
+    default: "."
+  format:
+    description: "SBOM export format: cyclonedx, spdx, or both."
+    required: false
+    default: "cyclonedx"
+  include-vulnerabilities:
+    description: >-
+      Scan for vulnerabilities with Grype (installed automatically) in
+      addition to generating the SBOM.
+    required: false
+    default: "true"
+  fail-on-vuln:
+    description: >-
+      Fail the step (non-zero exit) when vulnerabilities are found. Has no
+      effect when include-vulnerabilities is false.
+    required: false
+    default: "true"
+  no-color:
+    description: "Disable ANSI color codes in scan output (recommended for CI logs)."
+    required: false
+    default: "true"
+  github-token:
+    description: >-
+      Token used for GHSA advisory lookups during vulnerability enrichment.
+      Pass ${{ github.token }} from the calling workflow to raise GitHub API
+      rate limits; omit to run unauthenticated.
+    required: false
+    default: ""
+
+outputs:
+  exit-code:
+    description: "SBOMber's own exit code: 0 clean, 1 vulnerabilities found (policy), 2 tool/usage error."
+    value: ${{ steps.scan.outputs.exit-code }}
+  report-dir:
+    description: "Absolute path to the directory containing the SBOM and vulnerability report."
+    value: ${{ steps.scan.outputs.report-dir }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Set up Go
+      uses: actions/setup-go@v5
+      with:
+        go-version-file: "${{ github.action_path }}/go.mod"
+
+    - name: Install Grype
+      if: ${{ inputs.include-vulnerabilities == 'true' }}
+      shell: bash
+      run: |
+        curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh \
+          | sh -s -- -b "$RUNNER_TEMP/bin"
+        echo "$RUNNER_TEMP/bin" >> "$GITHUB_PATH"
+
+    - name: Build SBOMber
+      shell: bash
+      env:
+        CGO_ENABLED: "1"
+      run: |
+        go build -o "$RUNNER_TEMP/bin/sbomber" "${{ github.action_path }}/cmd/sbomber"
+        echo "$RUNNER_TEMP/bin" >> "$GITHUB_PATH"
+
+    - name: Run SBOMber scan
+      id: scan
+      shell: bash
+      env:
+        GITHUB_TOKEN: ${{ inputs.github-token }}
+      # The scan can legitimately exit 1 (vulnerabilities found, policy
+      # violation) or 2 (tool error) — continue so the summary and artifact
+      # steps still run, then fail the job for real in the final step below.
+      continue-on-error: true
+      run: |
+        set -o pipefail
+
+        args=(scan "${{ inputs.scan-path }}" --format "${{ inputs.format }}")
+        if [ "${{ inputs.include-vulnerabilities }}" = "true" ]; then
+          args+=(--include-vulnerabilities)
+        fi
+        if [ "${{ inputs.fail-on-vuln }}" = "true" ]; then
+          args+=(--fail-on-vuln)
+        fi
+        if [ "${{ inputs.no-color }}" = "true" ]; then
+          args+=(--no-color)
+        fi
+
+        sbomber "${args[@]}" 2>&1 | tee "$RUNNER_TEMP/sbomber-scan.log"
+        exit_code="${PIPESTATUS[0]}"
+
+        echo "exit-code=$exit_code" >> "$GITHUB_OUTPUT"
+        echo "report-dir=$HOME/.sbomber/reports" >> "$GITHUB_OUTPUT"
+        exit "$exit_code"
+
+    - name: Write job summary
+      if: ${{ always() }}
+      shell: bash
+      run: |
+        {
+          echo "## SBOMber scan"
+          echo
+          case "${{ steps.scan.outputs.exit-code }}" in
+            0) echo "**Result:** :white_check_mark: clean" ;;
+            1) echo "**Result:** :warning: vulnerabilities found (fail-on-vuln policy)" ;;
+            2) echo "**Result:** :x: tool/usage error" ;;
+            *) echo "**Result:** unknown exit code \`${{ steps.scan.outputs.exit-code }}\`" ;;
+          esac
+          echo
+          echo "- Scan path: \`${{ inputs.scan-path }}\`"
+          echo "- Format: \`${{ inputs.format }}\`"
+          echo "- Vulnerability scanning: \`${{ inputs.include-vulnerabilities }}\`"
+          echo "- Fail on vulnerabilities: \`${{ inputs.fail-on-vuln }}\`"
+          echo
+          echo "<details><summary>Full scan output</summary>"
+          echo
+          echo '```'
+          cat "$RUNNER_TEMP/sbomber-scan.log" 2>/dev/null || echo "(no output captured)"
+          echo '```'
+          echo "</details>"
+        } >> "$GITHUB_STEP_SUMMARY"
+
+    - name: Upload SBOMber artifacts
+      if: ${{ always() }}
+      uses: actions/upload-artifact@v4
+      with:
+        name: sbomber-report
+        path: ${{ steps.scan.outputs.report-dir }}
+        if-no-files-found: warn
+
+    - name: Apply scan result
+      shell: bash
+      run: exit "${{ steps.scan.outputs.exit-code }}"

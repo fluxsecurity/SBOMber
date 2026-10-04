@@ -1,0 +1,35 @@
+name: SBOMber scan (reference)
+
+# Reference workflow for consumers of ./action.yml: check out the
+# repository to scan, then run the SBOMber action against it. Runs here on
+# pushes to main and on demand, so the action is continuously validated
+# against SBOMber's own repository as well as documented as an example.
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Run SBOMber
+        id: sbomber
+        uses: ./
+        with:
+          scan-path: "."
+          format: "both"
+          include-vulnerabilities: "true"
+          fail-on-vuln: "true"
+          github-token: ${{ github.token }}
+
+      - name: Show action outputs
+        if: ${{ always() }}
+        run: |
+          echo "exit-code: ${{ steps.sbomber.outputs.exit-code }}"
+          echo "report-dir: ${{ steps.sbomber.outputs.report-dir }}"

@@ -271,6 +271,34 @@ Risk levels: **Low** (healthy) / **Medium** (monitor) / **High** (investigate)
 
 ---
 
+## GitHub Action
+
+Run SBOMber directly in CI against the checked-out repository via
+[`action.yml`](action.yml) — it builds SBOMber from source, installs Grype,
+and uploads the SBOM plus vulnerability report as workflow artifacts.
+
+```yaml
+- uses: actions/checkout@v4
+
+- uses: fluxsecurity/SBOMber@main
+  with:
+    scan-path: "."                   # default: "."
+    format: "both"                   # cyclonedx | spdx | both
+    include-vulnerabilities: "true"  # run Grype as well
+    fail-on-vuln: "true"             # fail the step if vulnerabilities are found
+    github-token: ${{ github.token }} # raises GHSA lookup rate limits
+```
+
+Exit codes match the CLI's own policy: `0` clean, `1` vulnerabilities found
+(only when `fail-on-vuln: "true"`), `2` tool/usage error. A job summary and
+the `sbomber-report` artifact (SBOM + HTML vulnerability report) are written
+on every run, including failed ones. See
+[`.github/workflows/sbomber-scan.yml`](.github/workflows/sbomber-scan.yml)
+for a complete, working reference workflow — it also scans this repository
+on every push to `main`.
+
+---
+
 ## Development
 
 ```bash
