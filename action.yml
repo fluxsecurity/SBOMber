@@ -39,8 +39,8 @@ inputs:
   github-token:
     description: >-
       Token used for GHSA advisory lookups during vulnerability enrichment.
-      Pass ${{ github.token }} from the calling workflow to raise GitHub API
-      rate limits; omit to run unauthenticated.
+      Pass the calling workflow's GitHub token (github context, token
+      field) to raise GitHub API rate limits; omit to run unauthenticated.
     required: false
     default: ""
 
