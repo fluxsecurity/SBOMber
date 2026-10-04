@@ -103,8 +103,6 @@ func Main(args []string, stdin io.Reader, stdout io.Writer, stderr io.Writer) in
 		return runDiff(args[1:], stdout, stderr)
 	case "localise", "localize":
 		return runLocalise(args[1:], stdout, stderr)
-	case "decide":
-		return runDecide(args[1:], stdout, stderr)
 	case "demo":
 		return runDemo(stdout, stderr)
 	case "help", "--help", "-h":
@@ -1766,7 +1764,6 @@ Usage:
   sbomber verify <ground-truth-sbom> <generated-sbom> [--json]
   sbomber diff <old-sbom> <new-sbom> [--no-color]
   sbomber localise --canonical-scan <canonical-scan.json> [--out localisation.json] [--trace trace.json]
-  sbomber decide --canonical-scan <file> --usage-graph <file> --localisation <file> [--out decision-results.json]
   sbomber version
 
 Scan Flags:
@@ -1802,12 +1799,6 @@ Localise Flags (Component 3: which function does an advisory implicate?):
   --max-tarball-mb <n>                  npm tarball download limit (default: 30)
   --timeout <duration>                  overall time budget (default: 15m)
   GITHUB_TOKEN                          environment variable used for GitHub API requests
-
-Decide Flags (Component 4: state, confidence, risk priority, justification):
-  --canonical-scan <file>               canonical-scan.json (required)
-  --usage-graph <file>                  usage-graph.json (required)
-  --localisation <file>                 localisation.json (required)
-  --out <file>                          decision-results.json to write (default: decision-results.json)
 
 Examples:
   sbomber

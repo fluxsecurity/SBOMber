@@ -1,9 +1,6 @@
 package decision
 
-import (
-	"strings"
-	"testing"
-)
+import "testing"
 
 // Fixture paths assume the standard layout: internal/decision/*_test.go
 // running two directories below repo root, with contracts/fixtures/ at
@@ -60,44 +57,26 @@ func TestFindingInputs_SuccessPath(t *testing.T) {
 	}
 }
 
-// TestFindingInputs_SampleNegativeIsNowUnknown: find-002 (axios@0.21.0) was
-// fully analysed and neither resolved call site matches a candidate. Before
-// S5-08 this was no_usage_detected. Under the handoff rules it is unknown:
-// obs-005 is an unresolved computed member access on axios, which could be
-// a candidate (#119 rule 4), and localisation 1.0.0 cannot close the set
-// (#139 rule 5). The relative computed import obs-006 must NOT be listed:
-// it loads application code, not a package (#119 rule 5).
-func TestFindingInputs_SampleNegativeIsNowUnknown(t *testing.T) {
+// TestFindingInputs_NoUsageDetectedPath: find-002 (axios@0.21.0) was fully
+// analysed -- the occurrence is not in unanalysedOccurrences -- but neither
+// of its resolved call sites matches either candidate symbol localisation
+// named. This is the failure/negative path, and it is only a legitimate
+// no_usage_detected because the analysis genuinely completed and found
+// nothing, not because evidence was missing.
+func TestFindingInputs_NoUsageDetectedPath(t *testing.T) {
 	inputs := loadSampleInputs(t)
 	in, ok := inputs["find-002"]
 	if !ok {
 		t.Fatal("find-002 missing from joined inputs")
 	}
+
+	verdict := DetermineState(in.State)
+	if verdict.State != StateNoUsageDetected {
+		t.Fatalf("find-002: got state %q, want %q (reasons: %v)", verdict.State, StateNoUsageDetected, verdict.Reasons)
+	}
 	if in.State.HasResolvedUsageEvidence {
 		t.Fatal("find-002: HasResolvedUsageEvidence should be false -- neither candidate symbol was called")
 	}
-
-	verdict := DetermineState(in.State)
-	if verdict.State != StateUnknown {
-		t.Fatalf("find-002: got state %q, want %q (reasons: %v)", verdict.State, StateUnknown, verdict.Reasons)
-	}
-	assertReasonContains(t, verdict, "computed_member_access")
-	assertReasonContains(t, verdict, OpenSetCriterion)
-	for _, r := range verdict.Reasons {
-		if strings.Contains(r, "plugins") {
-			t.Errorf("relative computed import was treated as relevant: %q", r)
-		}
-	}
-}
-
-func assertReasonContains(t *testing.T, v Verdict, want string) {
-	t.Helper()
-	for _, r := range v.Reasons {
-		if strings.Contains(r, want) {
-			return
-		}
-	}
-	t.Errorf("no reason mentions %q; reasons: %v", want, v.Reasons)
 }
 
 // TestFindingInputs_BoundaryUnanalysedOccurrenceBlocksNegative: find-004
