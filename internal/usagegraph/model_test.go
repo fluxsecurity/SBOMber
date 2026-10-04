@@ -74,8 +74,8 @@ func TestGraphJSONKeepsRequiredEmptyCollections(t *testing.T) {
 		t.Fatalf("decode graph: %v", err)
 	}
 
-	if document["schemaVersion"] != "1.3.0" {
-		t.Fatalf("schema version = %v, want 1.3.0", document["schemaVersion"])
+	if document["schemaVersion"] != "1.4.0" {
+		t.Fatalf("schema version = %v, want 1.4.0", document["schemaVersion"])
 	}
 
 	for _, field := range []string{

@@ -137,17 +137,23 @@ def validate_usage_graph(d, canon):
     incomplete_files = (cov["filesParsedWithErrors"] + cov["filesFailed"]
                         + cov["filesSkipped"])
     limits_hit = cov.get("limitsHit", [])
+    empty_source_scope = (cov["filesDiscovered"] == 0 or any(
+        r["filesDiscovered"] == 0 for r in cov.get("perRepository", [])
+    ))
     check(c, "complete status has complete file coverage",
-          analysis_status != "complete" or (incomplete_files == 0 and not limits_hit),
-          f"analysis is complete with {incomplete_files} incomplete files and limits {limits_hit}")
+          analysis_status != "complete" or (
+              incomplete_files == 0 and not limits_hit and not empty_source_scope),
+          f"analysis is complete with {incomplete_files} incomplete files, "
+          f"limits {limits_hit} and empty source scope {empty_source_scope}")
     check(c, "incomplete file coverage cannot be complete",
-          not (incomplete_files or limits_hit)
+          not (incomplete_files or limits_hit or
+               (empty_source_scope and analysis_status in ("complete", "partial")))
           or analysis_status in ("partial", "failed"),
           f"coverage has {incomplete_files} incomplete files or limits {limits_hit}, "
           f"but analysis status is {analysis_status}")
     check(c, "partial status explains itself in coverage",
-          analysis_status != "partial" or bool(incomplete_files or limits_hit),
-          "analysis is partial but coverage reports no incomplete files or limits")
+          analysis_status != "partial" or bool(incomplete_files or limits_hit or empty_source_scope),
+          "analysis is partial but coverage reports no incomplete files, limits or empty source scope")
 
     repository_ids = set()
     repository_totals = {

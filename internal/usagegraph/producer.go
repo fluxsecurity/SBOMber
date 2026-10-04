@@ -130,6 +130,10 @@ func buildUnanalysedOccurrences(
 	coverage Result,
 ) []UnanalysedOccurrence {
 	result := []UnanalysedOccurrence{}
+	discoveredByRepository := make(map[string]int)
+	for _, repository := range coverage.Coverage.PerRepository {
+		discoveredByRepository[repository.RepositoryID] = repository.FilesDiscovered
+	}
 	computedRepositories := make(map[string]struct{})
 	for _, observation := range observations {
 		if observation.ComputedSpecifier {
@@ -151,6 +155,8 @@ func buildUnanalysedOccurrences(
 			reason = "nested_under_dependency"
 		} else if _, computed := computedRepositories[input.RepositoryID]; computed {
 			reason = "computed_specifier"
+		} else if discoveredByRepository[input.RepositoryID] == 0 {
+			reason = "no_source_files"
 		} else if coverage.Analysis.Status == AnalysisPartial {
 			if coverage.Coverage.FilesFailed != 0 ||
 				coverage.Coverage.FilesParsedWithErrors != 0 {

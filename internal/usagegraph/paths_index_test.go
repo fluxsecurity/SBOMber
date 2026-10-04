@@ -103,3 +103,55 @@ func BenchmarkPrecomputedPaths(b *testing.B) {
 		})
 	}
 }
+
+func TestProductionIndexHandlesCyclesAndShortestEntry(t *testing.T) {
+	id := func(name string, line int) sourceanalysis.FunctionID {
+		return sourceanalysis.FunctionID{
+			RepositoryID: "repo-app", File: "src/app.js",
+			Name: name, StartLine: line,
+		}
+	}
+	startA, startB, via, target, orphan := id("startA", 1), id("startB", 2),
+		id("via", 3), id("target", 4), id("orphan", 5)
+	graph := applicationCallGraph{
+		functions: map[sourceanalysis.FunctionID]struct{}{
+			startA: {}, startB: {}, via: {}, target: {}, orphan: {},
+		},
+		edges: map[sourceanalysis.FunctionID][]sourceanalysis.FunctionID{
+			startA: {startA, via},
+			startB: {target},
+			via:    {startA, target},
+			target: {via},
+			orphan: {orphan},
+		},
+	}
+	entry := func(key string, node sourceanalysis.FunctionID) EntryPoint {
+		return EntryPoint{
+			EntryPointID: key, RepositoryID: node.RepositoryID,
+			File: node.File, Function: node.Name, Line: node.StartLine,
+		}
+	}
+	entryA, entryB := entry("ep-a", startA), entry("ep-b", startB)
+	for _, entries := range [][]EntryPoint{
+		{entryA, entryB}, {entryB, entryA},
+		{entryA, entryA, entryB, entry("ep-invalid", id("missing", 99))},
+	} {
+		paths := graph.pathsFrom(entries)
+		gotEntry, gotPath, ok := paths.pathTo(target)
+		want := []CallPathStep{
+			{Function: "startB", File: "src/app.js", Line: 2},
+			{Function: "target", File: "src/app.js", Line: 4},
+		}
+		if !ok || gotEntry.EntryPointID != "ep-b" || !reflect.DeepEqual(gotPath, want) {
+			t.Fatalf("shortest entry through cycle = %+v / %+v / %v", gotEntry, gotPath, ok)
+		}
+		for _, node := range []sourceanalysis.FunctionID{startA, startB, via, target, orphan} {
+			wantEntry, wantPath, wantOK := graph.pathTo(entries, node)
+			gotEntry, gotPath, gotOK := paths.pathTo(node)
+			if gotOK != wantOK || gotEntry.EntryPointID != wantEntry.EntryPointID ||
+				!reflect.DeepEqual(gotPath, wantPath) {
+				t.Fatalf("cycle index differs from reference for %s", node.Name)
+			}
+		}
+	}
+}
