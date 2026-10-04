@@ -1,0 +1,64 @@
+{
+  "@context": "https://openvex.dev/ns/v0.2.0",
+  "@id": "urn:sbomber:vex:scan-2026-08-12-0001:b5fae676b1146eb7",
+  "author": "SBOMber",
+  "role": "Document Creator",
+  "timestamp": "2026-10-04T08:11:49Z",
+  "version": 1,
+  "tooling": "sbomber 0.1.0",
+  "statements": [
+    {
+      "vulnerability": {
+        "name": "CVE-2021-23337",
+        "aliases": [
+          "GHSA-35jh-r3h4-6jhm"
+        ]
+      },
+      "products": [
+        {
+          "@id": "pkg:npm/lodash@4.17.20"
+        }
+      ],
+      "status": "affected",
+      "status_notes": "The advisory names lodash.template as the affected function. The application imports lodash and calls template at src/render/email.js:47 and :92. The call at :47 is reachable from the postWelcome route handler via sendWelcome and renderWelcomeEmail; no path resolved for :92, which changes nothing. Upgrade to 4.17.21.",
+      "action_statement": "Upgrade lodash to 4.17.21 or later.",
+      "action_statement_timestamp": "2026-10-04T08:11:49Z"
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2020-28168"
+      },
+      "products": [
+        {
+          "@id": "pkg:npm/axios@0.21.0"
+        }
+      ],
+      "status": "under_investigation",
+      "status_notes": "No usage evidence found within the analysed scope. The application calls axios.get, but neither candidate symbol (isURLSameOrigin, redirect) appears in application code. One computed member access on axios at src/api/dispatch.js:24 could not be resolved, and code inside dependencies is not analysed. This is not proof of safety."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2021-44906"
+      },
+      "products": [
+        {
+          "@id": "pkg:npm/minimist@1.2.5"
+        }
+      ],
+      "status": "under_investigation",
+      "status_notes": "Could not determine which function this advisory implicates, so no usage comparison was possible. Prototype pollution affects argument parsing generally. Treated at package level; a critical severity with no determination should be reviewed manually."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2019-10744"
+      },
+      "products": [
+        {
+          "@id": "pkg:npm/lodash@3.10.1"
+        }
+      ],
+      "status": "under_investigation",
+      "status_notes": "The vulnerable function defaultsDeep was identified with high confidence, but this lodash 3.10.1 is installed under legacy-reporter. Component 2 reported the occurrence as unanalysed because any call would originate inside legacy-reporter, and SBOMber analyses application source only. This cannot be determined either way."
+    }
+  ]
+}
