@@ -59,6 +59,15 @@ type Decision struct {
 	RiskPriority       RiskPriority `json:"riskPriority"`
 	Justification      string       `json:"justification"`
 	Remediation        Remediation  `json:"remediation"`
+	BasedOn            BasedOn      `json:"basedOn"`
+}
+
+// BasedOn is the subset of decision-results.json's "decisions[].basedOn"
+// the report reads: whether the analysis behind the verdict completed.
+type BasedOn struct {
+	CoverageSummary struct {
+		ScanStatus string `json:"scanStatus"`
+	} `json:"coverageSummary"`
 }
 
 // RiskPriority mirrors decision-results.json's "decisions[].riskPriority".

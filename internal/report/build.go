@@ -69,6 +69,10 @@ type PackageFinding struct {
 	FixAvailable         bool
 	ReportedFixedVersion string
 	Justification        string
+	// ScanStatus is basedOn.coverageSummary.scanStatus: complete, partial
+	// or failed. Usage evidence from a partial or failed analysis is kept
+	// and shown with a partial-analysis warning.
+	ScanStatus string
 
 	// Untrusted marks a finding this package could not confidently place:
 	// either its findingId was absent from decisions.json entirely (a
@@ -114,6 +118,9 @@ type PackageGroup struct {
 type Report struct {
 	ScanID   string
 	Sections []SectionGroup
+	// Coverage is the usage-graph.json coverage the verdicts rest on, or
+	// nil when the report was built without it (which the report says).
+	Coverage *Coverage
 }
 
 // SectionGroup is one section heading plus the package entries filed under
@@ -169,9 +176,13 @@ func BuildReport(dr DecisionResults) Report {
 		}
 	}
 
+	// The insufficient-information and no-direct-usage sections are always
+	// present, even when empty, so their absence is never mistaken for a
+	// missing section; the others appear only when they hold entries.
 	sections := make([]SectionGroup, 0, len(sectionOrder))
 	for _, s := range sectionOrder {
-		if gs, ok := bySection[s]; ok && len(gs) > 0 {
+		gs := bySection[s]
+		if len(gs) > 0 || s == SectionInsufficientInfo || s == SectionNoDirectUsage {
 			sections = append(sections, SectionGroup{Section: s, Groups: gs})
 		}
 	}
@@ -212,6 +223,7 @@ func buildEntries(rg RemediationGroup, decByID map[string]Decision) []PackageGro
 			FixAvailable:         d.RiskPriority.FixAvailable,
 			ReportedFixedVersion: d.Remediation.ReportedFixedVersion,
 			Justification:        d.Justification,
+			ScanStatus:           d.BasedOn.CoverageSummary.ScanStatus,
 		})
 	}
 

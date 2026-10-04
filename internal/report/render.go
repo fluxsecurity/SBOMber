@@ -16,16 +16,26 @@ func RenderText(r Report) string {
 	var b strings.Builder
 
 	fmt.Fprintf(&b, "SBOMber Remediation Report — %s\n", r.ScanID)
-
-	if len(r.Sections) == 0 {
-		b.WriteString("\nNo findings to report.\n")
-		return b.String()
+	if r.Coverage.Incomplete() {
+		fmt.Fprintf(&b, "\n%s\n", incompleteBanner(r.Coverage))
+	}
+	if findingCount(r) == 0 {
+		b.WriteString("\nNo findings were listed in this decision-results file.\n")
 	}
 
 	for _, sg := range r.Sections {
 		fmt.Fprintf(&b, "\n== %s ==\n", sg.Section)
-		if sg.Section == SectionNoDirectUsage {
+		switch sg.Section {
+		case SectionInsufficientInfo:
+			b.WriteString("Analysis coverage:\n")
+			for _, l := range coverageLines(r.Coverage) {
+				fmt.Fprintf(&b, "  %s\n", l)
+			}
+		case SectionNoDirectUsage:
 			fmt.Fprintf(&b, "%s\n", noDirectUsageNote)
+		}
+		if len(sg.Groups) == 0 {
+			b.WriteString("\nNo findings in this section.\n")
 		}
 		for _, pg := range sg.Groups {
 			renderPackageGroup(&b, pg)
@@ -33,6 +43,25 @@ func RenderText(r Report) string {
 	}
 
 	return b.String()
+}
+
+// incompleteBanner is the line at the top of the report when the analysis
+// did not complete or its coverage was not provided.
+func incompleteBanner(c *Coverage) string {
+	if c == nil {
+		return "Analysis coverage was not provided; see \"" + string(SectionInsufficientInfo) + "\"."
+	}
+	return "The analysis behind this report was incomplete; see \"" + string(SectionInsufficientInfo) + "\" for what was and was not analysed."
+}
+
+func findingCount(r Report) int {
+	n := 0
+	for _, sg := range r.Sections {
+		for _, pg := range sg.Groups {
+			n += len(pg.Findings)
+		}
+	}
+	return n
 }
 
 func renderPackageGroup(b *strings.Builder, pg PackageGroup) {
@@ -87,6 +116,9 @@ func renderFinding(b *strings.Builder, f PackageFinding) {
 	fmt.Fprintf(b, "  - %s [%s]\n", label, strings.Join(findingTags(f), ", "))
 	if f.Justification != "" {
 		fmt.Fprintf(b, "    %s\n", f.Justification)
+	}
+	if needsPartialWarning(f) {
+		fmt.Fprintf(b, "    %s\n", partialWarning(f.ScanStatus))
 	}
 }
 
