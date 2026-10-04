@@ -167,3 +167,183 @@ func TestBuildReport_UntrustedBandValue(t *testing.T) {
 		t.Fatal("find-missing was dropped from the group instead of being recorded as untrusted")
 	}
 }
+
+// ---- S5-09 (#120) ----------------------------------------------------------
+
+func mixedResults() DecisionResults {
+	return DecisionResults{
+		ScanID: "scan-s509",
+		Decisions: []Decision{
+			{FindingID: "f-use", VulnerabilityID: "CVE-1", PURL: "pkg:npm/lodash@4.17.4", State: StateUsageDetected,
+				RiskPriority: RiskPriority{Band: BandActNow, EPSSScore: 0.5, CVSSScore: 9.1},
+				Remediation:  Remediation{ReportedFixedVersion: "4.17.11"}},
+			{FindingID: "f-none-1", VulnerabilityID: "CVE-2", PURL: "pkg:npm/lodash@4.17.4", State: StateNoUsageDetected,
+				RiskPriority: RiskPriority{Band: BandLowerPriority},
+				Remediation:  Remediation{ReportedFixedVersion: "4.17.21"}},
+			{FindingID: "f-none-2", VulnerabilityID: "CVE-3", PURL: "pkg:npm/lodash@4.17.4", State: StateNoUsageDetected,
+				RiskPriority: RiskPriority{Band: BandLowerPriority}},
+			{FindingID: "f-kev", VulnerabilityID: "CVE-4", PURL: "pkg:npm/kevpkg@1.0.0", State: StateNoUsageDetected,
+				RiskPriority: RiskPriority{Band: BandActNow, CISAKev: true}},
+			{FindingID: "f-orphan", VulnerabilityID: "CVE-5", State: StateUsageDetected,
+				RiskPriority: RiskPriority{Band: BandActNow}},
+		},
+		RemediationGroups: []RemediationGroup{
+			{PURL: "pkg:npm/kevpkg@1.0.0", InstalledVersion: "1.0.0", FindingIDs: []string{"f-kev"}, HighestBand: BandActNow},
+			{PURL: "pkg:npm/lodash@4.17.4", InstalledVersion: "4.17.4", ReportedFixedVersion: "4.17.21",
+				FindingIDs: []string{"f-use", "f-none-1", "f-none-2"}, HighestBand: BandActNow},
+		},
+	}
+}
+
+func entriesFor(r Report, purl string) map[Section]PackageGroup {
+	out := map[Section]PackageGroup{}
+	for _, sg := range r.Sections {
+		for _, pg := range sg.Groups {
+			if pg.PURL == purl {
+				out[sg.Section] = pg
+			}
+		}
+	}
+	return out
+}
+
+// Every decision is listed exactly once across all sections.
+func TestBuildReport_EveryFindingListedExactlyOnce(t *testing.T) {
+	for name, dr := range map[string]DecisionResults{"mixed": mixedResults()} {
+		r := BuildReport(dr)
+		seen := map[string]int{}
+		for _, sg := range r.Sections {
+			for _, pg := range sg.Groups {
+				for _, f := range pg.Findings {
+					seen[f.FindingID]++
+				}
+			}
+		}
+		for _, d := range dr.Decisions {
+			if seen[d.FindingID] != 1 {
+				t.Errorf("%s: finding %s listed %d times, want 1", name, d.FindingID, seen[d.FindingID])
+			}
+		}
+	}
+	sample := loadSampleReport(t)
+	dr, _ := LoadDecisionResults(fixtureDecisionResults)
+	seen := map[string]int{}
+	for _, sg := range sample.Sections {
+		for _, pg := range sg.Groups {
+			for _, f := range pg.Findings {
+				seen[f.FindingID]++
+			}
+		}
+	}
+	for _, d := range dr.Decisions {
+		if seen[d.FindingID] != 1 {
+			t.Errorf("sample: finding %s listed %d times, want 1", d.FindingID, seen[d.FindingID])
+		}
+	}
+}
+
+// D1: a package with both usage and no-usage findings gets one entry per
+// section, each pointing at the other; the upgrade counts all findings.
+func TestBuildReport_MixedPackageSplitsAndCrossReferences(t *testing.T) {
+	e := entriesFor(BuildReport(mixedResults()), "pkg:npm/lodash@4.17.4")
+	main, ok := e[SectionUpdateFirst]
+	if !ok {
+		t.Fatalf("lodash has no %q entry: %+v", SectionUpdateFirst, e)
+	}
+	d1, ok := e[SectionNoDirectUsage]
+	if !ok {
+		t.Fatalf("lodash has no %q entry: %+v", SectionNoDirectUsage, e)
+	}
+	if len(main.Findings) != 1 || main.Findings[0].FindingID != "f-use" {
+		t.Errorf("update-first entry findings = %+v, want [f-use]", main.Findings)
+	}
+	if len(d1.Findings) != 2 {
+		t.Errorf("no-direct-usage entry findings = %+v, want f-none-1 and f-none-2", d1.Findings)
+	}
+	if main.ListedElsewhere != 2 || main.ElsewhereSection != SectionNoDirectUsage {
+		t.Errorf("update-first cross-reference = %d under %q", main.ListedElsewhere, main.ElsewhereSection)
+	}
+	if d1.ListedElsewhere != 1 || d1.ElsewhereSection != SectionUpdateFirst {
+		t.Errorf("no-direct-usage cross-reference = %d under %q", d1.ListedElsewhere, d1.ElsewhereSection)
+	}
+	if main.TotalFindings != 3 || main.ResolvedByUpgrade != 2 {
+		t.Errorf("upgrade covers %d of %d, want 2 of 3 (f-none-2 has no reported fix)", main.ResolvedByUpgrade, main.TotalFindings)
+	}
+	if d1.Why != "" {
+		t.Errorf("no-direct-usage entry must carry no urgency statement, got Why %q", d1.Why)
+	}
+	if !strings.Contains(main.Why, "usage detected") || !strings.Contains(main.Why, "EPSS 0.5000") {
+		t.Errorf("update-first Why = %q, want the usage and EPSS signals", main.Why)
+	}
+}
+
+// A KEV-listed no_usage_detected finding is listed under D1, but its
+// package still appears under "Update first" so the urgency is not lost.
+func TestBuildReport_KEVNoUsageKeepsPackageInUpdateFirst(t *testing.T) {
+	e := entriesFor(BuildReport(mixedResults()), "pkg:npm/kevpkg@1.0.0")
+	main, ok := e[SectionUpdateFirst]
+	if !ok {
+		t.Fatalf("kevpkg has no %q entry: %+v", SectionUpdateFirst, e)
+	}
+	if len(main.Findings) != 0 || main.ListedElsewhere != 1 {
+		t.Errorf("update-first entry should list no findings and point at 1 elsewhere, got %+v", main)
+	}
+	if !strings.Contains(main.Why, "CISA KEV") {
+		t.Errorf("Why = %q, want the KEV signal", main.Why)
+	}
+	d1, ok := e[SectionNoDirectUsage]
+	if !ok || len(d1.Findings) != 1 || d1.Findings[0].FindingID != "f-kev" {
+		t.Fatalf("f-kev must be listed under %q, got %+v", SectionNoDirectUsage, e)
+	}
+}
+
+// A decision no remediation group references is listed, never dropped.
+func TestBuildReport_UngroupedDecisionIsListed(t *testing.T) {
+	e := entriesFor(BuildReport(mixedResults()), UngroupedPURL)
+	pg, ok := e[SectionUpdateFirst]
+	if !ok || len(pg.Findings) != 1 || pg.Findings[0].FindingID != "f-orphan" {
+		t.Fatalf("f-orphan must be listed under %q as %q, got %+v", SectionUpdateFirst, UngroupedPURL, e)
+	}
+}
+
+// withoutJustifications blanks the per-finding justifications, which are
+// Component 4's decision text (linted by internal/decision), so a test can
+// check only the wording this package writes.
+func withoutJustifications(r Report) Report {
+	out := Report{ScanID: r.ScanID}
+	for _, sg := range r.Sections {
+		nsg := SectionGroup{Section: sg.Section}
+		for _, pg := range sg.Groups {
+			fs := append([]PackageFinding(nil), pg.Findings...)
+			for i := range fs {
+				fs[i].Justification = ""
+			}
+			pg.Findings = fs
+			nsg.Groups = append(nsg.Groups, pg)
+		}
+		out.Sections = append(out.Sections, nsg)
+	}
+	return out
+}
+
+// #120 wording: nothing the report itself writes implies safety, and the D1
+// section is never labelled low urgency or informational.
+func TestRenderText_NoReassuringWording(t *testing.T) {
+	banned := []string{"safe", "clean", "unaffected", "not affected", "false positive",
+		"not reachable", "low urgency", "informational", "no risk"}
+	for name, r := range map[string]Report{"mixed": BuildReport(mixedResults()), "sample": loadSampleReport(t)} {
+		out := strings.ToLower(RenderText(withoutJustifications(r)))
+		for _, p := range banned {
+			if strings.Contains(out, p) {
+				t.Errorf("%s: rendered report contains %q", name, p)
+			}
+		}
+	}
+	out := RenderText(BuildReport(mixedResults()))
+	if !strings.Contains(out, noDirectUsageNote) {
+		t.Error("D1 section is missing its explanatory note")
+	}
+	if !strings.Contains(out, `2 further findings on this package listed under "No direct usage evidence found within the analysed scope".`) {
+		t.Errorf("missing cross-reference line in:\n%s", out)
+	}
+}
