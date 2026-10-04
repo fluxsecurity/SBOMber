@@ -105,6 +105,23 @@ func appendESMImports(
 		}
 	}
 
+	if len(importClauses) == 0 {
+		// import "pkg" loads the module for its side effects only.
+		// Nothing can be called through it, but the package is imported.
+		line, column := nodeLocation(source, statement)
+		result.Imports = append(
+			result.Imports,
+			Import{
+				Specifier: specifier,
+				Kind:      "esm_side_effect",
+				TypeOnly:  false,
+				Line:      line,
+				Column:    column,
+			},
+		)
+		return nil
+	}
+
 	importSpecifiers := collectNodesByType(
 		statement,
 		"import_specifier",
@@ -245,6 +262,11 @@ func appendFunction(
 	}
 
 	line, column := nodeLocation(source, name)
+	declarationLine, declarationColumn := nodeLocation(source, declaration)
+	endLine, endColumn := nodeEndLocation(
+		source,
+		declaration,
+	)
 
 	exported := false
 	parent := declaration.Parent()
@@ -257,10 +279,16 @@ func appendFunction(
 	result.Functions = append(
 		result.Functions,
 		Function{
-			Name:     name.Utf8Text(source),
-			Line:     line,
-			Column:   column,
-			Exported: exported,
+			Name:          name.Utf8Text(source),
+			Line:          line,
+			Column:        column,
+			EndLine:       endLine,
+			EndColumn:     endColumn,
+			NodeLine:      declarationLine,
+			NodeColumn:    declarationColumn,
+			Parameters:    parameterNames(declaration, source),
+			LocalBindings: localBindingNames(declaration, source),
+			Exported:      exported,
 		},
 	)
 
@@ -268,6 +296,29 @@ func appendFunction(
 }
 
 func sortResult(result *Result) {
+	sort.SliceStable(
+		result.RouteHandlers,
+		func(left, right int) bool {
+			a := result.RouteHandlers[left]
+			b := result.RouteHandlers[right]
+
+			if a.Line != b.Line {
+				return a.Line < b.Line
+			}
+			if a.Column != b.Column {
+				return a.Column < b.Column
+			}
+			if a.Receiver != b.Receiver {
+				return a.Receiver < b.Receiver
+			}
+			if a.Method != b.Method {
+				return a.Method < b.Method
+			}
+
+			return a.Function < b.Function
+		},
+	)
+
 	sort.SliceStable(
 		result.Imports,
 		func(left, right int) bool {
@@ -500,7 +551,27 @@ func extractFile(
 				captureNode(
 					match,
 					captureNames,
-					"require.source",
+					"require.arguments",
+				),
+				source,
+			)
+
+		case captureNode(
+			match,
+			captureNames,
+			"reexport.statement",
+		) != nil:
+			err = appendReexports(
+				&result,
+				captureNode(
+					match,
+					captureNames,
+					"reexport.statement",
+				),
+				captureNode(
+					match,
+					captureNames,
+					"reexport.source",
 				),
 				source,
 			)
@@ -596,6 +667,14 @@ func extractFile(
 		}
 	}
 
+	if err := appendImportRequireClauses(
+		&result,
+		root,
+		source,
+	); err != nil {
+		return Result{}, err
+	}
+
 	if err := appendStructuralCalls(
 		&result,
 		root,
@@ -611,6 +690,18 @@ func extractFile(
 	); err != nil {
 		return Result{}, err
 	}
+
+	if err := appendRouteHandlers(
+		&result,
+		root,
+		source,
+	); err != nil {
+		return Result{}, err
+	}
+
+	appendAnonymousFunctionRanges(&result, root, source)
+
+	resolveFunctionExports(&result, root, source)
 
 	sortResult(&result)
 
