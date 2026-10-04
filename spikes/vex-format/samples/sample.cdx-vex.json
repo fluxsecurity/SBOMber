@@ -1,0 +1,27 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.6",
+  "serialNumber": "urn:uuid:0d3e7d9c-6b8e-4c5a-9f21-2f0f3a7b9c11",
+  "version": 1,
+  "metadata": { "timestamp": "2026-09-06T00:00:00Z", "authors": [ { "name": "SBOMber Component 3 (S4-09 spike)" } ] },
+  "vulnerabilities": [
+    {
+      "id": "CVE-2018-16487",
+      "source": { "name": "NVD", "url": "https://nvd.nist.gov/vuln/detail/CVE-2018-16487" },
+      "analysis": { "state": "exploitable", "response": ["update"], "detail": "Upgrade lodash to 4.17.11 or later. Application calls _.merge at index.js." },
+      "affects": [ { "ref": "urn:cdx:b86d094c-fd51-43dc-9fca-a3cd5c570e46/1#pkg:npm/lodash@4.17.4" } ]
+    },
+    {
+      "id": "CVE-2019-10744",
+      "source": { "name": "NVD", "url": "https://nvd.nist.gov/vuln/detail/CVE-2019-10744" },
+      "analysis": { "state": "in_triage", "detail": "No usage evidence within analysed scope. Not proof of safety." },
+      "affects": [ { "ref": "urn:cdx:b86d094c-fd51-43dc-9fca-a3cd5c570e46/1#pkg:npm/lodash@4.17.4" } ]
+    },
+    {
+      "id": "CVE-2020-8203",
+      "source": { "name": "NVD", "url": "https://nvd.nist.gov/vuln/detail/CVE-2020-8203" },
+      "analysis": { "state": "not_affected", "justification": "code_not_reachable", "detail": "SPIKE PROBE ONLY. Production never emits not_affected automatically." },
+      "affects": [ { "ref": "urn:cdx:b86d094c-fd51-43dc-9fca-a3cd5c570e46/1#pkg:npm/lodash@4.17.4" } ]
+    }
+  ]
+}

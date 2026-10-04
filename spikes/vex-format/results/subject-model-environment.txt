@@ -1,0 +1,4 @@
+date: 2026-09-14T01:03:28Z
+Version:             0.112.0
+Syft Version:        v1.44.0
+Version: 0.70.0 Vulnerability DB:   Version: 2   UpdatedAt: 2026-09-13 19:03:02.879390299 +0000 UTC   NextUpdate: 2026-09-14 19:03:02.879390028 +0000 UTC   DownloadedAt: 2026-09-14 01:02:54.788439 +0000 UTC
