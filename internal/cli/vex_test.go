@@ -9,6 +9,21 @@ import (
 	"testing"
 )
 
+// Absolute at init: TestInteractiveScanCurrentFolder changes the working
+// directory while parallel tests run.
+var (
+	vexDecisionsFixture = mustAbs("../../contracts/fixtures/decision-results.sample.json")
+	vexScanFixture      = mustAbs("../../contracts/fixtures/canonical-scan.sample.json")
+)
+
+func mustAbs(p string) string {
+	abs, err := filepath.Abs(p)
+	if err != nil {
+		panic(err)
+	}
+	return abs
+}
+
 func TestVEXCommandWritesOpenVEX(t *testing.T) {
 	t.Parallel()
 
@@ -25,8 +40,8 @@ func TestVEXCommandWritesOpenVEX(t *testing.T) {
 			out := filepath.Join(t.TempDir(), "vex.openvex.json")
 			var stdout, stderr bytes.Buffer
 			code := Main([]string{"vex",
-				"--decisions", "../../contracts/fixtures/decision-results.sample.json",
-				"--canonical-scan", "../../contracts/fixtures/canonical-scan.sample.json",
+				"--decisions", vexDecisionsFixture,
+				"--canonical-scan", vexScanFixture,
 				"--subject", tt.subject, "--out", out}, nil, &stdout, &stderr)
 			if code != 0 {
 				t.Fatalf("exit %d, stderr: %s", code, stderr.String())
