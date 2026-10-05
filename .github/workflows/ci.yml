@@ -31,6 +31,9 @@ jobs:
       - name: Test contract validator
         run: python -m unittest -v contracts/test_validate.py
 
+      - name: Verify frozen localisation set
+        run: python spikes/localisation/freeze.py
+
       - name: Set up Go
         uses: actions/setup-go@v5
         with:

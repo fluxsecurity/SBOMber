@@ -3,3 +3,6 @@
 *.sh text eol=lf
 *.md text eol=lf
 /spikes/parser-bindings/corpus/micro/12-edge.js -text -diff
+
+# The frozen localisation set is hashed byte-for-byte (freeze.py).
+/spikes/localisation/cases/*.json text eol=lf

@@ -90,7 +90,17 @@ def verify(frozen, cases, online):
     ids = [c["id"] for c in cases["cases"]]
     if ids != [c["id"] for c in frozen["cases"]]:
         problems.append(f"case list changed: {ids}")
+    by_id = {c["id"]: c for c in cases["cases"]}
     for want in frozen["cases"]:
+        c = by_id.get(want["id"], {})
+        recorded = (c.get("expectedChangedFunctions"), c.get("expectedPublicSymbols"),
+                    [f["sha"] for f in c.get("fixCommits", [])],
+                    [c.get("vulnerableVersion"), c.get("fixedVersion")])
+        pinned = (want["expectedChangedFunctions"], want["expectedPublicSymbols"],
+                  [s["sha"] for s in want["answerSource"]],
+                  [a["version"] for a in want["artefacts"]])
+        if recorded != pinned:
+            problems.append(f"{want['id']}: FROZEN.json does not match cases.json")
         if not want["answerSource"]:
             problems.append(f"{want['id']}: no source recorded for the expected answer")
         if not want["expectedChangedFunctions"] or not want["expectedPublicSymbols"]:
@@ -101,9 +111,14 @@ def verify(frozen, cases, online):
         if online:
             package = want["purl"].split("/", 1)[1].rsplit("@", 1)[0]
             for art in want["artefacts"]:
-                live = registry_version(urllib.parse.unquote(package), art["version"])
-                if live["integrity"] != art["integrity"]:
-                    problems.append(f"{want['id']}: registry integrity changed for {art['tarball']}")
+                try:
+                    live = registry_version(urllib.parse.unquote(package), art["version"])
+                except (OSError, KeyError, ValueError) as e:
+                    problems.append(f"{want['id']}: registry lookup failed for {art['tarball']}: {e}")
+                    continue
+                for field in ("tarball", "integrity", "shasum", "gitHead"):
+                    if live.get(field) != art.get(field):
+                        problems.append(f"{want['id']}: registry {field} changed for {art['tarball']}")
     return problems
 
 
@@ -120,6 +135,8 @@ def main():
         FROZEN.write_text(json.dumps(build(cases), indent=2) + "\n")
         print(f"wrote {FROZEN.relative_to(HERE.parent.parent)}")
 
+    if not FROZEN.exists():
+        sys.exit("FROZEN.json missing; run with --write to create it")
     frozen = json.loads(FROZEN.read_text())
     problems = verify(frozen, cases, args.online)
     for p in problems:
