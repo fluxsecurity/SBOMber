@@ -193,6 +193,17 @@ func TestExportRejectsJoinMismatch(t *testing.T) {
 	}
 
 	dr, scan = loadFixtures(t)
+	dr.Decisions[0].FindingID = "find-999"
+	for _, opts := range []Options{
+		{Subject: SubjectPackage, Scan: scan},
+		{Subject: SubjectApplication, Scan: scan, Product: "pkg:generic/demo-app@1"},
+	} {
+		if _, err := Export(dr, opts); err == nil || !strings.Contains(err.Error(), "not a finding in canonical-scan") {
+			t.Fatalf("%s subject: error = %v, want a finding missing from canonical-scan", opts.Subject, err)
+		}
+	}
+
+	dr, scan = loadFixtures(t)
 	scan.Scan.ScanID = "scan-other"
 	if _, err := Export(dr, Options{Subject: SubjectPackage, Scan: scan}); err == nil {
 		t.Fatal("accepted a canonical-scan from a different scan")

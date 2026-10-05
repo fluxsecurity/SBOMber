@@ -80,8 +80,13 @@ func TestMap(t *testing.T) {
 			wantErr: "maps to under_investigation",
 		},
 		{
-			name:    "usage detected cannot be downgraded to under_investigation",
-			d:       Decision{FindingID: "f", State: StateUsageDetected, VEXMapping: &VEXMapping{Statement: "under_investigation"}},
+			name:       "usage detected downgraded by component 4 is under_investigation",
+			d:          Decision{FindingID: "f", State: StateUsageDetected, VEXMapping: &VEXMapping{Statement: "under_investigation"}},
+			wantStatus: StatusUnderInvestigation,
+		},
+		{
+			name:    "usage detected cannot be omitted",
+			d:       Decision{FindingID: "f", State: StateUsageDetected, VEXMapping: &VEXMapping{Statement: "omit"}},
 			wantErr: "maps to affected",
 		},
 		{

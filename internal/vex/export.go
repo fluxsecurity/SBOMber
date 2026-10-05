@@ -160,6 +160,9 @@ func buildStatement(d Decision, m Mapping, subject SubjectModel, product string,
 		return Statement{}, fmt.Errorf("%s: decision has no package purl", d.FindingID)
 	}
 	f, inScan := idx.findings[d.FindingID]
+	if idx.loaded && !inScan {
+		return Statement{}, fmt.Errorf("%s: decision is not a finding in canonical-scan", d.FindingID)
+	}
 	if inScan {
 		if f.PURL != "" && f.PURL != d.PURL {
 			return Statement{}, fmt.Errorf("%s: decision purl %s does not match canonical-scan purl %s", d.FindingID, d.PURL, f.PURL)
@@ -280,6 +283,7 @@ func aliases(name string, from []string) []string {
 }
 
 type scanIndex struct {
+	loaded         bool
 	findings       map[string]Finding
 	occurrenceRepo map[string]string
 	repos          map[string]Repository
@@ -290,6 +294,7 @@ func indexScan(s *CanonicalScan) scanIndex {
 	if s == nil {
 		return idx
 	}
+	idx.loaded = true
 	for _, f := range s.Findings {
 		idx.findings[f.FindingID] = f
 	}

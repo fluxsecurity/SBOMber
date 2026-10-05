@@ -7,7 +7,8 @@
 //
 // The mapping lives in one policy layer, Map:
 //
-//	usage_detected     affected, with a mandatory action_statement
+//	usage_detected     affected, with a mandatory action_statement, or
+//	                   under_investigation when component 4 maps it so
 //	no_usage_detected  under_investigation
 //	unknown            under_investigation
 //	unsupported        no statement; counted as omitted so the report can show it

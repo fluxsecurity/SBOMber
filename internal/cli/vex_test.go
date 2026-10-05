@@ -99,6 +99,28 @@ func TestVEXCommandRejectsMixedVocabulary(t *testing.T) {
 	}
 }
 
+func TestVEXCommandWritesNothingWithoutStatements(t *testing.T) {
+	t.Parallel()
+
+	dir := t.TempDir()
+	in := filepath.Join(dir, "decision-results.json")
+	if err := os.WriteFile(in, []byte(`{"schemaVersion":"1.1.0","scanId":"scan-1","decisions":[
+ {"findingId":"find-001","vulnerabilityId":"CVE-1","purl":"pkg:npm/a@1.0.0","state":"unsupported","justification":"x","vexMapping":{"statement":"omit"}}]}`), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	out := filepath.Join(dir, "vex.json")
+	var stdout, stderr bytes.Buffer
+	if code := Main([]string{"vex", "--decisions", in, "--subject", "package", "--out", out}, nil, &stdout, &stderr); code != 0 {
+		t.Fatalf("exit %d, stderr: %s", code, stderr.String())
+	}
+	if !strings.Contains(stdout.String(), "No statements to export") {
+		t.Fatalf("stdout = %s", stdout.String())
+	}
+	if _, err := os.Stat(out); err == nil {
+		t.Fatal("an OpenVEX document with no statements was written")
+	}
+}
+
 func TestVEXCommandNeedsDecisions(t *testing.T) {
 	t.Parallel()
 	var stdout, stderr bytes.Buffer

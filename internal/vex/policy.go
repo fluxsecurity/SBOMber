@@ -65,6 +65,13 @@ func Map(d Decision) (Mapping, error) {
 	default:
 		return Mapping{}, fmt.Errorf("%s: unknown decision state %q", d.FindingID, d.State)
 	}
+	// Component 4 asserts affected only with matched symbols and reliable
+	// localisation (decision-results.schema.json); otherwise it maps
+	// usage_detected to under_investigation. That is the cautious direction,
+	// so it is kept rather than rejected.
+	if d.State == StateUsageDetected && stmt == StatusUnderInvestigation {
+		want = StatusUnderInvestigation
+	}
 	if stmt != "" && stmt != want {
 		return Mapping{}, fmt.Errorf("%s: state %s maps to %s but vexMapping.statement is %s",
 			d.FindingID, d.State, want, stmt)
