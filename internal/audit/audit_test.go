@@ -3,6 +3,7 @@ package audit
 import (
 	"bytes"
 	"errors"
+	"os"
 	"path/filepath"
 	"strings"
 	"testing"
@@ -123,12 +124,55 @@ func TestCompare_UnlabelledAndStaleLabels(t *testing.T) {
 	}
 }
 
+// A regenerated scan can renumber findings. A label whose findingId now
+// points at a different vulnerability must fail the run, not be scored
+// against the wrong finding: here the human says template (find-002's
+// CVE) is called, and with the IDs swapped a plain findingId join would
+// report two agreements and hide the missed usage.
+func TestCompare_LabelForDifferentFindingFails(t *testing.T) {
+	c := loadSynthetic(t)
+	res, err := c.Replay()
+	if err != nil {
+		t.Fatal(err)
+	}
+	l := c.Labels.Labels
+	l[0].Label, l[0].Evidence = LabelNoGenuineUsage, nil
+	l[1].Label, l[1].Evidence = LabelGenuineUsage, []string{"index.js:20 _.template(userInput)"}
+	l[0].FindingID, l[1].FindingID = l[1].FindingID, l[0].FindingID
+
+	cr := Compare(c, res)
+	if cr.Totals.Mismatched != 2 || cr.Totals.AgreeUsage != 0 || cr.Totals.AgreeNoUsage != 0 || !cr.Totals.Failed() {
+		t.Errorf("totals = %+v, want 2 label mismatches, no agreement, failed", cr.Totals)
+	}
+}
+
+func TestLoadCase_RejectsInputsFromDifferentScans(t *testing.T) {
+	dir := t.TempDir()
+	src := filepath.Join(syntheticRoot, "synthetic-closed-set")
+	for _, name := range []string{LabelsFile, CanonicalScanFile, UsageGraphFile, LocalisationFile} {
+		b, err := os.ReadFile(filepath.Join(src, name))
+		if err != nil {
+			t.Fatal(err)
+		}
+		if name == LocalisationFile {
+			b = bytes.Replace(b, []byte(`"scan-audit-synthetic"`), []byte(`"scan-older"`), 1)
+		}
+		if err := os.WriteFile(filepath.Join(dir, name), b, 0o644); err != nil {
+			t.Fatal(err)
+		}
+	}
+	if _, err := LoadCase(dir); err == nil || !strings.Contains(err.Error(), "scan-older") {
+		t.Fatalf("err = %v, want a scanId mismatch", err)
+	}
+}
+
 func TestValidate_RejectsUninspectableLabels(t *testing.T) {
 	base := func() LabelSet {
 		return LabelSet{
 			SchemaVersion: LabelsSchemaVersion, CaseID: "c", LabelledBy: "z", LabelledAt: "2026-10-04",
 			Repository: Repository{URL: "https://github.com/x/y", Commit: "d7b5d98515a95f9a8cb0fedef034010ee083a6a9"},
-			Labels:     []FindingLabel{{FindingID: "f", Label: LabelGenuineUsage, Reasoning: "r", Evidence: []string{"a.js:1"}}},
+			Labels: []FindingLabel{{FindingID: "f", VulnerabilityID: "CVE-2018-16487", PURL: "pkg:npm/lodash@4.17.4",
+				Label: LabelGenuineUsage, Reasoning: "r", Evidence: []string{"a.js:1"}}},
 		}
 	}
 	if err := base().Validate(); err != nil {
@@ -141,6 +185,8 @@ func TestValidate_RejectsUninspectableLabels(t *testing.T) {
 		"genuine without evidence": func(l *LabelSet) { l.Labels[0].Evidence = nil },
 		"duplicate finding":        func(l *LabelSet) { l.Labels = append(l.Labels, l.Labels[0]) },
 		"wrong schema":             func(l *LabelSet) { l.SchemaVersion = "0.9" },
+		"no vulnerabilityId":       func(l *LabelSet) { l.Labels[0].VulnerabilityID = "" },
+		"no purl":                  func(l *LabelSet) { l.Labels[0].PURL = "" },
 	}
 	for name, brk := range breaks {
 		t.Run(name, func(t *testing.T) {
@@ -184,6 +230,21 @@ func TestRun_EmptyRootIsAnError(t *testing.T) {
 	_, err := Run(t.TempDir())
 	if !errors.Is(err, ErrNoCases) {
 		t.Fatalf("err = %v, want ErrNoCases", err)
+	}
+}
+
+func TestLoadLabels_RejectsUnknownField(t *testing.T) {
+	b, err := os.ReadFile(filepath.Join(syntheticRoot, "synthetic-closed-set", LabelsFile))
+	if err != nil {
+		t.Fatal(err)
+	}
+	path := filepath.Join(t.TempDir(), LabelsFile)
+	b = bytes.Replace(b, []byte(`"evidence"`), []byte(`"evidance"`), 1)
+	if err := os.WriteFile(path, b, 0o644); err != nil {
+		t.Fatal(err)
+	}
+	if _, err := LoadLabels(path); err == nil || !strings.Contains(err.Error(), "evidance") {
+		t.Fatalf("err = %v, want unknown field evidance rejected", err)
 	}
 }
 

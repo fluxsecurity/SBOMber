@@ -49,7 +49,7 @@ func RenderText(w io.Writer, rep Report) error {
 	}
 	for _, c := range rep.Cases {
 		for _, r := range c.Rows {
-			if r.Downgrade || r.Outcome == OutcomeMissedUsage {
+			if r.Downgrade || r.Outcome == OutcomeMissedUsage || r.Outcome == OutcomeLabelMismatch {
 				inspect = append(inspect, struct {
 					caseID string
 					row    Row
@@ -71,8 +71,9 @@ func RenderText(w io.Writer, rep Report) error {
 		if rep.Totals.MissedUsage > 0 {
 			p.f(" - %d finding(s) labelled genuine usage were moved out of usage detected", rep.Totals.MissedUsage)
 		}
-		if rep.Totals.Unlabelled > 0 || rep.Totals.NoDecision > 0 {
-			p.f(" - labels and decisions do not line up (%d unlabelled, %d without a decision); re-label the case", rep.Totals.Unlabelled, rep.Totals.NoDecision)
+		if rep.Totals.Unlabelled > 0 || rep.Totals.NoDecision > 0 || rep.Totals.Mismatched > 0 {
+			p.f(" - labels and decisions do not line up (%d unlabelled, %d without a decision, %d naming a different vulnerability or package); re-label the case",
+				rep.Totals.Unlabelled, rep.Totals.NoDecision, rep.Totals.Mismatched)
 		}
 		p.f("\n")
 	} else {
@@ -85,6 +86,9 @@ func renderDowngrade(p *printer, caseID string, r Row) {
 	p.f("\n-- %s / %s  %s  %s\n", caseID, r.FindingID, orDash(r.VulnerabilityID), orDash(r.PURL))
 	p.f("   outcome:       %s\n", outcomeText(r))
 	p.f("   human label:   %s\n", orDash(string(r.Label)))
+	if r.Outcome == OutcomeLabelMismatch {
+		p.f("   label is for:  %s %s\n", orDash(r.LabelVulnID), orDash(r.LabelPURL))
+	}
 	if len(r.VulnerableSymbols) > 0 {
 		p.f("   vulnerable:    %s\n", strings.Join(r.VulnerableSymbols, ", "))
 	}
@@ -121,14 +125,16 @@ func outcomeText(r Row) string {
 		return "UNLABELLED"
 	case OutcomeNoDecision:
 		return "NO DECISION"
+	case OutcomeLabelMismatch:
+		return "LABEL MISMATCH"
 	default:
 		return string(r.Outcome)
 	}
 }
 
 func totalsLine(t Totals) string {
-	return fmt.Sprintf("%d finding(s): %d agree usage, %d agree no usage found, %d missed usage, %d over-reported, %d abstained, %d unlabelled, %d without decision; %d downgrade(s)",
-		t.Findings, t.AgreeUsage, t.AgreeNoUsage, t.MissedUsage, t.OverReported, t.Abstained, t.Unlabelled, t.NoDecision, t.Downgrades)
+	return fmt.Sprintf("%d finding(s): %d agree usage, %d agree no usage found, %d missed usage, %d over-reported, %d abstained, %d unlabelled, %d without decision, %d label mismatch; %d downgrade(s)",
+		t.Findings, t.AgreeUsage, t.AgreeNoUsage, t.MissedUsage, t.OverReported, t.Abstained, t.Unlabelled, t.NoDecision, t.Mismatched, t.Downgrades)
 }
 
 func short(sha string) string {

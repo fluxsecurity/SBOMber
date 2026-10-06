@@ -49,6 +49,12 @@ const (
 	// (absent from canonical-scan.json, or the ID changed). The case is
 	// stale.
 	OutcomeNoDecision Outcome = "no_decision"
+
+	// OutcomeLabelMismatch: a label's findingId matches a decision, but its
+	// vulnerabilityId or purl does not (the scan was regenerated and the
+	// IDs moved). Comparing it would score the label against the wrong
+	// finding, so the case is stale.
+	OutcomeLabelMismatch Outcome = "label_mismatch"
 )
 
 // Report is the whole harness output (audit-results.json).
@@ -97,6 +103,8 @@ type Row struct {
 	Downgrade bool `json:"downgrade"`
 
 	Label             Label    `json:"label,omitempty"`
+	LabelVulnID       string   `json:"labelVulnerabilityId,omitempty"`
+	LabelPURL         string   `json:"labelPurl,omitempty"`
 	LabelReasoning    string   `json:"labelReasoning,omitempty"`
 	LabelEvidence     []string `json:"labelEvidence,omitempty"`
 	VulnerableSymbols []string `json:"vulnerableSymbols,omitempty"`
@@ -120,13 +128,14 @@ type Totals struct {
 	Abstained    int `json:"abstained"`
 	Unlabelled   int `json:"unlabelled"`
 	NoDecision   int `json:"noDecision"`
+	Mismatched   int `json:"labelMismatch"`
 	Downgrades   int `json:"downgrades"`
 }
 
 // Failed reports whether the harness should fail: any missed usage, or a
 // case that no longer lines up with its labels.
 func (t Totals) Failed() bool {
-	return t.MissedUsage > 0 || t.Unlabelled > 0 || t.NoDecision > 0
+	return t.MissedUsage > 0 || t.Unlabelled > 0 || t.NoDecision > 0 || t.Mismatched > 0
 }
 
 // Compare lines up one case's decisions with its labels.
@@ -170,10 +179,16 @@ func Compare(c Case, res decision.Results) CaseResult {
 		}
 		if l, ok := labels[d.FindingID]; ok {
 			row.Label = l.Label
+			row.LabelVulnID = l.VulnerabilityID
+			row.LabelPURL = l.PURL
 			row.LabelReasoning = l.Reasoning
 			row.LabelEvidence = l.Evidence
 			row.VulnerableSymbols = l.VulnerableSymbols
-			row.Outcome = outcome(l.Label, d.State)
+			if l.VulnerabilityID != d.VulnerabilityID || l.PURL != d.PURL {
+				row.Outcome = OutcomeLabelMismatch
+			} else {
+				row.Outcome = outcome(l.Label, d.State)
+			}
 		} else {
 			row.Outcome = OutcomeUnlabelled
 		}
@@ -190,6 +205,8 @@ func Compare(c Case, res decision.Results) CaseResult {
 			PURL:              l.PURL,
 			Outcome:           OutcomeNoDecision,
 			Label:             l.Label,
+			LabelVulnID:       l.VulnerabilityID,
+			LabelPURL:         l.PURL,
 			LabelReasoning:    l.Reasoning,
 			LabelEvidence:     l.Evidence,
 			VulnerableSymbols: l.VulnerableSymbols,
@@ -241,6 +258,8 @@ func tally(rows []Row) Totals {
 			t.Unlabelled++
 		case OutcomeNoDecision:
 			t.NoDecision++
+		case OutcomeLabelMismatch:
+			t.Mismatched++
 		}
 	}
 	return t
@@ -257,6 +276,7 @@ func total(cases []CaseResult) Totals {
 		t.Abstained += c.Totals.Abstained
 		t.Unlabelled += c.Totals.Unlabelled
 		t.NoDecision += c.Totals.NoDecision
+		t.Mismatched += c.Totals.Mismatched
 		t.Downgrades += c.Totals.Downgrades
 	}
 	return t

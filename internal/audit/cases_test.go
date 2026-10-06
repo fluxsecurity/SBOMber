@@ -34,7 +34,7 @@ func TestCommittedCases(t *testing.T) {
 			case OutcomeMissedUsage:
 				t.Errorf("%s/%s (%s): labelled genuine usage, decided %s. Justification: %s",
 					c.CaseID, r.FindingID, r.VulnerabilityID, r.State, r.Justification)
-			case OutcomeUnlabelled, OutcomeNoDecision:
+			case OutcomeUnlabelled, OutcomeNoDecision, OutcomeLabelMismatch:
 				t.Errorf("%s/%s: %s; re-label the case", c.CaseID, r.FindingID, r.Outcome)
 			}
 		}

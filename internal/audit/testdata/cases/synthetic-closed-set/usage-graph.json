@@ -1,5 +1,6 @@
 {
   "schemaVersion": "1.3.0",
+  "scanId": "scan-audit-synthetic",
   "analysis": { "status": "complete" },
   "coverage": {
     "filesDiscovered": 3,

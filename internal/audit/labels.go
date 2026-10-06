@@ -14,6 +14,7 @@
 package audit
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"os"
@@ -71,14 +72,17 @@ type FindingLabel struct {
 	Evidence          []string `json:"evidence"`
 }
 
-// LoadLabels reads and validates a labels.json file.
+// LoadLabels reads and validates a labels.json file. Unknown fields are
+// rejected: a misspelt key would otherwise drop a label's data silently.
 func LoadLabels(path string) (LabelSet, error) {
 	var ls LabelSet
 	b, err := os.ReadFile(path)
 	if err != nil {
 		return ls, err
 	}
-	if err := json.Unmarshal(b, &ls); err != nil {
+	dec := json.NewDecoder(bytes.NewReader(b))
+	dec.DisallowUnknownFields()
+	if err := dec.Decode(&ls); err != nil {
 		return ls, fmt.Errorf("parse %s: %w", path, err)
 	}
 	if err := ls.Validate(); err != nil {
@@ -128,6 +132,15 @@ func (ls LabelSet) Validate() error {
 				add("%s: duplicate findingId", where)
 			}
 			seen[l.FindingID] = true
+		}
+		// findingId alone is not a stable key (find-001 is a position, not an
+		// identity), so every label also names what it is about and Compare
+		// checks both against the decision.
+		if strings.TrimSpace(l.VulnerabilityID) == "" {
+			add("%s: vulnerabilityId is empty", where)
+		}
+		if strings.TrimSpace(l.PURL) == "" {
+			add("%s: purl is empty", where)
 		}
 		if !l.Label.Valid() {
 			add("%s: label %q is not %q or %q", where, l.Label, LabelGenuineUsage, LabelNoGenuineUsage)

@@ -1,6 +1,7 @@
 package audit
 
 import (
+	"encoding/json"
 	"errors"
 	"fmt"
 	"os"
@@ -73,7 +74,36 @@ func LoadCase(dir string) (Case, error) {
 	if c.Scan.Scan.ScanID == "" {
 		return c, fmt.Errorf("%s: %s has no scan.scanId", dir, CanonicalScanFile)
 	}
+	// The join is keyed on findingId and occurrenceId, which are positions
+	// within one scan. Inputs from different scans would join silently, so
+	// all three must name the same scanId.
+	for _, name := range []string{UsageGraphFile, LocalisationFile} {
+		id, err := readScanID(filepath.Join(dir, name))
+		if err != nil {
+			return c, fmt.Errorf("%s: %w", dir, err)
+		}
+		if id != c.Scan.Scan.ScanID {
+			return c, fmt.Errorf("%s: %s has scanId %q, %s has %q (inputs must come from one scan)",
+				dir, name, id, CanonicalScanFile, c.Scan.Scan.ScanID)
+		}
+	}
 	return c, nil
+}
+
+// readScanID reads the top-level scanId of usage-graph.json or
+// localisation.json, which the decision package's input types do not keep.
+func readScanID(path string) (string, error) {
+	b, err := os.ReadFile(path)
+	if err != nil {
+		return "", err
+	}
+	var v struct {
+		ScanID string `json:"scanId"`
+	}
+	if err := json.Unmarshal(b, &v); err != nil {
+		return "", fmt.Errorf("decode %s: %w", path, err)
+	}
+	return v.ScanID, nil
 }
 
 // Replay runs the case through the same function `sbomber decide` uses, so

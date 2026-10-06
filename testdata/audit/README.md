@@ -70,7 +70,10 @@ downgrade path is exercised by the hand-built case in
 6. If you cannot decide, do not guess. Leave the case without `labels.json`
    and note why in `CASE.md`.
 7. One label per finding in `canonical-scan.json`; the harness fails on an
-   unlabelled finding or a label for a finding that no longer exists.
+   unlabelled finding, a label for a finding that no longer exists, or a
+   label whose `vulnerabilityId` or `purl` differs from the finding its
+   `findingId` names (copy all three from the scan). The three input files
+   must carry the same `scanId`.
 8. Label by whether code that ships executes the vulnerable code path, not by
    whether the input reaching it is attacker-controlled. A call with constant
    arguments that executes the path is `genuine_usage`. When the advisory's
