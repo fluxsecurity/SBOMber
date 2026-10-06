@@ -182,3 +182,32 @@ func TestBuildResults_SampleContractsEmitGroupsCoveringEveryDecision(t *testing.
 		}
 	}
 }
+
+func TestBuildRemediationGroups_FixNotAboveInstalledLeavesTargetEmpty(t *testing.T) {
+	const p = "pkg:npm/semver@7.5.1"
+	got := BuildRemediationGroups(
+		[]ResultDecision{rd("a", p, BandActNow)},
+		[]ScanFinding{{FindingID: "a", FixedVersion: "5.7.2"}},
+	)
+	if len(got) != 1 || got[0].ReportedFixedVersion != "" {
+		t.Fatalf("a reported fix below the installed version must not be the target, got %+v", got)
+	}
+}
+
+// A lower-priority finding's EPSS must not lift a package above one whose
+// act-now findings score higher.
+func TestBuildRemediationGroups_OrderUsesHighestBandSignalsOnly(t *testing.T) {
+	decisions := []ResultDecision{
+		{FindingID: "a1", PURL: "pkg:npm/a@1.0.0", RiskPriority: RiskPriority{Band: BandActNow, EPSSScore: fptr(0.01)}},
+		{FindingID: "a2", PURL: "pkg:npm/a@1.0.0", RiskPriority: RiskPriority{Band: BandLowerPriority, EPSSScore: fptr(0.9)}},
+		{FindingID: "b1", PURL: "pkg:npm/b@1.0.0", RiskPriority: RiskPriority{Band: BandActNow, EPSSScore: fptr(0.5)}},
+	}
+	var got []string
+	for _, g := range BuildRemediationGroups(decisions, nil) {
+		got = append(got, g.PURL)
+	}
+	want := []string{"pkg:npm/b@1.0.0", "pkg:npm/a@1.0.0"}
+	if !reflect.DeepEqual(got, want) {
+		t.Fatalf("order %v, want %v", got, want)
+	}
+}

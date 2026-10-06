@@ -32,9 +32,9 @@ type RemediationGroup struct {
 // upgrade target: a finding whose reported fix is higher than the installed
 // line's real fix, or a fix on a different release line, is not detected
 // here. When any reported fixed version cannot be ordered (it is not a
-// dotted numeric version), the group's ReportedFixedVersion is left empty
-// rather than guessed, and each finding keeps its own
-// decisions[].remediation.reportedFixedVersion.
+// dotted numeric version) or is not above the installed version, the
+// group's ReportedFixedVersion is left empty rather than guessed, and each
+// finding keeps its own decisions[].remediation.reportedFixedVersion.
 //
 // Decisions without a purl cannot be grouped (the schema requires one) and
 // are left out of every group; the report lists them separately so they are
@@ -72,9 +72,14 @@ func BuildRemediationGroups(decisions []ResultDecision, findings []ScanFinding) 
 		}
 		a.group.FindingIDs = append(a.group.FindingIDs, d.FindingID)
 
+		// The tie-break signals come only from the findings in the group's
+		// highest band, so a lower-priority finding listed in another
+		// section cannot lift the package above one the report shows as
+		// more urgent.
 		if r := bandRank(d.RiskPriority.Band); r > a.rank {
 			a.rank = r
 			a.group.HighestBand = d.RiskPriority.Band
+			a.kev, a.epss, a.cvss = false, 0, 0
 		}
 		switch d.RiskPriority.Relationship {
 		case "direct":
@@ -84,20 +89,27 @@ func BuildRemediationGroups(decisions []ResultDecision, findings []ScanFinding) 
 				a.group.Relationship = "transitive"
 			}
 		}
-		if d.RiskPriority.CISAKev != nil && *d.RiskPriority.CISAKev {
-			a.kev = true
-		}
-		if d.RiskPriority.EPSSScore != nil && *d.RiskPriority.EPSSScore > a.epss {
-			a.epss = *d.RiskPriority.EPSSScore
-		}
-		if d.RiskPriority.CVSSScore != nil && *d.RiskPriority.CVSSScore > a.cvss {
-			a.cvss = *d.RiskPriority.CVSSScore
+		if bandRank(d.RiskPriority.Band) == a.rank {
+			if d.RiskPriority.CISAKev != nil && *d.RiskPriority.CISAKev {
+				a.kev = true
+			}
+			if d.RiskPriority.EPSSScore != nil && *d.RiskPriority.EPSSScore > a.epss {
+				a.epss = *d.RiskPriority.EPSSScore
+			}
+			if d.RiskPriority.CVSSScore != nil && *d.RiskPriority.CVSSScore > a.cvss {
+				a.cvss = *d.RiskPriority.CVSSScore
+			}
 		}
 		if v := fixed[d.FindingID]; v != "" {
-			if _, ok := parseVersion(v); ok {
-				a.fixes = append(a.fixes, v)
-			} else {
+			// A reported fix at or below the installed version (a fix on
+			// another release line) is not an upgrade target.
+			installed := a.group.InstalledVersion
+			if _, ok := parseVersion(v); !ok {
 				a.unsure = true
+			} else if _, ok := parseVersion(installed); ok && compareVersions(v, installed) <= 0 {
+				a.unsure = true
+			} else {
+				a.fixes = append(a.fixes, v)
 			}
 		}
 	}
@@ -118,9 +130,10 @@ func BuildRemediationGroups(decisions []ResultDecision, findings []ScanFinding) 
 		accs = append(accs, a)
 	}
 
-	// Update-first order: most urgent band, then known exploitation (KEV),
-	// then exploitation likelihood (EPSS), then severity (CVSS), then how
-	// many findings the upgrade covers, then purl for a stable order.
+	// Update-first order: most urgent band, then, among the findings in that
+	// band, known exploitation (KEV), exploitation likelihood (EPSS) and
+	// severity (CVSS), then how many findings the upgrade covers, then purl
+	// for a stable order.
 	sort.SliceStable(accs, func(i, j int) bool {
 		a, b := accs[i], accs[j]
 		if a.rank != b.rank {

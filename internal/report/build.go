@@ -48,9 +48,8 @@ var sectionOrder = []Section{
 	SectionLowerPriority,
 }
 
-// UngroupedPURL labels the entry holding decisions that no remediation
-// group references (for example a decision without a purl). They are
-// listed, never dropped.
+// UngroupedPURL labels the entry holding decisions without a purl that no
+// remediation group references. They are listed, never dropped.
 const UngroupedPURL = "(no package identifier)"
 
 // PackageFinding is one CVE row nested under a PackageGroup: everything the
@@ -147,8 +146,9 @@ type SectionGroup struct {
 //   - a package with findings in both gets one entry in each, each
 //     pointing at the other.
 //
-// Decisions no remediation group references are collected into one
-// UngroupedPURL entry and filed by the same rules.
+// Decisions no remediation group references are grouped by their own purl
+// (or, without one, collected into one UngroupedPURL entry) and filed by
+// the same rules.
 func BuildReport(dr DecisionResults) Report {
 	decByID := make(map[string]Decision, len(dr.Decisions))
 	for _, d := range dr.Decisions {
@@ -162,17 +162,37 @@ func BuildReport(dr DecisionResults) Report {
 			referenced[id] = true
 		}
 	}
+	// remediationGroups is optional in the schema, and a file may group only
+	// some decisions. An unreferenced decision with a purl gets a group of its
+	// own package, so packages are never merged into one entry; only
+	// decisions without a purl share the UngroupedPURL entry.
+	var extra []RemediationGroup
+	byPURL := make(map[string]int)
 	var ungrouped []string
 	for _, d := range dr.Decisions {
-		if !referenced[d.FindingID] {
-			ungrouped = append(ungrouped, d.FindingID)
+		if referenced[d.FindingID] {
+			continue
 		}
+		if d.PURL == "" {
+			ungrouped = append(ungrouped, d.FindingID)
+			continue
+		}
+		i, ok := byPURL[d.PURL]
+		if !ok {
+			i = len(extra)
+			byPURL[d.PURL] = i
+			extra = append(extra, RemediationGroup{PURL: d.PURL})
+		}
+		extra[i].FindingIDs = append(extra[i].FindingIDs, d.FindingID)
 	}
 	if len(ungrouped) > 0 {
-		groups = append(append([]RemediationGroup(nil), groups...), RemediationGroup{
+		extra = append(extra, RemediationGroup{
 			PURL:       UngroupedPURL,
 			FindingIDs: ungrouped,
 		})
+	}
+	if len(extra) > 0 {
+		groups = append(append([]RemediationGroup(nil), groups...), extra...)
 	}
 
 	bySection := make(map[Section][]PackageGroup, len(sectionOrder))
@@ -338,6 +358,11 @@ func whyText(s Section, findings []PackageFinding, kevElsewhere int) string {
 		}
 		if f.CISAKev {
 			kev = true
+		}
+		// Under "Update first" the scores are the act-now findings' own,
+		// the same ones internal/decision orders the packages by.
+		if s == SectionUpdateFirst && f.Band != BandActNow {
+			continue
 		}
 		if f.EPSSScore > epss {
 			epss = f.EPSSScore

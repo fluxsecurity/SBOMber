@@ -349,3 +349,25 @@ func TestRenderText_NoReassuringWording(t *testing.T) {
 		t.Errorf("missing cross-reference line in:\n%s", out)
 	}
 }
+
+// remediationGroups is optional in the schema: without it, each package
+// still gets its own entry, and unknown findings still land under
+// "Insufficient information".
+func TestBuildReport_NoRemediationGroupsGroupsByPURL(t *testing.T) {
+	dr, err := LoadDecisionResults(fixtureDecisionResults)
+	if err != nil {
+		t.Fatal(err)
+	}
+	dr.RemediationGroups = nil
+	r := BuildReport(dr)
+	for _, sg := range r.Sections {
+		for _, pg := range sg.Groups {
+			if pg.PURL == UngroupedPURL {
+				t.Fatalf("decisions with a purl were filed under %q", UngroupedPURL)
+			}
+		}
+	}
+	if _, s := findGroup(t, r, "pkg:npm/minimist@1.2.5"); s != SectionInsufficientInfo {
+		t.Errorf("minimist@1.2.5 (unknown) filed under %q, want %q", s, SectionInsufficientInfo)
+	}
+}
