@@ -15,6 +15,7 @@ package report
 
 import (
 	"encoding/json"
+	"fmt"
 	"os"
 )
 
@@ -59,6 +60,15 @@ type Decision struct {
 	RiskPriority       RiskPriority `json:"riskPriority"`
 	Justification      string       `json:"justification"`
 	Remediation        Remediation  `json:"remediation"`
+	BasedOn            BasedOn      `json:"basedOn"`
+}
+
+// BasedOn is the subset of decision-results.json's "decisions[].basedOn"
+// the report reads: whether the analysis behind the verdict completed.
+type BasedOn struct {
+	CoverageSummary struct {
+		ScanStatus string `json:"scanStatus"`
+	} `json:"coverageSummary"`
 }
 
 // RiskPriority mirrors decision-results.json's "decisions[].riskPriority".
@@ -117,6 +127,18 @@ func LoadDecisionResults(path string) (DecisionResults, error) {
 	if err != nil {
 		return dr, err
 	}
-	err = json.Unmarshal(b, &dr)
-	return dr, err
+	if err := json.Unmarshal(b, &dr); err != nil {
+		return dr, fmt.Errorf("parse %s: %w", path, err)
+	}
+	// Another contract file (a usage graph, a canonical scan) also parses
+	// into this struct, with no decisions. Refuse it rather than render an
+	// empty report that looks like a scan with no findings.
+	var probe struct {
+		Decisions json.RawMessage `json:"decisions"`
+	}
+	_ = json.Unmarshal(b, &probe)
+	if len(probe.Decisions) == 0 || dr.ScanID == "" {
+		return dr, fmt.Errorf("%s has no scanId or decisions array; is it a decision-results.json?", path)
+	}
+	return dr, nil
 }
