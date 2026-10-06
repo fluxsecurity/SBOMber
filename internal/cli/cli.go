@@ -107,6 +107,8 @@ func Main(args []string, stdin io.Reader, stdout io.Writer, stderr io.Writer) in
 		return runUsage(args[1:], stdout, stderr)
 	case "decide":
 		return runDecide(args[1:], stdout, stderr)
+	case "audit":
+		return runAudit(args[1:], stdout, stderr)
 	case "demo":
 		return runDemo(stdout, stderr)
 	case "help", "--help", "-h":
@@ -1770,6 +1772,7 @@ Usage:
   sbomber localise --canonical-scan <canonical-scan.json> [--out localisation.json] [--trace trace.json]
   sbomber usage --canonical-scan <canonical-scan.json> [--out usage-graph.json] [--entry file:function]
   sbomber decide --canonical-scan <file> --usage-graph <file> --localisation <file> [--out decision-results.json]
+  sbomber audit [--cases testdata/audit] [--out audit-results.json]
   sbomber version
 
 Scan Flags:
@@ -1822,6 +1825,10 @@ Decide Flags (Component 4: state, confidence, risk priority, justification):
   --usage-graph <file>                  usage-graph.json (required)
   --localisation <file>                 localisation.json (required)
   --out <file>                          decision-results.json to write (default: decision-results.json)
+
+Audit Flags (S5-14: replay hand-labelled cases through the decision pipeline):
+  --cases <dir>                         one subdirectory per labelled case (default: testdata/audit)
+  --out <file>                          also write audit-results.json
 
 Examples:
   sbomber
