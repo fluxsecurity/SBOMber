@@ -1834,8 +1834,8 @@ VEX Flags (Component 3: OpenVEX 0.2.0 from decision-results.json):
                                           package: the package purl, the shape Grype and Trivy act on
   --product <id>                        application product @id override, e.g. pkg:github/org/repo@<sha>
   --out <file>                          OpenVEX document to write (default: vex.openvex.json)
-  usage_detected -> affected (under_investigation if the decision maps it so),
-  no_usage_detected and unknown -> under_investigation, unsupported -> omitted. not_affected is never produced automatically.
+  usage_detected -> affected only when explicitly mapped by the decision; otherwise under_investigation.
+  no_usage_detected and unknown -> under_investigation, unsupported -> omitted. not_affected is rejected by the committed exporter.
 
 Examples:
   sbomber
@@ -2015,8 +2015,8 @@ func runVEX(args []string, stdout io.Writer, stderr io.Writer) int {
 		return 2
 	}
 	s := res.Summary
-	_, _ = fmt.Fprintf(stdout, "OpenVEX from %s (%s subject): %d decision(s), %d affected, %d under_investigation, %d not_affected (manual), %d omitted\n",
-		dr.ScanID, subject, s.Decisions, s.Affected, s.UnderInvestigation, s.NotAffected, s.Omitted)
+	_, _ = fmt.Fprintf(stdout, "OpenVEX from %s (%s subject): %d decision(s), %d affected, %d under_investigation, %d omitted\n",
+		dr.ScanID, subject, s.Decisions, s.Affected, s.UnderInvestigation, s.Omitted)
 	if s.Omitted > 0 {
 		_, _ = fmt.Fprintf(stdout, "  omitted as unsupported, still shown in the report: %s\n", strings.Join(s.OmittedFindingIDs, ", "))
 	}

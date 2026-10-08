@@ -20,9 +20,9 @@ func TestMap(t *testing.T) {
 			wantStatus: StatusAffected,
 		},
 		{
-			name:       "usage detected with no statement still derives affected",
+			name:       "usage detected with no statement is conservatively under_investigation",
 			d:          Decision{FindingID: "f", State: StateUsageDetected, VEXMapping: &VEXMapping{ActionStatement: "Upgrade."}},
-			wantStatus: StatusAffected,
+			wantStatus: StatusUnderInvestigation,
 		},
 		{
 			name:    "affected without an action statement is rejected",
@@ -30,9 +30,9 @@ func TestMap(t *testing.T) {
 			wantErr: "action statement",
 		},
 		{
-			name:    "affected with no vexMapping at all is rejected",
-			d:       Decision{FindingID: "f", State: StateUsageDetected},
-			wantErr: "action statement",
+			name:       "usage detected with no vexMapping is conservatively under_investigation",
+			d:          Decision{FindingID: "f", State: StateUsageDetected},
+			wantStatus: StatusUnderInvestigation,
 		},
 		{
 			name:       "no usage detected is under_investigation",
@@ -55,24 +55,24 @@ func TestMap(t *testing.T) {
 			wantOmit: true,
 		},
 		{
-			name:    "no usage detected never becomes not_affected without a reviewer",
+			name:    "no usage detected cannot become not_affected",
 			d:       Decision{FindingID: "f", State: StateNoUsageDetected, VEXMapping: &VEXMapping{Statement: "not_affected"}},
-			wantErr: "named manual reviewer",
+			wantErr: "not_affected is not supported",
 		},
 		{
-			name:    "blank reviewer does not count",
+			name:    "not_affected with blank reviewer is rejected",
 			d:       Decision{FindingID: "f", State: StateUnknown, VEXMapping: &VEXMapping{Statement: "not_affected", ManuallyReviewedBy: "  "}},
-			wantErr: "named manual reviewer",
+			wantErr: "not_affected is not supported",
 		},
 		{
-			name:       "manual not_affected with a named reviewer is kept",
-			d:          Decision{FindingID: "f", State: StateNoUsageDetected, VEXMapping: &VEXMapping{Statement: "not_affected", ManuallyReviewedBy: "A. Reviewer"}},
-			wantStatus: StatusNotAffected,
+			name:    "manual not_affected is outside committed exporter scope",
+			d:       Decision{FindingID: "f", State: StateNoUsageDetected, VEXMapping: &VEXMapping{Statement: "not_affected", ManuallyReviewedBy: "A. Reviewer"}},
+			wantErr: "not_affected is not supported",
 		},
 		{
 			name:    "not_affected on unsupported is rejected",
 			d:       Decision{FindingID: "f", State: StateUnsupported, VEXMapping: &VEXMapping{Statement: "not_affected", ManuallyReviewedBy: "A. Reviewer"}},
-			wantErr: "unsupported",
+			wantErr: "not_affected is not supported",
 		},
 		{
 			name:    "unknown cannot assert affected",

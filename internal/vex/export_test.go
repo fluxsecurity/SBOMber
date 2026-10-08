@@ -169,19 +169,27 @@ func TestExportUnsupportedIsOmittedButCounted(t *testing.T) {
 	}
 }
 
-func TestExportManualNotAffected(t *testing.T) {
-	dr := DecisionResults{ScanID: "scan-1", Decisions: []Decision{{
-		FindingID: "find-001", VulnerabilityID: "CVE-1", PURL: "pkg:npm/a@1.0.0", State: StateNoUsageDetected,
-		Justification: "Reviewer confirmed the vulnerable branch is compiled out.",
-		VEXMapping:    &VEXMapping{Statement: "not_affected", ManuallyReviewedBy: "A. Reviewer"},
-	}}}
-	res, err := Export(dr, Options{Subject: SubjectPackage, Timestamp: fixedTime})
-	if err != nil {
-		t.Fatal(err)
+func TestExportRejectsManualNotAffected(t *testing.T) {
+	dr := DecisionResults{
+		ScanID: "scan-1",
+		Decisions: []Decision{{
+			FindingID:       "find-001",
+			VulnerabilityID: "CVE-1",
+			PURL:            "pkg:npm/example@1.0.0",
+			State:           StateNoUsageDetected,
+			VEXMapping: &VEXMapping{
+				Statement:          StatusNotAffected,
+				ManuallyReviewedBy: "A. Reviewer",
+			},
+		}},
 	}
-	s := res.Document.Statements[0]
-	if s.Status != StatusNotAffected || !strings.Contains(s.ImpactStatement, "A. Reviewer") {
-		t.Fatalf("statement = %+v, want not_affected naming the reviewer", s)
+
+	_, err := Export(dr, Options{Subject: SubjectPackage})
+	if err == nil {
+		t.Fatal("Export() accepted not_affected, want rejection")
+	}
+	if !strings.Contains(err.Error(), "not_affected is not supported") {
+		t.Fatalf("Export() error = %v, want not_affected rejection", err)
 	}
 }
 

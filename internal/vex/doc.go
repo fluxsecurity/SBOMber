@@ -15,10 +15,9 @@
 //
 // Three rules hold everywhere in this package:
 //
-//   - not_affected is never derived from a state. It is emitted only when the
-//     decision itself says not_affected and names a manual reviewer. VEX
-//     consumers suppress not_affected findings, and application-source-only
-//     analysis cannot prove vulnerable code is outside the execution path.
+//   - not_affected is not emitted by the committed exporter. VEX consumers
+//     suppress not_affected findings, and application-source-only analysis
+//     cannot prove vulnerable code is outside the execution path.
 //   - One vocabulary per document. OpenVEX uses under_investigation; a
 //     decision carrying CycloneDX's in_triage rejects the whole document
 //     rather than being silently translated.

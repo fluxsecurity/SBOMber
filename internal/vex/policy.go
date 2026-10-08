@@ -21,7 +21,7 @@ type Mapping struct {
 	Status string
 	// ActionStatement is set for affected.
 	ActionStatement string
-	// Reviewer is set for a manually reviewed not_affected.
+	// Reviewer is reserved for possible future manual-review support; Map currently rejects not_affected.
 	Reviewer string
 }
 
@@ -42,35 +42,38 @@ func Map(d Decision) (Mapping, error) {
 			d.FindingID, ErrMixedVocabulary, StatusUnderInvestigation)
 	}
 
-	// not_affected is a manual verdict, never a derived one.
+	// not_affected is deliberately outside the committed automated exporter.
+	// The current decision contract has no field that proves a manual or
+	// deterministic not_affected conclusion, and contracts/validate.py rejects
+	// it. Keep the exporter conservative until that contract is designed.
 	if stmt == StatusNotAffected {
-		reviewer := strings.TrimSpace(d.VEXMapping.ManuallyReviewedBy)
-		if reviewer == "" {
-			return Mapping{}, fmt.Errorf("%s: not_affected requires a named manual reviewer; it is never produced automatically", d.FindingID)
-		}
-		if d.State == StateUnsupported {
-			return Mapping{}, fmt.Errorf("%s: not_affected on an unsupported finding; nothing was analysed to review", d.FindingID)
-		}
-		return Mapping{Status: StatusNotAffected, Reviewer: reviewer}, nil
+		return Mapping{}, fmt.Errorf(
+			"%s: not_affected is not supported by the committed automated exporter; use under_investigation",
+			d.FindingID,
+		)
 	}
 
 	var want string
 	switch d.State {
 	case StateUsageDetected:
-		want = StatusAffected
+		// Usage evidence alone is not enough for affected. Component 4 must
+		// explicitly assert affected after checking affected version, reliable
+		// localisation and direct call evidence. Missing mapping therefore
+		// remains under_investigation.
+		switch stmt {
+		case StatusAffected:
+			want = StatusAffected
+		case "", StatusUnderInvestigation:
+			want = StatusUnderInvestigation
+		default:
+			want = StatusAffected
+		}
 	case StateNoUsageDetected, StateUnknown:
 		want = StatusUnderInvestigation
 	case StateUnsupported:
 		want = mappingOmit
 	default:
 		return Mapping{}, fmt.Errorf("%s: unknown decision state %q", d.FindingID, d.State)
-	}
-	// Component 4 asserts affected only with matched symbols and reliable
-	// localisation (decision-results.schema.json); otherwise it maps
-	// usage_detected to under_investigation. That is the cautious direction,
-	// so it is kept rather than rejected.
-	if d.State == StateUsageDetected && stmt == StatusUnderInvestigation {
-		want = StatusUnderInvestigation
 	}
 	if stmt != "" && stmt != want {
 		return Mapping{}, fmt.Errorf("%s: state %s maps to %s but vexMapping.statement is %s",
