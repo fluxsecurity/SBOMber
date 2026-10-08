@@ -45,7 +45,7 @@ func runUsage(args []string, stdout io.Writer, stderr io.Writer) int {
 	fs.Var(&entries, "entry", "declared entry point, as [repositoryId=]file:function[:line] (repeatable)")
 	noReachability := fs.Bool("no-reachability", false, "skip the reachability pass; call sites report not_analysed")
 	allowPartial := fs.Bool("allow-partial", false, "exit 0 when the analysis is partial")
-	maxFiles := fs.Int("max-files", sourceanalysis.DefaultMaxSourceFiles, "maximum source files parsed per repository")
+	maxFiles := fs.Int("max-files", sourceanalysis.DefaultMaxSourceFiles, "maximum candidate source files considered per repository")
 	maxFileBytes := fs.Int64("max-file-bytes", sourceanalysis.DefaultMaxSourceBytes, "maximum size of one source file in bytes")
 	maxScanBytes := fs.Int64("max-canonical-scan-bytes", usagegraph.DefaultMaxCanonicalScanBytes, "maximum size of canonical-scan.json in bytes")
 

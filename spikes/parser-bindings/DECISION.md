@@ -1,5 +1,10 @@
 # Parser Binding Decision
 
+> **Historical Sprint 4 decision record.** The comparison and limitations below
+> describe the parser-selection spike at the time it was run. They are retained
+> as frozen research evidence. Current production parity is enforced by
+> `internal/sourceanalysis/TestSourceAnalyzerExactLabelledCorpus`.
+
 ## Decision
 
 Use:

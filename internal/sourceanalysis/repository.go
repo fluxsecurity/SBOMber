@@ -37,6 +37,8 @@ const (
 // RepositoryOptions bounds source discovery and parsing. Zero values use the
 // documented defaults. Negative values are rejected.
 type RepositoryOptions struct {
+	// MaxSourceFiles limits supported, non-generated candidate source files
+	// considered before size, minification, read and parse checks.
 	MaxSourceFiles    int
 	MaxSourceBytes    int64
 	MinifiedLineBytes int
@@ -283,7 +285,7 @@ func AnalyzeRepository(root string, options RepositoryOptions) (RepositoryResult
 			return nil
 		}
 
-		analysis, analysisErr := AnalyzeSource(path)
+		analysis, analysisErr := AnalyzeSourceBytes(path, source)
 		if analysisErr != nil {
 			result.Failed = append(result.Failed, FailedSource{Path: relative, Reason: analysisErr.Error()})
 			return nil
