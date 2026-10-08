@@ -1,0 +1,5 @@
+date: 2026-10-04T21:24:44Z
+sbomber: 0394cfa
+contracts/validate.py on decide output: OK - 175 invariant checks passed across four contracts
+demo-app.application.openvex.json: VALID statuses ['affected', 'under_investigation']
+demo-app.package.openvex.json: VALID statuses ['affected', 'under_investigation']

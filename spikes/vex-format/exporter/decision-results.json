@@ -1,0 +1,47 @@
+{
+  "schemaVersion": "1.1.0",
+  "scanId": "scan-s5-07-vulnerable-chat",
+  "distribution": {
+    "totalFindings": 2,
+    "usageDetected": 1,
+    "noUsageDetected": 0,
+    "unknown": 1,
+    "unsupported": 0
+  },
+  "decisions": [
+    {
+      "findingId": "find-001",
+      "vulnerabilityId": "CVE-2018-16487",
+      "purl": "pkg:npm/lodash@4.17.4",
+      "state": "usage_detected",
+      "analysisConfidence": "high",
+      "riskPriority": { "band": "act_now", "severity": "high", "relationship": "direct", "fixAvailable": true },
+      "justification": "The advisory names lodash.merge. The application calls _.merge at index.js. Upgrade to 4.17.11.",
+      "basedOn": {
+        "localisationMethod": "advisory_metadata",
+        "localisationConfidence": "high",
+        "matchedSymbols": ["merge"],
+        "evidenceLevel": 2,
+        "coverageSummary": { "parseCoveragePercent": 100, "unresolvedImportsInScope": 0, "scanStatus": "complete" }
+      },
+      "vexMapping": { "statement": "affected", "actionStatement": "Upgrade lodash to 4.17.11 or later." }
+    },
+    {
+      "findingId": "find-002",
+      "vulnerabilityId": "CVE-2019-10744",
+      "purl": "pkg:npm/lodash@4.17.4",
+      "state": "unknown",
+      "analysisConfidence": "low",
+      "riskPriority": { "band": "insufficient_information", "severity": "critical", "relationship": "direct", "fixAvailable": true },
+      "justification": "defaultsDeep was localised but no usage comparison was run for this consumer probe. Cannot be determined either way.",
+      "basedOn": {
+        "localisationMethod": "patch_reference",
+        "localisationConfidence": "high",
+        "matchedSymbols": [],
+        "evidenceLevel": 1,
+        "coverageSummary": { "parseCoveragePercent": 100, "unresolvedImportsInScope": 0, "scanStatus": "complete" }
+      },
+      "vexMapping": { "statement": "under_investigation" }
+    }
+  ]
+}
