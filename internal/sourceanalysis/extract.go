@@ -6,6 +6,7 @@ import (
 	"path/filepath"
 	"sort"
 	"sync"
+	"time"
 
 	treesitter "github.com/tree-sitter/go-tree-sitter"
 )
@@ -412,9 +413,44 @@ func sortResult(result *Result) {
 	)
 }
 
+const DefaultParseTimeout = 5 * time.Second
+
 func extractFile(
 	fixturePath string,
 ) (Result, error) {
+	source, err := os.ReadFile(fixturePath)
+	if err != nil {
+		return Result{}, fmt.Errorf(
+			"read fixture: %w",
+			err,
+		)
+	}
+
+	return extractSource(fixturePath, source)
+}
+
+func extractSource(
+	fixturePath string,
+	source []byte,
+) (Result, error) {
+	return extractSourceWithTimeout(
+		fixturePath,
+		source,
+		DefaultParseTimeout,
+	)
+}
+
+func extractSourceWithTimeout(
+	fixturePath string,
+	source []byte,
+	parseTimeout time.Duration,
+) (Result, error) {
+	if parseTimeout <= 0 {
+		return Result{}, fmt.Errorf(
+			"parse timeout must be positive",
+		)
+	}
+
 	resultLanguage, err := languageForPath(
 		fixturePath,
 	)
@@ -426,14 +462,6 @@ func extractFile(
 		filepath.Base(fixturePath),
 		resultLanguage,
 	)
-
-	source, err := os.ReadFile(fixturePath)
-	if err != nil {
-		return Result{}, fmt.Errorf(
-			"read fixture: %w",
-			err,
-		)
-	}
 
 	compiled, err := compiledUsageQuery(resultLanguage)
 	if err != nil {
@@ -456,10 +484,22 @@ func extractFile(
 		)
 	}
 
+	timeoutMicros := parseTimeout.Microseconds()
+	if timeoutMicros < 1 {
+		timeoutMicros = 1
+	}
+
+	// go-tree-sitter v0.25.0 ParseWithOptions retains its non-nil options
+	// handle. Keep the pinned binding's native timeout until that dependency
+	// can be upgraded safely.
+	parser.SetTimeoutMicros(uint64(timeoutMicros)) //nolint:staticcheck
+
 	tree := parser.Parse(source, nil)
 	if tree == nil {
 		return Result{}, fmt.Errorf(
-			"parser returned nil tree",
+			"parse %q timed out after %s",
+			fixturePath,
+			parseTimeout,
 		)
 	}
 	defer tree.Close()

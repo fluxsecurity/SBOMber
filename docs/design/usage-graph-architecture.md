@@ -635,7 +635,7 @@ Component 2 parses source code but never executes it.
 
 The selected Sprint 4 resource defaults are:
 
-- maximum source files analysed per repository: 10,000;
+- maximum supported, non-generated candidate source files considered per repository: 10,000;
 - maximum individual source file size: 1,000,000 bytes;
 - minified-line threshold: 4,000 bytes;
 - per-file parse timeout: 5 seconds.
