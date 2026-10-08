@@ -5,6 +5,7 @@ import (
 	"os"
 	"path/filepath"
 	"sort"
+	"sync"
 
 	treesitter "github.com/tree-sitter/go-tree-sitter"
 )
@@ -103,6 +104,23 @@ func appendESMImports(
 
 			break
 		}
+	}
+
+	if len(importClauses) == 0 {
+		// import "pkg" loads the module for its side effects only.
+		// Nothing can be called through it, but the package is imported.
+		line, column := nodeLocation(source, statement)
+		result.Imports = append(
+			result.Imports,
+			Import{
+				Specifier: specifier,
+				Kind:      "esm_side_effect",
+				TypeOnly:  false,
+				Line:      line,
+				Column:    column,
+			},
+		)
+		return nil
 	}
 
 	importSpecifiers := collectNodesByType(
@@ -245,6 +263,11 @@ func appendFunction(
 	}
 
 	line, column := nodeLocation(source, name)
+	declarationLine, declarationColumn := nodeLocation(source, declaration)
+	endLine, endColumn := nodeEndLocation(
+		source,
+		declaration,
+	)
 
 	exported := false
 	parent := declaration.Parent()
@@ -257,10 +280,16 @@ func appendFunction(
 	result.Functions = append(
 		result.Functions,
 		Function{
-			Name:     name.Utf8Text(source),
-			Line:     line,
-			Column:   column,
-			Exported: exported,
+			Name:          name.Utf8Text(source),
+			Line:          line,
+			Column:        column,
+			EndLine:       endLine,
+			EndColumn:     endColumn,
+			NodeLine:      declarationLine,
+			NodeColumn:    declarationColumn,
+			Parameters:    parameterNames(declaration, source),
+			LocalBindings: localBindingNames(declaration, source),
+			Exported:      exported,
 		},
 	)
 
@@ -268,6 +297,29 @@ func appendFunction(
 }
 
 func sortResult(result *Result) {
+	sort.SliceStable(
+		result.RouteHandlers,
+		func(left, right int) bool {
+			a := result.RouteHandlers[left]
+			b := result.RouteHandlers[right]
+
+			if a.Line != b.Line {
+				return a.Line < b.Line
+			}
+			if a.Column != b.Column {
+				return a.Column < b.Column
+			}
+			if a.Receiver != b.Receiver {
+				return a.Receiver < b.Receiver
+			}
+			if a.Method != b.Method {
+				return a.Method < b.Method
+			}
+
+			return a.Function < b.Function
+		},
+	)
+
 	sort.SliceStable(
 		result.Imports,
 		func(left, right int) bool {
@@ -383,10 +435,11 @@ func extractFile(
 		)
 	}
 
-	language, err := treeSitterLanguageForPath(fixturePath)
+	compiled, err := compiledUsageQuery(resultLanguage)
 	if err != nil {
 		return Result{}, err
 	}
+	language := compiled.language
 
 	parser := treesitter.NewParser()
 	if parser == nil {
@@ -427,19 +480,7 @@ func extractFile(
 		return result, nil
 	}
 
-	querySource := usageQuery
-
-	query, queryErr := treesitter.NewQuery(
-		language,
-		string(querySource),
-	)
-	if queryErr != nil {
-		return Result{}, fmt.Errorf(
-			"compile usage query: %v",
-			queryErr,
-		)
-	}
-	defer query.Close()
+	query := compiled.query
 
 	cursor := treesitter.NewQueryCursor()
 	if cursor == nil {
@@ -500,7 +541,27 @@ func extractFile(
 				captureNode(
 					match,
 					captureNames,
-					"require.source",
+					"require.arguments",
+				),
+				source,
+			)
+
+		case captureNode(
+			match,
+			captureNames,
+			"reexport.statement",
+		) != nil:
+			err = appendReexports(
+				&result,
+				captureNode(
+					match,
+					captureNames,
+					"reexport.statement",
+				),
+				captureNode(
+					match,
+					captureNames,
+					"reexport.source",
 				),
 				source,
 			)
@@ -596,6 +657,14 @@ func extractFile(
 		}
 	}
 
+	if err := appendImportRequireClauses(
+		&result,
+		root,
+		source,
+	); err != nil {
+		return Result{}, err
+	}
+
 	if err := appendStructuralCalls(
 		&result,
 		root,
@@ -612,7 +681,52 @@ func extractFile(
 		return Result{}, err
 	}
 
+	if err := appendRouteHandlers(
+		&result,
+		root,
+		source,
+	); err != nil {
+		return Result{}, err
+	}
+
+	appendAnonymousFunctionRanges(&result, root, source)
+
+	resolveFunctionExports(&result, root, source)
+
 	sortResult(&result)
 
 	return result, nil
+}
+
+// usageQueries caches the compiled usage query per grammar. Compiling the
+// query costs far more than parsing a typical file, and a compiled query is
+// read-only, so every file of a language shares one.
+var usageQueries = struct {
+	sync.Mutex
+	byLanguage map[string]compiledQuery
+}{byLanguage: make(map[string]compiledQuery)}
+
+type compiledQuery struct {
+	language *treesitter.Language
+	query    *treesitter.Query
+}
+
+func compiledUsageQuery(languageName string) (compiledQuery, error) {
+	usageQueries.Lock()
+	defer usageQueries.Unlock()
+
+	if cached, ok := usageQueries.byLanguage[languageName]; ok {
+		return cached, nil
+	}
+	language, err := treeSitterLanguage(languageName)
+	if err != nil {
+		return compiledQuery{}, err
+	}
+	query, queryErr := treesitter.NewQuery(language, string(usageQuery))
+	if queryErr != nil {
+		return compiledQuery{}, fmt.Errorf("compile usage query: %v", queryErr)
+	}
+	compiled := compiledQuery{language: language, query: query}
+	usageQueries.byLanguage[languageName] = compiled
+	return compiled, nil
 }

@@ -106,3 +106,35 @@ func TestAnalyzeRepositoryRejectsInvalidBoundaryInput(t *testing.T) {
 		t.Fatal("expected a negative limit to fail")
 	}
 }
+
+func TestAnalyzeRepositoryIncludesJSXAndTypeScriptModuleExtensions(t *testing.T) {
+	root := t.TempDir()
+	writeTestSource(t, root, "src/App.jsx",
+		`import { merge } from "lodash"; export const App = () => <div>{merge({}, {})}</div>;`)
+	writeTestSource(t, root, "src/main.mts",
+		`import { merge } from "lodash"; merge({}, {});`)
+	writeTestSource(t, root, "src/main.cts",
+		`import { merge } from "lodash"; merge({}, {});`)
+
+	result, err := AnalyzeRepository(root, RepositoryOptions{})
+	if err != nil {
+		t.Fatal(err)
+	}
+	want := map[string]string{
+		"src/App.jsx":  "javascript",
+		"src/main.mts": "typescript",
+		"src/main.cts": "typescript",
+	}
+	if len(result.Files) != len(want) ||
+		len(result.Skipped) != 0 || len(result.Failed) != 0 {
+		t.Fatalf("source discovery = %+v", result)
+	}
+	for _, file := range result.Files {
+		language, ok := want[file.Path]
+		if !ok || file.Result.Language != language ||
+			len(file.Result.Imports) != 1 ||
+			file.Result.Imports[0].Specifier != "lodash" {
+			t.Fatalf("source %q = %+v", file.Path, file.Result)
+		}
+	}
+}

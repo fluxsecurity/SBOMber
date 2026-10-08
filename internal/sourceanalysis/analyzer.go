@@ -13,13 +13,15 @@ type SourceAnalyzer interface {
 }
 
 type Result struct {
-	Fixture    string       `json:"fixture"`
-	Language   string       `json:"language"`
-	HasError   bool         `json:"hasError"`
-	Imports    []Import     `json:"imports"`
-	Calls      []Call       `json:"calls"`
-	Functions  []Function   `json:"functions"`
-	Unresolved []Unresolved `json:"unresolved"`
+	Fixture            string         `json:"fixture"`
+	Language           string         `json:"language"`
+	HasError           bool           `json:"hasError"`
+	Imports            []Import       `json:"imports"`
+	Calls              []Call         `json:"calls"`
+	Functions          []Function     `json:"functions"`
+	RouteHandlers      []RouteHandler `json:"-"`
+	AnonymousFunctions []Function     `json:"-"`
+	Unresolved         []Unresolved   `json:"unresolved"`
 }
 
 type Import struct {
@@ -30,6 +32,19 @@ type Import struct {
 	TypeOnly  bool   `json:"typeOnly"`
 	Line      int    `json:"line"`
 	Column    int    `json:"column"`
+
+	// InlineCalls are member calls made directly on an unbound import
+	// expression, for example require("x").merge(). Internal only.
+	InlineCalls []Call `json:"-"`
+	// UnresolvedUse names why the imported value escapes static tracking,
+	// for example a re-export or require() passed as an argument. The usage
+	// graph records one unresolved call site for it so downstream components
+	// cannot read the import as unused. Internal only.
+	UnresolvedUse string `json:"-"`
+	// BindingScopeEnd bounds a dynamic import binding to its lexical block.
+	// Zero means the binding is at module level or has no block boundary.
+	BindingScopeEndLine   int `json:"-"`
+	BindingScopeEndColumn int `json:"-"`
 }
 
 type Call struct {
@@ -41,10 +56,32 @@ type Call struct {
 }
 
 type Function struct {
-	Name     string `json:"name"`
-	Line     int    `json:"line"`
-	Column   int    `json:"column"`
-	Exported bool   `json:"exported"`
+	Name      string `json:"name"`
+	Line      int    `json:"line"`
+	Column    int    `json:"column"`
+	EndLine   int    `json:"-"`
+	EndColumn int    `json:"-"`
+	// NodeLine and NodeColumn locate the start of the function's own syntax
+	// node (Line and Column locate its name). Anonymous ranges start at the
+	// node, so this identifies a function's own range exactly. Internal only.
+	NodeLine      int      `json:"-"`
+	NodeColumn    int      `json:"-"`
+	ExportedNames []string `json:"-"`
+	Parameters    []string `json:"-"`
+	LocalBindings []string `json:"-"`
+	Exported      bool     `json:"exported"`
+}
+
+// RouteHandler is a statically recognised Express-style entry candidate.
+type RouteHandler struct {
+	Receiver  string
+	Method    string
+	Function  string
+	Line      int
+	Column    int
+	EndLine   int
+	EndColumn int
+	Synthetic bool
 }
 
 type Unresolved struct {
@@ -76,9 +113,12 @@ func languageForPath(path string) (string, error) {
 	switch {
 	case strings.HasSuffix(lower, ".tsx"):
 		return "tsx", nil
-	case strings.HasSuffix(lower, ".ts"):
+	case strings.HasSuffix(lower, ".ts"),
+		strings.HasSuffix(lower, ".mts"),
+		strings.HasSuffix(lower, ".cts"):
 		return "typescript", nil
 	case strings.HasSuffix(lower, ".js"),
+		strings.HasSuffix(lower, ".jsx"),
 		strings.HasSuffix(lower, ".mjs"),
 		strings.HasSuffix(lower, ".cjs"):
 		return "javascript", nil

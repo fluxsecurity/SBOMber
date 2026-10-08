@@ -1,0 +1,57 @@
+{
+  "schemaVersion": "1.0.0",
+  "scan": {
+    "scanId": "scan-s5-07-vulnerable-chat",
+    "startedAt": "2026-10-04T00:00:00Z",
+    "status": "complete",
+    "repositories": [
+      {
+        "repositoryId": "repo-vulnerable-chat",
+        "path": "spikes/vex-format/fixture",
+        "commit": "d7b5d98",
+        "source": "local"
+      }
+    ]
+  },
+  "components": [
+    {
+      "purl": "pkg:npm/lodash@4.17.4",
+      "ecosystem": "npm",
+      "name": "lodash",
+      "version": "4.17.4",
+      "versionKnown": true
+    }
+  ],
+  "occurrences": [
+    {
+      "occurrenceId": "occ-001",
+      "purl": "pkg:npm/lodash@4.17.4",
+      "repositoryId": "repo-vulnerable-chat",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/lodash",
+      "scope": "runtime"
+    }
+  ],
+  "findings": [
+    {
+      "findingId": "find-001",
+      "vulnerabilityId": "CVE-2018-16487",
+      "aliases": ["GHSA-4xc9-xhrj-v574"],
+      "purl": "pkg:npm/lodash@4.17.4",
+      "occurrenceIds": ["occ-001"],
+      "severity": "high",
+      "fixedVersion": "4.17.11"
+    },
+    {
+      "findingId": "find-002",
+      "vulnerabilityId": "CVE-2019-10744",
+      "aliases": ["GHSA-jf85-cpcp-j695"],
+      "purl": "pkg:npm/lodash@4.17.4",
+      "occurrenceIds": ["occ-001"],
+      "severity": "critical",
+      "fixedVersion": "4.17.12"
+    }
+  ]
+}

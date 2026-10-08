@@ -180,13 +180,24 @@ func appendAdditionalFunctions(
 		}
 
 		line, column := nodeLocation(source, name)
+		expressionLine, expressionColumn := nodeLocation(source, expression)
+		endLine, endColumn := nodeEndLocation(
+			source,
+			expression,
+		)
 
 		result.Functions = append(
 			result.Functions,
 			Function{
-				Name:   name.Utf8Text(source),
-				Line:   line,
-				Column: column,
+				Name:          name.Utf8Text(source),
+				Line:          line,
+				Column:        column,
+				EndLine:       endLine,
+				EndColumn:     endColumn,
+				NodeLine:      expressionLine,
+				NodeColumn:    expressionColumn,
+				Parameters:    parameterNames(expression, source),
+				LocalBindings: localBindingNames(expression, source),
 				Exported: isCommonJSExportAssignment(
 					expression,
 					source,
@@ -207,14 +218,25 @@ func appendAdditionalFunctions(
 		}
 
 		line, column := nodeLocation(source, name)
+		arrowLine, arrowColumn := nodeLocation(source, arrow)
+		endLine, endColumn := nodeEndLocation(
+			source,
+			arrow,
+		)
 
 		result.Functions = append(
 			result.Functions,
 			Function{
-				Name:     name.Utf8Text(source),
-				Line:     line,
-				Column:   column,
-				Exported: exported,
+				Name:          name.Utf8Text(source),
+				Line:          line,
+				Column:        column,
+				EndLine:       endLine,
+				EndColumn:     endColumn,
+				NodeLine:      arrowLine,
+				NodeColumn:    arrowColumn,
+				Parameters:    parameterNames(arrow, source),
+				LocalBindings: localBindingNames(arrow, source),
+				Exported:      exported,
 			},
 		)
 	}

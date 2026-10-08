@@ -1,0 +1,4 @@
+fixture.application.openvex.json: VALID; statuses ['affected', 'under_investigation']
+fixture.package.openvex.json: VALID; statuses ['affected', 'under_investigation']
+vulnerable-chat.application.openvex.json: VALID; statuses ['affected', 'under_investigation']
+vulnerable-chat.package.openvex.json: VALID; statuses ['affected', 'under_investigation']
