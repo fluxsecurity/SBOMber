@@ -30,6 +30,7 @@ verified tarball, and limits are written down when hit.
 
 - `FINDINGS.md` — the answer, what it means for Component 4, limitations
 - `cases/cases.json`, `cases/CASES.md` — ground truth (S4-18)
+- `cases/FROZEN.json`, `freeze.py` — the frozen set (S5-13, tag `localisation-set-v1`): ground-truth hash, answer sources, pinned tarballs
 - `cases/canonical-scan.json` — generated, schema-valid input
 - `build_canonical_scan.py`, `evaluate.py`, `run.sh` — reproduce everything
 - `results/localisation.json` — the contract document the tool produced
