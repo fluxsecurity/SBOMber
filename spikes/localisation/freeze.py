@@ -29,6 +29,7 @@ CASES = HERE / "cases" / "cases.json"
 FROZEN = HERE / "cases" / "FROZEN.json"
 REGISTRY = "https://registry.npmjs.org"
 TAG = "localisation-set-v1"
+FROZEN_CASES_SHA256 = "461ebc12548ee5babe01470a6e9c3ea5a4146eab7c65d342b7512fc2de728123"
 
 
 def sha256(path):
@@ -85,40 +86,127 @@ def build(cases):
 
 def verify(frozen, cases, online):
     problems = []
-    if sha256(CASES) != frozen["casesSha256"]:
-        problems.append("cases.json changed since the freeze (SHA-256 mismatch)")
-    ids = [c["id"] for c in cases["cases"]]
-    if ids != [c["id"] for c in frozen["cases"]]:
+
+    case_list = cases.get("cases", [])
+    frozen_cases = frozen.get("cases", [])
+
+    # Top-level identity must remain consistent with the frozen set.
+    if frozen.get("tag") != TAG:
+        problems.append(f"tag changed: {frozen.get('tag')!r}")
+    if frozen.get("casesFile") != "cases/cases.json":
+        problems.append(f"casesFile changed: {frozen.get('casesFile')!r}")
+    if frozen.get("groundTruthFixedAt") != cases.get("groundTruthFixedAt"):
+        problems.append("groundTruthFixedAt does not match cases.json")
+    if frozen.get("caseCount") != len(frozen_cases):
+        problems.append(
+            f"caseCount is {frozen.get('caseCount')}, but FROZEN.json contains {len(frozen_cases)} cases"
+        )
+    if len(case_list) != len(frozen_cases):
+        problems.append(
+            f"cases.json contains {len(case_list)} cases but FROZEN.json contains {len(frozen_cases)}"
+        )
+
+    actual_cases_sha = sha256(CASES)
+    if actual_cases_sha != FROZEN_CASES_SHA256:
+        problems.append(
+            "cases.json does not match localisation-set-v1 "
+            f"(got {actual_cases_sha[:12]}, want {FROZEN_CASES_SHA256[:12]})"
+        )
+    if frozen.get("casesSha256") != FROZEN_CASES_SHA256:
+        problems.append(
+            "FROZEN.json casesSha256 does not match localisation-set-v1"
+        )
+
+    ids = [c.get("id") for c in case_list]
+    frozen_ids = [c.get("id") for c in frozen_cases]
+    if ids != frozen_ids:
         problems.append(f"case list changed: {ids}")
-    by_id = {c["id"]: c for c in cases["cases"]}
-    for want in frozen["cases"]:
-        c = by_id.get(want["id"], {})
-        recorded = (c.get("expectedChangedFunctions"), c.get("expectedPublicSymbols"),
-                    [f["sha"] for f in c.get("fixCommits", [])],
-                    [c.get("vulnerableVersion"), c.get("fixedVersion")])
-        pinned = (want["expectedChangedFunctions"], want["expectedPublicSymbols"],
-                  [s["sha"] for s in want["answerSource"]],
-                  [a["version"] for a in want["artefacts"]])
+
+    by_id = {c.get("id"): c for c in case_list}
+
+    for want in frozen_cases:
+        case_id = want.get("id")
+        c = by_id.get(case_id, {})
+
+        recorded = (
+            c.get("vulnerabilityId"),
+            c.get("purl"),
+            c.get("expectedChangedFunctions"),
+            c.get("expectedPublicSymbols"),
+            [
+                (f.get("repo"), f.get("sha"), f.get("source"))
+                for f in c.get("fixCommits", [])
+            ],
+            [c.get("vulnerableVersion"), c.get("fixedVersion")],
+        )
+
+        pinned = (
+            want.get("vulnerabilityId"),
+            want.get("purl"),
+            want.get("expectedChangedFunctions"),
+            want.get("expectedPublicSymbols"),
+            [
+                (src.get("repo"), src.get("sha"), src.get("source"))
+                for src in want.get("answerSource", [])
+            ],
+            [art.get("version") for art in want.get("artefacts", [])],
+        )
+
         if recorded != pinned:
-            problems.append(f"{want['id']}: FROZEN.json does not match cases.json")
-        if not want["answerSource"]:
-            problems.append(f"{want['id']}: no source recorded for the expected answer")
-        if not want["expectedChangedFunctions"] or not want["expectedPublicSymbols"]:
-            problems.append(f"{want['id']}: expected answer missing")
-        for art in want["artefacts"]:
+            problems.append(
+                f"{case_id}: FROZEN.json identity, answer, source or versions do not match cases.json"
+            )
+
+        if not want.get("answerSource"):
+            problems.append(f"{case_id}: no source recorded for the expected answer")
+
+        if not want.get("expectedChangedFunctions") or not want.get("expectedPublicSymbols"):
+            problems.append(f"{case_id}: expected answer missing")
+
+        for src in want.get("answerSource", []):
+            sha = src.get("sha", "")
+            if len(sha) != 40 or any(ch not in "0123456789abcdefABCDEF" for ch in sha):
+                problems.append(f"{case_id}: answer source does not use a full commit SHA: {sha!r}")
+
+        artefacts = want.get("artefacts", [])
+        if len(artefacts) != 2:
+            problems.append(
+                f"{case_id}: expected exactly two pinned artefacts, found {len(artefacts)}"
+            )
+
+        for art in artefacts:
             if not art.get("integrity"):
-                problems.append(f"{want['id']}: {art['tarball']} has no integrity hash")
+                problems.append(
+                    f"{case_id}: {art.get('tarball', '<unknown tarball>')} has no integrity hash"
+                )
+
         if online:
-            package = want["purl"].split("/", 1)[1].rsplit("@", 1)[0]
-            for art in want["artefacts"]:
+            purl = want.get("purl", "")
+            try:
+                package = purl.split("/", 1)[1].rsplit("@", 1)[0]
+            except (IndexError, AttributeError):
+                problems.append(f"{case_id}: invalid purl {purl!r}")
+                continue
+
+            for art in artefacts:
                 try:
-                    live = registry_version(urllib.parse.unquote(package), art["version"])
+                    live = registry_version(
+                        urllib.parse.unquote(package), art["version"]
+                    )
                 except (OSError, KeyError, ValueError) as e:
-                    problems.append(f"{want['id']}: registry lookup failed for {art['tarball']}: {e}")
+                    problems.append(
+                        f"{case_id}: registry lookup failed for "
+                        f"{art.get('tarball', '<unknown tarball>')}: {e}"
+                    )
                     continue
+
                 for field in ("tarball", "integrity", "shasum", "gitHead"):
                     if live.get(field) != art.get(field):
-                        problems.append(f"{want['id']}: registry {field} changed for {art['tarball']}")
+                        problems.append(
+                            f"{case_id}: registry {field} changed for "
+                            f"{art.get('tarball', '<unknown tarball>')}"
+                        )
+
     return problems
 
 
