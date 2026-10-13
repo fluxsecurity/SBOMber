@@ -1,0 +1,31 @@
+{
+  "fixture": "component2-s6-ts-path-alias",
+  "construct": "ts_path_alias",
+  "language": "typescript",
+  "labelMethod": "source-reviewed before analyser execution",
+  "expected": {
+    "thirdPartyImports": [
+      {
+        "specifier": "lodash",
+        "imported": "merge",
+        "local": "merge",
+        "kind": "esm_named",
+        "resolution": "resolved",
+        "file": "src/service.ts",
+        "line": 1
+      }
+    ],
+    "thirdPartyCalls": [
+      {
+        "symbol": "merge",
+        "file": "src/service.ts",
+        "line": 4,
+        "importSpecifier": "lodash",
+        "importLocal": "merge",
+        "importLine": 1
+      }
+    ],
+    "unresolvedCalls": [],
+    "excludedCalls": []
+  }
+}
