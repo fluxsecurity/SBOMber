@@ -1,0 +1,33 @@
+{
+  "fixture": "component2-s6-esm-default",
+  "construct": "esm_default",
+  "language": "javascript",
+  "labelMethod": "source-reviewed before analyser execution",
+  "expected": {
+    "thirdPartyImports": [
+      {
+        "specifier": "lodash",
+        "imported": "default",
+        "local": "lodash",
+        "kind": "esm_default",
+        "file": "src/index.js",
+        "line": 1
+      }
+    ],
+    "thirdPartyCalls": [
+      {
+        "symbol": "merge",
+        "file": "src/index.js",
+        "line": 4
+      }
+    ],
+    "excludedCalls": [
+      {
+        "symbol": "merge",
+        "file": "src/index.js",
+        "line": 8,
+        "reason": "Function parameter shadows the default import"
+      }
+    ]
+  }
+}
