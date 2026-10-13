@@ -19,7 +19,7 @@ func TestS6ExportUsageGraph(t *testing.T) {
 	}
 
 	switch fixture {
-	case "component2-s6-esm-named", "component2-s6-esm-default", "component2-s6-esm-namespace", "component2-s6-cjs-require", "component2-s6-cjs-destructured", "component2-s6-package-subpath", "component2-s6-import-type":
+	case "component2-s6-esm-named", "component2-s6-esm-default", "component2-s6-esm-namespace", "component2-s6-cjs-require", "component2-s6-cjs-destructured", "component2-s6-package-subpath", "component2-s6-import-type", "component2-s6-import-type-alias":
 	default:
 		t.Fatalf("unsupported evaluation fixture %q", fixture)
 	}
