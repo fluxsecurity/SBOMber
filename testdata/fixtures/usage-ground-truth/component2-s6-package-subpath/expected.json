@@ -1,0 +1,39 @@
+{
+  "fixture": "component2-s6-package-subpath",
+  "construct": "package_subpath",
+  "language": "javascript",
+  "labelMethod": "source-reviewed before analyser execution",
+  "expected": {
+    "thirdPartyImports": [
+      {
+        "specifier": "lodash/merge",
+        "imported": "default",
+        "local": "merge",
+        "kind": "esm_default",
+        "file": "src/index.js",
+        "line": 1
+      }
+    ],
+    "thirdPartyCalls": [
+      {
+        "symbol": "merge",
+        "file": "src/index.js",
+        "line": 4,
+        "importSpecifier": "lodash/merge",
+        "importLocal": "merge",
+        "importLine": 1
+      }
+    ],
+    "excludedCalls": [
+      {
+        "symbol": "merge",
+        "file": "src/index.js",
+        "line": 8,
+        "importSpecifier": "lodash/merge",
+        "importLocal": "merge",
+        "importLine": 1,
+        "reason": "Function parameter shadows the subpath import"
+      }
+    ]
+  }
+}
