@@ -1,0 +1,97 @@
+import unittest
+from collections import Counter
+from evaluate_usage_constructs import evaluate, score
+
+
+class EvaluationTests(unittest.TestCase):
+    def make_case(self, imports, calls, observed, unknown=None, excluded=None):
+        labels = {'expected': {'thirdPartyImports': imports,
+                               'thirdPartyCalls': calls,
+                               'unresolvedCalls': unknown or [],
+                               'excludedCalls': excluded or []}}
+        graph = {'analysis': {'status': 'complete'}, 'observations': observed}
+        return evaluate(labels, graph)
+
+    def test_duplicate_observation_counts_false_positive(self):
+        self.assertEqual(score(Counter({('x',): 1}), Counter({('x',): 2}))['fp'], 1)
+
+    def test_empty_call_metrics_are_undefined(self):
+        self.assertIsNone(score(Counter(), Counter())['precision'])
+        self.assertIsNone(score(Counter(), Counter())['recall'])
+
+    def test_misattribution_to_other_import_is_false_positive(self):
+        label = {'file': 'src/index.js', 'line': 1, 'specifier': 'lodash',
+                 'imported': 'merge', 'local': 'merge', 'kind': 'esm_named'}
+        other = {**label, 'specifier': 'other', 'line': 2}
+        call = {'file': 'src/index.js', 'line': 5, 'symbol': 'merge',
+                'importSpecifier': 'lodash'}
+        obs = [{'location': {'file': other['file'], 'line': other['line']},
+                'importedSpecifier': other['specifier'],
+                'importedSymbol': other['imported'], 'localAlias': other['local'],
+                'importKind': other['kind'], 'resolution': 'resolved',
+                'callSites': [{'file': 'src/index.js', 'line': 5,
+                               'calledSymbol': 'merge', 'resolution': 'resolved'}]}]
+        result = self.make_case([label, other], [call], obs)
+        self.assertEqual(result['callEvaluation']['tp'], 0)
+        self.assertEqual(result['callEvaluation']['fp'], 1)
+        self.assertEqual(result['callEvaluation']['fn'], 1)
+
+    def test_type_only_import_and_no_calls(self):
+        label = {'file': 'src/index.ts', 'line': 1, 'specifier': 'pkg',
+                 'imported': 'Thing', 'local': 'Thing', 'kind': 'esm_named',
+                 'resolution': 'type_only'}
+        obs = [{'location': {'file': label['file'], 'line': 1},
+                'importedSpecifier': 'pkg', 'importedSymbol': 'Thing',
+                'localAlias': 'Thing', 'importKind': 'esm_named',
+                'resolution': 'type_only', 'callSites': []}]
+        result = self.make_case([label], [], obs)
+        self.assertEqual(result['importEvaluation']['tp'], 1)
+        self.assertIsNone(result['callEvaluation']['precision'])
+
+    def test_excluded_shadow_detected(self):
+        label = {'file': 'src/index.js', 'line': 1, 'specifier': 'lodash',
+                 'imported': 'merge', 'local': 'merge', 'kind': 'esm_named'}
+        obs = [{'location': {'file': 'src/index.js', 'line': 1},
+                'importedSpecifier': 'lodash', 'importedSymbol': 'merge',
+                'localAlias': 'merge', 'importKind': 'esm_named',
+                'resolution': 'resolved',
+                'callSites': [{'file': 'src/index.js', 'line': 8,
+                               'calledSymbol': 'merge', 'resolution': 'resolved'}]}]
+        result = self.make_case([label], [], obs, excluded=[
+            {'file': 'src/index.js', 'line': 8, 'symbol': 'merge'}])
+        self.assertEqual(result['callEvaluation']['fp'], 1)
+        self.assertEqual(result['excludedCallViolations'][0]['count'], 1)
+
+    def test_unresolved_import_is_separate_from_resolved_call(self):
+        label = {'file': 'src/index.js', 'line': 1, 'specifier': '<computed>',
+                 'imported': '', 'local': '', 'kind': 'dynamic_computed',
+                 'resolution': 'unresolved'}
+        obs = [{'location': {'file': 'src/index.js', 'line': 1},
+                'importedSpecifier': '<computed>', 'importedSymbol': '',
+                'localAlias': '', 'importKind': 'dynamic_computed',
+                'resolution': 'unresolved', 'callSites': []}]
+        result = self.make_case([label], [], obs)
+        self.assertEqual(result['importEvaluation']['tp'], 1)
+        self.assertEqual(result['observedImportOutcomes']['unresolved'], 1)
+        self.assertIsNone(result['callEvaluation']['precision'])
+
+    def test_missing_expected_call_counts_false_negative(self):
+        label = {'file': 'src/index.js', 'line': 1, 'specifier': 'lodash',
+                 'imported': 'merge', 'local': 'merge', 'kind': 'esm_named'}
+        observed = [{'location': {'file': 'src/index.js', 'line': 1},
+                    'importedSpecifier': 'lodash', 'importedSymbol': 'merge',
+                    'localAlias': 'merge', 'importKind': 'esm_named',
+                    'resolution': 'resolved', 'callSites': []}]
+        result = self.make_case([label], [{'file': 'src/index.js',
+                                           'line': 4, 'symbol': 'merge'}],
+                                observed)
+        self.assertEqual(result['callEvaluation']['fn'], 1)
+
+    def test_partial_scan_is_rejected(self):
+        with self.assertRaisesRegex(ValueError, 'complete analysis'):
+            evaluate({'expected': {'thirdPartyImports': []}},
+                     {'analysis': {'status': 'partial'}, 'observations': []})
+
+
+if __name__ == '__main__':
+    unittest.main()
