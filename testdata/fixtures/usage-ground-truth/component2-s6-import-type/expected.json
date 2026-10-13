@@ -2,14 +2,14 @@
   "fixture": "component2-s6-import-type",
   "construct": "import_type",
   "language": "typescript",
-  "labelMethod": "source-reviewed before analyser execution",
+  "labelMethod": "source-reviewed before analyser execution; import kind corrected after evaluation",
   "expected": {
     "thirdPartyImports": [
       {
         "specifier": "lodash",
         "imported": "DebouncedFunc",
         "local": "DebouncedFunc",
-        "kind": "esm_named",
+        "kind": "esm_type_only",
         "resolution": "type_only",
         "file": "src/index.ts",
         "line": 1
@@ -28,5 +28,12 @@
         "reason": "Local function parameter, not runtime dependency usage"
       }
     ]
+  },
+  "labelCorrection": {
+    "originalCommit": "b807dc6",
+    "field": "expected.thirdPartyImports[0].kind",
+    "originalValue": "esm_named",
+    "correctedValue": "esm_type_only",
+    "reason": "The TypeScript source uses import type. The existing parser contract classifies this construct as esm_type_only."
   }
 }

@@ -38,11 +38,11 @@ class EvaluationTests(unittest.TestCase):
 
     def test_type_only_import_and_no_calls(self):
         label = {'file': 'src/index.ts', 'line': 1, 'specifier': 'pkg',
-                 'imported': 'Thing', 'local': 'Thing', 'kind': 'esm_named',
+                 'imported': 'Thing', 'local': 'Thing', 'kind': 'esm_type_only',
                  'resolution': 'type_only'}
         obs = [{'location': {'file': label['file'], 'line': 1},
                 'importedSpecifier': 'pkg', 'importedSymbol': 'Thing',
-                'localAlias': 'Thing', 'importKind': 'esm_named',
+                'localAlias': 'Thing', 'importKind': 'esm_type_only',
                 'resolution': 'type_only', 'callSites': []}]
         result = self.make_case([label], [], obs)
         self.assertEqual(result['importEvaluation']['tp'], 1)
