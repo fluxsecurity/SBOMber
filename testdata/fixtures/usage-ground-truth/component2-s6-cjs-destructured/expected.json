@@ -1,0 +1,39 @@
+{
+  "fixture": "component2-s6-cjs-destructured",
+  "construct": "cjs_destructured",
+  "language": "javascript",
+  "labelMethod": "source-reviewed before analyser execution",
+  "expected": {
+    "thirdPartyImports": [
+      {
+        "specifier": "lodash",
+        "imported": "merge",
+        "local": "combine",
+        "kind": "cjs_destructured",
+        "file": "src/index.js",
+        "line": 1
+      }
+    ],
+    "thirdPartyCalls": [
+      {
+        "symbol": "merge",
+        "file": "src/index.js",
+        "line": 4,
+        "importSpecifier": "lodash",
+        "importLocal": "combine",
+        "importLine": 1
+      }
+    ],
+    "excludedCalls": [
+      {
+        "symbol": "merge",
+        "file": "src/index.js",
+        "line": 8,
+        "importSpecifier": "lodash",
+        "importLocal": "combine",
+        "importLine": 1,
+        "reason": "Function parameter shadows the destructured alias"
+      }
+    ]
+  }
+}

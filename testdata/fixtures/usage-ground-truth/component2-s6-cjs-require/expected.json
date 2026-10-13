@@ -1,0 +1,39 @@
+{
+  "fixture": "component2-s6-cjs-require",
+  "construct": "cjs_require",
+  "language": "javascript",
+  "labelMethod": "source-reviewed before analyser execution",
+  "expected": {
+    "thirdPartyImports": [
+      {
+        "specifier": "lodash",
+        "imported": "*",
+        "local": "lodash",
+        "kind": "cjs_require",
+        "file": "src/index.js",
+        "line": 1
+      }
+    ],
+    "thirdPartyCalls": [
+      {
+        "symbol": "merge",
+        "file": "src/index.js",
+        "line": 4,
+        "importSpecifier": "lodash",
+        "importLocal": "lodash",
+        "importLine": 1
+      }
+    ],
+    "excludedCalls": [
+      {
+        "symbol": "merge",
+        "file": "src/index.js",
+        "line": 8,
+        "importSpecifier": "lodash",
+        "importLocal": "lodash",
+        "importLine": 1,
+        "reason": "Function parameter shadows the CommonJS binding"
+      }
+    ]
+  }
+}
