@@ -262,7 +262,11 @@ func observationCallSites(
 	for _, call := range result.Calls {
 		calledSymbol, resolution, unresolvedReason, matches :=
 			thirdPartyCall(imported, call)
-		if !matches || !dynamicImportVisible(result, imported, call) {
+		// A local parameter or declaration can shadow an imported binding.
+		// Such calls must not be attributed to the third-party package.
+		if !matches ||
+			!dynamicImportVisible(result, imported, call) ||
+			shadowedLocalCall(result, call) {
 			continue
 		}
 		add(call, calledSymbol, resolution, unresolvedReason)
