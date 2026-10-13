@@ -1,0 +1,31 @@
+{
+  "fixture": "component2-s6-reexport",
+  "construct": "reexport",
+  "language": "javascript",
+  "labelMethod": "source-reviewed before analyser execution",
+  "expected": {
+    "thirdPartyImports": [
+      {
+        "specifier": "lodash",
+        "imported": "merge",
+        "local": "",
+        "kind": "esm_reexport",
+        "resolution": "resolved",
+        "file": "src/index.js",
+        "line": 1
+      }
+    ],
+    "thirdPartyCalls": [],
+    "unresolvedCalls": [
+      {
+        "symbol": "",
+        "file": "src/index.js",
+        "line": 1,
+        "importSpecifier": "lodash",
+        "importLocal": "",
+        "importLine": 1
+      }
+    ],
+    "excludedCalls": []
+  }
+}
