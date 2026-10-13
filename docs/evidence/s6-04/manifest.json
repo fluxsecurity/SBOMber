@@ -1,0 +1,535 @@
+{
+  "issue": 149,
+  "analyserGitCommit": "e44fc80140a51362ad22eb8550d32b6a2dcc9a32",
+  "method": "Go test exporter (production source analyser and usagegraph producer); TypeScript aliases supplied from root tsconfig.json",
+  "fixtureCount": 13,
+  "constructCategoryCount": 11,
+  "results": [
+    {
+      "fixture": "component2-s6-cjs-destructured",
+      "construct": "cjs_destructured",
+      "variant": null,
+      "sourceFixtureSha256": "60f250dd1c5838b7a1b1b36edfc60164596a7eb9bb658a572e9f8f122aad5168",
+      "labelSha256": "a4efe5830c29e5b8525f2bfa835ea745d75db7f632ad620d340b34f8aaa54973",
+      "labelFirstCommit": "fe54d186a0e43a1b39c1dd2640443b5aee899d94",
+      "labelLatestCommit": "fe54d186a0e43a1b39c1dd2640443b5aee899d94",
+      "labelCorrection": null,
+      "importEvaluation": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "extra": [],
+        "missing": []
+      },
+      "callEvaluation": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "extra": [],
+        "missing": []
+      },
+      "unresolvedCallEvaluation": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null,
+        "extra": [],
+        "missing": []
+      },
+      "excludedCallViolations": [],
+      "safetyChecks": "PASS",
+      "graphSha256": "82b00cfba5fa2519c518753f95354a9500ff5f3d61cde3fed441699a5e8a30f0"
+    },
+    {
+      "fixture": "component2-s6-cjs-require",
+      "construct": "cjs_require",
+      "variant": null,
+      "sourceFixtureSha256": "5a67c4cc9a7245a984b9421a6d6a787e7293ebde39a7400621576e11b923a971",
+      "labelSha256": "adf51b9747cbb9fc0ff85de57c16c5f0772a72084cb438c9e3d16aafe8a73182",
+      "labelFirstCommit": "fe54d186a0e43a1b39c1dd2640443b5aee899d94",
+      "labelLatestCommit": "fe54d186a0e43a1b39c1dd2640443b5aee899d94",
+      "labelCorrection": null,
+      "importEvaluation": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "extra": [],
+        "missing": []
+      },
+      "callEvaluation": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "extra": [],
+        "missing": []
+      },
+      "unresolvedCallEvaluation": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null,
+        "extra": [],
+        "missing": []
+      },
+      "excludedCallViolations": [],
+      "safetyChecks": "PASS",
+      "graphSha256": "d745a833543f2d40d2a533a3a210018c9d581562087a0f176976c47bf9ced59f"
+    },
+    {
+      "fixture": "component2-s6-dynamic-computed",
+      "construct": "dynamic_import",
+      "variant": "computed_specifier",
+      "sourceFixtureSha256": "d3a5545c52d88e3ed275f27bd9fbde8f529d4a7bf620a2d815f34b92fd08648e",
+      "labelSha256": "9381a7b5461c32b07e4597250a77aeff2a8b2a0f1af2a5d30b3e6fec1e0ee267",
+      "labelFirstCommit": "a3dcaed0c9ffdf9c2a613d10f1fff30390158537",
+      "labelLatestCommit": "a3dcaed0c9ffdf9c2a613d10f1fff30390158537",
+      "labelCorrection": null,
+      "importEvaluation": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "extra": [],
+        "missing": []
+      },
+      "callEvaluation": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null,
+        "extra": [],
+        "missing": []
+      },
+      "unresolvedCallEvaluation": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null,
+        "extra": [],
+        "missing": []
+      },
+      "excludedCallViolations": [],
+      "safetyChecks": "PASS",
+      "graphSha256": "c9f2feea1f19f2be3f1090771bf9254292c6b054c34c7df3b729e7b9958eca71"
+    },
+    {
+      "fixture": "component2-s6-dynamic-static",
+      "construct": "dynamic_import",
+      "variant": "static_literal",
+      "sourceFixtureSha256": "107ff11178bca807fafe17968d7f844b780ef16f4c4bd8dbaa767fbb7788d4cc",
+      "labelSha256": "f9c3aa1a16f5da4d12a85245e18d9e72432eb857577a8d08cb72de3855a94a96",
+      "labelFirstCommit": "a3dcaed0c9ffdf9c2a613d10f1fff30390158537",
+      "labelLatestCommit": "a3dcaed0c9ffdf9c2a613d10f1fff30390158537",
+      "labelCorrection": null,
+      "importEvaluation": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "extra": [],
+        "missing": []
+      },
+      "callEvaluation": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "extra": [],
+        "missing": []
+      },
+      "unresolvedCallEvaluation": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null,
+        "extra": [],
+        "missing": []
+      },
+      "excludedCallViolations": [],
+      "safetyChecks": "PASS",
+      "graphSha256": "6e3b905d285b7602b72c4d80500e8ad03f1c8ca6d2f5bc8d8e32328571ea8a2d"
+    },
+    {
+      "fixture": "component2-s6-esm-default",
+      "construct": "esm_default",
+      "variant": null,
+      "sourceFixtureSha256": "117ae40ace03939fee266d3ab3548ce4a5ff92f16f34195a9c9d3085bc70710d",
+      "labelSha256": "a1ff09e95b5324bda48fd53dd8e5a7bc4473f90558e7151d279ee5a9d173c818",
+      "labelFirstCommit": "d04e46f32fde0051ce66304d09a4a3fd7f75af12",
+      "labelLatestCommit": "d04e46f32fde0051ce66304d09a4a3fd7f75af12",
+      "labelCorrection": null,
+      "importEvaluation": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "extra": [],
+        "missing": []
+      },
+      "callEvaluation": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "extra": [],
+        "missing": []
+      },
+      "unresolvedCallEvaluation": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null,
+        "extra": [],
+        "missing": []
+      },
+      "excludedCallViolations": [],
+      "safetyChecks": "PASS",
+      "graphSha256": "53c1150ee48f172933e91b376bea8d7beec3915198ba73f328851749f1ea423f"
+    },
+    {
+      "fixture": "component2-s6-esm-named",
+      "construct": "esm_named",
+      "variant": null,
+      "sourceFixtureSha256": "1c5fcff709db8312ba39f84efe1750ae7f80eadb5e892f3e77f06645c617e255",
+      "labelSha256": "6da1679e2ca5256319cb728bac5a68a51f188ea859a4d6082a22fd9fad70c2da",
+      "labelFirstCommit": "c88407708335260f2530b2575ef55aef1bd07de2",
+      "labelLatestCommit": "c88407708335260f2530b2575ef55aef1bd07de2",
+      "labelCorrection": null,
+      "importEvaluation": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "extra": [],
+        "missing": []
+      },
+      "callEvaluation": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "extra": [],
+        "missing": []
+      },
+      "unresolvedCallEvaluation": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null,
+        "extra": [],
+        "missing": []
+      },
+      "excludedCallViolations": [],
+      "safetyChecks": "PASS",
+      "graphSha256": "30f5716a5d47472f85e00f45591cad1911a516a45f7a15b556652444531e1daf"
+    },
+    {
+      "fixture": "component2-s6-esm-namespace",
+      "construct": "esm_namespace",
+      "variant": null,
+      "sourceFixtureSha256": "c850b679441d0289d0ad4ba99e2a7a5f5d177926ff5675bdb988dfd5d36334ac",
+      "labelSha256": "4706c1921c92bb880df3b21556582547a681481008292c9a63c11d5c503eaa3b",
+      "labelFirstCommit": "6d374a31acb70d359b8511e04f3769566e2b87a0",
+      "labelLatestCommit": "6d374a31acb70d359b8511e04f3769566e2b87a0",
+      "labelCorrection": null,
+      "importEvaluation": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "extra": [],
+        "missing": []
+      },
+      "callEvaluation": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "extra": [],
+        "missing": []
+      },
+      "unresolvedCallEvaluation": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null,
+        "extra": [],
+        "missing": []
+      },
+      "excludedCallViolations": [],
+      "safetyChecks": "PASS",
+      "graphSha256": "8ab0c00929d5792f1a13e81367369e52612ac5e94c5b46f342f8bb9208a8c76f"
+    },
+    {
+      "fixture": "component2-s6-import-type",
+      "construct": "import_type",
+      "variant": null,
+      "sourceFixtureSha256": "8a88b13ae4432e2c36582926a974968bc9dea4ee73f3c1d12f37b35c83a1ef97",
+      "labelSha256": "74f2726fff07d53419f9b0d3e1562401db4d3d4de8ba72da4ae8e29025738cbe",
+      "labelFirstCommit": "b807dc674e3884b278cf6b55f00ae238dbdc0103",
+      "labelLatestCommit": "7877a285e908bd9c1635269a8ede7e8f653a1caf",
+      "labelCorrection": {
+        "originalCommit": "b807dc6",
+        "field": "expected.thirdPartyImports[0].kind",
+        "originalValue": "esm_named",
+        "correctedValue": "esm_type_only",
+        "reason": "The TypeScript source uses import type. The existing parser contract classifies this construct as esm_type_only."
+      },
+      "importEvaluation": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "extra": [],
+        "missing": []
+      },
+      "callEvaluation": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null,
+        "extra": [],
+        "missing": []
+      },
+      "unresolvedCallEvaluation": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null,
+        "extra": [],
+        "missing": []
+      },
+      "excludedCallViolations": [],
+      "safetyChecks": "PASS",
+      "graphSha256": "e7dd4167055e164c5252bc087dc14009218102638f4b6c3d29626c0c8ffcefcb"
+    },
+    {
+      "fixture": "component2-s6-import-type-alias",
+      "construct": "import_type",
+      "variant": null,
+      "sourceFixtureSha256": "b7110e5c0f3b83b6666eb8d5d731fa1a3111f597d3e95868b1ecf01d1c71cc85",
+      "labelSha256": "60ab2a31d1d723e949316472db78ad4dedac8c72458e36fd413e3afb60a12362",
+      "labelFirstCommit": "cedea481604fe41e99e572bb2100b16f559834b3",
+      "labelLatestCommit": "cedea481604fe41e99e572bb2100b16f559834b3",
+      "labelCorrection": null,
+      "importEvaluation": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "extra": [],
+        "missing": []
+      },
+      "callEvaluation": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null,
+        "extra": [],
+        "missing": []
+      },
+      "unresolvedCallEvaluation": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null,
+        "extra": [],
+        "missing": []
+      },
+      "excludedCallViolations": [],
+      "safetyChecks": "PASS",
+      "graphSha256": "29573903d0a554e4607ceae14753d04c7e7c1fa0ddf818611d2a1b902b202903"
+    },
+    {
+      "fixture": "component2-s6-package-subpath",
+      "construct": "package_subpath",
+      "variant": null,
+      "sourceFixtureSha256": "b0808aac3343445f186297e87d9ca038d7a271e0ff2cfc56d59fed0d60e78d65",
+      "labelSha256": "853120e895ad5cf36db39868c0bc9bb2e552e17a801c05d6f082e68e780dc878",
+      "labelFirstCommit": "4caedca463e5fb58ba24a13b4affadc231690ff3",
+      "labelLatestCommit": "4caedca463e5fb58ba24a13b4affadc231690ff3",
+      "labelCorrection": null,
+      "importEvaluation": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "extra": [],
+        "missing": []
+      },
+      "callEvaluation": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "extra": [],
+        "missing": []
+      },
+      "unresolvedCallEvaluation": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null,
+        "extra": [],
+        "missing": []
+      },
+      "excludedCallViolations": [],
+      "safetyChecks": "PASS",
+      "graphSha256": "75af06b1a075f72010d37ed26a7d9f36b486f5cd54f64b6d2560ff576ef9383d"
+    },
+    {
+      "fixture": "component2-s6-reexport",
+      "construct": "reexport",
+      "variant": null,
+      "sourceFixtureSha256": "e2aac6e2314b59bc46b62ae36e3fb3e9b0da3de72523b41c67400b7e6b9977e1",
+      "labelSha256": "7b3f0e7e245ed44e3a662886758289ad63e1fc5c523e5c0b1653d812adbf2146",
+      "labelFirstCommit": "f55c1169aae1cb934008e43efd180dce7f9ab1cf",
+      "labelLatestCommit": "f55c1169aae1cb934008e43efd180dce7f9ab1cf",
+      "labelCorrection": null,
+      "importEvaluation": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "extra": [],
+        "missing": []
+      },
+      "callEvaluation": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null,
+        "extra": [],
+        "missing": []
+      },
+      "unresolvedCallEvaluation": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "extra": [],
+        "missing": []
+      },
+      "excludedCallViolations": [],
+      "safetyChecks": "PASS",
+      "graphSha256": "b3e99489452222d01df7bafceb5751e4b0e6199ead50e474010b7a6657fd4230"
+    },
+    {
+      "fixture": "component2-s6-side-effect",
+      "construct": "side_effect_import",
+      "variant": null,
+      "sourceFixtureSha256": "9ea5486a0469f6d86af6c3e2042302dec0779a364473774a7f3e61281ade913a",
+      "labelSha256": "ad56714c2c8e5d45d9649cb2929e240bd03f391acc4bffea376e05445ed7bd05",
+      "labelFirstCommit": "f55c1169aae1cb934008e43efd180dce7f9ab1cf",
+      "labelLatestCommit": "f55c1169aae1cb934008e43efd180dce7f9ab1cf",
+      "labelCorrection": null,
+      "importEvaluation": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "extra": [],
+        "missing": []
+      },
+      "callEvaluation": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null,
+        "extra": [],
+        "missing": []
+      },
+      "unresolvedCallEvaluation": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null,
+        "extra": [],
+        "missing": []
+      },
+      "excludedCallViolations": [],
+      "safetyChecks": "PASS",
+      "graphSha256": "e9570755a3bb2812314a4254ac06a54fb08927ec463607cee64efaf0b10832c3"
+    },
+    {
+      "fixture": "component2-s6-ts-path-alias",
+      "construct": "ts_path_alias",
+      "variant": null,
+      "sourceFixtureSha256": "f63bcac8ddcfef7b20602ad2b1c38d455c0a1aedaffc7626d82c461f5a1d1cc4",
+      "labelSha256": "678bda6e05a1086188725fa8cd1b7d3c3e5b561b3b4a910e6296b0d3a0547390",
+      "labelFirstCommit": "564dddd892bf9f837fa45d6506fbcfa9e1d15374",
+      "labelLatestCommit": "564dddd892bf9f837fa45d6506fbcfa9e1d15374",
+      "labelCorrection": null,
+      "importEvaluation": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "extra": [],
+        "missing": []
+      },
+      "callEvaluation": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "extra": [],
+        "missing": []
+      },
+      "unresolvedCallEvaluation": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null,
+        "extra": [],
+        "missing": []
+      },
+      "excludedCallViolations": [],
+      "safetyChecks": "PASS",
+      "graphSha256": "cdd7281339d6ca0059a83ae4b42f43fe593060cb4be074f214607b2c4a3917ae"
+    }
+  ]
+}
