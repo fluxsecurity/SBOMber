@@ -163,8 +163,8 @@
           "modulePath": "lodash.js",
           "changeKind": "modified",
           "evidence": [
-            "github:lodash/lodash@5c08f18d36:lodash.js",
-            "github:lodash/lodash@4d2a7c0e6f:lodash.js"
+            "github:lodash/lodash@5c08f18d365b64063bfbfa686cbb97cdd6267347:lodash.js",
+            "github:lodash/lodash@4d2a7c0e6f1b3a5d9c8e7f6a5b4c3d2e1f0a9b8c:lodash.js"
           ]
         }
       ],
@@ -187,7 +187,7 @@
             "modified": "2024-03-01T00:00:00Z"
           },
           {
-            "id": "github:lodash/lodash@5c08f18d36:lodash.js",
+            "id": "github:lodash/lodash@5c08f18d365b64063bfbfa686cbb97cdd6267347:lodash.js",
             "kind": "source_file",
             "url": "https://github.com/lodash/lodash/blob/5c08f18d365b64063bfbfa686cbb97cdd6267347/lodash.js",
             "sha256": "7a6b5c4d3e2f10297a6b5c4d3e2f10297a6b5c4d3e2f10297a6b5c4d3e2f1029",
@@ -200,7 +200,7 @@
             "gitBlobSha": "e3b1c2d4f5a6978877665544332211aabbccddee"
           },
           {
-            "id": "github:lodash/lodash@4d2a7c0e6f:lodash.js",
+            "id": "github:lodash/lodash@4d2a7c0e6f1b3a5d9c8e7f6a5b4c3d2e1f0a9b8c:lodash.js",
             "kind": "source_file",
             "url": "https://github.com/lodash/lodash/blob/4d2a7c0e6f1b3a5d9c8e7f6a5b4c3d2e1f0a9b8c/lodash.js",
             "sha256": "2c3d4e5f60718293a4b5c6d7e8f901a22c3d4e5f60718293a4b5c6d7e8f901a2",
@@ -224,6 +224,7 @@
             "tag": "4.17.12",
             "tagCommit": "9a8b7c6d5e4f30211a2b3c4d5e6f708192a3b4c5",
             "releaseCommit": "9a8b7c6d5e4f30211a2b3c4d5e6f708192a3b4c5",
+            "releaseSource": "git_tag",
             "byAncestry": [
               "5c08f18d365b64063bfbfa686cbb97cdd6267347"
             ],
@@ -240,6 +241,7 @@
             "tag": "3.10.1",
             "tagCommit": "0f1e2d3c4b5a69788796a5b4c3d2e1f00f1e2d3c",
             "releaseCommit": "0f1e2d3c4b5a69788796a5b4c3d2e1f00f1e2d3c",
+            "releaseSource": "git_tag",
             "basis": "ancestry",
             "result": "verified"
           }

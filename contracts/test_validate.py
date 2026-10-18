@@ -596,6 +596,19 @@ class ContractValidatorTests(unittest.TestCase):
         finally:
             tmp.cleanup()
 
+    def test_evidence_kind_and_artefact_id_are_checked(self):
+        def edit(loc):
+            loc["results"][3]["candidateSymbols"][0]["evidence"] = ["advisory"]
+            loc["results"][1]["provenance"]["artefacts"][1]["version"] = "9.9.9"
+        tmp, result = self.localisation_with(edit)
+        try:
+            out = result.stdout
+            self.assertNotEqual(result.returncode, 0)
+            self.assertIn("patch_reference candidate defaultsDeep cites a advisory artefact, not source_file", out)
+            self.assertIn("artefact npm:axios@0.21.0 should be npm:axios@9.9.9", out)
+        finally:
+            tmp.cleanup()
+
     def test_localisation_1_0_0_without_evidence_still_validates(self):
         def edit(loc):
             loc["schemaVersion"] = "1.0.0"

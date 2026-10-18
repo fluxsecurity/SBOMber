@@ -72,7 +72,7 @@
                   "type": "array",
                   "minItems": 1,
                   "items": { "type": "string", "minLength": 1 },
-                  "description": "1.1.0. IDs of the artefacts in this result's provenance the candidate was read from. validate.py checks each resolves to a verified artefact with a checksum."
+                  "description": "1.1.0. IDs of the artefacts in this result's provenance the candidate was read from. validate.py checks each resolves to a verified artefact with a checksum, of the kind the method reads: patch_reference a source_file, version_diff a tarball, advisory_* the advisory."
                 },
                 "visibility": {
                   "type": "string",
@@ -115,7 +115,7 @@
                   "required": ["url", "verified"],
                   "additionalProperties": false,
                   "properties": {
-                    "id": { "type": "string", "minLength": 1, "description": "1.1.0. Unique within the result; what candidateSymbols[].evidence cites." },
+                    "id": { "type": "string", "minLength": 1, "description": "1.1.0. Unique within the result; what candidateSymbols[].evidence cites. Derived from the fields: advisory, github:<repo>@<full commit>:<path>, npm:<name>@<version>." },
                     "kind": { "type": "string", "enum": ["advisory", "source_file", "tarball"], "description": "1.1.0. Says how verified was established." },
                     "url": { "type": "string" },
                     "sha256": { "type": "string" },
@@ -156,6 +156,11 @@
                     "tagCommit": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
                     "registryGitHead": { "type": "string" },
                     "releaseCommit": { "type": "string" },
+                    "releaseSource": {
+                      "type": "string",
+                      "enum": ["registry_git_head", "git_tag"],
+                      "description": "Where releaseCommit came from. A recorded gitHead the repository does not have falls back to the git tag."
+                    },
                     "byAncestry": {
                       "type": "array",
                       "items": { "type": "string" },
@@ -175,6 +180,7 @@
                         "additionalProperties": false,
                         "properties": {
                           "commit": { "type": "string" },
+                          "parent": { "type": "string", "description": "The fix commit's parent. Lines its copy of the file already has are not looked for." },
                           "path": { "type": "string" },
                           "lines": { "type": "array", "items": { "type": "string" } }
                         }

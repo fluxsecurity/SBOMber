@@ -54,25 +54,43 @@ verified and a checksum:
 
 | Artefact | Checksum | Verified means |
 |---|---|---|
-| `advisory` (OSV record) | SHA-256 of the record in canonical JSON (OSV reorders keys between responses) | the record names the finding's vulnerability and lists the npm package |
+| `advisory` (OSV record) | SHA-256 of the record in canonical JSON, because OSV reorders keys between responses. Reproduce with `curl -s <url> \| jq -S -c . \| tr -d '\n' \| shasum -a 256` | the record names the finding's vulnerability and lists the npm package |
 | `source_file` (a file at a commit) | SHA-256, plus the git blob hash | the blob hash of the bytes read equals the hash GitHub reports for that path at that commit, and the hash in the commit's own file list |
 | `tarball` (npm) | SHA-256, plus the registry integrity value | the bytes match the registry's integrity value |
+
+Artefact ids are derived from their fields (`advisory`,
+`github:<repo>@<full commit>:<path>`, `npm:<name>@<version>`), and a
+candidate must cite the kind its method reads: `patch_reference` a source
+file, `version_diff` a tarball, `advisory_*` the advisory. Online, each
+candidate's symbol must also occur in the bytes it cites, so a made-up
+candidate cannot borrow a real artefact (`default`, the anonymous export, has
+no name to look for).
 
 A `patch_reference` result also carries **tag checks**: is a linked fix
 commit in the release the fixed npm version was published from, and absent
 from the vulnerable one? The release commit is npm's `gitHead` when the
-registry records one (that is the commit the tarball came from), otherwise
-the git tag's. A commit that is not an ancestor of the fixed release still
+registry records one (that is the commit the tarball came from). When the
+repository does not have that commit, as with lodash, the git tag is used and
+`--verify` warns. A commit that is not an ancestor of the fixed release still
 counts when every line it adds is in the release (`basis: content`), which is
-how backports and squash merges look. Advisories often link fixes for
-several release lines, so the fixed release passes when it carries at least
-one of them.
+how backports and squash merges look. Lines the commit's parent already had
+are not looked for, so a generic line cannot pass a release that never got
+the fix. Advisories often link fixes for several release lines, so the fixed
+release passes when it carries at least one of them. The vulnerable-side
+check is ancestry only: a fix cherry-picked into a release listed as
+vulnerable is not detected.
+
+Tag checks cost about ten GitHub requests per `patch_reference` finding. They
+run after every finding is localised, so without a `GITHUB_TOKEN` (60 requests
+an hour) they can come back `unavailable` but cannot change candidates.
+`--no-tag-checks` skips them.
 
 `results/provenance/VERIFICATION.md` has the table. On the ten frozen cases:
 38/38 candidates trace to a verified artefact, all 71 artefacts re-download
-with matching checksums, and 19 of 20 tag checks verify. The one that does
-not is a finding, not a broken trace: minimist 1.2.2, listed as vulnerable,
-already contains linked commit `63e7ed0`, the first and incomplete
+with matching checksums and every candidate's symbol is in the bytes it cites,
+and 19 of 20 tag checks verify (lodash's two use the git tag, see above). The
+one that does not is a finding, not a broken trace: minimist 1.2.2, listed as
+vulnerable, already contains linked commit `63e7ed0`, the first and incomplete
 `__proto__` fix (c06).
 
 The candidate sets are the Sprint 4 ones; localisation accuracy is not

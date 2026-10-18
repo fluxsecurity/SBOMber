@@ -342,6 +342,25 @@ def validate_localisation(d, canon):
 
 SHA256 = re.compile(r"[0-9a-f]{64}")
 SOURCE_FILE_FIELDS = ("repo", "commit", "path", "gitBlobSha")
+EVIDENCE_KIND = {
+    "patch_reference": "source_file",
+    "version_diff": "tarball",
+    "advisory_metadata": "advisory",
+    "advisory_text": "advisory",
+}
+
+
+def expected_artefact_id(a, purl):
+    """The id an artefact's own fields imply (internal/localisation/provenance.go)."""
+    kind = a.get("kind")
+    if kind == "advisory":
+        return "advisory"
+    if kind == "source_file":
+        return f"github:{a.get('repo')}@{a.get('commit')}:{a.get('path')}"
+    if kind == "tarball" and purl.startswith("pkg:npm/") and "@" in purl[8:]:
+        name = purl[8:].rsplit("@", 1)[0].replace("%40", "@").replace("%2F", "/").replace("%2f", "/")
+        return f"npm:{name}@{a.get('version')}"
+    return None
 
 
 def validate_localisation_evidence(c, r):
@@ -352,6 +371,12 @@ def validate_localisation_evidence(c, r):
     check(c, "artefact ids unique", len(ids) == len(set(ids)),
           f"{fid} repeats an artefact id: {sorted(ids)}")
     by_id = {a["id"]: a for a in arts if a.get("id")}
+    for a in arts:
+        want = expected_artefact_id(a, r["purl"])
+        if a.get("id") and want:
+            check(c, "artefact id matches its fields", a["id"] == want,
+                  f"{fid} artefact {a['id']} should be {want}")
+    allowed = EVIDENCE_KIND.get(r["method"])
     for cand in r.get("candidateSymbols", []):
         sym = cand["symbol"]
         evidence = cand.get("evidence", [])
@@ -367,6 +392,9 @@ def validate_localisation_evidence(c, r):
                   f"{fid} artefact {ref} has no SHA-256")
             check(c, "cited artefact verified", a.get("verified") is True,
                   f"{fid} candidate {sym} rests on unverified artefact {ref}: {a.get('note', 'no reason recorded')}")
+            if allowed:
+                check(c, "evidence kind matches the method", a.get("kind") == allowed,
+                      f"{fid} {r['method']} candidate {sym} cites a {a.get('kind')} artefact, not {allowed}")
             if a.get("kind") == "source_file":
                 check(c, "source file identity complete", all(a.get(k) for k in SOURCE_FILE_FIELDS),
                       f"{fid} artefact {ref} lacks one of {', '.join(SOURCE_FILE_FIELDS)}")

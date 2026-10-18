@@ -426,3 +426,148 @@ func TestProvenance_FixesOnTwoReleaseLines(t *testing.T) {
 	}
 	t.Fatal("no fixed tag check")
 }
+
+// Review of #168, finding 1: a candidate must cite the kind of artefact its
+// method reads, and online its symbol must occur in the bytes it cites, so a
+// made-up candidate cannot borrow a real artefact.
+func TestVerify_CandidateMustBeInWhatItCites(t *testing.T) {
+	w := newFakeWorld(t)
+	w.seedIni()
+	w.seedIniReleases()
+	l := w.localiser(false)
+	doc, _ := l.LocaliseAll(context.Background(), "s", []Finding{{FindingID: "f1",
+		VulnerabilityID: "CVE-2020-7788", Aliases: []string{"GHSA-qqgx-2p2h-9c37"}, PURL: "pkg:npm/ini@1.3.5"}})
+	r := &doc.Results[0]
+	fixedID := SourceArtefactID("npm/ini", iniFix, "ini.js")
+	r.CandidateSymbols = append(r.CandidateSymbols,
+		Candidate{Symbol: "totallyMadeUp", ModulePath: "ini.js", Evidence: []string{fixedID}},
+		Candidate{Symbol: "parse", Evidence: []string{AdvisoryArtefactID}})
+	v := VerifyDocument(doc)
+	if !hasIssue(v, SeverityError, "a patch_reference candidate must cite a source_file artefact, not advisory") {
+		t.Errorf("offline: %+v", v.Issues)
+	}
+	l.Refetch(context.Background(), doc, &v)
+	if !hasIssue(v, SeverityError, "the symbol does not occur in any artefact it cites") {
+		t.Errorf("online: %+v", v.Issues)
+	}
+	for _, is := range v.Issues {
+		if strings.Contains(is.Message, "does not occur") && is.Symbol != "totallyMadeUp" {
+			t.Errorf("real candidate flagged: %+v", is)
+		}
+	}
+}
+
+// Finding 2: an artefact id must match its fields, and online every distinct
+// claim is re-fetched even when two results share an id.
+func TestVerify_ArtefactIDAndRefetchKey(t *testing.T) {
+	w := newFakeWorld(t)
+	w.seedIni()
+	w.seedIniReleases()
+	l := w.localiser(false)
+	f := Finding{FindingID: "f1", VulnerabilityID: "CVE-2020-7788", Aliases: []string{"GHSA-qqgx-2p2h-9c37"}, PURL: "pkg:npm/ini@1.3.5"}
+	doc, _ := l.LocaliseAll(context.Background(), "s", []Finding{f, f})
+	second := &doc.Results[1]
+	second.FindingID = "f2"
+	for i, a := range second.Provenance.Artefacts {
+		if a.Kind == ArtefactSourceFile && a.Commit == iniFix {
+			second.Provenance.Artefacts[i].GitBlobSHA = strings.Repeat("d", 40)
+		}
+	}
+	v := VerifyDocument(doc)
+	l.Refetch(context.Background(), doc, &v)
+	if !hasIssueFor(v, "f2", "is now blob") {
+		t.Errorf("the altered copy was not re-fetched: %+v", v.Issues)
+	}
+	if hasIssueFor(v, "f1", "is now blob") {
+		t.Errorf("the original was flagged: %+v", v.Issues)
+	}
+
+	art := &doc.Results[0].Provenance.Artefacts[1]
+	art.Commit = iniParent
+	v = VerifyDocument(doc)
+	if !hasIssueFor(v, "f1", "artefact id does not match its fields") {
+		t.Errorf("id/field mismatch not caught: %+v", v.Issues)
+	}
+}
+
+// Finding 3: a line the parent already has is not evidence of the fix, so a
+// "fixed" release identical to the vulnerable one is not verified by content.
+func TestProvenance_ContentIgnoresLinesTheParentHad(t *testing.T) {
+	w := newFakeWorld(t)
+	w.seedIni()
+	w.seedIniReleases()
+	// The vulnerable file already contains the fix's line elsewhere.
+	parentWithLine := iniVulnerable + "function other (line) {\n  if (line === '__proto__') return\n}\n"
+	w.files["npm/ini/"+iniParent+"/ini.js"] = parentWithLine
+	w.compare[iniFix+"..."+iniFixedRel] = "diverged"
+	w.files["npm/ini/"+iniFixedRel+"/ini.js"] = parentWithLine // release never got the fix
+	res, _ := w.localiser(false).Localise(context.Background(), Finding{FindingID: "f1",
+		VulnerabilityID: "CVE-2020-7788", Aliases: []string{"GHSA-qqgx-2p2h-9c37"}, PURL: "pkg:npm/ini@1.3.5"})
+	for _, tc := range res.Provenance.TagChecks {
+		if tc.Role == TagRoleFixed {
+			if tc.Result != TagMismatch || !strings.Contains(tc.Note, "adds no line its parent lacks") {
+				t.Errorf("fixed tag check = %+v", tc)
+			}
+			return
+		}
+	}
+	t.Fatal("no fixed tag check")
+}
+
+// Finding 4: tag checks can be skipped, and a gitHead the repository lacks
+// is a visible warning. Finding 5: an unavailable check keeps no partial
+// ancestry list.
+func TestProvenance_SkipTagChecksAndFallbackWarning(t *testing.T) {
+	w := newFakeWorld(t)
+	w.seedIni()
+	w.seedIniReleases()
+	f := Finding{FindingID: "f1", VulnerabilityID: "CVE-2020-7788", Aliases: []string{"GHSA-qqgx-2p2h-9c37"}, PURL: "pkg:npm/ini@1.3.5"}
+	l := New(Options{OSVBaseURL: w.srv.URL, GitHubAPIBaseURL: w.srv.URL, RegistryBaseURL: w.srv.URL, SkipTagChecks: true})
+	doc, _ := l.LocaliseAll(context.Background(), "s", []Finding{f})
+	if len(doc.Results[0].Provenance.TagChecks) != 0 {
+		t.Errorf("tag checks ran: %+v", doc.Results[0].Provenance.TagChecks)
+	}
+
+	w.gitHeads["ini-1.3.6"] = "6666666666666666666666666666666666666666" // not in the repository
+	doc, _ = w.localiser(false).LocaliseAll(context.Background(), "s", []Finding{f})
+	v := VerifyDocument(doc)
+	if !hasIssue(v, SeverityWarning, "npm's gitHead 6666666666 could not be compared in npm/ini, so the git tag v1.3.6 was used") {
+		t.Errorf("fallback not surfaced: %+v", v.Issues)
+	}
+
+	delete(w.tags, iniFixedIDtag)
+	delete(w.gitHeads, "ini-1.3.6")
+	w.gitHeads["ini-1.3.6"] = "6666666666666666666666666666666666666666"
+	tc := w.localiser(false).tagCheck(context.Background(), "npm/ini", []string{iniFix}, nil, "ini", "1.3.6", TagRoleFixed)
+	if tc.Result != TagUnavailable || tc.ByAncestry != nil || tc.ReleaseCommit != "" {
+		t.Errorf("unavailable check = %+v", tc)
+	}
+}
+
+func TestCanonicalJSON_NoHTMLEscaping(t *testing.T) {
+	got, err := canonicalJSON([]byte(`{"d":"a <b> & c"}`))
+	if err != nil || string(got) != `{"d":"a <b> & c"}` {
+		t.Errorf("%s %v", got, err)
+	}
+	if _, err := canonicalJSON([]byte(`{} {}`)); err == nil {
+		t.Error("trailing data must fail")
+	}
+}
+
+func hasIssue(v Verification, sev Severity, msg string) bool {
+	for _, is := range v.Issues {
+		if is.Severity == sev && strings.Contains(is.Message, msg) {
+			return true
+		}
+	}
+	return false
+}
+
+func hasIssueFor(v Verification, finding, msg string) bool {
+	for _, is := range v.Issues {
+		if is.FindingID == finding && strings.Contains(is.Message, msg) {
+			return true
+		}
+	}
+	return false
+}

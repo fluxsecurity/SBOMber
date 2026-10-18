@@ -165,6 +165,15 @@ const (
 	BasisContent TagBasis = "content"
 )
 
+// ReleaseSource is where a tag check's release commit came from.
+type ReleaseSource string
+
+// Release sources.
+const (
+	ReleaseFromRegistryGitHead ReleaseSource = "registry_git_head"
+	ReleaseFromGitTag          ReleaseSource = "git_tag"
+)
+
 // TagCheck is one release-to-fix check. ReleaseCommit is npm's gitHead when
 // the registry records one, otherwise the git tag's commit.
 type TagCheck struct {
@@ -176,6 +185,9 @@ type TagCheck struct {
 	TagCommit       string   `json:"tagCommit,omitempty"`
 	RegistryGitHead string   `json:"registryGitHead,omitempty"`
 	ReleaseCommit   string   `json:"releaseCommit,omitempty"`
+	// ReleaseSource says where ReleaseCommit came from. A recorded gitHead
+	// the repository does not have falls back to the git tag.
+	ReleaseSource ReleaseSource `json:"releaseSource,omitempty"`
 	// ByAncestry lists the fix commits that are ancestors of the release;
 	// ByContent those that are not, but whose added lines are all in it.
 	ByAncestry []string `json:"byAncestry,omitempty"`

@@ -20,9 +20,10 @@ const AdvisoryArtefactID = "advisory"
 // TarballArtefactID names the npm tarball of name@version.
 func TarballArtefactID(name, version string) string { return "npm:" + name + "@" + version }
 
-// SourceArtefactID names one file at one commit.
+// SourceArtefactID names one file at one commit. The full commit SHA keeps
+// two commits that share a prefix apart.
 func SourceArtefactID(repo, commit, path string) string {
-	return "github:" + repo + "@" + short(commit) + ":" + path
+	return "github:" + repo + "@" + commit + ":" + path
 }
 
 // gitBlobSHA is the hash git gives a file's bytes: SHA-1 over
@@ -223,7 +224,10 @@ func sameCommit(a, b string) bool {
 // file. It lets a tag check recognise a backport or squash merge, where the
 // fix commit itself is not an ancestor of the release but its change is in it.
 type FixContent struct {
-	Commit string   `json:"commit"`
+	Commit string `json:"commit"`
+	// Parent is the fix commit's parent. A line the parent's copy of the
+	// file already has is not evidence of the fix, so it is not looked for.
+	Parent string   `json:"parent,omitempty"`
 	Path   string   `json:"path"`
 	Lines  []string `json:"lines"`
 }
@@ -270,6 +274,9 @@ func (l *Localiser) releaseCommits(ctx context.Context, tc *TagCheck, pkg string
 	if tc.RegistryGitHead != "" {
 		out = append(out, tc.RegistryGitHead)
 	}
+	if commit != "" && sameCommit(commit, tc.RegistryGitHead) {
+		tc.Note += fmt.Sprintf("Tag %s and npm's gitHead agree. ", tag)
+	}
 	if commit != "" && !sameCommit(commit, tc.RegistryGitHead) {
 		if tc.RegistryGitHead != "" {
 			tc.Note += fmt.Sprintf("Tag %s is commit %s but npm says %s@%s was published from %s; npm's gitHead is checked first. ",
@@ -312,11 +319,16 @@ func (l *Localiser) tagCheck(ctx context.Context, repo string, fixes []string, c
 		}
 		if err == nil {
 			tc.ReleaseCommit = release
+			tc.ReleaseSource = ReleaseFromGitTag
+			if release == tc.RegistryGitHead {
+				tc.ReleaseSource = ReleaseFromRegistryGitHead
+			}
 			break
 		}
 		tc.Note += fmt.Sprintf("Compare against %s failed: %v. ", short(release), err)
 	}
 	if tc.ReleaseCommit == "" {
+		tc.ByAncestry = nil
 		tc.Note = strings.TrimSpace(tc.Note)
 		return tc
 	}
@@ -374,11 +386,22 @@ func contentOf(fix string, content []FixContent) []FixContent {
 }
 
 // contentPresent reports whether every line one fix commit adds is in the
-// release's copy of the same file.
+// release's copy of the same file. Lines the parent's copy already has are
+// dropped first: a generic line such as "return out" proves nothing.
 func (l *Localiser) contentPresent(ctx context.Context, repo, release, fix string, content []FixContent) (bool, string) {
-	mine := contentOf(fix, content)
+	var mine []FixContent
+	for _, fc := range contentOf(fix, content) {
+		lines, err := l.newSinceParent(ctx, repo, fc)
+		if err != nil {
+			return false, fc.Path + " could not be read at the parent: " + err.Error()
+		}
+		if len(lines) > 0 {
+			fc.Lines = lines
+			mine = append(mine, fc)
+		}
+	}
 	if len(mine) == 0 {
-		return false, "adds no distinctive line to look for"
+		return false, "adds no line its parent lacks"
 	}
 	for _, fc := range mine {
 		body, _, err := l.c.FileBlobAt(ctx, repo, fc.Path, release)
@@ -400,6 +423,29 @@ func (l *Localiser) contentPresent(ctx context.Context, repo, release, fix strin
 		}
 	}
 	return true, ""
+}
+
+// newSinceParent drops the lines the parent's copy of the file already has.
+// A file the parent does not have is new, so all its lines count.
+func (l *Localiser) newSinceParent(ctx context.Context, repo string, fc FixContent) ([]string, error) {
+	if fc.Parent == "" {
+		return fc.Lines, nil
+	}
+	body, _, err := l.c.FileBlobAt(ctx, repo, fc.Path, fc.Parent)
+	if isNotFound(err) {
+		return fc.Lines, nil
+	}
+	if err != nil {
+		return nil, err
+	}
+	had := lineSet(body)
+	var out []string
+	for _, line := range fc.Lines {
+		if !had[line] {
+			out = append(out, line)
+		}
+	}
+	return out, nil
 }
 
 // tagChecks runs the fixed and vulnerable checks once per repository.
@@ -430,9 +476,11 @@ func shortList(shas []string) []string {
 	return out
 }
 
-// canonicalJSON re-encodes a JSON document with sorted keys and numbers kept
-// as written. OSV serves the same record with keys in varying order, so a
-// hash of the raw bytes would not be reproducible.
+// canonicalJSON re-encodes a JSON document with sorted keys, no whitespace,
+// numbers kept as written and no HTML escaping. OSV serves the same record
+// with keys in varying order, so a hash of the raw bytes would not be
+// reproducible. For a record without fractional numbers the result equals
+// `jq -S -c .` output without its trailing newline.
 func canonicalJSON(body []byte) ([]byte, error) {
 	dec := json.NewDecoder(bytes.NewReader(body))
 	dec.UseNumber()
@@ -440,7 +488,16 @@ func canonicalJSON(body []byte) ([]byte, error) {
 	if err := dec.Decode(&v); err != nil {
 		return nil, err
 	}
-	return json.Marshal(v)
+	if dec.More() {
+		return nil, fmt.Errorf("trailing data after the JSON document")
+	}
+	var out bytes.Buffer
+	enc := json.NewEncoder(&out)
+	enc.SetEscapeHTML(false)
+	if err := enc.Encode(v); err != nil {
+		return nil, err
+	}
+	return bytes.TrimSuffix(out.Bytes(), []byte("\n")), nil
 }
 
 // ------------------------------------------------------------ evidence

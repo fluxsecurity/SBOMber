@@ -1999,6 +1999,7 @@ func runLocalise(args []string, stdout io.Writer, stderr io.Writer) int {
 	osvURL := fs.String("osv-url", "", "OSV API base URL (default https://api.osv.dev)")
 	githubURL := fs.String("github-api-url", "", "GitHub API base URL (default https://api.github.com)")
 	registryURL := fs.String("registry-url", "", "npm registry base URL (default https://registry.npmjs.org)")
+	noTagChecks := fs.Bool("no-tag-checks", false, "skip the release tag checks (about ten GitHub requests per patch_reference finding)")
 	verifyPath := fs.String("verify", "", "check the provenance of an existing localisation.json instead of localising")
 	online := fs.Bool("online", false, "with --verify, re-download every artefact and re-run the tag checks")
 	verifyReport := fs.String("verify-report", "", "with --verify, write the verification result as JSON to this file")
@@ -2014,6 +2015,7 @@ func runLocalise(args []string, stdout io.Writer, stderr io.Writer) int {
 		OSVBaseURL:         *osvURL,
 		GitHubAPIBaseURL:   *githubURL,
 		RegistryBaseURL:    *registryURL,
+		SkipTagChecks:      *noTagChecks,
 	}
 	if *verifyPath != "" {
 		return runLocaliseVerify(*verifyPath, *online, *verifyReport, *timeout, opts, stdout, stderr)
@@ -2050,6 +2052,9 @@ func runLocalise(args []string, stdout io.Writer, stderr io.Writer) int {
 	defer cancel()
 	loc := localisation.New(opts)
 
+	if opts.GitHubToken == "" && !opts.SkipTagChecks {
+		_, _ = fmt.Fprintf(stderr, "Warning: GITHUB_TOKEN is not set; GitHub allows 60 requests an hour, so tag checks may come back unavailable (they run last and cannot change candidates). Use --no-tag-checks to skip them.\n")
+	}
 	_, _ = fmt.Fprintf(stdout, "Localising %d finding(s) from %s\n", len(findings), input.Scan.ScanID)
 	doc, traces := loc.LocaliseAll(ctx, input.Scan.ScanID, findings)
 
@@ -2140,6 +2145,10 @@ func runLocaliseVerify(path string, online bool, reportPath string, timeout time
 		_, _ = fmt.Fprintf(stdout, "Wrote %s\n", reportPath)
 	}
 	if n := v.Errors(); n > 0 {
+		if n == v.Unreachable {
+			_, _ = fmt.Fprintf(stdout, "INCOMPLETE: %d artefact(s) could not be re-fetched (network or rate limit); nothing found breaks the trace\n", n)
+			return 1
+		}
 		_, _ = fmt.Fprintf(stdout, "FAIL: %d error(s); not every candidate is traceable to a verified artefact\n", n)
 		return 1
 	}

@@ -36,4 +36,4 @@ its output is `results/provenance/verification.json`.
 
 ## Tag checks that did not verify
 
-- c06 vulnerable 1.2.2: mismatch. Vulnerable release 1.2.2 already contains linked commit 63e7ed05aa, so that commit was a partial fix or the version range is wrong.
+- c06 vulnerable 1.2.2: mismatch. Tag v1.2.2 and npm's gitHead agree. Vulnerable release 1.2.2 already contains linked commit 63e7ed05aa, so that commit was a partial fix or the version range is wrong.

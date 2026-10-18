@@ -24,6 +24,9 @@ type Options struct {
 	// ClientMethodSearch enables the commit-message search the client asked
 	// for. It costs one GitHub search request per finding.
 	ClientMethodSearch bool
+	// SkipTagChecks leaves out the release tag checks, which cost about ten
+	// GitHub requests per patch_reference finding.
+	SkipTagChecks bool
 }
 
 // Localiser produces localisation.json results.
@@ -38,19 +41,26 @@ func New(opts Options) *Localiser {
 }
 
 // LocaliseAll runs every finding and assembles the contract document plus a
-// per-finding trace.
+// per-finding trace. The release tag checks run after every finding is
+// localised, so on a small GitHub rate limit they can only make their own
+// result unavailable, never change another finding's candidates.
 func (l *Localiser) LocaliseAll(ctx context.Context, scanID string, findings []Finding) (Document, []Trace) {
 	doc := Document{SchemaVersion: SchemaVersion, ScanID: scanID, Results: []Result{}, Summary: &Summary{ByMethod: map[string]int{}}}
 	traces := make([]Trace, 0, len(findings))
+	pending := make([]tagWork, 0, len(findings))
 	for _, f := range findings {
-		r, t := l.Localise(ctx, f)
+		r, t, w := l.localise(ctx, f)
 		doc.Results = append(doc.Results, r)
 		traces = append(traces, t)
+		pending = append(pending, w)
 		doc.Summary.FindingsProcessed++
 		doc.Summary.ByMethod[string(r.Method)]++
 		if r.Method == MethodUnknown {
 			doc.Summary.UnknownCount++
 		}
+	}
+	for i := range doc.Results {
+		l.runTagChecks(ctx, &doc.Results[i], pending[i])
 	}
 	return doc, traces
 }
@@ -59,6 +69,26 @@ func (l *Localiser) LocaliseAll(ctx context.Context, scanID string, findings []F
 // the contract result and the evidence trace. It never returns an error: a
 // finding that cannot be localised is an honest `unknown`.
 func (l *Localiser) Localise(ctx context.Context, f Finding) (Result, Trace) {
+	res, trace, w := l.localise(ctx, f)
+	l.runTagChecks(ctx, &res, w)
+	return res, trace
+}
+
+// tagWork is what a patch_reference result needs for its tag checks.
+type tagWork struct {
+	fixes                  []gitHubCommit
+	content                []FixContent
+	pkg, vulnerable, fixed string
+}
+
+func (l *Localiser) runTagChecks(ctx context.Context, res *Result, w tagWork) {
+	if l.opts.SkipTagChecks || len(w.fixes) == 0 || res.Provenance == nil {
+		return
+	}
+	res.Provenance.TagChecks = l.tagChecks(ctx, w.fixes, w.content, w.pkg, w.vulnerable, w.fixed)
+}
+
+func (l *Localiser) localise(ctx context.Context, f Finding) (Result, Trace, tagWork) {
 	trace := Trace{FindingID: f.FindingID, VulnerabilityID: f.VulnerabilityID, PURL: f.PURL}
 	res := Result{FindingID: f.FindingID, VulnerabilityID: f.VulnerabilityID, PURL: f.PURL,
 		Method: MethodUnknown, Confidence: ConfidenceNone, CandidateSymbols: []Candidate{}}
@@ -68,7 +98,7 @@ func (l *Localiser) Localise(ctx context.Context, f Finding) (Result, Trace) {
 		trace.Attempts = append(trace.Attempts, Attempt{Method: MethodUnknown, Outcome: OutcomeError, Notes: []string{err.Error()}})
 		res.Notes = "Not an npm package URL; only npm is supported in Sprint 4. " + err.Error()
 		trace.Selected = MethodUnknown
-		return res, trace
+		return res, trace, tagWork{}
 	}
 	res.VulnerableVersion = version
 	res.FixedVersion = f.FixedVersion
@@ -132,7 +162,7 @@ func (l *Localiser) Localise(ctx context.Context, f Finding) (Result, Trace) {
 		trace.Selected = MethodUnknown
 		res.Provenance = provenanceOrNil(prov)
 		res.Notes = summariseFailure(attempts, adv, advErr)
-		return res, trace
+		return res, trace, tagWork{}
 	}
 	trace.Selected = sel.Method
 	res.Method = sel.Method
@@ -143,13 +173,14 @@ func (l *Localiser) Localise(ctx context.Context, f Finding) (Result, Trace) {
 		prov.PatchURL = sel.Provenance.PatchURL
 		prov.Artefacts = append(prov.Artefacts, sel.Provenance.Artefacts...)
 	}
+	var w tagWork
 	if sel.Method == MethodPatchReference {
-		prov.TagChecks = l.tagChecks(ctx, sel.fixCommits, sel.fixContent, name, version, res.FixedVersion)
+		w = tagWork{fixes: sel.fixCommits, content: sel.fixContent, pkg: name, vulnerable: version, fixed: res.FixedVersion}
 	}
 	res.Provenance = provenanceOrNil(prov)
 	res.Confidence = confidenceFor(*sel, patchCands, attempts)
 	res.Notes = summariseSelection(*sel, attempts)
-	return res, trace
+	return res, trace, w
 }
 
 func provenanceOrNil(p Provenance) *Provenance {
@@ -370,7 +401,7 @@ func (l *Localiser) attemptPatch(ctx context.Context, adv *Advisory, advErr erro
 					cf.NewSource = src
 					cf.NewArtefact = art.ID
 					if lines := distinctiveLines(src, cf.Added); len(lines) > 0 {
-						a.fixContent = append(a.fixContent, FixContent{Commit: fixSHA, Path: p, Lines: lines})
+						a.fixContent = append(a.fixContent, FixContent{Commit: fixSHA, Parent: parent, Path: p, Lines: lines})
 					}
 				}
 			}
