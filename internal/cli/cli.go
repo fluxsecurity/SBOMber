@@ -1847,6 +1847,7 @@ Usage:
   sbomber verify <ground-truth-sbom> <generated-sbom> [--json]
   sbomber diff <old-sbom> <new-sbom> [--no-color]
   sbomber localise --canonical-scan <canonical-scan.json> [--out localisation.json] [--trace trace.json]
+  sbomber localise --verify <localisation.json> [--online] [--verify-report <file>]
   sbomber usage --canonical-scan <canonical-scan.json> [--out usage-graph.json] [--entry file:function]
   sbomber decide --canonical-scan <file> --usage-graph <file> --localisation <file> [--out decision-results.json]
   sbomber audit [--cases testdata/audit] [--out audit-results.json]
@@ -1998,12 +1999,38 @@ func runLocalise(args []string, stdout io.Writer, stderr io.Writer) int {
 	osvURL := fs.String("osv-url", "", "OSV API base URL (default https://api.osv.dev)")
 	githubURL := fs.String("github-api-url", "", "GitHub API base URL (default https://api.github.com)")
 	registryURL := fs.String("registry-url", "", "npm registry base URL (default https://registry.npmjs.org)")
+	noTagChecks := fs.Bool("no-tag-checks", false, "skip the release tag checks (about ten GitHub requests per patch_reference finding)")
+	verifyPath := fs.String("verify", "", "check the provenance of an existing localisation.json instead of localising")
+	online := fs.Bool("online", false, "with --verify, re-download every artefact and re-run the tag checks")
+	verifyReport := fs.String("verify-report", "", "with --verify, write the verification result as JSON to this file")
 
 	if err := fs.Parse(args); err != nil {
 		return flagErrorCode(err)
 	}
+	if *verifyPath == "" && (*online || *verifyReport != "") {
+		_, _ = fmt.Fprintln(stderr, "Error: --online and --verify-report require --verify")
+		return 2
+	}
+	if *verifyPath != "" && *in != "" {
+		_, _ = fmt.Fprintln(stderr, "Error: use either --verify or --canonical-scan")
+		return 2
+	}
+	opts := localisation.Options{
+		GitHubToken:        os.Getenv("GITHUB_TOKEN"),
+		MaxTarballBytes:    *maxTarballMB << 20,
+		AllMethods:         *allMethods,
+		ClientMethodSearch: *clientSearch,
+		OSVBaseURL:         *osvURL,
+		GitHubAPIBaseURL:   *githubURL,
+		RegistryBaseURL:    *registryURL,
+		SkipTagChecks:      *noTagChecks,
+	}
+	if *verifyPath != "" {
+		return runLocaliseVerify(*verifyPath, *online, *verifyReport, *timeout, opts, stdout, stderr)
+	}
 	if *in == "" {
 		_, _ = fmt.Fprintf(stderr, "Usage: sbomber localise --canonical-scan <canonical-scan.json> [--out localisation.json] [--trace trace.json]\n")
+		_, _ = fmt.Fprintf(stderr, "       sbomber localise --verify <localisation.json> [--online] [--verify-report <file>]\n")
 		return 2
 	}
 	data, err := os.ReadFile(*in)
@@ -2031,16 +2058,11 @@ func runLocalise(args []string, stdout io.Writer, stderr io.Writer) int {
 
 	ctx, cancel := context.WithTimeout(context.Background(), *timeout)
 	defer cancel()
-	loc := localisation.New(localisation.Options{
-		GitHubToken:        os.Getenv("GITHUB_TOKEN"),
-		MaxTarballBytes:    *maxTarballMB << 20,
-		AllMethods:         *allMethods,
-		ClientMethodSearch: *clientSearch,
-		OSVBaseURL:         *osvURL,
-		GitHubAPIBaseURL:   *githubURL,
-		RegistryBaseURL:    *registryURL,
-	})
+	loc := localisation.New(opts)
 
+	if opts.GitHubToken == "" && !opts.SkipTagChecks {
+		_, _ = fmt.Fprintf(stderr, "Warning: GITHUB_TOKEN is not set; GitHub allows 60 requests an hour, so tag checks may come back unavailable (they run last and cannot change candidates). Use --no-tag-checks to skip them.\n")
+	}
 	_, _ = fmt.Fprintf(stdout, "Localising %d finding(s) from %s\n", len(findings), input.Scan.ScanID)
 	doc, traces := loc.LocaliseAll(ctx, input.Scan.ScanID, findings)
 
@@ -2075,6 +2097,70 @@ func runLocalise(args []string, stdout io.Writer, stderr io.Writer) int {
 	if ctx.Err() != nil {
 		_, _ = fmt.Fprintf(stderr, "Warning: time budget exhausted; later findings may be unknown for that reason\n")
 	}
+	return 0
+}
+
+// runLocaliseVerify checks that every candidate in a localisation.json cites
+// a verified artefact by checksum. With online it also re-downloads each
+// artefact and re-runs the release tag checks. Exit 0 when nothing breaks the
+// trace, 1 when something does, 2 on a usage or read error.
+func runLocaliseVerify(path string, online bool, reportPath string, timeout time.Duration,
+	opts localisation.Options, stdout, stderr io.Writer) int {
+	data, err := os.ReadFile(path)
+	if err != nil {
+		_, _ = fmt.Fprintf(stderr, "Error: read %s: %v\n", path, err)
+		return 2
+	}
+	var doc localisation.Document
+	if err := json.Unmarshal(data, &doc); err != nil {
+		_, _ = fmt.Fprintf(stderr, "Error: %s is not a localisation.json document: %v\n", path, err)
+		return 2
+	}
+	v := localisation.VerifyDocument(doc)
+	if online {
+		ctx, cancel := context.WithTimeout(context.Background(), timeout)
+		defer cancel()
+		localisation.New(opts).Refetch(ctx, doc, &v)
+	}
+	localisation.SortIssues(v.Issues)
+
+	mode := "offline"
+	if online {
+		mode = fmt.Sprintf("online, %d artefact(s) re-fetched", v.Refetched)
+	}
+	_, _ = fmt.Fprintf(stdout, "Provenance of %s (%s, %s)\n", path, v.SchemaVersion, mode)
+	_, _ = fmt.Fprintf(stdout, "  results %d, candidates %d, traced to a verified artefact %d, artefacts %d\n",
+		v.Results, v.Candidates, v.CandidatesTraced, v.Artefacts)
+	if len(v.TagChecks) > 0 {
+		_, _ = fmt.Fprintf(stdout, "  tag checks: verified %d, mismatch %d, unavailable %d\n",
+			v.TagChecks[localisation.TagVerified], v.TagChecks[localisation.TagMismatch], v.TagChecks[localisation.TagUnavailable])
+	}
+	for _, is := range v.Issues {
+		where := is.FindingID
+		if is.Symbol != "" {
+			where += " " + is.Symbol
+		}
+		if is.Artefact != "" {
+			where += " [" + is.Artefact + "]"
+		}
+		_, _ = fmt.Fprintf(stdout, "  %-7s %s: %s\n", is.Severity, strings.TrimSpace(where), is.Message)
+	}
+	if reportPath != "" {
+		if err := writeJSONFile(reportPath, v); err != nil {
+			_, _ = fmt.Fprintf(stderr, "Error: %v\n", err)
+			return 2
+		}
+		_, _ = fmt.Fprintf(stdout, "Wrote %s\n", reportPath)
+	}
+	if n := v.Errors(); n > 0 {
+		if n == v.Unreachable {
+			_, _ = fmt.Fprintf(stdout, "INCOMPLETE: %d artefact(s) could not be re-fetched (network or rate limit); nothing found breaks the trace\n", n)
+			return 1
+		}
+		_, _ = fmt.Fprintf(stdout, "FAIL: %d error(s); not every candidate is traceable to a verified artefact\n", n)
+		return 1
+	}
+	_, _ = fmt.Fprintf(stdout, "OK: every candidate is traceable to a verified artefact\n")
 	return 0
 }
 

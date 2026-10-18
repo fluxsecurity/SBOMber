@@ -37,6 +37,11 @@ jobs:
       - name: Verify frozen localisation set
         run: python spikes/localisation/freeze.py
 
+      - name: Verify localisation provenance of the frozen set
+        run: |
+          python spikes/localisation/verify_provenance.py
+          python -m unittest -v spikes/localisation/test_verify_provenance.py
+
       - name: Set up Go
         uses: actions/setup-go@v5
         with:
@@ -60,3 +65,6 @@ jobs:
 
       - name: Run golangci-lint
         run: golangci-lint run --timeout=5m ./...
+
+      - name: Verify localisation provenance with the tool (offline)
+        run: go run ./cmd/sbomber localise --verify spikes/localisation/results/provenance/localisation.json

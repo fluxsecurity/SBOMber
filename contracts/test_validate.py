@@ -541,6 +541,113 @@ class ContractValidatorTests(unittest.TestCase):
                 finally:
                     tmp.cleanup()
 
+    def localisation_with(self, edit):
+        tmp, base = self.make_fixture_dir()
+        path = base / "localisation.sample.json"
+        loc = self.load_json(path)
+        edit(loc)
+        self.save_json(path, loc)
+        return tmp, self.run_validator(base)
+
+    def test_every_candidate_cites_a_verified_artefact(self):
+        tmp, result = self.localisation_with(lambda loc: None)
+        try:
+            self.assertEqual(result.returncode, 0, msg=result.stdout + result.stderr)
+        finally:
+            tmp.cleanup()
+
+    def test_candidate_without_evidence_is_rejected(self):
+        def edit(loc):
+            del loc["results"][3]["candidateSymbols"][0]["evidence"]
+        tmp, result = self.localisation_with(edit)
+        try:
+            self.assertNotEqual(result.returncode, 0)
+            self.assertIn("candidate cites an artefact", result.stdout)
+        finally:
+            tmp.cleanup()
+
+    def test_unverified_or_missing_artefact_is_rejected(self):
+        def edit(loc):
+            arts = loc["results"][1]["provenance"]["artefacts"]
+            arts[1]["verified"] = False
+            arts[1]["note"] = "bytes do not match the registry integrity value"
+            loc["results"][3]["candidateSymbols"][0]["evidence"].append("npm:lodash@9.9.9")
+        tmp, result = self.localisation_with(edit)
+        try:
+            self.assertNotEqual(result.returncode, 0)
+            self.assertIn("rests on unverified artefact npm:axios@0.21.0", result.stdout)
+            self.assertIn("cites npm:lodash@9.9.9, which is not in provenance.artefacts", result.stdout)
+        finally:
+            tmp.cleanup()
+
+    def test_hostile_artefact_references_are_rejected(self):
+        def edit(loc):
+            arts = loc["results"][3]["provenance"]["artefacts"]
+            arts[0]["id"] = arts[2]["id"]          # duplicate id
+            arts[1]["path"] = "../../etc/passwd"   # candidate no longer cites its own file
+            del arts[1]["gitBlobSha"]
+        tmp, result = self.localisation_with(edit)
+        try:
+            out = result.stdout
+            self.assertNotEqual(result.returncode, 0)
+            self.assertIn("artefact ids unique", out)
+            self.assertIn("candidate cites its own file", out)
+            self.assertIn("source file identity complete", out)
+        finally:
+            tmp.cleanup()
+
+    def test_evidence_kind_and_artefact_id_are_checked(self):
+        def edit(loc):
+            loc["results"][3]["candidateSymbols"][0]["evidence"] = ["advisory"]
+            loc["results"][1]["provenance"]["artefacts"][1]["version"] = "9.9.9"
+        tmp, result = self.localisation_with(edit)
+        try:
+            out = result.stdout
+            self.assertNotEqual(result.returncode, 0)
+            self.assertIn("patch_reference candidate defaultsDeep cites a advisory artefact, not source_file", out)
+            self.assertIn("artefact npm:axios@0.21.0 should be npm:axios@9.9.9", out)
+        finally:
+            tmp.cleanup()
+
+    def test_join_rule_fields_are_consistent(self):
+        def ok(loc):
+            cand = loc["results"][3]["candidateSymbols"][0]
+            cand.update({"visibility": "internal", "exposedVia": ["merge", "defaultsDeep"],
+                         "exposedViaSource": "export_resolution", "exposedViaComplete": True})
+        tmp, result = self.localisation_with(ok)
+        try:
+            self.assertEqual(result.returncode, 0, msg=result.stdout + result.stderr)
+        finally:
+            tmp.cleanup()
+
+        def bad(loc):
+            loc["results"][3]["candidateSymbols"][0].update({"visibility": "internal"})
+            loc["results"][1]["candidateSymbols"][0].update({"visibility": "public", "exposedVia": ["x"]})
+            loc["results"][1]["candidateSymbols"][1].update({
+                "visibility": "internal", "exposedVia": ["x"], "exposedViaSource": "advisory_text",
+                "exposedViaComplete": True})
+        tmp, result = self.localisation_with(bad)
+        try:
+            out = result.stdout
+            self.assertNotEqual(result.returncode, 0)
+            self.assertIn("internal candidate defaultsDeep lacks exposedVia", out)
+            self.assertIn("public candidate isURLSameOrigin carries exposedVia", out)
+            self.assertIn("candidate redirect claims a complete route list from advisory_text", out)
+        finally:
+            tmp.cleanup()
+
+    def test_localisation_1_0_0_without_evidence_still_validates(self):
+        def edit(loc):
+            loc["schemaVersion"] = "1.0.0"
+            for r in loc["results"]:
+                for cand in r["candidateSymbols"]:
+                    cand.pop("evidence", None)
+        tmp, result = self.localisation_with(edit)
+        try:
+            self.assertEqual(result.returncode, 0, msg=result.stdout + result.stderr)
+        finally:
+            tmp.cleanup()
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -1,0 +1,2445 @@
+{
+  "schemaVersion": "1.1.0",
+  "scanId": "scan-2026-09-06-localisation-eval",
+  "summary": {
+    "findingsProcessed": 10,
+    "byMethod": {
+      "patch_reference": 10
+    },
+    "unknownCount": 0
+  },
+  "results": [
+    {
+      "findingId": "c01",
+      "vulnerabilityId": "CVE-2021-23337",
+      "purl": "pkg:npm/lodash@4.17.20",
+      "method": "patch_reference",
+      "confidence": "high",
+      "candidateSymbols": [
+        {
+          "symbol": "template",
+          "modulePath": "lodash.js",
+          "changeKind": "modified",
+          "note": "nested in runInContext; visibility unknown: the exports of lodash.js could not be resolved statically: exports used outside a plain assignment at line 425",
+          "evidence": [
+            "github:lodash/lodash@3469357cff396a26c363f8c1b5a91dde28ba4b1c:lodash.js"
+          ],
+          "visibility": "unknown"
+        }
+      ],
+      "vulnerableVersion": "4.17.20",
+      "fixedVersion": "4.17.21",
+      "provenance": {
+        "advisorySource": "osv",
+        "advisoryUrl": "https://osv.dev/vulnerability/GHSA-35jh-r3h4-6jhm",
+        "patchCommit": "3469357cff396a26c363f8c1b5a91dde28ba4b1c",
+        "patchUrl": "https://github.com/lodash/lodash/commit/3469357cff396a26c363f8c1b5a91dde28ba4b1c",
+        "artefacts": [
+          {
+            "id": "advisory",
+            "kind": "advisory",
+            "url": "https://api.osv.dev/v1/vulns/GHSA-35jh-r3h4-6jhm",
+            "sha256": "7cf722323e4190b84d050dcf0565c0e9dc949fe6bdb63d9df46f9a14507c8498",
+            "sizeBytes": 4178,
+            "verified": true,
+            "executed": false,
+            "modified": "2026-10-17T02:55:38.085813876Z"
+          },
+          {
+            "id": "github:lodash/lodash@3469357cff396a26c363f8c1b5a91dde28ba4b1c:lodash.js",
+            "kind": "source_file",
+            "url": "https://github.com/lodash/lodash/blob/3469357cff396a26c363f8c1b5a91dde28ba4b1c/lodash.js",
+            "sha256": "4d69c77b216b3d8b0c4093726a8a98a8bb6bc1b4a2eae92668fb1f8581b53ffe",
+            "sizeBytes": 543341,
+            "verified": true,
+            "executed": false,
+            "repo": "lodash/lodash",
+            "commit": "3469357cff396a26c363f8c1b5a91dde28ba4b1c",
+            "path": "lodash.js",
+            "gitBlobSha": "278c70204300930b7c60e153d346d44461188003"
+          },
+          {
+            "id": "github:lodash/lodash@ded9bc66583ed0b4e3b7dc906206d40757b4a90a:lodash.js",
+            "kind": "source_file",
+            "url": "https://github.com/lodash/lodash/blob/ded9bc66583ed0b4e3b7dc906206d40757b4a90a/lodash.js",
+            "sha256": "8f6acca8bb2e6231eba689ddc74fd017c125a9672e0e8f55786101f1927b83e7",
+            "sizeBytes": 542563,
+            "verified": true,
+            "executed": false,
+            "repo": "lodash/lodash",
+            "commit": "ded9bc66583ed0b4e3b7dc906206d40757b4a90a",
+            "path": "lodash.js",
+            "gitBlobSha": "1fd7116f426a2801ee5ac3bb3c86236c11637403"
+          },
+          {
+            "id": "npm:lodash@4.17.20",
+            "kind": "tarball",
+            "url": "https://registry.npmjs.org/lodash/-/lodash-4.17.20.tgz",
+            "sha256": "d2aa8c6afc3c8591765785a37d1c5acae482a8eb3ab9729ed28922692454f2e2",
+            "sizeBytes": 316680,
+            "verified": true,
+            "executed": false,
+            "version": "4.17.20",
+            "integrity": "sha512-PlhdFcillOINfeV7Ni6oF1TAEayyZBoZ8bcshTHqOYJYlrqzRK5hagpagky5o4HfCzzd1TRkXPMFq6cKk9rGmA=="
+          }
+        ],
+        "tagChecks": [
+          {
+            "version": "4.17.21",
+            "role": "fixed",
+            "repo": "lodash/lodash",
+            "fixCommits": [
+              "3469357cff396a26c363f8c1b5a91dde28ba4b1c"
+            ],
+            "tag": "4.17.21",
+            "tagCommit": "f299b52f39486275a9e6483b60a410e06520c538",
+            "registryGitHead": "c6e281b878b315c7a10d90f9c2af4cdb112d9625",
+            "releaseCommit": "f299b52f39486275a9e6483b60a410e06520c538",
+            "releaseSource": "git_tag",
+            "byAncestry": [
+              "3469357cff396a26c363f8c1b5a91dde28ba4b1c"
+            ],
+            "basis": "ancestry",
+            "result": "verified",
+            "note": "Tag 4.17.21 is commit f299b52f39 but npm says lodash@4.17.21 was published from c6e281b878; npm's gitHead is checked first. Compare against c6e281b878 failed: HTTP 404 for https://api.github.com/repos/lodash/lodash/compare/3469357cff396a26c363f8c1b5a91dde28ba4b1c...c6e281b878b315c7a10d90f9c2af4cdb112d9625?per_page=1."
+          },
+          {
+            "version": "4.17.20",
+            "role": "vulnerable",
+            "repo": "lodash/lodash",
+            "fixCommits": [
+              "3469357cff396a26c363f8c1b5a91dde28ba4b1c"
+            ],
+            "tag": "4.17.20",
+            "tagCommit": "ded9bc66583ed0b4e3b7dc906206d40757b4a90a",
+            "registryGitHead": "f2e7063ee409ff40a60b14370c58dceee1a2efd4",
+            "releaseCommit": "ded9bc66583ed0b4e3b7dc906206d40757b4a90a",
+            "releaseSource": "git_tag",
+            "basis": "ancestry",
+            "result": "verified",
+            "note": "Tag 4.17.20 is commit ded9bc6658 but npm says lodash@4.17.20 was published from f2e7063ee4; npm's gitHead is checked first. Compare against f2e7063ee4 failed: HTTP 404 for https://api.github.com/repos/lodash/lodash/compare/3469357cff396a26c363f8c1b5a91dde28ba4b1c...f2e7063ee409ff40a60b14370c58dceee1a2efd4?per_page=1."
+          }
+        ]
+      },
+      "excludedChanges": [
+        "tests"
+      ],
+      "notes": "Selected patch_reference with 1 candidate symbol(s). advisory_metadata: empty. Visibility read from npm:lodash@4.17.20: 0 of 1 candidate(s) public or completely resolved."
+    },
+    {
+      "findingId": "c02",
+      "vulnerabilityId": "CVE-2018-16487",
+      "purl": "pkg:npm/lodash@4.17.4",
+      "method": "patch_reference",
+      "confidence": "high",
+      "candidateSymbols": [
+        {
+          "symbol": "safeGet",
+          "modulePath": "lodash.js",
+          "changeKind": "modified",
+          "note": "nested in runInContext; visibility unknown: safeGet is not defined in lodash.js in the published package",
+          "evidence": [
+            "github:lodash/lodash@90e6199a161b6445b01454517b40ef65ebecd2ad:lodash.js",
+            "github:lodash/lodash@67389a8c78975d97505fa15aa79bec6397749807:lodash.js"
+          ],
+          "visibility": "unknown"
+        }
+      ],
+      "vulnerableVersion": "4.17.4",
+      "fixedVersion": "4.17.11",
+      "provenance": {
+        "advisorySource": "osv",
+        "advisoryUrl": "https://osv.dev/vulnerability/GHSA-4xc9-xhrj-v574",
+        "patchCommit": "90e6199a161b6445b01454517b40ef65ebecd2ad",
+        "patchUrl": "https://github.com/lodash/lodash/commit/90e6199a161b6445b01454517b40ef65ebecd2ad",
+        "artefacts": [
+          {
+            "id": "advisory",
+            "kind": "advisory",
+            "url": "https://api.osv.dev/v1/vulns/GHSA-4xc9-xhrj-v574",
+            "sha256": "e80f31c2e0d44fed2e5181ed8fdd35c82264fac6838dd3fe799bb65837388200",
+            "sizeBytes": 2360,
+            "verified": true,
+            "executed": false,
+            "modified": "2025-08-12T21:55:35.778975Z"
+          },
+          {
+            "id": "github:lodash/lodash@90e6199a161b6445b01454517b40ef65ebecd2ad:lodash.js",
+            "kind": "source_file",
+            "url": "https://github.com/lodash/lodash/blob/90e6199a161b6445b01454517b40ef65ebecd2ad/lodash.js",
+            "sha256": "12ed4a8009a8869fe7337cae5289e8f4942fbd7d047a41160bb09b3adf593938",
+            "sizeBytes": 540005,
+            "verified": true,
+            "executed": false,
+            "repo": "lodash/lodash",
+            "commit": "90e6199a161b6445b01454517b40ef65ebecd2ad",
+            "path": "lodash.js",
+            "gitBlobSha": "c7081ddefb13bdd1da456b15a0c6c62f9f0d1ab9"
+          },
+          {
+            "id": "github:lodash/lodash@67389a8c78975d97505fa15aa79bec6397749807:lodash.js",
+            "kind": "source_file",
+            "url": "https://github.com/lodash/lodash/blob/67389a8c78975d97505fa15aa79bec6397749807/lodash.js",
+            "sha256": "ab06c398d54b882aa4a91069178eaae5b8d81f5d63e5c77e2be63a0f7fe36b6f",
+            "sizeBytes": 539838,
+            "verified": true,
+            "executed": false,
+            "repo": "lodash/lodash",
+            "commit": "67389a8c78975d97505fa15aa79bec6397749807",
+            "path": "lodash.js",
+            "gitBlobSha": "cd8df6fe67f220dc876fa2051e3bb0acfa6ef4cb"
+          },
+          {
+            "id": "npm:lodash@4.17.4",
+            "kind": "tarball",
+            "url": "https://registry.npmjs.org/lodash/-/lodash-4.17.4.tgz",
+            "sha256": "f14bfa44822bd45ec6ae995f8c5a0067cfddc680e74f105b03c8e28a9104c59d",
+            "sizeBytes": 310669,
+            "verified": true,
+            "executed": false,
+            "version": "4.17.4",
+            "integrity": "sha512-6X37Sq9KCpLSXEh8uM12AKYlviHPNNk4RxiGBn4cmKGJinbXBneWIV7iE/nXkM928O7ytHcHb6+X6Svl0f4hXg=="
+          }
+        ],
+        "tagChecks": [
+          {
+            "version": "4.17.11",
+            "role": "fixed",
+            "repo": "lodash/lodash",
+            "fixCommits": [
+              "90e6199a161b6445b01454517b40ef65ebecd2ad"
+            ],
+            "tag": "4.17.11",
+            "tagCommit": "0843bd46ef805dd03c0c8d804630804f3ba0ca3c",
+            "releaseCommit": "0843bd46ef805dd03c0c8d804630804f3ba0ca3c",
+            "releaseSource": "git_tag",
+            "byAncestry": [
+              "90e6199a161b6445b01454517b40ef65ebecd2ad"
+            ],
+            "basis": "ancestry",
+            "result": "verified"
+          },
+          {
+            "version": "4.17.4",
+            "role": "vulnerable",
+            "repo": "lodash/lodash",
+            "fixCommits": [
+              "90e6199a161b6445b01454517b40ef65ebecd2ad"
+            ],
+            "tag": "4.17.4",
+            "tagCommit": "912d6b04a1f6b732508a6da72a95ec4f96bda154",
+            "releaseCommit": "912d6b04a1f6b732508a6da72a95ec4f96bda154",
+            "releaseSource": "git_tag",
+            "basis": "ancestry",
+            "result": "verified"
+          }
+        ]
+      },
+      "excludedChanges": [
+        "tests"
+      ],
+      "notes": "Selected patch_reference with 1 candidate symbol(s). advisory_metadata: empty. Visibility read from npm:lodash@4.17.4: 0 of 1 candidate(s) public or completely resolved."
+    },
+    {
+      "findingId": "c03",
+      "vulnerabilityId": "CVE-2019-10744",
+      "purl": "pkg:npm/lodash@4.17.11",
+      "method": "patch_reference",
+      "confidence": "high",
+      "candidateSymbols": [
+        {
+          "symbol": "safeGet",
+          "modulePath": "lodash.js",
+          "changeKind": "modified",
+          "note": "nested in runInContext; visibility unknown: the exports of lodash.js could not be resolved statically: exports used outside a plain assignment at line 425",
+          "evidence": [
+            "github:lodash/lodash@a01e4fa727e7294cb7b2845570ba96b206926790:lodash.js"
+          ],
+          "visibility": "unknown"
+        }
+      ],
+      "vulnerableVersion": "4.17.11",
+      "fixedVersion": "4.17.12",
+      "provenance": {
+        "advisorySource": "osv",
+        "advisoryUrl": "https://osv.dev/vulnerability/GHSA-jf85-cpcp-j695",
+        "patchCommit": "a01e4fa727e7294cb7b2845570ba96b206926790",
+        "patchUrl": "https://github.com/lodash/lodash/commit/a01e4fa727e7294cb7b2845570ba96b206926790",
+        "artefacts": [
+          {
+            "id": "advisory",
+            "kind": "advisory",
+            "url": "https://api.osv.dev/v1/vulns/GHSA-jf85-cpcp-j695",
+            "sha256": "1c149f73c8bf3bed4a02b4c57f4b552ca7e02a1e2ce2bc0f8e14c26dee67d2f7",
+            "sizeBytes": 3865,
+            "verified": true,
+            "executed": false,
+            "modified": "2026-09-10T03:47:55.238868631Z"
+          },
+          {
+            "id": "github:lodash/lodash@a01e4fa727e7294cb7b2845570ba96b206926790:lodash.js",
+            "kind": "source_file",
+            "url": "https://github.com/lodash/lodash/blob/a01e4fa727e7294cb7b2845570ba96b206926790/lodash.js",
+            "sha256": "766632c0dc398675031763ee28ac808bffab644197ef8ac9301fc39f93441ed6",
+            "sizeBytes": 539527,
+            "verified": true,
+            "executed": false,
+            "repo": "lodash/lodash",
+            "commit": "a01e4fa727e7294cb7b2845570ba96b206926790",
+            "path": "lodash.js",
+            "gitBlobSha": "5c308f6057a66ea2bb1f421169c217e430155f18"
+          },
+          {
+            "id": "github:lodash/lodash@e42cd97dae460a7c306d0d214b0783c7eccae144:lodash.js",
+            "kind": "source_file",
+            "url": "https://github.com/lodash/lodash/blob/e42cd97dae460a7c306d0d214b0783c7eccae144/lodash.js",
+            "sha256": "dc75c30980cb601b76e2eadf2f246edb6e534a8c595a32a4641a71c3d284ee90",
+            "sizeBytes": 539407,
+            "verified": true,
+            "executed": false,
+            "repo": "lodash/lodash",
+            "commit": "e42cd97dae460a7c306d0d214b0783c7eccae144",
+            "path": "lodash.js",
+            "gitBlobSha": "92c566ac952ad822ae67e27ab0b86e89fd4ca31a"
+          },
+          {
+            "id": "npm:lodash@4.17.11",
+            "kind": "tarball",
+            "url": "https://registry.npmjs.org/lodash/-/lodash-4.17.11.tgz",
+            "sha256": "8eb2165aed24a7e42c841114a3d9d92585cb922ef41e2d1fda72f5a4a8976b9b",
+            "sizeBytes": 305584,
+            "verified": true,
+            "executed": false,
+            "version": "4.17.11",
+            "integrity": "sha512-cQKh8igo5QUhZ7lg38DYWAxMvjSAKG0A8wGSVimP07SIUEK2UO+arSRKbRZWtelMtN5V0Hkwh5ryOto/SshYIg=="
+          }
+        ],
+        "tagChecks": [
+          {
+            "version": "4.17.12",
+            "role": "fixed",
+            "repo": "lodash/lodash",
+            "fixCommits": [
+              "a01e4fa727e7294cb7b2845570ba96b206926790"
+            ],
+            "tag": "4.17.12",
+            "tagCommit": "fd9a062d57646450b61f74029315abd4cc834b08",
+            "releaseCommit": "fd9a062d57646450b61f74029315abd4cc834b08",
+            "releaseSource": "git_tag",
+            "byContent": [
+              "a01e4fa727e7294cb7b2845570ba96b206926790"
+            ],
+            "content": [
+              {
+                "commit": "a01e4fa727e7294cb7b2845570ba96b206926790",
+                "parent": "e42cd97dae460a7c306d0d214b0783c7eccae144",
+                "path": "lodash.js",
+                "lines": [
+                  "if (key === 'constructor' \u0026\u0026 typeof object[key] === 'function') {"
+                ]
+              }
+            ],
+            "basis": "content",
+            "result": "verified",
+            "note": "Not ancestors but every line they add is present (backport or squash merge): a01e4fa727."
+          },
+          {
+            "version": "4.17.11",
+            "role": "vulnerable",
+            "repo": "lodash/lodash",
+            "fixCommits": [
+              "a01e4fa727e7294cb7b2845570ba96b206926790"
+            ],
+            "tag": "4.17.11",
+            "tagCommit": "0843bd46ef805dd03c0c8d804630804f3ba0ca3c",
+            "releaseCommit": "0843bd46ef805dd03c0c8d804630804f3ba0ca3c",
+            "releaseSource": "git_tag",
+            "basis": "ancestry",
+            "result": "verified"
+          }
+        ]
+      },
+      "excludedChanges": [
+        "tests"
+      ],
+      "notes": "Selected patch_reference with 1 candidate symbol(s). advisory_metadata: empty. Visibility read from npm:lodash@4.17.11: 0 of 1 candidate(s) public or completely resolved."
+    },
+    {
+      "findingId": "c04",
+      "vulnerabilityId": "CVE-2020-7788",
+      "purl": "pkg:npm/ini@1.3.5",
+      "method": "patch_reference",
+      "confidence": "high",
+      "candidateSymbols": [
+        {
+          "symbol": "decode",
+          "modulePath": "ini.js",
+          "changeKind": "modified",
+          "note": "exported as parse, decode; visibility public: exported as decode, parse",
+          "evidence": [
+            "github:npm/ini@56d2805e07ccd94e2ba0984ac9240ff02d44b6f1:ini.js"
+          ],
+          "visibility": "public"
+        },
+        {
+          "symbol": "parse",
+          "modulePath": "ini.js",
+          "changeKind": "modified",
+          "note": "export alias of decode; visibility public: exported as decode, parse",
+          "evidence": [
+            "github:npm/ini@56d2805e07ccd94e2ba0984ac9240ff02d44b6f1:ini.js"
+          ],
+          "visibility": "public"
+        }
+      ],
+      "vulnerableVersion": "1.3.5",
+      "fixedVersion": "1.3.6",
+      "provenance": {
+        "advisorySource": "osv",
+        "advisoryUrl": "https://osv.dev/vulnerability/GHSA-qqgx-2p2h-9c37",
+        "patchCommit": "56d2805e07ccd94e2ba0984ac9240ff02d44b6f1",
+        "patchUrl": "https://github.com/npm/ini/commit/56d2805e07ccd94e2ba0984ac9240ff02d44b6f1",
+        "artefacts": [
+          {
+            "id": "advisory",
+            "kind": "advisory",
+            "url": "https://api.osv.dev/v1/vulns/GHSA-qqgx-2p2h-9c37",
+            "sha256": "0b70750c5a7a09393b4574aff95afe015b488e51d7648a64e578837a244ad6de",
+            "sizeBytes": 2061,
+            "verified": true,
+            "executed": false,
+            "modified": "2026-09-10T03:49:13.836088947Z"
+          },
+          {
+            "id": "github:npm/ini@56d2805e07ccd94e2ba0984ac9240ff02d44b6f1:ini.js",
+            "kind": "source_file",
+            "url": "https://github.com/npm/ini/blob/56d2805e07ccd94e2ba0984ac9240ff02d44b6f1/ini.js",
+            "sha256": "5f6e318884412e3b4453595c81b9e3de34a0a1280bd88bb6e3074b3e8eb4cbc3",
+            "sizeBytes": 5000,
+            "verified": true,
+            "executed": false,
+            "repo": "npm/ini",
+            "commit": "56d2805e07ccd94e2ba0984ac9240ff02d44b6f1",
+            "path": "ini.js",
+            "gitBlobSha": "040125886aa947b45e3c3505a7fcc61c428f6710"
+          },
+          {
+            "id": "npm:ini@1.3.5",
+            "kind": "tarball",
+            "url": "https://registry.npmjs.org/ini/-/ini-1.3.5.tgz",
+            "sha256": "fe8ebd87cc87404eeb3ec89880bc49d83df337f8b95a504366c4674f3646785d",
+            "sizeBytes": 3890,
+            "verified": true,
+            "executed": false,
+            "version": "1.3.5",
+            "integrity": "sha512-RZY5huIKCMRWDUqZlEi72f/lmXKMvuszcMBduliQ3nnWbx9X/ZBQO7DijMEYS9EhHBb2qacRUMtC7svLwe0lcw=="
+          }
+        ],
+        "tagChecks": [
+          {
+            "version": "1.3.6",
+            "role": "fixed",
+            "repo": "npm/ini",
+            "fixCommits": [
+              "56d2805e07ccd94e2ba0984ac9240ff02d44b6f1"
+            ],
+            "tag": "v1.3.6",
+            "tagCommit": "2da90391ef70db41d10f013e3a87f9a8c5d01a72",
+            "registryGitHead": "2da90391ef70db41d10f013e3a87f9a8c5d01a72",
+            "releaseCommit": "2da90391ef70db41d10f013e3a87f9a8c5d01a72",
+            "releaseSource": "registry_git_head",
+            "byAncestry": [
+              "56d2805e07ccd94e2ba0984ac9240ff02d44b6f1"
+            ],
+            "basis": "ancestry",
+            "result": "verified",
+            "note": "Tag v1.3.6 and npm's gitHead agree."
+          },
+          {
+            "version": "1.3.5",
+            "role": "vulnerable",
+            "repo": "npm/ini",
+            "fixCommits": [
+              "56d2805e07ccd94e2ba0984ac9240ff02d44b6f1"
+            ],
+            "tag": "v1.3.5",
+            "tagCommit": "738eca59d77d8cfdddf5c477c17a0d8f8fbfe0fd",
+            "registryGitHead": "738eca59d77d8cfdddf5c477c17a0d8f8fbfe0fd",
+            "releaseCommit": "738eca59d77d8cfdddf5c477c17a0d8f8fbfe0fd",
+            "releaseSource": "registry_git_head",
+            "basis": "ancestry",
+            "result": "verified",
+            "note": "Tag v1.3.5 and npm's gitHead agree."
+          }
+        ]
+      },
+      "excludedChanges": [
+        "tests"
+      ],
+      "notes": "Selected patch_reference with 2 candidate symbol(s). advisory_metadata: empty. Visibility read from npm:ini@1.3.5: 2 of 2 candidate(s) public or completely resolved."
+    },
+    {
+      "findingId": "c05",
+      "vulnerabilityId": "CVE-2022-25883",
+      "purl": "pkg:npm/semver@7.5.1",
+      "method": "patch_reference",
+      "confidence": "low",
+      "candidateSymbols": [
+        {
+          "symbol": "makeSafeRe",
+          "modulePath": "semver.js",
+          "changeKind": "modified",
+          "note": "not exported from this file; visibility unknown: semver.js is not in the published vulnerable package",
+          "evidence": [
+            "github:npm/node-semver@2f8fd41487acf380194579ecb6f8b1bbfe116be0:semver.js",
+            "github:npm/node-semver@928e56d21150da0413a3333a3148b20e741a920c:semver.js",
+            "github:npm/node-semver@d4530b8c9785923be4ebaa01324c48549acb0856:semver.js"
+          ],
+          "visibility": "unknown"
+        },
+        {
+          "symbol": "parse",
+          "modulePath": "semver.js",
+          "changeKind": "modified",
+          "note": "exported as parse; visibility unknown: semver.js is not in the published vulnerable package",
+          "evidence": [
+            "github:npm/node-semver@2f8fd41487acf380194579ecb6f8b1bbfe116be0:semver.js",
+            "github:npm/node-semver@deb5ad51bf58868fa243c1683775305fe9e0e365:semver.js",
+            "github:npm/node-semver@928e56d21150da0413a3333a3148b20e741a920c:semver.js",
+            "github:npm/node-semver@39f632690ea5b1b0d64fa913aa0f96f42b9bde32:semver.js",
+            "github:npm/node-semver@d4530b8c9785923be4ebaa01324c48549acb0856:semver.js"
+          ],
+          "visibility": "unknown"
+        },
+        {
+          "symbol": "SemVer",
+          "modulePath": "semver.js",
+          "changeKind": "modified",
+          "note": "exported as default, SemVer; visibility unknown: semver.js is not in the published vulnerable package",
+          "evidence": [
+            "github:npm/node-semver@2f8fd41487acf380194579ecb6f8b1bbfe116be0:semver.js",
+            "github:npm/node-semver@deb5ad51bf58868fa243c1683775305fe9e0e365:semver.js",
+            "github:npm/node-semver@928e56d21150da0413a3333a3148b20e741a920c:semver.js",
+            "github:npm/node-semver@39f632690ea5b1b0d64fa913aa0f96f42b9bde32:semver.js",
+            "github:npm/node-semver@d4530b8c9785923be4ebaa01324c48549acb0856:semver.js"
+          ],
+          "visibility": "unknown"
+        },
+        {
+          "symbol": "default",
+          "modulePath": "semver.js",
+          "changeKind": "modified",
+          "note": "export alias of SemVer; visibility unknown: semver.js is not in the published vulnerable package",
+          "evidence": [
+            "github:npm/node-semver@2f8fd41487acf380194579ecb6f8b1bbfe116be0:semver.js",
+            "github:npm/node-semver@deb5ad51bf58868fa243c1683775305fe9e0e365:semver.js",
+            "github:npm/node-semver@928e56d21150da0413a3333a3148b20e741a920c:semver.js",
+            "github:npm/node-semver@39f632690ea5b1b0d64fa913aa0f96f42b9bde32:semver.js",
+            "github:npm/node-semver@d4530b8c9785923be4ebaa01324c48549acb0856:semver.js"
+          ],
+          "visibility": "unknown"
+        },
+        {
+          "symbol": "Comparator",
+          "modulePath": "semver.js",
+          "changeKind": "modified",
+          "note": "exported as Comparator; visibility unknown: semver.js is not in the published vulnerable package",
+          "evidence": [
+            "github:npm/node-semver@2f8fd41487acf380194579ecb6f8b1bbfe116be0:semver.js",
+            "github:npm/node-semver@928e56d21150da0413a3333a3148b20e741a920c:semver.js",
+            "github:npm/node-semver@d4530b8c9785923be4ebaa01324c48549acb0856:semver.js"
+          ],
+          "visibility": "unknown"
+        },
+        {
+          "symbol": "Range",
+          "modulePath": "semver.js",
+          "changeKind": "modified",
+          "note": "exported as Range; visibility unknown: semver.js is not in the published vulnerable package",
+          "evidence": [
+            "github:npm/node-semver@2f8fd41487acf380194579ecb6f8b1bbfe116be0:semver.js",
+            "github:npm/node-semver@deb5ad51bf58868fa243c1683775305fe9e0e365:semver.js",
+            "github:npm/node-semver@928e56d21150da0413a3333a3148b20e741a920c:semver.js",
+            "github:npm/node-semver@39f632690ea5b1b0d64fa913aa0f96f42b9bde32:semver.js",
+            "github:npm/node-semver@d4530b8c9785923be4ebaa01324c48549acb0856:semver.js"
+          ],
+          "visibility": "unknown"
+        },
+        {
+          "symbol": "parseRange",
+          "modulePath": "semver.js",
+          "changeKind": "modified",
+          "note": "not exported from this file; visibility unknown: semver.js is not in the published vulnerable package",
+          "evidence": [
+            "github:npm/node-semver@2f8fd41487acf380194579ecb6f8b1bbfe116be0:semver.js",
+            "github:npm/node-semver@deb5ad51bf58868fa243c1683775305fe9e0e365:semver.js",
+            "github:npm/node-semver@928e56d21150da0413a3333a3148b20e741a920c:semver.js",
+            "github:npm/node-semver@39f632690ea5b1b0d64fa913aa0f96f42b9bde32:semver.js",
+            "github:npm/node-semver@d4530b8c9785923be4ebaa01324c48549acb0856:semver.js"
+          ],
+          "visibility": "unknown"
+        },
+        {
+          "symbol": "replaceTilde",
+          "modulePath": "semver.js",
+          "changeKind": "modified",
+          "note": "not exported from this file; visibility unknown: semver.js is not in the published vulnerable package",
+          "evidence": [
+            "github:npm/node-semver@2f8fd41487acf380194579ecb6f8b1bbfe116be0:semver.js",
+            "github:npm/node-semver@deb5ad51bf58868fa243c1683775305fe9e0e365:semver.js",
+            "github:npm/node-semver@928e56d21150da0413a3333a3148b20e741a920c:semver.js",
+            "github:npm/node-semver@39f632690ea5b1b0d64fa913aa0f96f42b9bde32:semver.js",
+            "github:npm/node-semver@d4530b8c9785923be4ebaa01324c48549acb0856:semver.js"
+          ],
+          "visibility": "unknown"
+        },
+        {
+          "symbol": "replaceCaret",
+          "modulePath": "semver.js",
+          "changeKind": "modified",
+          "note": "not exported from this file; visibility unknown: semver.js is not in the published vulnerable package",
+          "evidence": [
+            "github:npm/node-semver@2f8fd41487acf380194579ecb6f8b1bbfe116be0:semver.js",
+            "github:npm/node-semver@deb5ad51bf58868fa243c1683775305fe9e0e365:semver.js",
+            "github:npm/node-semver@928e56d21150da0413a3333a3148b20e741a920c:semver.js",
+            "github:npm/node-semver@39f632690ea5b1b0d64fa913aa0f96f42b9bde32:semver.js",
+            "github:npm/node-semver@d4530b8c9785923be4ebaa01324c48549acb0856:semver.js"
+          ],
+          "visibility": "unknown"
+        },
+        {
+          "symbol": "replaceXRange",
+          "modulePath": "semver.js",
+          "changeKind": "modified",
+          "note": "not exported from this file; visibility unknown: semver.js is not in the published vulnerable package",
+          "evidence": [
+            "github:npm/node-semver@2f8fd41487acf380194579ecb6f8b1bbfe116be0:semver.js",
+            "github:npm/node-semver@deb5ad51bf58868fa243c1683775305fe9e0e365:semver.js",
+            "github:npm/node-semver@928e56d21150da0413a3333a3148b20e741a920c:semver.js",
+            "github:npm/node-semver@39f632690ea5b1b0d64fa913aa0f96f42b9bde32:semver.js",
+            "github:npm/node-semver@d4530b8c9785923be4ebaa01324c48549acb0856:semver.js"
+          ],
+          "visibility": "unknown"
+        },
+        {
+          "symbol": "replaceStars",
+          "modulePath": "semver.js",
+          "changeKind": "modified",
+          "note": "not exported from this file; visibility unknown: semver.js is not in the published vulnerable package",
+          "evidence": [
+            "github:npm/node-semver@2f8fd41487acf380194579ecb6f8b1bbfe116be0:semver.js",
+            "github:npm/node-semver@deb5ad51bf58868fa243c1683775305fe9e0e365:semver.js",
+            "github:npm/node-semver@928e56d21150da0413a3333a3148b20e741a920c:semver.js",
+            "github:npm/node-semver@39f632690ea5b1b0d64fa913aa0f96f42b9bde32:semver.js",
+            "github:npm/node-semver@d4530b8c9785923be4ebaa01324c48549acb0856:semver.js"
+          ],
+          "visibility": "unknown"
+        },
+        {
+          "symbol": "coerce",
+          "modulePath": "semver.js",
+          "changeKind": "modified",
+          "note": "exported as coerce; visibility unknown: semver.js is not in the published vulnerable package",
+          "evidence": [
+            "github:npm/node-semver@2f8fd41487acf380194579ecb6f8b1bbfe116be0:semver.js",
+            "github:npm/node-semver@deb5ad51bf58868fa243c1683775305fe9e0e365:semver.js",
+            "github:npm/node-semver@928e56d21150da0413a3333a3148b20e741a920c:semver.js",
+            "github:npm/node-semver@39f632690ea5b1b0d64fa913aa0f96f42b9bde32:semver.js",
+            "github:npm/node-semver@d4530b8c9785923be4ebaa01324c48549acb0856:semver.js"
+          ],
+          "visibility": "unknown"
+        },
+        {
+          "symbol": "constructor",
+          "modulePath": "classes/comparator.js",
+          "changeKind": "modified",
+          "note": "method of class Comparator; visibility internal via Comparator, default (incomplete): classes/comparator.js is loaded by classes/index.js, which is not the entry module (only one hop is resolved); classes/comparator.js is loaded by classes/range.js, which is not the entry module (only one hop is resolved); classes/comparator.js is loaded by ranges/outside.js, which is not the entry module (only one hop is resolved); classes/comparator.js is loaded by ranges/subset.js, which is not the entry module (only one hop is resolved); index.js: export re is a member expression at line 82; another copy of constructor is in classes/range.js, classes/semver.js",
+          "evidence": [
+            "github:npm/node-semver@717534ee353682f3bcf33e60a8af4292626d4441:classes/comparator.js",
+            "github:npm/node-semver@b6db78d8c996d46c842f25199521f36ffc7c104b:classes/comparator.js"
+          ],
+          "visibility": "internal",
+          "exposedVia": [
+            "Comparator",
+            "default"
+          ],
+          "exposedViaSource": "export_resolution",
+          "exposedViaComplete": false
+        },
+        {
+          "symbol": "constructor",
+          "modulePath": "classes/range.js",
+          "changeKind": "modified",
+          "note": "method of class Range; visibility internal via Range, default (incomplete): classes/range.js is loaded by classes/comparator.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by classes/index.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by functions/satisfies.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/intersects.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/max-satisfying.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/min-satisfying.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/min-version.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/outside.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/subset.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/to-comparators.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/valid.js, which is not the entry module (only one hop is resolved); index.js: export re is a member expression at line 82; another copy of constructor is in classes/comparator.js, classes/semver.js",
+          "evidence": [
+            "github:npm/node-semver@717534ee353682f3bcf33e60a8af4292626d4441:classes/range.js",
+            "github:npm/node-semver@2f738e9a70d9b9468b7b69e9ed3e12418725c650:classes/range.js",
+            "github:npm/node-semver@b6db78d8c996d46c842f25199521f36ffc7c104b:classes/range.js"
+          ],
+          "visibility": "internal",
+          "exposedVia": [
+            "Range",
+            "default"
+          ],
+          "exposedViaSource": "export_resolution",
+          "exposedViaComplete": false
+        },
+        {
+          "symbol": "format",
+          "modulePath": "classes/range.js",
+          "changeKind": "modified",
+          "note": "method of class Range; visibility internal via Range, default (incomplete): classes/range.js is loaded by classes/comparator.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by classes/index.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by functions/satisfies.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/intersects.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/max-satisfying.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/min-satisfying.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/min-version.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/outside.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/subset.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/to-comparators.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/valid.js, which is not the entry module (only one hop is resolved); index.js: export re is a member expression at line 82; another copy of format is in classes/semver.js",
+          "evidence": [
+            "github:npm/node-semver@717534ee353682f3bcf33e60a8af4292626d4441:classes/range.js",
+            "github:npm/node-semver@2f738e9a70d9b9468b7b69e9ed3e12418725c650:classes/range.js",
+            "github:npm/node-semver@b6db78d8c996d46c842f25199521f36ffc7c104b:classes/range.js"
+          ],
+          "visibility": "internal",
+          "exposedVia": [
+            "Range",
+            "default"
+          ],
+          "exposedViaSource": "export_resolution",
+          "exposedViaComplete": false
+        },
+        {
+          "symbol": "replaceTildes",
+          "modulePath": "classes/range.js",
+          "changeKind": "modified",
+          "note": "not exported from this file; visibility internal via Range, default (incomplete): replaceTildes is not exported from classes/range.js; classes/range.js is loaded by classes/comparator.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by classes/index.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by functions/satisfies.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/intersects.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/max-satisfying.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/min-satisfying.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/min-version.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/outside.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/subset.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/to-comparators.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/valid.js, which is not the entry module (only one hop is resolved); index.js: export re is a member expression at line 82",
+          "evidence": [
+            "github:npm/node-semver@717534ee353682f3bcf33e60a8af4292626d4441:classes/range.js",
+            "github:npm/node-semver@2f738e9a70d9b9468b7b69e9ed3e12418725c650:classes/range.js",
+            "github:npm/node-semver@b6db78d8c996d46c842f25199521f36ffc7c104b:classes/range.js"
+          ],
+          "visibility": "internal",
+          "exposedVia": [
+            "Range",
+            "default"
+          ],
+          "exposedViaSource": "export_resolution",
+          "exposedViaComplete": false
+        },
+        {
+          "symbol": "replaceCarets",
+          "modulePath": "classes/range.js",
+          "changeKind": "modified",
+          "note": "not exported from this file; visibility internal via Range, default (incomplete): replaceCarets is not exported from classes/range.js; classes/range.js is loaded by classes/comparator.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by classes/index.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by functions/satisfies.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/intersects.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/max-satisfying.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/min-satisfying.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/min-version.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/outside.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/subset.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/to-comparators.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/valid.js, which is not the entry module (only one hop is resolved); index.js: export re is a member expression at line 82",
+          "evidence": [
+            "github:npm/node-semver@717534ee353682f3bcf33e60a8af4292626d4441:classes/range.js",
+            "github:npm/node-semver@2f738e9a70d9b9468b7b69e9ed3e12418725c650:classes/range.js",
+            "github:npm/node-semver@b6db78d8c996d46c842f25199521f36ffc7c104b:classes/range.js"
+          ],
+          "visibility": "internal",
+          "exposedVia": [
+            "Range",
+            "default"
+          ],
+          "exposedViaSource": "export_resolution",
+          "exposedViaComplete": false
+        },
+        {
+          "symbol": "replaceXRanges",
+          "modulePath": "classes/range.js",
+          "changeKind": "modified",
+          "note": "not exported from this file; visibility internal via Range, default (incomplete): replaceXRanges is not exported from classes/range.js; classes/range.js is loaded by classes/comparator.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by classes/index.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by functions/satisfies.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/intersects.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/max-satisfying.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/min-satisfying.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/min-version.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/outside.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/subset.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/to-comparators.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/valid.js, which is not the entry module (only one hop is resolved); index.js: export re is a member expression at line 82",
+          "evidence": [
+            "github:npm/node-semver@717534ee353682f3bcf33e60a8af4292626d4441:classes/range.js",
+            "github:npm/node-semver@2f738e9a70d9b9468b7b69e9ed3e12418725c650:classes/range.js",
+            "github:npm/node-semver@b6db78d8c996d46c842f25199521f36ffc7c104b:classes/range.js"
+          ],
+          "visibility": "internal",
+          "exposedVia": [
+            "Range",
+            "default"
+          ],
+          "exposedViaSource": "export_resolution",
+          "exposedViaComplete": false
+        },
+        {
+          "symbol": "replaceStars",
+          "modulePath": "classes/range.js",
+          "changeKind": "modified",
+          "note": "not exported from this file; visibility internal via Range, default (incomplete): replaceStars is not exported from classes/range.js; classes/range.js is loaded by classes/comparator.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by classes/index.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by functions/satisfies.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/intersects.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/max-satisfying.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/min-satisfying.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/min-version.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/outside.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/subset.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/to-comparators.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/valid.js, which is not the entry module (only one hop is resolved); index.js: export re is a member expression at line 82",
+          "evidence": [
+            "github:npm/node-semver@717534ee353682f3bcf33e60a8af4292626d4441:classes/range.js",
+            "github:npm/node-semver@2f738e9a70d9b9468b7b69e9ed3e12418725c650:classes/range.js",
+            "github:npm/node-semver@b6db78d8c996d46c842f25199521f36ffc7c104b:classes/range.js"
+          ],
+          "visibility": "internal",
+          "exposedVia": [
+            "Range",
+            "default"
+          ],
+          "exposedViaSource": "export_resolution",
+          "exposedViaComplete": false
+        },
+        {
+          "symbol": "replaceGTE0",
+          "modulePath": "classes/range.js",
+          "changeKind": "modified",
+          "note": "not exported from this file; visibility internal via Range, default (incomplete): replaceGTE0 is not exported from classes/range.js; classes/range.js is loaded by classes/comparator.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by classes/index.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by functions/satisfies.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/intersects.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/max-satisfying.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/min-satisfying.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/min-version.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/outside.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/subset.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/to-comparators.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/valid.js, which is not the entry module (only one hop is resolved); index.js: export re is a member expression at line 82",
+          "evidence": [
+            "github:npm/node-semver@717534ee353682f3bcf33e60a8af4292626d4441:classes/range.js",
+            "github:npm/node-semver@2f738e9a70d9b9468b7b69e9ed3e12418725c650:classes/range.js",
+            "github:npm/node-semver@b6db78d8c996d46c842f25199521f36ffc7c104b:classes/range.js"
+          ],
+          "visibility": "internal",
+          "exposedVia": [
+            "Range",
+            "default"
+          ],
+          "exposedViaSource": "export_resolution",
+          "exposedViaComplete": false
+        },
+        {
+          "symbol": "hyphenReplace",
+          "modulePath": "classes/range.js",
+          "changeKind": "modified",
+          "note": "not exported from this file; visibility internal via Range, default (incomplete): hyphenReplace is not exported from classes/range.js; classes/range.js is loaded by classes/comparator.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by classes/index.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by functions/satisfies.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/intersects.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/max-satisfying.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/min-satisfying.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/min-version.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/outside.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/subset.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/to-comparators.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/valid.js, which is not the entry module (only one hop is resolved); index.js: export re is a member expression at line 82",
+          "evidence": [
+            "github:npm/node-semver@717534ee353682f3bcf33e60a8af4292626d4441:classes/range.js",
+            "github:npm/node-semver@2f738e9a70d9b9468b7b69e9ed3e12418725c650:classes/range.js",
+            "github:npm/node-semver@b6db78d8c996d46c842f25199521f36ffc7c104b:classes/range.js"
+          ],
+          "visibility": "internal",
+          "exposedVia": [
+            "Range",
+            "default"
+          ],
+          "exposedViaSource": "export_resolution",
+          "exposedViaComplete": false
+        },
+        {
+          "symbol": "parseRange",
+          "modulePath": "classes/range.js",
+          "changeKind": "modified",
+          "note": "method of class Range; visibility internal via Range, default (incomplete): classes/range.js is loaded by classes/comparator.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by classes/index.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by functions/satisfies.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/intersects.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/max-satisfying.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/min-satisfying.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/min-version.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/outside.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/subset.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/to-comparators.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/valid.js, which is not the entry module (only one hop is resolved); index.js: export re is a member expression at line 82",
+          "evidence": [
+            "github:npm/node-semver@2f738e9a70d9b9468b7b69e9ed3e12418725c650:classes/range.js"
+          ],
+          "visibility": "internal",
+          "exposedVia": [
+            "Range",
+            "default"
+          ],
+          "exposedViaSource": "export_resolution",
+          "exposedViaComplete": false
+        },
+        {
+          "symbol": "createToken",
+          "modulePath": "internal/re.js",
+          "changeKind": "modified",
+          "note": "not exported from this file; visibility internal via Comparator, Range, SemVer, clean, cmp, coerce, compare, compareBuild, compareLoose, diff, eq, gt, gte, gtr, inc, intersects, lt, lte, ltr, major, maxSatisfying, minSatisfying, minVersion, minor, neq, outside, parse, patch, prerelease, rcompare, rsort, satisfies, simplifyRange, sort, subset, t, toComparators, valid, validRange (incomplete): createToken is not exported from internal/re.js; internal/re.js: export re is a array at line 6; internal/re.js is loaded by classes/comparator.js, which is not the entry module (only one hop is resolved); internal/re.js is loaded by classes/range.js, which is not the entry module (only one hop is resolved); internal/re.js is loaded by classes/semver.js, which is not the entry module (only one hop is resolved); internal/re.js is loaded by functions/coerce.js, which is not the entry module (only one hop is resolved); index.js: export re is a member expression at line 82",
+          "evidence": [
+            "github:npm/node-semver@717534ee353682f3bcf33e60a8af4292626d4441:internal/re.js",
+            "github:npm/node-semver@b6db78d8c996d46c842f25199521f36ffc7c104b:internal/re.js"
+          ],
+          "visibility": "internal",
+          "exposedVia": [
+            "Comparator",
+            "Range",
+            "SemVer",
+            "clean",
+            "cmp",
+            "coerce",
+            "compare",
+            "compareBuild",
+            "compareLoose",
+            "diff",
+            "eq",
+            "gt",
+            "gte",
+            "gtr",
+            "inc",
+            "intersects",
+            "lt",
+            "lte",
+            "ltr",
+            "major",
+            "maxSatisfying",
+            "minSatisfying",
+            "minVersion",
+            "minor",
+            "neq",
+            "outside",
+            "parse",
+            "patch",
+            "prerelease",
+            "rcompare",
+            "rsort",
+            "satisfies",
+            "simplifyRange",
+            "sort",
+            "subset",
+            "t",
+            "toComparators",
+            "valid",
+            "validRange"
+          ],
+          "exposedViaSource": "export_resolution",
+          "exposedViaComplete": false
+        }
+      ],
+      "vulnerableVersion": "7.5.1",
+      "fixedVersion": "7.5.2",
+      "provenance": {
+        "advisorySource": "osv",
+        "advisoryUrl": "https://osv.dev/vulnerability/GHSA-c2qf-rxjj-qqgw",
+        "patchCommit": "2f8fd41487acf380194579ecb6f8b1bbfe116be0",
+        "patchUrl": "https://github.com/npm/node-semver/commit/2f8fd41487acf380194579ecb6f8b1bbfe116be0",
+        "artefacts": [
+          {
+            "id": "advisory",
+            "kind": "advisory",
+            "url": "https://api.osv.dev/v1/vulns/GHSA-c2qf-rxjj-qqgw",
+            "sha256": "bd1c670b85e05d266fe9e1fab00c4cbdbb7595b0ae5fd0e0fd919c699785bb48",
+            "sizeBytes": 3125,
+            "verified": true,
+            "executed": false,
+            "modified": "2026-09-10T03:50:02.224637541Z"
+          },
+          {
+            "id": "github:npm/node-semver@2f8fd41487acf380194579ecb6f8b1bbfe116be0:semver.js",
+            "kind": "source_file",
+            "url": "https://github.com/npm/node-semver/blob/2f8fd41487acf380194579ecb6f8b1bbfe116be0/semver.js",
+            "sha256": "433d72cfd2383f94c8266e3af185841e60ae88d7345d79f87073f473119425d8",
+            "sizeBytes": 40812,
+            "verified": true,
+            "executed": false,
+            "repo": "npm/node-semver",
+            "commit": "2f8fd41487acf380194579ecb6f8b1bbfe116be0",
+            "path": "semver.js",
+            "gitBlobSha": "dcb68334150b207485cff109830c88f236331a33"
+          },
+          {
+            "id": "github:npm/node-semver@deb5ad51bf58868fa243c1683775305fe9e0e365:semver.js",
+            "kind": "source_file",
+            "url": "https://github.com/npm/node-semver/blob/deb5ad51bf58868fa243c1683775305fe9e0e365/semver.js",
+            "sha256": "161e134793e0789620e9c3257ea47b28049b977f08e817dcfa9e2e30cca8bdf4",
+            "sizeBytes": 38803,
+            "verified": true,
+            "executed": false,
+            "repo": "npm/node-semver",
+            "commit": "deb5ad51bf58868fa243c1683775305fe9e0e365",
+            "path": "semver.js",
+            "gitBlobSha": "d315d5d68b179e0184accdeec8091f5e28f7992d"
+          },
+          {
+            "id": "github:npm/node-semver@717534ee353682f3bcf33e60a8af4292626d4441:classes/comparator.js",
+            "kind": "source_file",
+            "url": "https://github.com/npm/node-semver/blob/717534ee353682f3bcf33e60a8af4292626d4441/classes/comparator.js",
+            "sha256": "5e6c49b503b8dd4d62435cddf50763bbad210e180648ebc96311a5207c4b776e",
+            "sizeBytes": 3617,
+            "verified": true,
+            "executed": false,
+            "repo": "npm/node-semver",
+            "commit": "717534ee353682f3bcf33e60a8af4292626d4441",
+            "path": "classes/comparator.js",
+            "gitBlobSha": "3d39c0eef78023b9d91d09536d4827376b61f23d"
+          },
+          {
+            "id": "github:npm/node-semver@2f738e9a70d9b9468b7b69e9ed3e12418725c650:classes/comparator.js",
+            "kind": "source_file",
+            "url": "https://github.com/npm/node-semver/blob/2f738e9a70d9b9468b7b69e9ed3e12418725c650/classes/comparator.js",
+            "sha256": "e8ff057f0fad019aa08ff0da0be381156e653ce315b95038f892a696f421a884",
+            "sizeBytes": 3563,
+            "verified": true,
+            "executed": false,
+            "repo": "npm/node-semver",
+            "commit": "2f738e9a70d9b9468b7b69e9ed3e12418725c650",
+            "path": "classes/comparator.js",
+            "gitBlobSha": "2146c884bd937360073458c7e945131bc548c658"
+          },
+          {
+            "id": "github:npm/node-semver@717534ee353682f3bcf33e60a8af4292626d4441:classes/range.js",
+            "kind": "source_file",
+            "url": "https://github.com/npm/node-semver/blob/717534ee353682f3bcf33e60a8af4292626d4441/classes/range.js",
+            "sha256": "d5d8bc72acbe301021408032e2e6b76e804e8b6b038df2ffabb4784bb2343194",
+            "sizeBytes": 14444,
+            "verified": true,
+            "executed": false,
+            "repo": "npm/node-semver",
+            "commit": "717534ee353682f3bcf33e60a8af4292626d4441",
+            "path": "classes/range.js",
+            "gitBlobSha": "53c2540fd012efb88918496451c3451e9e862ebc"
+          },
+          {
+            "id": "github:npm/node-semver@2f738e9a70d9b9468b7b69e9ed3e12418725c650:classes/range.js",
+            "kind": "source_file",
+            "url": "https://github.com/npm/node-semver/blob/2f738e9a70d9b9468b7b69e9ed3e12418725c650/classes/range.js",
+            "sha256": "7b9a767b686fa1f9a21215bd1d4a76969564c49cafd9d9e510bcc9ba59a74b07",
+            "sizeBytes": 14283,
+            "verified": true,
+            "executed": false,
+            "repo": "npm/node-semver",
+            "commit": "2f738e9a70d9b9468b7b69e9ed3e12418725c650",
+            "path": "classes/range.js",
+            "gitBlobSha": "d9e866de4dcd1caa63d3dbcbb2ce9d3877f0fe92"
+          },
+          {
+            "id": "github:npm/node-semver@717534ee353682f3bcf33e60a8af4292626d4441:classes/semver.js",
+            "kind": "source_file",
+            "url": "https://github.com/npm/node-semver/blob/717534ee353682f3bcf33e60a8af4292626d4441/classes/semver.js",
+            "sha256": "5987dcd0aa61bd126414519b56628804730f93699a7a4714f32b07579babb6f8",
+            "sizeBytes": 8693,
+            "verified": true,
+            "executed": false,
+            "repo": "npm/node-semver",
+            "commit": "717534ee353682f3bcf33e60a8af4292626d4441",
+            "path": "classes/semver.js",
+            "gitBlobSha": "e1208fe612fe4557e1d3175c403b776ee29f570b"
+          },
+          {
+            "id": "github:npm/node-semver@2f738e9a70d9b9468b7b69e9ed3e12418725c650:classes/semver.js",
+            "kind": "source_file",
+            "url": "https://github.com/npm/node-semver/blob/2f738e9a70d9b9468b7b69e9ed3e12418725c650/classes/semver.js",
+            "sha256": "005bd19ff54d2a676ad88d865eda39d85b5b03ff88b9b1c2f8792784d33c5ef5",
+            "sizeBytes": 8685,
+            "verified": true,
+            "executed": false,
+            "repo": "npm/node-semver",
+            "commit": "2f738e9a70d9b9468b7b69e9ed3e12418725c650",
+            "path": "classes/semver.js",
+            "gitBlobSha": "99dbe82db4dc59159c91e711cf7d24fdd0b9b6bb"
+          },
+          {
+            "id": "github:npm/node-semver@717534ee353682f3bcf33e60a8af4292626d4441:functions/coerce.js",
+            "kind": "source_file",
+            "url": "https://github.com/npm/node-semver/blob/717534ee353682f3bcf33e60a8af4292626d4441/functions/coerce.js",
+            "sha256": "a2c892df1f3acb64198cbd47dc87269196294b464f71f9ea417cd9ae41364887",
+            "sizeBytes": 1513,
+            "verified": true,
+            "executed": false,
+            "repo": "npm/node-semver",
+            "commit": "717534ee353682f3bcf33e60a8af4292626d4441",
+            "path": "functions/coerce.js",
+            "gitBlobSha": "febbff9c273ce56c354e967eb544ab83fce88664"
+          },
+          {
+            "id": "github:npm/node-semver@2f738e9a70d9b9468b7b69e9ed3e12418725c650:functions/coerce.js",
+            "kind": "source_file",
+            "url": "https://github.com/npm/node-semver/blob/2f738e9a70d9b9468b7b69e9ed3e12418725c650/functions/coerce.js",
+            "sha256": "0f660ba09e44a00b3960e2ce094c0d87c67dcfe8fc4b529056ad58b2357f10f8",
+            "sizeBytes": 1505,
+            "verified": true,
+            "executed": false,
+            "repo": "npm/node-semver",
+            "commit": "2f738e9a70d9b9468b7b69e9ed3e12418725c650",
+            "path": "functions/coerce.js",
+            "gitBlobSha": "2e01452fddad68c83f09502c9c499369382472d3"
+          },
+          {
+            "id": "github:npm/node-semver@717534ee353682f3bcf33e60a8af4292626d4441:internal/re.js",
+            "kind": "source_file",
+            "url": "https://github.com/npm/node-semver/blob/717534ee353682f3bcf33e60a8af4292626d4441/internal/re.js",
+            "sha256": "ce68894c217eac89e86013efce58d8fd28420409271f892820eac70a2fd2d4d9",
+            "sizeBytes": 7304,
+            "verified": true,
+            "executed": false,
+            "repo": "npm/node-semver",
+            "commit": "717534ee353682f3bcf33e60a8af4292626d4441",
+            "path": "internal/re.js",
+            "gitBlobSha": "f73ef1aa06263ad4561363ea470750b4e069b953"
+          },
+          {
+            "id": "github:npm/node-semver@928e56d21150da0413a3333a3148b20e741a920c:semver.js",
+            "kind": "source_file",
+            "url": "https://github.com/npm/node-semver/blob/928e56d21150da0413a3333a3148b20e741a920c/semver.js",
+            "sha256": "d89ed53251e85463bf4300ae9a3e258dc75eb73eb2820d524bd05f4451bed3d4",
+            "sizeBytes": 44287,
+            "verified": true,
+            "executed": false,
+            "repo": "npm/node-semver",
+            "commit": "928e56d21150da0413a3333a3148b20e741a920c",
+            "path": "semver.js",
+            "gitBlobSha": "39319c13cac27d65d88d34dac95470a6494a0dae"
+          },
+          {
+            "id": "github:npm/node-semver@39f632690ea5b1b0d64fa913aa0f96f42b9bde32:semver.js",
+            "kind": "source_file",
+            "url": "https://github.com/npm/node-semver/blob/39f632690ea5b1b0d64fa913aa0f96f42b9bde32/semver.js",
+            "sha256": "acfcb006e8cbfa5ec841829d60ecc5adb9c1012e39df0b7d2d29e44116001850",
+            "sizeBytes": 42130,
+            "verified": true,
+            "executed": false,
+            "repo": "npm/node-semver",
+            "commit": "39f632690ea5b1b0d64fa913aa0f96f42b9bde32",
+            "path": "semver.js",
+            "gitBlobSha": "636fa4365a175f06380e9b2d30d112053264c541"
+          },
+          {
+            "id": "github:npm/node-semver@b6db78d8c996d46c842f25199521f36ffc7c104b:classes/comparator.js",
+            "kind": "source_file",
+            "url": "https://github.com/npm/node-semver/blob/b6db78d8c996d46c842f25199521f36ffc7c104b/classes/comparator.js",
+            "sha256": "5e6c49b503b8dd4d62435cddf50763bbad210e180648ebc96311a5207c4b776e",
+            "sizeBytes": 3617,
+            "verified": true,
+            "executed": false,
+            "repo": "npm/node-semver",
+            "commit": "b6db78d8c996d46c842f25199521f36ffc7c104b",
+            "path": "classes/comparator.js",
+            "gitBlobSha": "3d39c0eef78023b9d91d09536d4827376b61f23d"
+          },
+          {
+            "id": "github:npm/node-semver@b6db78d8c996d46c842f25199521f36ffc7c104b:classes/range.js",
+            "kind": "source_file",
+            "url": "https://github.com/npm/node-semver/blob/b6db78d8c996d46c842f25199521f36ffc7c104b/classes/range.js",
+            "sha256": "d5d8bc72acbe301021408032e2e6b76e804e8b6b038df2ffabb4784bb2343194",
+            "sizeBytes": 14444,
+            "verified": true,
+            "executed": false,
+            "repo": "npm/node-semver",
+            "commit": "b6db78d8c996d46c842f25199521f36ffc7c104b",
+            "path": "classes/range.js",
+            "gitBlobSha": "53c2540fd012efb88918496451c3451e9e862ebc"
+          },
+          {
+            "id": "github:npm/node-semver@b6db78d8c996d46c842f25199521f36ffc7c104b:classes/semver.js",
+            "kind": "source_file",
+            "url": "https://github.com/npm/node-semver/blob/b6db78d8c996d46c842f25199521f36ffc7c104b/classes/semver.js",
+            "sha256": "5987dcd0aa61bd126414519b56628804730f93699a7a4714f32b07579babb6f8",
+            "sizeBytes": 8693,
+            "verified": true,
+            "executed": false,
+            "repo": "npm/node-semver",
+            "commit": "b6db78d8c996d46c842f25199521f36ffc7c104b",
+            "path": "classes/semver.js",
+            "gitBlobSha": "e1208fe612fe4557e1d3175c403b776ee29f570b"
+          },
+          {
+            "id": "github:npm/node-semver@b6db78d8c996d46c842f25199521f36ffc7c104b:functions/coerce.js",
+            "kind": "source_file",
+            "url": "https://github.com/npm/node-semver/blob/b6db78d8c996d46c842f25199521f36ffc7c104b/functions/coerce.js",
+            "sha256": "a2c892df1f3acb64198cbd47dc87269196294b464f71f9ea417cd9ae41364887",
+            "sizeBytes": 1513,
+            "verified": true,
+            "executed": false,
+            "repo": "npm/node-semver",
+            "commit": "b6db78d8c996d46c842f25199521f36ffc7c104b",
+            "path": "functions/coerce.js",
+            "gitBlobSha": "febbff9c273ce56c354e967eb544ab83fce88664"
+          },
+          {
+            "id": "github:npm/node-semver@b6db78d8c996d46c842f25199521f36ffc7c104b:internal/re.js",
+            "kind": "source_file",
+            "url": "https://github.com/npm/node-semver/blob/b6db78d8c996d46c842f25199521f36ffc7c104b/internal/re.js",
+            "sha256": "ce68894c217eac89e86013efce58d8fd28420409271f892820eac70a2fd2d4d9",
+            "sizeBytes": 7304,
+            "verified": true,
+            "executed": false,
+            "repo": "npm/node-semver",
+            "commit": "b6db78d8c996d46c842f25199521f36ffc7c104b",
+            "path": "internal/re.js",
+            "gitBlobSha": "f73ef1aa06263ad4561363ea470750b4e069b953"
+          },
+          {
+            "id": "github:npm/node-semver@d4530b8c9785923be4ebaa01324c48549acb0856:semver.js",
+            "kind": "source_file",
+            "url": "https://github.com/npm/node-semver/blob/d4530b8c9785923be4ebaa01324c48549acb0856/semver.js",
+            "sha256": "433d72cfd2383f94c8266e3af185841e60ae88d7345d79f87073f473119425d8",
+            "sizeBytes": 40812,
+            "verified": true,
+            "executed": false,
+            "repo": "npm/node-semver",
+            "commit": "d4530b8c9785923be4ebaa01324c48549acb0856",
+            "path": "semver.js",
+            "gitBlobSha": "dcb68334150b207485cff109830c88f236331a33"
+          },
+          {
+            "id": "npm:semver@7.5.1",
+            "kind": "tarball",
+            "url": "https://registry.npmjs.org/semver/-/semver-7.5.1.tgz",
+            "sha256": "7466d0ee934d67f66045210449c0c38176c237aa6ddef92d72ad8536579e19c7",
+            "sizeBytes": 26100,
+            "verified": true,
+            "executed": false,
+            "version": "7.5.1",
+            "integrity": "sha512-Wvss5ivl8TMRZXXESstBA4uR5iXgEN/VC5/sOcuXdVLzcdkz4HWetIoRfG5gb5X+ij/G9rw9YoGn3QoQ8OCSpw=="
+          }
+        ],
+        "tagChecks": [
+          {
+            "version": "7.5.2",
+            "role": "fixed",
+            "repo": "npm/node-semver",
+            "fixCommits": [
+              "2f8fd41487acf380194579ecb6f8b1bbfe116be0",
+              "717534ee353682f3bcf33e60a8af4292626d4441",
+              "928e56d21150da0413a3333a3148b20e741a920c",
+              "b6db78d8c996d46c842f25199521f36ffc7c104b",
+              "d4530b8c9785923be4ebaa01324c48549acb0856"
+            ],
+            "tag": "v7.5.2",
+            "tagCommit": "e7b78de06eb14a7fa2075cedf9f167040d8d31af",
+            "registryGitHead": "e7b78de06eb14a7fa2075cedf9f167040d8d31af",
+            "releaseCommit": "e7b78de06eb14a7fa2075cedf9f167040d8d31af",
+            "releaseSource": "registry_git_head",
+            "byAncestry": [
+              "717534ee353682f3bcf33e60a8af4292626d4441"
+            ],
+            "byContent": [
+              "b6db78d8c996d46c842f25199521f36ffc7c104b"
+            ],
+            "content": [
+              {
+                "commit": "b6db78d8c996d46c842f25199521f36ffc7c104b",
+                "parent": "2f738e9a70d9b9468b7b69e9ed3e12418725c650",
+                "path": "classes/comparator.js",
+                "lines": [
+                  "comp = comp.trim().split(/\\s+/).join(' ')",
+                  "const { safeRe: re, t } = require('../internal/re')"
+                ]
+              },
+              {
+                "commit": "b6db78d8c996d46c842f25199521f36ffc7c104b",
+                "parent": "2f738e9a70d9b9468b7b69e9ed3e12418725c650",
+                "path": "classes/range.js",
+                "lines": [
+                  ".split(/\\s+/)",
+                  ".join(' ')",
+                  "this.set = this.raw",
+                  ".map(r =\u003e this.parseRange(r))",
+                  "throw new TypeError(`Invalid SemVer Range: ${this.raw}`)",
+                  ".map((comps) =\u003e comps.join(' ').trim())",
+                  "safeRe: re,",
+                  "const replaceTildes = (comp, options) =\u003e {",
+                  "return comp",
+                  ".map((c) =\u003e replaceTilde(c, options))",
+                  "const replaceCarets = (comp, options) =\u003e {",
+                  ".map((c) =\u003e replaceCaret(c, options))",
+                  ".map((c) =\u003e replaceXRange(c, options))",
+                  ".replace(re[t.STAR], '')",
+                  "return `${from} ${to}`.trim()"
+                ]
+              },
+              {
+                "commit": "b6db78d8c996d46c842f25199521f36ffc7c104b",
+                "parent": "2f738e9a70d9b9468b7b69e9ed3e12418725c650",
+                "path": "classes/semver.js",
+                "lines": [
+                  "const { safeRe: re, t } = require('../internal/re')"
+                ]
+              },
+              {
+                "commit": "b6db78d8c996d46c842f25199521f36ffc7c104b",
+                "parent": "2f738e9a70d9b9468b7b69e9ed3e12418725c650",
+                "path": "functions/coerce.js",
+                "lines": [
+                  "const { safeRe: re, t } = require('../internal/re')"
+                ]
+              },
+              {
+                "commit": "b6db78d8c996d46c842f25199521f36ffc7c104b",
+                "parent": "2f738e9a70d9b9468b7b69e9ed3e12418725c650",
+                "path": "internal/re.js",
+                "lines": [
+                  "const safeRe = exports.safeRe = []",
+                  "const safe = value",
+                  ".split('\\\\s*').join('\\\\s{0,1}')",
+                  ".split('\\\\s+').join('\\\\s')",
+                  "safeRe[index] = new RegExp(safe, isGlobal ? 'g' : undefined)"
+                ]
+              }
+            ],
+            "basis": "ancestry",
+            "result": "verified",
+            "note": "Tag v7.5.2 and npm's gitHead agree. Not ancestors but every line they add is present (backport or squash merge): b6db78d8c9. Not in this release, so another release line or superseded: 2f8fd41487 (semver.js does not exist at the release); 928e56d211 (semver.js does not exist at the release); d4530b8c97 (semver.js does not exist at the release)."
+          },
+          {
+            "version": "7.5.1",
+            "role": "vulnerable",
+            "repo": "npm/node-semver",
+            "fixCommits": [
+              "2f8fd41487acf380194579ecb6f8b1bbfe116be0",
+              "717534ee353682f3bcf33e60a8af4292626d4441",
+              "928e56d21150da0413a3333a3148b20e741a920c",
+              "b6db78d8c996d46c842f25199521f36ffc7c104b",
+              "d4530b8c9785923be4ebaa01324c48549acb0856"
+            ],
+            "tag": "v7.5.1",
+            "tagCommit": "aa016a67162c195938f7873ea29a73dac47ff9ba",
+            "registryGitHead": "aa016a67162c195938f7873ea29a73dac47ff9ba",
+            "releaseCommit": "aa016a67162c195938f7873ea29a73dac47ff9ba",
+            "releaseSource": "registry_git_head",
+            "basis": "ancestry",
+            "result": "verified",
+            "note": "Tag v7.5.1 and npm's gitHead agree."
+          }
+        ]
+      },
+      "excludedChanges": [
+        "build",
+        "docs",
+        "tests"
+      ],
+      "notes": "Selected patch_reference with 23 candidate symbol(s). advisory_metadata: empty. Non-function changes: MAX_SAFE_BUILD_LENGTH (semver.js), safeRe (semver.js), LETTERDASHNUMBER (semver.js), safeRegexReplacements (semver.js), safeRe (internal/re.js). Visibility read from npm:semver@7.5.1: 0 of 23 candidate(s) public or completely resolved."
+    },
+    {
+      "findingId": "c06",
+      "vulnerabilityId": "CVE-2020-7598",
+      "purl": "pkg:npm/minimist@1.2.2",
+      "method": "patch_reference",
+      "confidence": "high",
+      "candidateSymbols": [
+        {
+          "symbol": "setKey",
+          "modulePath": "index.js",
+          "changeKind": "modified",
+          "note": "not exported from this file; visibility internal via default (complete)",
+          "evidence": [
+            "github:minimistjs/minimist@10bd4cdf49d9686d48214be9d579a9cdfda37c68:index.js",
+            "github:minimistjs/minimist@f904dcc3c28f10eb11840091e9f0bab9d9519b5c:index.js",
+            "github:minimistjs/minimist@38a4d1caead72ef99e824bb420a2528eec03d9ab:index.js",
+            "github:minimistjs/minimist@13c01a5327736903704984b7f65616b8476850cc:index.js",
+            "github:minimistjs/minimist@63e7ed05aa4b1889ec2f3b196426db4500cbda94:index.js"
+          ],
+          "visibility": "internal",
+          "exposedVia": [
+            "default"
+          ],
+          "exposedViaSource": "export_resolution",
+          "exposedViaComplete": true
+        }
+      ],
+      "vulnerableVersion": "1.2.2",
+      "fixedVersion": "1.2.3",
+      "provenance": {
+        "advisorySource": "osv",
+        "advisoryUrl": "https://osv.dev/vulnerability/GHSA-vh95-rmgr-6w4m",
+        "patchCommit": "10bd4cdf49d9686d48214be9d579a9cdfda37c68",
+        "patchUrl": "https://github.com/minimistjs/minimist/commit/10bd4cdf49d9686d48214be9d579a9cdfda37c68",
+        "artefacts": [
+          {
+            "id": "advisory",
+            "kind": "advisory",
+            "url": "https://api.osv.dev/v1/vulns/GHSA-vh95-rmgr-6w4m",
+            "sha256": "44edeea67a6f3e2b5fffa34be9967594373422ffa94d32e69bb568976e791477",
+            "sizeBytes": 2615,
+            "verified": true,
+            "executed": false,
+            "modified": "2026-03-13T22:11:31.390433Z"
+          },
+          {
+            "id": "github:minimistjs/minimist@10bd4cdf49d9686d48214be9d579a9cdfda37c68:index.js",
+            "kind": "source_file",
+            "url": "https://github.com/minimistjs/minimist/blob/10bd4cdf49d9686d48214be9d579a9cdfda37c68/index.js",
+            "sha256": "892f88a9c5fae0f6352bcef677131c31a62e978c62f36b7491230919f88fd90b",
+            "sizeBytes": 6312,
+            "verified": true,
+            "executed": false,
+            "repo": "minimistjs/minimist",
+            "commit": "10bd4cdf49d9686d48214be9d579a9cdfda37c68",
+            "path": "index.js",
+            "gitBlobSha": "6e821754dc745e6aae0ff201c0a9fc7833981354"
+          },
+          {
+            "id": "github:minimistjs/minimist@f904dcc3c28f10eb11840091e9f0bab9d9519b5c:index.js",
+            "kind": "source_file",
+            "url": "https://github.com/minimistjs/minimist/blob/f904dcc3c28f10eb11840091e9f0bab9d9519b5c/index.js",
+            "sha256": "d23c796f60df05d14149d54777841ec5bbc16e097beb8b6bf49e0c630b3d30e1",
+            "sizeBytes": 5893,
+            "verified": true,
+            "executed": false,
+            "repo": "minimistjs/minimist",
+            "commit": "f904dcc3c28f10eb11840091e9f0bab9d9519b5c",
+            "path": "index.js",
+            "gitBlobSha": "9549c96fbda2b075c1fea38206a236eb8f1d5b82"
+          },
+          {
+            "id": "github:minimistjs/minimist@38a4d1caead72ef99e824bb420a2528eec03d9ab:index.js",
+            "kind": "source_file",
+            "url": "https://github.com/minimistjs/minimist/blob/38a4d1caead72ef99e824bb420a2528eec03d9ab/index.js",
+            "sha256": "0feebc85297a35829a4a3a6c5346ddcca582052e5ebf0d33bd024abe8cd5245b",
+            "sizeBytes": 7652,
+            "verified": true,
+            "executed": false,
+            "repo": "minimistjs/minimist",
+            "commit": "38a4d1caead72ef99e824bb420a2528eec03d9ab",
+            "path": "index.js",
+            "gitBlobSha": "d2afe5e4d4056ef41caa575f4c21a3866b72473f"
+          },
+          {
+            "id": "github:minimistjs/minimist@13c01a5327736903704984b7f65616b8476850cc:index.js",
+            "kind": "source_file",
+            "url": "https://github.com/minimistjs/minimist/blob/13c01a5327736903704984b7f65616b8476850cc/index.js",
+            "sha256": "020486bfa3e79064638a7197e8f4b6de1968ef9a895bb5620c3ffb3bbd6ada62",
+            "sizeBytes": 7247,
+            "verified": true,
+            "executed": false,
+            "repo": "minimistjs/minimist",
+            "commit": "13c01a5327736903704984b7f65616b8476850cc",
+            "path": "index.js",
+            "gitBlobSha": "3b13f44c064b2dacd7e66de0ab55d09a57c483f3"
+          },
+          {
+            "id": "github:minimistjs/minimist@63e7ed05aa4b1889ec2f3b196426db4500cbda94:index.js",
+            "kind": "source_file",
+            "url": "https://github.com/minimistjs/minimist/blob/63e7ed05aa4b1889ec2f3b196426db4500cbda94/index.js",
+            "sha256": "020486bfa3e79064638a7197e8f4b6de1968ef9a895bb5620c3ffb3bbd6ada62",
+            "sizeBytes": 7247,
+            "verified": true,
+            "executed": false,
+            "repo": "minimistjs/minimist",
+            "commit": "63e7ed05aa4b1889ec2f3b196426db4500cbda94",
+            "path": "index.js",
+            "gitBlobSha": "3b13f44c064b2dacd7e66de0ab55d09a57c483f3"
+          },
+          {
+            "id": "npm:minimist@1.2.2",
+            "kind": "tarball",
+            "url": "https://registry.npmjs.org/minimist/-/minimist-1.2.2.tgz",
+            "sha256": "acf56629c0cf954d6e7680070f438305a6482c6179157e2b66fef715917186e8",
+            "sizeBytes": 7897,
+            "verified": true,
+            "executed": false,
+            "version": "1.2.2",
+            "integrity": "sha512-rIqbOrKb8GJmx/5bc2M0QchhUouMXSpd1RTclXsB41JdL+VtnojfaJR+h7F9k18/4kHUsBFgk80Uk+q569vjPA=="
+          }
+        ],
+        "tagChecks": [
+          {
+            "version": "1.2.3",
+            "role": "fixed",
+            "repo": "minimistjs/minimist",
+            "fixCommits": [
+              "10bd4cdf49d9686d48214be9d579a9cdfda37c68",
+              "38a4d1caead72ef99e824bb420a2528eec03d9ab",
+              "63e7ed05aa4b1889ec2f3b196426db4500cbda94"
+            ],
+            "tag": "v1.2.3",
+            "tagCommit": "6457d7440a47f329c12c4a5abfbce211c4235b93",
+            "registryGitHead": "6457d7440a47f329c12c4a5abfbce211c4235b93",
+            "releaseCommit": "6457d7440a47f329c12c4a5abfbce211c4235b93",
+            "releaseSource": "registry_git_head",
+            "byAncestry": [
+              "38a4d1caead72ef99e824bb420a2528eec03d9ab",
+              "63e7ed05aa4b1889ec2f3b196426db4500cbda94"
+            ],
+            "byContent": [
+              "10bd4cdf49d9686d48214be9d579a9cdfda37c68"
+            ],
+            "content": [
+              {
+                "commit": "10bd4cdf49d9686d48214be9d579a9cdfda37c68",
+                "parent": "f904dcc3c28f10eb11840091e9f0bab9d9519b5c",
+                "path": "index.js",
+                "lines": [
+                  "for (var i = 0; i \u003c keys.length-1; i++) {",
+                  "var key = keys[i];",
+                  "if (key === '__proto__') return;",
+                  "if (o[key] === Object.prototype || o[key] === Number.prototype",
+                  "|| o[key] === String.prototype) o[key] = {};",
+                  "if (o[key] === Array.prototype) o[key] = [];",
+                  "if (o === Object.prototype || o === Number.prototype",
+                  "|| o === String.prototype) o = {};",
+                  "if (o === Array.prototype) o = [];"
+                ]
+              }
+            ],
+            "basis": "ancestry",
+            "result": "verified",
+            "note": "Tag v1.2.3 and npm's gitHead agree. Not ancestors but every line they add is present (backport or squash merge): 10bd4cdf49."
+          },
+          {
+            "version": "1.2.2",
+            "role": "vulnerable",
+            "repo": "minimistjs/minimist",
+            "fixCommits": [
+              "10bd4cdf49d9686d48214be9d579a9cdfda37c68",
+              "38a4d1caead72ef99e824bb420a2528eec03d9ab",
+              "63e7ed05aa4b1889ec2f3b196426db4500cbda94"
+            ],
+            "tag": "v1.2.2",
+            "tagCommit": "f34df077a6b2bee1344188849a95e66777109e89",
+            "registryGitHead": "f34df077a6b2bee1344188849a95e66777109e89",
+            "releaseCommit": "f34df077a6b2bee1344188849a95e66777109e89",
+            "releaseSource": "registry_git_head",
+            "byAncestry": [
+              "63e7ed05aa4b1889ec2f3b196426db4500cbda94"
+            ],
+            "basis": "ancestry",
+            "result": "mismatch",
+            "note": "Tag v1.2.2 and npm's gitHead agree. Vulnerable release 1.2.2 already contains linked commit 63e7ed05aa, so that commit was a partial fix or the version range is wrong."
+          }
+        ]
+      },
+      "excludedChanges": [
+        "build",
+        "docs",
+        "tests"
+      ],
+      "notes": "Selected patch_reference with 1 candidate symbol(s). advisory_metadata: empty. Visibility read from npm:minimist@1.2.2: 1 of 1 candidate(s) public or completely resolved."
+    },
+    {
+      "findingId": "c07",
+      "vulnerabilityId": "CVE-2022-24999",
+      "purl": "pkg:npm/qs@6.10.2",
+      "method": "patch_reference",
+      "confidence": "high",
+      "candidateSymbols": [
+        {
+          "symbol": "parseObject",
+          "modulePath": "lib/parse.js",
+          "changeKind": "modified",
+          "note": "not exported from this file; visibility internal via default, parse (incomplete): parseObject is not exported from lib/parse.js; another copy of parseObject is in dist/qs.js",
+          "evidence": [
+            "github:ljharb/qs@4310742efbd8c03f6495f07906b45213da0a32ec:lib/parse.js",
+            "github:ljharb/qs@da1eee03f599f3cdd802557874257091b3c4dac1:lib/parse.js",
+            "github:ljharb/qs@727ef5d34605108acb3513f72d5435972ed15b68:lib/parse.js",
+            "github:ljharb/qs@cd1874eb179950de3f5b32e708b4a3a2d0619501:lib/parse.js",
+            "github:ljharb/qs@73205259936317b40f447c5cdb71c5b341848e1b:lib/parse.js",
+            "github:ljharb/qs@65c669e99f2b43b7b004f73e109ed4259d165610:lib/parse.js",
+            "github:ljharb/qs@8b4cc14cda94a5c89341b77e5fe435ec6c41be2d:lib/parse.js",
+            "github:ljharb/qs@ad63d36ce18cd2c315899ac1e8193de22be08cd8:lib/parse.js",
+            "github:ljharb/qs@ba24e74dd17931f825adb52f5633e48293b584e1:lib/parse.js",
+            "github:ljharb/qs@f047c9d527c329017d3d94ccbb146e6de4cff75c:lib/parse.js",
+            "github:ljharb/qs@e799ba57e573a30c14b67c1889c7c04d508b9105:lib/parse.js",
+            "github:ljharb/qs@02ca358155297dc68fcc4c2ac312c26e10524e47:lib/parse.js",
+            "github:ljharb/qs@ed0f5dcbef4b168a8ae299d78b1e4a2e9b1baf1f:lib/parse.js",
+            "github:ljharb/qs@691e739cfa40cd42604dc05a54e6154371a429ab:lib/parse.js",
+            "github:ljharb/qs@f945393cfe442fe8c6e62b4156fd35452c0686ee:lib/parse.js",
+            "github:ljharb/qs@a8d52864e61bf5eee69788492e03ed5041a0fcd4:lib/parse.js",
+            "github:ljharb/qs@fc3682776670524a42e19709ec4a8138d0d7afda:lib/parse.js",
+            "github:ljharb/qs@4e312c487def80b879d5359e0d1991ce17685191:lib/parse.js"
+          ],
+          "visibility": "internal",
+          "exposedVia": [
+            "default",
+            "parse"
+          ],
+          "exposedViaSource": "export_resolution",
+          "exposedViaComplete": false
+        },
+        {
+          "symbol": "parseObjectRecursive",
+          "modulePath": "lib/parse.js",
+          "changeKind": "modified",
+          "note": "also named parseObjectRecursive (function expression name of parseObject); visibility unknown: parseObjectRecursive is not defined in lib/parse.js in the published package",
+          "evidence": [
+            "github:ljharb/qs@4310742efbd8c03f6495f07906b45213da0a32ec:lib/parse.js",
+            "github:ljharb/qs@da1eee03f599f3cdd802557874257091b3c4dac1:lib/parse.js",
+            "github:ljharb/qs@727ef5d34605108acb3513f72d5435972ed15b68:lib/parse.js",
+            "github:ljharb/qs@cd1874eb179950de3f5b32e708b4a3a2d0619501:lib/parse.js"
+          ],
+          "visibility": "unknown"
+        }
+      ],
+      "vulnerableVersion": "6.10.2",
+      "fixedVersion": "6.10.3",
+      "provenance": {
+        "advisorySource": "osv",
+        "advisoryUrl": "https://osv.dev/vulnerability/GHSA-hrpp-h998-j3pp",
+        "patchCommit": "4310742efbd8c03f6495f07906b45213da0a32ec",
+        "patchUrl": "https://github.com/ljharb/qs/commit/4310742efbd8c03f6495f07906b45213da0a32ec",
+        "artefacts": [
+          {
+            "id": "advisory",
+            "kind": "advisory",
+            "url": "https://api.osv.dev/v1/vulns/GHSA-hrpp-h998-j3pp",
+            "sha256": "6c57c2128edb6828d7aa22262107af06ea22aa0fe2ccf7e2858e27edc9e7ff28",
+            "sizeBytes": 5136,
+            "verified": true,
+            "executed": false,
+            "modified": "2025-04-29T15:41:43Z"
+          },
+          {
+            "id": "github:ljharb/qs@4310742efbd8c03f6495f07906b45213da0a32ec:lib/parse.js",
+            "kind": "source_file",
+            "url": "https://github.com/ljharb/qs/blob/4310742efbd8c03f6495f07906b45213da0a32ec/lib/parse.js",
+            "sha256": "428cecb2f48d6b5774d77b7f9a91888852f85d524fb00737755a36f05c1b6f19",
+            "sizeBytes": 5628,
+            "verified": true,
+            "executed": false,
+            "repo": "ljharb/qs",
+            "commit": "4310742efbd8c03f6495f07906b45213da0a32ec",
+            "path": "lib/parse.js",
+            "gitBlobSha": "f4cde7d7cd40f7ac77433e10199c280e87147b28"
+          },
+          {
+            "id": "github:ljharb/qs@da1eee03f599f3cdd802557874257091b3c4dac1:lib/parse.js",
+            "kind": "source_file",
+            "url": "https://github.com/ljharb/qs/blob/da1eee03f599f3cdd802557874257091b3c4dac1/lib/parse.js",
+            "sha256": "45c1ed18fc84fd3fb4aff9e17595dbd0f18a67e8a109d91e21d7a8ee6fbb2a47",
+            "sizeBytes": 5597,
+            "verified": true,
+            "executed": false,
+            "repo": "ljharb/qs",
+            "commit": "da1eee03f599f3cdd802557874257091b3c4dac1",
+            "path": "lib/parse.js",
+            "gitBlobSha": "81e415cc71d8a3cf9f0687c4c5289151229a4b55"
+          },
+          {
+            "id": "github:ljharb/qs@727ef5d34605108acb3513f72d5435972ed15b68:lib/parse.js",
+            "kind": "source_file",
+            "url": "https://github.com/ljharb/qs/blob/727ef5d34605108acb3513f72d5435972ed15b68/lib/parse.js",
+            "sha256": "428cecb2f48d6b5774d77b7f9a91888852f85d524fb00737755a36f05c1b6f19",
+            "sizeBytes": 5628,
+            "verified": true,
+            "executed": false,
+            "repo": "ljharb/qs",
+            "commit": "727ef5d34605108acb3513f72d5435972ed15b68",
+            "path": "lib/parse.js",
+            "gitBlobSha": "f4cde7d7cd40f7ac77433e10199c280e87147b28"
+          },
+          {
+            "id": "github:ljharb/qs@cd1874eb179950de3f5b32e708b4a3a2d0619501:lib/parse.js",
+            "kind": "source_file",
+            "url": "https://github.com/ljharb/qs/blob/cd1874eb179950de3f5b32e708b4a3a2d0619501/lib/parse.js",
+            "sha256": "45c1ed18fc84fd3fb4aff9e17595dbd0f18a67e8a109d91e21d7a8ee6fbb2a47",
+            "sizeBytes": 5597,
+            "verified": true,
+            "executed": false,
+            "repo": "ljharb/qs",
+            "commit": "cd1874eb179950de3f5b32e708b4a3a2d0619501",
+            "path": "lib/parse.js",
+            "gitBlobSha": "81e415cc71d8a3cf9f0687c4c5289151229a4b55"
+          },
+          {
+            "id": "github:ljharb/qs@73205259936317b40f447c5cdb71c5b341848e1b:lib/parse.js",
+            "kind": "source_file",
+            "url": "https://github.com/ljharb/qs/blob/73205259936317b40f447c5cdb71c5b341848e1b/lib/parse.js",
+            "sha256": "c27668e479c29324a2309725ddeb1668a3e27ad410d7b21fcec66250c67c9b79",
+            "sizeBytes": 8320,
+            "verified": true,
+            "executed": false,
+            "repo": "ljharb/qs",
+            "commit": "73205259936317b40f447c5cdb71c5b341848e1b",
+            "path": "lib/parse.js",
+            "gitBlobSha": "9b4c4cd3acf62a623b5b484eed2aff05525885ee"
+          },
+          {
+            "id": "github:ljharb/qs@65c669e99f2b43b7b004f73e109ed4259d165610:lib/parse.js",
+            "kind": "source_file",
+            "url": "https://github.com/ljharb/qs/blob/65c669e99f2b43b7b004f73e109ed4259d165610/lib/parse.js",
+            "sha256": "55dc6b5be6fc5d3ee50cd3985e8f0eb77833fd12f383058f2671fcc9c042e693",
+            "sizeBytes": 8289,
+            "verified": true,
+            "executed": false,
+            "repo": "ljharb/qs",
+            "commit": "65c669e99f2b43b7b004f73e109ed4259d165610",
+            "path": "lib/parse.js",
+            "gitBlobSha": "13f57129bcc166b7bb69df38618abbd6999d818b"
+          },
+          {
+            "id": "github:ljharb/qs@8b4cc14cda94a5c89341b77e5fe435ec6c41be2d:lib/parse.js",
+            "kind": "source_file",
+            "url": "https://github.com/ljharb/qs/blob/8b4cc14cda94a5c89341b77e5fe435ec6c41be2d/lib/parse.js",
+            "sha256": "9611d65366166f5f826b647f6f2dc25ad94eb5d0259e9646bfd13784dfce907c",
+            "sizeBytes": 9380,
+            "verified": true,
+            "executed": false,
+            "repo": "ljharb/qs",
+            "commit": "8b4cc14cda94a5c89341b77e5fe435ec6c41be2d",
+            "path": "lib/parse.js",
+            "gitBlobSha": "a4ac4fa07e8a59cb712bdc62ac2ba985afd9eca8"
+          },
+          {
+            "id": "github:ljharb/qs@ad63d36ce18cd2c315899ac1e8193de22be08cd8:lib/parse.js",
+            "kind": "source_file",
+            "url": "https://github.com/ljharb/qs/blob/ad63d36ce18cd2c315899ac1e8193de22be08cd8/lib/parse.js",
+            "sha256": "9ed80bf4dc5eb2d4c609173bf50b18a53799199418795ce148f3e5abfae7ff8a",
+            "sizeBytes": 9349,
+            "verified": true,
+            "executed": false,
+            "repo": "ljharb/qs",
+            "commit": "ad63d36ce18cd2c315899ac1e8193de22be08cd8",
+            "path": "lib/parse.js",
+            "gitBlobSha": "c833315c09822466e70d6348795ae92b6734ceca"
+          },
+          {
+            "id": "github:ljharb/qs@ba24e74dd17931f825adb52f5633e48293b584e1:lib/parse.js",
+            "kind": "source_file",
+            "url": "https://github.com/ljharb/qs/blob/ba24e74dd17931f825adb52f5633e48293b584e1/lib/parse.js",
+            "sha256": "21f1d52a3a0635c4cbe2c15a0bc95fbf5f444aa8a03538f19ee630bd5a494e2d",
+            "sizeBytes": 5597,
+            "verified": true,
+            "executed": false,
+            "repo": "ljharb/qs",
+            "commit": "ba24e74dd17931f825adb52f5633e48293b584e1",
+            "path": "lib/parse.js",
+            "gitBlobSha": "4bc5e2149ef05de7ff5d085ccaa1295d6717c933"
+          },
+          {
+            "id": "github:ljharb/qs@f047c9d527c329017d3d94ccbb146e6de4cff75c:lib/parse.js",
+            "kind": "source_file",
+            "url": "https://github.com/ljharb/qs/blob/f047c9d527c329017d3d94ccbb146e6de4cff75c/lib/parse.js",
+            "sha256": "99661383847bb12728b7d3a124a9712521b7d8f516394d71af37c3ed199a05fa",
+            "sizeBytes": 5566,
+            "verified": true,
+            "executed": false,
+            "repo": "ljharb/qs",
+            "commit": "f047c9d527c329017d3d94ccbb146e6de4cff75c",
+            "path": "lib/parse.js",
+            "gitBlobSha": "7ef09a855034e5ec758a567974ced37710cc05dc"
+          },
+          {
+            "id": "github:ljharb/qs@e799ba57e573a30c14b67c1889c7c04d508b9105:lib/parse.js",
+            "kind": "source_file",
+            "url": "https://github.com/ljharb/qs/blob/e799ba57e573a30c14b67c1889c7c04d508b9105/lib/parse.js",
+            "sha256": "3a2e96b6bbc2ac1e0e4ac7f23777f40760bfb2f40f00df0fa5391ae5cfa9c32c",
+            "sizeBytes": 9187,
+            "verified": true,
+            "executed": false,
+            "repo": "ljharb/qs",
+            "commit": "e799ba57e573a30c14b67c1889c7c04d508b9105",
+            "path": "lib/parse.js",
+            "gitBlobSha": "698a310dee80fd4562bcd639524a3a67bde688c9"
+          },
+          {
+            "id": "github:ljharb/qs@02ca358155297dc68fcc4c2ac312c26e10524e47:lib/parse.js",
+            "kind": "source_file",
+            "url": "https://github.com/ljharb/qs/blob/02ca358155297dc68fcc4c2ac312c26e10524e47/lib/parse.js",
+            "sha256": "de5b2232135020c6538676a40ecdac15423a4d43a32fdca416f9258c731522c1",
+            "sizeBytes": 9156,
+            "verified": true,
+            "executed": false,
+            "repo": "ljharb/qs",
+            "commit": "02ca358155297dc68fcc4c2ac312c26e10524e47",
+            "path": "lib/parse.js",
+            "gitBlobSha": "553498b450cba7210e59bea11043a1a44f4a653d"
+          },
+          {
+            "id": "github:ljharb/qs@ed0f5dcbef4b168a8ae299d78b1e4a2e9b1baf1f:lib/parse.js",
+            "kind": "source_file",
+            "url": "https://github.com/ljharb/qs/blob/ed0f5dcbef4b168a8ae299d78b1e4a2e9b1baf1f/lib/parse.js",
+            "sha256": "e8f0fdf99ac9a5471b80e1357bed09d0696e83773fe1952e0c1b15f63ad65eaa",
+            "sizeBytes": 5950,
+            "verified": true,
+            "executed": false,
+            "repo": "ljharb/qs",
+            "commit": "ed0f5dcbef4b168a8ae299d78b1e4a2e9b1baf1f",
+            "path": "lib/parse.js",
+            "gitBlobSha": "cb7127d92b7ee2327a33f615ef153c6a81195878"
+          },
+          {
+            "id": "github:ljharb/qs@691e739cfa40cd42604dc05a54e6154371a429ab:lib/parse.js",
+            "kind": "source_file",
+            "url": "https://github.com/ljharb/qs/blob/691e739cfa40cd42604dc05a54e6154371a429ab/lib/parse.js",
+            "sha256": "9b98fa90784ad243ab4716f5c830888cfbb1fd66194c638f14aa32f2b09e92ed",
+            "sizeBytes": 5919,
+            "verified": true,
+            "executed": false,
+            "repo": "ljharb/qs",
+            "commit": "691e739cfa40cd42604dc05a54e6154371a429ab",
+            "path": "lib/parse.js",
+            "gitBlobSha": "4abc1a70e686b33973082b6837a4073540d6faae"
+          },
+          {
+            "id": "github:ljharb/qs@f945393cfe442fe8c6e62b4156fd35452c0686ee:lib/parse.js",
+            "kind": "source_file",
+            "url": "https://github.com/ljharb/qs/blob/f945393cfe442fe8c6e62b4156fd35452c0686ee/lib/parse.js",
+            "sha256": "cb813ebc9abd7474568f3692ffb1e8d284480ed1f096bd7db5b4b2d93e34d379",
+            "sizeBytes": 9299,
+            "verified": true,
+            "executed": false,
+            "repo": "ljharb/qs",
+            "commit": "f945393cfe442fe8c6e62b4156fd35452c0686ee",
+            "path": "lib/parse.js",
+            "gitBlobSha": "db330b608a630e5efe467667346bc602915ab307"
+          },
+          {
+            "id": "github:ljharb/qs@a8d52864e61bf5eee69788492e03ed5041a0fcd4:lib/parse.js",
+            "kind": "source_file",
+            "url": "https://github.com/ljharb/qs/blob/a8d52864e61bf5eee69788492e03ed5041a0fcd4/lib/parse.js",
+            "sha256": "79e644ef08d7c9c2599ce8ea63c8668f79496fdefb28bd866d8c599653480160",
+            "sizeBytes": 9268,
+            "verified": true,
+            "executed": false,
+            "repo": "ljharb/qs",
+            "commit": "a8d52864e61bf5eee69788492e03ed5041a0fcd4",
+            "path": "lib/parse.js",
+            "gitBlobSha": "fe1cf328e946ae0e05bc05afc38c5e9e563b7d37"
+          },
+          {
+            "id": "github:ljharb/qs@fc3682776670524a42e19709ec4a8138d0d7afda:lib/parse.js",
+            "kind": "source_file",
+            "url": "https://github.com/ljharb/qs/blob/fc3682776670524a42e19709ec4a8138d0d7afda/lib/parse.js",
+            "sha256": "334672adb16f38b27ecea13adfa9d121b0b870d57f6478bbb9696e20c7b4ef92",
+            "sizeBytes": 9401,
+            "verified": true,
+            "executed": false,
+            "repo": "ljharb/qs",
+            "commit": "fc3682776670524a42e19709ec4a8138d0d7afda",
+            "path": "lib/parse.js",
+            "gitBlobSha": "48cdad8adcd86a9da7a42fe7e78494f86e019179"
+          },
+          {
+            "id": "github:ljharb/qs@4e312c487def80b879d5359e0d1991ce17685191:lib/parse.js",
+            "kind": "source_file",
+            "url": "https://github.com/ljharb/qs/blob/4e312c487def80b879d5359e0d1991ce17685191/lib/parse.js",
+            "sha256": "6dd003792bff696889c4dfc0803ce649d3b039bea4f935c41fabc42325069668",
+            "sizeBytes": 9370,
+            "verified": true,
+            "executed": false,
+            "repo": "ljharb/qs",
+            "commit": "4e312c487def80b879d5359e0d1991ce17685191",
+            "path": "lib/parse.js",
+            "gitBlobSha": "177a569e48555e5f846cd58dc6a081fa2bc939ab"
+          },
+          {
+            "id": "npm:qs@6.10.2",
+            "kind": "tarball",
+            "url": "https://registry.npmjs.org/qs/-/qs-6.10.2.tgz",
+            "sha256": "02094e21dbd238fd54ade4e287b683c5518f19bc1519f542c6a3a1f38bbe5487",
+            "sizeBytes": 48776,
+            "verified": true,
+            "executed": false,
+            "version": "6.10.2",
+            "integrity": "sha512-mSIdjzqznWgfd4pMii7sHtaYF8rx8861hBO80SraY5GT0XQibWZWJSid0avzHGkDIZLImux2S5mXO0Hfct2QCw=="
+          }
+        ],
+        "tagChecks": [
+          {
+            "version": "6.10.3",
+            "role": "fixed",
+            "repo": "ljharb/qs",
+            "fixCommits": [
+              "4310742efbd8c03f6495f07906b45213da0a32ec",
+              "727ef5d34605108acb3513f72d5435972ed15b68",
+              "73205259936317b40f447c5cdb71c5b341848e1b",
+              "8b4cc14cda94a5c89341b77e5fe435ec6c41be2d",
+              "ba24e74dd17931f825adb52f5633e48293b584e1",
+              "e799ba57e573a30c14b67c1889c7c04d508b9105",
+              "ed0f5dcbef4b168a8ae299d78b1e4a2e9b1baf1f",
+              "f945393cfe442fe8c6e62b4156fd35452c0686ee",
+              "fc3682776670524a42e19709ec4a8138d0d7afda"
+            ],
+            "tag": "v6.10.3",
+            "tagCommit": "f92ddb56089ae2c74f5ca7b0447fef3a97e8c9bc",
+            "registryGitHead": "f92ddb56089ae2c74f5ca7b0447fef3a97e8c9bc",
+            "releaseCommit": "f92ddb56089ae2c74f5ca7b0447fef3a97e8c9bc",
+            "releaseSource": "registry_git_head",
+            "byAncestry": [
+              "8b4cc14cda94a5c89341b77e5fe435ec6c41be2d"
+            ],
+            "byContent": [
+              "4310742efbd8c03f6495f07906b45213da0a32ec",
+              "727ef5d34605108acb3513f72d5435972ed15b68",
+              "73205259936317b40f447c5cdb71c5b341848e1b",
+              "ba24e74dd17931f825adb52f5633e48293b584e1",
+              "e799ba57e573a30c14b67c1889c7c04d508b9105",
+              "ed0f5dcbef4b168a8ae299d78b1e4a2e9b1baf1f",
+              "f945393cfe442fe8c6e62b4156fd35452c0686ee",
+              "fc3682776670524a42e19709ec4a8138d0d7afda"
+            ],
+            "content": [
+              {
+                "commit": "4310742efbd8c03f6495f07906b45213da0a32ec",
+                "parent": "da1eee03f599f3cdd802557874257091b3c4dac1",
+                "path": "lib/parse.js",
+                "lines": [
+                  "} else if (cleanRoot !== '__proto__') {"
+                ]
+              },
+              {
+                "commit": "727ef5d34605108acb3513f72d5435972ed15b68",
+                "parent": "cd1874eb179950de3f5b32e708b4a3a2d0619501",
+                "path": "lib/parse.js",
+                "lines": [
+                  "} else if (cleanRoot !== '__proto__') {"
+                ]
+              },
+              {
+                "commit": "73205259936317b40f447c5cdb71c5b341848e1b",
+                "parent": "65c669e99f2b43b7b004f73e109ed4259d165610",
+                "path": "lib/parse.js",
+                "lines": [
+                  "} else if (cleanRoot !== '__proto__') {"
+                ]
+              },
+              {
+                "commit": "ba24e74dd17931f825adb52f5633e48293b584e1",
+                "parent": "f047c9d527c329017d3d94ccbb146e6de4cff75c",
+                "path": "lib/parse.js",
+                "lines": [
+                  "} else if (cleanRoot !== '__proto__') {"
+                ]
+              },
+              {
+                "commit": "e799ba57e573a30c14b67c1889c7c04d508b9105",
+                "parent": "02ca358155297dc68fcc4c2ac312c26e10524e47",
+                "path": "lib/parse.js",
+                "lines": [
+                  "} else if (cleanRoot !== '__proto__') {"
+                ]
+              },
+              {
+                "commit": "ed0f5dcbef4b168a8ae299d78b1e4a2e9b1baf1f",
+                "parent": "691e739cfa40cd42604dc05a54e6154371a429ab",
+                "path": "lib/parse.js",
+                "lines": [
+                  "} else if (cleanRoot !== '__proto__') {"
+                ]
+              },
+              {
+                "commit": "f945393cfe442fe8c6e62b4156fd35452c0686ee",
+                "parent": "a8d52864e61bf5eee69788492e03ed5041a0fcd4",
+                "path": "lib/parse.js",
+                "lines": [
+                  "} else if (cleanRoot !== '__proto__') {"
+                ]
+              },
+              {
+                "commit": "fc3682776670524a42e19709ec4a8138d0d7afda",
+                "parent": "4e312c487def80b879d5359e0d1991ce17685191",
+                "path": "lib/parse.js",
+                "lines": [
+                  "} else if (cleanRoot !== '__proto__') {"
+                ]
+              }
+            ],
+            "basis": "ancestry",
+            "result": "verified",
+            "note": "Tag v6.10.3 and npm's gitHead agree. Not ancestors but every line they add is present (backport or squash merge): 4310742efb, 727ef5d346, 7320525993, ba24e74dd1, e799ba57e5, ed0f5dcbef, f945393cfe, fc36827766."
+          },
+          {
+            "version": "6.10.2",
+            "role": "vulnerable",
+            "repo": "ljharb/qs",
+            "fixCommits": [
+              "4310742efbd8c03f6495f07906b45213da0a32ec",
+              "727ef5d34605108acb3513f72d5435972ed15b68",
+              "73205259936317b40f447c5cdb71c5b341848e1b",
+              "8b4cc14cda94a5c89341b77e5fe435ec6c41be2d",
+              "ba24e74dd17931f825adb52f5633e48293b584e1",
+              "e799ba57e573a30c14b67c1889c7c04d508b9105",
+              "ed0f5dcbef4b168a8ae299d78b1e4a2e9b1baf1f",
+              "f945393cfe442fe8c6e62b4156fd35452c0686ee",
+              "fc3682776670524a42e19709ec4a8138d0d7afda"
+            ],
+            "tag": "v6.10.2",
+            "tagCommit": "408ff95f1ab94ea73027bc8a7443afb62d41a72d",
+            "registryGitHead": "408ff95f1ab94ea73027bc8a7443afb62d41a72d",
+            "releaseCommit": "408ff95f1ab94ea73027bc8a7443afb62d41a72d",
+            "releaseSource": "registry_git_head",
+            "basis": "ancestry",
+            "result": "verified",
+            "note": "Tag v6.10.2 and npm's gitHead agree."
+          }
+        ]
+      },
+      "excludedChanges": [
+        "tests"
+      ],
+      "notes": "Selected patch_reference with 2 candidate symbol(s). advisory_metadata: empty. Visibility read from npm:qs@6.10.2: 0 of 2 candidate(s) public or completely resolved."
+    },
+    {
+      "findingId": "c08",
+      "vulnerabilityId": "CVE-2022-0235",
+      "purl": "pkg:npm/node-fetch@2.6.6",
+      "method": "patch_reference",
+      "confidence": "high",
+      "candidateSymbols": [
+        {
+          "symbol": "isDomainOrSubdomain",
+          "modulePath": "src/index.js",
+          "changeKind": "modified",
+          "note": "not exported from this file; visibility unknown: src/index.js is not in the published vulnerable package",
+          "evidence": [
+            "github:node-fetch/node-fetch@1ef4b560a17e644a02a3bfdea7631ffeee578b35:src/index.js"
+          ],
+          "visibility": "unknown"
+        },
+        {
+          "symbol": "fetch",
+          "modulePath": "src/index.js",
+          "changeKind": "modified",
+          "note": "exported as default; visibility unknown: src/index.js is not in the published vulnerable package",
+          "evidence": [
+            "github:node-fetch/node-fetch@1ef4b560a17e644a02a3bfdea7631ffeee578b35:src/index.js",
+            "github:node-fetch/node-fetch@8fe5c4ea66b9b8187600e6d5ec9b1b6781f44009:src/index.js"
+          ],
+          "visibility": "unknown"
+        },
+        {
+          "symbol": "default",
+          "modulePath": "src/index.js",
+          "changeKind": "modified",
+          "note": "export alias of fetch; visibility unknown: src/index.js is not in the published vulnerable package",
+          "evidence": [
+            "github:node-fetch/node-fetch@1ef4b560a17e644a02a3bfdea7631ffeee578b35:src/index.js",
+            "github:node-fetch/node-fetch@8fe5c4ea66b9b8187600e6d5ec9b1b6781f44009:src/index.js"
+          ],
+          "visibility": "unknown"
+        }
+      ],
+      "vulnerableVersion": "2.6.6",
+      "fixedVersion": "2.6.7",
+      "provenance": {
+        "advisorySource": "osv",
+        "advisoryUrl": "https://osv.dev/vulnerability/GHSA-r683-j2x4-v87g",
+        "patchCommit": "1ef4b560a17e644a02a3bfdea7631ffeee578b35",
+        "patchUrl": "https://github.com/node-fetch/node-fetch/commit/1ef4b560a17e644a02a3bfdea7631ffeee578b35",
+        "artefacts": [
+          {
+            "id": "advisory",
+            "kind": "advisory",
+            "url": "https://api.osv.dev/v1/vulns/GHSA-r683-j2x4-v87g",
+            "sha256": "ec9c8cf7336ae55c230a45625a4955ab2a225148845c41fb4ee7627881e45173",
+            "sizeBytes": 2272,
+            "verified": true,
+            "executed": false,
+            "modified": "2023-11-08T04:07:30.211593Z"
+          },
+          {
+            "id": "github:node-fetch/node-fetch@1ef4b560a17e644a02a3bfdea7631ffeee578b35:src/index.js",
+            "kind": "source_file",
+            "url": "https://github.com/node-fetch/node-fetch/blob/1ef4b560a17e644a02a3bfdea7631ffeee578b35/src/index.js",
+            "sha256": "5752ac0b24c6964af24c78948d0b4c8896ab573a7b200743601f7add83daef16",
+            "sizeBytes": 8999,
+            "verified": true,
+            "executed": false,
+            "repo": "node-fetch/node-fetch",
+            "commit": "1ef4b560a17e644a02a3bfdea7631ffeee578b35",
+            "path": "src/index.js",
+            "gitBlobSha": "b210d28e4a1d5f463fb64345fd4ade55f05ae9ba"
+          },
+          {
+            "id": "github:node-fetch/node-fetch@8fe5c4ea66b9b8187600e6d5ec9b1b6781f44009:src/index.js",
+            "kind": "source_file",
+            "url": "https://github.com/node-fetch/node-fetch/blob/8fe5c4ea66b9b8187600e6d5ec9b1b6781f44009/src/index.js",
+            "sha256": "6b555e569db90ea3817330adb68a39def496629fd888e6a2d8ee5bd9f8c107d6",
+            "sizeBytes": 8056,
+            "verified": true,
+            "executed": false,
+            "repo": "node-fetch/node-fetch",
+            "commit": "8fe5c4ea66b9b8187600e6d5ec9b1b6781f44009",
+            "path": "src/index.js",
+            "gitBlobSha": "03b56f733549b00a1abc942f29a7013bdb37036c"
+          },
+          {
+            "id": "npm:node-fetch@2.6.6",
+            "kind": "tarball",
+            "url": "https://registry.npmjs.org/node-fetch/-/node-fetch-2.6.6.tgz",
+            "sha256": "023e40f57ee7fd06c5ae2b20a8e9ee1abcb6469c3e5d733d5a47f4fe9c6c9ebc",
+            "sizeBytes": 40891,
+            "verified": true,
+            "executed": false,
+            "version": "2.6.6",
+            "integrity": "sha512-Z8/6vRlTUChSdIgMa51jxQ4lrw/Jy5SOW10ObaA47/RElsAN2c5Pn8bTgFGWn/ibwzXTE8qwr1Yzx28vsecXEA=="
+          }
+        ],
+        "tagChecks": [
+          {
+            "version": "2.6.7",
+            "role": "fixed",
+            "repo": "node-fetch/node-fetch",
+            "fixCommits": [
+              "1ef4b560a17e644a02a3bfdea7631ffeee578b35"
+            ],
+            "tag": "v2.6.7",
+            "tagCommit": "1ef4b560a17e644a02a3bfdea7631ffeee578b35",
+            "registryGitHead": "1ef4b560a17e644a02a3bfdea7631ffeee578b35",
+            "releaseCommit": "1ef4b560a17e644a02a3bfdea7631ffeee578b35",
+            "releaseSource": "registry_git_head",
+            "byAncestry": [
+              "1ef4b560a17e644a02a3bfdea7631ffeee578b35"
+            ],
+            "basis": "ancestry",
+            "result": "verified",
+            "note": "Tag v2.6.7 and npm's gitHead agree."
+          },
+          {
+            "version": "2.6.6",
+            "role": "vulnerable",
+            "repo": "node-fetch/node-fetch",
+            "fixCommits": [
+              "1ef4b560a17e644a02a3bfdea7631ffeee578b35"
+            ],
+            "tag": "v2.6.6",
+            "tagCommit": "f56b0c66d3dd2ef185436de1f2fd40f66bfea8f4",
+            "registryGitHead": "f56b0c66d3dd2ef185436de1f2fd40f66bfea8f4",
+            "releaseCommit": "f56b0c66d3dd2ef185436de1f2fd40f66bfea8f4",
+            "releaseSource": "registry_git_head",
+            "basis": "ancestry",
+            "result": "verified",
+            "note": "Tag v2.6.6 and npm's gitHead agree."
+          }
+        ]
+      },
+      "excludedChanges": [
+        "build",
+        "tests"
+      ],
+      "notes": "Selected patch_reference with 3 candidate symbol(s). advisory_metadata: empty. Non-function changes: URL (src/index.js), resolve_url (src/index.js). Visibility read from npm:node-fetch@2.6.6: 0 of 3 candidate(s) public or completely resolved."
+    },
+    {
+      "findingId": "c09",
+      "vulnerabilityId": "CVE-2021-3807",
+      "purl": "pkg:npm/ansi-regex@5.0.0",
+      "method": "patch_reference",
+      "confidence": "high",
+      "candidateSymbols": [
+        {
+          "symbol": "default",
+          "modulePath": "index.js",
+          "changeKind": "modified",
+          "note": "exported as default; visibility public: exported as default",
+          "evidence": [
+            "github:chalk/ansi-regex@419250fa510bf31b4cc672e76537a64f9332e1f1:index.js",
+            "github:chalk/ansi-regex@0a8cc19946c03c38520fe8c086b8adb66f9cce0b:index.js",
+            "github:chalk/ansi-regex@75a657da7af875b2e2724fd6331bf0a4b23d3c9a:index.js",
+            "github:chalk/ansi-regex@a079ab2d30cfb752a3f247dcf358d0a591c288c5:index.js",
+            "github:chalk/ansi-regex@8d1d7cdb586269882c4bdc1b7325d0c58c8f76f9:index.js",
+            "github:chalk/ansi-regex@c1b5e45f7c65a332ffb03ac8e5804ad37c579cdc:index.js",
+            "github:chalk/ansi-regex@c3c0b3f2736b9c01feec0fef33980c43720dcde8:index.js",
+            "github:chalk/ansi-regex@178363b3a297b712a0054e702d8ddde3879913e5:index.js"
+          ],
+          "visibility": "public"
+        },
+        {
+          "symbol": "ansiRegex",
+          "modulePath": "index.js",
+          "changeKind": "modified",
+          "note": "exported as default; visibility unknown: ansiRegex is not defined in index.js in the published package",
+          "evidence": [
+            "github:chalk/ansi-regex@8d1d7cdb586269882c4bdc1b7325d0c58c8f76f9:index.js",
+            "github:chalk/ansi-regex@c1b5e45f7c65a332ffb03ac8e5804ad37c579cdc:index.js"
+          ],
+          "visibility": "unknown"
+        }
+      ],
+      "vulnerableVersion": "5.0.0",
+      "fixedVersion": "5.0.1",
+      "provenance": {
+        "advisorySource": "osv",
+        "advisoryUrl": "https://osv.dev/vulnerability/GHSA-93q8-gq69-wqmw",
+        "patchCommit": "419250fa510bf31b4cc672e76537a64f9332e1f1",
+        "patchUrl": "https://github.com/chalk/ansi-regex/commit/419250fa510bf31b4cc672e76537a64f9332e1f1",
+        "artefacts": [
+          {
+            "id": "advisory",
+            "kind": "advisory",
+            "url": "https://api.osv.dev/v1/vulns/GHSA-93q8-gq69-wqmw",
+            "sha256": "27db2302d3525100e7b6149041b39ed004486a5895d6042ff0a2f9b895dbabba",
+            "sizeBytes": 3619,
+            "verified": true,
+            "executed": false,
+            "modified": "2026-09-10T03:49:08.570265604Z"
+          },
+          {
+            "id": "github:chalk/ansi-regex@419250fa510bf31b4cc672e76537a64f9332e1f1:index.js",
+            "kind": "source_file",
+            "url": "https://github.com/chalk/ansi-regex/blob/419250fa510bf31b4cc672e76537a64f9332e1f1/index.js",
+            "sha256": "e2e1f0d8f3eda9017aae93604e5e8f6ac0de0d7cad80b68842026454e48d2492",
+            "sizeBytes": 286,
+            "verified": true,
+            "executed": false,
+            "repo": "chalk/ansi-regex",
+            "commit": "419250fa510bf31b4cc672e76537a64f9332e1f1",
+            "path": "index.js",
+            "gitBlobSha": "93f162cc4895f30d5448cc03db8f0d7629f3f745"
+          },
+          {
+            "id": "github:chalk/ansi-regex@0a8cc19946c03c38520fe8c086b8adb66f9cce0b:index.js",
+            "kind": "source_file",
+            "url": "https://github.com/chalk/ansi-regex/blob/0a8cc19946c03c38520fe8c086b8adb66f9cce0b/index.js",
+            "sha256": "4f5fa14015175c39bd0f89222c316be12dc7851c0d55d625b1e3835d73a5f1a7",
+            "sizeBytes": 253,
+            "verified": true,
+            "executed": false,
+            "repo": "chalk/ansi-regex",
+            "commit": "0a8cc19946c03c38520fe8c086b8adb66f9cce0b",
+            "path": "index.js",
+            "gitBlobSha": "c4aaecf5050639b636288b7334b31f12cbb8eb37"
+          },
+          {
+            "id": "github:chalk/ansi-regex@75a657da7af875b2e2724fd6331bf0a4b23d3c9a:index.js",
+            "kind": "source_file",
+            "url": "https://github.com/chalk/ansi-regex/blob/75a657da7af875b2e2724fd6331bf0a4b23d3c9a/index.js",
+            "sha256": "2a230da2682a35c0c759851835ad29ce456e09929beb33bf23f97e01e517c967",
+            "sizeBytes": 400,
+            "verified": true,
+            "executed": false,
+            "repo": "chalk/ansi-regex",
+            "commit": "75a657da7af875b2e2724fd6331bf0a4b23d3c9a",
+            "path": "index.js",
+            "gitBlobSha": "9e37ec3def168c0b91239051537be57a7f1fc3fd"
+          },
+          {
+            "id": "github:chalk/ansi-regex@a079ab2d30cfb752a3f247dcf358d0a591c288c5:index.js",
+            "kind": "source_file",
+            "url": "https://github.com/chalk/ansi-regex/blob/a079ab2d30cfb752a3f247dcf358d0a591c288c5/index.js",
+            "sha256": "b03490694d3582453bf41972298bd018f39886a72d895db6d5f98ee057462c62",
+            "sizeBytes": 367,
+            "verified": true,
+            "executed": false,
+            "repo": "chalk/ansi-regex",
+            "commit": "a079ab2d30cfb752a3f247dcf358d0a591c288c5",
+            "path": "index.js",
+            "gitBlobSha": "c25448009f304dc0d30b2c0d3c94e89f1f1e20c0"
+          },
+          {
+            "id": "github:chalk/ansi-regex@8d1d7cdb586269882c4bdc1b7325d0c58c8f76f9:index.js",
+            "kind": "source_file",
+            "url": "https://github.com/chalk/ansi-regex/blob/8d1d7cdb586269882c4bdc1b7325d0c58c8f76f9/index.js",
+            "sha256": "110c5fe554eccdda9b95be9a33edd4d4e867c8432460a8f39c9b7ff841b00772",
+            "sizeBytes": 350,
+            "verified": true,
+            "executed": false,
+            "repo": "chalk/ansi-regex",
+            "commit": "8d1d7cdb586269882c4bdc1b7325d0c58c8f76f9",
+            "path": "index.js",
+            "gitBlobSha": "130a0929b8ce8ce9a047e582bb368cfe05219bd5"
+          },
+          {
+            "id": "github:chalk/ansi-regex@c1b5e45f7c65a332ffb03ac8e5804ad37c579cdc:index.js",
+            "kind": "source_file",
+            "url": "https://github.com/chalk/ansi-regex/blob/c1b5e45f7c65a332ffb03ac8e5804ad37c579cdc/index.js",
+            "sha256": "f6763f4b5239a13712bc4ac66ad9e4698ae70c818a95baee090002f4e46ed46d",
+            "sizeBytes": 314,
+            "verified": true,
+            "executed": false,
+            "repo": "chalk/ansi-regex",
+            "commit": "c1b5e45f7c65a332ffb03ac8e5804ad37c579cdc",
+            "path": "index.js",
+            "gitBlobSha": "25a9ba7743c64cfd94676557d963cf7b06bf8135"
+          },
+          {
+            "id": "github:chalk/ansi-regex@c3c0b3f2736b9c01feec0fef33980c43720dcde8:index.js",
+            "kind": "source_file",
+            "url": "https://github.com/chalk/ansi-regex/blob/c3c0b3f2736b9c01feec0fef33980c43720dcde8/index.js",
+            "sha256": "57292b5d4d67103dd8d1d22fee624e7ab1f9d6f2f015d918d351b37af100b622",
+            "sizeBytes": 353,
+            "verified": true,
+            "executed": false,
+            "repo": "chalk/ansi-regex",
+            "commit": "c3c0b3f2736b9c01feec0fef33980c43720dcde8",
+            "path": "index.js",
+            "gitBlobSha": "624d38bc1315b73c5ae6566a74a7a42631a11f5b"
+          },
+          {
+            "id": "github:chalk/ansi-regex@178363b3a297b712a0054e702d8ddde3879913e5:index.js",
+            "kind": "source_file",
+            "url": "https://github.com/chalk/ansi-regex/blob/178363b3a297b712a0054e702d8ddde3879913e5/index.js",
+            "sha256": "68c194a1ed4d3dd61680cc1990aaefb0b2ff81308670a04b7e103b637ae0e1b3",
+            "sizeBytes": 317,
+            "verified": true,
+            "executed": false,
+            "repo": "chalk/ansi-regex",
+            "commit": "178363b3a297b712a0054e702d8ddde3879913e5",
+            "path": "index.js",
+            "gitBlobSha": "35054aa6774afea97dbee431544d90ecf9e0ff84"
+          },
+          {
+            "id": "npm:ansi-regex@5.0.0",
+            "kind": "tarball",
+            "url": "https://registry.npmjs.org/ansi-regex/-/ansi-regex-5.0.0.tgz",
+            "sha256": "6ee1bda34e578b6da23ca5ffda9dc971748c3c542f5fa999f818df5dc0323b99",
+            "sizeBytes": 2821,
+            "verified": true,
+            "executed": false,
+            "version": "5.0.0",
+            "integrity": "sha512-bY6fj56OUQ0hU1KjFNDQuJFezqKdrAyFdIevADiqrWHwSlbmBNMHp5ak2f40Pm8JTFyM2mqxkG6ngkHO11f/lg=="
+          }
+        ],
+        "tagChecks": [
+          {
+            "version": "5.0.1",
+            "role": "fixed",
+            "repo": "chalk/ansi-regex",
+            "fixCommits": [
+              "419250fa510bf31b4cc672e76537a64f9332e1f1",
+              "75a657da7af875b2e2724fd6331bf0a4b23d3c9a",
+              "8d1d7cdb586269882c4bdc1b7325d0c58c8f76f9",
+              "c3c0b3f2736b9c01feec0fef33980c43720dcde8"
+            ],
+            "tag": "v5.0.1",
+            "tagCommit": "a9babce885cf19c363cf1d1c645f834592c3f7a4",
+            "registryGitHead": "a9babce885cf19c363cf1d1c645f834592c3f7a4",
+            "releaseCommit": "a9babce885cf19c363cf1d1c645f834592c3f7a4",
+            "releaseSource": "registry_git_head",
+            "byAncestry": [
+              "c3c0b3f2736b9c01feec0fef33980c43720dcde8"
+            ],
+            "byContent": [
+              "75a657da7af875b2e2724fd6331bf0a4b23d3c9a",
+              "8d1d7cdb586269882c4bdc1b7325d0c58c8f76f9"
+            ],
+            "content": [
+              {
+                "commit": "75a657da7af875b2e2724fd6331bf0a4b23d3c9a",
+                "parent": "a079ab2d30cfb752a3f247dcf358d0a591c288c5",
+                "path": "index.js",
+                "lines": [
+                  "'[\\\\u001B\\\\u009B][[\\\\]()#;?]*(?:(?:(?:(?:;[-a-zA-Z\\\\d\\\\/#\u0026.:=?%@~_]+)*|[a-zA-Z\\\\d]+(?:;[-a-zA-Z\\\\d\\\\/#\u0026.:=?%@~_]*)*)?\\\\u0007)',"
+                ]
+              },
+              {
+                "commit": "8d1d7cdb586269882c4bdc1b7325d0c58c8f76f9",
+                "parent": "c1b5e45f7c65a332ffb03ac8e5804ad37c579cdc",
+                "path": "index.js",
+                "lines": [
+                  "'[\\\\u001B\\\\u009B][[\\\\]()#;?]*(?:(?:(?:(?:;[-a-zA-Z\\\\d\\\\/#\u0026.:=?%@~_]+)*|[a-zA-Z\\\\d]+(?:;[-a-zA-Z\\\\d\\\\/#\u0026.:=?%@~_]*)*)?\\\\u0007)',"
+                ]
+              }
+            ],
+            "basis": "ancestry",
+            "result": "verified",
+            "note": "Tag v5.0.1 and npm's gitHead agree. Not ancestors but every line they add is present (backport or squash merge): 75a657da7a, 8d1d7cdb58. Not in this release, so another release line or superseded: 419250fa51 (1 of 1 added line(s) missing from index.js)."
+          },
+          {
+            "version": "5.0.0",
+            "role": "vulnerable",
+            "repo": "chalk/ansi-regex",
+            "fixCommits": [
+              "419250fa510bf31b4cc672e76537a64f9332e1f1",
+              "75a657da7af875b2e2724fd6331bf0a4b23d3c9a",
+              "8d1d7cdb586269882c4bdc1b7325d0c58c8f76f9",
+              "c3c0b3f2736b9c01feec0fef33980c43720dcde8"
+            ],
+            "tag": "v5.0.0",
+            "tagCommit": "2b56fb0c7a07108e5b54241e8faec160d393aedb",
+            "registryGitHead": "2b56fb0c7a07108e5b54241e8faec160d393aedb",
+            "releaseCommit": "2b56fb0c7a07108e5b54241e8faec160d393aedb",
+            "releaseSource": "registry_git_head",
+            "basis": "ancestry",
+            "result": "verified",
+            "note": "Tag v5.0.0 and npm's gitHead agree."
+          }
+        ]
+      },
+      "notes": "Selected patch_reference with 2 candidate symbol(s). advisory_metadata: empty. Visibility read from npm:ansi-regex@5.0.0: 1 of 2 candidate(s) public or completely resolved."
+    },
+    {
+      "findingId": "c10",
+      "vulnerabilityId": "CVE-2022-38900",
+      "purl": "pkg:npm/decode-uri-component@0.2.0",
+      "method": "patch_reference",
+      "confidence": "high",
+      "candidateSymbols": [
+        {
+          "symbol": "decodeComponents",
+          "modulePath": "index.js",
+          "changeKind": "modified",
+          "note": "not exported from this file; visibility internal via default (complete): decodeComponents is not exported from index.js",
+          "evidence": [
+            "github:SamVerschueren/decode-uri-component@746ca5dcb6667c5d364e782d53c542830e4c10b9:index.js",
+            "github:SamVerschueren/decode-uri-component@486d7e26d3a8c0fbe860fb651fe1bc98c2f2be30:index.js"
+          ],
+          "visibility": "internal",
+          "exposedVia": [
+            "default"
+          ],
+          "exposedViaSource": "export_resolution",
+          "exposedViaComplete": true
+        },
+        {
+          "symbol": "decode",
+          "modulePath": "index.js",
+          "changeKind": "modified",
+          "note": "not exported from this file; visibility internal via default (complete): decode is not exported from index.js",
+          "evidence": [
+            "github:SamVerschueren/decode-uri-component@746ca5dcb6667c5d364e782d53c542830e4c10b9:index.js",
+            "github:SamVerschueren/decode-uri-component@486d7e26d3a8c0fbe860fb651fe1bc98c2f2be30:index.js"
+          ],
+          "visibility": "internal",
+          "exposedVia": [
+            "default"
+          ],
+          "exposedViaSource": "export_resolution",
+          "exposedViaComplete": true
+        }
+      ],
+      "vulnerableVersion": "0.2.0",
+      "fixedVersion": "0.2.1",
+      "provenance": {
+        "advisorySource": "osv",
+        "advisoryUrl": "https://osv.dev/vulnerability/GHSA-w573-4hg7-7wgq",
+        "patchCommit": "746ca5dcb6667c5d364e782d53c542830e4c10b9",
+        "patchUrl": "https://github.com/SamVerschueren/decode-uri-component/commit/746ca5dcb6667c5d364e782d53c542830e4c10b9",
+        "artefacts": [
+          {
+            "id": "advisory",
+            "kind": "advisory",
+            "url": "https://api.osv.dev/v1/vulns/GHSA-w573-4hg7-7wgq",
+            "sha256": "d8846819d3efd70a207fc74b349fef9663a5673075747b05a9f2ae5cf815ae78",
+            "sizeBytes": 2261,
+            "verified": true,
+            "executed": false,
+            "modified": "2023-11-08T04:10:14.135716Z"
+          },
+          {
+            "id": "github:SamVerschueren/decode-uri-component@746ca5dcb6667c5d364e782d53c542830e4c10b9:index.js",
+            "kind": "source_file",
+            "url": "https://github.com/SamVerschueren/decode-uri-component/blob/746ca5dcb6667c5d364e782d53c542830e4c10b9/index.js",
+            "sha256": "6942ae205c010aa68157150e977cd5da25c2d23fed10f3141a3caef4430a8920",
+            "sizeBytes": 2240,
+            "verified": true,
+            "executed": false,
+            "repo": "SamVerschueren/decode-uri-component",
+            "commit": "746ca5dcb6667c5d364e782d53c542830e4c10b9",
+            "path": "index.js",
+            "gitBlobSha": "d33e06ecafe0e347deef2beee16041bc845dd6b3"
+          },
+          {
+            "id": "github:SamVerschueren/decode-uri-component@486d7e26d3a8c0fbe860fb651fe1bc98c2f2be30:index.js",
+            "kind": "source_file",
+            "url": "https://github.com/SamVerschueren/decode-uri-component/blob/486d7e26d3a8c0fbe860fb651fe1bc98c2f2be30/index.js",
+            "sha256": "bc55aaac76b460487e4c05583ff244bc2ae85ad99da00059cd872773c48ea902",
+            "sizeBytes": 2226,
+            "verified": true,
+            "executed": false,
+            "repo": "SamVerschueren/decode-uri-component",
+            "commit": "486d7e26d3a8c0fbe860fb651fe1bc98c2f2be30",
+            "path": "index.js",
+            "gitBlobSha": "691499b0e8c4a7ea37774ee04187cd9ab86b5bb9"
+          },
+          {
+            "id": "npm:decode-uri-component@0.2.0",
+            "kind": "tarball",
+            "url": "https://registry.npmjs.org/decode-uri-component/-/decode-uri-component-0.2.0.tgz",
+            "sha256": "0a3e427c86cd249b0b402907132bf8ba85efb2a34ed1d2b3aa4694fd21730ad6",
+            "sizeBytes": 2691,
+            "verified": true,
+            "executed": false,
+            "version": "0.2.0",
+            "integrity": "sha512-hjf+xovcEn31w/EUYdTXQh/8smFL/dzYjohQGEIgjyNavaJfBY2p5F527Bo1VPATxv0VYTUC2bOcXvqFwk78Og=="
+          }
+        ],
+        "tagChecks": [
+          {
+            "version": "0.2.1",
+            "role": "fixed",
+            "repo": "SamVerschueren/decode-uri-component",
+            "fixCommits": [
+              "746ca5dcb6667c5d364e782d53c542830e4c10b9"
+            ],
+            "tag": "v0.2.1",
+            "tagCommit": "3c8a373dd4837e89b3f970e01295dd03e1405a33",
+            "registryGitHead": "3c8a373dd4837e89b3f970e01295dd03e1405a33",
+            "releaseCommit": "3c8a373dd4837e89b3f970e01295dd03e1405a33",
+            "releaseSource": "registry_git_head",
+            "byAncestry": [
+              "746ca5dcb6667c5d364e782d53c542830e4c10b9"
+            ],
+            "basis": "ancestry",
+            "result": "verified",
+            "note": "Tag v0.2.1 and npm's gitHead agree."
+          },
+          {
+            "version": "0.2.0",
+            "role": "vulnerable",
+            "repo": "SamVerschueren/decode-uri-component",
+            "fixCommits": [
+              "746ca5dcb6667c5d364e782d53c542830e4c10b9"
+            ],
+            "tag": "v0.2.0",
+            "tagCommit": "52782a347527a6a05fed02434ffcf8f2ba1b19a3",
+            "registryGitHead": "52782a347527a6a05fed02434ffcf8f2ba1b19a3",
+            "releaseCommit": "52782a347527a6a05fed02434ffcf8f2ba1b19a3",
+            "releaseSource": "registry_git_head",
+            "basis": "ancestry",
+            "result": "verified",
+            "note": "Tag v0.2.0 and npm's gitHead agree."
+          }
+        ]
+      },
+      "excludedChanges": [
+        "tests"
+      ],
+      "notes": "Selected patch_reference with 2 candidate symbol(s). advisory_metadata: empty. Visibility read from npm:decode-uri-component@0.2.0: 2 of 2 candidate(s) public or completely resolved."
+    }
+  ]
+}

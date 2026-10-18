@@ -1,3 +1,7 @@
+# Generated caches
+__pycache__/
+*.py[cod]
+
 bin/
 *.exe
 *.test
