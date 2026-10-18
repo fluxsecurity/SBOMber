@@ -13,7 +13,10 @@
         "kind": "dynamic_computed",
         "resolution": "unresolved",
         "file": "src/index.js",
-        "line": 2
+        "line": 2,
+        "purl": "",
+        "computedSpecifier": true,
+        "unresolvedReason": "computed_specifier"
       }
     ],
     "thirdPartyCalls": [],
@@ -25,5 +28,6 @@
         "reason": "computed_specifier"
       }
     ]
-  }
+  },
+  "reviewExpectationsAdded": "Package identity and safety assertions added after reviewer feedback; original import/call labels retain their history."
 }

@@ -13,7 +13,8 @@
         "kind": "dynamic_static_literal",
         "resolution": "resolved",
         "file": "src/index.js",
-        "line": 2
+        "line": 2,
+        "purl": "pkg:npm/lodash@4.17.21"
       }
     ],
     "thirdPartyCalls": [
@@ -28,5 +29,6 @@
     ],
     "unresolvedCalls": [],
     "excludedCalls": []
-  }
+  },
+  "reviewExpectationsAdded": "Package identity and safety assertions added after reviewer feedback; original import/call labels retain their history."
 }

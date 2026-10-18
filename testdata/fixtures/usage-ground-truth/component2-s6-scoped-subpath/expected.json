@@ -1,0 +1,31 @@
+{
+  "fixture": "component2-s6-scoped-subpath",
+  "construct": "package_subpath",
+  "language": "javascript",
+  "labelMethod": "author-labelled review addition before running the changed analyser",
+  "reviewExpectationsAdded": "Added in response to PR review; not part of the original prelabelled set.",
+  "expected": {
+    "thirdPartyImports": [
+      {
+        "file": "src/index.js",
+        "line": 1,
+        "specifier": "@example/tools/merge",
+        "imported": "merge",
+        "local": "merge",
+        "kind": "esm_named",
+        "resolution": "resolved",
+        "purl": "pkg:npm/%40example/tools@1.0.0"
+      }
+    ],
+    "thirdPartyCalls": [
+      {
+        "file": "src/index.js",
+        "line": 2,
+        "symbol": "merge",
+        "importLocal": "merge"
+      }
+    ],
+    "unresolvedCalls": [],
+    "excludedCalls": []
+  }
+}

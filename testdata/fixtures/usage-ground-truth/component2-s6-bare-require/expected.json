@@ -1,0 +1,24 @@
+{
+  "fixture": "component2-s6-bare-require",
+  "construct": "cjs_require",
+  "language": "javascript",
+  "labelMethod": "author-labelled review addition before running the changed analyser",
+  "reviewExpectationsAdded": "Added in response to PR review; not part of the original prelabelled set.",
+  "expected": {
+    "thirdPartyImports": [
+      {
+        "file": "src/index.js",
+        "line": 1,
+        "specifier": "lodash",
+        "imported": "",
+        "local": "",
+        "kind": "cjs_require",
+        "resolution": "resolved",
+        "purl": "pkg:npm/lodash@4.17.21"
+      }
+    ],
+    "thirdPartyCalls": [],
+    "unresolvedCalls": [],
+    "excludedCalls": []
+  }
+}

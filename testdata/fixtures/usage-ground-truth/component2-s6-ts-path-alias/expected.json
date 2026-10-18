@@ -12,7 +12,8 @@
         "kind": "esm_named",
         "resolution": "resolved",
         "file": "src/service.ts",
-        "line": 1
+        "line": 1,
+        "purl": "pkg:npm/lodash@4.17.21"
       }
     ],
     "thirdPartyCalls": [
@@ -27,5 +28,6 @@
     ],
     "unresolvedCalls": [],
     "excludedCalls": []
-  }
+  },
+  "reviewExpectationsAdded": "Package identity and safety assertions added after reviewer feedback; original import/call labels retain their history."
 }

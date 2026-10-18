@@ -11,7 +11,8 @@
         "local": "combine",
         "kind": "cjs_destructured",
         "file": "src/index.js",
-        "line": 1
+        "line": 1,
+        "purl": "pkg:npm/lodash@4.17.21"
       }
     ],
     "thirdPartyCalls": [
@@ -35,5 +36,6 @@
         "reason": "Function parameter shadows the destructured alias"
       }
     ]
-  }
+  },
+  "reviewExpectationsAdded": "Package identity and safety assertions added after reviewer feedback; original import/call labels retain their history."
 }

@@ -12,7 +12,8 @@
         "kind": "esm_type_only",
         "resolution": "type_only",
         "file": "src/index.ts",
-        "line": 1
+        "line": 1,
+        "purl": "pkg:npm/lodash@4.17.21"
       }
     ],
     "thirdPartyCalls": [],
@@ -35,5 +36,6 @@
     "originalValue": "esm_named",
     "correctedValue": "esm_type_only",
     "reason": "The TypeScript source uses import type. The existing parser contract classifies this construct as esm_type_only."
-  }
+  },
+  "reviewExpectationsAdded": "Package identity and safety assertions added after reviewer feedback; original import/call labels retain their history."
 }
