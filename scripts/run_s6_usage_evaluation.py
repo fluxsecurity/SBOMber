@@ -152,6 +152,7 @@ def main():
         "",
         "All metrics are based on controlled, author-labelled fixtures, not overall real-world scanner accuracy.",
         "A call metric of N/A means no measurable resolved/unresolved calls were present, not 100% accuracy.",
+        "Many cells contain just one labelled item. Read the TP/FP/FN counts and denominators before interpreting percentages.",
         "", "| Fixture | Import TP/FP/FN | Import P/R | Call TP/FP/FN | Call P/R | Unknown TP/FP/FN | Unknown P/R | Safety |",
         "|---|---|---|---|---|---|---|---|",
     ]
