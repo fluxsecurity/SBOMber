@@ -2,7 +2,8 @@
 
 Date: 2026-10-04 · Status: **accepted** by Component 4 on 2026-10-04 with
 three conditions, folded in below; implemented in `internal/decision/join.go`
-by #142. The localisation 1.1.0 schema change is still to do (Component 3).
+by #142. The localisation 1.1.0 schema now carries the four fields (S6-07,
+#153); filling them in the localiser is still to do (Component 3).
 
 Relates to #119 (S5-08, join rule 6), #140, #142, #117 (S5-06), #121 (S5-10),
 and the frozen evaluation set `localisation-set-v1` (#123).
@@ -99,10 +100,9 @@ Four optional fields on `candidateSymbols[]`:
 | `exposedViaSource` | `export_resolution` · `advisory_text` | only `export_resolution` can close a set |
 | `exposedViaComplete` | `true` · `false` | `true` only when resolution was exhaustive; a partial caller walk is `false` and leaves the set open |
 
-`internal/decision` already reads these fields (#142). `contracts/localisation.schema.json`
-is still 1.0.0 with `additionalProperties: false` on `candidateSymbols[]`, so a
-document carrying them fails `contracts/validate.py` until Component 3 ships
-the 1.1.0 schema.
+`internal/decision` already reads these fields (#142), and
+`contracts/localisation.schema.json` 1.1.0 accepts them (S6-07). The localiser
+does not emit them yet.
 
 Proposed, not yet on main: a `contracts/validate.py` invariant rejecting a
 `decision-results.json` `no_usage_detected` whose localisation result has an
@@ -137,5 +137,5 @@ fallback keeps Component 4 safe.
   set; rule 2 follows #119 rule 8; prose-only matches cap confidence at
   `medium`.
 
-Until localisation 1.1.0 ships every set is open, so no finding can be
+Until the localiser fills these fields every set is open, so no finding can be
 `no_usage_detected`: those findings show under "Insufficient information".

@@ -79,6 +79,7 @@ func (l *Localiser) Localise(ctx context.Context, f Finding) (Result, Trace) {
 	if adv != nil {
 		prov.AdvisorySource = adv.Source
 		prov.AdvisoryURL = adv.URL
+		prov.Artefacts = append(prov.Artefacts, adv.Artefact)
 		if res.FixedVersion == "" {
 			res.FixedVersion = adv.FixedVersionFor(version)
 		}
@@ -140,7 +141,10 @@ func (l *Localiser) Localise(ctx context.Context, f Finding) (Result, Trace) {
 	if sel.Provenance != nil {
 		prov.PatchCommit = sel.Provenance.PatchCommit
 		prov.PatchURL = sel.Provenance.PatchURL
-		prov.Artefacts = sel.Provenance.Artefacts
+		prov.Artefacts = append(prov.Artefacts, sel.Provenance.Artefacts...)
+	}
+	if sel.Method == MethodPatchReference {
+		prov.TagChecks = l.tagChecks(ctx, sel.fixCommits, sel.fixContent, name, version, res.FixedVersion)
 	}
 	res.Provenance = provenanceOrNil(prov)
 	res.Confidence = confidenceFor(*sel, patchCands, attempts)
@@ -176,7 +180,8 @@ func (l *Localiser) attemptMetadata(adv *Advisory, advErr error) Attempt {
 	}
 	a.Outcome = OutcomeHit
 	for _, fn := range fns {
-		a.Candidates = append(a.Candidates, Candidate{Symbol: fn, Note: "named in structured advisory metadata"})
+		a.Candidates = append(a.Candidates, Candidate{Symbol: fn, Note: "named in structured advisory metadata",
+			Evidence: []string{AdvisoryArtefactID}})
 	}
 	return a
 }
@@ -196,7 +201,8 @@ func (l *Localiser) attemptText(adv *Advisory, advErr error, pkg string) Attempt
 	}
 	a.Outcome = OutcomeHit
 	for _, fn := range fns {
-		a.Candidates = append(a.Candidates, Candidate{Symbol: fn, Note: "named in advisory text"})
+		a.Candidates = append(a.Candidates, Candidate{Symbol: fn, Note: "named in advisory text",
+			Evidence: []string{AdvisoryArtefactID}})
 	}
 	if len(fns) > 3 {
 		a.Notes = append(a.Notes, fmt.Sprintf("%d identifiers extracted from prose; heuristic extraction is over-inclusive", len(fns)))
@@ -289,7 +295,29 @@ func (l *Localiser) attemptPatch(ctx context.Context, adv *Advisory, advErr erro
 
 	var files []changedFile
 	var used []string
+	var artefacts []Artefact
 	usedSet := map[string]bool{}
+	// One file can be read twice in a multi-commit fix: at a commit as the
+	// fixed side and as the next commit's parent. Read it once.
+	type fetched struct {
+		src []byte
+		art Artefact
+		err error
+	}
+	cache := map[string]fetched{}
+	fetch := func(repo, path, commit, treeBlob string) ([]byte, Artefact, error) {
+		id := SourceArtefactID(repo, commit, path)
+		if f, ok := cache[id]; ok {
+			return f.src, f.art, f.err
+		}
+		src, art, err := l.c.sourceArtefact(ctx, repo, path, commit, treeBlob)
+		cache[id] = fetched{src, art, err}
+		if err == nil {
+			artefacts = append(artefacts, art)
+		}
+		return src, art, err
+	}
+
 	nonCode := 0
 	for _, c := range commits {
 		if preferred != "" && c.SHA != preferred {
@@ -305,6 +333,16 @@ func (l *Localiser) attemptPatch(ctx context.Context, adv *Advisory, advErr erro
 			continue
 		}
 		diffs := fileDiffsFromCommit(ci)
+		treeBlobs := map[string]string{}
+		for _, f := range ci.Files {
+			if f.Status != "removed" && reFullSHA.MatchString(f.SHA) {
+				treeBlobs[f.Filename] = f.SHA
+			}
+		}
+		fixSHA := ci.SHA
+		if !reFullSHA.MatchString(fixSHA) {
+			fixSHA = c.SHA
+		}
 		codeFiles := 0
 		parent := ""
 		if len(ci.Parents) > 0 {
@@ -325,11 +363,15 @@ func (l *Localiser) attemptPatch(ctx context.Context, adv *Advisory, advErr erro
 			cf := changedFile{Path: p, Status: d.Status}
 			cf.Added, cf.Removed = d.ChangedLines()
 			if len(cf.Added) > 0 && d.Status != "removed" {
-				src, err := l.c.FileAt(ctx, c.Repo, p, ci.SHA)
+				src, art, err := fetch(c.Repo, p, fixSHA, treeBlobs[p])
 				if err != nil {
 					cf.FetchError = "could not fetch fixed file: " + err.Error()
 				} else {
 					cf.NewSource = src
+					cf.NewArtefact = art.ID
+					if lines := distinctiveLines(src, cf.Added); len(lines) > 0 {
+						a.fixContent = append(a.fixContent, FixContent{Commit: fixSHA, Path: p, Lines: lines})
+					}
 				}
 			}
 			if len(cf.Removed) > 0 && parent != "" && d.Status != "added" {
@@ -337,13 +379,14 @@ func (l *Localiser) attemptPatch(ctx context.Context, adv *Advisory, advErr erro
 				if oldPath == "" {
 					oldPath = p
 				}
-				src, err := l.c.FileAt(ctx, c.Repo, oldPath, parent)
+				src, art, err := fetch(c.Repo, oldPath, parent, "")
 				if err != nil {
 					if cf.FetchError == "" {
 						cf.FetchError = "could not fetch vulnerable file: " + err.Error()
 					}
 				} else {
 					cf.OldSource = src
+					cf.OldArtefact = art.ID
 				}
 			}
 			files = append(files, cf)
@@ -354,6 +397,7 @@ func (l *Localiser) attemptPatch(ctx context.Context, adv *Advisory, advErr erro
 			continue
 		}
 		used = append(used, c.Repo+"@"+c.SHA)
+		a.fixCommits = append(a.fixCommits, gitHubCommit{Repo: c.Repo, SHA: fixSHA})
 	}
 
 	att := attributeChanges(files)
@@ -362,7 +406,7 @@ func (l *Localiser) attemptPatch(ctx context.Context, adv *Advisory, advErr erro
 	a.ExcludedChanges = att.Excluded
 	a.Notes = append(a.Notes, att.Notes...)
 	if len(used) > 0 {
-		a.Provenance = &Provenance{}
+		a.Provenance = &Provenance{Artefacts: artefacts}
 		first := strings.SplitN(used[0], "@", 2)
 		a.Provenance.PatchCommit = first[1]
 		a.Provenance.PatchURL = "https://github.com/" + first[0] + "/commit/" + first[1]
@@ -447,11 +491,14 @@ func (l *Localiser) attemptVersionDiff(ctx context.Context, pkg, version, fixed 
 			}
 			ed := DiffLines(splitLines(oldSrc), splitLines(newSrc))
 			files = append(files, changedFile{Path: p, Status: "modified", NewSource: newSrc, OldSource: oldSrc,
-				Added: ed.Added, Removed: ed.Removed, Approximate: ed.Approximate})
+				Added: ed.Added, Removed: ed.Removed, Approximate: ed.Approximate,
+				NewArtefact: newTb.Artefact.ID, OldArtefact: oldTb.Artefact.ID})
 		case inNew:
-			files = append(files, changedFile{Path: p, Status: "added", NewSource: newSrc, Added: allLines(newSrc)})
+			files = append(files, changedFile{Path: p, Status: "added", NewSource: newSrc, Added: allLines(newSrc),
+				NewArtefact: newTb.Artefact.ID})
 		default:
-			files = append(files, changedFile{Path: p, Status: "removed", OldSource: oldSrc, Removed: allLines(oldSrc)})
+			files = append(files, changedFile{Path: p, Status: "removed", OldSource: oldSrc, Removed: allLines(oldSrc),
+				OldArtefact: oldTb.Artefact.ID})
 		}
 		changedCount++
 	}

@@ -11,6 +11,7 @@ Usage:
 
 import argparse
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -323,6 +324,8 @@ def validate_localisation(d, canon):
         for a in r.get("provenance", {}).get("artefacts", []):
             check(c, "downloaded code never executed", a.get("executed") is False,
                   f"{r['findingId']} artefact {a['url']} does not record executed: false")
+        if d["schemaVersion"] != "1.0.0":
+            validate_localisation_evidence(c, r)
         llm = r.get("provenance", {}).get("llm")
         if llm and llm.get("corroboratedBy", "none") == "none":
             check(c, "uncorroborated LLM stays low", r["confidence"] == "low",
@@ -335,6 +338,41 @@ def validate_localisation(d, canon):
         check(c, "byMethod matches results", s.get("byMethod") == methods,
               f"summary byMethod {s.get('byMethod')} != actual {methods}")
     return {r["findingId"]: r for r in d["results"]}
+
+
+SHA256 = re.compile(r"[0-9a-f]{64}")
+SOURCE_FILE_FIELDS = ("repo", "commit", "path", "gitBlobSha")
+
+
+def validate_localisation_evidence(c, r):
+    """1.1.0: every candidate cites a verified, checksummed artefact (S6-07)."""
+    fid = r["findingId"]
+    arts = r.get("provenance", {}).get("artefacts", [])
+    ids = [a["id"] for a in arts if a.get("id")]
+    check(c, "artefact ids unique", len(ids) == len(set(ids)),
+          f"{fid} repeats an artefact id: {sorted(ids)}")
+    by_id = {a["id"]: a for a in arts if a.get("id")}
+    for cand in r.get("candidateSymbols", []):
+        sym = cand["symbol"]
+        evidence = cand.get("evidence", [])
+        check(c, "candidate cites an artefact", bool(evidence),
+              f"{fid} candidate {sym} cites no artefact")
+        for ref in evidence:
+            a = by_id.get(ref)
+            check(c, "cited artefact exists", a is not None,
+                  f"{fid} candidate {sym} cites {ref}, which is not in provenance.artefacts")
+            if a is None:
+                continue
+            check(c, "cited artefact has a checksum", SHA256.fullmatch(a.get("sha256", "")) is not None,
+                  f"{fid} artefact {ref} has no SHA-256")
+            check(c, "cited artefact verified", a.get("verified") is True,
+                  f"{fid} candidate {sym} rests on unverified artefact {ref}: {a.get('note', 'no reason recorded')}")
+            if a.get("kind") == "source_file":
+                check(c, "source file identity complete", all(a.get(k) for k in SOURCE_FILE_FIELDS),
+                      f"{fid} artefact {ref} lacks one of {', '.join(SOURCE_FILE_FIELDS)}")
+                if cand.get("modulePath"):
+                    check(c, "candidate cites its own file", a.get("path") == cand["modulePath"],
+                          f"{fid} candidate {sym} is in {cand['modulePath']} but cites {a.get('path')}")
 
 
 # -------------------------------------------------------------- decision-results
