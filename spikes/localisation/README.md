@@ -145,3 +145,24 @@ The pre-existing synthetic audit case under `internal/audit/testdata/` is a
 hand-built decision fixture without real localisation provenance. It is not
 included in the verified frozen localisation corpus and must not be used as
 provenance or accuracy evidence. Its existing contract debt is separate work.
+
+### Review corrections for PR #169
+
+The saved 3/10 closed and 8/10 joinable counts above describe the author's
+`d90adf0` run. They are historical evidence, not a measurement of the review
+fixes. Re-run localisation and online verification before reporting new counts.
+The review fixes retain every export alias as a join key, keep alternate
+conditional exports and unparsed package files open, retain callers sharing a
+source line, and keep module-initialisation references open. Online verification
+now re-derives known visibility from the checksummed vulnerable tarball.
+
+Component 2 now records an unresolved use when an imported value escapes through
+an assignment, container, argument or return. For example,
+`const p = lodash.merge; p()` stays unknown rather than becoming
+`no_usage_detected`. This does not prove the later call or its reachability.
+The fallback matches names conservatively; shadowed names may also keep a
+finding unknown. Integration with PR #166's reviewed lexical-binding fixes is tested. Re-run
+the known-call release gates after changes to either branch.
+
+The provenance fixes previously packaged as the PR #168 follow-up are included
+in this branch. Do not open that separate follow-up PR from the older package.

@@ -347,6 +347,7 @@ func (l *Localiser) Refetch(ctx context.Context, doc Document, v *Verification) 
 				}
 			}
 		}
+		l.verifyVisibility(ctx, r, got, v)
 		for _, c := range r.CandidateSymbols {
 			found, checked := false, false
 			for _, id := range c.Evidence {
@@ -418,6 +419,7 @@ type refetched struct {
 	body        []byte            // source file or canonical advisory
 	sourcePath  string            // set only for source files; needed to check default exports
 	files       map[string][]byte // tarball sources by path
+	tarball     *Tarball
 }
 
 func (o *refetched) mentions(modulePath, symbol string) bool {
@@ -600,7 +602,7 @@ func (l *Localiser) refetchOne(ctx context.Context, pkg string, a Artefact) *ref
 		if !tb.Artefact.Verified {
 			return fail("re-downloaded tarball no longer matches the registry integrity value")
 		}
-		return &refetched{files: tb.Files}
+		return &refetched{files: tb.Files, tarball: tb}
 	case ArtefactAdvisory:
 		i := strings.LastIndex(a.URL, "/v1/vulns/")
 		if i < 0 {
@@ -637,4 +639,47 @@ func SortIssues(is []Issue) {
 		}
 		return is[i].FindingID < is[j].FindingID
 	})
+}
+
+// Visibility controls negative decisions, so online verification must rebuild
+// it from the vulnerable tarball, not trust flags saved in the document.
+func (l *Localiser) verifyVisibility(_ context.Context, r Result, got map[string]*refetched, v *Verification) {
+	known := false
+	for _, c := range r.CandidateSymbols {
+		known = known || c.Visibility == VisibilityPublic || c.Visibility == VisibilityInternal
+	}
+	if !known {
+		return
+	}
+	name, version, err := ParsePURL(r.PURL)
+	if err != nil {
+		return
+	}
+	fetched := got[TarballArtefactID(name, version)]
+	if fetched == nil || fetched.sev == SeverityError || fetched.tarball == nil {
+		v.add(SeverityError, r.FindingID, "", "", "visibility has no re-verified vulnerable tarball")
+		return
+	}
+	pm, err := buildPackageModel(fetched.tarball)
+	if err != nil {
+		v.add(SeverityError, r.FindingID, "", "", "cannot reconstruct visibility: %v", err)
+		return
+	}
+	for _, c := range r.CandidateSymbols {
+		if c.Visibility != VisibilityPublic && c.Visibility != VisibilityInternal {
+			continue
+		}
+		expected := pm.resolve(c.Symbol, c.ModulePath)
+		via := append([]string(nil), c.ExposedVia...)
+		sort.Strings(via)
+		want := append([]string(nil), expected.ExposedVia...)
+		sort.Strings(want)
+		same := c.Visibility == expected.Visibility
+		if c.Visibility == VisibilityInternal {
+			same = same && slices.Equal(via, want) && c.ExposedViaSource == ExposedViaExportResolution && c.ExposedViaComplete != nil && *c.ExposedViaComplete == expected.Complete
+		}
+		if !same {
+			v.add(SeverityError, r.FindingID, c.Symbol, "", "recorded visibility differs from the verified vulnerable package: want %s via %v complete=%v", expected.Visibility, expected.ExposedVia, expected.Complete)
+		}
+	}
 }
