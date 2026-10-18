@@ -292,6 +292,51 @@ Risk levels: **Low** (healthy) / **Medium** (monitor) / **High** (investigate)
 
 ---
 
+## Known Limitations
+
+### JavaScript/TypeScript usage evidence and reachability (Component 2)
+
+`sbomber usage` analyses local JavaScript/TypeScript application source and
+matches imports and calls to npm package occurrences in `canonical-scan.json`.
+Remote manifest scanning does not replace the local source checkout needed
+for this analysis. The Go-only `sbomber reachability` command is a separate
+capability; its results do not establish JavaScript/TypeScript reachability.
+
+An import, a call site and a resolved call path are different levels of
+evidence. A resolved path shows a statically traceable route from an entry
+point to a dependency call; it does not prove that the path executes in
+production or that a vulnerability is exploitable. Reachability `unknown` means the path
+could not be established; `not_analysed` means reachability was not analysed.
+Neither means the call cannot happen.
+
+| Limitation | What it means when reviewing a finding |
+|---|---|
+| **Application source only** | Dependency source is not parsed, so `app -> A -> B` is not traced through A. If B is a transitive occurrence it is recorded as `nested_under_dependency` and stays unknown. If B is also a direct dependency with no application import, it can instead receive `not_imported_by_analysed_source` and a `no_usage_detected` / `lower_priority` decision even when A uses it. Check dependency behaviour manually before relying on that result. |
+| **Dynamic calls and function references** | Runtime-computed member access can produce an unresolved call. For copied function references, such as `const f = _.merge; f()` or `const {merge} = _; merge()`, the analyser records an unresolved use at the original import with reason `outside_supported_syntax`. This keeps an unmatched finding for that package `unknown`; it does not identify the later call or prove reachability. Assignments, containers, arguments and returns are handled conservatively, and shadowed names may also cause uncertainty. Inspect aliases and function references manually. |
+| **Callbacks and framework invocation** | Calls into callbacks supplied to third-party code, dependency injection, decorators and framework lifecycle hooks may have no resolved path. Statically recognised route handlers are a limited supported case, not general framework support. |
+| **Route factories and anonymous exports** | A factory call such as `app.use(path, route())` is not recognised as a route entry point. A default-exported anonymous function such as `export default async () => {}` has no named call target for the current graph. Check these entry points manually. |
+| **Re-exports and dynamic import promises** | Do not assume re-export chains are followed to the dependency call. Promise-based uses such as `import('pkg').then(...)` remain unresolved; supported awaited imports do not make every dynamic-import pattern supported. |
+| **Syntax errors and grammar gaps** | Files with a parser error yield no semantic usage evidence. They increase public `filesParsedWithErrors` and make analysis `partial`, but that counter does not name the file; `parseFailures` is reserved for failures without a usable parse tree. This can include valid syntax unsupported by the grammar, such as some Flow syntax. Unmatched packages receive `import_site_parse_failed`. SBOMber does not name the affected files; use a linter or your build to find them. |
+| **Unsupported source formats** | Vue, Svelte, Astro, MDX and Marko files make analysis `partial`. Internally they are skipped as `unsupported_source_format`; the public graph reports only the `filesSkipped` count, not their filenames or that skip reason. Unmatched packages can receive `excluded_by_limits`. Check these source files manually. |
+| **TypeScript path aliases** | Only the root `tsconfig.json` is read. `extends` and nested configurations are not followed. Imports requiring an unavailable alias mapping can remain unresolved as `not_in_inventory`, with no resolved call path. Check configuration and target files; an unresolved import is not proof of no usage. |
+| **Computed import scope** | A computed `require(variable)` or `import(variable)` in analysed source prevents unmatched packages in that repository from being treated as not imported. Excluded build/output trees do not participate. The summary detail names only the first computed import in lexicographic file order; inspect all `dynamic_computed` observations for the other locations. |
+| **Excluded files and coverage** | Directories named `.git`, `node_modules`, `vendor`, `dist`, `build`, `out`, `coverage`, `.next` or `generated` are pruned wherever they appear. Even handwritten `src/out/server.js` is excluded. Analysis can still be `complete`, and unmatched packages can receive `not_imported_by_analysed_source`. A line over 4,000 bytes triggers the minified-file skip: it increases `filesSkipped`, makes analysis `partial` and can give unmatched packages `excluded_by_limits`. Check the repository layout, counters and limits; a complete status covers only the declared scope. |
+
+These are the current rules. Any changes to computed-import scope or MDX
+handling are tracked in [issue #151](https://github.com/fluxsecurity/SBOMber/issues/151).
+No usage evidence found within the analysed scope is not proof that a package
+is unused or a vulnerability cannot be exploited. The current VEX exporter never automatically emits `not_affected`, regardless
+of the usage evidence: both `no_usage_detected` and unknown decisions export as
+`under_investigation`.
+
+For implementation details, see the
+[usage-graph architecture](docs/design/usage-graph-architecture.md#16-known-limitations).
+Per-construct usage precision/recall ([#149](https://github.com/fluxsecurity/SBOMber/issues/149))
+and reachability measurements ([#152](https://github.com/fluxsecurity/SBOMber/issues/152))
+are separate evaluations. This section makes no accuracy or resolution-rate claim.
+
+---
+
 ## Development
 
 ```bash
