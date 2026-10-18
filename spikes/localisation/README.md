@@ -37,11 +37,58 @@ verified tarball, and limits are written down when hit.
 - `results/trace.json` — every method attempt with candidates, notes, provenance
 - `results/evaluation.json`, `results/evaluation.md` — graded results
 - `results/environment.txt` — versions at run time
+- `results/provenance/` — S6-07: the same ten cases re-run with provenance
+  (localisation 1.1.0), the online verification and `VERIFICATION.md`
+- `verify_provenance.py` — offline check of that run against `FROZEN.json`
 
 The tool itself is `internal/localisation/` with the `sbomber localise`
 subcommand; its unit tests cover the success, failure and untrusted-input
 paths for the diff parser, the function resolver, tarball handling and the
 end-to-end localiser against a fake OSV/GitHub/registry.
+
+## Provenance (S6-07)
+
+Every candidate in localisation 1.1.0 cites the artefacts it was read from
+(`candidateSymbols[].evidence`), and every artefact records how it was
+verified and a checksum:
+
+| Artefact | Checksum | Verified means |
+|---|---|---|
+| `advisory` (OSV record) | SHA-256 of the record in canonical JSON (OSV reorders keys between responses) | the record names the finding's vulnerability and lists the npm package |
+| `source_file` (a file at a commit) | SHA-256, plus the git blob hash | the blob hash of the bytes read equals the hash GitHub reports for that path at that commit, and the hash in the commit's own file list |
+| `tarball` (npm) | SHA-256, plus the registry integrity value | the bytes match the registry's integrity value |
+
+A `patch_reference` result also carries **tag checks**: is a linked fix
+commit in the release the fixed npm version was published from, and absent
+from the vulnerable one? The release commit is npm's `gitHead` when the
+registry records one (that is the commit the tarball came from), otherwise
+the git tag's. A commit that is not an ancestor of the fixed release still
+counts when every line it adds is in the release (`basis: content`), which is
+how backports and squash merges look. Advisories often link fixes for
+several release lines, so the fixed release passes when it carries at least
+one of them.
+
+`results/provenance/VERIFICATION.md` has the table. On the ten frozen cases:
+38/38 candidates trace to a verified artefact, all 71 artefacts re-download
+with matching checksums, and 19 of 20 tag checks verify. The one that does
+not is a finding, not a broken trace: minimist 1.2.2, listed as vulnerable,
+already contains linked commit `63e7ed0`, the first and incomplete
+`__proto__` fix (c06).
+
+The candidate sets are the Sprint 4 ones; localisation accuracy is not
+re-measured.
+
+    export GITHUB_TOKEN=$(gh auth token)
+    make build
+    ./bin/sbomber localise --canonical-scan spikes/localisation/cases/canonical-scan.json \
+      --out spikes/localisation/results/provenance/localisation.json \
+      --trace spikes/localisation/results/provenance/trace.json
+    ./bin/sbomber localise --verify spikes/localisation/results/provenance/localisation.json \
+      --online --verify-report spikes/localisation/results/provenance/verification.json
+    python3 spikes/localisation/verify_provenance.py --write
+
+CI runs the offline half: `verify_provenance.py` and
+`sbomber localise --verify` without `--online`.
 
 ## Reproduce
 

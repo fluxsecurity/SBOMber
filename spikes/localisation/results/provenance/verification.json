@@ -1,0 +1,21 @@
+{
+  "schemaVersion": "1.1.0",
+  "scanId": "scan-2026-09-06-localisation-eval",
+  "online": true,
+  "results": 10,
+  "candidates": 38,
+  "candidatesTraced": 38,
+  "artefacts": 71,
+  "refetched": 71,
+  "tagChecks": {
+    "mismatch": 1,
+    "verified": 19
+  },
+  "issues": [
+    {
+      "findingId": "c06",
+      "severity": "warning",
+      "message": "tag check vulnerable 1.2.2: mismatch (Vulnerable release 1.2.2 already contains linked commit 63e7ed05aa, so that commit was a partial fix or the version range is wrong.)"
+    }
+  ]
+}
