@@ -57,6 +57,17 @@ func (c *Client) RegistryVersion(ctx context.Context, name, version string) (*Pa
 	if err := c.getJSON(ctx, c.RegistryURL+"/"+escaped+"/"+version, "application/json", &doc); err != nil {
 		return nil, err
 	}
+	// The document must describe the version asked for, or the tarball it
+	// names is not the artefact the finding is about.
+	if doc.Name != "" && doc.Name != name || doc.Version != "" && doc.Version != version {
+		return nil, fmt.Errorf("registry returned %s@%s for %s@%s", doc.Name, doc.Version, name, version)
+	}
+	if doc.Name == "" {
+		doc.Name = name
+	}
+	if doc.Version == "" {
+		doc.Version = version
+	}
 	pv := &PackageVersion{
 		Name: doc.Name, Version: doc.Version, Tarball: doc.Dist.Tarball, Integrity: doc.Dist.Integrity,
 		Shasum: doc.Dist.Shasum, GitHead: doc.GitHead, UnpackedSize: doc.Dist.UnpackedSize, FileCount: doc.Dist.FileCount,
@@ -110,13 +121,24 @@ func (c *Client) FetchTarball(ctx context.Context, pv *PackageVersion, maxBytes 
 	sum256 := sha256.Sum256(body)
 	tb := &Tarball{
 		Artefact: Artefact{
+			ID:        TarballArtefactID(pv.Name, pv.Version),
+			Kind:      ArtefactTarball,
 			URL:       pv.Tarball,
 			SHA256:    hex.EncodeToString(sum256[:]),
 			SizeBytes: int64(len(body)),
 			Verified:  verifyIntegrity(body, pv.Integrity, pv.Shasum),
 			Executed:  false,
+			Version:   pv.Version,
+			Integrity: pv.Integrity,
 		},
 		Files: map[string][]byte{},
+	}
+	if !tb.Artefact.Verified {
+		if pv.Integrity == "" && pv.Shasum == "" {
+			tb.Artefact.Note = "registry publishes no integrity value for this version"
+		} else {
+			tb.Artefact.Note = "bytes do not match the registry integrity value"
+		}
 	}
 	if err := extractSources(body, tb); err != nil {
 		return tb, err

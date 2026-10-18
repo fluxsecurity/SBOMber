@@ -2,6 +2,7 @@ package localisation
 
 import (
 	"context"
+	"encoding/base64"
 	"encoding/json"
 	"net/http"
 	"net/http/httptest"
@@ -19,12 +20,26 @@ type fakeWorld struct {
 	tarballs  map[string][]byte
 	requests  []string
 	prCommits map[string][]string
+	// tags maps "repo/tag" to the object the ref points at; annotated maps
+	// a tag object SHA to its commit; compare maps "base...head" to a
+	// GitHub compare status; gitHeads maps "pkg-version" to npm's gitHead.
+	tags      map[string]map[string]string
+	annotated map[string]string
+	compare   map[string]string
+	gitHeads  map[string]string
+	// registryDocs overrides the registry document for "pkg/version".
+	registryDocs map[string]any
+	// rawOnly serves file contents only in raw form, like a file over the
+	// contents API's 1 MB JSON limit.
+	rawOnly bool
 }
 
 func newFakeWorld(t *testing.T) *fakeWorld {
 	t.Helper()
 	w := &fakeWorld{osv: map[string]any{}, commits: map[string]any{}, files: map[string]string{},
-		tarballs: map[string][]byte{}, prCommits: map[string][]string{}}
+		tarballs: map[string][]byte{}, prCommits: map[string][]string{},
+		tags: map[string]map[string]string{}, annotated: map[string]string{}, compare: map[string]string{}, gitHeads: map[string]string{},
+		registryDocs: map[string]any{}}
 	w.srv = httptest.NewServer(http.HandlerFunc(func(rw http.ResponseWriter, r *http.Request) {
 		w.requests = append(w.requests, r.URL.Path)
 		p := strings.Trim(r.URL.Path, "/")
@@ -55,7 +70,34 @@ func newFakeWorld(t *testing.T) *fakeWorld {
 			repo := strings.TrimPrefix(parts[0], "repos/")
 			key := repo + "/" + r.URL.Query().Get("ref") + "/" + parts[1]
 			if body, ok := w.files[key]; ok {
-				_, _ = rw.Write([]byte(body))
+				if strings.Contains(r.Header.Get("Accept"), "raw") {
+					_, _ = rw.Write([]byte(body))
+					return
+				}
+				doc := map[string]any{"type": "file", "size": len(body), "sha": gitBlobSHA([]byte(body)),
+					"encoding": "base64", "content": base64.StdEncoding.EncodeToString([]byte(body))}
+				if w.rawOnly {
+					doc["encoding"], doc["content"] = "none", ""
+				}
+				_ = json.NewEncoder(rw).Encode(doc)
+				return
+			}
+		case strings.HasPrefix(p, "repos/") && strings.Contains(p, "/git/ref/tags/"):
+			parts := strings.SplitN(p, "/git/ref/tags/", 2)
+			if obj, ok := w.tags[strings.TrimPrefix(parts[0], "repos/")+"/"+parts[1]]; ok {
+				_ = json.NewEncoder(rw).Encode(map[string]any{"ref": "refs/tags/" + parts[1], "object": obj})
+				return
+			}
+		case strings.HasPrefix(p, "repos/") && strings.Contains(p, "/git/tags/"):
+			parts := strings.Split(p, "/")
+			if commit, ok := w.annotated[parts[len(parts)-1]]; ok {
+				_ = json.NewEncoder(rw).Encode(map[string]any{"object": map[string]string{"type": "commit", "sha": commit}})
+				return
+			}
+		case strings.HasPrefix(p, "repos/") && strings.Contains(p, "/compare/"):
+			parts := strings.SplitN(p, "/compare/", 2)
+			if status, ok := w.compare[parts[1]]; ok {
+				_ = json.NewEncoder(rw).Encode(map[string]any{"status": status})
 				return
 			}
 		case strings.HasPrefix(p, "search/commits"):
@@ -63,6 +105,10 @@ func newFakeWorld(t *testing.T) *fakeWorld {
 			return
 		default:
 			// npm registry: <pkg>/<version> or <pkg>/-/<file>.tgz
+			if doc, ok := w.registryDocs[p]; ok {
+				_ = json.NewEncoder(rw).Encode(doc)
+				return
+			}
 			parts := strings.Split(p, "/")
 			if len(parts) == 3 && parts[1] == "-" {
 				if tb, ok := w.tarballs[strings.TrimSuffix(parts[2], ".tgz")]; ok {
@@ -75,7 +121,11 @@ func newFakeWorld(t *testing.T) *fakeWorld {
 				if tb, ok := w.tarballs[key]; ok {
 					_ = json.NewEncoder(rw).Encode(map[string]any{"name": parts[0], "version": parts[1],
 						"dist":       map[string]any{"tarball": w.srv.URL + "/" + parts[0] + "/-/" + key + ".tgz", "integrity": integrityOf(tb)},
-						"repository": "git+https://github.com/acme/" + parts[0] + ".git"})
+						"repository": "git+https://github.com/acme/" + parts[0] + ".git", "gitHead": w.gitHeads[key]})
+					return
+				}
+				if head, ok := w.gitHeads[key]; ok {
+					_ = json.NewEncoder(rw).Encode(map[string]any{"name": parts[0], "version": parts[1], "gitHead": head})
 					return
 				}
 			}
@@ -130,7 +180,7 @@ func (w *fakeWorld) seedIni() {
 		"sha": "56d2805e07ccd94e2ba0984ac9240ff02d44b6f1", "parents": []any{map[string]string{"sha": "0000000000000000000000000000000000000001"}},
 		"commit": map[string]string{"message": "fix: do not allow __proto__ keys"},
 		"files": []any{
-			map[string]any{"filename": "ini.js", "status": "modified", "patch": "@@ -3,5 +3,6 @@ function decode (str) {\n   var out = {}\n   str.split('\\n').forEach(function (line) {\n+    if (line === '__proto__') return\n     out[line] = true\n   })\n   return out"},
+			map[string]any{"filename": "ini.js", "status": "modified", "sha": gitBlobSHA([]byte(iniFixed)), "patch": "@@ -3,5 +3,6 @@ function decode (str) {\n   var out = {}\n   str.split('\\n').forEach(function (line) {\n+    if (line === '__proto__') return\n     out[line] = true\n   })\n   return out"},
 			map[string]any{"filename": "test/proto.js", "status": "added", "patch": "@@ -0,0 +1,1 @@\n+test"},
 			map[string]any{"filename": "README.md", "status": "modified", "patch": "@@ -1,1 +1,1 @@\n-a\n+b"},
 		},

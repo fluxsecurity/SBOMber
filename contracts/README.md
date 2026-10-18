@@ -1,6 +1,6 @@
 # SBOMber contracts
 
-**Schema versions: `canonical-scan` 1.0.0 · `usage-graph` 1.4.0 · `localisation` 1.0.0 · `decision-results` 1.1.0**
+**Schema versions: `canonical-scan` 1.0.0 · `usage-graph` 1.4.0 · `localisation` 1.1.0 · `decision-results` 1.1.0**
 
 Four JSON contracts. Each component reads and writes **files**, never another component's running code — that is what lets four people build in parallel and integrate in Sprint 5 instead of queueing behind each other.
 
@@ -85,6 +85,7 @@ Schema conformance is the easy half. These are the rules a JSON Schema cannot ex
 
 **Localisation (R2)**
 - Every downloaded artefact records `executed: false`. Downloaded package code is never executed
+- From 1.1.0, every candidate cites at least one artefact by `id` (`evidence`); each cited artefact exists in the result's provenance, is `verified`, and has a SHA-256. A cited `source_file` also has its repo, full commit SHA, path and git blob SHA, and its path is the candidate's `modulePath`. Artefact ids are unique within a result
 - `method: unknown` cannot carry candidate symbols
 - An uncorroborated LLM result cannot claim high or medium confidence
 

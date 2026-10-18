@@ -28,6 +28,7 @@ type commitInfo struct {
 }
 
 type commitFile struct {
+	SHA              string `json:"sha"` // git blob of the file after the commit
 	Filename         string `json:"filename"`
 	PreviousFilename string `json:"previous_filename"`
 	Status           string `json:"status"` // added, removed, modified, renamed

@@ -24,6 +24,9 @@ type Options struct {
 	// ClientMethodSearch enables the commit-message search the client asked
 	// for. It costs one GitHub search request per finding.
 	ClientMethodSearch bool
+	// SkipTagChecks leaves out the release tag checks, which cost about ten
+	// GitHub requests per patch_reference finding.
+	SkipTagChecks bool
 }
 
 // Localiser produces localisation.json results.
@@ -38,19 +41,26 @@ func New(opts Options) *Localiser {
 }
 
 // LocaliseAll runs every finding and assembles the contract document plus a
-// per-finding trace.
+// per-finding trace. The release tag checks run after every finding is
+// localised, so on a small GitHub rate limit they can only make their own
+// result unavailable, never change another finding's candidates.
 func (l *Localiser) LocaliseAll(ctx context.Context, scanID string, findings []Finding) (Document, []Trace) {
 	doc := Document{SchemaVersion: SchemaVersion, ScanID: scanID, Results: []Result{}, Summary: &Summary{ByMethod: map[string]int{}}}
 	traces := make([]Trace, 0, len(findings))
+	pending := make([]tagWork, 0, len(findings))
 	for _, f := range findings {
-		r, t := l.Localise(ctx, f)
+		r, t, w := l.localise(ctx, f)
 		doc.Results = append(doc.Results, r)
 		traces = append(traces, t)
+		pending = append(pending, w)
 		doc.Summary.FindingsProcessed++
 		doc.Summary.ByMethod[string(r.Method)]++
 		if r.Method == MethodUnknown {
 			doc.Summary.UnknownCount++
 		}
+	}
+	for i := range doc.Results {
+		l.runTagChecks(ctx, &doc.Results[i], pending[i])
 	}
 	return doc, traces
 }
@@ -59,6 +69,26 @@ func (l *Localiser) LocaliseAll(ctx context.Context, scanID string, findings []F
 // the contract result and the evidence trace. It never returns an error: a
 // finding that cannot be localised is an honest `unknown`.
 func (l *Localiser) Localise(ctx context.Context, f Finding) (Result, Trace) {
+	res, trace, w := l.localise(ctx, f)
+	l.runTagChecks(ctx, &res, w)
+	return res, trace
+}
+
+// tagWork is what a patch_reference result needs for its tag checks.
+type tagWork struct {
+	fixes                  []gitHubCommit
+	content                []FixContent
+	pkg, vulnerable, fixed string
+}
+
+func (l *Localiser) runTagChecks(ctx context.Context, res *Result, w tagWork) {
+	if l.opts.SkipTagChecks || len(w.fixes) == 0 || res.Provenance == nil {
+		return
+	}
+	res.Provenance.TagChecks = l.tagChecks(ctx, w.fixes, w.content, w.pkg, w.vulnerable, w.fixed)
+}
+
+func (l *Localiser) localise(ctx context.Context, f Finding) (Result, Trace, tagWork) {
 	trace := Trace{FindingID: f.FindingID, VulnerabilityID: f.VulnerabilityID, PURL: f.PURL}
 	res := Result{FindingID: f.FindingID, VulnerabilityID: f.VulnerabilityID, PURL: f.PURL,
 		Method: MethodUnknown, Confidence: ConfidenceNone, CandidateSymbols: []Candidate{}}
@@ -68,7 +98,7 @@ func (l *Localiser) Localise(ctx context.Context, f Finding) (Result, Trace) {
 		trace.Attempts = append(trace.Attempts, Attempt{Method: MethodUnknown, Outcome: OutcomeError, Notes: []string{err.Error()}})
 		res.Notes = "Not an npm package URL; only npm is supported in Sprint 4. " + err.Error()
 		trace.Selected = MethodUnknown
-		return res, trace
+		return res, trace, tagWork{}
 	}
 	res.VulnerableVersion = version
 	res.FixedVersion = f.FixedVersion
@@ -79,6 +109,7 @@ func (l *Localiser) Localise(ctx context.Context, f Finding) (Result, Trace) {
 	if adv != nil {
 		prov.AdvisorySource = adv.Source
 		prov.AdvisoryURL = adv.URL
+		prov.Artefacts = append(prov.Artefacts, adv.Artefact)
 		if res.FixedVersion == "" {
 			res.FixedVersion = adv.FixedVersionFor(version)
 		}
@@ -131,7 +162,7 @@ func (l *Localiser) Localise(ctx context.Context, f Finding) (Result, Trace) {
 		trace.Selected = MethodUnknown
 		res.Provenance = provenanceOrNil(prov)
 		res.Notes = summariseFailure(attempts, adv, advErr)
-		return res, trace
+		return res, trace, tagWork{}
 	}
 	trace.Selected = sel.Method
 	res.Method = sel.Method
@@ -140,12 +171,16 @@ func (l *Localiser) Localise(ctx context.Context, f Finding) (Result, Trace) {
 	if sel.Provenance != nil {
 		prov.PatchCommit = sel.Provenance.PatchCommit
 		prov.PatchURL = sel.Provenance.PatchURL
-		prov.Artefacts = sel.Provenance.Artefacts
+		prov.Artefacts = append(prov.Artefacts, sel.Provenance.Artefacts...)
+	}
+	var w tagWork
+	if sel.Method == MethodPatchReference {
+		w = tagWork{fixes: sel.fixCommits, content: sel.fixContent, pkg: name, vulnerable: version, fixed: res.FixedVersion}
 	}
 	res.Provenance = provenanceOrNil(prov)
 	res.Confidence = confidenceFor(*sel, patchCands, attempts)
 	res.Notes = summariseSelection(*sel, attempts)
-	return res, trace
+	return res, trace, w
 }
 
 func provenanceOrNil(p Provenance) *Provenance {
@@ -176,7 +211,8 @@ func (l *Localiser) attemptMetadata(adv *Advisory, advErr error) Attempt {
 	}
 	a.Outcome = OutcomeHit
 	for _, fn := range fns {
-		a.Candidates = append(a.Candidates, Candidate{Symbol: fn, Note: "named in structured advisory metadata"})
+		a.Candidates = append(a.Candidates, Candidate{Symbol: fn, Note: "named in structured advisory metadata",
+			Evidence: []string{AdvisoryArtefactID}})
 	}
 	return a
 }
@@ -196,7 +232,8 @@ func (l *Localiser) attemptText(adv *Advisory, advErr error, pkg string) Attempt
 	}
 	a.Outcome = OutcomeHit
 	for _, fn := range fns {
-		a.Candidates = append(a.Candidates, Candidate{Symbol: fn, Note: "named in advisory text"})
+		a.Candidates = append(a.Candidates, Candidate{Symbol: fn, Note: "named in advisory text",
+			Evidence: []string{AdvisoryArtefactID}})
 	}
 	if len(fns) > 3 {
 		a.Notes = append(a.Notes, fmt.Sprintf("%d identifiers extracted from prose; heuristic extraction is over-inclusive", len(fns)))
@@ -289,7 +326,29 @@ func (l *Localiser) attemptPatch(ctx context.Context, adv *Advisory, advErr erro
 
 	var files []changedFile
 	var used []string
+	var artefacts []Artefact
 	usedSet := map[string]bool{}
+	// One file can be read twice in a multi-commit fix: at a commit as the
+	// fixed side and as the next commit's parent. Read it once.
+	type fetched struct {
+		src []byte
+		art Artefact
+		err error
+	}
+	cache := map[string]fetched{}
+	fetch := func(repo, path, commit, treeBlob string) ([]byte, Artefact, error) {
+		id := SourceArtefactID(repo, commit, path)
+		if f, ok := cache[id]; ok {
+			return f.src, f.art, f.err
+		}
+		src, art, err := l.c.sourceArtefact(ctx, repo, path, commit, treeBlob)
+		cache[id] = fetched{src, art, err}
+		if err == nil {
+			artefacts = append(artefacts, art)
+		}
+		return src, art, err
+	}
+
 	nonCode := 0
 	for _, c := range commits {
 		if preferred != "" && c.SHA != preferred {
@@ -305,6 +364,16 @@ func (l *Localiser) attemptPatch(ctx context.Context, adv *Advisory, advErr erro
 			continue
 		}
 		diffs := fileDiffsFromCommit(ci)
+		treeBlobs := map[string]string{}
+		for _, f := range ci.Files {
+			if f.Status != "removed" && reFullSHA.MatchString(f.SHA) {
+				treeBlobs[f.Filename] = f.SHA
+			}
+		}
+		fixSHA := ci.SHA
+		if !reFullSHA.MatchString(fixSHA) {
+			fixSHA = c.SHA
+		}
 		codeFiles := 0
 		parent := ""
 		if len(ci.Parents) > 0 {
@@ -325,11 +394,15 @@ func (l *Localiser) attemptPatch(ctx context.Context, adv *Advisory, advErr erro
 			cf := changedFile{Path: p, Status: d.Status}
 			cf.Added, cf.Removed = d.ChangedLines()
 			if len(cf.Added) > 0 && d.Status != "removed" {
-				src, err := l.c.FileAt(ctx, c.Repo, p, ci.SHA)
+				src, art, err := fetch(c.Repo, p, fixSHA, treeBlobs[p])
 				if err != nil {
 					cf.FetchError = "could not fetch fixed file: " + err.Error()
 				} else {
 					cf.NewSource = src
+					cf.NewArtefact = art.ID
+					if lines := distinctiveLines(src, cf.Added); len(lines) > 0 {
+						a.fixContent = append(a.fixContent, FixContent{Commit: fixSHA, Parent: parent, Path: p, Lines: lines})
+					}
 				}
 			}
 			if len(cf.Removed) > 0 && parent != "" && d.Status != "added" {
@@ -337,13 +410,14 @@ func (l *Localiser) attemptPatch(ctx context.Context, adv *Advisory, advErr erro
 				if oldPath == "" {
 					oldPath = p
 				}
-				src, err := l.c.FileAt(ctx, c.Repo, oldPath, parent)
+				src, art, err := fetch(c.Repo, oldPath, parent, "")
 				if err != nil {
 					if cf.FetchError == "" {
 						cf.FetchError = "could not fetch vulnerable file: " + err.Error()
 					}
 				} else {
 					cf.OldSource = src
+					cf.OldArtefact = art.ID
 				}
 			}
 			files = append(files, cf)
@@ -354,6 +428,7 @@ func (l *Localiser) attemptPatch(ctx context.Context, adv *Advisory, advErr erro
 			continue
 		}
 		used = append(used, c.Repo+"@"+c.SHA)
+		a.fixCommits = append(a.fixCommits, gitHubCommit{Repo: c.Repo, SHA: fixSHA})
 	}
 
 	att := attributeChanges(files)
@@ -362,7 +437,7 @@ func (l *Localiser) attemptPatch(ctx context.Context, adv *Advisory, advErr erro
 	a.ExcludedChanges = att.Excluded
 	a.Notes = append(a.Notes, att.Notes...)
 	if len(used) > 0 {
-		a.Provenance = &Provenance{}
+		a.Provenance = &Provenance{Artefacts: artefacts}
 		first := strings.SplitN(used[0], "@", 2)
 		a.Provenance.PatchCommit = first[1]
 		a.Provenance.PatchURL = "https://github.com/" + first[0] + "/commit/" + first[1]
@@ -447,11 +522,14 @@ func (l *Localiser) attemptVersionDiff(ctx context.Context, pkg, version, fixed 
 			}
 			ed := DiffLines(splitLines(oldSrc), splitLines(newSrc))
 			files = append(files, changedFile{Path: p, Status: "modified", NewSource: newSrc, OldSource: oldSrc,
-				Added: ed.Added, Removed: ed.Removed, Approximate: ed.Approximate})
+				Added: ed.Added, Removed: ed.Removed, Approximate: ed.Approximate,
+				NewArtefact: newTb.Artefact.ID, OldArtefact: oldTb.Artefact.ID})
 		case inNew:
-			files = append(files, changedFile{Path: p, Status: "added", NewSource: newSrc, Added: allLines(newSrc)})
+			files = append(files, changedFile{Path: p, Status: "added", NewSource: newSrc, Added: allLines(newSrc),
+				NewArtefact: newTb.Artefact.ID})
 		default:
-			files = append(files, changedFile{Path: p, Status: "removed", OldSource: oldSrc, Removed: allLines(oldSrc)})
+			files = append(files, changedFile{Path: p, Status: "removed", OldSource: oldSrc, Removed: allLines(oldSrc),
+				OldArtefact: oldTb.Artefact.ID})
 		}
 		changedCount++
 	}
