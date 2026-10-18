@@ -188,6 +188,16 @@ def check_consumers(out, table, errors, notes):
 
     base_config = docs["baseline"]["descriptor"].get("configuration", {})
 
+    ignored_ids = {
+        r.get("vulnerability")
+        for r in base_config.get("ignore", [])
+        if r.get("vulnerability")
+    }
+    if not {key[0] for key in original_keys} <= ignored_ids:
+        errors.append(
+            "baseline does not configure ignore rules for every original finding"
+        )
+
     def fixed_config(config):
         result = {
             k: v for k, v in config.items() if k not in ["vex-documents", "ignore"]

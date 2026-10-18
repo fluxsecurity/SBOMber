@@ -302,46 +302,96 @@ class ConsistencyTests(unittest.TestCase):
 
         self.assertNotEqual(self.run_on(edit).returncode, 0)
 
+    def make_manifest(self, out):
+        import hashlib, importlib.util
+
+        spec = importlib.util.spec_from_file_location("consistency", SCRIPT)
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        # Synthetic metadata for this boundary test, not a measured replay.
+        (out / "localisation-verify.json").write_text(
+            json.dumps(
+                {
+                    "online": True,
+                    "candidates": 25,
+                    "candidatesTraced": 25,
+                    "issues": [],
+                }
+            )
+        )
+        meta = {
+            "mode": "live",
+            "sourceDirty": False,
+            "sbomberRevision": "a" * 40,
+            "binarySha256": "b" * 64,
+            "inputSha256": {
+                str(f.relative_to(HERE)): hashlib.sha256(f.read_bytes()).hexdigest()
+                for f in sorted((HERE / "demo-app").rglob("*"))
+                if f.is_file()
+            },
+            "sha256": {
+                name: hashlib.sha256((out / name).read_bytes()).hexdigest()
+                for name in module.ARTIFACTS
+            },
+        }
+        (out / "run-metadata.json").write_text(json.dumps(meta))
+
+    def test_valid_manifest_passes(self):
+        result = self.run_on(self.make_manifest)
+        self.assertEqual(result.returncode, 0, result.stdout[-2500:] + result.stderr)
+
+    def test_dirty_source_manifest_fails(self):
+        def edit(out):
+            self.make_manifest(out)
+            self.edit_json(
+                out, "run-metadata.json", lambda d: d.update(sourceDirty=True)
+            )
+
+        self.assertNotEqual(self.run_on(edit).returncode, 0)
+
+    def test_failed_live_provenance_fails(self):
+        def edit(out):
+            import hashlib
+
+            self.make_manifest(out)
+            self.edit_json(
+                out, "localisation-verify.json", lambda d: d.update(online=False)
+            )
+            checksum = hashlib.sha256(
+                (out / "localisation-verify.json").read_bytes()
+            ).hexdigest()
+            self.edit_json(
+                out,
+                "run-metadata.json",
+                lambda d: d["sha256"].update({"localisation-verify.json": checksum}),
+            )
+
+        result = self.run_on(edit)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn(
+            "live provenance verification is incomplete or failed", result.stdout
+        )
+
     def test_manifest_detects_changed_artefact_bytes(self):
         def edit(out):
-            import hashlib, importlib.util
-
-            spec = importlib.util.spec_from_file_location("consistency", SCRIPT)
-            module = importlib.util.module_from_spec(spec)
-            spec.loader.exec_module(module)
-            # Synthetic metadata for this boundary test, not a measured replay.
-            (out / "localisation-verify.json").write_text(
-                json.dumps(
-                    {
-                        "online": True,
-                        "candidates": 25,
-                        "candidatesTraced": 25,
-                        "issues": [],
-                    }
-                )
-            )
-            meta = {
-                "mode": "live",
-                "sourceDirty": False,
-                "sbomberRevision": "a" * 40,
-                "binarySha256": "b" * 64,
-                "inputSha256": {
-                    str(f.relative_to(HERE)): hashlib.sha256(f.read_bytes()).hexdigest()
-                    for f in sorted((HERE / "demo-app").rglob("*"))
-                    if f.is_file()
-                },
-                "sha256": {
-                    name: hashlib.sha256((out / name).read_bytes()).hexdigest()
-                    for name in module.ARTIFACTS
-                },
-            }
-            (out / "run-metadata.json").write_text(json.dumps(meta))
+            self.make_manifest(out)
             p = out / "localisation-trace.json"
             p.write_text(p.read_text() + "\n")
 
         result = self.run_on(edit)
         self.assertNotEqual(result.returncode, 0)
         self.assertIn("bytes differ from the live run manifest", result.stdout)
+
+    def test_baseline_must_configure_the_recorded_ignore_rules(self):
+        def edit(out):
+            for name in ["baseline", "application", "package"]:
+                self.edit_json(
+                    out,
+                    f"grype-consumer-{name}.json",
+                    lambda d: d["descriptor"]["configuration"].update(ignore=[]),
+                )
+
+        self.assertNotEqual(self.run_on(edit).returncode, 0)
 
 
 if __name__ == "__main__":
