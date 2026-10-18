@@ -68,8 +68,8 @@ pruning, grammar gaps, root-only alias configuration and which computed import
 location is shown in the summary. These are documentation corrections, not
 runtime fixes or new accuracy measurements.
 
-Cross-checks: `internal/usagegraph/unanalysed.go`, `coverage.go`,
-`computed_import_safety.go`, `internal/sourceanalysis/repository.go`,
+Cross-checks: `internal/usagegraph/producer.go`, `coverage.go`,
+`observations.go`, `internal/sourceanalysis/repository.go`,
 `internal/cli/usage.go`, and `internal/vex/` decision-to-status mapping.
 A follow-up is needed for missing function-reference observations and direct
 inventory dependencies used only through dependency source. This PR does not
