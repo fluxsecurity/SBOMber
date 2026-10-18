@@ -2007,6 +2007,14 @@ func runLocalise(args []string, stdout io.Writer, stderr io.Writer) int {
 	if err := fs.Parse(args); err != nil {
 		return flagErrorCode(err)
 	}
+	if *verifyPath == "" && (*online || *verifyReport != "") {
+		_, _ = fmt.Fprintln(stderr, "Error: --online and --verify-report require --verify")
+		return 2
+	}
+	if *verifyPath != "" && *in != "" {
+		_, _ = fmt.Fprintln(stderr, "Error: use either --verify or --canonical-scan")
+		return 2
+	}
 	opts := localisation.Options{
 		GitHubToken:        os.Getenv("GITHUB_TOKEN"),
 		MaxTarballBytes:    *maxTarballMB << 20,

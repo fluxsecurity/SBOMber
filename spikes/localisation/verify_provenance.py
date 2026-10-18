@@ -87,10 +87,10 @@ def check_case(case, result):
         traced += ok
 
     answer = [s["sha"] for s in case["answerSource"]]
-    tool_fixes = set()
-    for tc in prov.get("tagChecks", []):
-        tool_fixes.update(tc.get("fixCommits", []))
-    shared = [s for s in answer if any(same_commit(s, f) for f in tool_fixes | read_from)]
+    # Only source artefacts actually cited by candidates establish where
+    # they were read. Merely naming a frozen commit in tag-check metadata
+    # is not evidence that its source was downloaded or attributed.
+    shared = [s for s in answer if any(same_commit(s, f) for f in read_from)]
     if not shared:
         errors.append(f"{cid}: candidates were read from none of the ground-truth commits {', '.join(s[:10] for s in answer)}")
 

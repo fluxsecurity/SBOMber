@@ -1,3 +1,8 @@
+# Generated caches
+__pycache__/
+*.py[cod]
+/.cache/go-build/
+
 bin/
 *.exe
 *.test

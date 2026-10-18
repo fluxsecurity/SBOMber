@@ -113,3 +113,30 @@ CI runs the offline half: `verify_provenance.py` and
     export GITHUB_TOKEN=$(gh auth token)
     python3 -m pip install jsonschema
     spikes/localisation/run.sh
+
+### Verification hardening after PR #168
+
+Offline verification checks document identity and the recorded provenance
+claims. It does not independently prove that saved checksums or `verified`
+flags are true; use `--online` to re-fetch evidence. Online verification now
+re-checks advisory identity for each finding/package even when downloads are
+cached. A synthetic `default` symbol must correspond to a parsed function or
+export rather than bypassing symbol verification.
+
+Backport checks re-read the actual fix commit, parent and changed files;
+saved `content` lines are treated as claims, not authoritative patch input.
+The replay compares commit identities and evidence, not just list lengths.
+Content presence remains a same-file line heuristic, not proof of equivalent
+runtime behaviour. Rebuilding content evidence adds requests to online
+verification only; candidate selection and the normal tag-check scheduling
+are unchanged for valid advisories.
+
+An advisory that fails vulnerability/package identity checks cannot supply
+metadata, prose or patch candidates. Independent version-diff fallback can
+still run when the input supplies a fixed version. Verification-only flags
+require `--verify`; verification and localisation inputs cannot be combined.
+
+The pre-existing synthetic audit case under `internal/audit/testdata/` is a
+hand-built decision fixture without real localisation provenance. It is not
+included in the verified frozen localisation corpus and must not be used as
+provenance or accuracy evidence. Its existing contract debt is separate work.
