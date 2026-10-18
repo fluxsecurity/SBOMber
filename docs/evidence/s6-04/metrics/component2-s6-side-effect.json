@@ -2,7 +2,7 @@
   "fixture": "component2-s6-side-effect",
   "construct": "side_effect_import",
   "labelMethod": "source-reviewed before analyser execution",
-  "analyserCommit": "e44fc80140a51362ad22eb8550d32b6a2dcc9a32",
+  "analyserCommit": "76bee2958edcd6b36588f21a9057589611ea0512",
   "schemaVersion": "1.4.0",
   "analyser": {
     "parser": "tree-sitter",
@@ -18,7 +18,7 @@
     ],
     "reachabilityAnalysed": true
   },
-  "labelSha256": "ad56714c2c8e5d45d9649cb2929e240bd03f391acc4bffea376e05445ed7bd05",
+  "labelSha256": "7866b48a8d217773269a2c0c4cfcea2f44995e9f25604a6833afffbdda9bdf02",
   "graphSha256": "e9570755a3bb2812314a4254ac06a54fb08927ec463607cee64efaf0b10832c3",
   "importEvaluation": {
     "tp": 1,

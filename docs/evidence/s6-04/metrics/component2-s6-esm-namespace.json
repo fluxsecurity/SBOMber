@@ -2,7 +2,7 @@
   "fixture": "component2-s6-esm-namespace",
   "construct": "esm_namespace",
   "labelMethod": "source-reviewed before analyser execution",
-  "analyserCommit": "e44fc80140a51362ad22eb8550d32b6a2dcc9a32",
+  "analyserCommit": "76bee2958edcd6b36588f21a9057589611ea0512",
   "schemaVersion": "1.4.0",
   "analyser": {
     "parser": "tree-sitter",
@@ -18,7 +18,7 @@
     ],
     "reachabilityAnalysed": true
   },
-  "labelSha256": "4706c1921c92bb880df3b21556582547a681481008292c9a63c11d5c503eaa3b",
+  "labelSha256": "843c674ed0d5a69e017af77bb3e4ad8c6642785c5fd9ae0e61efecfa0b44c0a1",
   "graphSha256": "8ab0c00929d5792f1a13e81367369e52612ac5e94c5b46f342f8bb9208a8c76f",
   "importEvaluation": {
     "tp": 1,

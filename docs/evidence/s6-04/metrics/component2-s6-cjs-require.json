@@ -2,7 +2,7 @@
   "fixture": "component2-s6-cjs-require",
   "construct": "cjs_require",
   "labelMethod": "source-reviewed before analyser execution",
-  "analyserCommit": "e44fc80140a51362ad22eb8550d32b6a2dcc9a32",
+  "analyserCommit": "76bee2958edcd6b36588f21a9057589611ea0512",
   "schemaVersion": "1.4.0",
   "analyser": {
     "parser": "tree-sitter",
@@ -18,7 +18,7 @@
     ],
     "reachabilityAnalysed": true
   },
-  "labelSha256": "adf51b9747cbb9fc0ff85de57c16c5f0772a72084cb438c9e3d16aafe8a73182",
+  "labelSha256": "88bf31b189c908c8c90ae52970de380cf9376b0548be7da1737bbb2ecfa13c54",
   "graphSha256": "d745a833543f2d40d2a533a3a210018c9d581562087a0f176976c47bf9ced59f",
   "importEvaluation": {
     "tp": 1,

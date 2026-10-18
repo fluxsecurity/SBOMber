@@ -2,7 +2,7 @@
   "fixture": "component2-s6-dynamic-computed",
   "construct": "dynamic_import",
   "labelMethod": "source-reviewed before analyser execution",
-  "analyserCommit": "e44fc80140a51362ad22eb8550d32b6a2dcc9a32",
+  "analyserCommit": "76bee2958edcd6b36588f21a9057589611ea0512",
   "schemaVersion": "1.4.0",
   "analyser": {
     "parser": "tree-sitter",
@@ -18,7 +18,7 @@
     ],
     "reachabilityAnalysed": true
   },
-  "labelSha256": "9381a7b5461c32b07e4597250a77aeff2a8b2a0f1af2a5d30b3e6fec1e0ee267",
+  "labelSha256": "ba6d068f33ca8bf09b1b306e64c944f411861fcc396b17e48eb4397bdb6d1e7a",
   "graphSha256": "c9f2feea1f19f2be3f1090771bf9254292c6b054c34c7df3b729e7b9958eca71",
   "importEvaluation": {
     "tp": 1,

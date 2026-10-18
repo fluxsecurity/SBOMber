@@ -2,7 +2,7 @@
   "fixture": "component2-s6-reexport",
   "construct": "reexport",
   "labelMethod": "source-reviewed before analyser execution",
-  "analyserCommit": "e44fc80140a51362ad22eb8550d32b6a2dcc9a32",
+  "analyserCommit": "76bee2958edcd6b36588f21a9057589611ea0512",
   "schemaVersion": "1.4.0",
   "analyser": {
     "parser": "tree-sitter",
@@ -18,7 +18,7 @@
     ],
     "reachabilityAnalysed": true
   },
-  "labelSha256": "7b3f0e7e245ed44e3a662886758289ad63e1fc5c523e5c0b1653d812adbf2146",
+  "labelSha256": "e28233c7127fad256a045e619915bb358fafb0a53283b208aa1a3c4c5c45d820",
   "graphSha256": "b3e99489452222d01df7bafceb5751e4b0e6199ead50e474010b7a6657fd4230",
   "importEvaluation": {
     "tp": 1,

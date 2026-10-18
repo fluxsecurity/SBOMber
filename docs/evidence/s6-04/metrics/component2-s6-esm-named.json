@@ -2,7 +2,7 @@
   "fixture": "component2-s6-esm-named",
   "construct": "esm_named",
   "labelMethod": "source-reviewed before analyser execution",
-  "analyserCommit": "e44fc80140a51362ad22eb8550d32b6a2dcc9a32",
+  "analyserCommit": "76bee2958edcd6b36588f21a9057589611ea0512",
   "schemaVersion": "1.4.0",
   "analyser": {
     "parser": "tree-sitter",
@@ -18,7 +18,7 @@
     ],
     "reachabilityAnalysed": true
   },
-  "labelSha256": "6da1679e2ca5256319cb728bac5a68a51f188ea859a4d6082a22fd9fad70c2da",
+  "labelSha256": "644dee2a70ee8f9bcd79048f86afac9b3684fdc86d3071ee69242f76644f21bc",
   "graphSha256": "30f5716a5d47472f85e00f45591cad1911a516a45f7a15b556652444531e1daf",
   "importEvaluation": {
     "tp": 1,
