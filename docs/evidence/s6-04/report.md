@@ -1,6 +1,6 @@
 # Sprint 6 Issue #149 — per-construct usage evaluation
 
-Analyser Git commit: `76bee2958edcd6b36588f21a9057589611ea0512`. Fixtures: **21**; construct categories: **11**.
+Analyser Git commit: `d8ab2e24ed61415ae7df559a04d20576a897bcd4`. Fixtures: **21**; construct categories: **11**.
 
 All metrics are based on controlled, author-labelled fixtures, not overall real-world scanner accuracy.
 A call metric of N/A means no measurable resolved/unresolved calls were present, not 100% accuracy.
@@ -60,4 +60,4 @@ Counts are TP/FP/FN. P/R denominators are predicted/expected respectively.
 
 ## Reproduction
 
-Run `python3 -B scripts/run_s6_usage_evaluation.py` from a clean committed worktree. The runner removes inherited GitHub tokens from the Go test environment. `analyserGitCommit` is the last commit touching `internal/`, `scripts/` or `testdata/`, so committing generated evidence alone does not change it. Preserve commit history when reproducing label provenance.
+Run `python3 -B scripts/run_s6_usage_evaluation.py` from a clean committed worktree. The runner removes inherited GitHub tokens from the Go test environment. `analyserGitCommit` is the last commit touching `cmd/`, `internal/`, `scripts/`, `testdata/`, `go.mod` or `go.sum`, so committing generated evidence alone does not change it. Preserve commit history when reproducing label provenance.

@@ -1,6 +1,6 @@
 {
   "issue": 149,
-  "analyserGitCommit": "76bee2958edcd6b36588f21a9057589611ea0512",
+  "analyserGitCommit": "d8ab2e24ed61415ae7df559a04d20576a897bcd4",
   "method": "Go test exporter (production source analyser and usagegraph producer); TypeScript aliases supplied from root tsconfig.json",
   "fixtureCount": 21,
   "constructCategoryCount": 11,

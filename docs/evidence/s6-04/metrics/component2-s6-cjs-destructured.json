@@ -2,7 +2,7 @@
   "fixture": "component2-s6-cjs-destructured",
   "construct": "cjs_destructured",
   "labelMethod": "source-reviewed before analyser execution",
-  "analyserCommit": "76bee2958edcd6b36588f21a9057589611ea0512",
+  "analyserCommit": "d8ab2e24ed61415ae7df559a04d20576a897bcd4",
   "schemaVersion": "1.4.0",
   "analyser": {
     "parser": "tree-sitter",
