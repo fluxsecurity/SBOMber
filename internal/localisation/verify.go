@@ -457,6 +457,17 @@ func sourceMentions(path string, body []byte, symbol string) bool {
 }
 
 func tagRecordInvalid(r Result, tc TagCheck) string {
+	switch tc.Result {
+	case TagVerified, TagMismatch, TagUnavailable:
+	default:
+		return "invalid tag-check result"
+	}
+	switch tc.Basis {
+	case "", BasisAncestry, BasisContent:
+	default:
+		return "invalid tag-check basis"
+	}
+
 	if err := validateRepo(tc.Repo); err != nil {
 		return err.Error()
 	}

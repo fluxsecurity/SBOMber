@@ -122,6 +122,7 @@ func TestReview168DefaultEvidenceUsesParsedSymbols(t *testing.T) {
 		"module.exports = function () {return 1}",
 		"function run(){return 1}; module.exports=run;",
 		"export default () => 1;",
+		"export default function () { return 1 }",
 		"export default function run(){return 1}",
 	} {
 		if !sourceMentions("index.js", []byte(src), "default") {
