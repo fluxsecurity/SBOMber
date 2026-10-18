@@ -28,7 +28,7 @@ tool: `usage`, `localise`, `decide`, `report`, `vex`.
   to (`usage_detected` -> `affected`, otherwise `under_investigation`; never `not_affected`).
 - Both VEX documents validate against OpenVEX 0.2.0.
 - No finding is missing from the human report, including `unknown` ones.
-- `contracts/validate.py` on the run: OK - 704 invariant checks passed across four contracts
+- `contracts/validate.py` on the run: OK - 706 invariant checks passed across four contracts
 
 ## Does the pinned consumer act on the statements?
 

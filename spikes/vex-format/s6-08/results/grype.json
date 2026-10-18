@@ -1941,7 +1941,7 @@
  ],
  "source": {
   "type": "directory",
-  "target": "demo-app"
+  "target": "./spikes/vex-format/s6-08/demo-app"
  },
  "distro": {
   "name": "",
@@ -2241,6 +2241,6 @@
     }
    }
   },
-  "timestamp": "2026-10-18T20:31:35.736393+11:00"
+  "timestamp": "2026-10-18T22:06:09.431954+11:00"
  }
 }

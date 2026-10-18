@@ -2,8 +2,8 @@
   "schemaVersion": "1.0.0",
   "scan": {
     "scanId": "scan-s6-08-demo-app",
-    "startedAt": "2026-10-18T09:31:35Z",
-    "completedAt": "2026-10-18T09:31:35Z",
+    "startedAt": "2026-10-18T11:06:09Z",
+    "completedAt": "2026-10-18T11:06:09Z",
     "toolVersions": {
       "grype": "0.112.0",
       "bridge": "spikes/vex-format/s6-08/build_canonical_scan.py"

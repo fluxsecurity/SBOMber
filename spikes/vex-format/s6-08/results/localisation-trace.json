@@ -251,21 +251,33 @@
             "symbol": "decode",
             "modulePath": "ini.js",
             "changeKind": "modified",
-            "note": "exported as parse, decode; visibility public: exported as decode, parse",
+            "note": "exported as parse, decode; visibility internal via decode, parse (complete)",
             "evidence": [
               "github:npm/ini@56d2805e07ccd94e2ba0984ac9240ff02d44b6f1:ini.js"
             ],
-            "visibility": "public"
+            "visibility": "internal",
+            "exposedVia": [
+              "decode",
+              "parse"
+            ],
+            "exposedViaSource": "export_resolution",
+            "exposedViaComplete": true
           },
           {
             "symbol": "parse",
             "modulePath": "ini.js",
             "changeKind": "modified",
-            "note": "export alias of decode; visibility public: exported as decode, parse",
+            "note": "export alias of decode; visibility internal via decode, parse (complete)",
             "evidence": [
               "github:npm/ini@56d2805e07ccd94e2ba0984ac9240ff02d44b6f1:ini.js"
             ],
-            "visibility": "public"
+            "visibility": "internal",
+            "exposedVia": [
+              "decode",
+              "parse"
+            ],
+            "exposedViaSource": "export_resolution",
+            "exposedViaComplete": true
           }
         ],
         "provenance": {
