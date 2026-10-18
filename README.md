@@ -292,6 +292,50 @@ Risk levels: **Low** (healthy) / **Medium** (monitor) / **High** (investigate)
 
 ---
 
+## Known Limitations
+
+### JavaScript/TypeScript usage evidence and reachability (Component 2)
+
+`sbomber usage` analyses local JavaScript/TypeScript application source and
+matches imports and calls to npm package occurrences in `canonical-scan.json`.
+Remote manifest scanning does not replace the local source checkout needed
+for this analysis. The Go-only `sbomber reachability` command is a separate
+capability; its results do not establish JavaScript/TypeScript reachability.
+
+An import, a call site and a resolved call path are different levels of
+evidence. A resolved path shows a statically traceable route from an entry
+point to a dependency call; it does not prove that the path executes in
+production or that a vulnerability is exploitable. `unknown` means the path
+could not be established; `not_analysed` means reachability was not analysed.
+Neither means the call cannot happen.
+
+| Limitation | What it means when reviewing a finding |
+|---|---|
+| **Application source only** | Dependency source is not parsed. A path such as `app -> dependency A -> vulnerable function in B` cannot be traced through those dependencies. Review the dependency's behaviour separately; an unresolved path remains `unknown`. |
+| **Dynamic calls and reflection** | Targets chosen at runtime, computed member access and calls through function-reference variables are not generally resolved. Inspect unresolved calls rather than assuming there is no usage. |
+| **Callbacks and framework invocation** | Calls into callbacks supplied to third-party code, dependency injection, decorators and framework lifecycle hooks may have no resolved path. Statically recognised route handlers are a limited supported case, not general framework support. |
+| **Route factories and anonymous exports** | A factory call such as `app.use(path, route())` is not recognised as a route entry point. A default-exported anonymous function such as `export default async () => {}` has no named call target for the current graph. Check these entry points manually. |
+| **Re-exports and dynamic import promises** | Do not assume re-export chains are followed to the dependency call. Promise-based uses such as `import('pkg').then(...)` remain unresolved; supported awaited imports do not make every dynamic-import pattern supported. |
+| **Files with syntax errors** | No usage evidence is extracted from that file. It is counted under `filesParsedWithErrors`, and the analysis becomes `partial`. Fix the syntax or inspect the file before drawing a negative conclusion. |
+| **Unsupported source formats** | Vue, Svelte, Astro, MDX and Marko files are counted as skipped with `unsupported_source_format`, making the analysis `partial`. Imports that exist only in these files have not been analysed. |
+| **TypeScript path aliases** | Only the root `tsconfig.json` is read; `extends` and nested configurations are not followed. A missing or ambiguous alias target blocks negative findings for unmatched packages in that repository. Check the configuration and target files. |
+| **Computed import scope** | One computed import, such as `require(variable)` or `import(variable)`, anywhere in a repository, including a build script, prevents its unmatched packages from being treated as not imported. The recorded detail names the responsible file and line; review it before deciding that a package is unused. |
+| **Excluded files and incomplete coverage** | Dependency, generated-output and version-control trees are outside the declared source scope and its file totals. File limits, parse failures and an empty source scope can leave analysis incomplete. Check coverage, skipped files and limits; a complete status describes the declared scope, not every file or runtime behaviour. |
+
+These are the current rules. Any changes to computed-import scope or MDX
+handling are tracked in [issue #151](https://github.com/fluxsecurity/SBOMber/issues/151).
+No usage evidence found within the analysed scope is not proof that a package
+is unused or a vulnerability cannot be exploited. Incomplete or unresolved
+evidence must not justify an automated VEX `not_affected` statement.
+
+For implementation details, see the
+[usage-graph architecture](docs/design/usage-graph-architecture.md#16-known-limitations).
+Per-construct usage precision/recall ([#149](https://github.com/fluxsecurity/SBOMber/issues/149))
+and reachability measurements ([#152](https://github.com/fluxsecurity/SBOMber/issues/152))
+are separate evaluations. This section makes no accuracy or resolution-rate claim.
+
+---
+
 ## Development
 
 ```bash
