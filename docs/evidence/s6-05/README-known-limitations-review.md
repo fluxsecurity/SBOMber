@@ -37,8 +37,8 @@ checks, not new fixtures or a replacement for #152's measurements.
 | Re-export/import indirection is not a general resolved call path | `TestImportFormsNeverReadAsNotImported`; `TestDynamicImportsResolveSymbolsAndEdges`; `TestAwaitedDynamicImportRespectsBlockScope` |
 | Syntax-error files yield no semantic evidence | Early return on `HasError` in `internal/sourceanalysis/extract.go`; partial-coverage accounting in `internal/usagegraph/coverage.go` |
 | Vue/Svelte/Astro/MDX/Marko are unsupported and make coverage partial | `internal/sourceanalysis/repository.go`; `TestUnsupportedSourceFormatMakesAnalysisPartial` |
-| Only root tsconfig paths; missing/ambiguous targets block negative conclusions | `internal/usagegraph/path_aliases.go`, `canonical_input.go`, `alias_safety.go`; `TestParseTSConfigPaths`; `TestMissingAliasTargetCannotSupportNegative` |
-| Computed import in a build script affects unmatched packages repository-wide | `TestComputedImportDetailNamesTheLine`; `internal/usagegraph/computed_import_safety_test.go` |
+| Only root tsconfig paths; missing/ambiguous targets block negative conclusions | `internal/usagegraph/path_aliases.go`, `internal/cli/usage.go` (`readPathAliases`), `alias_safety.go`; `TestParseTSConfigPaths`; `TestMissingAliasTargetCannotSupportNegative` |
+| Computed import in analysed source affects unmatched packages repository-wide | `TestComputedImportDetailNamesTheLine`; `internal/usagegraph/computed_import_safety_test.go` |
 | Excluded trees are outside scope; empty scope/limits cannot support a negative conclusion | `TestAnalyzeRepositoryExcludesUntrustedAndGeneratedTrees`; `TestAnalyzeRepositoryStopsAtSourceFileLimit`; `TestProduceEmptySourceScopeBlocksNegative`; `TestBuildPartialCoverageCountsOnlyInScopeFiles` |
 
 ## Validation
@@ -54,6 +54,28 @@ ok github.com/Xsamsx/SBOMber/internal/usagegraph
 `git diff --check` passed. Local Markdown links introduced by this change resolve.
 No new tests were added because the change documents existing behaviour.
 The existing full-suite results from the merged PRs are not presented as a new
-full-suite run for this documentation change. Remote CI awaits publication.
+full-suite run for this documentation change. Original PR CI passed. Updated revision still needs its own remote CI run.
 
-Paired review: Component 3 owner (Bob), pending.
+Paired review: Bob requested changes; the corrections below address his observations. Re-review is pending.
+
+## Corrections after Bob’s review
+
+The initial wording overstated several safety guarantees. The README now
+separates missing call observations from unresolved call paths, names the
+unsafe direct-dependency `app -> A -> B` case, and distinguishes internal
+skip records from the public graph’s counters. It also explains directory-name
+pruning, grammar gaps, root-only alias configuration and which computed import
+location is shown in the summary. These are documentation corrections, not
+runtime fixes or new accuracy measurements.
+
+Cross-checks: `internal/usagegraph/unanalysed.go`, `coverage.go`,
+`computed_import_safety.go`, `internal/sourceanalysis/repository.go`,
+`internal/cli/usage.go`, and `internal/vex/` decision-to-status mapping.
+A follow-up is needed for missing function-reference observations and direct
+inventory dependencies used only through dependency source. This PR does not
+claim either defect is fixed.
+
+Use `Refs #150` in the PR description. Final consistency review against #152
+remains outstanding, so this documentation revision should not automatically
+close #150. Previous test results establish regression status, not proof that
+all documented runtime limitations are safe.
