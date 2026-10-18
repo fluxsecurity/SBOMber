@@ -14,6 +14,7 @@ func TestObservationLexicalShadows(t *testing.T) {
 		{"nested block does not shadow outer call", named + "export function run(){merge({},{}); {const merge=null;} }", "js", 1},
 		{"nested callback does not shadow outer call", named + "export function run(){merge({},{}); [1].map(()=>{const merge=null;});}", "js", 1},
 		{"type query is not a parameter", named + "export function run(x: Parameters<typeof merge>[0]){return merge(x,{})}", "ts", 1},
+		{"body var does not shadow default initializer", named + "function run(opts=merge({},{})){var merge=x=>x;return merge(opts);}", "js", 1},
 		{"destructured arrow parameter", named + "const run=({merge})=>merge({},{});", "js", 0},
 		{"class method parameter", named + "class A{run(merge){return merge({},{});}}", "js", 0},
 		{"local arrow", named + "function run(){ const merge=x=>x; return merge({});}", "js", 0},

@@ -48,7 +48,17 @@ func functionScope(node *treesitter.Node) bool {
 
 func enclosingScope(node *treesitter.Node, functionOnly bool) *treesitter.Node {
 	for scope := node.Parent(); scope != nil; scope = scope.Parent() {
-		if scope.Kind() == "program" || functionScope(scope) {
+		if scope.Kind() == "program" {
+			return scope
+		}
+		if functionScope(scope) {
+			// Body var bindings are not visible in a non-simple parameter
+			// initializer's separate environment.
+			if functionOnly {
+				if body := scope.ChildByFieldName("body"); body != nil {
+					return body
+				}
+			}
 			return scope
 		}
 		if !functionOnly {
