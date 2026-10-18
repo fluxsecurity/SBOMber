@@ -110,6 +110,28 @@ def check_case(case, result):
         if role not in checks:
             errors.append(f"{cid}: no tag check for the {role} release")
 
+    # Visibility (join rule): the keys Component 4 joins on, and whether the
+    # set is closed. Reported, not enforced: an open set is the safe answer.
+    keys, closed, open_why = set(), True, []
+    for c in cands:
+        vis = c.get("visibility")
+        if vis == "public":
+            keys.add(c["symbol"])
+        elif vis == "internal":
+            keys.update(c.get("exposedVia", []))
+            if not c.get("exposedViaComplete"):
+                closed = False
+                open_why.append(f"{c['symbol']} incomplete")
+        else:
+            keys.add(c["symbol"])
+            closed = False
+            open_why.append(f"{c['symbol']} {vis or 'unset'}")
+    expected = set(case["expectedPublicSymbols"])
+    joinable = bool(keys & expected)
+    if closed and not joinable:
+        errors.append(f"{cid}: closed candidate set whose join keys {sorted(keys)} miss every expected public symbol "
+                      f"{sorted(expected)}; that could produce a false no_usage_detected")
+
     def tag(role):
         tc = checks.get(role)
         if not tc:
@@ -125,6 +147,10 @@ def check_case(case, result):
         "answer": f"{len(shared)}/{len(answer)}",
         "fixed": tag("fixed"),
         "vulnerable": tag("vulnerable"),
+        "set": "closed" if closed else "open",
+        "joinable": "yes" if joinable else "no",
+        "keys": ", ".join(sorted(keys)),
+        "open_why": "; ".join(open_why[:3]) + (" ..." if len(open_why) > 3 else ""),
     }
     return row, errors, findings
 
@@ -167,6 +193,24 @@ def render(rows, findings, doc):
         "",
     ]
     out += [f"- {f}" for f in findings] or ["None."]
+    closed = sum(r["set"] == "closed" for r in rows)
+    joinable = sum(r["joinable"] == "yes" for r in rows)
+    out += [
+        "",
+        "## Visibility (join rule)",
+        "",
+        "From the published vulnerable tarball. A *closed* set lets Component 4 conclude",
+        "`no_usage_detected` when the application calls none of the join keys; an *open*",
+        "set can only produce `usage_detected` or `unknown`. *Joinable* means the join",
+        "keys include a public symbol the frozen ground truth says an application calls.",
+        "",
+        "| Case | Set | Joinable | Join keys | Why open |",
+        "|---|---|---|---|---|",
+    ]
+    for r in rows:
+        out.append(f"| {r['id']} | {r['set']} | {r['joinable']} | {r['keys'][:80]} | {r['open_why']} |")
+    out += ["", f"**{closed}/{len(rows)} sets closed; {joinable}/{len(rows)} joinable.** "
+            "No closed set misses its expected public symbol (checked)."]
     return "\n".join(out) + "\n"
 
 

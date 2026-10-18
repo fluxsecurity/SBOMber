@@ -609,6 +609,33 @@ class ContractValidatorTests(unittest.TestCase):
         finally:
             tmp.cleanup()
 
+    def test_join_rule_fields_are_consistent(self):
+        def ok(loc):
+            cand = loc["results"][3]["candidateSymbols"][0]
+            cand.update({"visibility": "internal", "exposedVia": ["merge", "defaultsDeep"],
+                         "exposedViaSource": "export_resolution", "exposedViaComplete": True})
+        tmp, result = self.localisation_with(ok)
+        try:
+            self.assertEqual(result.returncode, 0, msg=result.stdout + result.stderr)
+        finally:
+            tmp.cleanup()
+
+        def bad(loc):
+            loc["results"][3]["candidateSymbols"][0].update({"visibility": "internal"})
+            loc["results"][1]["candidateSymbols"][0].update({"visibility": "public", "exposedVia": ["x"]})
+            loc["results"][1]["candidateSymbols"][1].update({
+                "visibility": "internal", "exposedVia": ["x"], "exposedViaSource": "advisory_text",
+                "exposedViaComplete": True})
+        tmp, result = self.localisation_with(bad)
+        try:
+            out = result.stdout
+            self.assertNotEqual(result.returncode, 0)
+            self.assertIn("internal candidate defaultsDeep lacks exposedVia", out)
+            self.assertIn("public candidate isURLSameOrigin carries exposedVia", out)
+            self.assertIn("candidate redirect claims a complete route list from advisory_text", out)
+        finally:
+            tmp.cleanup()
+
     def test_localisation_1_0_0_without_evidence_still_validates(self):
         def edit(loc):
             loc["schemaVersion"] = "1.0.0"

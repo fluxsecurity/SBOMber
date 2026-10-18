@@ -3,3 +3,7 @@ bin/
 *.test
 *.out
 .sbomber/
+
+# Python bytecode
+__pycache__/
+*.pyc

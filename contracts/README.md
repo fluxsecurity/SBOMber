@@ -86,6 +86,7 @@ Schema conformance is the easy half. These are the rules a JSON Schema cannot ex
 **Localisation (R2)**
 - Every downloaded artefact records `executed: false`. Downloaded package code is never executed
 - From 1.1.0, every candidate cites at least one artefact by `id` (`evidence`); each cited artefact exists in the result's provenance, is `verified`, and has a SHA-256. A cited `source_file` also has its repo, full commit SHA, path and git blob SHA, and its path is the candidate's `modulePath`. Artefact ids are unique within a result
+- Only `internal` candidates carry `exposedVia`, `exposedViaSource` and `exposedViaComplete`, and an `internal` candidate carries all three. A complete route list must be `export_resolution`. Candidates from advisory prose are never `public` or `internal`
 - `method: unknown` cannot carry candidate symbols
 - An uncorroborated LLM result cannot claim high or medium confidence
 

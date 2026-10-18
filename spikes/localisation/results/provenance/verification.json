@@ -5,8 +5,8 @@
   "results": 10,
   "candidates": 38,
   "candidatesTraced": 38,
-  "artefacts": 71,
-  "refetched": 71,
+  "artefacts": 81,
+  "refetched": 81,
   "unreachable": 0,
   "tagChecks": {
     "mismatch": 1,

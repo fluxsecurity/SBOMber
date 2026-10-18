@@ -70,6 +70,15 @@ class VerifyProvenanceTests(unittest.TestCase):
         self.assertIn("c04: npm gitHead for", out.stdout)
         self.assertIn("c10: candidates were read from none of the ground-truth commits", out.stdout)
 
+    def test_closed_set_missing_the_public_symbol_fails(self):
+        def edit(doc):
+            for c in self.result(doc, "c06")["candidateSymbols"]:
+                c.update({"visibility": "internal", "exposedVia": ["notWhatAppsCall"],
+                          "exposedViaSource": "export_resolution", "exposedViaComplete": True})
+        out = self.run_on(edit)
+        self.assertNotEqual(out.returncode, 0)
+        self.assertIn("c06: closed candidate set whose join keys ['notWhatAppsCall'] miss every expected public symbol", out.stdout)
+
 
 if __name__ == "__main__":
     unittest.main()

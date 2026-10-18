@@ -2,8 +2,8 @@
 
 Date: 2026-10-04 · Status: **accepted** by Component 4 on 2026-10-04 with
 three conditions, folded in below; implemented in `internal/decision/join.go`
-by #142. The localisation 1.1.0 schema now carries the four fields (S6-07,
-#153); filling them in the localiser is still to do (Component 3).
+by #142. The localisation 1.1.0 schema carries the four fields (S6-07, #153)
+and the localiser fills them (steps 1-3 below; see "What the localiser does").
 
 Relates to #119 (S5-08, join rule 6), #140, #142, #117 (S5-06), #121 (S5-10),
 and the frozen evaluation set `localisation-set-v1` (#123).
@@ -137,5 +137,53 @@ fallback keeps Component 4 safe.
   set; rule 2 follows #119 rule 8; prose-only matches cap confidence at
   `medium`.
 
-Until the localiser fills these fields every set is open, so no finding can be
-`no_usage_detected`: those findings show under "Insufficient information".
+## What the localiser does (steps 1-3)
+
+`internal/localisation/visibility.go` and `exports.go` read the published
+vulnerable tarball (verified against the registry, parsed, never run):
+
+- **Entry**: `package.json` `exports["."]` (require, node, default, import),
+  else `main`, else `index.js`. A separate `module` entry or a `browser` remap
+  leaves every route incomplete.
+- **Per file**: the export names (`module.exports =`, `exports.x =`, the
+  exports object, `export` forms), which package files it loads, and anything
+  that stops the list being complete (computed exports, `module.exports`
+  used outside a plain assignment, syntax errors).
+- **Owner**: a candidate nested in a function is reached only through the
+  outermost top-level function around it (minimist's `setKey` through the
+  anonymous `module.exports` function).
+- **Module names**: the owner's own export names when it is exported and
+  nothing else in the file uses it; otherwise every export of the file (a
+  superset, which is the safe direction).
+- **Public names**: through the entry (one hop), plus the file's own names
+  when it can be required by path (no `exports` map, or one with a pattern).
+
+`public` needs all of: exported under its own name, used by nothing else in
+the package, and a complete route list. **An exported function that other
+exports also call is recorded as `internal`**, with its own name and the
+other exports in `exposedVia`. Otherwise the join would treat its own name as
+the only way in, and an application calling the other export would read as
+`no_usage_detected`. This is stricter than the field table above and needs no
+Component 4 change.
+
+`exposedViaComplete` is false when the file is loaded by anything other than
+the entry (more than one hop), a module is loaded by a computed path, another
+file defines a function of the same name (a bundled copy such as qs's
+`dist/qs.js`), or the export list is not static. A candidate that is not in
+the published vulnerable package, or not defined there, is `unknown`.
+
+On the frozen set (`spikes/localisation/results/provenance/VERIFICATION.md`):
+3/10 sets are closed (c04 ini, c06 minimist, c10 decode-uri-component) and
+8/10 are joinable, against 5/10 joinable before. The estimate above of 9-10
+was optimistic. lodash's exports are a UMD assignment that is not resolved
+statically; some candidates come from repository paths the tarball does not
+ship (node-fetch's `src/`, semver's 5.x `semver.js`); others exist only in
+the fixed or another release line's code. Each of those leaves the set open,
+which is the safe answer. `verify_provenance.py` fails if a closed set's join
+keys miss the expected public symbol.
+
+**Depends on Component 2 for safety.** A closed set makes `no_usage_detected`
+possible, so any call Component 2 does not record becomes a possible false
+negative. Calls through a variable (`const p = qs.parse; p()`) are not
+recorded today (#167 review), and PR #166 as reviewed drops calls after a
+function-scoped `require`.

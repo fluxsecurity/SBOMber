@@ -96,6 +96,11 @@ vulnerable, already contains linked commit `63e7ed0`, the first and incomplete
 The candidate sets are the Sprint 4 ones; localisation accuracy is not
 re-measured.
 
+The same run also fills the join-rule visibility fields from the published
+vulnerable tarball (`docs/design/localisation-join-rule.md`): 3/10 candidate
+sets are closed and 8/10 joinable; the reasons each open set is open are in
+`VERIFICATION.md`.
+
     export GITHUB_TOKEN=$(gh auth token)
     make build
     ./bin/sbomber localise --canonical-scan spikes/localisation/cases/canonical-scan.json \
