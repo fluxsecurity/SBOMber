@@ -3,8 +3,10 @@ package localisation
 import (
 	"bytes"
 	"context"
+	"encoding/json"
 	"fmt"
 	"regexp"
+	"slices"
 	"sort"
 	"strings"
 )
@@ -76,7 +78,43 @@ func VerifyDocument(doc Document) Verification {
 		v.add(SeverityError, "", "", "", "schema %q records no per-candidate evidence; re-run sbomber localise to produce %s",
 			doc.SchemaVersion, SchemaVersion)
 	}
+	if strings.TrimSpace(doc.ScanID) == "" {
+		v.add(SeverityError, "", "", "", "document has no scanId")
+	}
+	if doc.Results == nil {
+		v.add(SeverityError, "", "", "", "document has no results array")
+	}
+	seenFindings := map[string]bool{}
 	for _, r := range doc.Results {
+		if r.FindingID == "" || seenFindings[r.FindingID] {
+			v.add(SeverityError, r.FindingID, "", "", "findingId is missing or repeated")
+		}
+		seenFindings[r.FindingID] = true
+		strictIdentity := r.Method != MethodUnknown || len(r.CandidateSymbols) > 0
+		if r.VulnerabilityID == "" || strictIdentity && !advisoryIDPattern.MatchString(r.VulnerabilityID) {
+			v.add(SeverityError, r.FindingID, "", "", "invalid vulnerabilityId %q", r.VulnerabilityID)
+		}
+		_, installed, packageErr := ParsePURL(r.PURL)
+		if !strings.HasPrefix(r.PURL, "pkg:") || len(r.PURL) <= 4 || strictIdentity && packageErr != nil {
+			v.add(SeverityError, r.FindingID, "", "", "invalid package identity: %s", r.PURL)
+		}
+		if packageErr == nil && r.VulnerableVersion != "" && r.VulnerableVersion != installed {
+			v.add(SeverityError, r.FindingID, "", "", "vulnerableVersion does not match the package URL")
+		}
+		switch r.Method {
+		case MethodAdvisoryMetadata, MethodAdvisoryText, MethodPatchReference, MethodVersionDiff, MethodLLMSuggested, MethodUnknown:
+		default:
+			v.add(SeverityError, r.FindingID, "", "", "invalid localisation method %q", r.Method)
+		}
+		switch r.Confidence {
+		case ConfidenceHigh, ConfidenceMedium, ConfidenceLow, ConfidenceNone:
+		default:
+			v.add(SeverityError, r.FindingID, "", "", "invalid confidence %q", r.Confidence)
+		}
+		if r.Method == MethodUnknown && (len(r.CandidateSymbols) > 0 || r.Confidence != ConfidenceNone) {
+			v.add(SeverityError, r.FindingID, "", "", "unknown must have no candidates and no confidence")
+		}
+
 		var arts []Artefact
 		if r.Provenance != nil {
 			arts = r.Provenance.Artefacts
@@ -106,6 +144,10 @@ func VerifyDocument(doc Document) Verification {
 		}
 		for _, c := range r.CandidateSymbols {
 			v.Candidates++
+			if strings.TrimSpace(c.Symbol) == "" {
+				v.add(SeverityError, r.FindingID, "", "", "candidate has no symbol")
+				continue
+			}
 			if len(c.Evidence) == 0 {
 				v.add(SeverityError, r.FindingID, c.Symbol, "", "candidate cites no artefact")
 				continue
@@ -190,6 +232,12 @@ func artefactIncomplete(a Artefact) string {
 			return "advisory artefact has no URL"
 		}
 	case ArtefactSourceFile:
+		if err := validateRepo(a.Repo); err != nil {
+			return err.Error()
+		}
+		if err := validateRepoPath(a.Path); err != nil {
+			return err.Error()
+		}
 		if a.Repo == "" || a.Path == "" || !reFullSHA.MatchString(a.Commit) || !reFullSHA.MatchString(a.GitBlobSHA) {
 			return "source_file artefact needs repo, path, a full commit SHA and a git blob SHA"
 		}
@@ -215,6 +263,9 @@ func verifyTagRecord(v *Verification, r Result) {
 	fixedChecked := false
 	for _, tc := range p.TagChecks {
 		v.TagChecks[tc.Result]++
+		if msg := tagRecordInvalid(r, tc); msg != "" {
+			v.add(SeverityError, r.FindingID, "", "", "invalid tag check: %s", msg)
+		}
 		if tc.Role == TagRoleFixed {
 			fixedChecked = true
 		}
@@ -251,6 +302,11 @@ func (l *Localiser) Refetch(ctx context.Context, doc Document, v *Verification) 
 	// Keyed on every field the re-fetch uses, so two records that share an
 	// id but differ in what they claim are each checked.
 	done := map[string]*refetched{}
+	type fixRead struct {
+		content []FixContent
+		err     error
+	}
+	fixesRead := map[string]fixRead{}
 	for _, r := range doc.Results {
 		if r.Provenance == nil {
 			continue
@@ -275,11 +331,24 @@ func (l *Localiser) Refetch(ctx context.Context, doc Document, v *Verification) 
 			if o.msg != "" {
 				v.add(o.sev, r.FindingID, "", a.ID, "%s", o.msg)
 			}
-		}
-		for _, c := range r.CandidateSymbols {
-			if c.Symbol == "default" {
-				continue // the anonymous export has no name in the source
+			// Download caching is per artefact, but identity belongs to
+			// each result. Never let a second finding borrow the first's
+			// successful advisory identity check.
+			if a.Kind == ArtefactAdvisory && len(o.body) > 0 && o.sev != SeverityError {
+				var rec osvRecord
+				if err := json.Unmarshal(o.body, &rec); err != nil {
+					v.add(SeverityError, r.FindingID, "", a.ID, "advisory is not valid JSON: %v", err)
+				} else {
+					finding := Finding{VulnerabilityID: r.VulnerabilityID, PURL: r.PURL}
+					checked := advisoryArtefact(a.URL, o.body, rec, finding, advisoryFromOSV(rec, r.PURL))
+					if !checked.Verified {
+						v.add(SeverityError, r.FindingID, "", a.ID, "%s", checked.Note)
+					}
+				}
 			}
+		}
+		l.verifyVisibility(ctx, r, got, v)
+		for _, c := range r.CandidateSymbols {
 			found, checked := false, false
 			for _, id := range c.Evidence {
 				o := got[id]
@@ -294,17 +363,41 @@ func (l *Localiser) Refetch(ctx context.Context, doc Document, v *Verification) 
 			}
 		}
 		for _, tc := range r.Provenance.TagChecks {
-			valid := len(tc.FixCommits) > 0
-			for _, f := range tc.FixCommits {
-				valid = valid && reSHA.MatchString(f)
-			}
-			if !valid || !validVersion(tc.Version) {
-				v.add(SeverityError, r.FindingID, "", "", "tag check has invalid fix commits %q or version %q", tc.FixCommits, tc.Version)
+			if msg := tagRecordInvalid(r, tc); msg != "" {
+				v.add(SeverityError, r.FindingID, "", "", "invalid tag check: %s", msg)
 				continue
 			}
-			again := l.tagCheck(ctx, tc.Repo, tc.FixCommits, tc.Content, name, tc.Version, tc.Role)
+			// Content evidence in the input is a claim, not a patch.
+			// Rebuild it from the actual fix commit and checksummed files.
+			var content []FixContent
+			contentOK := true
+			if tc.Basis == BasisContent || len(tc.ByContent) > 0 || len(tc.Content) > 0 {
+				for _, fix := range tc.FixCommits {
+					key := tc.Repo + "@" + fix
+					read, seen := fixesRead[key]
+					if !seen {
+						read.content, read.err = l.readFixContent(ctx, tc.Repo, fix)
+						fixesRead[key] = read
+					}
+					if read.err != nil {
+						v.add(SeverityError, r.FindingID, "", "", "could not verify fix content: %v", read.err)
+						contentOK = false
+						break
+					}
+					content = append(content, read.content...)
+				}
+			}
+			if !contentOK {
+				continue
+			}
+			again := l.tagCheck(ctx, tc.Repo, tc.FixCommits, content, name, tc.Version, tc.Role)
 			same := again.Result == tc.Result && again.ReleaseCommit == tc.ReleaseCommit && again.Basis == tc.Basis &&
-				len(again.ByAncestry) == len(tc.ByAncestry) && len(again.ByContent) == len(tc.ByContent)
+				again.ReleaseSource == tc.ReleaseSource && again.RegistryGitHead == tc.RegistryGitHead &&
+				again.Tag == tc.Tag && again.TagCommit == tc.TagCommit &&
+				slices.Equal(again.ByAncestry, tc.ByAncestry) && slices.Equal(again.ByContent, tc.ByContent) &&
+				slices.EqualFunc(again.Content, tc.Content, func(a, b FixContent) bool {
+					return a.Commit == b.Commit && a.Parent == b.Parent && a.Path == b.Path && slices.Equal(a.Lines, b.Lines)
+				})
 			switch {
 			case same:
 			case again.Result == TagUnavailable:
@@ -324,25 +417,139 @@ type refetched struct {
 	msg         string
 	unreachable bool
 	body        []byte            // source file or canonical advisory
+	sourcePath  string            // set only for source files; needed to check default exports
 	files       map[string][]byte // tarball sources by path
+	tarball     *Tarball
 }
 
 func (o *refetched) mentions(modulePath, symbol string) bool {
 	if o.files == nil {
-		return bytes.Contains(o.body, []byte(symbol))
+		return sourceMentions(o.sourcePath, o.body, symbol)
 	}
 	if src, ok := o.files[modulePath]; ok {
-		return bytes.Contains(src, []byte(symbol))
+		return sourceMentions(modulePath, src, symbol)
 	}
 	if modulePath != "" {
 		return false
 	}
-	for _, src := range o.files {
-		if bytes.Contains(src, []byte(symbol)) {
+	for path, src := range o.files {
+		if sourceMentions(path, src, symbol) {
 			return true
 		}
 	}
 	return false
+}
+
+// sourceMentions checks synthetic default names using the same parser that
+// produced them. The spelling need not occur in module.exports = function...
+// bytes, but a real callable/default export must exist. Advisories retain
+// literal symbol checks because their prose is not JavaScript.
+func sourceMentions(path string, body []byte, symbol string) bool {
+	if symbol != "default" || path == "" {
+		return bytes.Contains(body, []byte(symbol))
+	}
+	fs, err := ParseSymbols(path, body)
+	if err != nil || fs.Minified {
+		return false
+	}
+	for _, fn := range fs.Functions {
+		if fn.Anonymous {
+			continue
+		}
+		if fn.Name == "default" || slices.Contains(fn.Aliases, "default") || slices.Contains(fs.ExportedNames(fn.Name), "default") {
+			return true
+		}
+	}
+	return false
+}
+
+func tagRecordInvalid(r Result, tc TagCheck) string {
+	switch tc.Result {
+	case TagVerified, TagMismatch, TagUnavailable:
+	default:
+		return "invalid tag-check result"
+	}
+	switch tc.Basis {
+	case "", BasisAncestry, BasisContent:
+	default:
+		return "invalid tag-check basis"
+	}
+
+	if err := validateRepo(tc.Repo); err != nil {
+		return err.Error()
+	}
+	if !validVersion(tc.Version) {
+		return "invalid version"
+	}
+	var expected string
+	switch tc.Role {
+	case TagRoleFixed:
+		expected = r.FixedVersion
+	case TagRoleVulnerable:
+		expected = r.VulnerableVersion
+		if expected == "" {
+			_, expected, _ = ParsePURL(r.PURL)
+		}
+	default:
+		return "invalid release role"
+	}
+	if expected == "" || tc.Version != expected {
+		return "release version does not match its result"
+	}
+	if len(tc.FixCommits) == 0 {
+		return "no fix commits"
+	}
+	for _, fix := range tc.FixCommits {
+		if !reSHA.MatchString(fix) {
+			return "invalid fix commit"
+		}
+	}
+	return ""
+}
+
+// readFixContent rebuilds the complete supported-source additions for a fix.
+// Saved parent SHAs, paths and lines are never used to construct requests.
+func (l *Localiser) readFixContent(ctx context.Context, repo, fix string) ([]FixContent, error) {
+	ci, err := l.c.Commit(ctx, repo, fix)
+	if err != nil {
+		return nil, err
+	}
+	if !reFullSHA.MatchString(ci.SHA) || !sameCommit(fix, ci.SHA) {
+		return nil, fmt.Errorf("fix commit identity does not match %s", fix)
+	}
+	parent := ""
+	if len(ci.Parents) > 0 {
+		parent = ci.Parents[0].SHA
+		if !reFullSHA.MatchString(parent) {
+			return nil, fmt.Errorf("invalid fix parent")
+		}
+	}
+	blobs := map[string]string{}
+	for _, file := range ci.Files {
+		blobs[file.Filename] = file.SHA
+	}
+	var out []FixContent
+	for _, diff := range fileDiffsFromCommit(ci) {
+		path := diff.Path()
+		if classifyPath(path) != "" || !SupportedSourceFile(path) || diff.Binary || diff.Status == "removed" {
+			continue
+		}
+		added, _ := diff.ChangedLines()
+		if len(added) == 0 {
+			continue
+		}
+		body, art, err := l.c.sourceArtefact(ctx, repo, path, ci.SHA, blobs[path])
+		if err != nil {
+			return nil, err
+		}
+		if !art.Verified {
+			return nil, fmt.Errorf("unverified fix file %s: %s", path, art.Note)
+		}
+		if lines := distinctiveLines(body, added); len(lines) > 0 {
+			out = append(out, FixContent{Commit: fix, Parent: parent, Path: path, Lines: lines})
+		}
+	}
+	return out, nil
 }
 
 func refetchKey(pkg string, a Artefact) string {
@@ -373,7 +580,7 @@ func (l *Localiser) refetchOne(ctx context.Context, pkg string, a Artefact) *ref
 		if sha256Hex(body) != a.SHA256 {
 			return fail("SHA-256 of the re-fetched file differs from the record")
 		}
-		return &refetched{body: body}
+		return &refetched{body: body, sourcePath: a.Path}
 	case ArtefactTarball:
 		pv, err := l.c.RegistryVersion(ctx, pkg, a.Version)
 		if err != nil {
@@ -395,7 +602,7 @@ func (l *Localiser) refetchOne(ctx context.Context, pkg string, a Artefact) *ref
 		if !tb.Artefact.Verified {
 			return fail("re-downloaded tarball no longer matches the registry integrity value")
 		}
-		return &refetched{files: tb.Files}
+		return &refetched{files: tb.Files, tarball: tb}
 	case ArtefactAdvisory:
 		i := strings.LastIndex(a.URL, "/v1/vulns/")
 		if i < 0 {
@@ -432,4 +639,47 @@ func SortIssues(is []Issue) {
 		}
 		return is[i].FindingID < is[j].FindingID
 	})
+}
+
+// Visibility controls negative decisions, so online verification must rebuild
+// it from the vulnerable tarball, not trust flags saved in the document.
+func (l *Localiser) verifyVisibility(_ context.Context, r Result, got map[string]*refetched, v *Verification) {
+	known := false
+	for _, c := range r.CandidateSymbols {
+		known = known || c.Visibility == VisibilityPublic || c.Visibility == VisibilityInternal
+	}
+	if !known {
+		return
+	}
+	name, version, err := ParsePURL(r.PURL)
+	if err != nil {
+		return
+	}
+	fetched := got[TarballArtefactID(name, version)]
+	if fetched == nil || fetched.sev == SeverityError || fetched.tarball == nil {
+		v.add(SeverityError, r.FindingID, "", "", "visibility has no re-verified vulnerable tarball")
+		return
+	}
+	pm, err := buildPackageModel(fetched.tarball)
+	if err != nil {
+		v.add(SeverityError, r.FindingID, "", "", "cannot reconstruct visibility: %v", err)
+		return
+	}
+	for _, c := range r.CandidateSymbols {
+		if c.Visibility != VisibilityPublic && c.Visibility != VisibilityInternal {
+			continue
+		}
+		expected := pm.resolve(c.Symbol, c.ModulePath)
+		via := append([]string(nil), c.ExposedVia...)
+		sort.Strings(via)
+		want := append([]string(nil), expected.ExposedVia...)
+		sort.Strings(want)
+		same := c.Visibility == expected.Visibility
+		if c.Visibility == VisibilityInternal {
+			same = same && slices.Equal(via, want) && c.ExposedViaSource == ExposedViaExportResolution && c.ExposedViaComplete != nil && *c.ExposedViaComplete == expected.Complete
+		}
+		if !same {
+			v.add(SeverityError, r.FindingID, c.Symbol, "", "recorded visibility differs from the verified vulnerable package: want %s via %v complete=%v", expected.Visibility, expected.ExposedVia, expected.Complete)
+		}
+	}
 }

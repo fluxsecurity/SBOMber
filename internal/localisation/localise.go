@@ -105,6 +105,10 @@ func (l *Localiser) localise(ctx context.Context, f Finding) (Result, Trace, tag
 
 	// Advisory first: three of the four methods depend on it.
 	adv, advErr := l.c.FetchAdvisory(ctx, f)
+	if adv != nil && !adv.Artefact.Verified {
+		advErr = fmt.Errorf("advisory identity verification failed: %s", adv.Artefact.Note)
+		adv = nil
+	}
 	var prov Provenance
 	if adv != nil {
 		prov.AdvisorySource = adv.Source

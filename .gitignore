@@ -1,9 +1,12 @@
+# Generated caches
+__pycache__/
+*.py[cod]
+
 bin/
 *.exe
 *.test
 *.out
 .sbomber/
 
-# Python bytecode
-__pycache__/
-*.pyc
+# Local cache used by the Makefile
+/.cache/go-build/
