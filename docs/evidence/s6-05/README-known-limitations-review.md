@@ -37,7 +37,7 @@ checks, not new fixtures or a replacement for #152's measurements.
 | Re-export/import indirection is not a general resolved call path | `TestImportFormsNeverReadAsNotImported`; `TestDynamicImportsResolveSymbolsAndEdges`; `TestAwaitedDynamicImportRespectsBlockScope` |
 | Syntax-error files yield no semantic evidence | Early return on `HasError` in `internal/sourceanalysis/extract.go`; partial-coverage accounting in `internal/usagegraph/coverage.go` |
 | Vue/Svelte/Astro/MDX/Marko are unsupported and make coverage partial | `internal/sourceanalysis/repository.go`; `TestUnsupportedSourceFormatMakesAnalysisPartial` |
-| Only root tsconfig paths; missing/ambiguous targets block negative conclusions | `internal/usagegraph/path_aliases.go`, `internal/cli/usage.go` (`readPathAliases`), `alias_safety.go`; `TestParseTSConfigPaths`; `TestMissingAliasTargetCannotSupportNegative` |
+| Root-only tsconfig paths; unresolved aliases are not proof of no usage | `internal/usagegraph/path_aliases.go`, `internal/cli/usage.go` (`readPathAliases`), `alias_safety.go`; `TestParseTSConfigPaths`; `TestMissingAliasTargetCannotSupportNegative` |
 | Computed import in analysed source affects unmatched packages repository-wide | `TestComputedImportDetailNamesTheLine`; `internal/usagegraph/computed_import_safety_test.go` |
 | Excluded trees are outside scope; empty scope/limits cannot support a negative conclusion | `TestAnalyzeRepositoryExcludesUntrustedAndGeneratedTrees`; `TestAnalyzeRepositoryStopsAtSourceFileLimit`; `TestProduceEmptySourceScopeBlocksNegative`; `TestBuildPartialCoverageCountsOnlyInScopeFiles` |
 
