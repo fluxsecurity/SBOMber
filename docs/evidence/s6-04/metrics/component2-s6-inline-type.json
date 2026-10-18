@@ -2,7 +2,7 @@
   "fixture": "component2-s6-inline-type",
   "construct": "import_type",
   "labelMethod": "author-labelled review addition before running the changed analyser",
-  "analyserCommit": "d8ab2e24ed61415ae7df559a04d20576a897bcd4",
+  "analyserCommit": "1e5c6af40893e0aed9ee7da3a1af414b7d1ff790",
   "schemaVersion": "1.4.0",
   "analyser": {
     "parser": "tree-sitter",

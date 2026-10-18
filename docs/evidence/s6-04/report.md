@@ -1,6 +1,6 @@
 # Sprint 6 Issue #149 — per-construct usage evaluation
 
-Analyser Git commit: `d8ab2e24ed61415ae7df559a04d20576a897bcd4`. Fixtures: **21**; construct categories: **11**.
+Analyser Git commit: `1e5c6af40893e0aed9ee7da3a1af414b7d1ff790`. Fixtures: **21**; construct categories: **11**.
 
 All metrics are based on controlled, author-labelled fixtures, not overall real-world scanner accuracy.
 A call metric of N/A means no measurable resolved/unresolved calls were present, not 100% accuracy.
