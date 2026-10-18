@@ -1,0 +1,515 @@
+{
+  "schemaVersion": "1.1.0",
+  "scanId": "scan-s6-08-demo-app",
+  "distribution": {
+    "totalFindings": 10,
+    "usageDetected": 6,
+    "noUsageDetected": 1,
+    "unknown": 3,
+    "unsupported": 0
+  },
+  "decisions": [
+    {
+      "findingId": "find-001",
+      "vulnerabilityId": "CVE-2026-45822",
+      "purl": "pkg:npm/decode-uri-component@0.2.0",
+      "state": "usage_detected",
+      "analysisConfidence": "high",
+      "confidenceCriteria": [
+        "localisation method patch_reference",
+        "parse coverage 100.0 percent",
+        "no unresolved imports for this package",
+        "no unresolved call sites for this package",
+        "agreement between independent deterministic methods"
+      ],
+      "riskPriority": {
+        "band": "act_now",
+        "severity": "medium",
+        "relationship": "direct",
+        "fixAvailable": true
+      },
+      "justification": "The application calls default, which localisation names as a candidate or a public entry point to one.",
+      "basedOn": {
+        "usageObservationIds": [
+          "obs-f2d0c52720ff8add78cdebd5e42b5f84"
+        ],
+        "localisationMethod": "patch_reference",
+        "localisationConfidence": "medium",
+        "matchedSymbols": [
+          "default"
+        ],
+        "evidenceLevel": 3,
+        "coverageSummary": {
+          "parseCoveragePercent": 100,
+          "unresolvedImportsInScope": 0,
+          "scanStatus": "complete"
+        }
+      },
+      "remediation": {
+        "reportedFixedVersion": "0.5.0",
+        "resolvesFindingIds": [
+          "find-001"
+        ]
+      },
+      "vexMapping": {
+        "statement": "affected",
+        "actionStatement": "Upgrade decode-uri-component to 0.5.0 or later."
+      }
+    },
+    {
+      "findingId": "find-002",
+      "vulnerabilityId": "CVE-2022-38900",
+      "purl": "pkg:npm/decode-uri-component@0.2.0",
+      "state": "usage_detected",
+      "analysisConfidence": "high",
+      "confidenceCriteria": [
+        "localisation method patch_reference",
+        "parse coverage 100.0 percent",
+        "no unresolved imports for this package",
+        "no unresolved call sites for this package",
+        "agreement between independent deterministic methods"
+      ],
+      "riskPriority": {
+        "band": "act_now",
+        "severity": "high",
+        "relationship": "direct",
+        "fixAvailable": true
+      },
+      "justification": "The application calls default, which localisation names as a candidate or a public entry point to one.",
+      "basedOn": {
+        "usageObservationIds": [
+          "obs-f2d0c52720ff8add78cdebd5e42b5f84"
+        ],
+        "localisationMethod": "patch_reference",
+        "localisationConfidence": "high",
+        "matchedSymbols": [
+          "default"
+        ],
+        "evidenceLevel": 3,
+        "coverageSummary": {
+          "parseCoveragePercent": 100,
+          "unresolvedImportsInScope": 0,
+          "scanStatus": "complete"
+        }
+      },
+      "remediation": {
+        "reportedFixedVersion": "0.2.1",
+        "resolvesFindingIds": [
+          "find-002"
+        ]
+      },
+      "vexMapping": {
+        "statement": "affected",
+        "actionStatement": "Upgrade decode-uri-component to 0.2.1 or later."
+      }
+    },
+    {
+      "findingId": "find-003",
+      "vulnerabilityId": "CVE-2020-7788",
+      "purl": "pkg:npm/ini@1.3.5",
+      "state": "no_usage_detected",
+      "analysisConfidence": "medium",
+      "confidenceCriteria": [
+        "localisation method patch_reference",
+        "parse coverage 100.0 percent",
+        "no second deterministic method available to corroborate"
+      ],
+      "riskPriority": {
+        "band": "lower_priority",
+        "severity": "high",
+        "relationship": "direct",
+        "fixAvailable": true
+      },
+      "justification": "No usage evidence found within the analysed scope: analysis completed and no application call reached any public entry point of the localised functions.",
+      "basedOn": {
+        "usageObservationIds": [
+          "obs-4b2986fa2701ec68d0fe37c164520b85"
+        ],
+        "localisationMethod": "patch_reference",
+        "localisationConfidence": "high",
+        "matchedSymbols": [],
+        "evidenceLevel": 3,
+        "coverageSummary": {
+          "parseCoveragePercent": 100,
+          "unresolvedImportsInScope": 0,
+          "scanStatus": "complete"
+        }
+      },
+      "remediation": {
+        "reportedFixedVersion": "1.3.6",
+        "resolvesFindingIds": [
+          "find-003"
+        ]
+      },
+      "vexMapping": {
+        "statement": "under_investigation"
+      }
+    },
+    {
+      "findingId": "find-004",
+      "vulnerabilityId": "CVE-2020-28500",
+      "purl": "pkg:npm/lodash@4.17.20",
+      "state": "unknown",
+      "analysisConfidence": "medium",
+      "confidenceCriteria": [
+        "localisation method patch_reference",
+        "parse coverage 100.0 percent",
+        "no second deterministic method available to corroborate"
+      ],
+      "riskPriority": {
+        "band": "insufficient_information",
+        "severity": "medium",
+        "relationship": "direct",
+        "fixAvailable": true
+      },
+      "justification": "Localised to an internal function with no resolved public entry point (visibility of baseTrim, toNumber, trim, trimEnd and trimmedEndIndex is unknown).",
+      "basedOn": {
+        "usageObservationIds": [
+          "obs-2892557280466c1614d5fa2c95ca2d22"
+        ],
+        "localisationMethod": "patch_reference",
+        "localisationConfidence": "medium",
+        "matchedSymbols": [],
+        "evidenceLevel": 3,
+        "coverageSummary": {
+          "parseCoveragePercent": 100,
+          "unresolvedImportsInScope": 0,
+          "scanStatus": "complete"
+        }
+      },
+      "remediation": {
+        "reportedFixedVersion": "4.17.21",
+        "resolvesFindingIds": [
+          "find-004",
+          "find-005"
+        ]
+      },
+      "vexMapping": {
+        "statement": "under_investigation"
+      }
+    },
+    {
+      "findingId": "find-005",
+      "vulnerabilityId": "CVE-2021-23337",
+      "purl": "pkg:npm/lodash@4.17.20",
+      "state": "usage_detected",
+      "analysisConfidence": "high",
+      "confidenceCriteria": [
+        "localisation method patch_reference",
+        "parse coverage 100.0 percent",
+        "no unresolved imports for this package",
+        "no unresolved call sites for this package",
+        "agreement between independent deterministic methods"
+      ],
+      "riskPriority": {
+        "band": "act_now",
+        "severity": "high",
+        "relationship": "direct",
+        "fixAvailable": true
+      },
+      "justification": "The application calls template, which localisation names as a candidate or a public entry point to one.",
+      "basedOn": {
+        "usageObservationIds": [
+          "obs-2892557280466c1614d5fa2c95ca2d22"
+        ],
+        "localisationMethod": "patch_reference",
+        "localisationConfidence": "high",
+        "matchedSymbols": [
+          "template"
+        ],
+        "evidenceLevel": 3,
+        "coverageSummary": {
+          "parseCoveragePercent": 100,
+          "unresolvedImportsInScope": 0,
+          "scanStatus": "complete"
+        }
+      },
+      "remediation": {
+        "reportedFixedVersion": "4.17.21",
+        "resolvesFindingIds": [
+          "find-004",
+          "find-005"
+        ]
+      },
+      "vexMapping": {
+        "statement": "affected",
+        "actionStatement": "Upgrade lodash to 4.17.21 or later."
+      }
+    },
+    {
+      "findingId": "find-006",
+      "vulnerabilityId": "CVE-2026-2950",
+      "purl": "pkg:npm/lodash@4.17.20",
+      "state": "unknown",
+      "analysisConfidence": "medium",
+      "confidenceCriteria": [
+        "localisation method advisory_text",
+        "parse coverage 100.0 percent",
+        "no second deterministic method available to corroborate"
+      ],
+      "riskPriority": {
+        "band": "insufficient_information",
+        "severity": "medium",
+        "relationship": "direct",
+        "fixAvailable": true
+      },
+      "justification": "Localised to an internal function with no resolved public entry point (localisation 1.1.0 does not record whether omit and unset is public or internal; candidates came from advisory text, which cannot show the set is complete).",
+      "basedOn": {
+        "usageObservationIds": [
+          "obs-2892557280466c1614d5fa2c95ca2d22"
+        ],
+        "localisationMethod": "advisory_text",
+        "localisationConfidence": "medium",
+        "matchedSymbols": [],
+        "evidenceLevel": 3,
+        "coverageSummary": {
+          "parseCoveragePercent": 100,
+          "unresolvedImportsInScope": 0,
+          "scanStatus": "complete"
+        }
+      },
+      "remediation": {
+        "reportedFixedVersion": "4.18.0",
+        "resolvesFindingIds": [
+          "find-006",
+          "find-007"
+        ]
+      },
+      "vexMapping": {
+        "statement": "under_investigation"
+      }
+    },
+    {
+      "findingId": "find-007",
+      "vulnerabilityId": "CVE-2026-4800",
+      "purl": "pkg:npm/lodash@4.17.20",
+      "state": "usage_detected",
+      "analysisConfidence": "high",
+      "confidenceCriteria": [
+        "localisation method patch_reference",
+        "parse coverage 100.0 percent",
+        "no unresolved imports for this package",
+        "no unresolved call sites for this package",
+        "agreement between independent deterministic methods"
+      ],
+      "riskPriority": {
+        "band": "act_now",
+        "severity": "high",
+        "relationship": "direct",
+        "fixAvailable": true
+      },
+      "justification": "The application calls template, which localisation names as a candidate or a public entry point to one.",
+      "basedOn": {
+        "usageObservationIds": [
+          "obs-2892557280466c1614d5fa2c95ca2d22"
+        ],
+        "localisationMethod": "patch_reference",
+        "localisationConfidence": "high",
+        "matchedSymbols": [
+          "template"
+        ],
+        "evidenceLevel": 3,
+        "coverageSummary": {
+          "parseCoveragePercent": 100,
+          "unresolvedImportsInScope": 0,
+          "scanStatus": "complete"
+        }
+      },
+      "remediation": {
+        "reportedFixedVersion": "4.18.0",
+        "resolvesFindingIds": [
+          "find-006",
+          "find-007"
+        ]
+      },
+      "vexMapping": {
+        "statement": "affected",
+        "actionStatement": "Upgrade lodash to 4.18.0 or later."
+      }
+    },
+    {
+      "findingId": "find-008",
+      "vulnerabilityId": "CVE-2025-13465",
+      "purl": "pkg:npm/lodash@4.17.20",
+      "state": "unknown",
+      "analysisConfidence": "medium",
+      "confidenceCriteria": [
+        "localisation method patch_reference",
+        "parse coverage 100.0 percent",
+        "no second deterministic method available to corroborate"
+      ],
+      "riskPriority": {
+        "band": "insufficient_information",
+        "severity": "medium",
+        "relationship": "direct",
+        "fixAvailable": true
+      },
+      "justification": "Localised to an internal function with no resolved public entry point (visibility of baseUnset is unknown).",
+      "basedOn": {
+        "usageObservationIds": [
+          "obs-2892557280466c1614d5fa2c95ca2d22"
+        ],
+        "localisationMethod": "patch_reference",
+        "localisationConfidence": "high",
+        "matchedSymbols": [],
+        "evidenceLevel": 3,
+        "coverageSummary": {
+          "parseCoveragePercent": 100,
+          "unresolvedImportsInScope": 0,
+          "scanStatus": "complete"
+        }
+      },
+      "remediation": {
+        "reportedFixedVersion": "4.17.23",
+        "resolvesFindingIds": [
+          "find-008"
+        ]
+      },
+      "vexMapping": {
+        "statement": "under_investigation"
+      }
+    },
+    {
+      "findingId": "find-009",
+      "vulnerabilityId": "CVE-2020-7598",
+      "purl": "pkg:npm/minimist@1.2.2",
+      "state": "usage_detected",
+      "analysisConfidence": "high",
+      "confidenceCriteria": [
+        "localisation method patch_reference",
+        "parse coverage 100.0 percent",
+        "no unresolved imports for this package",
+        "no unresolved call sites for this package",
+        "agreement between independent deterministic methods"
+      ],
+      "riskPriority": {
+        "band": "act_now",
+        "severity": "medium",
+        "relationship": "direct",
+        "fixAvailable": true
+      },
+      "justification": "The application calls default, which localisation names as a candidate or a public entry point to one.",
+      "basedOn": {
+        "usageObservationIds": [
+          "obs-fa4e52c9103ec68b0a0af839b61a0489"
+        ],
+        "localisationMethod": "patch_reference",
+        "localisationConfidence": "high",
+        "matchedSymbols": [
+          "default"
+        ],
+        "evidenceLevel": 3,
+        "coverageSummary": {
+          "parseCoveragePercent": 100,
+          "unresolvedImportsInScope": 0,
+          "scanStatus": "complete"
+        }
+      },
+      "remediation": {
+        "reportedFixedVersion": "1.2.3",
+        "resolvesFindingIds": [
+          "find-009"
+        ]
+      },
+      "vexMapping": {
+        "statement": "affected",
+        "actionStatement": "Upgrade minimist to 1.2.3 or later."
+      }
+    },
+    {
+      "findingId": "find-010",
+      "vulnerabilityId": "CVE-2021-44906",
+      "purl": "pkg:npm/minimist@1.2.2",
+      "state": "usage_detected",
+      "analysisConfidence": "high",
+      "confidenceCriteria": [
+        "localisation method patch_reference",
+        "parse coverage 100.0 percent",
+        "no unresolved imports for this package",
+        "no unresolved call sites for this package",
+        "agreement between independent deterministic methods"
+      ],
+      "riskPriority": {
+        "band": "act_now",
+        "severity": "critical",
+        "relationship": "direct",
+        "fixAvailable": true
+      },
+      "justification": "The application calls default, which localisation names as a candidate or a public entry point to one.",
+      "basedOn": {
+        "usageObservationIds": [
+          "obs-fa4e52c9103ec68b0a0af839b61a0489"
+        ],
+        "localisationMethod": "patch_reference",
+        "localisationConfidence": "high",
+        "matchedSymbols": [
+          "default"
+        ],
+        "evidenceLevel": 3,
+        "coverageSummary": {
+          "parseCoveragePercent": 100,
+          "unresolvedImportsInScope": 0,
+          "scanStatus": "complete"
+        }
+      },
+      "remediation": {
+        "reportedFixedVersion": "1.2.6",
+        "resolvesFindingIds": [
+          "find-010"
+        ]
+      },
+      "vexMapping": {
+        "statement": "affected",
+        "actionStatement": "Upgrade minimist to 1.2.6 or later."
+      }
+    }
+  ],
+  "remediationGroups": [
+    {
+      "purl": "pkg:npm/lodash@4.17.20",
+      "installedVersion": "4.17.20",
+      "reportedFixedVersion": "4.18.0",
+      "findingIds": [
+        "find-004",
+        "find-005",
+        "find-006",
+        "find-007",
+        "find-008"
+      ],
+      "highestBand": "act_now",
+      "relationship": "direct"
+    },
+    {
+      "purl": "pkg:npm/decode-uri-component@0.2.0",
+      "installedVersion": "0.2.0",
+      "reportedFixedVersion": "0.5.0",
+      "findingIds": [
+        "find-001",
+        "find-002"
+      ],
+      "highestBand": "act_now",
+      "relationship": "direct"
+    },
+    {
+      "purl": "pkg:npm/minimist@1.2.2",
+      "installedVersion": "1.2.2",
+      "reportedFixedVersion": "1.2.6",
+      "findingIds": [
+        "find-009",
+        "find-010"
+      ],
+      "highestBand": "act_now",
+      "relationship": "direct"
+    },
+    {
+      "purl": "pkg:npm/ini@1.3.5",
+      "installedVersion": "1.3.5",
+      "reportedFixedVersion": "1.3.6",
+      "findingIds": [
+        "find-003"
+      ],
+      "highestBand": "lower_priority",
+      "relationship": "direct"
+    }
+  ]
+}

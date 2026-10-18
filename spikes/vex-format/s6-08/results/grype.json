@@ -1,0 +1,2246 @@
+{
+ "matches": [
+  {
+   "vulnerability": {
+    "id": "GHSA-w573-4hg7-7wgq",
+    "dataSource": "https://github.com/advisories/GHSA-w573-4hg7-7wgq",
+    "namespace": "github:language:javascript",
+    "severity": "High",
+    "urls": [
+     "https://nvd.nist.gov/vuln/detail/CVE-2022-38900",
+     "https://github.com/SamVerschueren/decode-uri-component/issues/5",
+     "https://github.com/sindresorhus/query-string/issues/345",
+     "https://github.com/SamVerschueren/decode-uri-component/commit/746ca5dcb6667c5d364e782d53c542830e4c10b9",
+     "https://github.com/SamVerschueren/decode-uri-component/releases/tag/v0.2.1",
+     "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/ERN6YE3DS7NBW7UH44SCJBMNC2NWQ7SM/",
+     "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/KAC5KQ2SEWAMQ6UZAUBZ5KXKEOESH375/",
+     "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/VNV2GNZXOTEDAJRFH3ZYWRUBGIVL7BSU/",
+     "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/QABOUA2I542UTANVZIVFKWMRYVHLV32D/",
+     "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/UW4SCMT3SEUFVIL7YIADQ5K36GJEO6I5/"
+    ],
+    "description": "decode-uri-component vulnerable to Denial of Service (DoS)",
+    "cvss": [
+     {
+      "type": "Secondary",
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "metrics": {
+       "baseScore": 7.5,
+       "exploitabilityScore": 3.9,
+       "impactScore": 3.6
+      },
+      "vendorMetadata": {}
+     }
+    ],
+    "epss": [
+     {
+      "cve": "CVE-2022-38900",
+      "epss": 0.23789,
+      "percentile": 0.97805,
+      "date": "2026-10-17"
+     }
+    ],
+    "cwes": [
+     {
+      "cve": "CVE-2022-38900",
+      "cwe": "CWE-20",
+      "source": "nvd@nist.gov",
+      "type": "Primary"
+     },
+     {
+      "cve": "CVE-2022-38900",
+      "cwe": "CWE-20",
+      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+      "type": "Secondary"
+     }
+    ],
+    "fix": {
+     "versions": [
+      "0.2.1"
+     ],
+     "state": "fixed",
+     "available": [
+      {
+       "version": "0.2.1",
+       "date": "2022-12-02",
+       "kind": "first-observed"
+      }
+     ]
+    },
+    "advisories": [],
+    "risk": 17.84175
+   },
+   "relatedVulnerabilities": [
+    {
+     "id": "CVE-2022-38900",
+     "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2022-38900",
+     "namespace": "nvd:cpe",
+     "severity": "High",
+     "urls": [
+      "https://github.com/SamVerschueren/decode-uri-component/issues/5",
+      "https://github.com/sindresorhus/query-string/issues/345",
+      "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/ERN6YE3DS7NBW7UH44SCJBMNC2NWQ7SM/",
+      "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/KAC5KQ2SEWAMQ6UZAUBZ5KXKEOESH375/",
+      "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/QABOUA2I542UTANVZIVFKWMRYVHLV32D/",
+      "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/UW4SCMT3SEUFVIL7YIADQ5K36GJEO6I5/",
+      "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/VNV2GNZXOTEDAJRFH3ZYWRUBGIVL7BSU/"
+     ],
+     "description": "decode-uri-component 0.2.0 is vulnerable to Improper Input Validation resulting in DoS.",
+     "cvss": [
+      {
+       "source": "nvd@nist.gov",
+       "type": "Primary",
+       "version": "3.1",
+       "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+       "metrics": {
+        "baseScore": 7.5,
+        "exploitabilityScore": 3.9,
+        "impactScore": 3.6
+       },
+       "vendorMetadata": {}
+      },
+      {
+       "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+       "type": "Secondary",
+       "version": "3.1",
+       "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+       "metrics": {
+        "baseScore": 7.5,
+        "exploitabilityScore": 3.9,
+        "impactScore": 3.6
+       },
+       "vendorMetadata": {}
+      }
+     ],
+     "epss": [
+      {
+       "cve": "CVE-2022-38900",
+       "epss": 0.23789,
+       "percentile": 0.97805,
+       "date": "2026-10-17"
+      }
+     ],
+     "cwes": [
+      {
+       "cve": "CVE-2022-38900",
+       "cwe": "CWE-20",
+       "source": "nvd@nist.gov",
+       "type": "Primary"
+      },
+      {
+       "cve": "CVE-2022-38900",
+       "cwe": "CWE-20",
+       "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+       "type": "Secondary"
+      }
+     ]
+    }
+   ],
+   "matchDetails": [
+    {
+     "type": "exact-direct-match",
+     "matcher": "javascript-matcher",
+     "searchedBy": {
+      "language": "javascript",
+      "namespace": "github:language:javascript",
+      "package": {
+       "name": "decode-uri-component",
+       "version": "0.2.0"
+      }
+     },
+     "found": {
+      "vulnerabilityID": "GHSA-w573-4hg7-7wgq",
+      "versionConstraint": "<0.2.1 (semantic)"
+     },
+     "fix": {
+      "suggestedVersion": "0.2.1"
+     }
+    }
+   ],
+   "artifact": {
+    "id": "2297cec57a98a21f",
+    "name": "decode-uri-component",
+    "version": "0.2.0",
+    "type": "npm",
+    "locations": [
+     {
+      "path": "/package-lock.json",
+      "accessPath": "/package-lock.json",
+      "annotations": {
+       "evidence": "primary"
+      }
+     }
+    ],
+    "language": "javascript",
+    "licenses": [
+     "MIT"
+    ],
+    "cpes": [
+     "cpe:2.3:a:decode-uri-component_project:decode-uri-component:0.2.0:*:*:*:*:node.js:*:*"
+    ],
+    "purl": "pkg:npm/decode-uri-component@0.2.0",
+    "upstreams": []
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "GHSA-35jh-r3h4-6jhm",
+    "dataSource": "https://github.com/advisories/GHSA-35jh-r3h4-6jhm",
+    "namespace": "github:language:javascript",
+    "severity": "High",
+    "urls": [
+     "https://nvd.nist.gov/vuln/detail/CVE-2021-23337",
+     "https://github.com/lodash/lodash/commit/3469357cff396a26c363f8c1b5a91dde28ba4b1c",
+     "https://snyk.io/vuln/SNYK-JS-LODASH-1040724",
+     "https://github.com/lodash/lodash/blob/ddfd9b11a0126db2302cb70ec9973b66baec0975/lodash.js#L14851",
+     "https://snyk.io/vuln/SNYK-JAVA-ORGFUJIONWEBJARS-1074932",
+     "https://snyk.io/vuln/SNYK-JAVA-ORGWEBJARS-1074930",
+     "https://snyk.io/vuln/SNYK-JAVA-ORGWEBJARSBOWER-1074928",
+     "https://snyk.io/vuln/SNYK-JAVA-ORGWEBJARSBOWERGITHUBLODASH-1074931",
+     "https://snyk.io/vuln/SNYK-JAVA-ORGWEBJARSNPM-1074929",
+     "https://www.oracle.com//security-alerts/cpujul2021.html",
+     "https://www.oracle.com/security-alerts/cpuoct2021.html",
+     "https://www.oracle.com/security-alerts/cpujan2022.html",
+     "https://www.oracle.com/security-alerts/cpujul2022.html",
+     "https://cert-portal.siemens.com/productcert/pdf/ssa-637483.pdf",
+     "https://security.netapp.com/advisory/ntap-20210312-0006",
+     "https://github.com/rubysec/ruby-advisory-db/blob/master/gems/lodash-rails/CVE-2021-23337.yml"
+    ],
+    "description": "Command Injection in lodash",
+    "cvss": [
+     {
+      "type": "Secondary",
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:U/C:H/I:H/A:H",
+      "metrics": {
+       "baseScore": 7.2,
+       "exploitabilityScore": 1.3,
+       "impactScore": 5.9
+      },
+      "vendorMetadata": {}
+     }
+    ],
+    "epss": [
+     {
+      "cve": "CVE-2021-23337",
+      "epss": 0.21333,
+      "percentile": 0.97577,
+      "date": "2026-10-17"
+     }
+    ],
+    "cwes": [
+     {
+      "cve": "CVE-2021-23337",
+      "cwe": "CWE-94",
+      "source": "nvd@nist.gov",
+      "type": "Primary"
+     }
+    ],
+    "fix": {
+     "versions": [
+      "4.17.21"
+     ],
+     "state": "fixed",
+     "available": [
+      {
+       "version": "4.17.21",
+       "date": "2021-05-07",
+       "kind": "first-observed"
+      }
+     ]
+    },
+    "advisories": [],
+    "risk": 15.679754999999998
+   },
+   "relatedVulnerabilities": [
+    {
+     "id": "CVE-2021-23337",
+     "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2021-23337",
+     "namespace": "nvd:cpe",
+     "severity": "High",
+     "urls": [
+      "https://cert-portal.siemens.com/productcert/pdf/ssa-637483.pdf",
+      "https://github.com/lodash/lodash/blob/ddfd9b11a0126db2302cb70ec9973b66baec0975/lodash.js%23L14851",
+      "https://security.netapp.com/advisory/ntap-20210312-0006/",
+      "https://snyk.io/vuln/SNYK-JAVA-ORGFUJIONWEBJARS-1074932",
+      "https://snyk.io/vuln/SNYK-JAVA-ORGWEBJARS-1074930",
+      "https://snyk.io/vuln/SNYK-JAVA-ORGWEBJARSBOWER-1074928",
+      "https://snyk.io/vuln/SNYK-JAVA-ORGWEBJARSBOWERGITHUBLODASH-1074931",
+      "https://snyk.io/vuln/SNYK-JAVA-ORGWEBJARSNPM-1074929",
+      "https://snyk.io/vuln/SNYK-JS-LODASH-1040724",
+      "https://www.oracle.com//security-alerts/cpujul2021.html",
+      "https://www.oracle.com/security-alerts/cpujan2022.html",
+      "https://www.oracle.com/security-alerts/cpujul2022.html",
+      "https://www.oracle.com/security-alerts/cpuoct2021.html"
+     ],
+     "description": "Lodash versions prior to 4.17.21 are vulnerable to Command Injection via the template function.",
+     "cvss": [
+      {
+       "source": "nvd@nist.gov",
+       "type": "Primary",
+       "version": "3.1",
+       "vector": "CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:U/C:H/I:H/A:H",
+       "metrics": {
+        "baseScore": 7.2,
+        "exploitabilityScore": 1.3,
+        "impactScore": 5.9
+       },
+       "vendorMetadata": {}
+      },
+      {
+       "source": "nvd@nist.gov",
+       "type": "Primary",
+       "version": "2.0",
+       "vector": "AV:N/AC:L/Au:S/C:P/I:P/A:P",
+       "metrics": {
+        "baseScore": 6.5,
+        "exploitabilityScore": 8,
+        "impactScore": 6.5
+       },
+       "vendorMetadata": {}
+      },
+      {
+       "source": "report@snyk.io",
+       "type": "Secondary",
+       "version": "3.1",
+       "vector": "CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:U/C:H/I:H/A:H",
+       "metrics": {
+        "baseScore": 7.2,
+        "exploitabilityScore": 1.3,
+        "impactScore": 5.9
+       },
+       "vendorMetadata": {}
+      }
+     ],
+     "epss": [
+      {
+       "cve": "CVE-2021-23337",
+       "epss": 0.21333,
+       "percentile": 0.97577,
+       "date": "2026-10-17"
+      }
+     ],
+     "cwes": [
+      {
+       "cve": "CVE-2021-23337",
+       "cwe": "CWE-94",
+       "source": "nvd@nist.gov",
+       "type": "Primary"
+      }
+     ]
+    }
+   ],
+   "matchDetails": [
+    {
+     "type": "exact-direct-match",
+     "matcher": "javascript-matcher",
+     "searchedBy": {
+      "language": "javascript",
+      "namespace": "github:language:javascript",
+      "package": {
+       "name": "lodash",
+       "version": "4.17.20"
+      }
+     },
+     "found": {
+      "vulnerabilityID": "GHSA-35jh-r3h4-6jhm",
+      "versionConstraint": "<4.17.21 (semantic)"
+     },
+     "fix": {
+      "suggestedVersion": "4.17.21"
+     }
+    }
+   ],
+   "artifact": {
+    "id": "ece3658907628a6b",
+    "name": "lodash",
+    "version": "4.17.20",
+    "type": "npm",
+    "locations": [
+     {
+      "path": "/package-lock.json",
+      "accessPath": "/package-lock.json",
+      "annotations": {
+       "evidence": "primary"
+      }
+     }
+    ],
+    "language": "javascript",
+    "licenses": [
+     "MIT"
+    ],
+    "cpes": [
+     "cpe:2.3:a:lodash:lodash:4.17.20:*:*:*:*:node.js:*:*"
+    ],
+    "purl": "pkg:npm/lodash@4.17.20",
+    "upstreams": []
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "GHSA-xvch-5gv4-984h",
+    "dataSource": "https://github.com/advisories/GHSA-xvch-5gv4-984h",
+    "namespace": "github:language:javascript",
+    "severity": "Critical",
+    "urls": [
+     "https://nvd.nist.gov/vuln/detail/CVE-2021-44906",
+     "https://github.com/substack/minimist/issues/164",
+     "https://github.com/substack/minimist/blob/master/index.js#L69",
+     "https://snyk.io/vuln/SNYK-JS-MINIMIST-559764",
+     "https://stackoverflow.com/questions/8588563/adding-custom-properties-to-a-function/20278068#20278068",
+     "https://github.com/Marynk/JavaScript-vulnerability-detection/blob/main/minimist%20PoC.zip",
+     "https://github.com/minimistjs/minimist/issues/11",
+     "https://github.com/minimistjs/minimist/pull/24",
+     "https://github.com/minimistjs/minimist/commit/34e20b8461118608703d6485326abbb8e35e1703",
+     "https://github.com/minimistjs/minimist/commit/bc8ecee43875261f4f17eb20b1243d3ed15e70eb",
+     "https://github.com/minimistjs/minimist/commit/c2b981977fa834b223b408cfb860f933c9811e4d",
+     "https://github.com/minimistjs/minimist/commit/ef9153fc52b6cea0744b2239921c5dcae4697f11",
+     "https://github.com/minimistjs/minimist/commits/v0.2.4",
+     "https://security.netapp.com/advisory/ntap-20240621-0006"
+    ],
+    "description": "Prototype Pollution in minimist",
+    "cvss": [
+     {
+      "type": "Secondary",
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+      "metrics": {
+       "baseScore": 9.8,
+       "exploitabilityScore": 3.9,
+       "impactScore": 5.9
+      },
+      "vendorMetadata": {}
+     }
+    ],
+    "epss": [
+     {
+      "cve": "CVE-2021-44906",
+      "epss": 0.04581,
+      "percentile": 0.91516,
+      "date": "2026-10-17"
+     }
+    ],
+    "cwes": [
+     {
+      "cve": "CVE-2021-44906",
+      "cwe": "CWE-1321",
+      "source": "nvd@nist.gov",
+      "type": "Primary"
+     }
+    ],
+    "fix": {
+     "versions": [
+      "1.2.6"
+     ],
+     "state": "fixed",
+     "available": [
+      {
+       "version": "1.2.6",
+       "date": "2022-03-24",
+       "kind": "first-observed"
+      }
+     ]
+    },
+    "advisories": [],
+    "risk": 4.30614
+   },
+   "relatedVulnerabilities": [
+    {
+     "id": "CVE-2021-44906",
+     "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2021-44906",
+     "namespace": "nvd:cpe",
+     "severity": "Critical",
+     "urls": [
+      "https://github.com/Marynk/JavaScript-vulnerability-detection/blob/main/minimist%20PoC.zip",
+      "https://github.com/substack/minimist/blob/master/index.js#L69",
+      "https://github.com/substack/minimist/issues/164",
+      "https://security.netapp.com/advisory/ntap-20240621-0006/",
+      "https://snyk.io/vuln/SNYK-JS-MINIMIST-559764",
+      "https://stackoverflow.com/questions/8588563/adding-custom-properties-to-a-function/20278068#20278068"
+     ],
+     "description": "Minimist <=1.2.5 is vulnerable to Prototype Pollution via file index.js, function setKey() (lines 69-95).",
+     "cvss": [
+      {
+       "source": "nvd@nist.gov",
+       "type": "Primary",
+       "version": "3.1",
+       "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+       "metrics": {
+        "baseScore": 9.8,
+        "exploitabilityScore": 3.9,
+        "impactScore": 5.9
+       },
+       "vendorMetadata": {}
+      },
+      {
+       "source": "nvd@nist.gov",
+       "type": "Primary",
+       "version": "2.0",
+       "vector": "AV:N/AC:L/Au:N/C:P/I:P/A:P",
+       "metrics": {
+        "baseScore": 7.5,
+        "exploitabilityScore": 10,
+        "impactScore": 6.5
+       },
+       "vendorMetadata": {}
+      }
+     ],
+     "epss": [
+      {
+       "cve": "CVE-2021-44906",
+       "epss": 0.04581,
+       "percentile": 0.91516,
+       "date": "2026-10-17"
+      }
+     ],
+     "cwes": [
+      {
+       "cve": "CVE-2021-44906",
+       "cwe": "CWE-1321",
+       "source": "nvd@nist.gov",
+       "type": "Primary"
+      }
+     ]
+    }
+   ],
+   "matchDetails": [
+    {
+     "type": "exact-direct-match",
+     "matcher": "javascript-matcher",
+     "searchedBy": {
+      "language": "javascript",
+      "namespace": "github:language:javascript",
+      "package": {
+       "name": "minimist",
+       "version": "1.2.2"
+      }
+     },
+     "found": {
+      "vulnerabilityID": "GHSA-xvch-5gv4-984h",
+      "versionConstraint": ">=1.0.0,<1.2.6 (semantic)"
+     },
+     "fix": {
+      "suggestedVersion": "1.2.6"
+     }
+    }
+   ],
+   "artifact": {
+    "id": "d233af889dc2ee3d",
+    "name": "minimist",
+    "version": "1.2.2",
+    "type": "npm",
+    "locations": [
+     {
+      "path": "/package-lock.json",
+      "accessPath": "/package-lock.json",
+      "annotations": {
+       "evidence": "primary"
+      }
+     }
+    ],
+    "language": "javascript",
+    "licenses": [
+     "MIT"
+    ],
+    "cpes": [
+     "cpe:2.3:a:minimist:minimist:1.2.2:*:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:npm/minimist@1.2.2",
+    "upstreams": []
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "GHSA-29mw-wpgm-hmr9",
+    "dataSource": "https://github.com/advisories/GHSA-29mw-wpgm-hmr9",
+    "namespace": "github:language:javascript",
+    "severity": "Medium",
+    "urls": [
+     "https://nvd.nist.gov/vuln/detail/CVE-2020-28500",
+     "https://github.com/lodash/lodash/pull/5065",
+     "https://github.com/lodash/lodash/pull/5065/commits/02906b8191d3c100c193fe6f7b27d1c40f200bb7",
+     "https://github.com/lodash/lodash/blob/npm/trimEnd.js%23L8",
+     "https://snyk.io/vuln/SNYK-JS-LODASH-1018905",
+     "https://snyk.io/vuln/SNYK-JAVA-ORGFUJIONWEBJARS-1074896",
+     "https://snyk.io/vuln/SNYK-JAVA-ORGWEBJARS-1074894",
+     "https://snyk.io/vuln/SNYK-JAVA-ORGWEBJARSBOWER-1074892",
+     "https://snyk.io/vuln/SNYK-JAVA-ORGWEBJARSBOWERGITHUBLODASH-1074895",
+     "https://snyk.io/vuln/SNYK-JAVA-ORGWEBJARSNPM-1074893",
+     "https://www.oracle.com//security-alerts/cpujul2021.html",
+     "https://www.oracle.com/security-alerts/cpuoct2021.html",
+     "https://www.oracle.com/security-alerts/cpujan2022.html",
+     "https://www.oracle.com/security-alerts/cpujul2022.html",
+     "https://cert-portal.siemens.com/productcert/pdf/ssa-637483.pdf",
+     "https://github.com/lodash/lodash/commit/c4847ebe7d14540bb28a8b932a9ce1b9ecbfee1a",
+     "https://security.netapp.com/advisory/ntap-20210312-0006",
+     "https://github.com/rubysec/ruby-advisory-db/blob/master/gems/lodash-rails/CVE-2020-28500.yml",
+     "https://github.com/github/advisory-database/pull/6139"
+    ],
+    "description": "Regular Expression Denial of Service (ReDoS) in lodash",
+    "cvss": [
+     {
+      "type": "Secondary",
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+      "metrics": {
+       "baseScore": 5.3,
+       "exploitabilityScore": 3.9,
+       "impactScore": 1.5
+      },
+      "vendorMetadata": {}
+     }
+    ],
+    "epss": [
+     {
+      "cve": "CVE-2020-28500",
+      "epss": 0.07336,
+      "percentile": 0.94328,
+      "date": "2026-10-17"
+     }
+    ],
+    "cwes": [
+     {
+      "cve": "CVE-2020-28500",
+      "cwe": "NVD-CWE-Other",
+      "source": "nvd@nist.gov",
+      "type": "Primary"
+     }
+    ],
+    "fix": {
+     "versions": [
+      "4.17.21"
+     ],
+     "state": "fixed",
+     "available": [
+      {
+       "version": "4.17.21",
+       "date": "2022-01-07",
+       "kind": "first-observed"
+      }
+     ]
+    },
+    "advisories": [],
+    "risk": 3.77804
+   },
+   "relatedVulnerabilities": [
+    {
+     "id": "CVE-2020-28500",
+     "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2020-28500",
+     "namespace": "nvd:cpe",
+     "severity": "Medium",
+     "urls": [
+      "https://cert-portal.siemens.com/productcert/pdf/ssa-637483.pdf",
+      "https://github.com/lodash/lodash/blob/npm/trimEnd.js%23L8",
+      "https://github.com/lodash/lodash/pull/5065",
+      "https://security.netapp.com/advisory/ntap-20210312-0006/",
+      "https://snyk.io/vuln/SNYK-JAVA-ORGFUJIONWEBJARS-1074896",
+      "https://snyk.io/vuln/SNYK-JAVA-ORGWEBJARS-1074894",
+      "https://snyk.io/vuln/SNYK-JAVA-ORGWEBJARSBOWER-1074892",
+      "https://snyk.io/vuln/SNYK-JAVA-ORGWEBJARSBOWERGITHUBLODASH-1074895",
+      "https://snyk.io/vuln/SNYK-JAVA-ORGWEBJARSNPM-1074893",
+      "https://snyk.io/vuln/SNYK-JS-LODASH-1018905",
+      "https://www.oracle.com//security-alerts/cpujul2021.html",
+      "https://www.oracle.com/security-alerts/cpujan2022.html",
+      "https://www.oracle.com/security-alerts/cpujul2022.html",
+      "https://www.oracle.com/security-alerts/cpuoct2021.html"
+     ],
+     "description": "Lodash versions prior to 4.17.21 are vulnerable to Regular Expression Denial of Service (ReDoS) via the toNumber, trim and trimEnd functions.",
+     "cvss": [
+      {
+       "source": "nvd@nist.gov",
+       "type": "Primary",
+       "version": "3.1",
+       "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+       "metrics": {
+        "baseScore": 5.3,
+        "exploitabilityScore": 3.9,
+        "impactScore": 1.5
+       },
+       "vendorMetadata": {}
+      },
+      {
+       "source": "nvd@nist.gov",
+       "type": "Primary",
+       "version": "2.0",
+       "vector": "AV:N/AC:L/Au:N/C:N/I:N/A:P",
+       "metrics": {
+        "baseScore": 5,
+        "exploitabilityScore": 10,
+        "impactScore": 2.9
+       },
+       "vendorMetadata": {}
+      },
+      {
+       "source": "report@snyk.io",
+       "type": "Secondary",
+       "version": "3.1",
+       "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+       "metrics": {
+        "baseScore": 5.3,
+        "exploitabilityScore": 3.9,
+        "impactScore": 1.5
+       },
+       "vendorMetadata": {}
+      }
+     ],
+     "epss": [
+      {
+       "cve": "CVE-2020-28500",
+       "epss": 0.07336,
+       "percentile": 0.94328,
+       "date": "2026-10-17"
+      }
+     ],
+     "cwes": [
+      {
+       "cve": "CVE-2020-28500",
+       "cwe": "NVD-CWE-Other",
+       "source": "nvd@nist.gov",
+       "type": "Primary"
+      }
+     ]
+    }
+   ],
+   "matchDetails": [
+    {
+     "type": "exact-direct-match",
+     "matcher": "javascript-matcher",
+     "searchedBy": {
+      "language": "javascript",
+      "namespace": "github:language:javascript",
+      "package": {
+       "name": "lodash",
+       "version": "4.17.20"
+      }
+     },
+     "found": {
+      "vulnerabilityID": "GHSA-29mw-wpgm-hmr9",
+      "versionConstraint": ">=4.0.0,<4.17.21 (semantic)"
+     },
+     "fix": {
+      "suggestedVersion": "4.17.21"
+     }
+    }
+   ],
+   "artifact": {
+    "id": "ece3658907628a6b",
+    "name": "lodash",
+    "version": "4.17.20",
+    "type": "npm",
+    "locations": [
+     {
+      "path": "/package-lock.json",
+      "accessPath": "/package-lock.json",
+      "annotations": {
+       "evidence": "primary"
+      }
+     }
+    ],
+    "language": "javascript",
+    "licenses": [
+     "MIT"
+    ],
+    "cpes": [
+     "cpe:2.3:a:lodash:lodash:4.17.20:*:*:*:*:node.js:*:*"
+    ],
+    "purl": "pkg:npm/lodash@4.17.20",
+    "upstreams": []
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "GHSA-qqgx-2p2h-9c37",
+    "dataSource": "https://github.com/advisories/GHSA-qqgx-2p2h-9c37",
+    "namespace": "github:language:javascript",
+    "severity": "High",
+    "urls": [
+     "https://github.com/npm/ini/commit/56d2805e07ccd94e2ba0984ac9240ff02d44b6f1",
+     "https://www.npmjs.com/advisories/1589",
+     "https://snyk.io/vuln/SNYK-JS-INI-1048974",
+     "https://nvd.nist.gov/vuln/detail/CVE-2020-7788",
+     "https://lists.debian.org/debian-lts-announce/2020/12/msg00032.html"
+    ],
+    "description": "ini before 1.3.6 vulnerable to Prototype Pollution via ini.parse",
+    "cvss": [
+     {
+      "type": "Secondary",
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:L",
+      "metrics": {
+       "baseScore": 7.3,
+       "exploitabilityScore": 3.9,
+       "impactScore": 3.4
+      },
+      "vendorMetadata": {}
+     }
+    ],
+    "epss": [
+     {
+      "cve": "CVE-2020-7788",
+      "epss": 0.03655,
+      "percentile": 0.89467,
+      "date": "2026-10-17"
+     }
+    ],
+    "cwes": [
+     {
+      "cve": "CVE-2020-7788",
+      "cwe": "CWE-1321",
+      "source": "nvd@nist.gov",
+      "type": "Primary"
+     }
+    ],
+    "fix": {
+     "versions": [
+      "1.3.6"
+     ],
+     "state": "fixed",
+     "available": [
+      {
+       "version": "1.3.6",
+       "date": "2020-12-11",
+       "kind": "first-observed"
+      }
+     ]
+    },
+    "advisories": [],
+    "risk": 2.7047
+   },
+   "relatedVulnerabilities": [
+    {
+     "id": "CVE-2020-7788",
+     "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2020-7788",
+     "namespace": "nvd:cpe",
+     "severity": "Critical",
+     "urls": [
+      "https://github.com/npm/ini/commit/56d2805e07ccd94e2ba0984ac9240ff02d44b6f1",
+      "https://lists.debian.org/debian-lts-announce/2020/12/msg00032.html",
+      "https://snyk.io/vuln/SNYK-JS-INI-1048974"
+     ],
+     "description": "This affects the package ini before 1.3.6. If an attacker submits a malicious INI file to an application that parses it with ini.parse, they will pollute the prototype on the application. This can be exploited further depending on the context.",
+     "cvss": [
+      {
+       "source": "nvd@nist.gov",
+       "type": "Primary",
+       "version": "3.1",
+       "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+       "metrics": {
+        "baseScore": 9.8,
+        "exploitabilityScore": 3.9,
+        "impactScore": 5.9
+       },
+       "vendorMetadata": {}
+      },
+      {
+       "source": "nvd@nist.gov",
+       "type": "Primary",
+       "version": "2.0",
+       "vector": "AV:N/AC:L/Au:N/C:P/I:P/A:P",
+       "metrics": {
+        "baseScore": 7.5,
+        "exploitabilityScore": 10,
+        "impactScore": 6.5
+       },
+       "vendorMetadata": {}
+      },
+      {
+       "source": "report@snyk.io",
+       "type": "Secondary",
+       "version": "3.1",
+       "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:L",
+       "metrics": {
+        "baseScore": 7.3,
+        "exploitabilityScore": 3.9,
+        "impactScore": 3.4
+       },
+       "vendorMetadata": {}
+      }
+     ],
+     "epss": [
+      {
+       "cve": "CVE-2020-7788",
+       "epss": 0.03655,
+       "percentile": 0.89467,
+       "date": "2026-10-17"
+      }
+     ],
+     "cwes": [
+      {
+       "cve": "CVE-2020-7788",
+       "cwe": "CWE-1321",
+       "source": "nvd@nist.gov",
+       "type": "Primary"
+      }
+     ]
+    }
+   ],
+   "matchDetails": [
+    {
+     "type": "exact-direct-match",
+     "matcher": "javascript-matcher",
+     "searchedBy": {
+      "language": "javascript",
+      "namespace": "github:language:javascript",
+      "package": {
+       "name": "ini",
+       "version": "1.3.5"
+      }
+     },
+     "found": {
+      "vulnerabilityID": "GHSA-qqgx-2p2h-9c37",
+      "versionConstraint": "<1.3.6 (semantic)"
+     },
+     "fix": {
+      "suggestedVersion": "1.3.6"
+     }
+    }
+   ],
+   "artifact": {
+    "id": "700ca52cea8efd08",
+    "name": "ini",
+    "version": "1.3.5",
+    "type": "npm",
+    "locations": [
+     {
+      "path": "/package-lock.json",
+      "accessPath": "/package-lock.json",
+      "annotations": {
+       "evidence": "primary"
+      }
+     }
+    ],
+    "language": "javascript",
+    "licenses": [
+     "ISC"
+    ],
+    "cpes": [
+     "cpe:2.3:a:ini_project:ini:1.3.5:*:*:*:*:node.js:*:*"
+    ],
+    "purl": "pkg:npm/ini@1.3.5",
+    "upstreams": []
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "GHSA-r5fr-rjxr-66jc",
+    "dataSource": "https://github.com/advisories/GHSA-r5fr-rjxr-66jc",
+    "namespace": "github:language:javascript",
+    "severity": "High",
+    "urls": [
+     "https://github.com/lodash/lodash/security/advisories/GHSA-r5fr-rjxr-66jc",
+     "https://nvd.nist.gov/vuln/detail/CVE-2026-4800",
+     "https://github.com/lodash/lodash/commit/3469357cff396a26c363f8c1b5a91dde28ba4b1c",
+     "https://cna.openjsf.org/security-advisories.html",
+     "https://github.com/advisories/GHSA-35jh-r3h4-6jhm"
+    ],
+    "description": "lodash vulnerable to Code Injection via `_.template` imports key names",
+    "cvss": [
+     {
+      "type": "Secondary",
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H",
+      "metrics": {
+       "baseScore": 8.1,
+       "exploitabilityScore": 2.3,
+       "impactScore": 5.9
+      },
+      "vendorMetadata": {}
+     }
+    ],
+    "epss": [
+     {
+      "cve": "CVE-2026-4800",
+      "epss": 0.02618,
+      "percentile": 0.85199,
+      "date": "2026-10-17"
+     }
+    ],
+    "cwes": [
+     {
+      "cve": "CVE-2026-4800",
+      "cwe": "CWE-94",
+      "source": "ce714d77-add3-4f53-aff5-83d477b104bb",
+      "type": "Secondary"
+     },
+     {
+      "cve": "CVE-2026-4800",
+      "cwe": "CWE-94",
+      "source": "0b0ca135-0b70-47e7-9f44-1890c2a1c46c",
+      "type": "Secondary"
+     }
+    ],
+    "fix": {
+     "versions": [
+      "4.18.0"
+     ],
+     "state": "fixed",
+     "available": [
+      {
+       "version": "4.18.0",
+       "date": "2026-04-02",
+       "kind": "first-observed"
+      }
+     ]
+    },
+    "advisories": [],
+    "risk": 2.0420399999999996
+   },
+   "relatedVulnerabilities": [
+    {
+     "id": "CVE-2026-4800",
+     "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2026-4800",
+     "namespace": "nvd:cpe",
+     "severity": "Critical",
+     "urls": [
+      "https://cna.openjsf.org/security-advisories.html",
+      "https://github.com/lodash/lodash/security/advisories/GHSA-r5fr-rjxr-66jc",
+      "https://access.redhat.com/errata/RHBA-2026:21387",
+      "https://access.redhat.com/errata/RHSA-2026:10131",
+      "https://access.redhat.com/errata/RHSA-2026:10175",
+      "https://access.redhat.com/errata/RHSA-2026:10710",
+      "https://access.redhat.com/errata/RHSA-2026:10713",
+      "https://access.redhat.com/errata/RHSA-2026:11454",
+      "https://access.redhat.com/errata/RHSA-2026:11469",
+      "https://access.redhat.com/errata/RHSA-2026:11470",
+      "https://access.redhat.com/errata/RHSA-2026:11471",
+      "https://access.redhat.com/errata/RHSA-2026:11493",
+      "https://access.redhat.com/errata/RHSA-2026:11494",
+      "https://access.redhat.com/errata/RHSA-2026:11495",
+      "https://access.redhat.com/errata/RHSA-2026:11516",
+      "https://access.redhat.com/errata/RHSA-2026:12277",
+      "https://access.redhat.com/errata/RHSA-2026:12279",
+      "https://access.redhat.com/errata/RHSA-2026:13545",
+      "https://access.redhat.com/errata/RHSA-2026:13553",
+      "https://access.redhat.com/errata/RHSA-2026:13571",
+      "https://access.redhat.com/errata/RHSA-2026:13826",
+      "https://access.redhat.com/errata/RHSA-2026:14870",
+      "https://access.redhat.com/errata/RHSA-2026:14871",
+      "https://access.redhat.com/errata/RHSA-2026:16874",
+      "https://access.redhat.com/errata/RHSA-2026:17448",
+      "https://access.redhat.com/errata/RHSA-2026:17468",
+      "https://access.redhat.com/errata/RHSA-2026:17469",
+      "https://access.redhat.com/errata/RHSA-2026:17547",
+      "https://access.redhat.com/errata/RHSA-2026:17549",
+      "https://access.redhat.com/errata/RHSA-2026:17550",
+      "https://access.redhat.com/errata/RHSA-2026:17598",
+      "https://access.redhat.com/errata/RHSA-2026:17789",
+      "https://access.redhat.com/errata/RHSA-2026:19008",
+      "https://access.redhat.com/errata/RHSA-2026:19167",
+      "https://access.redhat.com/errata/RHSA-2026:19409",
+      "https://access.redhat.com/errata/RHSA-2026:19410",
+      "https://access.redhat.com/errata/RHSA-2026:19712",
+      "https://access.redhat.com/errata/RHSA-2026:20041",
+      "https://access.redhat.com/errata/RHSA-2026:20042",
+      "https://access.redhat.com/errata/RHSA-2026:20943",
+      "https://access.redhat.com/errata/RHSA-2026:20946",
+      "https://access.redhat.com/errata/RHSA-2026:21658",
+      "https://access.redhat.com/errata/RHSA-2026:22619",
+      "https://access.redhat.com/errata/RHSA-2026:24331",
+      "https://access.redhat.com/errata/RHSA-2026:24762",
+      "https://access.redhat.com/errata/RHSA-2026:24977",
+      "https://access.redhat.com/errata/RHSA-2026:29795",
+      "https://access.redhat.com/errata/RHSA-2026:34100",
+      "https://access.redhat.com/errata/RHSA-2026:34342",
+      "https://access.redhat.com/errata/RHSA-2026:34608",
+      "https://access.redhat.com/errata/RHSA-2026:36621",
+      "https://access.redhat.com/errata/RHSA-2026:36651",
+      "https://access.redhat.com/errata/RHSA-2026:37186",
+      "https://access.redhat.com/errata/RHSA-2026:40118",
+      "https://access.redhat.com/errata/RHSA-2026:40795",
+      "https://access.redhat.com/errata/RHSA-2026:40945",
+      "https://access.redhat.com/errata/RHSA-2026:40984",
+      "https://access.redhat.com/errata/RHSA-2026:41928",
+      "https://access.redhat.com/errata/RHSA-2026:41941",
+      "https://access.redhat.com/errata/RHSA-2026:41944",
+      "https://access.redhat.com/errata/RHSA-2026:42078",
+      "https://access.redhat.com/errata/RHSA-2026:44235",
+      "https://access.redhat.com/errata/RHSA-2026:48699",
+      "https://access.redhat.com/errata/RHSA-2026:54188",
+      "https://access.redhat.com/errata/RHSA-2026:56789",
+      "https://access.redhat.com/errata/RHSA-2026:56854",
+      "https://access.redhat.com/errata/RHSA-2026:56912",
+      "https://access.redhat.com/errata/RHSA-2026:59833",
+      "https://access.redhat.com/errata/RHSA-2026:60023",
+      "https://access.redhat.com/errata/RHSA-2026:8483",
+      "https://access.redhat.com/errata/RHSA-2026:8484",
+      "https://access.redhat.com/errata/RHSA-2026:8490",
+      "https://access.redhat.com/errata/RHSA-2026:8491",
+      "https://access.redhat.com/errata/RHSA-2026:8493",
+      "https://access.redhat.com/errata/RHSA-2026:8498",
+      "https://access.redhat.com/errata/RHSA-2026:9385",
+      "https://access.redhat.com/errata/RHSA-2026:9742",
+      "https://access.redhat.com/security/cve/CVE-2026-4800",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=2453496",
+      "https://security.access.redhat.com/data/csaf/v2/vex/2026/cve-2026-4800.json"
+     ],
+     "description": "The fix for CVE-2021-23337 added validation for the variable option in _.template but did not apply the same validation to options.imports key names, and both paths flow into the same Function() constructor sink. When an application passes untrusted input as options.imports key names, an attacker can inject default-parameter expressions that execute arbitrary code at template compilation time. Additionally, _.template uses assignInWith to merge imports, which enumerates inherited properties via for..in, so if Object.prototype has been polluted by another vector the polluted keys are copied into the imports object and passed to Function(). The issue is fixed in 4.18.1 for lodash, lodash-es, lodash-amd, and lodash.template. As a workaround, do not pass untrusted input as key names in options.imports; use only developer-controlled, static key names.",
+     "cvss": [
+      {
+       "source": "nvd@nist.gov",
+       "type": "Primary",
+       "version": "3.1",
+       "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+       "metrics": {
+        "baseScore": 9.8,
+        "exploitabilityScore": 3.9,
+        "impactScore": 5.9
+       },
+       "vendorMetadata": {}
+      },
+      {
+       "source": "0b0ca135-0b70-47e7-9f44-1890c2a1c46c",
+       "type": "Secondary",
+       "version": "3.1",
+       "vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H",
+       "metrics": {
+        "baseScore": 8.1,
+        "exploitabilityScore": 2.3,
+        "impactScore": 5.9
+       },
+       "vendorMetadata": {}
+      },
+      {
+       "source": "ce714d77-add3-4f53-aff5-83d477b104bb",
+       "type": "Secondary",
+       "version": "3.1",
+       "vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H",
+       "metrics": {
+        "baseScore": 8.1,
+        "exploitabilityScore": 2.3,
+        "impactScore": 5.9
+       },
+       "vendorMetadata": {}
+      }
+     ],
+     "epss": [
+      {
+       "cve": "CVE-2026-4800",
+       "epss": 0.02618,
+       "percentile": 0.85199,
+       "date": "2026-10-17"
+      }
+     ],
+     "cwes": [
+      {
+       "cve": "CVE-2026-4800",
+       "cwe": "CWE-94",
+       "source": "ce714d77-add3-4f53-aff5-83d477b104bb",
+       "type": "Secondary"
+      },
+      {
+       "cve": "CVE-2026-4800",
+       "cwe": "CWE-94",
+       "source": "0b0ca135-0b70-47e7-9f44-1890c2a1c46c",
+       "type": "Secondary"
+      }
+     ]
+    }
+   ],
+   "matchDetails": [
+    {
+     "type": "exact-direct-match",
+     "matcher": "javascript-matcher",
+     "searchedBy": {
+      "language": "javascript",
+      "namespace": "github:language:javascript",
+      "package": {
+       "name": "lodash",
+       "version": "4.17.20"
+      }
+     },
+     "found": {
+      "vulnerabilityID": "GHSA-r5fr-rjxr-66jc",
+      "versionConstraint": ">=4.0.0,<=4.17.23 (semantic)"
+     },
+     "fix": {
+      "suggestedVersion": "4.18.0"
+     }
+    }
+   ],
+   "artifact": {
+    "id": "ece3658907628a6b",
+    "name": "lodash",
+    "version": "4.17.20",
+    "type": "npm",
+    "locations": [
+     {
+      "path": "/package-lock.json",
+      "accessPath": "/package-lock.json",
+      "annotations": {
+       "evidence": "primary"
+      }
+     }
+    ],
+    "language": "javascript",
+    "licenses": [
+     "MIT"
+    ],
+    "cpes": [
+     "cpe:2.3:a:lodash:lodash:4.17.20:*:*:*:*:node.js:*:*"
+    ],
+    "purl": "pkg:npm/lodash@4.17.20",
+    "upstreams": []
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "GHSA-xxjr-mmjv-4gpg",
+    "dataSource": "https://github.com/advisories/GHSA-xxjr-mmjv-4gpg",
+    "namespace": "github:language:javascript",
+    "severity": "Medium",
+    "urls": [
+     "https://github.com/lodash/lodash/security/advisories/GHSA-xxjr-mmjv-4gpg",
+     "https://nvd.nist.gov/vuln/detail/CVE-2025-13465",
+     "https://github.com/lodash/lodash/commit/edadd452146f7e4bad4ea684e955708931d84d81",
+     "https://cert-portal.siemens.com/productcert/html/ssa-253495.html"
+    ],
+    "description": "Lodash has Prototype Pollution Vulnerability in `_.unset` and `_.omit` functions",
+    "cvss": [
+     {
+      "type": "Secondary",
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:L",
+      "metrics": {
+       "baseScore": 6.5,
+       "exploitabilityScore": 3.9,
+       "impactScore": 2.6
+      },
+      "vendorMetadata": {}
+     },
+     {
+      "type": "Secondary",
+      "version": "4.0",
+      "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:L/VA:L/SC:H/SI:H/SA:H/E:P",
+      "metrics": {
+       "baseScore": 6.9
+      },
+      "vendorMetadata": {}
+     }
+    ],
+    "epss": [
+     {
+      "cve": "CVE-2025-13465",
+      "epss": 0.01823,
+      "percentile": 0.78429,
+      "date": "2026-10-17"
+     }
+    ],
+    "cwes": [
+     {
+      "cve": "CVE-2025-13465",
+      "cwe": "CWE-1321",
+      "source": "ce714d77-add3-4f53-aff5-83d477b104bb",
+      "type": "Secondary"
+     },
+     {
+      "cve": "CVE-2025-13465",
+      "cwe": "CWE-1321",
+      "source": "0b0ca135-0b70-47e7-9f44-1890c2a1c46c",
+      "type": "Secondary"
+     }
+    ],
+    "fix": {
+     "versions": [
+      "4.17.23"
+     ],
+     "state": "fixed",
+     "available": [
+      {
+       "version": "4.17.23",
+       "date": "2026-01-22",
+       "kind": "first-observed"
+      }
+     ]
+    },
+    "advisories": [],
+    "risk": 1.066455
+   },
+   "relatedVulnerabilities": [
+    {
+     "id": "CVE-2025-13465",
+     "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2025-13465",
+     "namespace": "nvd:cpe",
+     "severity": "Medium",
+     "urls": [
+      "https://cna.openjsf.org/security-advisories.html",
+      "https://github.com/lodash/lodash/security/advisories/GHSA-xxjr-mmjv-4gpg",
+      "https://access.redhat.com/errata/RHSA-2026:11414",
+      "https://access.redhat.com/errata/RHSA-2026:13542",
+      "https://access.redhat.com/errata/RHSA-2026:13548",
+      "https://access.redhat.com/errata/RHSA-2026:13829",
+      "https://access.redhat.com/errata/RHSA-2026:14774",
+      "https://access.redhat.com/errata/RHSA-2026:14870",
+      "https://access.redhat.com/errata/RHSA-2026:14871",
+      "https://access.redhat.com/errata/RHSA-2026:15091",
+      "https://access.redhat.com/errata/RHSA-2026:17469",
+      "https://access.redhat.com/errata/RHSA-2026:1845",
+      "https://access.redhat.com/errata/RHSA-2026:18480",
+      "https://access.redhat.com/errata/RHSA-2026:18868",
+      "https://access.redhat.com/errata/RHSA-2026:19712",
+      "https://access.redhat.com/errata/RHSA-2026:20042",
+      "https://access.redhat.com/errata/RHSA-2026:20088",
+      "https://access.redhat.com/errata/RHSA-2026:2078",
+      "https://access.redhat.com/errata/RHSA-2026:2119",
+      "https://access.redhat.com/errata/RHSA-2026:2145",
+      "https://access.redhat.com/errata/RHSA-2026:2147",
+      "https://access.redhat.com/errata/RHSA-2026:2148",
+      "https://access.redhat.com/errata/RHSA-2026:2149",
+      "https://access.redhat.com/errata/RHSA-2026:21658",
+      "https://access.redhat.com/errata/RHSA-2026:24331",
+      "https://access.redhat.com/errata/RHSA-2026:2438",
+      "https://access.redhat.com/errata/RHSA-2026:2452",
+      "https://access.redhat.com/errata/RHSA-2026:2462",
+      "https://access.redhat.com/errata/RHSA-2026:2465",
+      "https://access.redhat.com/errata/RHSA-2026:2469",
+      "https://access.redhat.com/errata/RHSA-2026:2484",
+      "https://access.redhat.com/errata/RHSA-2026:25089",
+      "https://access.redhat.com/errata/RHSA-2026:2651",
+      "https://access.redhat.com/errata/RHSA-2026:2661",
+      "https://access.redhat.com/errata/RHSA-2026:2672",
+      "https://access.redhat.com/errata/RHSA-2026:2675",
+      "https://access.redhat.com/errata/RHSA-2026:2694",
+      "https://access.redhat.com/errata/RHSA-2026:2816",
+      "https://access.redhat.com/errata/RHSA-2026:2817",
+      "https://access.redhat.com/errata/RHSA-2026:2818",
+      "https://access.redhat.com/errata/RHSA-2026:2819",
+      "https://access.redhat.com/errata/RHSA-2026:2900",
+      "https://access.redhat.com/errata/RHSA-2026:2926",
+      "https://access.redhat.com/errata/RHSA-2026:2984",
+      "https://access.redhat.com/errata/RHSA-2026:2990",
+      "https://access.redhat.com/errata/RHSA-2026:3087",
+      "https://access.redhat.com/errata/RHSA-2026:33154",
+      "https://access.redhat.com/errata/RHSA-2026:33371",
+      "https://access.redhat.com/errata/RHSA-2026:34100",
+      "https://access.redhat.com/errata/RHSA-2026:3422",
+      "https://access.redhat.com/errata/RHSA-2026:34608",
+      "https://access.redhat.com/errata/RHSA-2026:36651",
+      "https://access.redhat.com/errata/RHSA-2026:36882",
+      "https://access.redhat.com/errata/RHSA-2026:3710",
+      "https://access.redhat.com/errata/RHSA-2026:3782",
+      "https://access.redhat.com/errata/RHSA-2026:3825",
+      "https://access.redhat.com/errata/RHSA-2026:3869",
+      "https://access.redhat.com/errata/RHSA-2026:3870",
+      "https://access.redhat.com/errata/RHSA-2026:3874",
+      "https://access.redhat.com/errata/RHSA-2026:3884",
+      "https://access.redhat.com/errata/RHSA-2026:3958",
+      "https://access.redhat.com/errata/RHSA-2026:3960",
+      "https://access.redhat.com/errata/RHSA-2026:3962",
+      "https://access.redhat.com/errata/RHSA-2026:40118",
+      "https://access.redhat.com/errata/RHSA-2026:40945",
+      "https://access.redhat.com/errata/RHSA-2026:40984",
+      "https://access.redhat.com/errata/RHSA-2026:41064",
+      "https://access.redhat.com/errata/RHSA-2026:41928",
+      "https://access.redhat.com/errata/RHSA-2026:41941",
+      "https://access.redhat.com/errata/RHSA-2026:41944",
+      "https://access.redhat.com/errata/RHSA-2026:4423",
+      "https://access.redhat.com/errata/RHSA-2026:4466",
+      "https://access.redhat.com/errata/RHSA-2026:4467",
+      "https://access.redhat.com/errata/RHSA-2026:4630",
+      "https://access.redhat.com/errata/RHSA-2026:4782",
+      "https://access.redhat.com/errata/RHSA-2026:5633",
+      "https://access.redhat.com/errata/RHSA-2026:5636",
+      "https://access.redhat.com/errata/RHSA-2026:57487",
+      "https://access.redhat.com/errata/RHSA-2026:6192",
+      "https://access.redhat.com/errata/RHSA-2026:6288",
+      "https://access.redhat.com/errata/RHSA-2026:6497",
+      "https://access.redhat.com/errata/RHSA-2026:6567",
+      "https://access.redhat.com/errata/RHSA-2026:8218",
+      "https://access.redhat.com/errata/RHSA-2026:8229",
+      "https://access.redhat.com/errata/RHSA-2026:9848",
+      "https://access.redhat.com/security/cve/CVE-2025-13465",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=2431740",
+      "https://cert-portal.siemens.com/productcert/html/ssa-253495.html",
+      "https://security.access.redhat.com/data/csaf/v2/vex/2025/cve-2025-13465.json"
+     ],
+     "description": "The _.unset and _.omit functions in Lodash are vulnerable to prototype pollution. An attacker can pass crafted paths which cause Lodash to delete methods from global prototypes. The issue permits deletion of properties but does not allow overwriting their original behavior. The issue is patched from 4.17.23 to 4.18.0 depending on the package: lodash, lodash-es, and lodash-amd in 4.17.23, and the standalone lodash.unset and lodash.omit packages in 4.18.0.",
+     "cvss": [
+      {
+       "source": "nvd@nist.gov",
+       "type": "Primary",
+       "version": "3.1",
+       "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N",
+       "metrics": {
+        "baseScore": 5.3,
+        "exploitabilityScore": 3.9,
+        "impactScore": 1.5
+       },
+       "vendorMetadata": {}
+      },
+      {
+       "source": "0b0ca135-0b70-47e7-9f44-1890c2a1c46c",
+       "type": "Secondary",
+       "version": "3.1",
+       "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:H",
+       "metrics": {
+        "baseScore": 8.2,
+        "exploitabilityScore": 3.9,
+        "impactScore": 4.3
+       },
+       "vendorMetadata": {}
+      },
+      {
+       "source": "ce714d77-add3-4f53-aff5-83d477b104bb",
+       "type": "Secondary",
+       "version": "4.0",
+       "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:L/VA:L/SC:H/SI:H/SA:H/E:P/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X",
+       "metrics": {
+        "baseScore": 6.9
+       },
+       "vendorMetadata": {}
+      }
+     ],
+     "epss": [
+      {
+       "cve": "CVE-2025-13465",
+       "epss": 0.01823,
+       "percentile": 0.78429,
+       "date": "2026-10-17"
+      }
+     ],
+     "cwes": [
+      {
+       "cve": "CVE-2025-13465",
+       "cwe": "CWE-1321",
+       "source": "ce714d77-add3-4f53-aff5-83d477b104bb",
+       "type": "Secondary"
+      },
+      {
+       "cve": "CVE-2025-13465",
+       "cwe": "CWE-1321",
+       "source": "0b0ca135-0b70-47e7-9f44-1890c2a1c46c",
+       "type": "Secondary"
+      }
+     ]
+    }
+   ],
+   "matchDetails": [
+    {
+     "type": "exact-direct-match",
+     "matcher": "javascript-matcher",
+     "searchedBy": {
+      "language": "javascript",
+      "namespace": "github:language:javascript",
+      "package": {
+       "name": "lodash",
+       "version": "4.17.20"
+      }
+     },
+     "found": {
+      "vulnerabilityID": "GHSA-xxjr-mmjv-4gpg",
+      "versionConstraint": ">=4.0.0,<=4.17.22 (semantic)"
+     },
+     "fix": {
+      "suggestedVersion": "4.17.23"
+     }
+    }
+   ],
+   "artifact": {
+    "id": "ece3658907628a6b",
+    "name": "lodash",
+    "version": "4.17.20",
+    "type": "npm",
+    "locations": [
+     {
+      "path": "/package-lock.json",
+      "accessPath": "/package-lock.json",
+      "annotations": {
+       "evidence": "primary"
+      }
+     }
+    ],
+    "language": "javascript",
+    "licenses": [
+     "MIT"
+    ],
+    "cpes": [
+     "cpe:2.3:a:lodash:lodash:4.17.20:*:*:*:*:node.js:*:*"
+    ],
+    "purl": "pkg:npm/lodash@4.17.20",
+    "upstreams": []
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "GHSA-vh95-rmgr-6w4m",
+    "dataSource": "https://github.com/advisories/GHSA-vh95-rmgr-6w4m",
+    "namespace": "github:language:javascript",
+    "severity": "Medium",
+    "urls": [
+     "https://nvd.nist.gov/vuln/detail/CVE-2020-7598",
+     "https://snyk.io/vuln/SNYK-JS-MINIMIST-559764",
+     "http://lists.opensuse.org/opensuse-security-announce/2020-06/msg00024.html",
+     "https://www.npmjs.com/advisories/1179",
+     "https://github.com/minimistjs/minimist/commit/10bd4cdf49d9686d48214be9d579a9cdfda37c68",
+     "https://github.com/minimistjs/minimist/commit/38a4d1caead72ef99e824bb420a2528eec03d9ab",
+     "https://github.com/minimistjs/minimist/commit/4cf1354839cb972e38496d35e12f806eea92c11f#diff-a1e0ee62c91705696ddb71aa30ad4f95",
+     "https://github.com/minimistjs/minimist/commit/63e7ed05aa4b1889ec2f3b196426db4500cbda94"
+    ],
+    "description": "Prototype Pollution in minimist",
+    "cvss": [
+     {
+      "type": "Secondary",
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:L/A:L",
+      "metrics": {
+       "baseScore": 5.6,
+       "exploitabilityScore": 2.3,
+       "impactScore": 3.4
+      },
+      "vendorMetadata": {}
+     }
+    ],
+    "epss": [
+     {
+      "cve": "CVE-2020-7598",
+      "epss": 0.01931,
+      "percentile": 0.7968,
+      "date": "2026-10-17"
+     }
+    ],
+    "cwes": [
+     {
+      "cve": "CVE-2020-7598",
+      "cwe": "CWE-1321",
+      "source": "nvd@nist.gov",
+      "type": "Primary"
+     }
+    ],
+    "fix": {
+     "versions": [
+      "1.2.3"
+     ],
+     "state": "fixed",
+     "available": [
+      {
+       "version": "1.2.3",
+       "date": "2020-07-28",
+       "kind": "first-observed"
+      }
+     ]
+    },
+    "advisories": [],
+    "risk": 1.0234300000000003
+   },
+   "relatedVulnerabilities": [
+    {
+     "id": "CVE-2020-7598",
+     "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2020-7598",
+     "namespace": "nvd:cpe",
+     "severity": "Medium",
+     "urls": [
+      "http://lists.opensuse.org/opensuse-security-announce/2020-06/msg00024.html",
+      "https://snyk.io/vuln/SNYK-JS-MINIMIST-559764"
+     ],
+     "description": "minimist before 1.2.2 could be tricked into adding or modifying properties of Object.prototype using a \"constructor\" or \"__proto__\" payload.",
+     "cvss": [
+      {
+       "source": "nvd@nist.gov",
+       "type": "Primary",
+       "version": "3.1",
+       "vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:L/A:L",
+       "metrics": {
+        "baseScore": 5.6,
+        "exploitabilityScore": 2.3,
+        "impactScore": 3.4
+       },
+       "vendorMetadata": {}
+      },
+      {
+       "source": "nvd@nist.gov",
+       "type": "Primary",
+       "version": "2.0",
+       "vector": "AV:N/AC:M/Au:N/C:P/I:P/A:P",
+       "metrics": {
+        "baseScore": 6.8,
+        "exploitabilityScore": 8.6,
+        "impactScore": 6.5
+       },
+       "vendorMetadata": {}
+      }
+     ],
+     "epss": [
+      {
+       "cve": "CVE-2020-7598",
+       "epss": 0.01931,
+       "percentile": 0.7968,
+       "date": "2026-10-17"
+      }
+     ],
+     "cwes": [
+      {
+       "cve": "CVE-2020-7598",
+       "cwe": "CWE-1321",
+       "source": "nvd@nist.gov",
+       "type": "Primary"
+      }
+     ]
+    }
+   ],
+   "matchDetails": [
+    {
+     "type": "exact-direct-match",
+     "matcher": "javascript-matcher",
+     "searchedBy": {
+      "language": "javascript",
+      "namespace": "github:language:javascript",
+      "package": {
+       "name": "minimist",
+       "version": "1.2.2"
+      }
+     },
+     "found": {
+      "vulnerabilityID": "GHSA-vh95-rmgr-6w4m",
+      "versionConstraint": ">=1.0.0,<1.2.3 (semantic)"
+     },
+     "fix": {
+      "suggestedVersion": "1.2.3"
+     }
+    }
+   ],
+   "artifact": {
+    "id": "d233af889dc2ee3d",
+    "name": "minimist",
+    "version": "1.2.2",
+    "type": "npm",
+    "locations": [
+     {
+      "path": "/package-lock.json",
+      "accessPath": "/package-lock.json",
+      "annotations": {
+       "evidence": "primary"
+      }
+     }
+    ],
+    "language": "javascript",
+    "licenses": [
+     "MIT"
+    ],
+    "cpes": [
+     "cpe:2.3:a:minimist:minimist:1.2.2:*:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:npm/minimist@1.2.2",
+    "upstreams": []
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "GHSA-vcc3-ghjq-m6fr",
+    "dataSource": "https://github.com/advisories/GHSA-vcc3-ghjq-m6fr",
+    "namespace": "github:language:javascript",
+    "severity": "Medium",
+    "urls": [
+     "https://github.com/SamVerschueren/decode-uri-component/security/advisories/GHSA-vcc3-ghjq-m6fr",
+     "https://nvd.nist.gov/vuln/detail/CVE-2026-45822",
+     "https://github.com/SamVerschueren/decode-uri-component/commit/fa479dafeede7bedf04e5c89aa78f2a78c664005",
+     "https://github.com/SamVerschueren/decode-uri-component/blob/00662938dc7c6241547ae8abce7785cc13ffd3f6/index.js",
+     "https://github.com/SamVerschueren/decode-uri-component/releases/tag/v0.5.0",
+     "https://www.npmjs.com/package/decode-uri-component"
+    ],
+    "description": "decode-uri-component: Denial of service via exponential decoding of malformed percent-encoded input",
+    "cvss": [
+     {
+      "type": "Secondary",
+      "version": "4.0",
+      "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N/E:U/S:N/AU:Y/R:U/V:D/RE:M/U:Amber",
+      "metrics": {
+       "baseScore": 6.6
+      },
+      "vendorMetadata": {}
+     }
+    ],
+    "epss": [
+     {
+      "cve": "CVE-2026-45822",
+      "epss": 0.00507,
+      "percentile": 0.41922,
+      "date": "2026-10-17"
+     }
+    ],
+    "cwes": [
+     {
+      "cve": "CVE-2026-45822",
+      "cwe": "CWE-400",
+      "source": "22e2d327-25fe-45d7-9f0c-dcd23b7108df",
+      "type": "Secondary"
+     },
+     {
+      "cve": "CVE-2026-45822",
+      "cwe": "CWE-407",
+      "source": "22e2d327-25fe-45d7-9f0c-dcd23b7108df",
+      "type": "Secondary"
+     }
+    ],
+    "fix": {
+     "versions": [
+      "0.5.0"
+     ],
+     "state": "fixed",
+     "available": [
+      {
+       "version": "0.5.0",
+       "date": "2026-09-01",
+       "kind": "first-observed"
+      }
+     ]
+    },
+    "advisories": [],
+    "risk": 0.29406
+   },
+   "relatedVulnerabilities": [
+    {
+     "id": "CVE-2026-45822",
+     "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2026-45822",
+     "namespace": "nvd:cpe",
+     "severity": "Medium",
+     "urls": [
+      "https://github.com/SamVerschueren/decode-uri-component/blob/00662938dc7c6241547ae8abce7785cc13ffd3f6/index.js",
+      "https://github.com/SamVerschueren/decode-uri-component/commit/fa479dafeede7bedf04e5c89aa78f2a78c664005",
+      "https://www.npmjs.com/package/decode-uri-component"
+     ],
+     "description": "decode-uri-component through 0.4.1 is vulnerable to denial of service. The decode() function splits input on '%' producing N tokens and calls decodeComponents(), exhibiting super-linear parsing time: 200 '%ab' tokens takes approximately 0.7s, 700 tokens approximately 6s, and 1400 tokens approximately 33s. An attacker can cause significant CPU consumption and event-loop blocking via crafted input.",
+     "cvss": [
+      {
+       "source": "22e2d327-25fe-45d7-9f0c-dcd23b7108df",
+       "type": "Secondary",
+       "version": "4.0",
+       "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N/E:U/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:N/AU:Y/R:U/V:D/RE:M/U:Amber",
+       "metrics": {
+        "baseScore": 6.6
+       },
+       "vendorMetadata": {}
+      }
+     ],
+     "epss": [
+      {
+       "cve": "CVE-2026-45822",
+       "epss": 0.00507,
+       "percentile": 0.41922,
+       "date": "2026-10-17"
+      }
+     ],
+     "cwes": [
+      {
+       "cve": "CVE-2026-45822",
+       "cwe": "CWE-400",
+       "source": "22e2d327-25fe-45d7-9f0c-dcd23b7108df",
+       "type": "Secondary"
+      },
+      {
+       "cve": "CVE-2026-45822",
+       "cwe": "CWE-407",
+       "source": "22e2d327-25fe-45d7-9f0c-dcd23b7108df",
+       "type": "Secondary"
+      }
+     ]
+    }
+   ],
+   "matchDetails": [
+    {
+     "type": "exact-direct-match",
+     "matcher": "javascript-matcher",
+     "searchedBy": {
+      "language": "javascript",
+      "namespace": "github:language:javascript",
+      "package": {
+       "name": "decode-uri-component",
+       "version": "0.2.0"
+      }
+     },
+     "found": {
+      "vulnerabilityID": "GHSA-vcc3-ghjq-m6fr",
+      "versionConstraint": "<=0.4.2 (semantic)"
+     },
+     "fix": {
+      "suggestedVersion": "0.5.0"
+     }
+    }
+   ],
+   "artifact": {
+    "id": "2297cec57a98a21f",
+    "name": "decode-uri-component",
+    "version": "0.2.0",
+    "type": "npm",
+    "locations": [
+     {
+      "path": "/package-lock.json",
+      "accessPath": "/package-lock.json",
+      "annotations": {
+       "evidence": "primary"
+      }
+     }
+    ],
+    "language": "javascript",
+    "licenses": [
+     "MIT"
+    ],
+    "cpes": [
+     "cpe:2.3:a:decode-uri-component_project:decode-uri-component:0.2.0:*:*:*:*:node.js:*:*"
+    ],
+    "purl": "pkg:npm/decode-uri-component@0.2.0",
+    "upstreams": []
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "GHSA-f23m-r3pf-42rh",
+    "dataSource": "https://github.com/advisories/GHSA-f23m-r3pf-42rh",
+    "namespace": "github:language:javascript",
+    "severity": "Medium",
+    "urls": [
+     "https://github.com/lodash/lodash/security/advisories/GHSA-f23m-r3pf-42rh",
+     "https://github.com/lodash/lodash/security/advisories/GHSA-xxjr-mmjv-4gpg",
+     "https://nvd.nist.gov/vuln/detail/CVE-2026-2950"
+    ],
+    "description": "lodash vulnerable to Prototype Pollution via array path bypass in `_.unset` and `_.omit`",
+    "cvss": [
+     {
+      "type": "Secondary",
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:L",
+      "metrics": {
+       "baseScore": 6.5,
+       "exploitabilityScore": 3.9,
+       "impactScore": 2.6
+      },
+      "vendorMetadata": {}
+     }
+    ],
+    "epss": [
+     {
+      "cve": "CVE-2026-2950",
+      "epss": 0.00402,
+      "percentile": 0.32883,
+      "date": "2026-10-17"
+     }
+    ],
+    "cwes": [
+     {
+      "cve": "CVE-2026-2950",
+      "cwe": "CWE-1321",
+      "source": "ce714d77-add3-4f53-aff5-83d477b104bb",
+      "type": "Secondary"
+     }
+    ],
+    "fix": {
+     "versions": [
+      "4.18.0"
+     ],
+     "state": "fixed",
+     "available": [
+      {
+       "version": "4.18.0",
+       "date": "2026-04-02",
+       "kind": "first-observed"
+      }
+     ]
+    },
+    "advisories": [],
+    "risk": 0.23114999999999997
+   },
+   "relatedVulnerabilities": [
+    {
+     "id": "CVE-2026-2950",
+     "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2026-2950",
+     "namespace": "nvd:cpe",
+     "severity": "Medium",
+     "urls": [
+      "https://cna.openjsf.org/security-advisories.html",
+      "https://github.com/lodash/lodash/security/advisories/GHSA-f23m-r3pf-42rh"
+     ],
+     "description": "The _.unset and _.omit functions in Lodash are vulnerable to prototype pollution. The fix for CVE-2025-13465 only guards against string key members, so an attacker can bypass the check by passing array-wrapped path segments. This allows deletion of properties from built-in prototypes such as Object.prototype, Number.prototype, and String.prototype. The issue permits deletion of prototype properties but does not allow overwriting their original behavior. The issue is patched from 4.18.0 to 4.18.1 depending on the package: lodash, lodash-es, and lodash-amd in 4.18.1, and the standalone lodash.unset and lodash.omit packages in 4.18.0.",
+     "cvss": [
+      {
+       "source": "nvd@nist.gov",
+       "type": "Primary",
+       "version": "3.1",
+       "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N",
+       "metrics": {
+        "baseScore": 5.3,
+        "exploitabilityScore": 3.9,
+        "impactScore": 1.5
+       },
+       "vendorMetadata": {}
+      },
+      {
+       "source": "ce714d77-add3-4f53-aff5-83d477b104bb",
+       "type": "Secondary",
+       "version": "3.1",
+       "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:L",
+       "metrics": {
+        "baseScore": 6.5,
+        "exploitabilityScore": 3.9,
+        "impactScore": 2.6
+       },
+       "vendorMetadata": {}
+      }
+     ],
+     "epss": [
+      {
+       "cve": "CVE-2026-2950",
+       "epss": 0.00402,
+       "percentile": 0.32883,
+       "date": "2026-10-17"
+      }
+     ],
+     "cwes": [
+      {
+       "cve": "CVE-2026-2950",
+       "cwe": "CWE-1321",
+       "source": "ce714d77-add3-4f53-aff5-83d477b104bb",
+       "type": "Secondary"
+      }
+     ]
+    }
+   ],
+   "matchDetails": [
+    {
+     "type": "exact-direct-match",
+     "matcher": "javascript-matcher",
+     "searchedBy": {
+      "language": "javascript",
+      "namespace": "github:language:javascript",
+      "package": {
+       "name": "lodash",
+       "version": "4.17.20"
+      }
+     },
+     "found": {
+      "vulnerabilityID": "GHSA-f23m-r3pf-42rh",
+      "versionConstraint": "<=4.17.23 (semantic)"
+     },
+     "fix": {
+      "suggestedVersion": "4.18.0"
+     }
+    }
+   ],
+   "artifact": {
+    "id": "ece3658907628a6b",
+    "name": "lodash",
+    "version": "4.17.20",
+    "type": "npm",
+    "locations": [
+     {
+      "path": "/package-lock.json",
+      "accessPath": "/package-lock.json",
+      "annotations": {
+       "evidence": "primary"
+      }
+     }
+    ],
+    "language": "javascript",
+    "licenses": [
+     "MIT"
+    ],
+    "cpes": [
+     "cpe:2.3:a:lodash:lodash:4.17.20:*:*:*:*:node.js:*:*"
+    ],
+    "purl": "pkg:npm/lodash@4.17.20",
+    "upstreams": []
+   }
+  }
+ ],
+ "source": {
+  "type": "directory",
+  "target": "./spikes/vex-format/s6-08/demo-app"
+ },
+ "distro": {
+  "name": "",
+  "version": "",
+  "idLike": null
+ },
+ "descriptor": {
+  "name": "grype",
+  "version": "0.112.0",
+  "configuration": {
+   "output": [
+    "json"
+   ],
+   "file": "",
+   "pretty": false,
+   "distro": "",
+   "add-cpes-if-none": false,
+   "output-template-file": "",
+   "check-for-app-update": true,
+   "only-fixed": false,
+   "only-notfixed": false,
+   "ignore-wontfix": "",
+   "platform": "",
+   "search": {
+    "scope": "squashed",
+    "unindexed-archives": false,
+    "indexed-archives": true
+   },
+   "ignore": [
+    {
+     "vulnerability": "",
+     "include-aliases": false,
+     "reason": "",
+     "namespace": "",
+     "fix-state": "",
+     "package": {
+      "name": "kernel-headers",
+      "version": "",
+      "language": "",
+      "type": "rpm",
+      "location": "",
+      "upstream-name": "kernel"
+     },
+     "vex-status": "",
+     "vex-justification": "",
+     "match-type": "exact-indirect-match"
+    },
+    {
+     "vulnerability": "",
+     "include-aliases": false,
+     "reason": "",
+     "namespace": "",
+     "fix-state": "",
+     "package": {
+      "name": "linux(-.*)?-headers-.*",
+      "version": "",
+      "language": "",
+      "type": "deb",
+      "location": "",
+      "upstream-name": "linux.*"
+     },
+     "vex-status": "",
+     "vex-justification": "",
+     "match-type": "exact-indirect-match"
+    },
+    {
+     "vulnerability": "",
+     "include-aliases": false,
+     "reason": "",
+     "namespace": "",
+     "fix-state": "",
+     "package": {
+      "name": "linux-libc-dev",
+      "version": "",
+      "language": "",
+      "type": "deb",
+      "location": "",
+      "upstream-name": "linux"
+     },
+     "vex-status": "",
+     "vex-justification": "",
+     "match-type": "exact-indirect-match"
+    }
+   ],
+   "exclude": [],
+   "externalSources": {
+    "enable": false,
+    "maven": {
+     "searchUpstreamBySha1": true,
+     "baseUrl": "https://search.maven.org/solrsearch/select",
+     "rateLimit": 300000000
+    }
+   },
+   "match": {
+    "java": {
+     "using-cpes": false
+    },
+    "jvm": {
+     "using-cpes": true
+    },
+    "dotnet": {
+     "using-cpes": false
+    },
+    "golang": {
+     "using-cpes": false,
+     "always-use-cpe-for-stdlib": true,
+     "allow-main-module-pseudo-version-comparison": false
+    },
+    "javascript": {
+     "using-cpes": false
+    },
+    "python": {
+     "using-cpes": false
+    },
+    "ruby": {
+     "using-cpes": false
+    },
+    "rust": {
+     "using-cpes": false
+    },
+    "hex": {
+     "using-cpes": false
+    },
+    "stock": {
+     "using-cpes": true
+    },
+    "dpkg": {
+     "using-cpes": false,
+     "missing-epoch-strategy": "zero",
+     "use-cpes-for-eol": false
+    },
+    "rpm": {
+     "using-cpes": false,
+     "missing-epoch-strategy": "auto",
+     "use-cpes-for-eol": false
+    }
+   },
+   "fail-on-severity": "",
+   "registry": {
+    "insecure-skip-tls-verify": false,
+    "insecure-use-http": false,
+    "ca-cert": ""
+   },
+   "show-suppressed": false,
+   "by-cve": false,
+   "SortBy": {
+    "sort-by": "risk"
+   },
+   "name": "",
+   "default-image-pull-source": "",
+   "from": null,
+   "vex-documents": [],
+   "vex-add": [],
+   "match-upstream-kernel-headers": false,
+   "fix-channel": {
+    "redhat-eus": {
+     "apply": "auto",
+     "versions": ">= 8.0"
+    }
+   },
+   "timestamp": true,
+   "alerts": {
+    "enable-eol-distro-warnings": true
+   },
+   "db": {
+    "cache-dir": "~/Library/Caches/grype/db",
+    "update-url": "https://grype.anchore.io/databases",
+    "ca-cert": "",
+    "auto-update": true,
+    "validate-by-hash-on-start": true,
+    "validate-age": true,
+    "max-allowed-built-age": 432000000000000,
+    "require-update-check": false,
+    "update-available-timeout": 30000000000,
+    "update-download-timeout": 300000000000,
+    "max-update-check-frequency": 7200000000000
+   },
+   "exp": {},
+   "dev": {
+    "db": {
+     "debug": false
+    }
+   }
+  },
+  "db": {
+   "status": {
+    "schemaVersion": "v6.1.10",
+    "from": "https://grype.anchore.io/databases/v6/vulnerability-db_v6.1.10_2026-10-17T00:31:44Z_1792304837.tar.zst?checksum=sha256%3Ae3d1010ec6e5dee9d3e84b2d5723c534d799e104e6573160e05b22c5292f091e",
+    "built": "2026-10-18T06:27:17Z",
+    "path": "~/Library/Caches/grype/db/6/vulnerability.db",
+    "valid": true
+   },
+   "providers": {
+    "alma": {
+     "captured": "2026-10-18T00:33:35Z",
+     "input": "xxh64:f4dc2abc7982af84"
+    },
+    "alpine": {
+     "captured": "2026-10-18T00:33:06Z",
+     "input": "xxh64:c87e245998d1b631"
+    },
+    "amazon": {
+     "captured": "2026-10-18T00:33:10Z",
+     "input": "xxh64:928cedcf363fd8e0"
+    },
+    "arch": {
+     "captured": "2026-10-18T00:33:37Z",
+     "input": "xxh64:3306ecbbde7c609b"
+    },
+    "bitnami": {
+     "captured": "2026-10-18T00:33:39Z",
+     "input": "xxh64:4fa0fabe936ac4c4"
+    },
+    "chainguard": {
+     "captured": "2026-10-18T00:33:18Z",
+     "input": "xxh64:2c4db28300c6c345"
+    },
+    "chainguard-libraries": {
+     "captured": "2026-10-18T00:33:06Z",
+     "input": "xxh64:9013a4b217c58ff3"
+    },
+    "debian": {
+     "captured": "2026-10-18T00:33:39Z",
+     "input": "xxh64:aae7b11059392b1f"
+    },
+    "echo": {
+     "captured": "2026-10-18T00:33:29Z",
+     "input": "xxh64:0a260ebc38db6ae9"
+    },
+    "eol": {
+     "captured": "2026-10-18T00:33:10Z",
+     "input": "xxh64:9abb588554735961"
+    },
+    "epss": {
+     "captured": "2026-10-18T00:33:10Z",
+     "input": "xxh64:be5c783147ec4339"
+    },
+    "fedora": {
+     "captured": "2026-10-18T00:33:16Z",
+     "input": "xxh64:7833e1fa13a95140"
+    },
+    "github": {
+     "captured": "2026-10-18T00:33:30Z",
+     "input": "xxh64:6f80224d8464246e"
+    },
+    "govulndb": {
+     "captured": "2026-10-18T00:33:07Z",
+     "input": "xxh64:eff296e164cd7cfa"
+    },
+    "hummingbird": {
+     "captured": "2026-10-18T00:36:53Z",
+     "input": "xxh64:8e0b9aba58864a84"
+    },
+    "kev": {
+     "captured": "2026-10-18T00:33:05Z",
+     "input": "xxh64:0e36abba80f004a5"
+    },
+    "mariner": {
+     "captured": "2026-10-18T00:34:34Z",
+     "input": "xxh64:47be149d8a8feef1"
+    },
+    "minimos": {
+     "captured": "2026-10-18T00:33:39Z",
+     "input": "xxh64:b4cd93dd6012d3ab"
+    },
+    "nvd": {
+     "captured": "2026-10-18T00:34:11Z",
+     "input": "xxh64:d2a80fb87018a838"
+    },
+    "oracle": {
+     "captured": "2026-10-18T00:33:33Z",
+     "input": "xxh64:b4034548afc6165c"
+    },
+    "photon": {
+     "captured": "2026-10-18T00:33:15Z",
+     "input": "xxh64:42e761e12c6f2fda"
+    },
+    "rhel": {
+     "captured": "2026-10-18T00:34:59Z",
+     "input": "xxh64:49698474dce4fda6"
+    },
+    "secureos": {
+     "captured": "2026-10-18T00:33:02Z",
+     "input": "xxh64:bd49cbecf59c52cb"
+    },
+    "sles": {
+     "captured": "2026-10-17T00:31:44Z",
+     "input": "xxh64:c8dbf4a92d7b0083"
+    },
+    "ubuntu": {
+     "captured": "2026-10-18T00:34:05Z",
+     "input": "xxh64:09e65095c724211e"
+    },
+    "wolfi": {
+     "captured": "2026-10-18T00:33:10Z",
+     "input": "xxh64:c58337357f7e0ef2"
+    }
+   }
+  },
+  "timestamp": "2026-10-18T22:06:09.431954+11:00"
+ }
+}

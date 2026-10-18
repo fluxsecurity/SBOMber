@@ -190,7 +190,21 @@ applies the R5-shaped document (`applied: false` in both).
   does the reverse. This is a requirements conflict, not an implementation bug,
   and it needs a client/supervisor decision before the S5 exporter is built.
 
-### Options for the exporter (not decided here)
+### Decision (team, 18 October 2026)
+
+**Option 4.** The application subject (R5 rule 1) is the default and the
+standards record; `sbomber vex --subject package` stays available for tools,
+because it is the shape Grype 0.112.0 and Trivy 0.70.0 act on; SBOMber's own
+report is the primary surface for the investigation state. R5's acceptance
+criterion "recognised and acted on by one pinned third-party tool" is met only
+with the package subject at these pinned versions, and that is recorded as a
+known limitation rather than hidden. The S6-08 run on real decide output shows
+both halves (`spikes/vex-format/s6-08/results/CONSISTENCY.md`): Grype re-adds
+exactly the `under_investigation` findings from the package-subject document
+and none from the application-subject one. Switching is one flag, so the
+decision is cheap to revisit if the client prefers otherwise.
+
+### Options for the exporter (as considered)
 
 1. **Emit the R5 subject model and accept that the pinned consumers ignore it.**
    Standards-correct and honest about the subject; loses the only demonstrated

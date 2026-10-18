@@ -23,9 +23,11 @@
 //     rather than being silently translated.
 //   - No text field may carry the phrases contracts/validate.py bans.
 //
-// The subject model is an open decision (issue #128), so both shapes are
-// available. SubjectApplication follows R5 rule 1: the scanned application at
-// a commit is the product and the vulnerable package is a subcomponent.
-// SubjectPackage makes the package purl the product, which is the shape Grype
-// 0.112.0 and Trivy 0.70.0 actually act on.
+// The subject model was settled by the team on 18 October 2026 (issue #128):
+// SubjectApplication is the default and the standards record. It follows R5
+// rule 1: the scanned application at a commit is the product and the
+// vulnerable package is a subcomponent. SubjectPackage, which makes the
+// package purl the product, stays available for tools: it is the shape Grype
+// 0.112.0 and Trivy 0.70.0 actually act on. SBOMber's own report remains the
+// primary surface for the investigation state.
 package vex
