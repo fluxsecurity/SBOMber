@@ -45,8 +45,8 @@ func TestVisibility_ResolvedShapes(t *testing.T) {
 		"package.json": `{"main": "ini.js"}`,
 		"ini.js":       iniVulnerable,
 	})
-	wantVis(t, ini, "decode", "ini.js", VisibilityPublic, nil, true, "exported as decode, parse")
-	wantVis(t, ini, "parse", "ini.js", VisibilityPublic, nil, true, "")
+	wantVis(t, ini, "decode", "ini.js", VisibilityInternal, []string{"decode", "parse"}, true, "")
+	wantVis(t, ini, "parse", "ini.js", VisibilityInternal, []string{"decode", "parse"}, true, "")
 
 	// minimist: a helper nested in the anonymous module.exports function.
 	minimist := mustModel(t, map[string]string{
@@ -192,7 +192,7 @@ func TestLocalise_FillsVisibility(t *testing.T) {
 	res, _ := w.localiser(false).Localise(context.Background(), Finding{FindingID: "f1",
 		VulnerabilityID: "CVE-2020-7788", Aliases: []string{"GHSA-qqgx-2p2h-9c37"}, PURL: "pkg:npm/ini@1.3.5"})
 	for _, c := range res.CandidateSymbols {
-		if c.Visibility != VisibilityPublic || c.ExposedVia != nil || c.ExposedViaComplete != nil {
+		if c.Visibility != VisibilityInternal || strings.Join(c.ExposedVia, ",") != "decode,parse" || c.ExposedViaComplete == nil || !*c.ExposedViaComplete {
 			t.Errorf("%s: %+v", c.Symbol, c)
 		}
 	}

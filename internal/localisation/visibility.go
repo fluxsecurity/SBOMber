@@ -76,6 +76,9 @@ func buildPackageModel(tb *Tarball) (*packageModel, error) {
 			entrySpec = dot
 		}
 		pm.deep = pattern
+		if exportsUnresolved(man.Exports) {
+			pm.problems = append(pm.problems, "package.json exports has alternate or unsupported targets")
+		}
 		for _, s := range subs {
 			if f := resolveModule("package.json", "./"+strings.TrimPrefix(s, "./"), files); f != "" {
 				pm.subpaths[f] = true
@@ -97,6 +100,11 @@ func buildPackageModel(tb *Tarball) (*packageModel, error) {
 		pm.problems = append(pm.problems, "package.json remaps files for browsers")
 	}
 
+	for _, skipped := range tb.Skipped {
+		if SupportedSourceFile(strings.Split(skipped, " (")[0]) {
+			pm.problems = append(pm.problems, "package source was skipped: "+skipped)
+		}
+	}
 	paths := make([]string, 0, len(tb.Files))
 	for p := range tb.Files {
 		paths = append(paths, p)
@@ -109,6 +117,9 @@ func buildPackageModel(tb *Tarball) (*packageModel, error) {
 			continue
 		}
 		pm.mods[p] = m
+		if m.Symbols.Minified || m.Symbols.HasError {
+			pm.problems = append(pm.problems, p+" is not fully parsed")
+		}
 		if m.NonLiteral {
 			pm.problems = append(pm.problems, p+" loads a module by a computed path")
 		}
@@ -232,10 +243,16 @@ func (pm *packageModel) resolve(symbol, modulePath string) candidateVisibility {
 	// Each span's owner is the outermost top-level function or class around
 	// it: code nested in a function is reached only through that function.
 	var why []string
+	loadTime := false
 	ownOnly := true
 	var moduleNames []string
 	for _, s := range spans {
 		o := pm.owner(m, s)
+		for _, ref := range m.refs {
+			if ref.LoadTime && (ref.Name == o.Name || contains(o.Aliases, ref.Name)) {
+				loadTime = true
+			}
+		}
 		names, own, reason := pm.ownerNames(m, o)
 		ownOnly = ownOnly && own && o.StartLine == s.StartLine && o.EndLine == s.EndLine
 		if reason != "" {
@@ -255,6 +272,10 @@ func (pm *packageModel) resolve(symbol, modulePath string) candidateVisibility {
 
 	public, complete, routeWhy := pm.publicNames(m, moduleNames)
 	why = append(why, routeWhy...)
+	if loadTime {
+		complete = false
+		why = append(why, "candidate owner is referenced during module initialisation")
+	}
 	if others := without(pm.definers[symbol], modulePath); len(others) > 0 {
 		complete = false
 		why = append(why, "another copy of "+symbol+" is in "+strings.Join(others, ", "))
@@ -267,7 +288,7 @@ func (pm *packageModel) resolve(symbol, modulePath string) candidateVisibility {
 	if len(public) == 0 {
 		return unknown(symbol + " has no route to a public name")
 	}
-	if ownOnly && complete && len(spans) == 1 && contains(public, symbol) {
+	if ownOnly && complete && len(spans) == 1 && len(public) == 1 && public[0] == symbol {
 		return candidateVisibility{Visibility: VisibilityPublic, Complete: true, Why: "exported as " + strings.Join(public, ", ")}
 	}
 	return candidateVisibility{Visibility: VisibilityInternal, ExposedVia: public, Complete: complete,
@@ -446,4 +467,55 @@ func without(list []string, s string) []string {
 		}
 	}
 	return out
+}
+
+// exportsUnresolved detects routes not represented by the single selected entry.
+// A condition may depend on the consumer or bundler; choosing require alone
+// cannot establish that all public routes have been found.
+func exportsUnresolved(raw json.RawMessage) bool {
+	var v any
+	if json.Unmarshal(raw, &v) != nil {
+		return true
+	}
+	var visit func(any) bool
+	visit = func(node any) bool {
+		switch x := node.(type) {
+		case string, nil:
+			return false
+		case map[string]any:
+			conditions := true
+			for key := range x {
+				if strings.HasPrefix(key, ".") {
+					conditions = false
+				}
+			}
+			if conditions {
+				targets := map[string]bool{}
+				var collect func(any)
+				collect = func(n any) {
+					switch z := n.(type) {
+					case string:
+						targets[z] = true
+					case map[string]any:
+						for _, child := range z {
+							collect(child)
+						}
+					}
+				}
+				collect(x)
+				if len(targets) > 1 || conditionTarget(x) == "" {
+					return true
+				}
+			}
+			for _, child := range x {
+				if visit(child) {
+					return true
+				}
+			}
+			return false
+		default:
+			return true
+		}
+	}
+	return visit(v)
 }
