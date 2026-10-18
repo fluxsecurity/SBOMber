@@ -109,6 +109,8 @@ func Main(args []string, stdin io.Reader, stdout io.Writer, stderr io.Writer) in
 		return runUsage(args[1:], stdout, stderr)
 	case "decide":
 		return runDecide(args[1:], stdout, stderr)
+	case "audit":
+		return runAudit(args[1:], stdout, stderr)
 	case "vex":
 		return runVEX(args[1:], stdout, stderr)
 	case "demo":
@@ -1824,6 +1826,7 @@ Usage:
   sbomber localise --canonical-scan <canonical-scan.json> [--out localisation.json] [--trace trace.json]
   sbomber usage --canonical-scan <canonical-scan.json> [--out usage-graph.json] [--entry file:function]
   sbomber decide --canonical-scan <file> --usage-graph <file> --localisation <file> [--out decision-results.json]
+  sbomber audit [--cases testdata/audit] [--out audit-results.json]
   sbomber vex --decisions <decision-results.json> [--canonical-scan <file>] [--subject application|package] [--product <id>] [--out vex.openvex.json]
   sbomber version
 
@@ -1887,6 +1890,10 @@ VEX Flags (Component 3: OpenVEX 0.2.0 from decision-results.json):
   --out <file>                          OpenVEX document to write (default: vex.openvex.json)
   usage_detected -> affected only when explicitly mapped by the decision; otherwise under_investigation.
   no_usage_detected and unknown -> under_investigation, unsupported -> omitted. not_affected is rejected by the committed exporter.
+
+Audit Flags (S5-14: replay hand-labelled cases through the decision pipeline):
+  --cases <dir>                         one subdirectory per labelled case (default: testdata/audit)
+  --out <file>                          also write audit-results.json
 
 Examples:
   sbomber
