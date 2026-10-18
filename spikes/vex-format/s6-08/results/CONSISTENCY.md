@@ -40,6 +40,6 @@ back only if a statement matches it.
   `under_investigation` findings (GHSA-29mw-wpgm-hmr9, GHSA-f23m-r3pf-42rh, GHSA-qqgx-2p2h-9c37, GHSA-xxjr-mmjv-4gpg); the `affected` ones stay ignored.
 - Application-subject VEX (R5 rule 1): re-adds nothing.
 
-**Finding:** application-subject VEX: Grype re-added nothing; it does not act on the R5 rule-1 shape at the pinned version (#128)
+**Finding:** application-subject VEX: Grype re-added nothing; it does not act on the R5 rule-1 shape at the pinned version (recorded limitation of the #128 decision)
 
 No problems.

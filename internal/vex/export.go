@@ -26,8 +26,8 @@ const (
 	SubjectPackage SubjectModel = "package"
 )
 
-// DefaultSubject is the subject model used when none is given. Issue #128 is
-// still open; flip this constant when the team settles it.
+// DefaultSubject is the subject model used when none is given: the
+// application, as the team decided on #128 (18 October 2026).
 const DefaultSubject = SubjectApplication
 
 // ParseSubject validates a --subject value.

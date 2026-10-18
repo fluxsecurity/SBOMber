@@ -116,7 +116,7 @@ func TestExportFixtureApplicationSubject(t *testing.T) {
 
 func TestDefaultSubjectIsApplication(t *testing.T) {
 	if DefaultSubject != SubjectApplication {
-		t.Fatalf("DefaultSubject = %s; change this test deliberately when issue #128 is settled", DefaultSubject)
+		t.Fatalf("DefaultSubject = %s; the team settled the application subject on #128", DefaultSubject)
 	}
 	got, err := ParseSubject("")
 	if err != nil || got != DefaultSubject {

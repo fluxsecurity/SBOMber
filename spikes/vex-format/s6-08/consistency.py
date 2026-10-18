@@ -178,7 +178,7 @@ def check(out):
             errors.append(f"package VEX: Grype re-added {got}, expected exactly the under_investigation findings {want_readded}")
     if consumer["application"] != want_readded:
         notes.append(f"application-subject VEX: Grype re-added {consumer['application'] or 'nothing'}; it does not act on "
-                     "the R5 rule-1 shape at the pinned version (#128)")
+                     "the R5 rule-1 shape at the pinned version (recorded limitation of the #128 decision)")
 
     return {"table": table, "vex": vex_status, "consumer": consumer, "want_readded": want_readded,
             "baseline": baseline, "contract": contract, "errors": errors, "notes": notes,

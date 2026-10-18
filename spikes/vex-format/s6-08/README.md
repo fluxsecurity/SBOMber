@@ -42,8 +42,9 @@ the other lodash advisories name other functions.
 6. Consumer: Grype with every finding ignored and
    `vex-add: [under_investigation]` re-adds exactly the `under_investigation`
    findings from the package-subject document. The application-subject
-   document (R5 rule 1) is reported either way: Grype 0.112.0 does not match
-   it, which is the open #128 conflict, reproduced here on real output.
+   document (R5 rule 1, the team's default since the #128 decision of
+   18 October 2026) is reported either way: Grype 0.112.0 does not match it,
+   which is the recorded limitation, reproduced here on real output.
 
 CI re-runs `consistency.py --check` on the committed results (offline) and its
 tests. Re-run everything with network access:
