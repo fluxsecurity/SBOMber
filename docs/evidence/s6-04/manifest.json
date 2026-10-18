@@ -1,0 +1,1226 @@
+{
+  "issue": 149,
+  "analyserGitCommit": "1e5c6af40893e0aed9ee7da3a1af414b7d1ff790",
+  "method": "Go test exporter (production source analyser and usagegraph producer); TypeScript aliases supplied from root tsconfig.json",
+  "fixtureCount": 21,
+  "constructCategoryCount": 11,
+  "results": [
+    {
+      "fixture": "component2-s6-bare-require",
+      "construct": "cjs_require",
+      "variant": null,
+      "sourceFixtureSha256": "2a63115e83ef07459d216036ddcdfe2cc8095cc9a29d3866d3496d340d798951",
+      "labelSha256": "90fe05f9bc8b8c28ef372d94d2d7941b1c2006b07dca04032e586923df8658e8",
+      "labelFirstCommit": "232e259a1fce758a2a2d5e135acdf673370a575e",
+      "labelLatestCommit": "19117dad5977471848293e4e61a96b0ddc7a1666",
+      "labelCorrection": "Initial review-addition label used member/default import spelling; corrected to the CommonJS module binding contract after source inspection and first table-test failure.",
+      "reviewExpectationsAdded": "Added in response to PR review; not part of the original prelabelled set.",
+      "importEvaluation": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "extra": [],
+        "missing": []
+      },
+      "callEvaluation": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null,
+        "extra": [],
+        "missing": []
+      },
+      "unresolvedCallEvaluation": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null,
+        "extra": [],
+        "missing": []
+      },
+      "excludedCallViolations": [],
+      "safetyChecks": "PASS",
+      "graphSha256": "ffaa4496d2cc030714e324f8931b9e5e847fca6ca5b1ba936cc84d6b28d3b4ab"
+    },
+    {
+      "fixture": "component2-s6-cjs-destructured",
+      "construct": "cjs_destructured",
+      "variant": null,
+      "sourceFixtureSha256": "60f250dd1c5838b7a1b1b36edfc60164596a7eb9bb658a572e9f8f122aad5168",
+      "labelSha256": "fc9cd234eb4c9e82b482d8d6bfa17d1b40c407d429eda284074c7eb1dbd0807e",
+      "labelFirstCommit": "fe54d186a0e43a1b39c1dd2640443b5aee899d94",
+      "labelLatestCommit": "232e259a1fce758a2a2d5e135acdf673370a575e",
+      "labelCorrection": null,
+      "reviewExpectationsAdded": "Package identity and safety assertions added after reviewer feedback; original import/call labels retain their history.",
+      "importEvaluation": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "extra": [],
+        "missing": []
+      },
+      "callEvaluation": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "extra": [],
+        "missing": []
+      },
+      "unresolvedCallEvaluation": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null,
+        "extra": [],
+        "missing": []
+      },
+      "excludedCallViolations": [],
+      "safetyChecks": "PASS",
+      "graphSha256": "82b00cfba5fa2519c518753f95354a9500ff5f3d61cde3fed441699a5e8a30f0"
+    },
+    {
+      "fixture": "component2-s6-cjs-function",
+      "construct": "cjs_require",
+      "variant": null,
+      "sourceFixtureSha256": "5ce764c7122867928ab77b52955839f6344f4a0de12094bb2740ccc676ffe4ef",
+      "labelSha256": "f51a587d294bfe009293bf8783063390ef6a65eccd8a60e9a7430e711596664c",
+      "labelFirstCommit": "232e259a1fce758a2a2d5e135acdf673370a575e",
+      "labelLatestCommit": "19117dad5977471848293e4e61a96b0ddc7a1666",
+      "labelCorrection": "Initial review-addition label used member/default import spelling; corrected to the CommonJS module binding contract after source inspection and first table-test failure.",
+      "reviewExpectationsAdded": "Added in response to PR review; not part of the original prelabelled set.",
+      "importEvaluation": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "extra": [],
+        "missing": []
+      },
+      "callEvaluation": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "extra": [],
+        "missing": []
+      },
+      "unresolvedCallEvaluation": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null,
+        "extra": [],
+        "missing": []
+      },
+      "excludedCallViolations": [],
+      "safetyChecks": "PASS",
+      "graphSha256": "ff0f51e20e634daa3c1ba06bad7df652cba5d7b13d5ac3264f3982271c09a89a"
+    },
+    {
+      "fixture": "component2-s6-cjs-inline",
+      "construct": "cjs_require",
+      "variant": null,
+      "sourceFixtureSha256": "0369c38d2e69aa68c55b52567c8df756a2bac2ae93bb869bef35f925877e2427",
+      "labelSha256": "b2db81a4d88050f335e89832f985b4834b7496a1f48ffd6329cee3ee777ea78f",
+      "labelFirstCommit": "232e259a1fce758a2a2d5e135acdf673370a575e",
+      "labelLatestCommit": "19117dad5977471848293e4e61a96b0ddc7a1666",
+      "labelCorrection": "Initial review-addition label used member/default import spelling; corrected to the CommonJS module binding contract after source inspection and first table-test failure.",
+      "reviewExpectationsAdded": "Added in response to PR review; not part of the original prelabelled set.",
+      "importEvaluation": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "extra": [],
+        "missing": []
+      },
+      "callEvaluation": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "extra": [],
+        "missing": []
+      },
+      "unresolvedCallEvaluation": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null,
+        "extra": [],
+        "missing": []
+      },
+      "excludedCallViolations": [],
+      "safetyChecks": "PASS",
+      "graphSha256": "69b4f30a467e566417ae9c0becfaf59a40f5141fc50f534b544a24ba204f4891"
+    },
+    {
+      "fixture": "component2-s6-cjs-require",
+      "construct": "cjs_require",
+      "variant": null,
+      "sourceFixtureSha256": "5a67c4cc9a7245a984b9421a6d6a787e7293ebde39a7400621576e11b923a971",
+      "labelSha256": "88bf31b189c908c8c90ae52970de380cf9376b0548be7da1737bbb2ecfa13c54",
+      "labelFirstCommit": "fe54d186a0e43a1b39c1dd2640443b5aee899d94",
+      "labelLatestCommit": "232e259a1fce758a2a2d5e135acdf673370a575e",
+      "labelCorrection": null,
+      "reviewExpectationsAdded": "Package identity and safety assertions added after reviewer feedback; original import/call labels retain their history.",
+      "importEvaluation": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "extra": [],
+        "missing": []
+      },
+      "callEvaluation": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "extra": [],
+        "missing": []
+      },
+      "unresolvedCallEvaluation": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null,
+        "extra": [],
+        "missing": []
+      },
+      "excludedCallViolations": [],
+      "safetyChecks": "PASS",
+      "graphSha256": "d745a833543f2d40d2a533a3a210018c9d581562087a0f176976c47bf9ced59f"
+    },
+    {
+      "fixture": "component2-s6-cjs-shorthand",
+      "construct": "cjs_destructured",
+      "variant": null,
+      "sourceFixtureSha256": "910ea61fb5918ec827df8d6dbe412d70a4cb725df0e84728c9ab411ba8740e47",
+      "labelSha256": "92bc02d832123fd279dccbf78d2a4289ffd1545c7113101a5bc97577abe07642",
+      "labelFirstCommit": "232e259a1fce758a2a2d5e135acdf673370a575e",
+      "labelLatestCommit": "232e259a1fce758a2a2d5e135acdf673370a575e",
+      "labelCorrection": null,
+      "reviewExpectationsAdded": "Added in response to PR review; not part of the original prelabelled set.",
+      "importEvaluation": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "extra": [],
+        "missing": []
+      },
+      "callEvaluation": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "extra": [],
+        "missing": []
+      },
+      "unresolvedCallEvaluation": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null,
+        "extra": [],
+        "missing": []
+      },
+      "excludedCallViolations": [],
+      "safetyChecks": "PASS",
+      "graphSha256": "60823f2afd35b023d4998d43b5491316d2f4ecbd332c1b96e5b1c3b3c3f16832"
+    },
+    {
+      "fixture": "component2-s6-dynamic-computed",
+      "construct": "dynamic_import",
+      "variant": "computed_specifier",
+      "sourceFixtureSha256": "d3a5545c52d88e3ed275f27bd9fbde8f529d4a7bf620a2d815f34b92fd08648e",
+      "labelSha256": "ba6d068f33ca8bf09b1b306e64c944f411861fcc396b17e48eb4397bdb6d1e7a",
+      "labelFirstCommit": "a3dcaed0c9ffdf9c2a613d10f1fff30390158537",
+      "labelLatestCommit": "232e259a1fce758a2a2d5e135acdf673370a575e",
+      "labelCorrection": null,
+      "reviewExpectationsAdded": "Package identity and safety assertions added after reviewer feedback; original import/call labels retain their history.",
+      "importEvaluation": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "extra": [],
+        "missing": []
+      },
+      "callEvaluation": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null,
+        "extra": [],
+        "missing": []
+      },
+      "unresolvedCallEvaluation": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null,
+        "extra": [],
+        "missing": []
+      },
+      "excludedCallViolations": [],
+      "safetyChecks": "PASS",
+      "graphSha256": "c9f2feea1f19f2be3f1090771bf9254292c6b054c34c7df3b729e7b9958eca71"
+    },
+    {
+      "fixture": "component2-s6-dynamic-static",
+      "construct": "dynamic_import",
+      "variant": "static_literal",
+      "sourceFixtureSha256": "107ff11178bca807fafe17968d7f844b780ef16f4c4bd8dbaa767fbb7788d4cc",
+      "labelSha256": "1b40007d0751eb5ef3e5d5a387be3a93300c253e38a884544b918a0c6d8b88b5",
+      "labelFirstCommit": "a3dcaed0c9ffdf9c2a613d10f1fff30390158537",
+      "labelLatestCommit": "232e259a1fce758a2a2d5e135acdf673370a575e",
+      "labelCorrection": null,
+      "reviewExpectationsAdded": "Package identity and safety assertions added after reviewer feedback; original import/call labels retain their history.",
+      "importEvaluation": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "extra": [],
+        "missing": []
+      },
+      "callEvaluation": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "extra": [],
+        "missing": []
+      },
+      "unresolvedCallEvaluation": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null,
+        "extra": [],
+        "missing": []
+      },
+      "excludedCallViolations": [],
+      "safetyChecks": "PASS",
+      "graphSha256": "6e3b905d285b7602b72c4d80500e8ad03f1c8ca6d2f5bc8d8e32328571ea8a2d"
+    },
+    {
+      "fixture": "component2-s6-esm-alias",
+      "construct": "esm_named",
+      "variant": null,
+      "sourceFixtureSha256": "ae89465c510154184476470ca5189c4b85807f8c889604022e931ca3179d052b",
+      "labelSha256": "4fcd03c4beea039653ff2538496e12104771f0b7ca36245ba0569142105b88ee",
+      "labelFirstCommit": "232e259a1fce758a2a2d5e135acdf673370a575e",
+      "labelLatestCommit": "232e259a1fce758a2a2d5e135acdf673370a575e",
+      "labelCorrection": null,
+      "reviewExpectationsAdded": "Added in response to PR review; not part of the original prelabelled set.",
+      "importEvaluation": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "extra": [],
+        "missing": []
+      },
+      "callEvaluation": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "extra": [],
+        "missing": []
+      },
+      "unresolvedCallEvaluation": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null,
+        "extra": [],
+        "missing": []
+      },
+      "excludedCallViolations": [],
+      "safetyChecks": "PASS",
+      "graphSha256": "956c48548b324d760e7229b8dccee8663819d083eeca50c4fb8053d8674d3504"
+    },
+    {
+      "fixture": "component2-s6-esm-default",
+      "construct": "esm_default",
+      "variant": null,
+      "sourceFixtureSha256": "117ae40ace03939fee266d3ab3548ce4a5ff92f16f34195a9c9d3085bc70710d",
+      "labelSha256": "b36af845d48a5542521f0d03014dc191c3365c3f685aab517b81b280981c037d",
+      "labelFirstCommit": "d04e46f32fde0051ce66304d09a4a3fd7f75af12",
+      "labelLatestCommit": "232e259a1fce758a2a2d5e135acdf673370a575e",
+      "labelCorrection": null,
+      "reviewExpectationsAdded": "Package identity and safety assertions added after reviewer feedback; original import/call labels retain their history.",
+      "importEvaluation": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "extra": [],
+        "missing": []
+      },
+      "callEvaluation": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "extra": [],
+        "missing": []
+      },
+      "unresolvedCallEvaluation": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null,
+        "extra": [],
+        "missing": []
+      },
+      "excludedCallViolations": [],
+      "safetyChecks": "PASS",
+      "graphSha256": "53c1150ee48f172933e91b376bea8d7beec3915198ba73f328851749f1ea423f"
+    },
+    {
+      "fixture": "component2-s6-esm-named",
+      "construct": "esm_named",
+      "variant": null,
+      "sourceFixtureSha256": "1c5fcff709db8312ba39f84efe1750ae7f80eadb5e892f3e77f06645c617e255",
+      "labelSha256": "644dee2a70ee8f9bcd79048f86afac9b3684fdc86d3071ee69242f76644f21bc",
+      "labelFirstCommit": "c88407708335260f2530b2575ef55aef1bd07de2",
+      "labelLatestCommit": "232e259a1fce758a2a2d5e135acdf673370a575e",
+      "labelCorrection": null,
+      "reviewExpectationsAdded": "Package identity and safety assertions added after reviewer feedback; original import/call labels retain their history.",
+      "importEvaluation": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "extra": [],
+        "missing": []
+      },
+      "callEvaluation": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "extra": [],
+        "missing": []
+      },
+      "unresolvedCallEvaluation": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null,
+        "extra": [],
+        "missing": []
+      },
+      "excludedCallViolations": [],
+      "safetyChecks": "PASS",
+      "graphSha256": "30f5716a5d47472f85e00f45591cad1911a516a45f7a15b556652444531e1daf"
+    },
+    {
+      "fixture": "component2-s6-esm-namespace",
+      "construct": "esm_namespace",
+      "variant": null,
+      "sourceFixtureSha256": "c850b679441d0289d0ad4ba99e2a7a5f5d177926ff5675bdb988dfd5d36334ac",
+      "labelSha256": "843c674ed0d5a69e017af77bb3e4ad8c6642785c5fd9ae0e61efecfa0b44c0a1",
+      "labelFirstCommit": "6d374a31acb70d359b8511e04f3769566e2b87a0",
+      "labelLatestCommit": "232e259a1fce758a2a2d5e135acdf673370a575e",
+      "labelCorrection": null,
+      "reviewExpectationsAdded": "Package identity and safety assertions added after reviewer feedback; original import/call labels retain their history.",
+      "importEvaluation": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "extra": [],
+        "missing": []
+      },
+      "callEvaluation": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "extra": [],
+        "missing": []
+      },
+      "unresolvedCallEvaluation": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null,
+        "extra": [],
+        "missing": []
+      },
+      "excludedCallViolations": [],
+      "safetyChecks": "PASS",
+      "graphSha256": "8ab0c00929d5792f1a13e81367369e52612ac5e94c5b46f342f8bb9208a8c76f"
+    },
+    {
+      "fixture": "component2-s6-import-type",
+      "construct": "import_type",
+      "variant": null,
+      "sourceFixtureSha256": "8a88b13ae4432e2c36582926a974968bc9dea4ee73f3c1d12f37b35c83a1ef97",
+      "labelSha256": "be65362e2b3e53b02b01c1926bfbef22575b42310dd6858b8861ec3e35411fcf",
+      "labelFirstCommit": "b807dc674e3884b278cf6b55f00ae238dbdc0103",
+      "labelLatestCommit": "232e259a1fce758a2a2d5e135acdf673370a575e",
+      "labelCorrection": {
+        "originalCommit": "b807dc6",
+        "field": "expected.thirdPartyImports[0].kind",
+        "originalValue": "esm_named",
+        "correctedValue": "esm_type_only",
+        "reason": "The TypeScript source uses import type. The existing parser contract classifies this construct as esm_type_only."
+      },
+      "reviewExpectationsAdded": "Package identity and safety assertions added after reviewer feedback; original import/call labels retain their history.",
+      "importEvaluation": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "extra": [],
+        "missing": []
+      },
+      "callEvaluation": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null,
+        "extra": [],
+        "missing": []
+      },
+      "unresolvedCallEvaluation": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null,
+        "extra": [],
+        "missing": []
+      },
+      "excludedCallViolations": [],
+      "safetyChecks": "PASS",
+      "graphSha256": "e7dd4167055e164c5252bc087dc14009218102638f4b6c3d29626c0c8ffcefcb"
+    },
+    {
+      "fixture": "component2-s6-import-type-alias",
+      "construct": "import_type",
+      "variant": null,
+      "sourceFixtureSha256": "b7110e5c0f3b83b6666eb8d5d731fa1a3111f597d3e95868b1ecf01d1c71cc85",
+      "labelSha256": "4246e445483cf83110260a91e6d8811f5878118a98b1f8608c87a426f4974a2f",
+      "labelFirstCommit": "cedea481604fe41e99e572bb2100b16f559834b3",
+      "labelLatestCommit": "232e259a1fce758a2a2d5e135acdf673370a575e",
+      "labelCorrection": null,
+      "reviewExpectationsAdded": "Package identity and safety assertions added after reviewer feedback; original import/call labels retain their history.",
+      "importEvaluation": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "extra": [],
+        "missing": []
+      },
+      "callEvaluation": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null,
+        "extra": [],
+        "missing": []
+      },
+      "unresolvedCallEvaluation": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null,
+        "extra": [],
+        "missing": []
+      },
+      "excludedCallViolations": [],
+      "safetyChecks": "PASS",
+      "graphSha256": "29573903d0a554e4607ceae14753d04c7e7c1fa0ddf818611d2a1b902b202903"
+    },
+    {
+      "fixture": "component2-s6-inline-type",
+      "construct": "import_type",
+      "variant": null,
+      "sourceFixtureSha256": "f3fdaa3d01bda33da924b56f820c5461bf2bc567ffb0203daba8f82c2b94cfbc",
+      "labelSha256": "ff3086184d6ef81572eb7909076b7bebf86d434720f0887118be0f31c2be7613",
+      "labelFirstCommit": "232e259a1fce758a2a2d5e135acdf673370a575e",
+      "labelLatestCommit": "232e259a1fce758a2a2d5e135acdf673370a575e",
+      "labelCorrection": null,
+      "reviewExpectationsAdded": "Added in response to PR review; not part of the original prelabelled set.",
+      "importEvaluation": {
+        "tp": 2,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "extra": [],
+        "missing": []
+      },
+      "callEvaluation": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "extra": [],
+        "missing": []
+      },
+      "unresolvedCallEvaluation": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null,
+        "extra": [],
+        "missing": []
+      },
+      "excludedCallViolations": [],
+      "safetyChecks": "PASS",
+      "graphSha256": "a039c68dcb8b68907681f411435e413c19d880c7d6dfd6d4e680f4365cb54b6d"
+    },
+    {
+      "fixture": "component2-s6-package-subpath",
+      "construct": "package_subpath",
+      "variant": null,
+      "sourceFixtureSha256": "b0808aac3343445f186297e87d9ca038d7a271e0ff2cfc56d59fed0d60e78d65",
+      "labelSha256": "7551311aa7ec6194c3d5ba5ee7f67b41a63fca52d5cec57352b7a243b18bccc7",
+      "labelFirstCommit": "4caedca463e5fb58ba24a13b4affadc231690ff3",
+      "labelLatestCommit": "232e259a1fce758a2a2d5e135acdf673370a575e",
+      "labelCorrection": null,
+      "reviewExpectationsAdded": "Package identity and safety assertions added after reviewer feedback; original import/call labels retain their history.",
+      "importEvaluation": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "extra": [],
+        "missing": []
+      },
+      "callEvaluation": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "extra": [],
+        "missing": []
+      },
+      "unresolvedCallEvaluation": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null,
+        "extra": [],
+        "missing": []
+      },
+      "excludedCallViolations": [],
+      "safetyChecks": "PASS",
+      "graphSha256": "75af06b1a075f72010d37ed26a7d9f36b486f5cd54f64b6d2560ff576ef9383d"
+    },
+    {
+      "fixture": "component2-s6-reexport",
+      "construct": "reexport",
+      "variant": null,
+      "sourceFixtureSha256": "e2aac6e2314b59bc46b62ae36e3fb3e9b0da3de72523b41c67400b7e6b9977e1",
+      "labelSha256": "e28233c7127fad256a045e619915bb358fafb0a53283b208aa1a3c4c5c45d820",
+      "labelFirstCommit": "f55c1169aae1cb934008e43efd180dce7f9ab1cf",
+      "labelLatestCommit": "232e259a1fce758a2a2d5e135acdf673370a575e",
+      "labelCorrection": null,
+      "reviewExpectationsAdded": "Package identity and safety assertions added after reviewer feedback; original import/call labels retain their history.",
+      "importEvaluation": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "extra": [],
+        "missing": []
+      },
+      "callEvaluation": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null,
+        "extra": [],
+        "missing": []
+      },
+      "unresolvedCallEvaluation": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "extra": [],
+        "missing": []
+      },
+      "excludedCallViolations": [],
+      "safetyChecks": "PASS",
+      "graphSha256": "b3e99489452222d01df7bafceb5751e4b0e6199ead50e474010b7a6657fd4230"
+    },
+    {
+      "fixture": "component2-s6-reexport-star",
+      "construct": "reexport",
+      "variant": null,
+      "sourceFixtureSha256": "1a93eb5cce216771baa4169cdec30b4a583cc8b6f8011d54907dbbcc6a20f3bb",
+      "labelSha256": "c0406fcefcad0bd6a98cd2f48177b2eb840a98173cb9d739d3afb23af7323edf",
+      "labelFirstCommit": "232e259a1fce758a2a2d5e135acdf673370a575e",
+      "labelLatestCommit": "232e259a1fce758a2a2d5e135acdf673370a575e",
+      "labelCorrection": null,
+      "reviewExpectationsAdded": "Added in response to PR review; not part of the original prelabelled set.",
+      "importEvaluation": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "extra": [],
+        "missing": []
+      },
+      "callEvaluation": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null,
+        "extra": [],
+        "missing": []
+      },
+      "unresolvedCallEvaluation": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "extra": [],
+        "missing": []
+      },
+      "excludedCallViolations": [],
+      "safetyChecks": "PASS",
+      "graphSha256": "d7da0b38f16c6f54e1260f8371427e2b3d8c22c75c516b4dca48549f3b9222c0"
+    },
+    {
+      "fixture": "component2-s6-scoped-subpath",
+      "construct": "package_subpath",
+      "variant": null,
+      "sourceFixtureSha256": "2e1e9aba3aa26ac6d52a71107005b137d40a90fe9979a963d8f207d68380eacd",
+      "labelSha256": "4c999601895a174df41470845fa1795981af647e81e60f714481016794669e51",
+      "labelFirstCommit": "232e259a1fce758a2a2d5e135acdf673370a575e",
+      "labelLatestCommit": "232e259a1fce758a2a2d5e135acdf673370a575e",
+      "labelCorrection": null,
+      "reviewExpectationsAdded": "Added in response to PR review; not part of the original prelabelled set.",
+      "importEvaluation": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "extra": [],
+        "missing": []
+      },
+      "callEvaluation": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "extra": [],
+        "missing": []
+      },
+      "unresolvedCallEvaluation": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null,
+        "extra": [],
+        "missing": []
+      },
+      "excludedCallViolations": [],
+      "safetyChecks": "PASS",
+      "graphSha256": "199e189b708942bf8168637b7a26e25bb821ace3dfc727fa8a7b28b0054581a1"
+    },
+    {
+      "fixture": "component2-s6-side-effect",
+      "construct": "side_effect_import",
+      "variant": null,
+      "sourceFixtureSha256": "9ea5486a0469f6d86af6c3e2042302dec0779a364473774a7f3e61281ade913a",
+      "labelSha256": "7866b48a8d217773269a2c0c4cfcea2f44995e9f25604a6833afffbdda9bdf02",
+      "labelFirstCommit": "f55c1169aae1cb934008e43efd180dce7f9ab1cf",
+      "labelLatestCommit": "232e259a1fce758a2a2d5e135acdf673370a575e",
+      "labelCorrection": null,
+      "reviewExpectationsAdded": "Package identity and safety assertions added after reviewer feedback; original import/call labels retain their history.",
+      "importEvaluation": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "extra": [],
+        "missing": []
+      },
+      "callEvaluation": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null,
+        "extra": [],
+        "missing": []
+      },
+      "unresolvedCallEvaluation": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null,
+        "extra": [],
+        "missing": []
+      },
+      "excludedCallViolations": [],
+      "safetyChecks": "PASS",
+      "graphSha256": "e9570755a3bb2812314a4254ac06a54fb08927ec463607cee64efaf0b10832c3"
+    },
+    {
+      "fixture": "component2-s6-ts-path-alias",
+      "construct": "ts_path_alias",
+      "variant": null,
+      "sourceFixtureSha256": "f63bcac8ddcfef7b20602ad2b1c38d455c0a1aedaffc7626d82c461f5a1d1cc4",
+      "labelSha256": "fed15a0ec9717d8e9c9762cb8f03ed3911b8e869b743e41b1e1f3b5f9fd3a025",
+      "labelFirstCommit": "564dddd892bf9f837fa45d6506fbcfa9e1d15374",
+      "labelLatestCommit": "232e259a1fce758a2a2d5e135acdf673370a575e",
+      "labelCorrection": null,
+      "reviewExpectationsAdded": "Package identity and safety assertions added after reviewer feedback; original import/call labels retain their history.",
+      "importEvaluation": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "extra": [],
+        "missing": []
+      },
+      "callEvaluation": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "extra": [],
+        "missing": []
+      },
+      "unresolvedCallEvaluation": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null,
+        "extra": [],
+        "missing": []
+      },
+      "excludedCallViolations": [],
+      "safetyChecks": "PASS",
+      "graphSha256": "cdd7281339d6ca0059a83ae4b42f43fe593060cb4be074f214607b2c4a3917ae"
+    }
+  ],
+  "perConstruct": {
+    "cjs_destructured": {
+      "importEvaluation": {
+        "tp": 2,
+        "fp": 0,
+        "fn": 0,
+        "predicted": 2,
+        "expected": 2,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "callEvaluation": {
+        "tp": 2,
+        "fp": 0,
+        "fn": 0,
+        "predicted": 2,
+        "expected": 2,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "unresolvedCallEvaluation": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "predicted": 0,
+        "expected": 0,
+        "precision": null,
+        "recall": null
+      }
+    },
+    "cjs_require": {
+      "importEvaluation": {
+        "tp": 4,
+        "fp": 0,
+        "fn": 0,
+        "predicted": 4,
+        "expected": 4,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "callEvaluation": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "predicted": 3,
+        "expected": 3,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "unresolvedCallEvaluation": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "predicted": 0,
+        "expected": 0,
+        "precision": null,
+        "recall": null
+      }
+    },
+    "dynamic_import": {
+      "importEvaluation": {
+        "tp": 2,
+        "fp": 0,
+        "fn": 0,
+        "predicted": 2,
+        "expected": 2,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "callEvaluation": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "predicted": 1,
+        "expected": 1,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "unresolvedCallEvaluation": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "predicted": 0,
+        "expected": 0,
+        "precision": null,
+        "recall": null
+      }
+    },
+    "esm_default": {
+      "importEvaluation": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "predicted": 1,
+        "expected": 1,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "callEvaluation": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "predicted": 1,
+        "expected": 1,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "unresolvedCallEvaluation": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "predicted": 0,
+        "expected": 0,
+        "precision": null,
+        "recall": null
+      }
+    },
+    "esm_named": {
+      "importEvaluation": {
+        "tp": 2,
+        "fp": 0,
+        "fn": 0,
+        "predicted": 2,
+        "expected": 2,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "callEvaluation": {
+        "tp": 2,
+        "fp": 0,
+        "fn": 0,
+        "predicted": 2,
+        "expected": 2,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "unresolvedCallEvaluation": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "predicted": 0,
+        "expected": 0,
+        "precision": null,
+        "recall": null
+      }
+    },
+    "esm_namespace": {
+      "importEvaluation": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "predicted": 1,
+        "expected": 1,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "callEvaluation": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "predicted": 1,
+        "expected": 1,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "unresolvedCallEvaluation": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "predicted": 0,
+        "expected": 0,
+        "precision": null,
+        "recall": null
+      }
+    },
+    "import_type": {
+      "importEvaluation": {
+        "tp": 4,
+        "fp": 0,
+        "fn": 0,
+        "predicted": 4,
+        "expected": 4,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "callEvaluation": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "predicted": 1,
+        "expected": 1,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "unresolvedCallEvaluation": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "predicted": 0,
+        "expected": 0,
+        "precision": null,
+        "recall": null
+      }
+    },
+    "package_subpath": {
+      "importEvaluation": {
+        "tp": 2,
+        "fp": 0,
+        "fn": 0,
+        "predicted": 2,
+        "expected": 2,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "callEvaluation": {
+        "tp": 2,
+        "fp": 0,
+        "fn": 0,
+        "predicted": 2,
+        "expected": 2,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "unresolvedCallEvaluation": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "predicted": 0,
+        "expected": 0,
+        "precision": null,
+        "recall": null
+      }
+    },
+    "reexport": {
+      "importEvaluation": {
+        "tp": 2,
+        "fp": 0,
+        "fn": 0,
+        "predicted": 2,
+        "expected": 2,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "callEvaluation": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "predicted": 0,
+        "expected": 0,
+        "precision": null,
+        "recall": null
+      },
+      "unresolvedCallEvaluation": {
+        "tp": 2,
+        "fp": 0,
+        "fn": 0,
+        "predicted": 2,
+        "expected": 2,
+        "precision": 1.0,
+        "recall": 1.0
+      }
+    },
+    "side_effect_import": {
+      "importEvaluation": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "predicted": 1,
+        "expected": 1,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "callEvaluation": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "predicted": 0,
+        "expected": 0,
+        "precision": null,
+        "recall": null
+      },
+      "unresolvedCallEvaluation": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "predicted": 0,
+        "expected": 0,
+        "precision": null,
+        "recall": null
+      }
+    },
+    "ts_path_alias": {
+      "importEvaluation": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "predicted": 1,
+        "expected": 1,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "callEvaluation": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "predicted": 1,
+        "expected": 1,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "unresolvedCallEvaluation": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "predicted": 0,
+        "expected": 0,
+        "precision": null,
+        "recall": null
+      }
+    }
+  },
+  "overall": {
+    "importEvaluation": {
+      "tp": 22,
+      "fp": 0,
+      "fn": 0,
+      "predicted": 22,
+      "expected": 22,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    "callEvaluation": {
+      "tp": 14,
+      "fp": 0,
+      "fn": 0,
+      "predicted": 14,
+      "expected": 14,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    "unresolvedCallEvaluation": {
+      "tp": 2,
+      "fp": 0,
+      "fn": 0,
+      "predicted": 2,
+      "expected": 2,
+      "precision": 1.0,
+      "recall": 1.0
+    }
+  }
+}

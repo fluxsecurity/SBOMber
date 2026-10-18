@@ -1,0 +1,25 @@
+{
+  "fixture": "component2-s6-side-effect",
+  "construct": "side_effect_import",
+  "language": "javascript",
+  "labelMethod": "source-reviewed before analyser execution",
+  "expected": {
+    "thirdPartyImports": [
+      {
+        "specifier": "lodash",
+        "imported": "",
+        "local": "",
+        "kind": "esm_side_effect",
+        "resolution": "resolved",
+        "file": "src/index.js",
+        "line": 1,
+        "purl": "pkg:npm/lodash@4.17.21",
+        "evidenceLevel": 1
+      }
+    ],
+    "thirdPartyCalls": [],
+    "unresolvedCalls": [],
+    "excludedCalls": []
+  },
+  "reviewExpectationsAdded": "Package identity and safety assertions added after reviewer feedback; original import/call labels retain their history."
+}

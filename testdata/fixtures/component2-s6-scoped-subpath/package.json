@@ -1,0 +1,7 @@
+{
+  "name": "component2-s6-scoped-subpath",
+  "version": "1.0.0",
+  "dependencies": {
+    "@example/tools": "1.0.0"
+  }
+}

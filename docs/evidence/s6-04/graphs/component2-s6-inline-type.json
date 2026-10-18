@@ -1,0 +1,117 @@
+{
+  "schemaVersion": "1.4.0",
+  "scanId": "scan-test",
+  "analysis": {
+    "status": "complete",
+    "ecosystem": "npm",
+    "analyzerId": "component2-js-ts-tree-sitter"
+  },
+  "analyser": {
+    "parser": "tree-sitter",
+    "binding": "github.com/tree-sitter/go-tree-sitter",
+    "bindingVersion": "0.25.0",
+    "cgoEnabled": true,
+    "grammarVersions": {
+      "javascript": "0.25.0",
+      "typescript": "0.23.2"
+    },
+    "ecosystems": [
+      "npm"
+    ],
+    "reachabilityAnalysed": true
+  },
+  "entryPoints": [
+    {
+      "entryPointId": "ep-51f5227200a98fb8739a5adb4127fbe4",
+      "kind": "exported_module",
+      "function": "run",
+      "file": "src/index.ts",
+      "line": 2,
+      "repositoryId": "repo-app"
+    }
+  ],
+  "coverage": {
+    "filesDiscovered": 1,
+    "filesParsed": 1,
+    "filesParsedWithErrors": 0,
+    "filesFailed": 0,
+    "filesSkipped": 0,
+    "thirdPartyImportsResolved": 1,
+    "thirdPartyImportsTypeOnly": 1,
+    "thirdPartyImportsUnresolved": 0,
+    "thirdPartyCallSitesResolved": 1,
+    "thirdPartyCallSitesUnresolved": 0,
+    "limitsHit": [],
+    "perRepository": [
+      {
+        "repositoryId": "repo-app",
+        "filesDiscovered": 1,
+        "filesParsed": 1,
+        "filesParsedWithErrors": 0,
+        "filesFailed": 0,
+        "filesSkipped": 0
+      }
+    ],
+    "entryPointsDetected": 1,
+    "callPathsResolved": 1,
+    "callPathsUnresolved": 0
+  },
+  "observations": [
+    {
+      "observationId": "obs-25cfab9cee32b576ac7d46a552734458",
+      "occurrenceId": "occ-lodash",
+      "purl": "pkg:npm/lodash@4.17.21",
+      "importedSpecifier": "lodash",
+      "localAlias": "Dictionary",
+      "importedSymbol": "Dictionary",
+      "importKind": "esm_type_only",
+      "resolution": "type_only",
+      "location": {
+        "repositoryId": "repo-app",
+        "file": "src/index.ts",
+        "line": 1,
+        "column": 14
+      },
+      "evidenceLevel": 1,
+      "callSites": []
+    },
+    {
+      "observationId": "obs-ed69608a734ec628a03e06782a7e658d",
+      "occurrenceId": "occ-lodash",
+      "purl": "pkg:npm/lodash@4.17.21",
+      "importedSpecifier": "lodash",
+      "localAlias": "merge",
+      "importedSymbol": "merge",
+      "importKind": "esm_named",
+      "resolution": "resolved",
+      "location": {
+        "repositoryId": "repo-app",
+        "file": "src/index.ts",
+        "line": 1,
+        "column": 26
+      },
+      "evidenceLevel": 3,
+      "callSites": [
+        {
+          "file": "src/index.ts",
+          "line": 2,
+          "column": 31,
+          "calledSymbol": "merge",
+          "enclosingFunction": "run",
+          "resolution": "resolved",
+          "reachability": "reachable",
+          "entryPointId": "ep-51f5227200a98fb8739a5adb4127fbe4",
+          "callPath": [
+            {
+              "function": "run",
+              "file": "src/index.ts",
+              "line": 2
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "unanalysedOccurrences": [],
+  "parseFailures": []
+}

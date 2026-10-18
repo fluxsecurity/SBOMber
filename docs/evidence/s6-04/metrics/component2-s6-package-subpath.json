@@ -1,0 +1,54 @@
+{
+  "fixture": "component2-s6-package-subpath",
+  "construct": "package_subpath",
+  "labelMethod": "source-reviewed before analyser execution",
+  "analyserCommit": "1e5c6af40893e0aed9ee7da3a1af414b7d1ff790",
+  "schemaVersion": "1.4.0",
+  "analyser": {
+    "parser": "tree-sitter",
+    "binding": "github.com/tree-sitter/go-tree-sitter",
+    "bindingVersion": "0.25.0",
+    "cgoEnabled": true,
+    "grammarVersions": {
+      "javascript": "0.25.0",
+      "typescript": "0.23.2"
+    },
+    "ecosystems": [
+      "npm"
+    ],
+    "reachabilityAnalysed": true
+  },
+  "labelSha256": "7551311aa7ec6194c3d5ba5ee7f67b41a63fca52d5cec57352b7a243b18bccc7",
+  "graphSha256": "75af06b1a075f72010d37ed26a7d9f36b486f5cd54f64b6d2560ff576ef9383d",
+  "importEvaluation": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "extra": [],
+    "missing": []
+  },
+  "callEvaluation": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "extra": [],
+    "missing": []
+  },
+  "unresolvedCallEvaluation": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 0,
+    "precision": null,
+    "recall": null,
+    "extra": [],
+    "missing": []
+  },
+  "excludedCallViolations": [],
+  "observedImportOutcomes": {
+    "resolved": 1
+  }
+}

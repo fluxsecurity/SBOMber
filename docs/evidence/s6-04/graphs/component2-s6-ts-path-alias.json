@@ -1,0 +1,104 @@
+{
+  "schemaVersion": "1.4.0",
+  "scanId": "scan-test",
+  "analysis": {
+    "status": "complete",
+    "ecosystem": "npm",
+    "analyzerId": "component2-js-ts-tree-sitter"
+  },
+  "analyser": {
+    "parser": "tree-sitter",
+    "binding": "github.com/tree-sitter/go-tree-sitter",
+    "bindingVersion": "0.25.0",
+    "cgoEnabled": true,
+    "grammarVersions": {
+      "javascript": "0.25.0",
+      "typescript": "0.23.2"
+    },
+    "ecosystems": [
+      "npm"
+    ],
+    "reachabilityAnalysed": true
+  },
+  "entryPoints": [
+    {
+      "entryPointId": "ep-8b52a61a41798df3fb9dc8458c69a2ff",
+      "kind": "exported_module",
+      "function": "main",
+      "file": "src/index.ts",
+      "line": 3,
+      "repositoryId": "repo-app"
+    }
+  ],
+  "coverage": {
+    "filesDiscovered": 2,
+    "filesParsed": 2,
+    "filesParsedWithErrors": 0,
+    "filesFailed": 0,
+    "filesSkipped": 0,
+    "thirdPartyImportsResolved": 1,
+    "thirdPartyImportsTypeOnly": 0,
+    "thirdPartyImportsUnresolved": 0,
+    "thirdPartyCallSitesResolved": 1,
+    "thirdPartyCallSitesUnresolved": 0,
+    "limitsHit": [],
+    "perRepository": [
+      {
+        "repositoryId": "repo-app",
+        "filesDiscovered": 2,
+        "filesParsed": 2,
+        "filesParsedWithErrors": 0,
+        "filesFailed": 0,
+        "filesSkipped": 0
+      }
+    ],
+    "entryPointsDetected": 1,
+    "callPathsResolved": 1,
+    "callPathsUnresolved": 0
+  },
+  "observations": [
+    {
+      "observationId": "obs-332c36959fde42822eeca73c39d20c7a",
+      "occurrenceId": "occ-lodash",
+      "purl": "pkg:npm/lodash@4.17.21",
+      "importedSpecifier": "lodash",
+      "localAlias": "merge",
+      "importedSymbol": "merge",
+      "importKind": "esm_named",
+      "resolution": "resolved",
+      "location": {
+        "repositoryId": "repo-app",
+        "file": "src/service.ts",
+        "line": 1,
+        "column": 9
+      },
+      "evidenceLevel": 3,
+      "callSites": [
+        {
+          "file": "src/service.ts",
+          "line": 4,
+          "column": 9,
+          "calledSymbol": "merge",
+          "enclosingFunction": "handle",
+          "resolution": "resolved",
+          "reachability": "reachable",
+          "entryPointId": "ep-8b52a61a41798df3fb9dc8458c69a2ff",
+          "callPath": [
+            {
+              "function": "main",
+              "file": "src/index.ts",
+              "line": 3
+            },
+            {
+              "function": "handle",
+              "file": "src/service.ts",
+              "line": 3
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "unanalysedOccurrences": [],
+  "parseFailures": []
+}

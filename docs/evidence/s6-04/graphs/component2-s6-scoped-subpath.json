@@ -1,0 +1,100 @@
+{
+  "schemaVersion": "1.4.0",
+  "scanId": "scan-test",
+  "analysis": {
+    "status": "complete",
+    "ecosystem": "npm",
+    "analyzerId": "component2-js-ts-tree-sitter"
+  },
+  "analyser": {
+    "parser": "tree-sitter",
+    "binding": "github.com/tree-sitter/go-tree-sitter",
+    "bindingVersion": "0.25.0",
+    "cgoEnabled": true,
+    "grammarVersions": {
+      "javascript": "0.25.0",
+      "typescript": "0.23.2"
+    },
+    "ecosystems": [
+      "npm"
+    ],
+    "reachabilityAnalysed": true
+  },
+  "entryPoints": [
+    {
+      "entryPointId": "ep-de4cd4d8c58686221b74575e1c320e57",
+      "kind": "exported_module",
+      "function": "run",
+      "file": "src/index.js",
+      "line": 2,
+      "repositoryId": "repo-app"
+    }
+  ],
+  "coverage": {
+    "filesDiscovered": 1,
+    "filesParsed": 1,
+    "filesParsedWithErrors": 0,
+    "filesFailed": 0,
+    "filesSkipped": 0,
+    "thirdPartyImportsResolved": 1,
+    "thirdPartyImportsTypeOnly": 0,
+    "thirdPartyImportsUnresolved": 0,
+    "thirdPartyCallSitesResolved": 1,
+    "thirdPartyCallSitesUnresolved": 0,
+    "limitsHit": [],
+    "perRepository": [
+      {
+        "repositoryId": "repo-app",
+        "filesDiscovered": 1,
+        "filesParsed": 1,
+        "filesParsedWithErrors": 0,
+        "filesFailed": 0,
+        "filesSkipped": 0
+      }
+    ],
+    "entryPointsDetected": 1,
+    "callPathsResolved": 1,
+    "callPathsUnresolved": 0
+  },
+  "observations": [
+    {
+      "observationId": "obs-dac9f54ed5e6f4bb5c051629232fd91f",
+      "occurrenceId": "occ-lodash",
+      "purl": "pkg:npm/%40example/tools@1.0.0",
+      "importedSpecifier": "@example/tools/merge",
+      "subpath": "merge",
+      "localAlias": "merge",
+      "importedSymbol": "merge",
+      "importKind": "esm_named",
+      "resolution": "resolved",
+      "location": {
+        "repositoryId": "repo-app",
+        "file": "src/index.js",
+        "line": 1,
+        "column": 9
+      },
+      "evidenceLevel": 3,
+      "callSites": [
+        {
+          "file": "src/index.js",
+          "line": 2,
+          "column": 31,
+          "calledSymbol": "merge",
+          "enclosingFunction": "run",
+          "resolution": "resolved",
+          "reachability": "reachable",
+          "entryPointId": "ep-de4cd4d8c58686221b74575e1c320e57",
+          "callPath": [
+            {
+              "function": "run",
+              "file": "src/index.js",
+              "line": 2
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "unanalysedOccurrences": [],
+  "parseFailures": []
+}

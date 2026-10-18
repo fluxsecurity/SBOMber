@@ -1,0 +1,31 @@
+{
+  "fixture": "component2-s6-esm-alias",
+  "construct": "esm_named",
+  "language": "javascript",
+  "labelMethod": "author-labelled review addition before running the changed analyser",
+  "reviewExpectationsAdded": "Added in response to PR review; not part of the original prelabelled set.",
+  "expected": {
+    "thirdPartyImports": [
+      {
+        "file": "src/index.js",
+        "line": 1,
+        "specifier": "lodash",
+        "imported": "merge",
+        "local": "combine",
+        "kind": "esm_named",
+        "resolution": "resolved",
+        "purl": "pkg:npm/lodash@4.17.21"
+      }
+    ],
+    "thirdPartyCalls": [
+      {
+        "file": "src/index.js",
+        "line": 2,
+        "symbol": "merge",
+        "importLocal": "combine"
+      }
+    ],
+    "unresolvedCalls": [],
+    "excludedCalls": []
+  }
+}

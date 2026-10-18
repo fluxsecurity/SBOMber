@@ -1,0 +1,33 @@
+{
+  "fixture": "component2-s6-dynamic-computed",
+  "construct": "dynamic_import",
+  "language": "javascript",
+  "variant": "computed_specifier",
+  "labelMethod": "source-reviewed before analyser execution",
+  "expected": {
+    "thirdPartyImports": [
+      {
+        "specifier": "packageName",
+        "imported": "*",
+        "local": "",
+        "kind": "dynamic_computed",
+        "resolution": "unresolved",
+        "file": "src/index.js",
+        "line": 2,
+        "purl": "",
+        "computedSpecifier": true,
+        "unresolvedReason": "computed_specifier"
+      }
+    ],
+    "thirdPartyCalls": [],
+    "unresolvedCalls": [],
+    "excludedCalls": [],
+    "unanalysedOccurrences": [
+      {
+        "purl": "pkg:npm/lodash@4.17.21",
+        "reason": "computed_specifier"
+      }
+    ]
+  },
+  "reviewExpectationsAdded": "Package identity and safety assertions added after reviewer feedback; original import/call labels retain their history."
+}
