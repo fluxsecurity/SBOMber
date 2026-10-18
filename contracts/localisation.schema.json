@@ -7,7 +7,11 @@
   "required": ["schemaVersion", "scanId", "results"],
   "additionalProperties": false,
   "properties": {
-    "schemaVersion": { "type": "string", "const": "1.0.0" },
+    "schemaVersion": {
+      "type": "string",
+      "enum": ["1.0.0", "1.1.0"],
+      "description": "1.1.0 adds per-candidate evidence, artefact identity and checksums, release tag checks, and the visibility fields of the localisation join rule (docs/design/localisation-join-rule.md). Every 1.1.0 field is optional, so 1.0.0 documents stay valid."
+    },
     "scanId": { "type": "string", "description": "Matches canonical-scan.json." },
     "summary": {
       "type": "object",
@@ -63,7 +67,32 @@
                   "type": "string",
                   "enum": ["modified", "added", "removed", "unknown"]
                 },
-                "note": { "type": "string" }
+                "note": { "type": "string" },
+                "evidence": {
+                  "type": "array",
+                  "minItems": 1,
+                  "items": { "type": "string", "minLength": 1 },
+                  "description": "1.1.0. IDs of the artefacts in this result's provenance the candidate was read from. validate.py checks each resolves to a verified artefact with a checksum, of the kind the method reads: patch_reference a source_file, version_diff a tarball, advisory_* the advisory."
+                },
+                "visibility": {
+                  "type": "string",
+                  "enum": ["public", "internal", "unknown"],
+                  "description": "1.1.0, join rule. public = exported by the package's entry module under this name, or default for the module function itself."
+                },
+                "exposedVia": {
+                  "type": "array",
+                  "items": { "type": "string" },
+                  "description": "1.1.0, join rule. Public names through which an internal candidate is reached."
+                },
+                "exposedViaSource": {
+                  "type": "string",
+                  "enum": ["export_resolution", "advisory_text"],
+                  "description": "1.1.0, join rule. Only export_resolution can close a candidate set."
+                },
+                "exposedViaComplete": {
+                  "type": "boolean",
+                  "description": "1.1.0, join rule. true only when export resolution was exhaustive."
+                }
               }
             }
           },
@@ -71,7 +100,7 @@
           "fixedVersion": { "type": "string" },
           "provenance": {
             "type": "object",
-            "description": "Every candidate must be traceable to its source artefact.",
+            "description": "Every candidate must be traceable to its source artefact. From 1.1.0, candidateSymbols[].evidence names the artefacts here.",
             "additionalProperties": false,
             "properties": {
               "advisorySource": { "type": "string", "enum": ["osv", "ghsa", "nvd", "vendor"] },
@@ -86,18 +115,84 @@
                   "required": ["url", "verified"],
                   "additionalProperties": false,
                   "properties": {
+                    "id": { "type": "string", "minLength": 1, "description": "1.1.0. Unique within the result; what candidateSymbols[].evidence cites. Derived from the fields: advisory, github:<repo>@<full commit>:<path>, npm:<name>@<version>." },
+                    "kind": { "type": "string", "enum": ["advisory", "source_file", "tarball"], "description": "1.1.0. Says how verified was established." },
                     "url": { "type": "string" },
                     "sha256": { "type": "string" },
                     "sizeBytes": { "type": "integer", "minimum": 0 },
                     "verified": {
                       "type": "boolean",
-                      "description": "Tag or checksum verified against the published artefact."
+                      "description": "Tag or checksum verified against the published artefact. tarball: bytes match the registry integrity value. source_file: the git blob hash of the bytes read matches the hash GitHub reports for that path at that commit. advisory: the record names the finding's vulnerability and this npm package."
                     },
                     "executed": {
                       "type": "boolean",
                       "const": false,
                       "description": "Always false. Downloaded package code is never executed."
-                    }
+                    },
+                    "version": { "type": "string", "description": "1.1.0, tarball. The npm version." },
+                    "integrity": { "type": "string", "description": "1.1.0, tarball. The registry's dist.integrity value." },
+                    "repo": { "type": "string", "pattern": "^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$", "description": "1.1.0, source_file. owner/name on GitHub." },
+                    "commit": { "type": "string", "pattern": "^[0-9a-f]{40}$", "description": "1.1.0, source_file. The commit the file was read at." },
+                    "path": { "type": "string", "description": "1.1.0, source_file. Path within the repository." },
+                    "gitBlobSha": { "type": "string", "pattern": "^[0-9a-f]{40}$", "description": "1.1.0, source_file. Git blob hash of the bytes read; check with git rev-parse <commit>:<path>." },
+                    "modified": { "type": "string", "description": "1.1.0, advisory. The record's own last-modified time; OSV records are edited after publication." },
+                    "note": { "type": "string", "description": "1.1.0. Why an artefact is not verified." }
+                  }
+                }
+              },
+              "tagChecks": {
+                "type": "array",
+                "description": "1.1.0, patch_reference. One check per release. The fixed release passes when it carries at least one linked fix commit; the vulnerable release passes when no linked commit is an ancestor of it. An advisory often links commits from several release lines, so the rest are recorded in note. The release commit is npm's gitHead when the registry records one, otherwise the git tag's commit.",
+                "items": {
+                  "type": "object",
+                  "required": ["version", "role", "repo", "fixCommits", "result"],
+                  "additionalProperties": false,
+                  "properties": {
+                    "version": { "type": "string" },
+                    "role": { "type": "string", "enum": ["fixed", "vulnerable"] },
+                    "repo": { "type": "string" },
+                    "fixCommits": { "type": "array", "minItems": 1, "items": { "type": "string", "pattern": "^[0-9a-f]{7,40}$" } },
+                    "tag": { "type": "string" },
+                    "tagCommit": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+                    "registryGitHead": { "type": "string" },
+                    "releaseCommit": { "type": "string" },
+                    "releaseSource": {
+                      "type": "string",
+                      "enum": ["registry_git_head", "git_tag"],
+                      "description": "Where releaseCommit came from. A recorded gitHead the repository does not have falls back to the git tag."
+                    },
+                    "byAncestry": {
+                      "type": "array",
+                      "items": { "type": "string" },
+                      "description": "Linked fix commits that are ancestors of the release. For the vulnerable release any entry is a mismatch."
+                    },
+                    "byContent": {
+                      "type": "array",
+                      "items": { "type": "string" },
+                      "description": "Fixed release only. Linked commits that are not ancestors (a backport or squash merge) but whose added lines are all in the release's copy of the file."
+                    },
+                    "content": {
+                      "type": "array",
+                      "description": "The lines found for the byContent commits, so the check can be re-run.",
+                      "items": {
+                        "type": "object",
+                        "required": ["commit", "path", "lines"],
+                        "additionalProperties": false,
+                        "properties": {
+                          "commit": { "type": "string" },
+                          "parent": { "type": "string", "description": "The fix commit's parent. Lines its copy of the file already has are not looked for." },
+                          "path": { "type": "string" },
+                          "lines": { "type": "array", "items": { "type": "string" } }
+                        }
+                      }
+                    },
+                    "basis": {
+                      "type": "string",
+                      "enum": ["ancestry", "content"],
+                      "description": "How a verified result was reached: ancestry when any linked commit is an ancestor, otherwise content."
+                    },
+                    "result": { "type": "string", "enum": ["verified", "mismatch", "unavailable"] },
+                    "note": { "type": "string" }
                   }
                 }
               },

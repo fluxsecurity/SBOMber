@@ -1,5 +1,5 @@
 {
-  "schemaVersion": "1.0.0",
+  "schemaVersion": "1.1.0",
   "scanId": "scan-2026-08-12-0001",
   "summary": {
     "findingsProcessed": 4,
@@ -23,7 +23,10 @@
           "symbol": "template",
           "modulePath": "lodash.js",
           "changeKind": "modified",
-          "note": "Named directly in the GHSA advisory text"
+          "note": "Named directly in the GHSA advisory text",
+          "evidence": [
+            "advisory"
+          ]
         }
       ],
       "vulnerableVersion": "4.17.20",
@@ -31,7 +34,19 @@
       "provenance": {
         "advisorySource": "ghsa",
         "advisoryUrl": "https://github.com/advisories/GHSA-35jh-r3h4-6jhm",
-        "patchCommit": "3469357cff396a26c363f8c1b5a91dde28ba4b1c"
+        "patchCommit": "3469357cff396a26c363f8c1b5a91dde28ba4b1c",
+        "artefacts": [
+          {
+            "id": "advisory",
+            "kind": "advisory",
+            "url": "https://api.osv.dev/v1/vulns/GHSA-35jh-r3h4-6jhm",
+            "sha256": "0b5f6b3c1d2e4f5a69788796a5b4c3d2e1f00f1e2d3c4b5a69788796a5b4c3d2",
+            "sizeBytes": 6412,
+            "verified": true,
+            "executed": false,
+            "modified": "2024-03-01T00:00:00Z"
+          }
+        ]
       },
       "notes": "Advisory names the affected function, so no diff was needed."
     },
@@ -45,13 +60,21 @@
         {
           "symbol": "isURLSameOrigin",
           "modulePath": "lib/helpers/isURLSameOrigin.js",
-          "changeKind": "modified"
+          "changeKind": "modified",
+          "evidence": [
+            "npm:axios@0.21.0",
+            "npm:axios@0.21.1"
+          ]
         },
         {
           "symbol": "redirect",
           "modulePath": "lib/adapters/http.js",
           "changeKind": "modified",
-          "note": "Same patch also refactored header handling; both retained as candidates"
+          "note": "Same patch also refactored header handling; both retained as candidates",
+          "evidence": [
+            "npm:axios@0.21.0",
+            "npm:axios@0.21.1"
+          ]
         }
       ],
       "vulnerableVersion": "0.21.0",
@@ -61,22 +84,44 @@
         "advisoryUrl": "https://osv.dev/vulnerability/CVE-2020-28168",
         "artefacts": [
           {
+            "id": "advisory",
+            "kind": "advisory",
+            "url": "https://api.osv.dev/v1/vulns/GHSA-4w2v-q235-vp99",
+            "sha256": "9c8b7a69584736251403f2e1d0c9b8a79c8b7a69584736251403f2e1d0c9b8a7",
+            "sizeBytes": 6412,
+            "verified": true,
+            "executed": false,
+            "modified": "2024-03-01T00:00:00Z"
+          },
+          {
+            "id": "npm:axios@0.21.0",
+            "kind": "tarball",
             "url": "https://registry.npmjs.org/axios/-/axios-0.21.0.tgz",
             "sha256": "a1b2c3d4e5f60718293a4b5c6d7e8f90a1b2c3d4e5f60718293a4b5c6d7e8f90",
             "sizeBytes": 421887,
             "verified": true,
-            "executed": false
+            "executed": false,
+            "version": "0.21.0",
+            "integrity": "sha512-sample0210vulnerable"
           },
           {
+            "id": "npm:axios@0.21.1",
+            "kind": "tarball",
             "url": "https://registry.npmjs.org/axios/-/axios-0.21.1.tgz",
             "sha256": "f0e1d2c3b4a59687756453342312f0e1d2c3b4a59687756453342312f0e1d2c3",
             "sizeBytes": 423104,
             "verified": true,
-            "executed": false
+            "executed": false,
+            "version": "0.21.1",
+            "integrity": "sha512-sample0211fixed"
           }
         ]
       },
-      "excludedChanges": ["docs", "tests", "ci_config"],
+      "excludedChanges": [
+        "docs",
+        "tests",
+        "ci_config"
+      ],
       "notes": "Advisory did not name a function. Diff produced two candidates; neither is proven to be the vulnerable one."
     },
     {
@@ -90,7 +135,19 @@
       "fixedVersion": "1.2.6",
       "provenance": {
         "advisorySource": "osv",
-        "advisoryUrl": "https://osv.dev/vulnerability/CVE-2021-44906"
+        "advisoryUrl": "https://osv.dev/vulnerability/CVE-2021-44906",
+        "artefacts": [
+          {
+            "id": "advisory",
+            "kind": "advisory",
+            "url": "https://api.osv.dev/v1/vulns/GHSA-xvch-5gv4-984h",
+            "sha256": "5e4d3c2b1a0f9e8d7c6b5a49382716051e4d3c2b1a0f9e8d7c6b5a4938271605",
+            "sizeBytes": 6412,
+            "verified": true,
+            "executed": false,
+            "modified": "2024-03-01T00:00:00Z"
+          }
+        ]
       },
       "notes": "Prototype pollution in argument parsing; no single implicated symbol. Falls back to package-level treatment."
     },
@@ -104,7 +161,11 @@
         {
           "symbol": "defaultsDeep",
           "modulePath": "lodash.js",
-          "changeKind": "modified"
+          "changeKind": "modified",
+          "evidence": [
+            "github:lodash/lodash@5c08f18d365b64063bfbfa686cbb97cdd6267347:lodash.js",
+            "github:lodash/lodash@4d2a7c0e6f1b3a5d9c8e7f6a5b4c3d2e1f0a9b8c:lodash.js"
+          ]
         }
       ],
       "vulnerableVersion": "3.10.1",
@@ -112,7 +173,79 @@
       "provenance": {
         "advisorySource": "ghsa",
         "advisoryUrl": "https://github.com/advisories/GHSA-jf85-cpcp-j695",
-        "patchCommit": "5c08f18d365b64063bfbfa686cbb97cdd6267347"
+        "patchCommit": "5c08f18d365b64063bfbfa686cbb97cdd6267347",
+        "patchUrl": "https://github.com/lodash/lodash/commit/5c08f18d365b64063bfbfa686cbb97cdd6267347",
+        "artefacts": [
+          {
+            "id": "advisory",
+            "kind": "advisory",
+            "url": "https://api.osv.dev/v1/vulns/GHSA-jf85-cpcp-j695",
+            "sha256": "1f2e3d4c5b6a79881f2e3d4c5b6a79881f2e3d4c5b6a79881f2e3d4c5b6a7988",
+            "sizeBytes": 6412,
+            "verified": true,
+            "executed": false,
+            "modified": "2024-03-01T00:00:00Z"
+          },
+          {
+            "id": "github:lodash/lodash@5c08f18d365b64063bfbfa686cbb97cdd6267347:lodash.js",
+            "kind": "source_file",
+            "url": "https://github.com/lodash/lodash/blob/5c08f18d365b64063bfbfa686cbb97cdd6267347/lodash.js",
+            "sha256": "7a6b5c4d3e2f10297a6b5c4d3e2f10297a6b5c4d3e2f10297a6b5c4d3e2f1029",
+            "sizeBytes": 540510,
+            "verified": true,
+            "executed": false,
+            "repo": "lodash/lodash",
+            "commit": "5c08f18d365b64063bfbfa686cbb97cdd6267347",
+            "path": "lodash.js",
+            "gitBlobSha": "e3b1c2d4f5a6978877665544332211aabbccddee"
+          },
+          {
+            "id": "github:lodash/lodash@4d2a7c0e6f1b3a5d9c8e7f6a5b4c3d2e1f0a9b8c:lodash.js",
+            "kind": "source_file",
+            "url": "https://github.com/lodash/lodash/blob/4d2a7c0e6f1b3a5d9c8e7f6a5b4c3d2e1f0a9b8c/lodash.js",
+            "sha256": "2c3d4e5f60718293a4b5c6d7e8f901a22c3d4e5f60718293a4b5c6d7e8f901a2",
+            "sizeBytes": 540321,
+            "verified": true,
+            "executed": false,
+            "repo": "lodash/lodash",
+            "commit": "4d2a7c0e6f1b3a5d9c8e7f6a5b4c3d2e1f0a9b8c",
+            "path": "lodash.js",
+            "gitBlobSha": "aa11bb22cc33dd44ee55ff6600778899aabbccdd"
+          }
+        ],
+        "tagChecks": [
+          {
+            "version": "4.17.12",
+            "role": "fixed",
+            "repo": "lodash/lodash",
+            "fixCommits": [
+              "5c08f18d365b64063bfbfa686cbb97cdd6267347"
+            ],
+            "tag": "4.17.12",
+            "tagCommit": "9a8b7c6d5e4f30211a2b3c4d5e6f708192a3b4c5",
+            "releaseCommit": "9a8b7c6d5e4f30211a2b3c4d5e6f708192a3b4c5",
+            "releaseSource": "git_tag",
+            "byAncestry": [
+              "5c08f18d365b64063bfbfa686cbb97cdd6267347"
+            ],
+            "basis": "ancestry",
+            "result": "verified"
+          },
+          {
+            "version": "3.10.1",
+            "role": "vulnerable",
+            "repo": "lodash/lodash",
+            "fixCommits": [
+              "5c08f18d365b64063bfbfa686cbb97cdd6267347"
+            ],
+            "tag": "3.10.1",
+            "tagCommit": "0f1e2d3c4b5a69788796a5b4c3d2e1f00f1e2d3c",
+            "releaseCommit": "0f1e2d3c4b5a69788796a5b4c3d2e1f00f1e2d3c",
+            "releaseSource": "git_tag",
+            "basis": "ancestry",
+            "result": "verified"
+          }
+        ]
       },
       "notes": "Maintainer security commit identifies the function directly."
     }
