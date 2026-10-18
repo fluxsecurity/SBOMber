@@ -11,6 +11,7 @@ import (
 	"io"
 	"os"
 	"path/filepath"
+	"slices"
 	"strings"
 	"time"
 
@@ -26,6 +27,7 @@ import (
 	"github.com/Xsamsx/SBOMber/internal/health"
 	"github.com/Xsamsx/SBOMber/internal/localisation"
 	"github.com/Xsamsx/SBOMber/internal/maven"
+	"github.com/Xsamsx/SBOMber/internal/netstatus"
 	"github.com/Xsamsx/SBOMber/internal/npm"
 	"github.com/Xsamsx/SBOMber/internal/nuget"
 	"github.com/Xsamsx/SBOMber/internal/python"
@@ -37,13 +39,17 @@ import (
 	"github.com/Xsamsx/SBOMber/internal/vulnerability"
 )
 
-const version = "0.1.0"
+const version = "0.1.1"
 
 var (
-	colorReset = "\033[0m"
-	colorCyan  = "\033[36m"
-	colorBlue  = "\033[34m"
-	colorBold  = "\033[1m"
+	colorReset  = "\033[0m"
+	colorCyan   = "\033[36m"
+	colorBlue   = "\033[34m"
+	colorBold   = "\033[1m"
+	colorRed    = "\033[31m"
+	colorYellow = "\033[33m"
+	colorGreen  = "\033[32m"
+	colorDim    = "\033[2m"
 )
 
 const (
@@ -58,12 +64,20 @@ func setColorOutput(enabled bool) {
 		colorCyan = "\033[36m"
 		colorBlue = "\033[34m"
 		colorBold = "\033[1m"
+		colorRed = "\033[31m"
+		colorYellow = "\033[33m"
+		colorGreen = "\033[32m"
+		colorDim = "\033[2m"
 		return
 	}
 	colorReset = ""
 	colorCyan = ""
 	colorBlue = ""
 	colorBold = ""
+	colorRed = ""
+	colorYellow = ""
+	colorGreen = ""
+	colorDim = ""
 }
 
 func flagErrorCode(err error) int {
@@ -71,6 +85,22 @@ func flagErrorCode(err error) int {
 		return 0
 	}
 	return 2
+}
+
+// pickSBOMForGrype chooses which exported SBOM to hand to Grype: CycloneDX
+// if one was written (sbom-cyclonedx.xml / .json, or *.cdx.*), else the
+// first one.
+func pickSBOMForGrype(paths []string) string {
+	for _, p := range paths {
+		name := strings.ToLower(filepath.Base(p))
+		if strings.Contains(name, "cyclonedx") || strings.Contains(name, ".cdx.") {
+			return p
+		}
+	}
+	if len(paths) > 0 {
+		return paths[0]
+	}
+	return ""
 }
 
 func validateVulnOptions(includeVulns, failOnVuln bool) error {
@@ -83,6 +113,7 @@ func validateVulnOptions(includeVulns, failOnVuln bool) error {
 // Main executes the CLI and returns the exit code.
 func Main(args []string, stdin io.Reader, stdout io.Writer, stderr io.Writer) int {
 	if len(args) == 0 {
+		ensureGitHubToken()
 		return runInteractive(stdin, stdout, stderr)
 	}
 
@@ -91,6 +122,7 @@ func Main(args []string, stdin io.Reader, stdout io.Writer, stderr io.Writer) in
 		_, _ = fmt.Fprintf(stdout, "sbomber %s\n", version)
 		return 0
 	case "scan":
+		ensureGitHubToken()
 		return runScan(args[1:], stdout, stderr)
 	case "github":
 		return runGitHubScan(args[1:], stdout, stderr)
@@ -98,6 +130,8 @@ func Main(args []string, stdin io.Reader, stdout io.Writer, stderr io.Writer) in
 		return runGitLabScan(args[1:], stdout, stderr)
 	case "trace":
 		return runTrace(args[1:], stdout, stderr)
+	case "reachability":
+		return runReachability(args[1:], stdout, stderr)
 	case "verify":
 		return runVerify(args[1:], stdout, stderr)
 	case "diff":
@@ -108,6 +142,11 @@ func Main(args []string, stdin io.Reader, stdout io.Writer, stderr io.Writer) in
 		return runUsage(args[1:], stdout, stderr)
 	case "decide":
 		return runDecide(args[1:], stdout, stderr)
+	case "audit":
+		return runAudit(args[1:], stdout, stderr)
+
+	case "report":
+		return runReport(args[1:], stdout, stderr)
 	case "vex":
 		return runVEX(args[1:], stdout, stderr)
 	case "demo":
@@ -247,12 +286,13 @@ func runGitHubScan(args []string, stdout io.Writer, stderr io.Writer) int {
 		return 2
 	}
 
+	ensureGitHubToken()
 	token := os.Getenv("GITHUB_TOKEN")
 	client := github.NewClient(token)
 
 	if !client.HasToken() {
 		_, _ = fmt.Fprintf(stderr, "WARNING: No GITHUB_TOKEN set. Rate limit is 60 requests/hour.\n")
-		_, _ = fmt.Fprintf(stderr, "Set GITHUB_TOKEN for 5000 requests/hour.\n\n")
+		_, _ = fmt.Fprintf(stderr, "Set GITHUB_TOKEN or run `gh auth login` for 5000 requests/hour.\n\n")
 	}
 
 	selectedFormat, err := normalizeExportFormat(*format)
@@ -285,18 +325,32 @@ func runGitHubScan(args []string, stdout io.Writer, stderr io.Writer) int {
 	}
 
 	vulnFound := false
+	// A repository that could not be scanned is a tool error (exit 2), not a
+	// clean result: CI must not read an unscanned repository as safe.
+	scanFailed := false
 	for _, repoURL := range repoURLs {
 		_, _ = fmt.Fprintf(stdout, "Scanning: %s\n", repoURL)
 
 		result, err := scanner.ScanRepo(repoURL)
 		if err != nil {
 			_, _ = fmt.Fprintf(stderr, "  Error: %v\n", err)
+			scanFailed = true
 			continue
 		}
 
 		_, _ = fmt.Fprintf(stdout, "  Found %d manifests: %s\n", len(result.Manifests), strings.Join(result.Manifests, ", "))
 		_, _ = fmt.Fprintf(stdout, "  Dependencies: %d direct, %d transitive\n",
 			len(result.Summary.Direct), len(result.Summary.Transitive))
+
+		if result.Status != "" && result.Status != remote.StatusComplete {
+			_, _ = fmt.Fprintf(stdout, "  Status: %s\n", result.Status)
+			if result.Status == remote.StatusFailed {
+				scanFailed = true
+			}
+			for _, skip := range result.Skipped {
+				_, _ = fmt.Fprintf(stdout, "    - %s\n", skip)
+			}
+		}
 
 		repoOutputDir := filepath.Join(outputDir, result.Owner+"_"+result.Repo)
 		if err := os.MkdirAll(repoOutputDir, 0755); err != nil {
@@ -311,13 +365,8 @@ func runGitHubScan(args []string, stdout io.Writer, stderr io.Writer) int {
 		} else {
 			for _, p := range savedPaths {
 				_, _ = fmt.Fprintf(stdout, "  Exported: %s\n", p)
-				// Prefer CycloneDX for vulnerability scanning
-				if strings.HasSuffix(p, ".cdx.xml") {
-					sbomPath = p
-				} else if sbomPath == "" && strings.HasSuffix(p, ".spdx") {
-					sbomPath = p
-				}
 			}
+			sbomPath = pickSBOMForGrype(savedPaths)
 		}
 
 		// Collect health metrics if requested
@@ -362,7 +411,10 @@ func runGitHubScan(args []string, stdout io.Writer, stderr io.Writer) int {
 		ghsaCtx, ghsaCancel := context.WithTimeout(context.Background(), 120*time.Second)
 		ghsaResults, ghsaErr := vulnerability.ScanPackagesWithGHSA(ghsaCtx, pkgRefs)
 		ghsaCancel()
-		if ghsaErr != nil || ghsaResults == nil {
+		if ghsaErr != nil {
+			_, _ = fmt.Fprintf(stderr, "  GitHub Advisory scan failed: %v\n", ghsaErr)
+		}
+		if ghsaResults == nil {
 			ghsaResults = &vulnerability.ScanResults{Vulnerabilities: make([]vulnerability.VulnerabilityResult, 0)}
 		}
 		if ghsaResults.TotalCount > 0 {
@@ -407,6 +459,11 @@ func runGitHubScan(args []string, stdout io.Writer, stderr io.Writer) int {
 				vulnResults.TotalCount = len(vulnResults.Vulnerabilities)
 			}
 		}
+		// The package scan's own status travels with the merged results, so
+		// the report and the summary below show it next to the other sources.
+		if vulnResults != nil && vulnResults != ghsaResults {
+			vulnResults.NetworkStatus = append(vulnResults.NetworkStatus, ghsaResults.NetworkStatus...)
+		}
 
 		// Generate report (combined if we have both, otherwise just what we have)
 		if vulnResults != nil && len(healthMetrics) > 0 {
@@ -431,6 +488,7 @@ func runGitHubScan(args []string, stdout io.Writer, stderr io.Writer) int {
 				_, _ = fmt.Fprintf(stdout, "  Report: %s\n", reportPath)
 			}
 		}
+		printNetworkStatus(stdout, vulnResults)
 
 		rateLimit := client.GetRateLimit()
 		if rateLimit.Remaining > 0 {
@@ -440,6 +498,10 @@ func runGitHubScan(args []string, stdout io.Writer, stderr io.Writer) int {
 	}
 
 	_, _ = fmt.Fprintf(stdout, "GitHub scan complete. Output saved to: %s\n", outputDir)
+	if scanFailed {
+		_, _ = fmt.Fprintf(stderr, "one or more repositories could not be scanned\n")
+		return 2
+	}
 	if *failOnVuln && vulnFound {
 		return 1
 	}
@@ -1042,12 +1104,8 @@ func runGitLabScan(args []string, stdout io.Writer, stderr io.Writer) int {
 		} else {
 			for _, p := range savedPaths {
 				_, _ = fmt.Fprintf(stdout, "  Exported: %s\n", p)
-				if strings.HasSuffix(p, ".cdx.xml") || strings.HasSuffix(p, ".cdx.json") {
-					sbomPath = p
-				} else if sbomPath == "" {
-					sbomPath = p
-				}
 			}
+			sbomPath = pickSBOMForGrype(savedPaths)
 		}
 
 		var healthMetrics []*health.DependencyHealth
@@ -1096,6 +1154,7 @@ func runGitLabScan(args []string, stdout io.Writer, stderr io.Writer) int {
 				_, _ = fmt.Fprintf(stdout, "  Report: %s\n", rp)
 			}
 		}
+		printNetworkStatus(stdout, vulnResults)
 
 		_, _ = fmt.Fprintln(stdout)
 	}
@@ -1429,7 +1488,7 @@ func extractSingleScanSBOM(scanOutput string) string {
 	var sbomFiles []string
 	repoCount := 0
 
-	for _, line := range strings.Split(scanOutput, "\n") {
+	for line := range strings.SplitSeq(scanOutput, "\n") {
 		trimmed := strings.TrimSpace(line)
 		if after, ok := strings.CutPrefix(trimmed, "output folder:"); ok {
 			repoCount++
@@ -1708,17 +1767,33 @@ func generateVulnReport(stdout io.Writer, stderr io.Writer, scanPath, outputDir,
 		return vulnResults.TotalCount
 	}
 	_, _ = fmt.Fprintf(stdout, "  HTML report: %s\n", filepath.Base(reportPath))
+	printNetworkStatus(stdout, vulnResults)
 	return vulnResults.TotalCount
 }
 
-func containsEcosystem(names []ecosystem.Name, candidate ecosystem.Name) bool {
-	for _, name := range names {
-		if name == candidate {
-			return true
+// printNetworkStatus prints one line per enrichment source (EPSS, KEV,
+// GHSA, npm registry, malware) that did not succeed, so a source that
+// failed or was skipped is visible instead of looking identical to a
+// clean, empty result. Sources that reported success are not printed,
+// keeping the common case quiet.
+func printNetworkStatus(stdout io.Writer, vulnResults *vulnerability.ScanResults) {
+	if vulnResults == nil {
+		return
+	}
+	for _, r := range vulnResults.NetworkStatus {
+		if r.Status == netstatus.Success {
+			continue
+		}
+		if r.Detail != "" {
+			_, _ = fmt.Fprintf(stdout, "  [%s] %s: %s\n", r.Source, r.Status, r.Detail)
+		} else {
+			_, _ = fmt.Fprintf(stdout, "  [%s] %s\n", r.Source, r.Status)
 		}
 	}
+}
 
-	return false
+func containsEcosystem(names []ecosystem.Name, candidate ecosystem.Name) bool {
+	return slices.Contains(names, candidate)
 }
 
 func resolveScanRoot(root string) (string, error) {
@@ -1765,14 +1840,18 @@ func printUsage(w io.Writer) {
 Usage:
   sbomber
   sbomber scan [path] [--format FORMAT] [--include-vulnerabilities] [--fail-on-vuln] [--no-color]
-  sbomber github [--health] [--include-vulnerabilities] [--fail-on-vuln] [--format FORMAT] <repo-url>...
-  sbomber gitlab [--health] [--include-vulnerabilities] [--fail-on-vuln] [--format FORMAT] [--instance URL] <repo-url>...
+  sbomber github [--health] [--include-vulnerabilities] [--fail-on-vuln] [--no-color] [--format FORMAT] <repo-url>...
+  sbomber gitlab [--health] [--include-vulnerabilities] [--fail-on-vuln] [--no-color] [--format FORMAT] [--instance URL] <repo-url>...
   sbomber trace <path> [package-name] [flags] [--no-color]
+  sbomber reachability [path] [--json] [--no-color]
   sbomber verify <ground-truth-sbom> <generated-sbom> [--json]
   sbomber diff <old-sbom> <new-sbom> [--no-color]
   sbomber localise --canonical-scan <canonical-scan.json> [--out localisation.json] [--trace trace.json]
   sbomber usage --canonical-scan <canonical-scan.json> [--out usage-graph.json] [--entry file:function]
   sbomber decide --canonical-scan <file> --usage-graph <file> --localisation <file> [--out decision-results.json]
+  sbomber audit [--cases testdata/audit] [--out audit-results.json]
+
+  sbomber report --decision-results <file> [--usage-graph <file>] [--format html|text] [--out <file>|-] [filters]
   sbomber vex --decisions <decision-results.json> [--canonical-scan <file>] [--subject application|package] [--product <id>] [--out vex.openvex.json]
   sbomber version
 
@@ -1837,6 +1916,31 @@ VEX Flags (Component 3: OpenVEX 0.2.0 from decision-results.json):
   usage_detected -> affected only when explicitly mapped by the decision; otherwise under_investigation.
   no_usage_detected and unknown -> under_investigation, unsupported -> omitted. not_affected is rejected by the committed exporter.
 
+Reachability (Go only, needs govulncheck):
+  Scores findings with resolved static call paths, 0-100 prioritisation points,
+  from CVSS (NVD), EPSS, CISA KEV and how directly the call is made.
+  0-20 points Minimal priority, 21-39% Low, 40-69% Medium, 70-100% High.
+  --json                                Output results as JSON
+  --db <url>                            Vulnerability database (default: https://vuln.go.dev)
+
+Audit Flags (S5-14: replay hand-labelled cases through the decision pipeline):
+  --cases <dir>                         one subdirectory per labelled case (default: testdata/audit)
+  --out <file>                          also write audit-results.json
+
+Report Flags (Component 4: which package to update first, why, and what it fixes):
+  --decision-results <file>             decision-results.json from sbomber decide (required)
+  --usage-graph <file>                  usage-graph.json the decisions rest on; shows analysis coverage
+  --format html|text                    output format (default: html)
+  --out <file>|-                        file to write, - for stdout (default: remediation-report.html
+                                        for html, stdout for text)
+  --section <ids>                       only these sections: update-first, insufficient-information,
+                                        no-direct-usage, lower-priority (comma-separated)
+  --band <bands>                        only these bands: act_now, lower_priority, insufficient_information
+  --state <states>                      only these states: usage_detected, no_usage_detected, unknown,
+                                        unsupported
+  --package <text>                      only packages whose purl contains this (comma-separated)
+                                        Filters change the view only; the report says how many findings they hid.
+
 Examples:
   sbomber
   sbomber scan .
@@ -1851,7 +1955,8 @@ Examples:
   sbomber diff v1.0.cdx.xml v1.1.cdx.xml
 
 Environment:
-  GITHUB_TOKEN    GitHub personal access token (recommended for higher rate limits)
+  GITHUB_TOKEN    GitHub personal access token (recommended for higher rate limits;
+                  if unset, the GitHub CLI's login from 'gh auth login' is used)
   GITLAB_TOKEN    GitLab personal access token
 `)
 }

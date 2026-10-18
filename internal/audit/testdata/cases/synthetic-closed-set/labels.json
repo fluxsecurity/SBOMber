@@ -1,0 +1,30 @@
+{
+  "schemaVersion": "1.0.0",
+  "caseId": "synthetic-closed-set",
+  "repository": {
+    "url": "hand-built fixture (internal/audit/testdata), not a real repository",
+    "commit": "0000000"
+  },
+  "labelledBy": "Zane Wylie",
+  "labelledAt": "2026-10-04",
+  "labels": [
+    {
+      "findingId": "find-001",
+      "vulnerabilityId": "CVE-2018-16487",
+      "purl": "pkg:npm/lodash@4.17.4",
+      "label": "genuine_usage",
+      "vulnerableSymbols": ["merge"],
+      "reasoning": "index.js calls _.merge on request-controlled input; merge is the function the advisory names.",
+      "evidence": ["index.js:12 _.merge(target, req.body)"]
+    },
+    {
+      "findingId": "find-002",
+      "vulnerabilityId": "CVE-2021-23337",
+      "purl": "pkg:npm/lodash@4.17.4",
+      "label": "no_genuine_usage",
+      "vulnerableSymbols": ["template"],
+      "reasoning": "Every file in the fixture was read; the only lodash call is merge. template is never referenced.",
+      "evidence": []
+    }
+  ]
+}

@@ -72,8 +72,13 @@ numpy
 
 	if dep, ok := found["requests"]; !ok {
 		t.Error("missing requests dependency")
-	} else if dep.Version != "==2.28.1" {
-		t.Errorf("requests version = %s, want ==2.28.1", dep.Version)
+	} else if dep.Version != "2.28.1" {
+		// A bare version, not the "==2.28.1" specifier: the specifier made
+		// SBOM purls (pkg:pypi/requests@==2.28.1) that Grype cannot match.
+		t.Errorf("requests version = %s, want 2.28.1", dep.Version)
+	}
+	if dep := found["flask"]; dep.Version != "" {
+		t.Errorf("flask>=2.0.0 is a range, not a version; got %q", dep.Version)
 	}
 
 	if _, ok := found["django"]; !ok {
@@ -192,5 +197,51 @@ PLATFORMS
 		t.Error("missing rails dependency")
 	} else if dep.Version != "7.0.4" {
 		t.Errorf("rails version = %s, want 7.0.4", dep.Version)
+	}
+}
+
+func TestPackageLockPackageName(t *testing.T) {
+	tests := map[string]string{
+		"node_modules/lodash":                  "lodash",
+		"node_modules/@babel/core":             "@babel/core",
+		"node_modules/a/node_modules/b":        "b",
+		"node_modules/a/node_modules/@scope/b": "@scope/b",
+		"packages/app/node_modules/left-pad":   "left-pad",
+		"packages/app":                         "",
+		"":                                     "",
+	}
+	for path, want := range tests {
+		if got := packageLockPackageName(path); got != want {
+			t.Errorf("packageLockPackageName(%q) = %q, want %q", path, got, want)
+		}
+	}
+}
+
+func TestParsePackageLockJSONKeepsNestedVersions(t *testing.T) {
+	content := []byte(`{
+		"lockfileVersion": 3,
+		"packages": {
+			"": {"name": "root"},
+			"node_modules/debug": {"version": "4.3.4"},
+			"node_modules/express/node_modules/debug": {"version": "2.6.9"},
+			"packages/app": {"version": "1.0.0"},
+			"node_modules/app": {"resolved": "packages/app", "link": true}
+		}
+	}`)
+	summary, err := parsePackageLockJSON(content)
+	if err != nil {
+		t.Fatal(err)
+	}
+	versions := map[string]bool{}
+	for _, d := range summary.Transitive {
+		if d.Name == "debug" {
+			versions[d.Version] = true
+		}
+		if d.Name == "packages/app" {
+			t.Errorf("workspace folder reported as a package: %+v", d)
+		}
+	}
+	if !versions["4.3.4"] || !versions["2.6.9"] {
+		t.Errorf("want both debug versions, got %v", versions)
 	}
 }

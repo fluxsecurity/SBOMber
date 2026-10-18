@@ -6,3 +6,4 @@
 
 # The frozen localisation set is hashed byte-for-byte (freeze.py).
 /spikes/localisation/cases/*.json text eol=lf
+*.zip binary

@@ -8,6 +8,7 @@ import (
 	"strings"
 
 	"github.com/Xsamsx/SBOMber/internal/deps"
+	"github.com/Xsamsx/SBOMber/internal/python"
 )
 
 // ParseContent parses a manifest file's raw content given its path.
@@ -106,8 +107,8 @@ func parsePackageLockJSON(content []byte) (deps.Summary, error) {
 			if path == "" {
 				continue
 			}
-			name := strings.TrimPrefix(path, "node_modules/")
-			if strings.Contains(name, "node_modules/") {
+			name := packageLockPackageName(path)
+			if name == "" {
 				continue
 			}
 
@@ -139,6 +140,23 @@ func parsePackageLockJSON(content []byte) (deps.Summary, error) {
 	}
 
 	return summary, nil
+}
+
+// packageLockPackageName returns the package name for a lockfile v2/v3
+// "packages" key: "node_modules/a/node_modules/@s/b" is "@s/b", a nested copy
+// installed under its parent.
+func packageLockPackageName(path string) string {
+	path = strings.TrimSpace(path)
+	if path == "" {
+		return ""
+	}
+	if idx := strings.LastIndex(path, "node_modules/"); idx >= 0 && (idx == 0 || path[idx-1] == '/') {
+		return path[idx+len("node_modules/"):]
+	}
+	// A path outside node_modules ("packages/app") is a workspace source
+	// folder, not an installed package; the workspace itself is listed again
+	// as a "node_modules/<name>" link entry.
+	return ""
 }
 
 func parseRequirementsTxt(content []byte) (deps.Summary, error) {
@@ -183,7 +201,7 @@ func parsePythonRequirement(line string) (name, version string) {
 	if len(matches) >= 2 {
 		name = strings.ToLower(matches[1])
 		if len(matches) >= 3 {
-			version = strings.TrimSpace(matches[2])
+			version = python.PinnedVersion(matches[2])
 		}
 	}
 	return

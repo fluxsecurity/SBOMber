@@ -1,6 +1,7 @@
 package health
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -14,6 +15,26 @@ import (
 	"github.com/Xsamsx/SBOMber/internal/deps"
 	"github.com/Xsamsx/SBOMber/internal/github"
 )
+
+// healthLookupTimeout bounds one dependency's repository lookups, so a slow
+// GitHub response cannot stall a health scan.
+const healthLookupTimeout = 60 * time.Second
+
+// maxBodyBytes bounds how much of any registry response is read: a bare
+// io.ReadAll on an HTTP body has no upper bound.
+const maxBodyBytes = 50 << 20 // 50 MiB
+
+// readLimited reads r, refusing to buffer more than maxBodyBytes.
+func readLimited(r io.Reader) ([]byte, error) {
+	body, err := io.ReadAll(io.LimitReader(r, maxBodyBytes+1))
+	if err != nil {
+		return nil, err
+	}
+	if len(body) > maxBodyBytes {
+		return nil, fmt.Errorf("response body exceeds %d byte limit", maxBodyBytes)
+	}
+	return body, nil
+}
 
 // DependencyHealth combines dependency info with supply chain health metrics.
 type DependencyHealth struct {
@@ -83,7 +104,9 @@ func (r *Resolver) ResolveHealth(dep deps.Dependency) *DependencyHealth {
 	health.RepoOwner = owner
 	health.RepoName = repo
 
-	metrics, err := r.ghClient.GetHealthMetrics(owner, repo)
+	ctx, cancel := context.WithTimeout(context.Background(), healthLookupTimeout)
+	metrics, err := r.ghClient.GetHealthMetrics(ctx, owner, repo)
+	cancel()
 	if err != nil {
 		health.Error = err.Error()
 		r.cacheMu.Lock()
@@ -195,7 +218,7 @@ func (r *Resolver) resolveNpmRepo(name string) (string, error) {
 		return "", fmt.Errorf("npm registry returned %d", resp.StatusCode)
 	}
 
-	body, err := io.ReadAll(resp.Body)
+	body, err := readLimited(resp.Body)
 	if err != nil {
 		return "", err
 	}
@@ -232,7 +255,7 @@ func (r *Resolver) resolvePyPIRepo(name string) (string, error) {
 		return "", fmt.Errorf("PyPI returned %d", resp.StatusCode)
 	}
 
-	body, err := io.ReadAll(resp.Body)
+	body, err := readLimited(resp.Body)
 	if err != nil {
 		return "", err
 	}
@@ -285,7 +308,7 @@ func (r *Resolver) resolveRubyRepo(name string) (string, error) {
 		return "", fmt.Errorf("RubyGems returned %d", resp.StatusCode)
 	}
 
-	body, err := io.ReadAll(resp.Body)
+	body, err := readLimited(resp.Body)
 	if err != nil {
 		return "", err
 	}
@@ -332,7 +355,7 @@ func (r *Resolver) resolveMavenRepo(name string) (string, error) {
 	}
 	defer func() { _ = resp.Body.Close() }()
 
-	body, err := io.ReadAll(resp.Body)
+	body, err := readLimited(resp.Body)
 	if err != nil {
 		return "", err
 	}
@@ -355,7 +378,7 @@ func (r *Resolver) resolveMavenRepo(name string) (string, error) {
 	}
 	defer func() { _ = pomResp.Body.Close() }()
 
-	pomBody, err := io.ReadAll(pomResp.Body)
+	pomBody, err := readLimited(pomResp.Body)
 	if err != nil {
 		return "", err
 	}

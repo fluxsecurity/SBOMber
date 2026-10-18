@@ -41,7 +41,8 @@ make build
 ./bin/sbomber github https://github.com/expressjs/express
 ```
 
-**Requirements:** Go 1.26+ and [Grype](https://github.com/anchore/grype) (for vulnerability scanning)
+**Requirements:** Go 1.26.9+ and [Grype](https://github.com/anchore/grype) (for vulnerability scanning).
+For GitHub scans, set `GITHUB_TOKEN` or just log in with the GitHub CLI (`gh auth login`); SBOMber uses that login automatically when `GITHUB_TOKEN` is unset.
 
 ## Features
 
@@ -162,6 +163,24 @@ the registry's integrity value, read in memory, and every artefact records
 `executed: false`. The output follows `contracts/localisation.schema.json`.
 Measured behaviour on ten curated CVEs is in `spikes/localisation/`.
 
+### Vulnerability Reachability (Go)
+
+Uses govulncheck's call graph to find the vulnerable functions your code
+actually calls, and scores only those, 0-100%: severity (CVSS from NVD, up
+to 40) + exploit chance (EPSS, up to 25) + known exploited (CISA KEV, +20) +
+call proximity (your code calls it +15, via a dependency +8).
+0-20% Minimal priority, 21-39% Low, 40-69% Medium, 70-100% High.
+
+```bash
+go install golang.org/x/vuln/cmd/govulncheck@latest   # one-time
+
+./bin/sbomber reachability .          # call paths, file:line, score breakdown
+./bin/sbomber reachability . --json   # for CI
+```
+
+Set `NVD_API_KEY` for faster CVSS lookups (results are cached for 24h).
+See [docs/design/reachability.md](docs/design/reachability.md).
+
 ### SBOM Verification
 
 Compare your generated SBOM against a ground truth to measure accuracy.
@@ -248,6 +267,8 @@ Reports are saved to `~/.sbomber/reports/`:
 ### HTML Vulnerability Report
 
 Interactive report with:
+- Risk score (0-100%) for every vulnerability, with its breakdown: CVSS ÷ 10 × 40 + EPSS × 25 + CISA KEV 20 + direct dependency 15 / transitive 8.
+  0-20% Minimal priority, 21-39% Low, 40-69% Medium, 70-100% High; overall project risk, per-band counts and a risk filter
 - Severity breakdown (Critical/High/Medium/Low)
 - Direct vs transitive dependency filtering
 - Test data detection (auto-flags fixtures/examples)
