@@ -286,6 +286,7 @@ func TestLocalise_UnknownWhenNothingIsAvailable(t *testing.T) {
 	}
 	// A referenced release commit that changes no code is reported as such, not as a hit.
 	w.osv["GHSA-2222-2222-2222"] = map[string]any{"id": "GHSA-2222-2222-2222", "summary": "x",
+		"affected":   []any{map[string]any{"package": map[string]string{"ecosystem": "npm", "name": "ghost"}}},
 		"references": []any{map[string]string{"type": "WEB", "url": "https://github.com/acme/ghost/commit/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}}}
 	w.commits["aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"] = map[string]any{"sha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
 		"files": []any{map[string]any{"filename": "package.json", "status": "modified", "patch": "@@ -1,1 +1,1 @@\n-1\n+2"}}}

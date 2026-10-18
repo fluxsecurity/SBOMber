@@ -9,6 +9,7 @@ import (
 	"encoding/hex"
 	"encoding/json"
 	"fmt"
+	"io"
 	"net/url"
 	"regexp"
 	"strings"
@@ -488,7 +489,8 @@ func canonicalJSON(body []byte) ([]byte, error) {
 	if err := dec.Decode(&v); err != nil {
 		return nil, err
 	}
-	if dec.More() {
+	var trailing any
+	if err := dec.Decode(&trailing); err != io.EOF {
 		return nil, fmt.Errorf("trailing data after the JSON document")
 	}
 	var out bytes.Buffer

@@ -32,8 +32,9 @@ type binding struct {
 // identRef is one identifier occurrence, for "is this function used by
 // other code in its module".
 type identRef struct {
-	Name string
-	Line int
+	Name     string
+	Line     int
+	LoadTime bool
 }
 
 // moduleInfo is what visibility resolution needs from one file of the
@@ -73,10 +74,11 @@ func (m *moduleInfo) allNames() []string {
 }
 
 // usedOutside reports whether name is referenced in the module outside the
-// lines [start, end] (the function's own body) and outside export lists.
+// interior lines (the function's own body) and outside export lists. Boundary
+// lines count conservatively because another caller may share the same line.
 func (m *moduleInfo) usedOutside(name string, start, end int) bool {
 	for _, r := range m.refs {
-		if r.Name == name && (r.Line < start || r.Line > end) {
+		if r.Name == name && (r.Line <= start || r.Line >= end) {
 			return true
 		}
 	}
@@ -513,11 +515,11 @@ func (w *moduleWalker) scan(n *treesitter.Node) {
 			}
 		}
 		if !w.m.exportRefs[n.StartByte()] && !isDeclarationName(n) {
-			w.m.refs = append(w.m.refs, identRef{Name: name, Line: line(n)})
+			w.m.refs = append(w.m.refs, identRef{Name: name, Line: line(n), LoadTime: isLoadTimeReference(n)})
 		}
 	case "shorthand_property_identifier":
 		if !w.m.exportRefs[n.StartByte()] {
-			w.m.refs = append(w.m.refs, identRef{Name: w.text(n), Line: line(n)})
+			w.m.refs = append(w.m.refs, identRef{Name: w.text(n), Line: line(n), LoadTime: isLoadTimeReference(n)})
 		}
 	}
 	for i := 0; i < int(n.ChildCount()); i++ {
@@ -559,4 +561,16 @@ func resolveModule(from, spec string, files map[string]bool) string {
 		}
 	}
 	return ""
+}
+
+// References outside a function may execute when the module is imported,
+// independently of any public function call. Aliasing at module scope also
+// escapes the supported export walk, so it conservatively keeps the set open.
+func isLoadTimeReference(n *treesitter.Node) bool {
+	for p := n.Parent(); p != nil; p = p.Parent() {
+		if isFunctionLike(p.Kind()) || p.Kind() == "method_definition" {
+			return false
+		}
+	}
+	return true
 }

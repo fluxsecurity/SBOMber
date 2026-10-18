@@ -143,7 +143,8 @@ fallback keeps Component 4 safe.
 vulnerable tarball (verified against the registry, parsed, never run):
 
 - **Entry**: `package.json` `exports["."]` (require, node, default, import),
-  else `main`, else `index.js`. A separate `module` entry or a `browser` remap
+  else `main`, else `index.js`. Alternate conditional targets, a separate
+  `module` entry or a `browser` remap
   leaves every route incomplete.
 - **Per file**: the export names (`module.exports =`, `exports.x =`, the
   exports object, `export` forms), which package files it loads, and anything
@@ -158,8 +159,9 @@ vulnerable tarball (verified against the registry, parsed, never run):
 - **Public names**: through the entry (one hop), plus the file's own names
   when it can be required by path (no `exports` map, or one with a pattern).
 
-`public` needs all of: exported under its own name, used by nothing else in
-the package, and a complete route list. **An exported function that other
+`public` needs all of: exactly one public name equal to the candidate symbol,
+used by nothing else in the package, and a complete route list. Export aliases
+are recorded as `internal` with every alias in `exposedVia`. **An exported function that other
 exports also call is recorded as `internal`**, with its own name and the
 other exports in `exposedVia`. Otherwise the join would treat its own name as
 the only way in, and an application calling the other export would read as
@@ -169,10 +171,12 @@ Component 4 change.
 `exposedViaComplete` is false when the file is loaded by anything other than
 the entry (more than one hop), a module is loaded by a computed path, another
 file defines a function of the same name (a bundled copy such as qs's
-`dist/qs.js`), or the export list is not static. A candidate that is not in
+`dist/qs.js`), or the export list is not static. Skipped, minified or unparsed package source
+and module-initialisation references also keep the set open. A candidate that is not in
 the published vulnerable package, or not defined there, is `unknown`.
 
-On the frozen set (`spikes/localisation/results/provenance/VERIFICATION.md`):
+On the author's pre-review `d90adf0` frozen run
+(`spikes/localisation/results/provenance/VERIFICATION.md`):
 3/10 sets are closed (c04 ini, c06 minimist, c10 decode-uri-component) and
 8/10 are joinable, against 5/10 joinable before. The estimate above of 9-10
 was optimistic. lodash's exports are a UMD assignment that is not resolved
@@ -184,6 +188,9 @@ keys miss the expected public symbol.
 
 **Depends on Component 2 for safety.** A closed set makes `no_usage_detected`
 possible, so any call Component 2 does not record becomes a possible false
-negative. Calls through a variable (`const p = qs.parse; p()`) are not
-recorded today (#167 review), and PR #166 as reviewed drops calls after a
-function-scoped `require`.
+negative. Calls through a variable (`const p = qs.parse; p()`) are
+not resolved as calls, but the review fixes now record an unresolved use for
+values copied through assignments, containers, arguments and returns. Such
+cases remain `unknown`. This does not prove their later call or reachability.
+The original #166 shadow fix dropped function-scoped `require` calls; its
+reviewed replacement at `31be905` is covered by the combined release-gate test.
