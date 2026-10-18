@@ -11,6 +11,7 @@ import (
 	"io"
 	"os"
 	"path/filepath"
+	"slices"
 	"strings"
 	"time"
 
@@ -41,10 +42,14 @@ import (
 const version = "0.1.1"
 
 var (
-	colorReset = "\033[0m"
-	colorCyan  = "\033[36m"
-	colorBlue  = "\033[34m"
-	colorBold  = "\033[1m"
+	colorReset  = "\033[0m"
+	colorCyan   = "\033[36m"
+	colorBlue   = "\033[34m"
+	colorBold   = "\033[1m"
+	colorRed    = "\033[31m"
+	colorYellow = "\033[33m"
+	colorGreen  = "\033[32m"
+	colorDim    = "\033[2m"
 )
 
 const (
@@ -59,12 +64,20 @@ func setColorOutput(enabled bool) {
 		colorCyan = "\033[36m"
 		colorBlue = "\033[34m"
 		colorBold = "\033[1m"
+		colorRed = "\033[31m"
+		colorYellow = "\033[33m"
+		colorGreen = "\033[32m"
+		colorDim = "\033[2m"
 		return
 	}
 	colorReset = ""
 	colorCyan = ""
 	colorBlue = ""
 	colorBold = ""
+	colorRed = ""
+	colorYellow = ""
+	colorGreen = ""
+	colorDim = ""
 }
 
 func flagErrorCode(err error) int {
@@ -72,6 +85,22 @@ func flagErrorCode(err error) int {
 		return 0
 	}
 	return 2
+}
+
+// pickSBOMForGrype chooses which exported SBOM to hand to Grype: CycloneDX
+// if one was written (sbom-cyclonedx.xml / .json, or *.cdx.*), else the
+// first one.
+func pickSBOMForGrype(paths []string) string {
+	for _, p := range paths {
+		name := strings.ToLower(filepath.Base(p))
+		if strings.Contains(name, "cyclonedx") || strings.Contains(name, ".cdx.") {
+			return p
+		}
+	}
+	if len(paths) > 0 {
+		return paths[0]
+	}
+	return ""
 }
 
 func validateVulnOptions(includeVulns, failOnVuln bool) error {
@@ -84,6 +113,7 @@ func validateVulnOptions(includeVulns, failOnVuln bool) error {
 // Main executes the CLI and returns the exit code.
 func Main(args []string, stdin io.Reader, stdout io.Writer, stderr io.Writer) int {
 	if len(args) == 0 {
+		ensureGitHubToken()
 		return runInteractive(stdin, stdout, stderr)
 	}
 
@@ -92,6 +122,7 @@ func Main(args []string, stdin io.Reader, stdout io.Writer, stderr io.Writer) in
 		_, _ = fmt.Fprintf(stdout, "sbomber %s\n", version)
 		return 0
 	case "scan":
+		ensureGitHubToken()
 		return runScan(args[1:], stdout, stderr)
 	case "github":
 		return runGitHubScan(args[1:], stdout, stderr)
@@ -99,6 +130,8 @@ func Main(args []string, stdin io.Reader, stdout io.Writer, stderr io.Writer) in
 		return runGitLabScan(args[1:], stdout, stderr)
 	case "trace":
 		return runTrace(args[1:], stdout, stderr)
+	case "reachability":
+		return runReachability(args[1:], stdout, stderr)
 	case "verify":
 		return runVerify(args[1:], stdout, stderr)
 	case "diff":
@@ -253,12 +286,13 @@ func runGitHubScan(args []string, stdout io.Writer, stderr io.Writer) int {
 		return 2
 	}
 
+	ensureGitHubToken()
 	token := os.Getenv("GITHUB_TOKEN")
 	client := github.NewClient(token)
 
 	if !client.HasToken() {
 		_, _ = fmt.Fprintf(stderr, "WARNING: No GITHUB_TOKEN set. Rate limit is 60 requests/hour.\n")
-		_, _ = fmt.Fprintf(stderr, "Set GITHUB_TOKEN for 5000 requests/hour.\n\n")
+		_, _ = fmt.Fprintf(stderr, "Set GITHUB_TOKEN or run `gh auth login` for 5000 requests/hour.\n\n")
 	}
 
 	selectedFormat, err := normalizeExportFormat(*format)
@@ -331,13 +365,8 @@ func runGitHubScan(args []string, stdout io.Writer, stderr io.Writer) int {
 		} else {
 			for _, p := range savedPaths {
 				_, _ = fmt.Fprintf(stdout, "  Exported: %s\n", p)
-				// Prefer CycloneDX for vulnerability scanning
-				if strings.HasSuffix(p, ".cdx.xml") {
-					sbomPath = p
-				} else if sbomPath == "" && strings.HasSuffix(p, ".spdx") {
-					sbomPath = p
-				}
 			}
+			sbomPath = pickSBOMForGrype(savedPaths)
 		}
 
 		// Collect health metrics if requested
@@ -1075,12 +1104,8 @@ func runGitLabScan(args []string, stdout io.Writer, stderr io.Writer) int {
 		} else {
 			for _, p := range savedPaths {
 				_, _ = fmt.Fprintf(stdout, "  Exported: %s\n", p)
-				if strings.HasSuffix(p, ".cdx.xml") || strings.HasSuffix(p, ".cdx.json") {
-					sbomPath = p
-				} else if sbomPath == "" {
-					sbomPath = p
-				}
 			}
+			sbomPath = pickSBOMForGrype(savedPaths)
 		}
 
 		var healthMetrics []*health.DependencyHealth
@@ -1463,7 +1488,7 @@ func extractSingleScanSBOM(scanOutput string) string {
 	var sbomFiles []string
 	repoCount := 0
 
-	for _, line := range strings.Split(scanOutput, "\n") {
+	for line := range strings.SplitSeq(scanOutput, "\n") {
 		trimmed := strings.TrimSpace(line)
 		if after, ok := strings.CutPrefix(trimmed, "output folder:"); ok {
 			repoCount++
@@ -1768,13 +1793,7 @@ func printNetworkStatus(stdout io.Writer, vulnResults *vulnerability.ScanResults
 }
 
 func containsEcosystem(names []ecosystem.Name, candidate ecosystem.Name) bool {
-	for _, name := range names {
-		if name == candidate {
-			return true
-		}
-	}
-
-	return false
+	return slices.Contains(names, candidate)
 }
 
 func resolveScanRoot(root string) (string, error) {
@@ -1824,6 +1843,7 @@ Usage:
   sbomber github [--health] [--include-vulnerabilities] [--fail-on-vuln] [--no-color] [--format FORMAT] <repo-url>...
   sbomber gitlab [--health] [--include-vulnerabilities] [--fail-on-vuln] [--no-color] [--format FORMAT] [--instance URL] <repo-url>...
   sbomber trace <path> [package-name] [flags] [--no-color]
+  sbomber reachability [path] [--json] [--no-color]
   sbomber verify <ground-truth-sbom> <generated-sbom> [--json]
   sbomber diff <old-sbom> <new-sbom> [--no-color]
   sbomber localise --canonical-scan <canonical-scan.json> [--out localisation.json] [--trace trace.json]
@@ -1896,6 +1916,13 @@ VEX Flags (Component 3: OpenVEX 0.2.0 from decision-results.json):
   usage_detected -> affected only when explicitly mapped by the decision; otherwise under_investigation.
   no_usage_detected and unknown -> under_investigation, unsupported -> omitted. not_affected is rejected by the committed exporter.
 
+Reachability (Go only, needs govulncheck):
+  Scores findings with resolved static call paths, 0-100 prioritisation points,
+  from CVSS (NVD), EPSS, CISA KEV and how directly the call is made.
+  0-20 points Minimal priority, 21-39% Low, 40-69% Medium, 70-100% High.
+  --json                                Output results as JSON
+  --db <url>                            Vulnerability database (default: https://vuln.go.dev)
+
 Audit Flags (S5-14: replay hand-labelled cases through the decision pipeline):
   --cases <dir>                         one subdirectory per labelled case (default: testdata/audit)
   --out <file>                          also write audit-results.json
@@ -1928,7 +1955,8 @@ Examples:
   sbomber diff v1.0.cdx.xml v1.1.cdx.xml
 
 Environment:
-  GITHUB_TOKEN    GitHub personal access token (recommended for higher rate limits)
+  GITHUB_TOKEN    GitHub personal access token (recommended for higher rate limits;
+                  if unset, the GitHub CLI's login from 'gh auth login' is used)
   GITLAB_TOKEN    GitLab personal access token
 `)
 }

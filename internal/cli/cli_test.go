@@ -272,18 +272,15 @@ func TestMainNoColorDisablesANSI(t *testing.T) {
 }
 
 func TestMainMissingGrypeIsToolError(t *testing.T) {
-	t.Parallel()
-
 	root := t.TempDir()
 	mustMkdirAll(t, filepath.Join(root, ".git"))
 	mustWriteFile(t, filepath.Join(root, "package.json"), `{"name":"demo"}`)
 
-	oldPath := os.Getenv("PATH")
-	noGrypeDir := t.TempDir()
-	if err := os.Setenv("PATH", noGrypeDir); err != nil {
-		t.Fatalf("set PATH: %v", err)
+	// Hide Grype from PATH and from every fallback install location.
+	empty := t.TempDir()
+	for _, key := range []string{"PATH", "LOCALAPPDATA", "GOBIN", "GOPATH", "HOME", "USERPROFILE"} {
+		t.Setenv(key, empty)
 	}
-	defer func() { _ = os.Setenv("PATH", oldPath) }()
 
 	var stdout bytes.Buffer
 	var stderr bytes.Buffer

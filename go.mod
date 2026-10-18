@@ -1,6 +1,6 @@
 module github.com/Xsamsx/SBOMber
 
-go 1.26
+go 1.26.9
 
 require (
 	github.com/charmbracelet/bubbletea v1.3.10
