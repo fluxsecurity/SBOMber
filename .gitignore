@@ -1,7 +1,6 @@
 # Generated caches
 __pycache__/
 *.py[cod]
-/.cache/go-build/
 
 bin/
 *.exe
@@ -9,6 +8,5 @@ bin/
 *.out
 .sbomber/
 
-# Python bytecode
-__pycache__/
-*.pyc
+# Local cache used by the Makefile
+/.cache/go-build/
