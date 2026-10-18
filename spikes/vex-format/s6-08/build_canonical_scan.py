@@ -8,7 +8,8 @@ This stands in for Component 1's canonical-scan writer, which is not on main
 yet (#121, #146). It is deliberately small: npm lockfile v2/v3 only, one
 repository, every package a direct or transitive occurrence at its install
 path. Everything after it in run.sh is the real tool. Replace it with
-Component 1's output as soon as that lands; nothing else changes.
+Component 1's output when it lands, then rerun the consistency checks. Finding
+counts and identities may change.
 """
 
 import json

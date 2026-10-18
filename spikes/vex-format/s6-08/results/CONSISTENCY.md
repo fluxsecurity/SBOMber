@@ -22,11 +22,13 @@ tool: `usage`, `localise`, `decide`, `report`, `vex`.
 
 ## Checks
 
-- Identity: every finding has one decision, one HTML row, one text entry and one statement per
-  VEX document, for the same vulnerability and package; nothing extra appears.
+- Identity: every finding has one decision, one HTML row, one text entry and one statement per supported finding per
+  VEX document, for the same vulnerability and package; unsupported findings are omitted from VEX only.
 - State: both reports show the decision's state; every statement has the status the decision maps
-  to (`usage_detected` -> `affected`, otherwise `under_investigation`; never `not_affected`).
-- Both VEX documents validate against OpenVEX 0.2.0.
+  to (guarded positives may remain `under_investigation`; unsupported -> omit; never `not_affected`).
+- Both VEX documents validate against OpenVEX 0.2.0, including format checks.
+- Duplicate finding IDs, cross-scan inputs, wrong HTML package headings and extra VEX identities are rejected.
+- Consumer checks retain vulnerability/package identities and multiplicities, and compare pinned tool, source, database and configuration.
 - No finding is missing from the human report, including `unknown` ones.
 - `contracts/validate.py` on the run: OK - 704 invariant checks passed across four contracts
 
@@ -36,10 +38,11 @@ Grype with every finding ignored by rule and `vex-add: [under_investigation]`: a
 back only if a statement matches it.
 
 - Baseline, no VEX: nothing reported.
-- Package-subject VEX: re-adds GHSA-29mw-wpgm-hmr9, GHSA-f23m-r3pf-42rh, GHSA-qqgx-2p2h-9c37, GHSA-xxjr-mmjv-4gpg, exactly the
-  `under_investigation` findings (GHSA-29mw-wpgm-hmr9, GHSA-f23m-r3pf-42rh, GHSA-qqgx-2p2h-9c37, GHSA-xxjr-mmjv-4gpg); the `affected` ones stay ignored.
+- Package-subject VEX: re-adds GHSA-29mw-wpgm-hmr9 on pkg:npm/lodash@4.17.20, GHSA-f23m-r3pf-42rh on pkg:npm/lodash@4.17.20, GHSA-qqgx-2p2h-9c37 on pkg:npm/ini@1.3.5, GHSA-xxjr-mmjv-4gpg on pkg:npm/lodash@4.17.20, exactly the
+  `under_investigation` findings (GHSA-29mw-wpgm-hmr9 on pkg:npm/lodash@4.17.20, GHSA-f23m-r3pf-42rh on pkg:npm/lodash@4.17.20, GHSA-qqgx-2p2h-9c37 on pkg:npm/ini@1.3.5, GHSA-xxjr-mmjv-4gpg on pkg:npm/lodash@4.17.20); the `affected` ones stay ignored.
 - Application-subject VEX (R5 rule 1): re-adds nothing.
 
-**Finding:** application-subject VEX: Grype re-added nothing; it does not act on the R5 rule-1 shape at the pinned version (recorded limitation of the #128 decision)
+**Finding:** Historical evidence has no source/artefact hash manifest; a fresh run.sh replay records one. These checks validate recorded outputs, not a new live run.
+**Finding:** application-subject VEX re-added nothing; expected for full matching: ['GHSA-29mw-wpgm-hmr9 on pkg:npm/lodash@4.17.20', 'GHSA-f23m-r3pf-42rh on pkg:npm/lodash@4.17.20', 'GHSA-qqgx-2p2h-9c37 on pkg:npm/ini@1.3.5', 'GHSA-xxjr-mmjv-4gpg on pkg:npm/lodash@4.17.20']. This is the recorded #128 consumer limitation.
 
 No problems.
