@@ -90,11 +90,16 @@ func VerifyDocument(doc Document) Verification {
 			v.add(SeverityError, r.FindingID, "", "", "findingId is missing or repeated")
 		}
 		seenFindings[r.FindingID] = true
-		if !advisoryIDPattern.MatchString(r.VulnerabilityID) {
+		strictIdentity := r.Method != MethodUnknown || len(r.CandidateSymbols) > 0
+		if r.VulnerabilityID == "" || strictIdentity && !advisoryIDPattern.MatchString(r.VulnerabilityID) {
 			v.add(SeverityError, r.FindingID, "", "", "invalid vulnerabilityId %q", r.VulnerabilityID)
 		}
-		if _, _, err := ParsePURL(r.PURL); err != nil {
-			v.add(SeverityError, r.FindingID, "", "", "invalid package identity: %v", err)
+		_, installed, packageErr := ParsePURL(r.PURL)
+		if !strings.HasPrefix(r.PURL, "pkg:") || len(r.PURL) <= 4 || strictIdentity && packageErr != nil {
+			v.add(SeverityError, r.FindingID, "", "", "invalid package identity: %s", r.PURL)
+		}
+		if packageErr == nil && r.VulnerableVersion != "" && r.VulnerableVersion != installed {
+			v.add(SeverityError, r.FindingID, "", "", "vulnerableVersion does not match the package URL")
 		}
 		switch r.Method {
 		case MethodAdvisoryMetadata, MethodAdvisoryText, MethodPatchReference, MethodVersionDiff, MethodLLMSuggested, MethodUnknown:

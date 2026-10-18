@@ -151,3 +151,18 @@ func TestReview168CanonicalJSONRejectsTrailingDelimiters(t *testing.T) {
 		}
 	}
 }
+
+func TestReview168UnknownUnsupportedEcosystemRemainsHonest(t *testing.T) {
+	doc := Document{SchemaVersion: SchemaVersion, ScanID: "scan", Results: []Result{{FindingID: "f", VulnerabilityID: "GO-2026-0001", PURL: "pkg:golang/example.com/pkg@v1.0.0", Method: MethodUnknown, Confidence: ConfidenceNone}}}
+	if v := VerifyDocument(doc); v.Errors() != 0 || v.Candidates != 0 {
+		t.Fatalf("unsupported unknown should carry no candidate trace, not fail npm identity checks: %+v", v)
+	}
+}
+
+func TestReview168VulnerableVersionCannotContradictPackageURL(t *testing.T) {
+	_, _, doc := review168Document(t)
+	doc.Results[0].VulnerableVersion = "9.9.9"
+	if v := VerifyDocument(doc); !hasIssue(v, SeverityError, "vulnerableVersion does not match") {
+		t.Fatalf("contradictory installed version accepted: %+v", v)
+	}
+}
