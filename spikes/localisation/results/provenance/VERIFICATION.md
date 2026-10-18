@@ -8,16 +8,16 @@ provenance. Localisation accuracy is not re-measured here.
 
 | Case | Advisory and package | Candidates traced | Artefacts | Ground-truth commits read | Fixed release | Vulnerable release |
 |---|---|---|---|---|---|---|
-| c01 | CVE-2021-23337 `pkg:npm/lodash@4.17.20` | 1/1 | 3 | 1/1 | verified (ancestry) | verified (ancestry) |
-| c02 | CVE-2018-16487 `pkg:npm/lodash@4.17.4` | 1/1 | 3 | 1/1 | verified (ancestry) | verified (ancestry) |
-| c03 | CVE-2019-10744 `pkg:npm/lodash@4.17.11` | 1/1 | 3 | 1/1 | verified (content) | verified (ancestry) |
-| c04 | CVE-2020-7788 `pkg:npm/ini@1.3.5` | 2/2 | 2 | 1/1 | verified (ancestry) | verified (ancestry) |
-| c05 | CVE-2022-25883 `pkg:npm/semver@7.5.1` | 23/23 | 20 | 1/1 | verified (ancestry) | verified (ancestry) |
-| c06 | CVE-2020-7598 `pkg:npm/minimist@1.2.2` | 1/1 | 6 | 2/2 | verified (ancestry) | mismatch |
-| c07 | CVE-2022-24999 `pkg:npm/qs@6.10.2` | 2/2 | 19 | 2/2 | verified (ancestry) | verified (ancestry) |
-| c08 | CVE-2022-0235 `pkg:npm/node-fetch@2.6.6` | 3/3 | 3 | 1/3 | verified (ancestry) | verified (ancestry) |
-| c09 | CVE-2021-3807 `pkg:npm/ansi-regex@5.0.0` | 2/2 | 9 | 3/3 | verified (ancestry) | verified (ancestry) |
-| c10 | CVE-2022-38900 `pkg:npm/decode-uri-component@0.2.0` | 2/2 | 3 | 1/1 | verified (ancestry) | verified (ancestry) |
+| c01 | CVE-2021-23337 `pkg:npm/lodash@4.17.20` | 1/1 | 4 | 1/1 | verified (ancestry) | verified (ancestry) |
+| c02 | CVE-2018-16487 `pkg:npm/lodash@4.17.4` | 1/1 | 4 | 1/1 | verified (ancestry) | verified (ancestry) |
+| c03 | CVE-2019-10744 `pkg:npm/lodash@4.17.11` | 1/1 | 4 | 1/1 | verified (content) | verified (ancestry) |
+| c04 | CVE-2020-7788 `pkg:npm/ini@1.3.5` | 2/2 | 3 | 1/1 | verified (ancestry) | verified (ancestry) |
+| c05 | CVE-2022-25883 `pkg:npm/semver@7.5.1` | 23/23 | 21 | 1/1 | verified (ancestry) | verified (ancestry) |
+| c06 | CVE-2020-7598 `pkg:npm/minimist@1.2.2` | 1/1 | 7 | 2/2 | verified (ancestry) | mismatch |
+| c07 | CVE-2022-24999 `pkg:npm/qs@6.10.2` | 2/2 | 20 | 2/2 | verified (ancestry) | verified (ancestry) |
+| c08 | CVE-2022-0235 `pkg:npm/node-fetch@2.6.6` | 3/3 | 4 | 1/3 | verified (ancestry) | verified (ancestry) |
+| c09 | CVE-2021-3807 `pkg:npm/ansi-regex@5.0.0` | 2/2 | 10 | 3/3 | verified (ancestry) | verified (ancestry) |
+| c10 | CVE-2022-38900 `pkg:npm/decode-uri-component@0.2.0` | 2/2 | 4 | 1/1 | verified (ancestry) | verified (ancestry) |
 
 **38/38 candidates trace to a verified, checksummed artefact.**
 
@@ -37,3 +37,25 @@ its output is `results/provenance/verification.json`.
 ## Tag checks that did not verify
 
 - c06 vulnerable 1.2.2: mismatch. Tag v1.2.2 and npm's gitHead agree. Vulnerable release 1.2.2 already contains linked commit 63e7ed05aa, so that commit was a partial fix or the version range is wrong.
+
+## Visibility (join rule)
+
+From the published vulnerable tarball. A *closed* set lets Component 4 conclude
+`no_usage_detected` when the application calls none of the join keys; an *open*
+set can only produce `usage_detected` or `unknown`. *Joinable* means the join
+keys include a public symbol the frozen ground truth says an application calls.
+
+| Case | Set | Joinable | Join keys | Why open |
+|---|---|---|---|---|
+| c01 | open | yes | template | template unknown |
+| c02 | open | no | safeGet | safeGet unknown |
+| c03 | open | no | safeGet | safeGet unknown |
+| c04 | closed | yes | decode, parse |  |
+| c05 | open | yes | Comparator, Range, SemVer, clean, cmp, coerce, compare, compareBuild, compareLoo | makeSafeRe unknown; parse unknown; SemVer unknown ... |
+| c06 | closed | yes | default |  |
+| c07 | open | yes | default, parse, parseObjectRecursive | parseObject incomplete; parseObjectRecursive unknown |
+| c08 | open | yes | default, fetch, isDomainOrSubdomain | isDomainOrSubdomain unknown; fetch unknown; default unknown |
+| c09 | open | yes | ansiRegex, default | ansiRegex unknown |
+| c10 | closed | yes | default |  |
+
+**3/10 sets closed; 8/10 joinable.** No closed set misses its expected public symbol (checked).

@@ -90,6 +90,8 @@ type Tarball struct {
 	// Files maps package-relative paths (without the leading "package/") to
 	// their bytes.
 	Files map[string][]byte
+	// Manifest is the package's root package.json, for its entry points.
+	Manifest []byte
 	// Skipped records entries that were not kept and why, so a reviewer can
 	// see what the diff did not look at.
 	Skipped []string
@@ -101,6 +103,7 @@ const (
 	DefaultMaxTarballBytes = 30 << 20
 	maxExtractedBytes      = 120 << 20
 	maxTarEntries          = 6000
+	maxManifestBytes       = 1 << 20
 )
 
 // FetchTarball downloads and verifies a package tarball, then extracts its
@@ -224,6 +227,14 @@ func extractSources(body []byte, tb *Tarball) error {
 			rel = rel[i+1:] // drop the top-level "package/" directory
 		} else {
 			tb.Skipped = append(tb.Skipped, name+" (outside package directory)")
+			continue
+		}
+		if rel == "package.json" && hdr.Size <= maxManifestBytes {
+			data, err := io.ReadAll(io.LimitReader(tr, hdr.Size))
+			if err != nil {
+				return fmt.Errorf("read package.json: %w", err)
+			}
+			tb.Manifest = data
 			continue
 		}
 		if !SupportedSourceFile(rel) || strings.HasSuffix(rel, ".map") {

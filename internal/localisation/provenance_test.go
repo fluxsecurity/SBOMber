@@ -362,7 +362,7 @@ func TestVerify_HostileDocument(t *testing.T) {
 		t.Errorf("hostile identifiers must be rejected before any request, made %v", w.requests)
 	}
 
-	old := VerifyDocument(Document{SchemaVersion: "1.0.0"})
+	old := VerifyDocument(Document{SchemaVersion: "1.0.0", ScanID: "s", Results: []Result{}})
 	if old.Errors() != 1 || !strings.Contains(old.Issues[0].Message, "records no per-candidate evidence") {
 		t.Errorf("1.0.0 document: %+v", old.Issues)
 	}

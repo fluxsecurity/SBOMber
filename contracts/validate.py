@@ -379,6 +379,21 @@ def validate_localisation_evidence(c, r):
     allowed = EVIDENCE_KIND.get(r["method"])
     for cand in r.get("candidateSymbols", []):
         sym = cand["symbol"]
+        vis = cand.get("visibility")
+        via_fields = [k for k in ("exposedVia", "exposedViaSource", "exposedViaComplete") if k in cand]
+        if vis == "internal":
+            check(c, "internal candidate lists its public routes",
+                  bool(cand.get("exposedVia")) and "exposedViaSource" in cand and "exposedViaComplete" in cand,
+                  f"{fid} internal candidate {sym} lacks exposedVia, exposedViaSource or exposedViaComplete")
+        else:
+            check(c, "only internal candidates carry exposedVia", not via_fields,
+                  f"{fid} {vis or 'unset'} candidate {sym} carries {', '.join(via_fields)}")
+        if cand.get("exposedViaComplete") is True:
+            check(c, "a complete route list is code-derived", cand.get("exposedViaSource") == "export_resolution",
+                  f"{fid} candidate {sym} claims a complete route list from {cand.get('exposedViaSource')}")
+        if vis in ("public", "internal") and r["method"] in ("advisory_text", "llm_suggested"):
+            check(c, "prose-derived candidates are not resolved", False,
+                  f"{fid} {r['method']} candidate {sym} claims visibility {vis}")
         evidence = cand.get("evidence", [])
         check(c, "candidate cites an artefact", bool(evidence),
               f"{fid} candidate {sym} cites no artefact")

@@ -19,10 +19,11 @@
             "symbol": "template",
             "modulePath": "lodash.js",
             "changeKind": "modified",
-            "note": "nested in runInContext",
+            "note": "nested in runInContext; visibility unknown: the exports of lodash.js could not be resolved statically: exports used outside a plain assignment at line 425",
             "evidence": [
               "github:lodash/lodash@3469357cff396a26c363f8c1b5a91dde28ba4b1c:lodash.js"
-            ]
+            ],
+            "visibility": "unknown"
           }
         ],
         "provenance": {
@@ -88,11 +89,12 @@
             "symbol": "safeGet",
             "modulePath": "lodash.js",
             "changeKind": "modified",
-            "note": "nested in runInContext",
+            "note": "nested in runInContext; visibility unknown: safeGet is not defined in lodash.js in the published package",
             "evidence": [
               "github:lodash/lodash@90e6199a161b6445b01454517b40ef65ebecd2ad:lodash.js",
               "github:lodash/lodash@67389a8c78975d97505fa15aa79bec6397749807:lodash.js"
-            ]
+            ],
+            "visibility": "unknown"
           }
         ],
         "provenance": {
@@ -154,10 +156,11 @@
             "symbol": "safeGet",
             "modulePath": "lodash.js",
             "changeKind": "modified",
-            "note": "nested in runInContext",
+            "note": "nested in runInContext; visibility unknown: the exports of lodash.js could not be resolved statically: exports used outside a plain assignment at line 425",
             "evidence": [
               "github:lodash/lodash@a01e4fa727e7294cb7b2845570ba96b206926790:lodash.js"
-            ]
+            ],
+            "visibility": "unknown"
           }
         ],
         "provenance": {
@@ -222,19 +225,21 @@
             "symbol": "decode",
             "modulePath": "ini.js",
             "changeKind": "modified",
-            "note": "exported as parse, decode",
+            "note": "exported as parse, decode; visibility public: exported as decode, parse",
             "evidence": [
               "github:npm/ini@56d2805e07ccd94e2ba0984ac9240ff02d44b6f1:ini.js"
-            ]
+            ],
+            "visibility": "public"
           },
           {
             "symbol": "parse",
             "modulePath": "ini.js",
             "changeKind": "modified",
-            "note": "export alias of decode",
+            "note": "export alias of decode; visibility public: exported as decode, parse",
             "evidence": [
               "github:npm/ini@56d2805e07ccd94e2ba0984ac9240ff02d44b6f1:ini.js"
-            ]
+            ],
+            "visibility": "public"
           }
         ],
         "provenance": {
@@ -283,270 +288,396 @@
             "symbol": "makeSafeRe",
             "modulePath": "semver.js",
             "changeKind": "modified",
-            "note": "not exported from this file",
+            "note": "not exported from this file; visibility unknown: semver.js is not in the published vulnerable package",
             "evidence": [
               "github:npm/node-semver@2f8fd41487acf380194579ecb6f8b1bbfe116be0:semver.js",
               "github:npm/node-semver@928e56d21150da0413a3333a3148b20e741a920c:semver.js",
               "github:npm/node-semver@d4530b8c9785923be4ebaa01324c48549acb0856:semver.js"
-            ]
+            ],
+            "visibility": "unknown"
           },
           {
             "symbol": "parse",
             "modulePath": "semver.js",
             "changeKind": "modified",
-            "note": "exported as parse",
+            "note": "exported as parse; visibility unknown: semver.js is not in the published vulnerable package",
             "evidence": [
               "github:npm/node-semver@2f8fd41487acf380194579ecb6f8b1bbfe116be0:semver.js",
               "github:npm/node-semver@deb5ad51bf58868fa243c1683775305fe9e0e365:semver.js",
               "github:npm/node-semver@928e56d21150da0413a3333a3148b20e741a920c:semver.js",
               "github:npm/node-semver@39f632690ea5b1b0d64fa913aa0f96f42b9bde32:semver.js",
               "github:npm/node-semver@d4530b8c9785923be4ebaa01324c48549acb0856:semver.js"
-            ]
+            ],
+            "visibility": "unknown"
           },
           {
             "symbol": "SemVer",
             "modulePath": "semver.js",
             "changeKind": "modified",
-            "note": "exported as default, SemVer",
+            "note": "exported as default, SemVer; visibility unknown: semver.js is not in the published vulnerable package",
             "evidence": [
               "github:npm/node-semver@2f8fd41487acf380194579ecb6f8b1bbfe116be0:semver.js",
               "github:npm/node-semver@deb5ad51bf58868fa243c1683775305fe9e0e365:semver.js",
               "github:npm/node-semver@928e56d21150da0413a3333a3148b20e741a920c:semver.js",
               "github:npm/node-semver@39f632690ea5b1b0d64fa913aa0f96f42b9bde32:semver.js",
               "github:npm/node-semver@d4530b8c9785923be4ebaa01324c48549acb0856:semver.js"
-            ]
+            ],
+            "visibility": "unknown"
           },
           {
             "symbol": "default",
             "modulePath": "semver.js",
             "changeKind": "modified",
-            "note": "export alias of SemVer",
+            "note": "export alias of SemVer; visibility unknown: semver.js is not in the published vulnerable package",
             "evidence": [
               "github:npm/node-semver@2f8fd41487acf380194579ecb6f8b1bbfe116be0:semver.js",
               "github:npm/node-semver@deb5ad51bf58868fa243c1683775305fe9e0e365:semver.js",
               "github:npm/node-semver@928e56d21150da0413a3333a3148b20e741a920c:semver.js",
               "github:npm/node-semver@39f632690ea5b1b0d64fa913aa0f96f42b9bde32:semver.js",
               "github:npm/node-semver@d4530b8c9785923be4ebaa01324c48549acb0856:semver.js"
-            ]
+            ],
+            "visibility": "unknown"
           },
           {
             "symbol": "Comparator",
             "modulePath": "semver.js",
             "changeKind": "modified",
-            "note": "exported as Comparator",
+            "note": "exported as Comparator; visibility unknown: semver.js is not in the published vulnerable package",
             "evidence": [
               "github:npm/node-semver@2f8fd41487acf380194579ecb6f8b1bbfe116be0:semver.js",
               "github:npm/node-semver@928e56d21150da0413a3333a3148b20e741a920c:semver.js",
               "github:npm/node-semver@d4530b8c9785923be4ebaa01324c48549acb0856:semver.js"
-            ]
+            ],
+            "visibility": "unknown"
           },
           {
             "symbol": "Range",
             "modulePath": "semver.js",
             "changeKind": "modified",
-            "note": "exported as Range",
+            "note": "exported as Range; visibility unknown: semver.js is not in the published vulnerable package",
             "evidence": [
               "github:npm/node-semver@2f8fd41487acf380194579ecb6f8b1bbfe116be0:semver.js",
               "github:npm/node-semver@deb5ad51bf58868fa243c1683775305fe9e0e365:semver.js",
               "github:npm/node-semver@928e56d21150da0413a3333a3148b20e741a920c:semver.js",
               "github:npm/node-semver@39f632690ea5b1b0d64fa913aa0f96f42b9bde32:semver.js",
               "github:npm/node-semver@d4530b8c9785923be4ebaa01324c48549acb0856:semver.js"
-            ]
+            ],
+            "visibility": "unknown"
           },
           {
             "symbol": "parseRange",
             "modulePath": "semver.js",
             "changeKind": "modified",
-            "note": "not exported from this file",
+            "note": "not exported from this file; visibility unknown: semver.js is not in the published vulnerable package",
             "evidence": [
               "github:npm/node-semver@2f8fd41487acf380194579ecb6f8b1bbfe116be0:semver.js",
               "github:npm/node-semver@deb5ad51bf58868fa243c1683775305fe9e0e365:semver.js",
               "github:npm/node-semver@928e56d21150da0413a3333a3148b20e741a920c:semver.js",
               "github:npm/node-semver@39f632690ea5b1b0d64fa913aa0f96f42b9bde32:semver.js",
               "github:npm/node-semver@d4530b8c9785923be4ebaa01324c48549acb0856:semver.js"
-            ]
+            ],
+            "visibility": "unknown"
           },
           {
             "symbol": "replaceTilde",
             "modulePath": "semver.js",
             "changeKind": "modified",
-            "note": "not exported from this file",
+            "note": "not exported from this file; visibility unknown: semver.js is not in the published vulnerable package",
             "evidence": [
               "github:npm/node-semver@2f8fd41487acf380194579ecb6f8b1bbfe116be0:semver.js",
               "github:npm/node-semver@deb5ad51bf58868fa243c1683775305fe9e0e365:semver.js",
               "github:npm/node-semver@928e56d21150da0413a3333a3148b20e741a920c:semver.js",
               "github:npm/node-semver@39f632690ea5b1b0d64fa913aa0f96f42b9bde32:semver.js",
               "github:npm/node-semver@d4530b8c9785923be4ebaa01324c48549acb0856:semver.js"
-            ]
+            ],
+            "visibility": "unknown"
           },
           {
             "symbol": "replaceCaret",
             "modulePath": "semver.js",
             "changeKind": "modified",
-            "note": "not exported from this file",
+            "note": "not exported from this file; visibility unknown: semver.js is not in the published vulnerable package",
             "evidence": [
               "github:npm/node-semver@2f8fd41487acf380194579ecb6f8b1bbfe116be0:semver.js",
               "github:npm/node-semver@deb5ad51bf58868fa243c1683775305fe9e0e365:semver.js",
               "github:npm/node-semver@928e56d21150da0413a3333a3148b20e741a920c:semver.js",
               "github:npm/node-semver@39f632690ea5b1b0d64fa913aa0f96f42b9bde32:semver.js",
               "github:npm/node-semver@d4530b8c9785923be4ebaa01324c48549acb0856:semver.js"
-            ]
+            ],
+            "visibility": "unknown"
           },
           {
             "symbol": "replaceXRange",
             "modulePath": "semver.js",
             "changeKind": "modified",
-            "note": "not exported from this file",
+            "note": "not exported from this file; visibility unknown: semver.js is not in the published vulnerable package",
             "evidence": [
               "github:npm/node-semver@2f8fd41487acf380194579ecb6f8b1bbfe116be0:semver.js",
               "github:npm/node-semver@deb5ad51bf58868fa243c1683775305fe9e0e365:semver.js",
               "github:npm/node-semver@928e56d21150da0413a3333a3148b20e741a920c:semver.js",
               "github:npm/node-semver@39f632690ea5b1b0d64fa913aa0f96f42b9bde32:semver.js",
               "github:npm/node-semver@d4530b8c9785923be4ebaa01324c48549acb0856:semver.js"
-            ]
+            ],
+            "visibility": "unknown"
           },
           {
             "symbol": "replaceStars",
             "modulePath": "semver.js",
             "changeKind": "modified",
-            "note": "not exported from this file",
+            "note": "not exported from this file; visibility unknown: semver.js is not in the published vulnerable package",
             "evidence": [
               "github:npm/node-semver@2f8fd41487acf380194579ecb6f8b1bbfe116be0:semver.js",
               "github:npm/node-semver@deb5ad51bf58868fa243c1683775305fe9e0e365:semver.js",
               "github:npm/node-semver@928e56d21150da0413a3333a3148b20e741a920c:semver.js",
               "github:npm/node-semver@39f632690ea5b1b0d64fa913aa0f96f42b9bde32:semver.js",
               "github:npm/node-semver@d4530b8c9785923be4ebaa01324c48549acb0856:semver.js"
-            ]
+            ],
+            "visibility": "unknown"
           },
           {
             "symbol": "coerce",
             "modulePath": "semver.js",
             "changeKind": "modified",
-            "note": "exported as coerce",
+            "note": "exported as coerce; visibility unknown: semver.js is not in the published vulnerable package",
             "evidence": [
               "github:npm/node-semver@2f8fd41487acf380194579ecb6f8b1bbfe116be0:semver.js",
               "github:npm/node-semver@deb5ad51bf58868fa243c1683775305fe9e0e365:semver.js",
               "github:npm/node-semver@928e56d21150da0413a3333a3148b20e741a920c:semver.js",
               "github:npm/node-semver@39f632690ea5b1b0d64fa913aa0f96f42b9bde32:semver.js",
               "github:npm/node-semver@d4530b8c9785923be4ebaa01324c48549acb0856:semver.js"
-            ]
+            ],
+            "visibility": "unknown"
           },
           {
             "symbol": "constructor",
             "modulePath": "classes/comparator.js",
             "changeKind": "modified",
-            "note": "method of class Comparator",
+            "note": "method of class Comparator; visibility internal via Comparator, default (incomplete): classes/comparator.js is loaded by classes/index.js, which is not the entry module (only one hop is resolved); classes/comparator.js is loaded by classes/range.js, which is not the entry module (only one hop is resolved); classes/comparator.js is loaded by ranges/outside.js, which is not the entry module (only one hop is resolved); classes/comparator.js is loaded by ranges/subset.js, which is not the entry module (only one hop is resolved); index.js: export re is a member expression at line 82; another copy of constructor is in classes/range.js, classes/semver.js",
             "evidence": [
               "github:npm/node-semver@717534ee353682f3bcf33e60a8af4292626d4441:classes/comparator.js",
               "github:npm/node-semver@b6db78d8c996d46c842f25199521f36ffc7c104b:classes/comparator.js"
-            ]
+            ],
+            "visibility": "internal",
+            "exposedVia": [
+              "Comparator",
+              "default"
+            ],
+            "exposedViaSource": "export_resolution",
+            "exposedViaComplete": false
           },
           {
             "symbol": "constructor",
             "modulePath": "classes/range.js",
             "changeKind": "modified",
-            "note": "method of class Range",
+            "note": "method of class Range; visibility internal via Range, default (incomplete): classes/range.js is loaded by classes/comparator.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by classes/index.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by functions/satisfies.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/intersects.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/max-satisfying.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/min-satisfying.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/min-version.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/outside.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/subset.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/to-comparators.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/valid.js, which is not the entry module (only one hop is resolved); index.js: export re is a member expression at line 82; another copy of constructor is in classes/comparator.js, classes/semver.js",
             "evidence": [
               "github:npm/node-semver@717534ee353682f3bcf33e60a8af4292626d4441:classes/range.js",
               "github:npm/node-semver@2f738e9a70d9b9468b7b69e9ed3e12418725c650:classes/range.js",
               "github:npm/node-semver@b6db78d8c996d46c842f25199521f36ffc7c104b:classes/range.js"
-            ]
+            ],
+            "visibility": "internal",
+            "exposedVia": [
+              "Range",
+              "default"
+            ],
+            "exposedViaSource": "export_resolution",
+            "exposedViaComplete": false
           },
           {
             "symbol": "format",
             "modulePath": "classes/range.js",
             "changeKind": "modified",
-            "note": "method of class Range",
+            "note": "method of class Range; visibility internal via Range, default (incomplete): classes/range.js is loaded by classes/comparator.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by classes/index.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by functions/satisfies.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/intersects.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/max-satisfying.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/min-satisfying.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/min-version.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/outside.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/subset.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/to-comparators.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/valid.js, which is not the entry module (only one hop is resolved); index.js: export re is a member expression at line 82; another copy of format is in classes/semver.js",
             "evidence": [
               "github:npm/node-semver@717534ee353682f3bcf33e60a8af4292626d4441:classes/range.js",
               "github:npm/node-semver@2f738e9a70d9b9468b7b69e9ed3e12418725c650:classes/range.js",
               "github:npm/node-semver@b6db78d8c996d46c842f25199521f36ffc7c104b:classes/range.js"
-            ]
+            ],
+            "visibility": "internal",
+            "exposedVia": [
+              "Range",
+              "default"
+            ],
+            "exposedViaSource": "export_resolution",
+            "exposedViaComplete": false
           },
           {
             "symbol": "replaceTildes",
             "modulePath": "classes/range.js",
             "changeKind": "modified",
-            "note": "not exported from this file",
+            "note": "not exported from this file; visibility internal via Range, default (incomplete): replaceTildes is not exported from classes/range.js; classes/range.js is loaded by classes/comparator.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by classes/index.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by functions/satisfies.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/intersects.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/max-satisfying.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/min-satisfying.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/min-version.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/outside.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/subset.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/to-comparators.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/valid.js, which is not the entry module (only one hop is resolved); index.js: export re is a member expression at line 82",
             "evidence": [
               "github:npm/node-semver@717534ee353682f3bcf33e60a8af4292626d4441:classes/range.js",
               "github:npm/node-semver@2f738e9a70d9b9468b7b69e9ed3e12418725c650:classes/range.js",
               "github:npm/node-semver@b6db78d8c996d46c842f25199521f36ffc7c104b:classes/range.js"
-            ]
+            ],
+            "visibility": "internal",
+            "exposedVia": [
+              "Range",
+              "default"
+            ],
+            "exposedViaSource": "export_resolution",
+            "exposedViaComplete": false
           },
           {
             "symbol": "replaceCarets",
             "modulePath": "classes/range.js",
             "changeKind": "modified",
-            "note": "not exported from this file",
+            "note": "not exported from this file; visibility internal via Range, default (incomplete): replaceCarets is not exported from classes/range.js; classes/range.js is loaded by classes/comparator.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by classes/index.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by functions/satisfies.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/intersects.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/max-satisfying.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/min-satisfying.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/min-version.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/outside.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/subset.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/to-comparators.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/valid.js, which is not the entry module (only one hop is resolved); index.js: export re is a member expression at line 82",
             "evidence": [
               "github:npm/node-semver@717534ee353682f3bcf33e60a8af4292626d4441:classes/range.js",
               "github:npm/node-semver@2f738e9a70d9b9468b7b69e9ed3e12418725c650:classes/range.js",
               "github:npm/node-semver@b6db78d8c996d46c842f25199521f36ffc7c104b:classes/range.js"
-            ]
+            ],
+            "visibility": "internal",
+            "exposedVia": [
+              "Range",
+              "default"
+            ],
+            "exposedViaSource": "export_resolution",
+            "exposedViaComplete": false
           },
           {
             "symbol": "replaceXRanges",
             "modulePath": "classes/range.js",
             "changeKind": "modified",
-            "note": "not exported from this file",
+            "note": "not exported from this file; visibility internal via Range, default (incomplete): replaceXRanges is not exported from classes/range.js; classes/range.js is loaded by classes/comparator.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by classes/index.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by functions/satisfies.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/intersects.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/max-satisfying.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/min-satisfying.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/min-version.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/outside.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/subset.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/to-comparators.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/valid.js, which is not the entry module (only one hop is resolved); index.js: export re is a member expression at line 82",
             "evidence": [
               "github:npm/node-semver@717534ee353682f3bcf33e60a8af4292626d4441:classes/range.js",
               "github:npm/node-semver@2f738e9a70d9b9468b7b69e9ed3e12418725c650:classes/range.js",
               "github:npm/node-semver@b6db78d8c996d46c842f25199521f36ffc7c104b:classes/range.js"
-            ]
+            ],
+            "visibility": "internal",
+            "exposedVia": [
+              "Range",
+              "default"
+            ],
+            "exposedViaSource": "export_resolution",
+            "exposedViaComplete": false
           },
           {
             "symbol": "replaceStars",
             "modulePath": "classes/range.js",
             "changeKind": "modified",
-            "note": "not exported from this file",
+            "note": "not exported from this file; visibility internal via Range, default (incomplete): replaceStars is not exported from classes/range.js; classes/range.js is loaded by classes/comparator.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by classes/index.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by functions/satisfies.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/intersects.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/max-satisfying.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/min-satisfying.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/min-version.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/outside.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/subset.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/to-comparators.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/valid.js, which is not the entry module (only one hop is resolved); index.js: export re is a member expression at line 82",
             "evidence": [
               "github:npm/node-semver@717534ee353682f3bcf33e60a8af4292626d4441:classes/range.js",
               "github:npm/node-semver@2f738e9a70d9b9468b7b69e9ed3e12418725c650:classes/range.js",
               "github:npm/node-semver@b6db78d8c996d46c842f25199521f36ffc7c104b:classes/range.js"
-            ]
+            ],
+            "visibility": "internal",
+            "exposedVia": [
+              "Range",
+              "default"
+            ],
+            "exposedViaSource": "export_resolution",
+            "exposedViaComplete": false
           },
           {
             "symbol": "replaceGTE0",
             "modulePath": "classes/range.js",
             "changeKind": "modified",
-            "note": "not exported from this file",
+            "note": "not exported from this file; visibility internal via Range, default (incomplete): replaceGTE0 is not exported from classes/range.js; classes/range.js is loaded by classes/comparator.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by classes/index.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by functions/satisfies.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/intersects.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/max-satisfying.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/min-satisfying.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/min-version.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/outside.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/subset.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/to-comparators.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/valid.js, which is not the entry module (only one hop is resolved); index.js: export re is a member expression at line 82",
             "evidence": [
               "github:npm/node-semver@717534ee353682f3bcf33e60a8af4292626d4441:classes/range.js",
               "github:npm/node-semver@2f738e9a70d9b9468b7b69e9ed3e12418725c650:classes/range.js",
               "github:npm/node-semver@b6db78d8c996d46c842f25199521f36ffc7c104b:classes/range.js"
-            ]
+            ],
+            "visibility": "internal",
+            "exposedVia": [
+              "Range",
+              "default"
+            ],
+            "exposedViaSource": "export_resolution",
+            "exposedViaComplete": false
           },
           {
             "symbol": "hyphenReplace",
             "modulePath": "classes/range.js",
             "changeKind": "modified",
-            "note": "not exported from this file",
+            "note": "not exported from this file; visibility internal via Range, default (incomplete): hyphenReplace is not exported from classes/range.js; classes/range.js is loaded by classes/comparator.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by classes/index.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by functions/satisfies.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/intersects.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/max-satisfying.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/min-satisfying.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/min-version.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/outside.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/subset.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/to-comparators.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/valid.js, which is not the entry module (only one hop is resolved); index.js: export re is a member expression at line 82",
             "evidence": [
               "github:npm/node-semver@717534ee353682f3bcf33e60a8af4292626d4441:classes/range.js",
               "github:npm/node-semver@2f738e9a70d9b9468b7b69e9ed3e12418725c650:classes/range.js",
               "github:npm/node-semver@b6db78d8c996d46c842f25199521f36ffc7c104b:classes/range.js"
-            ]
+            ],
+            "visibility": "internal",
+            "exposedVia": [
+              "Range",
+              "default"
+            ],
+            "exposedViaSource": "export_resolution",
+            "exposedViaComplete": false
           },
           {
             "symbol": "parseRange",
             "modulePath": "classes/range.js",
             "changeKind": "modified",
-            "note": "method of class Range",
+            "note": "method of class Range; visibility internal via Range, default (incomplete): classes/range.js is loaded by classes/comparator.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by classes/index.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by functions/satisfies.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/intersects.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/max-satisfying.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/min-satisfying.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/min-version.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/outside.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/subset.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/to-comparators.js, which is not the entry module (only one hop is resolved); classes/range.js is loaded by ranges/valid.js, which is not the entry module (only one hop is resolved); index.js: export re is a member expression at line 82",
             "evidence": [
               "github:npm/node-semver@2f738e9a70d9b9468b7b69e9ed3e12418725c650:classes/range.js"
-            ]
+            ],
+            "visibility": "internal",
+            "exposedVia": [
+              "Range",
+              "default"
+            ],
+            "exposedViaSource": "export_resolution",
+            "exposedViaComplete": false
           },
           {
             "symbol": "createToken",
             "modulePath": "internal/re.js",
             "changeKind": "modified",
-            "note": "not exported from this file",
+            "note": "not exported from this file; visibility internal via Comparator, Range, SemVer, clean, cmp, coerce, compare, compareBuild, compareLoose, diff, eq, gt, gte, gtr, inc, intersects, lt, lte, ltr, major, maxSatisfying, minSatisfying, minVersion, minor, neq, outside, parse, patch, prerelease, rcompare, rsort, satisfies, simplifyRange, sort, subset, t, toComparators, valid, validRange (incomplete): createToken is not exported from internal/re.js; internal/re.js: export re is a array at line 6; internal/re.js is loaded by classes/comparator.js, which is not the entry module (only one hop is resolved); internal/re.js is loaded by classes/range.js, which is not the entry module (only one hop is resolved); internal/re.js is loaded by classes/semver.js, which is not the entry module (only one hop is resolved); internal/re.js is loaded by functions/coerce.js, which is not the entry module (only one hop is resolved); index.js: export re is a member expression at line 82",
             "evidence": [
               "github:npm/node-semver@717534ee353682f3bcf33e60a8af4292626d4441:internal/re.js",
               "github:npm/node-semver@b6db78d8c996d46c842f25199521f36ffc7c104b:internal/re.js"
-            ]
+            ],
+            "visibility": "internal",
+            "exposedVia": [
+              "Comparator",
+              "Range",
+              "SemVer",
+              "clean",
+              "cmp",
+              "coerce",
+              "compare",
+              "compareBuild",
+              "compareLoose",
+              "diff",
+              "eq",
+              "gt",
+              "gte",
+              "gtr",
+              "inc",
+              "intersects",
+              "lt",
+              "lte",
+              "ltr",
+              "major",
+              "maxSatisfying",
+              "minSatisfying",
+              "minVersion",
+              "minor",
+              "neq",
+              "outside",
+              "parse",
+              "patch",
+              "prerelease",
+              "rcompare",
+              "rsort",
+              "satisfies",
+              "simplifyRange",
+              "sort",
+              "subset",
+              "t",
+              "toComparators",
+              "valid",
+              "validRange"
+            ],
+            "exposedViaSource": "export_resolution",
+            "exposedViaComplete": false
           }
         ],
         "nonFunctionChanges": [
@@ -867,14 +998,20 @@
             "symbol": "setKey",
             "modulePath": "index.js",
             "changeKind": "modified",
-            "note": "not exported from this file",
+            "note": "not exported from this file; visibility internal via default (complete)",
             "evidence": [
               "github:minimistjs/minimist@10bd4cdf49d9686d48214be9d579a9cdfda37c68:index.js",
               "github:minimistjs/minimist@f904dcc3c28f10eb11840091e9f0bab9d9519b5c:index.js",
               "github:minimistjs/minimist@38a4d1caead72ef99e824bb420a2528eec03d9ab:index.js",
               "github:minimistjs/minimist@13c01a5327736903704984b7f65616b8476850cc:index.js",
               "github:minimistjs/minimist@63e7ed05aa4b1889ec2f3b196426db4500cbda94:index.js"
-            ]
+            ],
+            "visibility": "internal",
+            "exposedVia": [
+              "default"
+            ],
+            "exposedViaSource": "export_resolution",
+            "exposedViaComplete": true
           }
         ],
         "provenance": {
@@ -981,7 +1118,7 @@
             "symbol": "parseObject",
             "modulePath": "lib/parse.js",
             "changeKind": "modified",
-            "note": "not exported from this file",
+            "note": "not exported from this file; visibility internal via default, parse (incomplete): parseObject is not exported from lib/parse.js; another copy of parseObject is in dist/qs.js",
             "evidence": [
               "github:ljharb/qs@4310742efbd8c03f6495f07906b45213da0a32ec:lib/parse.js",
               "github:ljharb/qs@da1eee03f599f3cdd802557874257091b3c4dac1:lib/parse.js",
@@ -1001,19 +1138,27 @@
               "github:ljharb/qs@a8d52864e61bf5eee69788492e03ed5041a0fcd4:lib/parse.js",
               "github:ljharb/qs@fc3682776670524a42e19709ec4a8138d0d7afda:lib/parse.js",
               "github:ljharb/qs@4e312c487def80b879d5359e0d1991ce17685191:lib/parse.js"
-            ]
+            ],
+            "visibility": "internal",
+            "exposedVia": [
+              "default",
+              "parse"
+            ],
+            "exposedViaSource": "export_resolution",
+            "exposedViaComplete": false
           },
           {
             "symbol": "parseObjectRecursive",
             "modulePath": "lib/parse.js",
             "changeKind": "modified",
-            "note": "also named parseObjectRecursive (function expression name of parseObject)",
+            "note": "also named parseObjectRecursive (function expression name of parseObject); visibility unknown: parseObjectRecursive is not defined in lib/parse.js in the published package",
             "evidence": [
               "github:ljharb/qs@4310742efbd8c03f6495f07906b45213da0a32ec:lib/parse.js",
               "github:ljharb/qs@da1eee03f599f3cdd802557874257091b3c4dac1:lib/parse.js",
               "github:ljharb/qs@727ef5d34605108acb3513f72d5435972ed15b68:lib/parse.js",
               "github:ljharb/qs@cd1874eb179950de3f5b32e708b4a3a2d0619501:lib/parse.js"
-            ]
+            ],
+            "visibility": "unknown"
           }
         ],
         "provenance": {
@@ -1287,30 +1432,33 @@
             "symbol": "isDomainOrSubdomain",
             "modulePath": "src/index.js",
             "changeKind": "modified",
-            "note": "not exported from this file",
+            "note": "not exported from this file; visibility unknown: src/index.js is not in the published vulnerable package",
             "evidence": [
               "github:node-fetch/node-fetch@1ef4b560a17e644a02a3bfdea7631ffeee578b35:src/index.js"
-            ]
+            ],
+            "visibility": "unknown"
           },
           {
             "symbol": "fetch",
             "modulePath": "src/index.js",
             "changeKind": "modified",
-            "note": "exported as default",
+            "note": "exported as default; visibility unknown: src/index.js is not in the published vulnerable package",
             "evidence": [
               "github:node-fetch/node-fetch@1ef4b560a17e644a02a3bfdea7631ffeee578b35:src/index.js",
               "github:node-fetch/node-fetch@8fe5c4ea66b9b8187600e6d5ec9b1b6781f44009:src/index.js"
-            ]
+            ],
+            "visibility": "unknown"
           },
           {
             "symbol": "default",
             "modulePath": "src/index.js",
             "changeKind": "modified",
-            "note": "export alias of fetch",
+            "note": "export alias of fetch; visibility unknown: src/index.js is not in the published vulnerable package",
             "evidence": [
               "github:node-fetch/node-fetch@1ef4b560a17e644a02a3bfdea7631ffeee578b35:src/index.js",
               "github:node-fetch/node-fetch@8fe5c4ea66b9b8187600e6d5ec9b1b6781f44009:src/index.js"
-            ]
+            ],
+            "visibility": "unknown"
           }
         ],
         "nonFunctionChanges": [
@@ -1383,7 +1531,7 @@
             "symbol": "default",
             "modulePath": "index.js",
             "changeKind": "modified",
-            "note": "exported as default",
+            "note": "exported as default; visibility public: exported as default",
             "evidence": [
               "github:chalk/ansi-regex@419250fa510bf31b4cc672e76537a64f9332e1f1:index.js",
               "github:chalk/ansi-regex@0a8cc19946c03c38520fe8c086b8adb66f9cce0b:index.js",
@@ -1393,17 +1541,19 @@
               "github:chalk/ansi-regex@c1b5e45f7c65a332ffb03ac8e5804ad37c579cdc:index.js",
               "github:chalk/ansi-regex@c3c0b3f2736b9c01feec0fef33980c43720dcde8:index.js",
               "github:chalk/ansi-regex@178363b3a297b712a0054e702d8ddde3879913e5:index.js"
-            ]
+            ],
+            "visibility": "public"
           },
           {
             "symbol": "ansiRegex",
             "modulePath": "index.js",
             "changeKind": "modified",
-            "note": "exported as default",
+            "note": "exported as default; visibility unknown: ansiRegex is not defined in index.js in the published package",
             "evidence": [
               "github:chalk/ansi-regex@8d1d7cdb586269882c4bdc1b7325d0c58c8f76f9:index.js",
               "github:chalk/ansi-regex@c1b5e45f7c65a332ffb03ac8e5804ad37c579cdc:index.js"
-            ]
+            ],
+            "visibility": "unknown"
           }
         ],
         "provenance": {
@@ -1543,21 +1693,33 @@
             "symbol": "decodeComponents",
             "modulePath": "index.js",
             "changeKind": "modified",
-            "note": "not exported from this file",
+            "note": "not exported from this file; visibility internal via default (complete): decodeComponents is not exported from index.js",
             "evidence": [
               "github:SamVerschueren/decode-uri-component@746ca5dcb6667c5d364e782d53c542830e4c10b9:index.js",
               "github:SamVerschueren/decode-uri-component@486d7e26d3a8c0fbe860fb651fe1bc98c2f2be30:index.js"
-            ]
+            ],
+            "visibility": "internal",
+            "exposedVia": [
+              "default"
+            ],
+            "exposedViaSource": "export_resolution",
+            "exposedViaComplete": true
           },
           {
             "symbol": "decode",
             "modulePath": "index.js",
             "changeKind": "modified",
-            "note": "not exported from this file",
+            "note": "not exported from this file; visibility internal via default (complete): decode is not exported from index.js",
             "evidence": [
               "github:SamVerschueren/decode-uri-component@746ca5dcb6667c5d364e782d53c542830e4c10b9:index.js",
               "github:SamVerschueren/decode-uri-component@486d7e26d3a8c0fbe860fb651fe1bc98c2f2be30:index.js"
-            ]
+            ],
+            "visibility": "internal",
+            "exposedVia": [
+              "default"
+            ],
+            "exposedViaSource": "export_resolution",
+            "exposedViaComplete": true
           }
         ],
         "provenance": {

@@ -105,6 +105,10 @@ func (l *Localiser) localise(ctx context.Context, f Finding) (Result, Trace, tag
 
 	// Advisory first: three of the four methods depend on it.
 	adv, advErr := l.c.FetchAdvisory(ctx, f)
+	if adv != nil && !adv.Artefact.Verified {
+		advErr = fmt.Errorf("advisory identity verification failed: %s", adv.Artefact.Note)
+		adv = nil
+	}
 	var prov Provenance
 	if adv != nil {
 		prov.AdvisorySource = adv.Source
@@ -180,6 +184,9 @@ func (l *Localiser) localise(ctx context.Context, f Finding) (Result, Trace, tag
 	res.Provenance = provenanceOrNil(prov)
 	res.Confidence = confidenceFor(*sel, patchCands, attempts)
 	res.Notes = summariseSelection(*sel, attempts)
+	if sel.Method == MethodPatchReference || sel.Method == MethodVersionDiff {
+		l.resolveVisibility(ctx, name, version, sel.vulnerable, &res)
+	}
 	return res, trace, w
 }
 
@@ -498,6 +505,7 @@ func (l *Localiser) attemptVersionDiff(ctx context.Context, pkg, version, fixed 
 		return a
 	}
 	a.Provenance = &Provenance{Artefacts: []Artefact{oldTb.Artefact, newTb.Artefact}}
+	a.vulnerable = oldTb
 	if !oldTb.Artefact.Verified || !newTb.Artefact.Verified {
 		a.Notes = append(a.Notes, "a tarball did not match the registry integrity value; candidates from it are untrusted")
 	}
@@ -709,4 +717,50 @@ func allLines(b []byte) []int {
 		out[i] = i + 1
 	}
 	return out
+}
+
+// resolveVisibility fills the join-rule fields from the published vulnerable
+// tarball, which is downloaded, verified and read in memory, never run. When
+// that is not possible every candidate is marked unknown with the reason.
+func (l *Localiser) resolveVisibility(ctx context.Context, pkg, version string, tb *Tarball, res *Result) {
+	fail := func(why string) {
+		for i := range res.CandidateSymbols {
+			res.CandidateSymbols[i].Visibility = VisibilityUnknown
+		}
+		res.Notes += " Visibility unknown: " + why + "."
+	}
+	if tb == nil {
+		pv, err := l.c.RegistryVersion(ctx, pkg, version)
+		if err != nil {
+			fail(err.Error())
+			return
+		}
+		tb, err = l.c.FetchTarball(ctx, pv, l.opts.MaxTarballBytes)
+		if tb == nil || err != nil {
+			fail("vulnerable tarball: " + errString(err))
+			return
+		}
+	}
+	if !tb.Artefact.Verified {
+		fail("the vulnerable tarball does not match the registry integrity value")
+		return
+	}
+	if res.Provenance == nil {
+		res.Provenance = &Provenance{}
+	}
+	have := false
+	for _, a := range res.Provenance.Artefacts {
+		have = have || a.ID == tb.Artefact.ID
+	}
+	if !have {
+		res.Provenance.Artefacts = append(res.Provenance.Artefacts, tb.Artefact)
+	}
+	pm, err := buildPackageModel(tb)
+	if err != nil {
+		fail(err.Error())
+		return
+	}
+	closed := applyVisibility(res, pm)
+	res.Notes += fmt.Sprintf(" Visibility read from %s: %d of %d candidate(s) public or completely resolved.",
+		tb.Artefact.ID, closed, len(res.CandidateSymbols))
 }

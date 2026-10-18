@@ -71,6 +71,17 @@ type Candidate struct {
 	// Evidence lists the IDs of the artefacts in the result's provenance
 	// that this candidate was read from.
 	Evidence []string `json:"evidence,omitempty"`
+	// Visibility and the ExposedVia fields are the localisation join rule
+	// (docs/design/localisation-join-rule.md), resolved from the published
+	// vulnerable tarball: public when the entry module exports the candidate
+	// under this name and nothing else reaches it; internal with the public
+	// names it is reached through otherwise; unknown when that cannot be
+	// worked out. ExposedViaComplete is true only when every route was
+	// resolved.
+	Visibility         string   `json:"visibility,omitempty"`
+	ExposedVia         []string `json:"exposedVia,omitempty"`
+	ExposedViaSource   string   `json:"exposedViaSource,omitempty"`
+	ExposedViaComplete *bool    `json:"exposedViaComplete,omitempty"`
 }
 
 // Provenance traces every candidate back to its source artefact.
@@ -243,6 +254,9 @@ type Attempt struct {
 	// fixContent the lines they add, for the release tag checks.
 	fixCommits []gitHubCommit
 	fixContent []FixContent
+	// vulnerable is the vulnerable tarball a version_diff attempt already
+	// read, reused for visibility.
+	vulnerable *Tarball
 }
 
 // ClientMethodEvidence records the commit-message search the client

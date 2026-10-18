@@ -70,3 +70,26 @@ func TestLocaliseVerifyExitCodes(t *testing.T) {
 		t.Errorf("verify report = %s (%v)", b, err)
 	}
 }
+
+func TestLocaliseVerificationFlagsRequireVerificationMode(t *testing.T) {
+	for _, args := range [][]string{{"--online"}, {"--verify-report", "report.json"}, {"--verify", "doc.json", "--canonical-scan", "scan.json"}} {
+		var stdout, stderr bytes.Buffer
+		if got := runLocalise(args, &stdout, &stderr); got != 2 {
+			t.Errorf("%v: got %d want usage error", args, got)
+		}
+	}
+}
+
+func TestLocaliseVerifyRejectsMissingIdentity(t *testing.T) {
+	path := filepath.Join(t.TempDir(), "invalid.json")
+	if err := os.WriteFile(path, []byte(`{"schemaVersion":"1.1.0"}`), 0o600); err != nil {
+		t.Fatal(err)
+	}
+	var stdout, stderr bytes.Buffer
+	if got := runLocalise([]string{"--verify", path}, &stdout, &stderr); got != 1 {
+		t.Fatalf("got %d: %s%s", got, stdout.String(), stderr.String())
+	}
+	if !strings.Contains(stdout.String(), "no scanId") || !strings.Contains(stdout.String(), "no results array") {
+		t.Fatalf("missing identity explanation: %s", stdout.String())
+	}
+}

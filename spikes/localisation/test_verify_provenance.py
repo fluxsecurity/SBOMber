@@ -70,6 +70,26 @@ class VerifyProvenanceTests(unittest.TestCase):
         self.assertIn("c04: npm gitHead for", out.stdout)
         self.assertIn("c10: candidates were read from none of the ground-truth commits", out.stdout)
 
+    def test_closed_set_missing_the_public_symbol_fails(self):
+        def edit(doc):
+            for c in self.result(doc, "c06")["candidateSymbols"]:
+                c.update({"visibility": "internal", "exposedVia": ["notWhatAppsCall"],
+                          "exposedViaSource": "export_resolution", "exposedViaComplete": True})
+        out = self.run_on(edit)
+        self.assertNotEqual(out.returncode, 0)
+        self.assertIn("c06: closed candidate set whose join keys ['notWhatAppsCall'] miss every expected public symbol", out.stdout)
+    def test_tag_metadata_cannot_substitute_for_reading_the_frozen_commit(self):
+        def edit(doc):
+            r = self.result(doc, "c10")
+            # Keep the authentic fixCommits entries in tag metadata, but
+            # move every cited source file to a different commit.
+            for artifact in r["provenance"]["artefacts"]:
+                if artifact["kind"] == "source_file":
+                    artifact["commit"] = "e" * 40
+        out = self.run_on(edit)
+        self.assertNotEqual(out.returncode, 0)
+        self.assertIn("c10: candidates were read from none", out.stdout)
+
 
 if __name__ == "__main__":
     unittest.main()
