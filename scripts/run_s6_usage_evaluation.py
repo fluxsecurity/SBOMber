@@ -8,6 +8,11 @@ import subprocess
 import sys
 from pathlib import Path
 
+try:
+    from .evaluate_usage_constructs import aggregate
+except ImportError:
+    from evaluate_usage_constructs import aggregate
+
 ROOT = Path(__file__).resolve().parent.parent
 LABEL_ROOT = ROOT / "testdata/fixtures/usage-ground-truth"
 SOURCE_ROOT = ROOT / "testdata/fixtures"
@@ -51,10 +56,10 @@ def main():
     if dirty:
         raise RuntimeError("Commit or remove other working-tree changes first:\n" + "\n".join(dirty))
 
-    commit = git("rev-parse", "HEAD")
+    commit = git("log", "-1", "--format=%H", "--", "internal", "scripts", "testdata")
     label_paths = sorted(LABEL_ROOT.glob("component2-s6-*/expected.json"))
-    if len(label_paths) != 13:
-        raise RuntimeError(f"Expected 13 labelled fixtures, found {len(label_paths)}")
+    if len(label_paths) < 21:
+        raise RuntimeError(f"Expected at least 21 labelled fixtures, found {len(label_paths)}")
 
     (OUT / "graphs").mkdir(parents=True, exist_ok=True)
     (OUT / "metrics").mkdir(parents=True, exist_ok=True)
@@ -69,7 +74,7 @@ def main():
         graph_file = OUT / "graphs" / f"{name}.json"
         metrics_file = OUT / "metrics" / f"{name}.json"
 
-        print(f"[{index:02d}/13] {name}", flush=True)
+        print(f"[{index:02d}/{len(label_paths)}] {name}", flush=True)
         env = os.environ.copy()
         env.pop("GITHUB_TOKEN", None)
         env.pop("GH_TOKEN", None)
@@ -108,6 +113,7 @@ def main():
             "labelFirstCommit": label_added[0],
             "labelLatestCommit": label_last,
             "labelCorrection": labels.get("labelCorrection"),
+            "reviewExpectationsAdded": labels.get("reviewExpectationsAdded"),
             "importEvaluation": metrics["importEvaluation"],
             "callEvaluation": metrics["callEvaluation"],
             "unresolvedCallEvaluation": metrics["unresolvedCallEvaluation"],
@@ -121,6 +127,12 @@ def main():
     if len(categories) != 11:
         raise RuntimeError(f"Expected 11 construct categories; got {len(categories)}: {sorted(categories)}")
 
+    per_construct = {
+        category: {key: aggregate([row[key] for row in rows if row['construct'] == category])
+                   for key in METRICS}
+        for category in sorted(categories)
+    }
+    overall = {key: aggregate([row[key] for row in rows]) for key in METRICS}
     manifest = {
         "issue": 149,
         "analyserGitCommit": commit,
@@ -128,6 +140,8 @@ def main():
         "fixtureCount": len(rows),
         "constructCategoryCount": len(categories),
         "results": rows,
+        "perConstruct": per_construct,
+        "overall": overall,
     }
     (OUT / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")
 
@@ -136,7 +150,7 @@ def main():
         "",
         f"Analyser Git commit: `{commit}`. Fixtures: **{len(rows)}**; construct categories: **{len(categories)}**.",
         "",
-        "All metrics are based on controlled, independently source-reviewed fixtures, not overall real-world scanner accuracy.",
+        "All metrics are based on controlled, author-labelled fixtures, not overall real-world scanner accuracy.",
         "A call metric of N/A means no measurable resolved/unresolved calls were present, not 100% accuracy.",
         "", "| Fixture | Import TP/FP/FN | Import P/R | Call TP/FP/FN | Call P/R | Unknown TP/FP/FN | Unknown P/R | Safety |",
         "|---|---|---|---|---|---|---|---|",
@@ -150,15 +164,26 @@ def main():
             f"| [{name}](metrics/{name}.json) | {counts(imp)} | {rates(imp)} | "
             f"{counts(call)} | {rates(call)} | {counts(unknown)} | {rates(unknown)} | PASS |"
         )
+    md += ["", "## Aggregated results by construct", "",
+           "Counts are TP/FP/FN. P/R denominators are predicted/expected respectively.",
+           "", "| Construct | Imports: counts; P/R; denominators | Calls: counts; P/R; denominators | Unknown: counts; P/R; denominators |",
+           "|---|---|---|---|"]
+    for name, metrics in [*per_construct.items(), ('ALL', overall)]:
+        cells = []
+        for key in METRICS:
+            m = metrics[key]
+            cells.append(f"{m['tp']}/{m['fp']}/{m['fn']}; {display(m['precision'])}/{display(m['recall'])}; {m['predicted']}/{m['expected']}")
+        md.append(f"| {name} | " + " | ".join(cells) + " |")
     md += [
         "", "## Evidence and limitations", "",
+        "- Original labels are author-labelled; review additions and label corrections are recorded separately in the manifest. No independent labelling claim is made.",
         "- Each fixture has a graph in `graphs/`, a per-fixture metrics file in `metrics/`, and provenance in `manifest.json`.",
         "- Import evidence, resolved calls and unresolved calls are scored independently. False positives and false negatives are not blended.",
         "- Computed imports, re-exports, type-only imports, side-effect imports and TS aliases receive additional conservative-evidence checks.",
-        "- The original `component2-s6-import-type` label was corrected after evaluation; its initial and correction commits are preserved in `manifest.json`. The independent alias type-only fixture was prelabelled and evaluated separately.",
+        "- The original `component2-s6-import-type` label was corrected after evaluation; its initial and correction commits are preserved in `manifest.json`. The separate alias type-only fixture was prelabelled and evaluated separately.",
         "- This uses the production source analyser and usagegraph producer via a Go test exporter, not a complete end-to-end CLI scan. Reachability accuracy belongs to Issue #152.",
         "", "## Reproduction", "",
-        "Run `python3 -B scripts/run_s6_usage_evaluation.py` from a clean committed worktree. The runner removes inherited GitHub tokens from the Go test environment.",
+        "Run `python3 -B scripts/run_s6_usage_evaluation.py` from a clean committed worktree. The runner removes inherited GitHub tokens from the Go test environment. `analyserGitCommit` is the last commit touching `internal/`, `scripts/` or `testdata/`, so committing generated evidence alone does not change it. Preserve commit history when reproducing label provenance.",
     ]
     (OUT / "report.md").write_text("\n".join(md) + "\n")
     print(f"\nPASS: {len(rows)} fixtures across {len(categories)} categories")

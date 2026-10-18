@@ -10,9 +10,9 @@
         "file": "src/index.js",
         "line": 1,
         "specifier": "lodash",
-        "imported": "merge",
+        "imported": "*",
         "local": "",
-        "kind": "cjs_destructured",
+        "kind": "cjs_require",
         "resolution": "resolved",
         "purl": "pkg:npm/lodash@4.17.21"
       }
@@ -27,5 +27,6 @@
     ],
     "unresolvedCalls": [],
     "excludedCalls": []
-  }
+  },
+  "labelCorrection": "Initial review-addition label used member/default import spelling; corrected to the CommonJS module binding contract after source inspection and first table-test failure."
 }

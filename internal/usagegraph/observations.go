@@ -266,7 +266,7 @@ func observationCallSites(
 		// Such calls must not be attributed to the third-party package.
 		if !matches ||
 			!dynamicImportVisible(result, imported, call) ||
-			shadowedLocalCall(result, call) {
+			!sourceanalysis.ImportOwnsCall(result, imported, call) {
 			continue
 		}
 		add(call, calledSymbol, resolution, unresolvedReason)

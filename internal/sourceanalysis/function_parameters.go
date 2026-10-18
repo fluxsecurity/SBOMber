@@ -15,7 +15,7 @@ func parameterNames(node *treesitter.Node, source []byte) []string {
 
 	names := make([]string, 0)
 	seen := make(map[string]struct{})
-	for _, identifier := range collectNodesByType(parameters, "identifier") {
+	for _, identifier := range bindingNodes(parameters) {
 		name := identifier.Utf8Text(source)
 		if _, exists := seen[name]; exists {
 			continue

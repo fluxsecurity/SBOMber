@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Compare independently labelled Component 2 fixtures with usage-graph.json.
+"""Compare author-labelled Component 2 fixtures with usage-graph.json.
 
 This is a per-fixture evaluator, not a reachability evaluation.
 """
@@ -19,9 +19,9 @@ def identity_import(item, observed=False):
         loc = item['location']
         return (loc['file'], loc['line'], item['importedSpecifier'],
                 item.get('importedSymbol', ''), item.get('localAlias', ''),
-                item['importKind'])
+                item['importKind'], item.get('purl', ''))
     return (item['file'], item['line'], item['specifier'],
-            item.get('imported', ''), item.get('local', ''), item['kind'])
+            item.get('imported', ''), item.get('local', ''), item['kind'], item.get('purl', ''))
 
 
 def expected_binding(call, imports):
@@ -104,6 +104,15 @@ def evaluate(labels, graph):
         'observedImportOutcomes': dict(sorted(Counter(
             state for _, state in got_imports.elements()).items())),
     }
+
+
+def aggregate(results):
+    """Micro-average counts; empty predicted/expected denominators stay undefined."""
+    totals = {key: sum(item[key] for item in results) for key in ('tp', 'fp', 'fn')}
+    tp, fp, fn = (totals[key] for key in ('tp', 'fp', 'fn'))
+    return {**totals, 'predicted': tp + fp, 'expected': tp + fn,
+            'precision': round(tp / (tp + fp), 4) if tp + fp else None,
+            'recall': round(tp / (tp + fn), 4) if tp + fn else None}
 
 
 def main():

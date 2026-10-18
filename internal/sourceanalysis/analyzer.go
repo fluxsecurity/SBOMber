@@ -13,15 +13,16 @@ type SourceAnalyzer interface {
 }
 
 type Result struct {
-	Fixture            string         `json:"fixture"`
-	Language           string         `json:"language"`
-	HasError           bool           `json:"hasError"`
-	Imports            []Import       `json:"imports"`
-	Calls              []Call         `json:"calls"`
-	Functions          []Function     `json:"functions"`
-	RouteHandlers      []RouteHandler `json:"-"`
-	AnonymousFunctions []Function     `json:"-"`
-	Unresolved         []Unresolved   `json:"unresolved"`
+	LexicalBindings    []LexicalBinding `json:"-"`
+	Fixture            string           `json:"fixture"`
+	Language           string           `json:"language"`
+	HasError           bool             `json:"hasError"`
+	Imports            []Import         `json:"imports"`
+	Calls              []Call           `json:"calls"`
+	Functions          []Function       `json:"functions"`
+	RouteHandlers      []RouteHandler   `json:"-"`
+	AnonymousFunctions []Function       `json:"-"`
+	Unresolved         []Unresolved     `json:"unresolved"`
 }
 
 type Import struct {

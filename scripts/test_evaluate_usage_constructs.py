@@ -1,6 +1,9 @@
 import unittest
 from collections import Counter
-from evaluate_usage_constructs import evaluate, score
+try:
+    from .evaluate_usage_constructs import evaluate, score, aggregate
+except ImportError:
+    from evaluate_usage_constructs import evaluate, score, aggregate
 
 
 class EvaluationTests(unittest.TestCase):
@@ -86,6 +89,25 @@ class EvaluationTests(unittest.TestCase):
                                            'line': 4, 'symbol': 'merge'}],
                                 observed)
         self.assertEqual(result['callEvaluation']['fn'], 1)
+
+    def test_wrong_purl_is_misattribution(self):
+        label = {'file': 'x.js', 'line': 1, 'specifier': 'lodash',
+                 'kind': 'esm_named', 'purl': 'pkg:npm/lodash@4.17.21'}
+        obs = {'location': {'file': 'x.js', 'line': 1},
+               'importedSpecifier': 'lodash', 'importKind': 'esm_named',
+               'purl': 'pkg:npm/other@1', 'resolution': 'resolved', 'callSites': []}
+        result = self.make_case([label], [], [obs])
+        self.assertEqual(result['importEvaluation']['fp'], 1)
+        self.assertEqual(result['importEvaluation']['fn'], 1)
+
+    def test_aggregate_uses_counts_and_reports_denominators(self):
+        result = aggregate([{'tp': 2, 'fp': 1, 'fn': 0},
+                            {'tp': 1, 'fp': 0, 'fn': 2}])
+        self.assertEqual(result['predicted'], 4)
+        self.assertEqual(result['expected'], 5)
+        self.assertEqual(result['precision'], .75)
+        self.assertEqual(result['recall'], .6)
+        self.assertIsNone(aggregate([])['recall'])
 
     def test_partial_scan_is_rejected(self):
         with self.assertRaisesRegex(ValueError, 'complete analysis'):

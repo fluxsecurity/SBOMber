@@ -6,6 +6,11 @@ import json
 from collections import Counter
 from pathlib import Path
 
+try:
+    from .evaluate_usage_constructs import identity_import, expected_binding
+except ImportError:
+    from evaluate_usage_constructs import identity_import, expected_binding
+
 
 def require(condition, message):
     if not condition:
@@ -37,85 +42,29 @@ def validate(labels, graph):
             f"Missing unanalysed occurrence: {identity}",
         )
 
-    if fixture == "component2-s6-dynamic-computed":
-        require(len(observations) == 1, "Expected one computed import")
-        obs = observations[0]
-
-        require(obs["importKind"] == "dynamic_computed", "Wrong import kind")
-        require(obs["resolution"] == "unresolved", "Import was resolved")
-        require(
-            obs.get("unresolvedReason") == "computed_specifier",
-            "Computed uncertainty reason missing",
-        )
-        require(
-            obs.get("computedSpecifier") is True,
-            "Computed specifier flag missing",
-        )
-        require(not obs["callSites"], "Unexpected computed-import calls")
-
-    elif fixture == "component2-s6-reexport":
-        require(len(observations) == 1, "Expected one re-export")
-        obs = observations[0]
-
-        require(obs["importKind"] == "esm_reexport", "Wrong re-export kind")
-        require(obs["resolution"] == "resolved", "Re-export import unresolved")
-        require(obs["evidenceLevel"] == 1, "Wrong evidence level")
-        require(len(obs["callSites"]) == 1, "Expected one unresolved use")
-
-        call = obs["callSites"][0]
-        require(call["resolution"] == "unresolved", "Re-export call resolved")
-        require(
-            call.get("unresolvedReason") == "reexport_chain",
-            "Re-export chain reason missing",
-        )
-        require(call["reachability"] == "unknown", "Wrong reachability")
-        require(
-            not call.get("calledSymbol"),
-            "Re-export incorrectly attributed to a direct function call",
-        )
-
-    elif fixture == "component2-s6-side-effect":
-        require(len(observations) == 1, "Expected one side-effect import")
-        obs = observations[0]
-
-        require(obs["importKind"] == "esm_side_effect", "Wrong import kind")
-        require(obs["resolution"] == "resolved", "Import unresolved")
-        require(obs["evidenceLevel"] == 1, "Wrong evidence level")
-        require(not obs["callSites"], "Invented call for side-effect import")
-
-    elif fixture in (
-        "component2-s6-import-type",
-        "component2-s6-import-type-alias",
-    ):
-        require(len(observations) == 1, "Expected one type-only import")
-        obs = observations[0]
-
-        require(obs["importKind"] == "esm_type_only", "Wrong import kind")
-        require(obs["resolution"] == "type_only", "Wrong resolution")
-        require(not obs["callSites"], "Type-only import has runtime calls")
-
-    elif fixture == "component2-s6-ts-path-alias":
-        require(len(observations) == 1, "Unexpected third-party observation")
-        obs = observations[0]
-
-        require(
-            obs["importedSpecifier"] == "lodash",
-            "Local alias treated as a package",
-        )
-        require(
-            obs["purl"] == "pkg:npm/lodash@4.17.21",
-            "Lodash package identity changed",
-        )
-        require(obs["resolution"] == "resolved", "Lodash import unresolved")
-        require(len(obs["callSites"]) == 1, "Expected genuine Lodash call")
-        require(
-            obs["callSites"][0].get("calledSymbol") == "merge",
-            "Genuine Lodash merge call missing",
-        )
-        require(
-            obs["callSites"][0]["resolution"] == "resolved",
-            "Genuine Lodash call unresolved",
-        )
+    # Expectations live in expected.json, so a new fixture gets the same checks.
+    imports = labels['expected']['thirdPartyImports']
+    for labelled in imports:
+        matches = [obs for obs in observations
+                   if identity_import(obs, True) == identity_import(labelled)]
+        require(len(matches) == 1, f"Expected one binding: {labelled}")
+        obs = matches[0]
+        for field in ('purl', 'computedSpecifier', 'unresolvedReason', 'evidenceLevel'):
+            if field in labelled:
+                require(obs.get(field, '') == labelled[field],
+                        f"{fixture}: {field} differs from label")
+    for category in ('thirdPartyCalls', 'unresolvedCalls'):
+        for labelled in labels['expected'].get(category, []):
+            binding = expected_binding(labelled, imports)
+            calls = [call for obs in observations if identity_import(obs, True) == binding
+                     for call in obs.get('callSites', [])
+                     if (call['file'], call['line'], call.get('calledSymbol', '')) ==
+                        (labelled['file'], labelled['line'], labelled.get('symbol', ''))]
+            require(len(calls) == 1, f"Expected one call: {labelled}")
+            for field in ('reachability', 'unresolvedReason'):
+                if field in labelled:
+                    require(calls[0].get(field) == labelled[field],
+                            f"{fixture}: call {field} differs from label")
 
 
 def main():

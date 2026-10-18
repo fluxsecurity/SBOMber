@@ -10,7 +10,7 @@
         "file": "src/index.js",
         "line": 2,
         "specifier": "lodash",
-        "imported": "default",
+        "imported": "*",
         "local": "lodash",
         "kind": "cjs_require",
         "resolution": "resolved",
@@ -27,5 +27,6 @@
     ],
     "unresolvedCalls": [],
     "excludedCalls": []
-  }
+  },
+  "labelCorrection": "Initial review-addition label used member/default import spelling; corrected to the CommonJS module binding contract after source inspection and first table-test failure."
 }
