@@ -3,6 +3,7 @@
 
 import argparse
 import json
+import sys
 from collections import Counter
 from pathlib import Path
 
@@ -82,4 +83,8 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except (OSError, ValueError, KeyError, TypeError) as exc:
+        print(f"FAIL: {exc}", file=sys.stderr)
+        sys.exit(1)
