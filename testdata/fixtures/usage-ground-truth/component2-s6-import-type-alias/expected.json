@@ -1,0 +1,31 @@
+{
+  "fixture": "component2-s6-import-type-alias",
+  "construct": "import_type",
+  "language": "typescript",
+  "labelMethod": "source-reviewed before analyser execution",
+  "expected": {
+    "thirdPartyImports": [
+      {
+        "specifier": "lodash",
+        "imported": "Dictionary",
+        "local": "Lookup",
+        "kind": "esm_type_only",
+        "resolution": "type_only",
+        "file": "src/index.ts",
+        "line": 1,
+        "purl": "pkg:npm/lodash@4.17.21"
+      }
+    ],
+    "thirdPartyCalls": [],
+    "unresolvedCalls": [],
+    "excludedCalls": [
+      {
+        "file": "src/index.ts",
+        "line": 6,
+        "symbol": "Dictionary",
+        "reason": "Type-only alias cannot be a runtime dependency call"
+      }
+    ]
+  },
+  "reviewExpectationsAdded": "Package identity and safety assertions added after reviewer feedback; original import/call labels retain their history."
+}

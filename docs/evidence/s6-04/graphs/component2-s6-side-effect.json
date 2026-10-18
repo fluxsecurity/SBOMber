@@ -1,0 +1,78 @@
+{
+  "schemaVersion": "1.4.0",
+  "scanId": "scan-test",
+  "analysis": {
+    "status": "complete",
+    "ecosystem": "npm",
+    "analyzerId": "component2-js-ts-tree-sitter"
+  },
+  "analyser": {
+    "parser": "tree-sitter",
+    "binding": "github.com/tree-sitter/go-tree-sitter",
+    "bindingVersion": "0.25.0",
+    "cgoEnabled": true,
+    "grammarVersions": {
+      "javascript": "0.25.0",
+      "typescript": "0.23.2"
+    },
+    "ecosystems": [
+      "npm"
+    ],
+    "reachabilityAnalysed": true
+  },
+  "entryPoints": [
+    {
+      "entryPointId": "ep-9f2d4d53bcfdee43c826a701881b81ce",
+      "kind": "exported_module",
+      "function": "initialise",
+      "file": "src/index.js",
+      "line": 3,
+      "repositoryId": "repo-app"
+    }
+  ],
+  "coverage": {
+    "filesDiscovered": 1,
+    "filesParsed": 1,
+    "filesParsedWithErrors": 0,
+    "filesFailed": 0,
+    "filesSkipped": 0,
+    "thirdPartyImportsResolved": 1,
+    "thirdPartyImportsTypeOnly": 0,
+    "thirdPartyImportsUnresolved": 0,
+    "thirdPartyCallSitesResolved": 0,
+    "thirdPartyCallSitesUnresolved": 0,
+    "limitsHit": [],
+    "perRepository": [
+      {
+        "repositoryId": "repo-app",
+        "filesDiscovered": 1,
+        "filesParsed": 1,
+        "filesParsedWithErrors": 0,
+        "filesFailed": 0,
+        "filesSkipped": 0
+      }
+    ],
+    "entryPointsDetected": 1,
+    "callPathsResolved": 0,
+    "callPathsUnresolved": 0
+  },
+  "observations": [
+    {
+      "observationId": "obs-3013413c4935fe45be0953ba0a6d9797",
+      "occurrenceId": "occ-lodash",
+      "purl": "pkg:npm/lodash@4.17.21",
+      "importedSpecifier": "lodash",
+      "importKind": "esm_side_effect",
+      "resolution": "resolved",
+      "location": {
+        "repositoryId": "repo-app",
+        "file": "src/index.js",
+        "line": 1
+      },
+      "evidenceLevel": 1,
+      "callSites": []
+    }
+  ],
+  "unanalysedOccurrences": [],
+  "parseFailures": []
+}

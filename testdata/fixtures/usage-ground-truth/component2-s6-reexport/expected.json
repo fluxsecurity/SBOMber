@@ -1,0 +1,36 @@
+{
+  "fixture": "component2-s6-reexport",
+  "construct": "reexport",
+  "language": "javascript",
+  "labelMethod": "source-reviewed before analyser execution",
+  "expected": {
+    "thirdPartyImports": [
+      {
+        "specifier": "lodash",
+        "imported": "merge",
+        "local": "",
+        "kind": "esm_reexport",
+        "resolution": "resolved",
+        "file": "src/index.js",
+        "line": 1,
+        "purl": "pkg:npm/lodash@4.17.21",
+        "evidenceLevel": 1
+      }
+    ],
+    "thirdPartyCalls": [],
+    "unresolvedCalls": [
+      {
+        "symbol": "",
+        "file": "src/index.js",
+        "line": 1,
+        "importSpecifier": "lodash",
+        "importLocal": "",
+        "importLine": 1,
+        "unresolvedReason": "reexport_chain",
+        "reachability": "unknown"
+      }
+    ],
+    "excludedCalls": []
+  },
+  "reviewExpectationsAdded": "Package identity and safety assertions added after reviewer feedback; original import/call labels retain their history."
+}

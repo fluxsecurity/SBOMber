@@ -730,6 +730,7 @@ func extractSourceWithTimeout(
 	}
 
 	appendAnonymousFunctionRanges(&result, root, source)
+	appendLexicalBindings(&result, root, source)
 
 	resolveFunctionExports(&result, root, source)
 	markCopiedImports(&result, root, source)

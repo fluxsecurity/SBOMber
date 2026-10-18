@@ -1,0 +1,99 @@
+{
+  "schemaVersion": "1.4.0",
+  "scanId": "scan-test",
+  "analysis": {
+    "status": "complete",
+    "ecosystem": "npm",
+    "analyzerId": "component2-js-ts-tree-sitter"
+  },
+  "analyser": {
+    "parser": "tree-sitter",
+    "binding": "github.com/tree-sitter/go-tree-sitter",
+    "bindingVersion": "0.25.0",
+    "cgoEnabled": true,
+    "grammarVersions": {
+      "javascript": "0.25.0",
+      "typescript": "0.23.2"
+    },
+    "ecosystems": [
+      "npm"
+    ],
+    "reachabilityAnalysed": true
+  },
+  "entryPoints": [
+    {
+      "entryPointId": "ep-de4cd4d8c58686221b74575e1c320e57",
+      "kind": "exported_module",
+      "function": "run",
+      "file": "src/index.js",
+      "line": 2,
+      "repositoryId": "repo-app"
+    }
+  ],
+  "coverage": {
+    "filesDiscovered": 1,
+    "filesParsed": 1,
+    "filesParsedWithErrors": 0,
+    "filesFailed": 0,
+    "filesSkipped": 0,
+    "thirdPartyImportsResolved": 1,
+    "thirdPartyImportsTypeOnly": 0,
+    "thirdPartyImportsUnresolved": 0,
+    "thirdPartyCallSitesResolved": 1,
+    "thirdPartyCallSitesUnresolved": 0,
+    "limitsHit": [],
+    "perRepository": [
+      {
+        "repositoryId": "repo-app",
+        "filesDiscovered": 1,
+        "filesParsed": 1,
+        "filesParsedWithErrors": 0,
+        "filesFailed": 0,
+        "filesSkipped": 0
+      }
+    ],
+    "entryPointsDetected": 1,
+    "callPathsResolved": 1,
+    "callPathsUnresolved": 0
+  },
+  "observations": [
+    {
+      "observationId": "obs-8c163bd76abd25379e8c08d11788802a",
+      "occurrenceId": "occ-lodash",
+      "purl": "pkg:npm/lodash@4.17.21",
+      "importedSpecifier": "lodash",
+      "localAlias": "combine",
+      "importedSymbol": "merge",
+      "importKind": "esm_named",
+      "resolution": "resolved",
+      "location": {
+        "repositoryId": "repo-app",
+        "file": "src/index.js",
+        "line": 1,
+        "column": 18
+      },
+      "evidenceLevel": 3,
+      "callSites": [
+        {
+          "file": "src/index.js",
+          "line": 2,
+          "column": 31,
+          "calledSymbol": "merge",
+          "enclosingFunction": "run",
+          "resolution": "resolved",
+          "reachability": "reachable",
+          "entryPointId": "ep-de4cd4d8c58686221b74575e1c320e57",
+          "callPath": [
+            {
+              "function": "run",
+              "file": "src/index.js",
+              "line": 2
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "unanalysedOccurrences": [],
+  "parseFailures": []
+}

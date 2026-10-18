@@ -13,15 +13,16 @@ type SourceAnalyzer interface {
 }
 
 type Result struct {
-	Fixture            string         `json:"fixture"`
-	Language           string         `json:"language"`
-	HasError           bool           `json:"hasError"`
-	Imports            []Import       `json:"imports"`
-	Calls              []Call         `json:"calls"`
-	Functions          []Function     `json:"functions"`
-	RouteHandlers      []RouteHandler `json:"-"`
-	AnonymousFunctions []Function     `json:"-"`
-	Unresolved         []Unresolved   `json:"unresolved"`
+	LexicalBindings    []LexicalBinding `json:"-"`
+	Fixture            string           `json:"fixture"`
+	Language           string           `json:"language"`
+	HasError           bool             `json:"hasError"`
+	Imports            []Import         `json:"imports"`
+	Calls              []Call           `json:"calls"`
+	Functions          []Function       `json:"functions"`
+	RouteHandlers      []RouteHandler   `json:"-"`
+	AnonymousFunctions []Function       `json:"-"`
+	Unresolved         []Unresolved     `json:"unresolved"`
 }
 
 type Import struct {
@@ -36,6 +37,8 @@ type Import struct {
 	// InlineCalls are member calls made directly on an unbound import
 	// expression, for example require("x").merge(). Internal only.
 	InlineCalls []Call `json:"-"`
+	// BindingAssignment distinguishes x = require(...) from a new declaration.
+	BindingAssignment bool `json:"-"`
 	// UnresolvedUse names why the imported value escapes static tracking,
 	// for example a re-export or require() passed as an argument. The usage
 	// graph records one unresolved call site for it so downstream components

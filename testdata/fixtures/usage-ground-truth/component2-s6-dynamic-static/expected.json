@@ -1,0 +1,34 @@
+{
+  "fixture": "component2-s6-dynamic-static",
+  "construct": "dynamic_import",
+  "language": "javascript",
+  "variant": "static_literal",
+  "labelMethod": "source-reviewed before analyser execution",
+  "expected": {
+    "thirdPartyImports": [
+      {
+        "specifier": "lodash",
+        "imported": "*",
+        "local": "lodash",
+        "kind": "dynamic_static_literal",
+        "resolution": "resolved",
+        "file": "src/index.js",
+        "line": 2,
+        "purl": "pkg:npm/lodash@4.17.21"
+      }
+    ],
+    "thirdPartyCalls": [
+      {
+        "symbol": "merge",
+        "file": "src/index.js",
+        "line": 3,
+        "importSpecifier": "lodash",
+        "importLocal": "lodash",
+        "importLine": 2
+      }
+    ],
+    "unresolvedCalls": [],
+    "excludedCalls": []
+  },
+  "reviewExpectationsAdded": "Package identity and safety assertions added after reviewer feedback; original import/call labels retain their history."
+}
