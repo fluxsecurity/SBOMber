@@ -54,14 +54,14 @@ ok github.com/Xsamsx/SBOMber/internal/usagegraph
 `git diff --check` passed. Local Markdown links introduced by this change resolve.
 No new tests were added because the change documents existing behaviour.
 The existing full-suite results from the merged PRs are not presented as a new
-full-suite run for this documentation change. Original PR CI passed. Updated revision still needs its own remote CI run.
+full-suite run for this documentation change. GitHub CI passed on the previously reviewed `127efc5` revision. The new revision needs a fresh CI run after publication.
 
 Paired review: Bob requested changes; the corrections below address his observations. Re-review is pending.
 
 ## Corrections after Bob’s review
 
 The initial wording overstated several safety guarantees. The README now
-separates missing call observations from unresolved call paths, names the
+separates unresolved call observations from unresolved call paths, names the
 unsafe direct-dependency `app -> A -> B` case, and distinguishes internal
 skip records from the public graph’s counters. It also explains directory-name
 pruning, grammar gaps, root-only alias configuration and which computed import
@@ -71,11 +71,29 @@ runtime fixes or new accuracy measurements.
 Cross-checks: `internal/usagegraph/producer.go`, `coverage.go`,
 `observations.go`, `internal/sourceanalysis/repository.go`,
 `internal/cli/usage.go`, and `internal/vex/` decision-to-status mapping.
-A follow-up is needed for missing function-reference observations and direct
-inventory dependencies used only through dependency source. This PR does not
-claim either defect is fixed.
+PR #169 now records conservative unresolved uses for copied function references,
+so the README describes the current `outside_supported_syntax` fallback. It
+does not claim to resolve the later alias call or its path. A follow-up tracks
+that attribution work and direct inventory dependencies used only through
+dependency source. The latter can still produce a negative finding and is
+explicitly documented.
 
 Use `Refs #150` in the PR description. Final consistency review against #152
-remains outstanding, so this documentation revision should not automatically
-close #150. Previous test results establish regression status, not proof that
+remains outstanding. Issue #150 remains open until that review is complete. Previous test results establish regression status, not proof that
 all documented runtime limitations are safe.
+
+## Second review and merged runtime fixes
+
+The README is now based on main `475e129`, including PR #169. The copied-import
+row describes the unresolved use at the original import, not a resolved later
+call. Syntax-error files must be found with a linter or build, because the tool
+does not name them. Minified source is distinguished from silent directory-name
+pruning: it increments skipped coverage and makes analysis partial.
+
+The PR body uses only `Refs #150` plus plain wording about its pending #152
+check. It must contain no GitHub closing keyword for that issue. The publication
+script inspects GitHub's closing-issue references after updating the body.
+
+Local checks on this revision: whitespace and sourceanalysis/usagegraph tests.
+The main revision's test results are not presented as a fresh whole-suite run
+for these documentation changes. Remote CI is checked after publication.
