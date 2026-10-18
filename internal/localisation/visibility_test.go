@@ -206,7 +206,7 @@ func TestLocalise_FillsVisibility(t *testing.T) {
 	if !found {
 		t.Errorf("vulnerable tarball not recorded: %+v", res.Provenance.Artefacts)
 	}
-	v := VerifyDocument(Document{SchemaVersion: SchemaVersion, Results: []Result{res}})
+	v := VerifyDocument(Document{SchemaVersion: SchemaVersion, ScanID: "scan-test", Results: []Result{res}})
 	if v.Errors() != 0 {
 		t.Errorf("verification: %+v", v.Issues)
 	}
