@@ -1,0 +1,1033 @@
+[
+  {
+    "findingId": "find-001",
+    "vulnerabilityId": "CVE-2026-45822",
+    "purl": "pkg:npm/decode-uri-component@0.2.0",
+    "attempts": [
+      {
+        "method": "advisory_metadata",
+        "outcome": "empty",
+        "notes": [
+          "OSV record has no ecosystem_specific block for this npm package; no structured function field exists"
+        ]
+      },
+      {
+        "method": "patch_reference",
+        "outcome": "hit",
+        "candidates": [
+          {
+            "symbol": "parsePercentByte",
+            "modulePath": "index.js",
+            "changeKind": "modified",
+            "note": "not exported from this file; visibility unknown: parsePercentByte is not defined in index.js in the published package",
+            "evidence": [
+              "github:SamVerschueren/decode-uri-component@fa479dafeede7bedf04e5c89aa78f2a78c664005:index.js"
+            ],
+            "visibility": "unknown"
+          },
+          {
+            "symbol": "utf8SequenceLength",
+            "modulePath": "index.js",
+            "changeKind": "modified",
+            "note": "not exported from this file; visibility unknown: utf8SequenceLength is not defined in index.js in the published package",
+            "evidence": [
+              "github:SamVerschueren/decode-uri-component@fa479dafeede7bedf04e5c89aa78f2a78c664005:index.js"
+            ],
+            "visibility": "unknown"
+          },
+          {
+            "symbol": "isContinuationByte",
+            "modulePath": "index.js",
+            "changeKind": "modified",
+            "note": "not exported from this file; visibility unknown: isContinuationByte is not defined in index.js in the published package",
+            "evidence": [
+              "github:SamVerschueren/decode-uri-component@fa479dafeede7bedf04e5c89aa78f2a78c664005:index.js"
+            ],
+            "visibility": "unknown"
+          },
+          {
+            "symbol": "decode",
+            "modulePath": "index.js",
+            "changeKind": "modified",
+            "note": "not exported from this file; visibility internal via default (complete): decode is not exported from index.js",
+            "evidence": [
+              "github:SamVerschueren/decode-uri-component@fa479dafeede7bedf04e5c89aa78f2a78c664005:index.js",
+              "github:SamVerschueren/decode-uri-component@38bdbec83be3cad66e3f1691f7c57ba73306948f:index.js"
+            ],
+            "visibility": "internal",
+            "exposedVia": [
+              "default"
+            ],
+            "exposedViaSource": "export_resolution",
+            "exposedViaComplete": true
+          },
+          {
+            "symbol": "decodeUriComponent",
+            "modulePath": "index.js",
+            "changeKind": "modified",
+            "note": "exported as default; visibility unknown: decodeUriComponent is not defined in index.js in the published package",
+            "evidence": [
+              "github:SamVerschueren/decode-uri-component@fa479dafeede7bedf04e5c89aa78f2a78c664005:index.js",
+              "github:SamVerschueren/decode-uri-component@38bdbec83be3cad66e3f1691f7c57ba73306948f:index.js"
+            ],
+            "visibility": "unknown"
+          },
+          {
+            "symbol": "default",
+            "modulePath": "index.js",
+            "changeKind": "modified",
+            "note": "export alias of decodeUriComponent; visibility public: exported as default",
+            "evidence": [
+              "github:SamVerschueren/decode-uri-component@fa479dafeede7bedf04e5c89aa78f2a78c664005:index.js",
+              "github:SamVerschueren/decode-uri-component@38bdbec83be3cad66e3f1691f7c57ba73306948f:index.js"
+            ],
+            "visibility": "public"
+          },
+          {
+            "symbol": "decodeComponents",
+            "modulePath": "index.js",
+            "changeKind": "modified",
+            "note": "not exported from this file; visibility internal via default (complete): decodeComponents is not exported from index.js",
+            "evidence": [
+              "github:SamVerschueren/decode-uri-component@38bdbec83be3cad66e3f1691f7c57ba73306948f:index.js"
+            ],
+            "visibility": "internal",
+            "exposedVia": [
+              "default"
+            ],
+            "exposedViaSource": "export_resolution",
+            "exposedViaComplete": true
+          }
+        ],
+        "nonFunctionChanges": [
+          "multiMatcher (index.js)",
+          "hexPair (index.js)",
+          "singleMatcher (index.js)"
+        ],
+        "provenance": {
+          "patchCommit": "fa479dafeede7bedf04e5c89aa78f2a78c664005",
+          "patchUrl": "https://github.com/SamVerschueren/decode-uri-component/commit/fa479dafeede7bedf04e5c89aa78f2a78c664005",
+          "artefacts": [
+            {
+              "id": "github:SamVerschueren/decode-uri-component@fa479dafeede7bedf04e5c89aa78f2a78c664005:index.js",
+              "kind": "source_file",
+              "url": "https://github.com/SamVerschueren/decode-uri-component/blob/fa479dafeede7bedf04e5c89aa78f2a78c664005/index.js",
+              "sha256": "9401353df38f8010ad7035fe8d666bce6a4902bc1cff809afc4ab23fa2e0bdaa",
+              "sizeBytes": 4139,
+              "verified": true,
+              "executed": false,
+              "repo": "SamVerschueren/decode-uri-component",
+              "commit": "fa479dafeede7bedf04e5c89aa78f2a78c664005",
+              "path": "index.js",
+              "gitBlobSha": "501f80d347a4397d473dcee1d0567b6e1f694ec7"
+            },
+            {
+              "id": "github:SamVerschueren/decode-uri-component@38bdbec83be3cad66e3f1691f7c57ba73306948f:index.js",
+              "kind": "source_file",
+              "url": "https://github.com/SamVerschueren/decode-uri-component/blob/38bdbec83be3cad66e3f1691f7c57ba73306948f/index.js",
+              "sha256": "aeb110ef815ca07facb55e7accd789c7836f1e2096f2e50453944d17da11d9ea",
+              "sizeBytes": 2169,
+              "verified": true,
+              "executed": false,
+              "repo": "SamVerschueren/decode-uri-component",
+              "commit": "38bdbec83be3cad66e3f1691f7c57ba73306948f",
+              "path": "index.js",
+              "gitBlobSha": "a327d764780fbe539fe09e474f3a83b95b0d24c9"
+            }
+          ]
+        },
+        "excludedChanges": [
+          "tests"
+        ]
+      }
+    ],
+    "selected": "patch_reference"
+  },
+  {
+    "findingId": "find-002",
+    "vulnerabilityId": "CVE-2022-38900",
+    "purl": "pkg:npm/decode-uri-component@0.2.0",
+    "attempts": [
+      {
+        "method": "advisory_metadata",
+        "outcome": "empty",
+        "notes": [
+          "OSV record has no ecosystem_specific block for this npm package; no structured function field exists"
+        ]
+      },
+      {
+        "method": "patch_reference",
+        "outcome": "hit",
+        "candidates": [
+          {
+            "symbol": "decodeComponents",
+            "modulePath": "index.js",
+            "changeKind": "modified",
+            "note": "not exported from this file; visibility internal via default (complete): decodeComponents is not exported from index.js",
+            "evidence": [
+              "github:SamVerschueren/decode-uri-component@746ca5dcb6667c5d364e782d53c542830e4c10b9:index.js",
+              "github:SamVerschueren/decode-uri-component@486d7e26d3a8c0fbe860fb651fe1bc98c2f2be30:index.js"
+            ],
+            "visibility": "internal",
+            "exposedVia": [
+              "default"
+            ],
+            "exposedViaSource": "export_resolution",
+            "exposedViaComplete": true
+          },
+          {
+            "symbol": "decode",
+            "modulePath": "index.js",
+            "changeKind": "modified",
+            "note": "not exported from this file; visibility internal via default (complete): decode is not exported from index.js",
+            "evidence": [
+              "github:SamVerschueren/decode-uri-component@746ca5dcb6667c5d364e782d53c542830e4c10b9:index.js",
+              "github:SamVerschueren/decode-uri-component@486d7e26d3a8c0fbe860fb651fe1bc98c2f2be30:index.js"
+            ],
+            "visibility": "internal",
+            "exposedVia": [
+              "default"
+            ],
+            "exposedViaSource": "export_resolution",
+            "exposedViaComplete": true
+          }
+        ],
+        "provenance": {
+          "patchCommit": "746ca5dcb6667c5d364e782d53c542830e4c10b9",
+          "patchUrl": "https://github.com/SamVerschueren/decode-uri-component/commit/746ca5dcb6667c5d364e782d53c542830e4c10b9",
+          "artefacts": [
+            {
+              "id": "github:SamVerschueren/decode-uri-component@746ca5dcb6667c5d364e782d53c542830e4c10b9:index.js",
+              "kind": "source_file",
+              "url": "https://github.com/SamVerschueren/decode-uri-component/blob/746ca5dcb6667c5d364e782d53c542830e4c10b9/index.js",
+              "sha256": "6942ae205c010aa68157150e977cd5da25c2d23fed10f3141a3caef4430a8920",
+              "sizeBytes": 2240,
+              "verified": true,
+              "executed": false,
+              "repo": "SamVerschueren/decode-uri-component",
+              "commit": "746ca5dcb6667c5d364e782d53c542830e4c10b9",
+              "path": "index.js",
+              "gitBlobSha": "d33e06ecafe0e347deef2beee16041bc845dd6b3"
+            },
+            {
+              "id": "github:SamVerschueren/decode-uri-component@486d7e26d3a8c0fbe860fb651fe1bc98c2f2be30:index.js",
+              "kind": "source_file",
+              "url": "https://github.com/SamVerschueren/decode-uri-component/blob/486d7e26d3a8c0fbe860fb651fe1bc98c2f2be30/index.js",
+              "sha256": "bc55aaac76b460487e4c05583ff244bc2ae85ad99da00059cd872773c48ea902",
+              "sizeBytes": 2226,
+              "verified": true,
+              "executed": false,
+              "repo": "SamVerschueren/decode-uri-component",
+              "commit": "486d7e26d3a8c0fbe860fb651fe1bc98c2f2be30",
+              "path": "index.js",
+              "gitBlobSha": "691499b0e8c4a7ea37774ee04187cd9ab86b5bb9"
+            }
+          ]
+        },
+        "excludedChanges": [
+          "tests"
+        ]
+      }
+    ],
+    "selected": "patch_reference"
+  },
+  {
+    "findingId": "find-003",
+    "vulnerabilityId": "CVE-2020-7788",
+    "purl": "pkg:npm/ini@1.3.5",
+    "attempts": [
+      {
+        "method": "advisory_metadata",
+        "outcome": "empty",
+        "notes": [
+          "OSV record has no ecosystem_specific block for this npm package; no structured function field exists"
+        ]
+      },
+      {
+        "method": "patch_reference",
+        "outcome": "hit",
+        "candidates": [
+          {
+            "symbol": "decode",
+            "modulePath": "ini.js",
+            "changeKind": "modified",
+            "note": "exported as parse, decode; visibility public: exported as decode, parse",
+            "evidence": [
+              "github:npm/ini@56d2805e07ccd94e2ba0984ac9240ff02d44b6f1:ini.js"
+            ],
+            "visibility": "public"
+          },
+          {
+            "symbol": "parse",
+            "modulePath": "ini.js",
+            "changeKind": "modified",
+            "note": "export alias of decode; visibility public: exported as decode, parse",
+            "evidence": [
+              "github:npm/ini@56d2805e07ccd94e2ba0984ac9240ff02d44b6f1:ini.js"
+            ],
+            "visibility": "public"
+          }
+        ],
+        "provenance": {
+          "patchCommit": "56d2805e07ccd94e2ba0984ac9240ff02d44b6f1",
+          "patchUrl": "https://github.com/npm/ini/commit/56d2805e07ccd94e2ba0984ac9240ff02d44b6f1",
+          "artefacts": [
+            {
+              "id": "github:npm/ini@56d2805e07ccd94e2ba0984ac9240ff02d44b6f1:ini.js",
+              "kind": "source_file",
+              "url": "https://github.com/npm/ini/blob/56d2805e07ccd94e2ba0984ac9240ff02d44b6f1/ini.js",
+              "sha256": "5f6e318884412e3b4453595c81b9e3de34a0a1280bd88bb6e3074b3e8eb4cbc3",
+              "sizeBytes": 5000,
+              "verified": true,
+              "executed": false,
+              "repo": "npm/ini",
+              "commit": "56d2805e07ccd94e2ba0984ac9240ff02d44b6f1",
+              "path": "ini.js",
+              "gitBlobSha": "040125886aa947b45e3c3505a7fcc61c428f6710"
+            }
+          ]
+        },
+        "excludedChanges": [
+          "tests"
+        ]
+      }
+    ],
+    "selected": "patch_reference"
+  },
+  {
+    "findingId": "find-004",
+    "vulnerabilityId": "CVE-2020-28500",
+    "purl": "pkg:npm/lodash@4.17.20",
+    "attempts": [
+      {
+        "method": "advisory_metadata",
+        "outcome": "empty",
+        "notes": [
+          "OSV record has no ecosystem_specific block for this npm package; no structured function field exists"
+        ]
+      },
+      {
+        "method": "patch_reference",
+        "outcome": "hit",
+        "candidates": [
+          {
+            "symbol": "baseTrim",
+            "modulePath": "lodash.js",
+            "changeKind": "modified",
+            "note": "visibility unknown: baseTrim is not defined in lodash.js in the published package",
+            "evidence": [
+              "github:lodash/lodash@02906b8191d3c100c193fe6f7b27d1c40f200bb7:lodash.js",
+              "github:lodash/lodash@c4847ebe7d14540bb28a8b932a9ce1b9ecbfee1a:lodash.js"
+            ],
+            "visibility": "unknown"
+          },
+          {
+            "symbol": "trimmedEndIndex",
+            "modulePath": "lodash.js",
+            "changeKind": "modified",
+            "note": "visibility unknown: trimmedEndIndex is not defined in lodash.js in the published package",
+            "evidence": [
+              "github:lodash/lodash@02906b8191d3c100c193fe6f7b27d1c40f200bb7:lodash.js",
+              "github:lodash/lodash@c4847ebe7d14540bb28a8b932a9ce1b9ecbfee1a:lodash.js"
+            ],
+            "visibility": "unknown"
+          },
+          {
+            "symbol": "toNumber",
+            "modulePath": "lodash.js",
+            "changeKind": "modified",
+            "note": "nested in runInContext; visibility unknown: the exports of lodash.js could not be resolved statically: exports used outside a plain assignment at line 425",
+            "evidence": [
+              "github:lodash/lodash@02906b8191d3c100c193fe6f7b27d1c40f200bb7:lodash.js",
+              "github:lodash/lodash@ded9bc66583ed0b4e3b7dc906206d40757b4a90a:lodash.js",
+              "github:lodash/lodash@c4847ebe7d14540bb28a8b932a9ce1b9ecbfee1a:lodash.js",
+              "github:lodash/lodash@3469357cff396a26c363f8c1b5a91dde28ba4b1c:lodash.js"
+            ],
+            "visibility": "unknown"
+          },
+          {
+            "symbol": "trim",
+            "modulePath": "lodash.js",
+            "changeKind": "modified",
+            "note": "nested in runInContext; visibility unknown: the exports of lodash.js could not be resolved statically: exports used outside a plain assignment at line 425",
+            "evidence": [
+              "github:lodash/lodash@02906b8191d3c100c193fe6f7b27d1c40f200bb7:lodash.js",
+              "github:lodash/lodash@ded9bc66583ed0b4e3b7dc906206d40757b4a90a:lodash.js",
+              "github:lodash/lodash@c4847ebe7d14540bb28a8b932a9ce1b9ecbfee1a:lodash.js",
+              "github:lodash/lodash@3469357cff396a26c363f8c1b5a91dde28ba4b1c:lodash.js"
+            ],
+            "visibility": "unknown"
+          },
+          {
+            "symbol": "trimEnd",
+            "modulePath": "lodash.js",
+            "changeKind": "modified",
+            "note": "nested in runInContext; visibility unknown: the exports of lodash.js could not be resolved statically: exports used outside a plain assignment at line 425",
+            "evidence": [
+              "github:lodash/lodash@02906b8191d3c100c193fe6f7b27d1c40f200bb7:lodash.js",
+              "github:lodash/lodash@ded9bc66583ed0b4e3b7dc906206d40757b4a90a:lodash.js",
+              "github:lodash/lodash@c4847ebe7d14540bb28a8b932a9ce1b9ecbfee1a:lodash.js",
+              "github:lodash/lodash@3469357cff396a26c363f8c1b5a91dde28ba4b1c:lodash.js"
+            ],
+            "visibility": "unknown"
+          }
+        ],
+        "provenance": {
+          "patchCommit": "02906b8191d3c100c193fe6f7b27d1c40f200bb7",
+          "patchUrl": "https://github.com/lodash/lodash/commit/02906b8191d3c100c193fe6f7b27d1c40f200bb7",
+          "artefacts": [
+            {
+              "id": "github:lodash/lodash@02906b8191d3c100c193fe6f7b27d1c40f200bb7:lodash.js",
+              "kind": "source_file",
+              "url": "https://github.com/lodash/lodash/blob/02906b8191d3c100c193fe6f7b27d1c40f200bb7/lodash.js",
+              "sha256": "7d4b0e83697c9d83790c4ddea21edec1768b4436dafadbb0ad7ae8391521720c",
+              "sizeBytes": 543320,
+              "verified": true,
+              "executed": false,
+              "repo": "lodash/lodash",
+              "commit": "02906b8191d3c100c193fe6f7b27d1c40f200bb7",
+              "path": "lodash.js",
+              "gitBlobSha": "7d40df03054e2d36097cff9aed716a7e60a012c6"
+            },
+            {
+              "id": "github:lodash/lodash@ded9bc66583ed0b4e3b7dc906206d40757b4a90a:lodash.js",
+              "kind": "source_file",
+              "url": "https://github.com/lodash/lodash/blob/ded9bc66583ed0b4e3b7dc906206d40757b4a90a/lodash.js",
+              "sha256": "8f6acca8bb2e6231eba689ddc74fd017c125a9672e0e8f55786101f1927b83e7",
+              "sizeBytes": 542563,
+              "verified": true,
+              "executed": false,
+              "repo": "lodash/lodash",
+              "commit": "ded9bc66583ed0b4e3b7dc906206d40757b4a90a",
+              "path": "lodash.js",
+              "gitBlobSha": "1fd7116f426a2801ee5ac3bb3c86236c11637403"
+            },
+            {
+              "id": "github:lodash/lodash@c4847ebe7d14540bb28a8b932a9ce1b9ecbfee1a:lodash.js",
+              "kind": "source_file",
+              "url": "https://github.com/lodash/lodash/blob/c4847ebe7d14540bb28a8b932a9ce1b9ecbfee1a/lodash.js",
+              "sha256": "1f4f7883df1e1ba8f00d68f124c0c7040ca2a220320f0cc5c7754668d3e2f7a6",
+              "sizeBytes": 544098,
+              "verified": true,
+              "executed": false,
+              "repo": "lodash/lodash",
+              "commit": "c4847ebe7d14540bb28a8b932a9ce1b9ecbfee1a",
+              "path": "lodash.js",
+              "gitBlobSha": "379ce88cf086f8138e7eb01e77802c9fe23df287"
+            },
+            {
+              "id": "github:lodash/lodash@3469357cff396a26c363f8c1b5a91dde28ba4b1c:lodash.js",
+              "kind": "source_file",
+              "url": "https://github.com/lodash/lodash/blob/3469357cff396a26c363f8c1b5a91dde28ba4b1c/lodash.js",
+              "sha256": "4d69c77b216b3d8b0c4093726a8a98a8bb6bc1b4a2eae92668fb1f8581b53ffe",
+              "sizeBytes": 543341,
+              "verified": true,
+              "executed": false,
+              "repo": "lodash/lodash",
+              "commit": "3469357cff396a26c363f8c1b5a91dde28ba4b1c",
+              "path": "lodash.js",
+              "gitBlobSha": "278c70204300930b7c60e153d346d44461188003"
+            }
+          ]
+        },
+        "excludedChanges": [
+          "tests"
+        ],
+        "notes": [
+          "pull request github/advisory-database#6139 resolved to 1 commit(s)",
+          "pull request lodash/lodash#5065 resolved to 1 commit(s)",
+          "commit 62db8dfda1 changes no source code (release or docs commit)",
+          "lodash.js: 2 changed line(s) at module level outside any function",
+          "lodash.js: 3 changed line(s) at module level outside any function",
+          "lodash.js: 2 changed line(s) at module level outside any function",
+          "lodash.js: 3 changed line(s) at module level outside any function",
+          "2 commits attributed and merged: lodash/lodash@02906b8191, lodash/lodash@c4847ebe7d"
+        ]
+      }
+    ],
+    "selected": "patch_reference"
+  },
+  {
+    "findingId": "find-005",
+    "vulnerabilityId": "CVE-2021-23337",
+    "purl": "pkg:npm/lodash@4.17.20",
+    "attempts": [
+      {
+        "method": "advisory_metadata",
+        "outcome": "empty",
+        "notes": [
+          "OSV record has no ecosystem_specific block for this npm package; no structured function field exists"
+        ]
+      },
+      {
+        "method": "patch_reference",
+        "outcome": "hit",
+        "candidates": [
+          {
+            "symbol": "template",
+            "modulePath": "lodash.js",
+            "changeKind": "modified",
+            "note": "nested in runInContext; visibility unknown: the exports of lodash.js could not be resolved statically: exports used outside a plain assignment at line 425",
+            "evidence": [
+              "github:lodash/lodash@3469357cff396a26c363f8c1b5a91dde28ba4b1c:lodash.js"
+            ],
+            "visibility": "unknown"
+          }
+        ],
+        "provenance": {
+          "patchCommit": "3469357cff396a26c363f8c1b5a91dde28ba4b1c",
+          "patchUrl": "https://github.com/lodash/lodash/commit/3469357cff396a26c363f8c1b5a91dde28ba4b1c",
+          "artefacts": [
+            {
+              "id": "github:lodash/lodash@3469357cff396a26c363f8c1b5a91dde28ba4b1c:lodash.js",
+              "kind": "source_file",
+              "url": "https://github.com/lodash/lodash/blob/3469357cff396a26c363f8c1b5a91dde28ba4b1c/lodash.js",
+              "sha256": "4d69c77b216b3d8b0c4093726a8a98a8bb6bc1b4a2eae92668fb1f8581b53ffe",
+              "sizeBytes": 543341,
+              "verified": true,
+              "executed": false,
+              "repo": "lodash/lodash",
+              "commit": "3469357cff396a26c363f8c1b5a91dde28ba4b1c",
+              "path": "lodash.js",
+              "gitBlobSha": "278c70204300930b7c60e153d346d44461188003"
+            },
+            {
+              "id": "github:lodash/lodash@ded9bc66583ed0b4e3b7dc906206d40757b4a90a:lodash.js",
+              "kind": "source_file",
+              "url": "https://github.com/lodash/lodash/blob/ded9bc66583ed0b4e3b7dc906206d40757b4a90a/lodash.js",
+              "sha256": "8f6acca8bb2e6231eba689ddc74fd017c125a9672e0e8f55786101f1927b83e7",
+              "sizeBytes": 542563,
+              "verified": true,
+              "executed": false,
+              "repo": "lodash/lodash",
+              "commit": "ded9bc66583ed0b4e3b7dc906206d40757b4a90a",
+              "path": "lodash.js",
+              "gitBlobSha": "1fd7116f426a2801ee5ac3bb3c86236c11637403"
+            }
+          ]
+        },
+        "excludedChanges": [
+          "tests"
+        ],
+        "notes": [
+          "lodash.js: 3 changed line(s) at module level outside any function",
+          "lodash.js: 1 changed line(s) at module level outside any function"
+        ]
+      }
+    ],
+    "selected": "patch_reference"
+  },
+  {
+    "findingId": "find-006",
+    "vulnerabilityId": "CVE-2026-2950",
+    "purl": "pkg:npm/lodash@4.17.20",
+    "attempts": [
+      {
+        "method": "advisory_metadata",
+        "outcome": "empty",
+        "notes": [
+          "OSV record has no ecosystem_specific block for this npm package; no structured function field exists"
+        ]
+      },
+      {
+        "method": "patch_reference",
+        "outcome": "empty",
+        "notes": [
+          "advisory links no commit or pull request"
+        ]
+      },
+      {
+        "method": "advisory_text",
+        "outcome": "hit",
+        "candidates": [
+          {
+            "symbol": "omit",
+            "note": "named in advisory text",
+            "evidence": [
+              "advisory"
+            ]
+          },
+          {
+            "symbol": "unset",
+            "note": "named in advisory text",
+            "evidence": [
+              "advisory"
+            ]
+          }
+        ]
+      }
+    ],
+    "selected": "advisory_text"
+  },
+  {
+    "findingId": "find-007",
+    "vulnerabilityId": "CVE-2026-4800",
+    "purl": "pkg:npm/lodash@4.17.20",
+    "attempts": [
+      {
+        "method": "advisory_metadata",
+        "outcome": "empty",
+        "notes": [
+          "OSV record has no ecosystem_specific block for this npm package; no structured function field exists"
+        ]
+      },
+      {
+        "method": "patch_reference",
+        "outcome": "hit",
+        "candidates": [
+          {
+            "symbol": "template",
+            "modulePath": "lodash.js",
+            "changeKind": "modified",
+            "note": "nested in runInContext; visibility unknown: the exports of lodash.js could not be resolved statically: exports used outside a plain assignment at line 425",
+            "evidence": [
+              "github:lodash/lodash@3469357cff396a26c363f8c1b5a91dde28ba4b1c:lodash.js"
+            ],
+            "visibility": "unknown"
+          }
+        ],
+        "provenance": {
+          "patchCommit": "3469357cff396a26c363f8c1b5a91dde28ba4b1c",
+          "patchUrl": "https://github.com/lodash/lodash/commit/3469357cff396a26c363f8c1b5a91dde28ba4b1c",
+          "artefacts": [
+            {
+              "id": "github:lodash/lodash@3469357cff396a26c363f8c1b5a91dde28ba4b1c:lodash.js",
+              "kind": "source_file",
+              "url": "https://github.com/lodash/lodash/blob/3469357cff396a26c363f8c1b5a91dde28ba4b1c/lodash.js",
+              "sha256": "4d69c77b216b3d8b0c4093726a8a98a8bb6bc1b4a2eae92668fb1f8581b53ffe",
+              "sizeBytes": 543341,
+              "verified": true,
+              "executed": false,
+              "repo": "lodash/lodash",
+              "commit": "3469357cff396a26c363f8c1b5a91dde28ba4b1c",
+              "path": "lodash.js",
+              "gitBlobSha": "278c70204300930b7c60e153d346d44461188003"
+            },
+            {
+              "id": "github:lodash/lodash@ded9bc66583ed0b4e3b7dc906206d40757b4a90a:lodash.js",
+              "kind": "source_file",
+              "url": "https://github.com/lodash/lodash/blob/ded9bc66583ed0b4e3b7dc906206d40757b4a90a/lodash.js",
+              "sha256": "8f6acca8bb2e6231eba689ddc74fd017c125a9672e0e8f55786101f1927b83e7",
+              "sizeBytes": 542563,
+              "verified": true,
+              "executed": false,
+              "repo": "lodash/lodash",
+              "commit": "ded9bc66583ed0b4e3b7dc906206d40757b4a90a",
+              "path": "lodash.js",
+              "gitBlobSha": "1fd7116f426a2801ee5ac3bb3c86236c11637403"
+            }
+          ]
+        },
+        "excludedChanges": [
+          "tests"
+        ],
+        "notes": [
+          "lodash.js: 3 changed line(s) at module level outside any function",
+          "lodash.js: 1 changed line(s) at module level outside any function"
+        ]
+      }
+    ],
+    "selected": "patch_reference"
+  },
+  {
+    "findingId": "find-008",
+    "vulnerabilityId": "CVE-2025-13465",
+    "purl": "pkg:npm/lodash@4.17.20",
+    "attempts": [
+      {
+        "method": "advisory_metadata",
+        "outcome": "empty",
+        "notes": [
+          "OSV record has no ecosystem_specific block for this npm package; no structured function field exists"
+        ]
+      },
+      {
+        "method": "patch_reference",
+        "outcome": "hit",
+        "candidates": [
+          {
+            "symbol": "baseUnset",
+            "modulePath": "dist/lodash.js",
+            "changeKind": "modified",
+            "note": "nested in runInContext; visibility unknown: dist/lodash.js is not in the published vulnerable package",
+            "evidence": [
+              "github:lodash/lodash@edadd452146f7e4bad4ea684e955708931d84d81:dist/lodash.js",
+              "github:lodash/lodash@4879a7a7d0a4494b0e83c7fa21bcc9fc6e7f1a6d:dist/lodash.js"
+            ],
+            "visibility": "unknown"
+          },
+          {
+            "symbol": "baseUnset",
+            "modulePath": "lodash.js",
+            "changeKind": "modified",
+            "note": "nested in runInContext; visibility unknown: the exports of lodash.js could not be resolved statically: exports used outside a plain assignment at line 425",
+            "evidence": [
+              "github:lodash/lodash@edadd452146f7e4bad4ea684e955708931d84d81:lodash.js",
+              "github:lodash/lodash@4879a7a7d0a4494b0e83c7fa21bcc9fc6e7f1a6d:lodash.js"
+            ],
+            "visibility": "unknown"
+          }
+        ],
+        "provenance": {
+          "patchCommit": "edadd452146f7e4bad4ea684e955708931d84d81",
+          "patchUrl": "https://github.com/lodash/lodash/commit/edadd452146f7e4bad4ea684e955708931d84d81",
+          "artefacts": [
+            {
+              "id": "github:lodash/lodash@edadd452146f7e4bad4ea684e955708931d84d81:dist/lodash.js",
+              "kind": "source_file",
+              "url": "https://github.com/lodash/lodash/blob/edadd452146f7e4bad4ea684e955708931d84d81/dist/lodash.js",
+              "sha256": "9f7a41be4d51b2ac65b6af8a373d361a89a2f427ca804ff37e3abffaf27964fa",
+              "sizeBytes": 545267,
+              "verified": true,
+              "executed": false,
+              "repo": "lodash/lodash",
+              "commit": "edadd452146f7e4bad4ea684e955708931d84d81",
+              "path": "dist/lodash.js",
+              "gitBlobSha": "900cedf3dca63775be5c659da2d68fd0672211ef"
+            },
+            {
+              "id": "github:lodash/lodash@4879a7a7d0a4494b0e83c7fa21bcc9fc6e7f1a6d:dist/lodash.js",
+              "kind": "source_file",
+              "url": "https://github.com/lodash/lodash/blob/4879a7a7d0a4494b0e83c7fa21bcc9fc6e7f1a6d/dist/lodash.js",
+              "sha256": "7f32cce4240f4a6c77fcda10fc3afee527412298a6dc7b81761b4f08f9343cc1",
+              "sizeBytes": 544099,
+              "verified": true,
+              "executed": false,
+              "repo": "lodash/lodash",
+              "commit": "4879a7a7d0a4494b0e83c7fa21bcc9fc6e7f1a6d",
+              "path": "dist/lodash.js",
+              "gitBlobSha": "1d232ac5ef413587b1aefd75f5a6e6c25324a9b4"
+            },
+            {
+              "id": "github:lodash/lodash@edadd452146f7e4bad4ea684e955708931d84d81:dist/lodash.min.js",
+              "kind": "source_file",
+              "url": "https://github.com/lodash/lodash/blob/edadd452146f7e4bad4ea684e955708931d84d81/dist/lodash.min.js",
+              "sha256": "0456d4c756118c4fe72e7b9e444e2b92efac04d34c442c8234b2d3af62f15197",
+              "sizeBytes": 73320,
+              "verified": true,
+              "executed": false,
+              "repo": "lodash/lodash",
+              "commit": "edadd452146f7e4bad4ea684e955708931d84d81",
+              "path": "dist/lodash.min.js",
+              "gitBlobSha": "843a20ddd8ade7e6606234521e50ea86580286de"
+            },
+            {
+              "id": "github:lodash/lodash@4879a7a7d0a4494b0e83c7fa21bcc9fc6e7f1a6d:dist/lodash.min.js",
+              "kind": "source_file",
+              "url": "https://github.com/lodash/lodash/blob/4879a7a7d0a4494b0e83c7fa21bcc9fc6e7f1a6d/dist/lodash.min.js",
+              "sha256": "a9705dfc47c0763380d851ab1801be6f76019f6b67e40e9b873f8b4a0603f7a9",
+              "sizeBytes": 73015,
+              "verified": true,
+              "executed": false,
+              "repo": "lodash/lodash",
+              "commit": "4879a7a7d0a4494b0e83c7fa21bcc9fc6e7f1a6d",
+              "path": "dist/lodash.min.js",
+              "gitBlobSha": "4219da738cbb17f96c30aeac5885ebef94ced1e4"
+            },
+            {
+              "id": "github:lodash/lodash@edadd452146f7e4bad4ea684e955708931d84d81:lodash.js",
+              "kind": "source_file",
+              "url": "https://github.com/lodash/lodash/blob/edadd452146f7e4bad4ea684e955708931d84d81/lodash.js",
+              "sha256": "9f7a41be4d51b2ac65b6af8a373d361a89a2f427ca804ff37e3abffaf27964fa",
+              "sizeBytes": 545267,
+              "verified": true,
+              "executed": false,
+              "repo": "lodash/lodash",
+              "commit": "edadd452146f7e4bad4ea684e955708931d84d81",
+              "path": "lodash.js",
+              "gitBlobSha": "900cedf3dca63775be5c659da2d68fd0672211ef"
+            },
+            {
+              "id": "github:lodash/lodash@4879a7a7d0a4494b0e83c7fa21bcc9fc6e7f1a6d:lodash.js",
+              "kind": "source_file",
+              "url": "https://github.com/lodash/lodash/blob/4879a7a7d0a4494b0e83c7fa21bcc9fc6e7f1a6d/lodash.js",
+              "sha256": "7f32cce4240f4a6c77fcda10fc3afee527412298a6dc7b81761b4f08f9343cc1",
+              "sizeBytes": 544099,
+              "verified": true,
+              "executed": false,
+              "repo": "lodash/lodash",
+              "commit": "4879a7a7d0a4494b0e83c7fa21bcc9fc6e7f1a6d",
+              "path": "lodash.js",
+              "gitBlobSha": "1d232ac5ef413587b1aefd75f5a6e6c25324a9b4"
+            }
+          ]
+        },
+        "excludedChanges": [
+          "tests"
+        ],
+        "notes": [
+          "dist/lodash.min.js: minified, not attributed",
+          "dist/lodash.min.js: minified, not attributed"
+        ]
+      }
+    ],
+    "selected": "patch_reference"
+  },
+  {
+    "findingId": "find-009",
+    "vulnerabilityId": "CVE-2020-7598",
+    "purl": "pkg:npm/minimist@1.2.2",
+    "attempts": [
+      {
+        "method": "advisory_metadata",
+        "outcome": "empty",
+        "notes": [
+          "OSV record has no ecosystem_specific block for this npm package; no structured function field exists"
+        ]
+      },
+      {
+        "method": "patch_reference",
+        "outcome": "hit",
+        "candidates": [
+          {
+            "symbol": "setKey",
+            "modulePath": "index.js",
+            "changeKind": "modified",
+            "note": "not exported from this file; visibility internal via default (complete)",
+            "evidence": [
+              "github:minimistjs/minimist@10bd4cdf49d9686d48214be9d579a9cdfda37c68:index.js",
+              "github:minimistjs/minimist@f904dcc3c28f10eb11840091e9f0bab9d9519b5c:index.js",
+              "github:minimistjs/minimist@38a4d1caead72ef99e824bb420a2528eec03d9ab:index.js",
+              "github:minimistjs/minimist@13c01a5327736903704984b7f65616b8476850cc:index.js",
+              "github:minimistjs/minimist@63e7ed05aa4b1889ec2f3b196426db4500cbda94:index.js"
+            ],
+            "visibility": "internal",
+            "exposedVia": [
+              "default"
+            ],
+            "exposedViaSource": "export_resolution",
+            "exposedViaComplete": true
+          }
+        ],
+        "provenance": {
+          "patchCommit": "10bd4cdf49d9686d48214be9d579a9cdfda37c68",
+          "patchUrl": "https://github.com/minimistjs/minimist/commit/10bd4cdf49d9686d48214be9d579a9cdfda37c68",
+          "artefacts": [
+            {
+              "id": "github:minimistjs/minimist@10bd4cdf49d9686d48214be9d579a9cdfda37c68:index.js",
+              "kind": "source_file",
+              "url": "https://github.com/minimistjs/minimist/blob/10bd4cdf49d9686d48214be9d579a9cdfda37c68/index.js",
+              "sha256": "892f88a9c5fae0f6352bcef677131c31a62e978c62f36b7491230919f88fd90b",
+              "sizeBytes": 6312,
+              "verified": true,
+              "executed": false,
+              "repo": "minimistjs/minimist",
+              "commit": "10bd4cdf49d9686d48214be9d579a9cdfda37c68",
+              "path": "index.js",
+              "gitBlobSha": "6e821754dc745e6aae0ff201c0a9fc7833981354"
+            },
+            {
+              "id": "github:minimistjs/minimist@f904dcc3c28f10eb11840091e9f0bab9d9519b5c:index.js",
+              "kind": "source_file",
+              "url": "https://github.com/minimistjs/minimist/blob/f904dcc3c28f10eb11840091e9f0bab9d9519b5c/index.js",
+              "sha256": "d23c796f60df05d14149d54777841ec5bbc16e097beb8b6bf49e0c630b3d30e1",
+              "sizeBytes": 5893,
+              "verified": true,
+              "executed": false,
+              "repo": "minimistjs/minimist",
+              "commit": "f904dcc3c28f10eb11840091e9f0bab9d9519b5c",
+              "path": "index.js",
+              "gitBlobSha": "9549c96fbda2b075c1fea38206a236eb8f1d5b82"
+            },
+            {
+              "id": "github:minimistjs/minimist@38a4d1caead72ef99e824bb420a2528eec03d9ab:index.js",
+              "kind": "source_file",
+              "url": "https://github.com/minimistjs/minimist/blob/38a4d1caead72ef99e824bb420a2528eec03d9ab/index.js",
+              "sha256": "0feebc85297a35829a4a3a6c5346ddcca582052e5ebf0d33bd024abe8cd5245b",
+              "sizeBytes": 7652,
+              "verified": true,
+              "executed": false,
+              "repo": "minimistjs/minimist",
+              "commit": "38a4d1caead72ef99e824bb420a2528eec03d9ab",
+              "path": "index.js",
+              "gitBlobSha": "d2afe5e4d4056ef41caa575f4c21a3866b72473f"
+            },
+            {
+              "id": "github:minimistjs/minimist@13c01a5327736903704984b7f65616b8476850cc:index.js",
+              "kind": "source_file",
+              "url": "https://github.com/minimistjs/minimist/blob/13c01a5327736903704984b7f65616b8476850cc/index.js",
+              "sha256": "020486bfa3e79064638a7197e8f4b6de1968ef9a895bb5620c3ffb3bbd6ada62",
+              "sizeBytes": 7247,
+              "verified": true,
+              "executed": false,
+              "repo": "minimistjs/minimist",
+              "commit": "13c01a5327736903704984b7f65616b8476850cc",
+              "path": "index.js",
+              "gitBlobSha": "3b13f44c064b2dacd7e66de0ab55d09a57c483f3"
+            },
+            {
+              "id": "github:minimistjs/minimist@63e7ed05aa4b1889ec2f3b196426db4500cbda94:index.js",
+              "kind": "source_file",
+              "url": "https://github.com/minimistjs/minimist/blob/63e7ed05aa4b1889ec2f3b196426db4500cbda94/index.js",
+              "sha256": "020486bfa3e79064638a7197e8f4b6de1968ef9a895bb5620c3ffb3bbd6ada62",
+              "sizeBytes": 7247,
+              "verified": true,
+              "executed": false,
+              "repo": "minimistjs/minimist",
+              "commit": "63e7ed05aa4b1889ec2f3b196426db4500cbda94",
+              "path": "index.js",
+              "gitBlobSha": "3b13f44c064b2dacd7e66de0ab55d09a57c483f3"
+            }
+          ]
+        },
+        "excludedChanges": [
+          "build",
+          "docs",
+          "tests"
+        ],
+        "notes": [
+          "commit 4cf1354839 changes no source code (release or docs commit)",
+          "3 commits attributed and merged: minimistjs/minimist@10bd4cdf49, minimistjs/minimist@38a4d1caea, minimistjs/minimist@63e7ed05aa"
+        ]
+      }
+    ],
+    "selected": "patch_reference"
+  },
+  {
+    "findingId": "find-010",
+    "vulnerabilityId": "CVE-2021-44906",
+    "purl": "pkg:npm/minimist@1.2.2",
+    "attempts": [
+      {
+        "method": "advisory_metadata",
+        "outcome": "empty",
+        "notes": [
+          "OSV record has no ecosystem_specific block for this npm package; no structured function field exists"
+        ]
+      },
+      {
+        "method": "patch_reference",
+        "outcome": "hit",
+        "candidates": [
+          {
+            "symbol": "isConstructorOrProto",
+            "modulePath": "index.js",
+            "changeKind": "modified",
+            "note": "not exported from this file; visibility unknown: isConstructorOrProto is not defined in index.js in the published package",
+            "evidence": [
+              "github:minimistjs/minimist@34e20b8461118608703d6485326abbb8e35e1703:index.js",
+              "github:minimistjs/minimist@c0b26618322e94adea26c68e613ef0be482c6c63:index.js",
+              "github:minimistjs/minimist@c2b981977fa834b223b408cfb860f933c9811e4d:index.js",
+              "github:minimistjs/minimist@ef9153fc52b6cea0744b2239921c5dcae4697f11:index.js"
+            ],
+            "visibility": "unknown"
+          },
+          {
+            "symbol": "setKey",
+            "modulePath": "index.js",
+            "changeKind": "modified",
+            "note": "not exported from this file; visibility internal via default (complete)",
+            "evidence": [
+              "github:minimistjs/minimist@34e20b8461118608703d6485326abbb8e35e1703:index.js",
+              "github:minimistjs/minimist@c0b26618322e94adea26c68e613ef0be482c6c63:index.js",
+              "github:minimistjs/minimist@c2b981977fa834b223b408cfb860f933c9811e4d:index.js",
+              "github:minimistjs/minimist@bc8ecee43875261f4f17eb20b1243d3ed15e70eb:index.js",
+              "github:minimistjs/minimist@ef9153fc52b6cea0744b2239921c5dcae4697f11:index.js",
+              "github:minimistjs/minimist@36ac5d0d95e4947d074e5737d94814034ca335d1:index.js"
+            ],
+            "visibility": "internal",
+            "exposedVia": [
+              "default"
+            ],
+            "exposedViaSource": "export_resolution",
+            "exposedViaComplete": true
+          }
+        ],
+        "provenance": {
+          "patchCommit": "34e20b8461118608703d6485326abbb8e35e1703",
+          "patchUrl": "https://github.com/minimistjs/minimist/commit/34e20b8461118608703d6485326abbb8e35e1703",
+          "artefacts": [
+            {
+              "id": "github:minimistjs/minimist@34e20b8461118608703d6485326abbb8e35e1703:index.js",
+              "kind": "source_file",
+              "url": "https://github.com/minimistjs/minimist/blob/34e20b8461118608703d6485326abbb8e35e1703/index.js",
+              "sha256": "bc55a828c1ebc7eb65e74f0b1e9735df9ef51bb5c242889a93e9876d14819a9d",
+              "sizeBytes": 5163,
+              "verified": true,
+              "executed": false,
+              "repo": "minimistjs/minimist",
+              "commit": "34e20b8461118608703d6485326abbb8e35e1703",
+              "path": "index.js",
+              "gitBlobSha": "2d3c9897f4c8ee115158c17462a3c08f1d30f508"
+            },
+            {
+              "id": "github:minimistjs/minimist@c0b26618322e94adea26c68e613ef0be482c6c63:index.js",
+              "kind": "source_file",
+              "url": "https://github.com/minimistjs/minimist/blob/c0b26618322e94adea26c68e613ef0be482c6c63/index.js",
+              "sha256": "a181a9ea6b076a2e585bc7855fa7b6377edd4c71683c8c82326223dc13d5c20e",
+              "sizeBytes": 5177,
+              "verified": true,
+              "executed": false,
+              "repo": "minimistjs/minimist",
+              "commit": "c0b26618322e94adea26c68e613ef0be482c6c63",
+              "path": "index.js",
+              "gitBlobSha": "e6dba60b95919197da1a7fa464e9f8c5ebd20c6a"
+            },
+            {
+              "id": "github:minimistjs/minimist@c2b981977fa834b223b408cfb860f933c9811e4d:index.js",
+              "kind": "source_file",
+              "url": "https://github.com/minimistjs/minimist/blob/c2b981977fa834b223b408cfb860f933c9811e4d/index.js",
+              "sha256": "48ab32c4ba79cde9a1b1236437942567f97b8eac7ce17013b83b548c620db652",
+              "sizeBytes": 7807,
+              "verified": true,
+              "executed": false,
+              "repo": "minimistjs/minimist",
+              "commit": "c2b981977fa834b223b408cfb860f933c9811e4d",
+              "path": "index.js",
+              "gitBlobSha": "d9c3eb79f237a34fb0adc9b6ae3c00d004848e6e"
+            },
+            {
+              "id": "github:minimistjs/minimist@bc8ecee43875261f4f17eb20b1243d3ed15e70eb:index.js",
+              "kind": "source_file",
+              "url": "https://github.com/minimistjs/minimist/blob/bc8ecee43875261f4f17eb20b1243d3ed15e70eb/index.js",
+              "sha256": "0feebc85297a35829a4a3a6c5346ddcca582052e5ebf0d33bd024abe8cd5245b",
+              "sizeBytes": 7652,
+              "verified": true,
+              "executed": false,
+              "repo": "minimistjs/minimist",
+              "commit": "bc8ecee43875261f4f17eb20b1243d3ed15e70eb",
+              "path": "index.js",
+              "gitBlobSha": "d2afe5e4d4056ef41caa575f4c21a3866b72473f"
+            },
+            {
+              "id": "github:minimistjs/minimist@ef9153fc52b6cea0744b2239921c5dcae4697f11:index.js",
+              "kind": "source_file",
+              "url": "https://github.com/minimistjs/minimist/blob/ef9153fc52b6cea0744b2239921c5dcae4697f11/index.js",
+              "sha256": "3b001fa4c73e2624d39d8487cd7f5c5adca69550dadd5dfffd77b69a8e4e3a85",
+              "sizeBytes": 5153,
+              "verified": true,
+              "executed": false,
+              "repo": "minimistjs/minimist",
+              "commit": "ef9153fc52b6cea0744b2239921c5dcae4697f11",
+              "path": "index.js",
+              "gitBlobSha": "e836daf678f53d7e2b13914cbc399bc170787929"
+            },
+            {
+              "id": "github:minimistjs/minimist@36ac5d0d95e4947d074e5737d94814034ca335d1:index.js",
+              "kind": "source_file",
+              "url": "https://github.com/minimistjs/minimist/blob/36ac5d0d95e4947d074e5737d94814034ca335d1/index.js",
+              "sha256": "fec55ddd1068291928e86158dd68ee5cd75bedf136de93468ad78d696a70aae9",
+              "sizeBytes": 4981,
+              "verified": true,
+              "executed": false,
+              "repo": "minimistjs/minimist",
+              "commit": "36ac5d0d95e4947d074e5737d94814034ca335d1",
+              "path": "index.js",
+              "gitBlobSha": "75662eea1d1c112eea61c70feeb499d4ad62d620"
+            }
+          ]
+        },
+        "excludedChanges": [
+          "tests"
+        ],
+        "notes": [
+          "pull request minimistjs/minimist#24 resolved to 2 commit(s)",
+          "commit bc8ecee438 changes no source code (release or docs commit)",
+          "commit 3dbebff0f4 changes no source code (release or docs commit)",
+          "3 commits attributed and merged: minimistjs/minimist@34e20b8461, minimistjs/minimist@c2b981977f, minimistjs/minimist@ef9153fc52"
+        ]
+      }
+    ],
+    "selected": "patch_reference"
+  }
+]

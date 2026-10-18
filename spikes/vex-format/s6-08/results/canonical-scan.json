@@ -1,0 +1,293 @@
+{
+  "schemaVersion": "1.0.0",
+  "scan": {
+    "scanId": "scan-s6-08-demo-app",
+    "startedAt": "2026-10-18T09:31:35Z",
+    "completedAt": "2026-10-18T09:31:35Z",
+    "toolVersions": {
+      "grype": "0.112.0",
+      "bridge": "spikes/vex-format/s6-08/build_canonical_scan.py"
+    },
+    "status": "complete",
+    "statusDetail": {
+      "skippedFiles": [],
+      "failedFiles": [],
+      "truncatedTree": false,
+      "limitsHit": []
+    },
+    "repositories": [
+      {
+        "repositoryId": "repo-demo-app",
+        "path": "demo-app",
+        "source": "local"
+      }
+    ],
+    "enrichment": [
+      {
+        "source": "epss",
+        "status": "skipped",
+        "detail": "not run by the S6-08 bridge; Component 1 enriches"
+      },
+      {
+        "source": "cisa_kev",
+        "status": "skipped",
+        "detail": "not run by the S6-08 bridge; Component 1 enriches"
+      },
+      {
+        "source": "registry",
+        "status": "skipped",
+        "detail": "not run by the S6-08 bridge; Component 1 enriches"
+      },
+      {
+        "source": "malware",
+        "status": "skipped",
+        "detail": "not run by the S6-08 bridge; Component 1 enriches"
+      }
+    ]
+  },
+  "components": [
+    {
+      "purl": "pkg:npm/decode-uri-component@0.2.0",
+      "ecosystem": "npm",
+      "name": "decode-uri-component",
+      "version": "0.2.0",
+      "versionKnown": true
+    },
+    {
+      "purl": "pkg:npm/ini@1.3.5",
+      "ecosystem": "npm",
+      "name": "ini",
+      "version": "1.3.5",
+      "versionKnown": true
+    },
+    {
+      "purl": "pkg:npm/lodash@4.17.20",
+      "ecosystem": "npm",
+      "name": "lodash",
+      "version": "4.17.20",
+      "versionKnown": true
+    },
+    {
+      "purl": "pkg:npm/minimist@1.2.2",
+      "ecosystem": "npm",
+      "name": "minimist",
+      "version": "1.2.2",
+      "versionKnown": true
+    }
+  ],
+  "occurrences": [
+    {
+      "occurrenceId": "occ-001",
+      "purl": "pkg:npm/decode-uri-component@0.2.0",
+      "repositoryId": "repo-demo-app",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/decode-uri-component",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-002",
+      "purl": "pkg:npm/ini@1.3.5",
+      "repositoryId": "repo-demo-app",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/ini",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-003",
+      "purl": "pkg:npm/lodash@4.17.20",
+      "repositoryId": "repo-demo-app",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/lodash",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-004",
+      "purl": "pkg:npm/minimist@1.2.2",
+      "repositoryId": "repo-demo-app",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/minimist",
+      "scope": "runtime"
+    }
+  ],
+  "findings": [
+    {
+      "findingId": "find-001",
+      "vulnerabilityId": "CVE-2026-45822",
+      "aliases": [
+        "GHSA-vcc3-ghjq-m6fr"
+      ],
+      "purl": "pkg:npm/decode-uri-component@0.2.0",
+      "occurrenceIds": [
+        "occ-001"
+      ],
+      "severity": "medium",
+      "provenance": {
+        "scanner": "grype",
+        "scannerVersion": "0.112.0"
+      },
+      "fixedVersion": "0.5.0"
+    },
+    {
+      "findingId": "find-002",
+      "vulnerabilityId": "CVE-2022-38900",
+      "aliases": [
+        "GHSA-w573-4hg7-7wgq"
+      ],
+      "purl": "pkg:npm/decode-uri-component@0.2.0",
+      "occurrenceIds": [
+        "occ-001"
+      ],
+      "severity": "high",
+      "provenance": {
+        "scanner": "grype",
+        "scannerVersion": "0.112.0"
+      },
+      "fixedVersion": "0.2.1"
+    },
+    {
+      "findingId": "find-003",
+      "vulnerabilityId": "CVE-2020-7788",
+      "aliases": [
+        "GHSA-qqgx-2p2h-9c37"
+      ],
+      "purl": "pkg:npm/ini@1.3.5",
+      "occurrenceIds": [
+        "occ-002"
+      ],
+      "severity": "high",
+      "provenance": {
+        "scanner": "grype",
+        "scannerVersion": "0.112.0"
+      },
+      "fixedVersion": "1.3.6"
+    },
+    {
+      "findingId": "find-004",
+      "vulnerabilityId": "CVE-2020-28500",
+      "aliases": [
+        "GHSA-29mw-wpgm-hmr9"
+      ],
+      "purl": "pkg:npm/lodash@4.17.20",
+      "occurrenceIds": [
+        "occ-003"
+      ],
+      "severity": "medium",
+      "provenance": {
+        "scanner": "grype",
+        "scannerVersion": "0.112.0"
+      },
+      "fixedVersion": "4.17.21"
+    },
+    {
+      "findingId": "find-005",
+      "vulnerabilityId": "CVE-2021-23337",
+      "aliases": [
+        "GHSA-35jh-r3h4-6jhm"
+      ],
+      "purl": "pkg:npm/lodash@4.17.20",
+      "occurrenceIds": [
+        "occ-003"
+      ],
+      "severity": "high",
+      "provenance": {
+        "scanner": "grype",
+        "scannerVersion": "0.112.0"
+      },
+      "fixedVersion": "4.17.21"
+    },
+    {
+      "findingId": "find-006",
+      "vulnerabilityId": "CVE-2026-2950",
+      "aliases": [
+        "GHSA-f23m-r3pf-42rh"
+      ],
+      "purl": "pkg:npm/lodash@4.17.20",
+      "occurrenceIds": [
+        "occ-003"
+      ],
+      "severity": "medium",
+      "provenance": {
+        "scanner": "grype",
+        "scannerVersion": "0.112.0"
+      },
+      "fixedVersion": "4.18.0"
+    },
+    {
+      "findingId": "find-007",
+      "vulnerabilityId": "CVE-2026-4800",
+      "aliases": [
+        "GHSA-r5fr-rjxr-66jc"
+      ],
+      "purl": "pkg:npm/lodash@4.17.20",
+      "occurrenceIds": [
+        "occ-003"
+      ],
+      "severity": "high",
+      "provenance": {
+        "scanner": "grype",
+        "scannerVersion": "0.112.0"
+      },
+      "fixedVersion": "4.18.0"
+    },
+    {
+      "findingId": "find-008",
+      "vulnerabilityId": "CVE-2025-13465",
+      "aliases": [
+        "GHSA-xxjr-mmjv-4gpg"
+      ],
+      "purl": "pkg:npm/lodash@4.17.20",
+      "occurrenceIds": [
+        "occ-003"
+      ],
+      "severity": "medium",
+      "provenance": {
+        "scanner": "grype",
+        "scannerVersion": "0.112.0"
+      },
+      "fixedVersion": "4.17.23"
+    },
+    {
+      "findingId": "find-009",
+      "vulnerabilityId": "CVE-2020-7598",
+      "aliases": [
+        "GHSA-vh95-rmgr-6w4m"
+      ],
+      "purl": "pkg:npm/minimist@1.2.2",
+      "occurrenceIds": [
+        "occ-004"
+      ],
+      "severity": "medium",
+      "provenance": {
+        "scanner": "grype",
+        "scannerVersion": "0.112.0"
+      },
+      "fixedVersion": "1.2.3"
+    },
+    {
+      "findingId": "find-010",
+      "vulnerabilityId": "CVE-2021-44906",
+      "aliases": [
+        "GHSA-xvch-5gv4-984h"
+      ],
+      "purl": "pkg:npm/minimist@1.2.2",
+      "occurrenceIds": [
+        "occ-004"
+      ],
+      "severity": "critical",
+      "provenance": {
+        "scanner": "grype",
+        "scannerVersion": "0.112.0"
+      },
+      "fixedVersion": "1.2.6"
+    }
+  ],
+  "supplyChainWarnings": []
+}

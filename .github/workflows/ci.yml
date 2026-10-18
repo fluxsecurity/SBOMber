@@ -39,6 +39,11 @@ jobs:
           python spikes/localisation/verify_provenance.py
           python -m unittest -v spikes/localisation/test_verify_provenance.py
 
+      - name: Check VEX consistency on the S6-08 run
+        run: |
+          python spikes/vex-format/s6-08/consistency.py spikes/vex-format/s6-08/results --check > /dev/null
+          python -m unittest -v spikes/vex-format/s6-08/test_consistency.py
+
       - name: Set up Go
         uses: actions/setup-go@v5
         with:

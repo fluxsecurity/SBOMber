@@ -1,0 +1,13 @@
+ignore:
+  - vulnerability: GHSA-29mw-wpgm-hmr9
+  - vulnerability: GHSA-35jh-r3h4-6jhm
+  - vulnerability: GHSA-f23m-r3pf-42rh
+  - vulnerability: GHSA-qqgx-2p2h-9c37
+  - vulnerability: GHSA-r5fr-rjxr-66jc
+  - vulnerability: GHSA-vcc3-ghjq-m6fr
+  - vulnerability: GHSA-vh95-rmgr-6w4m
+  - vulnerability: GHSA-w573-4hg7-7wgq
+  - vulnerability: GHSA-xvch-5gv4-984h
+  - vulnerability: GHSA-xxjr-mmjv-4gpg
+vex-add:
+  - under_investigation

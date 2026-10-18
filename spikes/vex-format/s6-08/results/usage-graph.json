@@ -1,0 +1,243 @@
+{
+  "schemaVersion": "1.4.0",
+  "scanId": "scan-s6-08-demo-app",
+  "analysis": {
+    "status": "complete",
+    "ecosystem": "npm",
+    "analyzerId": "component2-js-ts-tree-sitter"
+  },
+  "analyser": {
+    "parser": "tree-sitter",
+    "binding": "github.com/tree-sitter/go-tree-sitter",
+    "bindingVersion": "0.25.0",
+    "cgoEnabled": true,
+    "grammarVersions": {
+      "javascript": "0.25.0",
+      "typescript": "0.23.2"
+    },
+    "ecosystems": [
+      "npm"
+    ],
+    "reachabilityAnalysed": true
+  },
+  "entryPoints": [
+    {
+      "entryPointId": "ep-a3a1b5a4a703cb400c3143dd852b597b",
+      "kind": "package_main",
+      "function": "\u003cmodule\u003e",
+      "file": "src/index.js",
+      "line": 1,
+      "repositoryId": "repo-demo-app"
+    },
+    {
+      "entryPointId": "ep-687048a3e3f16d75140af8a4b3d544db",
+      "kind": "exported_module",
+      "function": "main",
+      "file": "src/index.js",
+      "line": 6,
+      "repositoryId": "repo-demo-app"
+    },
+    {
+      "entryPointId": "ep-87c0922cc514409b455e3ee60ab6fc66",
+      "kind": "declared",
+      "function": "main",
+      "file": "src/index.js",
+      "line": 6,
+      "repositoryId": "repo-demo-app"
+    }
+  ],
+  "coverage": {
+    "filesDiscovered": 5,
+    "filesParsed": 5,
+    "filesParsedWithErrors": 0,
+    "filesFailed": 0,
+    "filesSkipped": 0,
+    "thirdPartyImportsResolved": 4,
+    "thirdPartyImportsTypeOnly": 0,
+    "thirdPartyImportsUnresolved": 0,
+    "thirdPartyCallSitesResolved": 4,
+    "thirdPartyCallSitesUnresolved": 0,
+    "limitsHit": [],
+    "perRepository": [
+      {
+        "repositoryId": "repo-demo-app",
+        "filesDiscovered": 5,
+        "filesParsed": 5,
+        "filesParsedWithErrors": 0,
+        "filesFailed": 0,
+        "filesSkipped": 0
+      }
+    ],
+    "entryPointsDetected": 3,
+    "callPathsResolved": 4,
+    "callPathsUnresolved": 0
+  },
+  "observations": [
+    {
+      "observationId": "obs-fa4e52c9103ec68b0a0af839b61a0489",
+      "occurrenceId": "occ-004",
+      "purl": "pkg:npm/minimist@1.2.2",
+      "importedSpecifier": "minimist",
+      "localAlias": "minimist",
+      "importedSymbol": "*",
+      "importKind": "cjs_require",
+      "resolution": "resolved",
+      "location": {
+        "repositoryId": "repo-demo-app",
+        "file": "src/args.js",
+        "line": 2,
+        "column": 6
+      },
+      "evidenceLevel": 3,
+      "callSites": [
+        {
+          "file": "src/args.js",
+          "line": 5,
+          "column": 9,
+          "calledSymbol": "default",
+          "enclosingFunction": "parseArgs",
+          "resolution": "resolved",
+          "reachability": "reachable",
+          "entryPointId": "ep-687048a3e3f16d75140af8a4b3d544db",
+          "callPath": [
+            {
+              "function": "main",
+              "file": "src/index.js",
+              "line": 6
+            },
+            {
+              "function": "parseArgs",
+              "file": "src/args.js",
+              "line": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "observationId": "obs-4b2986fa2701ec68d0fe37c164520b85",
+      "occurrenceId": "occ-002",
+      "purl": "pkg:npm/ini@1.3.5",
+      "importedSpecifier": "ini",
+      "localAlias": "ini",
+      "importedSymbol": "*",
+      "importKind": "cjs_require",
+      "resolution": "resolved",
+      "location": {
+        "repositoryId": "repo-demo-app",
+        "file": "src/config.js",
+        "line": 2,
+        "column": 6
+      },
+      "evidenceLevel": 3,
+      "callSites": [
+        {
+          "file": "src/config.js",
+          "line": 5,
+          "column": 9,
+          "calledSymbol": "stringify",
+          "enclosingFunction": "writeConfig",
+          "resolution": "resolved",
+          "reachability": "reachable",
+          "entryPointId": "ep-687048a3e3f16d75140af8a4b3d544db",
+          "callPath": [
+            {
+              "function": "main",
+              "file": "src/index.js",
+              "line": 6
+            },
+            {
+              "function": "writeConfig",
+              "file": "src/config.js",
+              "line": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "observationId": "obs-2892557280466c1614d5fa2c95ca2d22",
+      "occurrenceId": "occ-003",
+      "purl": "pkg:npm/lodash@4.17.20",
+      "importedSpecifier": "lodash",
+      "localAlias": "_",
+      "importedSymbol": "*",
+      "importKind": "cjs_require",
+      "resolution": "resolved",
+      "location": {
+        "repositoryId": "repo-demo-app",
+        "file": "src/render.js",
+        "line": 2,
+        "column": 6
+      },
+      "evidenceLevel": 3,
+      "callSites": [
+        {
+          "file": "src/render.js",
+          "line": 5,
+          "column": 9,
+          "calledSymbol": "template",
+          "enclosingFunction": "render",
+          "resolution": "resolved",
+          "reachability": "reachable",
+          "entryPointId": "ep-687048a3e3f16d75140af8a4b3d544db",
+          "callPath": [
+            {
+              "function": "main",
+              "file": "src/index.js",
+              "line": 6
+            },
+            {
+              "function": "render",
+              "file": "src/render.js",
+              "line": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "observationId": "obs-f2d0c52720ff8add78cdebd5e42b5f84",
+      "occurrenceId": "occ-001",
+      "purl": "pkg:npm/decode-uri-component@0.2.0",
+      "importedSpecifier": "decode-uri-component",
+      "localAlias": "decode",
+      "importedSymbol": "*",
+      "importKind": "cjs_require",
+      "resolution": "resolved",
+      "location": {
+        "repositoryId": "repo-demo-app",
+        "file": "src/url.js",
+        "line": 2,
+        "column": 6
+      },
+      "evidenceLevel": 3,
+      "callSites": [
+        {
+          "file": "src/url.js",
+          "line": 5,
+          "column": 9,
+          "calledSymbol": "default",
+          "enclosingFunction": "decodePath",
+          "resolution": "resolved",
+          "reachability": "reachable",
+          "entryPointId": "ep-687048a3e3f16d75140af8a4b3d544db",
+          "callPath": [
+            {
+              "function": "main",
+              "file": "src/index.js",
+              "line": 6
+            },
+            {
+              "function": "decodePath",
+              "file": "src/url.js",
+              "line": 4
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "unanalysedOccurrences": [],
+  "parseFailures": []
+}
