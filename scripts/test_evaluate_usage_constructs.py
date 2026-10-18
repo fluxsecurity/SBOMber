@@ -121,6 +121,17 @@ class EvaluationTests(unittest.TestCase):
             self.assertEqual(command('git', 'status'),
                              ' M docs/evidence/s6-04/manifest.json')
 
+    def test_provenance_tracks_build_inputs(self):
+        try:
+            from . import run_s6_usage_evaluation as runner
+        except ImportError:
+            import run_s6_usage_evaluation as runner
+        with patch.object(runner, 'git', return_value='revision') as git:
+            self.assertEqual(runner.analysis_commit(), 'revision')
+            git.assert_called_once_with('log', '-1', '--format=%H', '--',
+                                        'cmd', 'internal', 'scripts', 'testdata',
+                                        'go.mod', 'go.sum')
+
     def test_partial_scan_is_rejected(self):
         with self.assertRaisesRegex(ValueError, 'complete analysis'):
             evaluate({'expected': {'thirdPartyImports': []}},

@@ -50,9 +50,10 @@ def validate(labels, graph):
                    if identity_import(obs, True) == identity_import(labelled)]
         require(len(matches) == 1, f"Expected one binding: {labelled}")
         obs = matches[0]
-        for field in ('purl', 'computedSpecifier', 'unresolvedReason', 'evidenceLevel'):
+        for field, default in (('purl', ''), ('computedSpecifier', False),
+                               ('unresolvedReason', ''), ('evidenceLevel', 0)):
             if field in labelled:
-                require(obs.get(field, '') == labelled[field],
+                require(obs.get(field, default) == labelled[field],
                         f"{fixture}: {field} differs from label")
     for category in ('thirdPartyCalls', 'unresolvedCalls'):
         for labelled in labels['expected'].get(category, []):

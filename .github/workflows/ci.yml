@@ -32,7 +32,7 @@ jobs:
         run: python -m unittest -v contracts/test_validate.py
 
       - name: Test usage evaluation scripts
-        run: python -m unittest -v scripts/test_evaluate_usage_constructs.py
+        run: python -B -m unittest discover -s scripts -v
 
       - name: Verify frozen localisation set
         run: python spikes/localisation/freeze.py

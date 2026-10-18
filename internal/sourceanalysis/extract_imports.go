@@ -112,12 +112,13 @@ func appendRequireImports(
 			left.Kind() == "identifier" {
 			line, column := nodeLocation(source, left)
 			result.Imports = append(result.Imports, Import{
-				Specifier: specifier,
-				Kind:      "cjs_require",
-				Local:     left.Utf8Text(source),
-				Imported:  "*",
-				Line:      line,
-				Column:    column,
+				Specifier:         specifier,
+				BindingAssignment: true,
+				Kind:              "cjs_require",
+				Local:             left.Utf8Text(source),
+				Imported:          "*",
+				Line:              line,
+				Column:            column,
 			})
 			return nil
 		}

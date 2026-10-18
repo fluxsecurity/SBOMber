@@ -18,6 +18,7 @@ LABEL_ROOT = ROOT / "testdata/fixtures/usage-ground-truth"
 SOURCE_ROOT = ROOT / "testdata/fixtures"
 OUT = ROOT / "docs/evidence/s6-04"
 METRICS = ("importEvaluation", "callEvaluation", "unresolvedCallEvaluation")
+CODE_PATHS = ("cmd", "internal", "scripts", "testdata", "go.mod", "go.sum")
 
 
 def command(*args, env=None):
@@ -49,6 +50,10 @@ def display(value):
     return "N/A" if value is None else f"{value:.0%}"
 
 
+def analysis_commit():
+    return git("log", "-1", "--format=%H", "--", *CODE_PATHS)
+
+
 def main():
     # Evidence may already be generated, but production/test source must be clean.
     dirty = [line for line in git("status", "--porcelain", "--untracked-files=all").splitlines()
@@ -56,7 +61,7 @@ def main():
     if dirty:
         raise RuntimeError("Commit or remove other working-tree changes first:\n" + "\n".join(dirty))
 
-    commit = git("log", "-1", "--format=%H", "--", "internal", "scripts", "testdata")
+    commit = analysis_commit()
     label_paths = sorted(LABEL_ROOT.glob("component2-s6-*/expected.json"))
     if len(label_paths) < 21:
         raise RuntimeError(f"Expected at least 21 labelled fixtures, found {len(label_paths)}")
@@ -184,7 +189,7 @@ def main():
         "- The original `component2-s6-import-type` label was corrected after evaluation; its initial and correction commits are preserved in `manifest.json`. The separate alias type-only fixture was prelabelled and evaluated separately.",
         "- This uses the production source analyser and usagegraph producer via a Go test exporter, not a complete end-to-end CLI scan. Reachability accuracy belongs to Issue #152.",
         "", "## Reproduction", "",
-        "Run `python3 -B scripts/run_s6_usage_evaluation.py` from a clean committed worktree. The runner removes inherited GitHub tokens from the Go test environment. `analyserGitCommit` is the last commit touching `internal/`, `scripts/` or `testdata/`, so committing generated evidence alone does not change it. Preserve commit history when reproducing label provenance.",
+        "Run `python3 -B scripts/run_s6_usage_evaluation.py` from a clean committed worktree. The runner removes inherited GitHub tokens from the Go test environment. `analyserGitCommit` is the last commit touching `cmd/`, `internal/`, `scripts/`, `testdata/`, `go.mod` or `go.sum`, so committing generated evidence alone does not change it. Preserve commit history when reproducing label provenance.",
     ]
     (OUT / "report.md").write_text("\n".join(md) + "\n")
     print(f"\nPASS: {len(rows)} fixtures across {len(categories)} categories")

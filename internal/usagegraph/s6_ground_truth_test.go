@@ -67,8 +67,8 @@ func TestS6GroundTruth(t *testing.T) {
 				if obs["resolution"] != state {
 					t.Errorf("import resolution: got %v want %v", obs["resolution"], state)
 				}
-				for _, field := range []string{"purl", "computedSpecifier", "unresolvedReason", "evidenceLevel"} {
-					if want, ok := label[field]; ok && !reflect.DeepEqual(valueOr(obs, field, ""), want) {
+				for field, fallback := range map[string]any{"purl": "", "computedSpecifier": false, "unresolvedReason": "", "evidenceLevel": float64(0)} {
+					if want, ok := label[field]; ok && !reflect.DeepEqual(valueOr(obs, field, fallback), want) {
 						t.Errorf("%s: got %v want %v", field, obs[field], want)
 					}
 				}

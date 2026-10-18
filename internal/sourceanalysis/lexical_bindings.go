@@ -154,17 +154,28 @@ func (binding LexicalBinding) contains(call Call) bool {
 // require binding is its own declaration, not a shadow of itself. Declarations
 // in sibling blocks/functions do not remove genuine calls.
 func ImportOwnsCall(result Result, imported Import, call Call) bool {
+	nearest := nearestLexicalBinding(result, imported.Local, call)
+	if imported.BindingAssignment {
+		// An assignment reuses the declaration visible at its left-hand side.
+		// Compare declaration identities at both sites, rather than treating the
+		// earlier let/var/parameter declaration as a shadow of its own import.
+		target := nearestLexicalBinding(result, imported.Local, Call{Line: imported.Line, Column: imported.Column})
+		return nearest == target
+	}
+	for i := range result.LexicalBindings {
+		own := &result.LexicalBindings[i]
+		if own.Name == imported.Local && own.ImportLine == imported.Line && own.ImportColumn == imported.Column && !own.contains(call) {
+			return false
+		}
+	}
+	return nearest == nil || nearest.ImportLine == imported.Line && nearest.ImportColumn == imported.Column
+}
+
+func nearestLexicalBinding(result Result, name string, call Call) *LexicalBinding {
 	var nearest *LexicalBinding
-	var own *LexicalBinding
 	for i := range result.LexicalBindings {
 		binding := &result.LexicalBindings[i]
-		if binding.Name != imported.Local {
-			continue
-		}
-		if binding.ImportLine == imported.Line && binding.ImportColumn == imported.Column {
-			own = binding
-		}
-		if !binding.contains(call) {
+		if binding.Name != name || !binding.contains(call) {
 			continue
 		}
 		if nearest == nil || positionAtOrAfter(binding.StartLine, binding.StartColumn, nearest.StartLine, nearest.StartColumn) &&
@@ -172,8 +183,5 @@ func ImportOwnsCall(result Result, imported Import, call Call) bool {
 			nearest = binding
 		}
 	}
-	if own != nil && !own.contains(call) {
-		return false
-	}
-	return nearest == nil || nearest.ImportLine == imported.Line && nearest.ImportColumn == imported.Column
+	return nearest
 }
