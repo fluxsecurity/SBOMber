@@ -63,8 +63,7 @@ Artefact ids are derived from their fields (`advisory`,
 candidate must cite the kind its method reads: `patch_reference` a source
 file, `version_diff` a tarball, `advisory_*` the advisory. Online, each
 candidate's symbol must also occur in the bytes it cites, so a made-up
-candidate cannot borrow a real artefact (`default`, the anonymous export, has
-no name to look for).
+candidate cannot borrow a real artefact (`default` must match a parsed function or export).
 
 A `patch_reference` result also carries **tag checks**: is a linked fix
 commit in the release the fixed npm version was published from, and absent
@@ -86,7 +85,7 @@ an hour) they can come back `unavailable` but cannot change candidates.
 `--no-tag-checks` skips them.
 
 `results/provenance/VERIFICATION.md` has the table. On the ten frozen cases:
-38/38 candidates trace to a verified artefact, all 71 artefacts re-download
+38/38 candidates trace to a verified artefact, all 81 artefacts re-download
 with matching checksums and every candidate's symbol is in the bytes it cites,
 and 19 of 20 tag checks verify (lodash's two use the git tag, see above). The
 one that does not is a finding, not a broken trace: minimist 1.2.2, listed as
