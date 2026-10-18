@@ -28,7 +28,7 @@ def command(*args, env=None):
     )
     if result.returncode:
         raise RuntimeError(f"Command failed ({result.returncode}): {' '.join(map(str, args))}\n{result.stdout}")
-    return result.stdout.strip()
+    return result.stdout.rstrip("\n")
 
 
 def git(*args):

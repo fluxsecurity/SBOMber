@@ -3,3 +3,6 @@ bin/
 *.test
 *.out
 .sbomber/
+
+# Local cache used by the Makefile
+/.cache/go-build/

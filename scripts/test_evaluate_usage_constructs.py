@@ -1,4 +1,6 @@
 import unittest
+from unittest.mock import patch
+import subprocess
 from collections import Counter
 try:
     from .evaluate_usage_constructs import evaluate, score, aggregate
@@ -108,6 +110,16 @@ class EvaluationTests(unittest.TestCase):
         self.assertEqual(result['precision'], .75)
         self.assertEqual(result['recall'], .6)
         self.assertIsNone(aggregate([])['recall'])
+
+    def test_runner_preserves_git_status_leading_space(self):
+        try:
+            from .run_s6_usage_evaluation import command
+        except ImportError:
+            from run_s6_usage_evaluation import command
+        result = subprocess.CompletedProcess([], 0, ' M docs/evidence/s6-04/manifest.json\n')
+        with patch('subprocess.run', return_value=result):
+            self.assertEqual(command('git', 'status'),
+                             ' M docs/evidence/s6-04/manifest.json')
 
     def test_partial_scan_is_rejected(self):
         with self.assertRaisesRegex(ValueError, 'complete analysis'):
