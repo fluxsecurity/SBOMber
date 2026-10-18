@@ -162,6 +162,17 @@ func ImportOwnsCall(result Result, imported Import, call Call) bool {
 		target := nearestLexicalBinding(result, imported.Local, Call{Line: imported.Line, Column: imported.Column})
 		return nearest == target
 	}
+	// Repeated var declarations share a scope. Their source order alone does
+	// not prove which runtime value a call uses; keep the possible import
+	// and let the producer record uncertainty instead of deleting its call.
+	if ImportBindingAmbiguous(result, imported, call) {
+		for i := range result.LexicalBindings {
+			own := &result.LexicalBindings[i]
+			if own.Name == imported.Local && own.ImportLine == imported.Line && own.ImportColumn == imported.Column && sameBindingScope(own, nearest) {
+				return true
+			}
+		}
+	}
 	for i := range result.LexicalBindings {
 		own := &result.LexicalBindings[i]
 		if own.Name == imported.Local && own.ImportLine == imported.Line && own.ImportColumn == imported.Column && !own.contains(call) {
@@ -184,4 +195,22 @@ func nearestLexicalBinding(result Result, name string, call Call) *LexicalBindin
 		}
 	}
 	return nearest
+}
+
+func sameBindingScope(a, b *LexicalBinding) bool {
+	return a != nil && b != nil && a.StartLine == b.StartLine && a.StartColumn == b.StartColumn && a.EndLine == b.EndLine && a.EndColumn == b.EndColumn
+}
+
+// ImportBindingAmbiguous reports repeated declarations at the nearest scope.
+// Without assignment-flow analysis they cannot establish package ownership.
+func ImportBindingAmbiguous(result Result, imported Import, call Call) bool {
+	nearest := nearestLexicalBinding(result, imported.Local, call)
+	count := 0
+	for i := range result.LexicalBindings {
+		binding := &result.LexicalBindings[i]
+		if binding.Name == imported.Local && sameBindingScope(binding, nearest) {
+			count++
+		}
+	}
+	return count > 1
 }

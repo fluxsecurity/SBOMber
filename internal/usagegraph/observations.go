@@ -269,6 +269,9 @@ func observationCallSites(
 			!sourceanalysis.ImportOwnsCall(result, imported, call) {
 			continue
 		}
+		if sourceanalysis.ImportBindingAmbiguous(result, imported, call) {
+			calledSymbol, resolution, unresolvedReason = "", CallUnresolved, "outside_supported_syntax"
+		}
 		add(call, calledSymbol, resolution, unresolvedReason)
 	}
 

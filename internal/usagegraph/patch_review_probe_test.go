@@ -19,6 +19,11 @@ func TestReviewComparisonRegressions(t *testing.T) {
 		{"assigned require does not leak local declaration", "function load(){let lodash;lodash=require('lodash');}function run(){lodash.merge({},{});}", 0, 0},
 		{"assignment to parameter is an import use", "function run(lodash){lodash=require('lodash');return lodash.merge({},{});}", 1, 0},
 		{"module assignment does not bypass a parameter shadow", "let lodash;lodash=require('lodash');function run(lodash){lodash.merge({},{});}", 0, 0},
+		{"dynamic assignment to function let", "export async function run(){let lodash;lodash=await import('lodash');return lodash.merge({},{});}", 1, 0},
+		{"dynamic assignment to function var", "export async function run(){var lodash;lodash=await import('lodash');return lodash.merge({},{});}", 1, 0},
+		{"dynamic assignment to module let", "let lodash;lodash=await import('lodash');lodash.merge({},{});", 1, 0},
+		{"assigned dynamic import respects inner shadow", "export async function run(){let lodash;lodash=await import('lodash');{const lodash={merge:x=>x};lodash.merge({});}return lodash.merge({},{});}", 1, 0},
+		{"assigned dynamic import does not leak", "async function load(){let lodash;lodash=await import('lodash');}function run(){lodash.merge({},{});}", 0, 0},
 		{"generator parameter shadow", "import {merge} from 'lodash';function* run(merge){yield merge({});}", 0, 0},
 	}
 	for _, tc := range cases {
@@ -38,5 +43,25 @@ func TestReviewComparisonRegressions(t *testing.T) {
 				t.Errorf("got resolved=%d unknown=%d; want resolved=%d unknown=%d", resolved, unknown, tc.resolved, tc.unknown)
 			}
 		})
+	}
+}
+
+func TestRepeatedVarImportsStayUnresolved(t *testing.T) {
+	graph := produceSourceTree(t, map[string]string{"src/index.js": "var lib=require('lodash'); lib.merge({},{}); var lib=require('underscore'); lib.merge({},{});\n"})
+	if len(graph.Observations) != 2 {
+		t.Fatalf("expected two imports: %+v", graph.Observations)
+	}
+	for _, obs := range graph.Observations {
+		if obs.ImportedSpecifier != "lodash" && obs.ImportedSpecifier != "underscore" {
+			continue
+		}
+		if len(obs.CallSites) != 2 {
+			t.Fatalf("possible uses deleted for %s: %+v", obs.ImportedSpecifier, obs)
+		}
+		for _, call := range obs.CallSites {
+			if call.Resolution != CallUnresolved || call.Reachability != ReachUnknown || len(call.CallPath) != 0 {
+				t.Fatalf("ambiguous owner treated as proven: %+v", call)
+			}
+		}
 	}
 }

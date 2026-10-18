@@ -531,6 +531,7 @@ func appendDynamicImport(
 				Specifier:             specifier,
 				Kind:                  kind,
 				Local:                 binding.local,
+				BindingAssignment:     binding.assignment,
 				Imported:              binding.imported,
 				TypeOnly:              false,
 				Line:                  line,
@@ -584,8 +585,9 @@ func dynamicBindingScope(call *treesitter.Node) *treesitter.Node {
 }
 
 type dynamicBinding struct {
-	local    string
-	imported string
+	local      string
+	imported   string
+	assignment bool
 }
 
 // dynamicImportBindings works out what an import() call binds. Only an
@@ -636,7 +638,7 @@ func dynamicImportBindings(
 	case awaited && parent.Kind() == "assignment_expression" &&
 		sameNode(parent.ChildByFieldName("right"), value):
 		if left := parent.ChildByFieldName("left"); left != nil && left.Kind() == "identifier" {
-			return []dynamicBinding{{local: left.Utf8Text(source), imported: "*"}}, ""
+			return []dynamicBinding{{local: left.Utf8Text(source), imported: "*", assignment: true}}, ""
 		}
 	}
 	return nil, escaped
