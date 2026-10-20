@@ -1,0 +1,110 @@
+[
+  {
+    "call": {
+      "calledSymbol": "default",
+      "column": 21,
+      "enclosingFunction": "<module>",
+      "file": "api/app.ts",
+      "line": 8,
+      "reachability": "unknown",
+      "resolution": "resolved"
+    },
+    "callIndex": 0,
+    "causeCategory": "no_resolved_entry_point_path",
+    "importResolution": "resolved",
+    "observationId": "obs-96469197e66cb8597a43454357209005",
+    "possibleSyntheticMarker": false,
+    "specifier": "express"
+  },
+  {
+    "call": {
+      "calledSymbol": "json",
+      "column": 8,
+      "enclosingFunction": "<module>",
+      "file": "api/app.ts",
+      "line": 11,
+      "reachability": "unknown",
+      "resolution": "resolved"
+    },
+    "callIndex": 1,
+    "causeCategory": "no_resolved_entry_point_path",
+    "importResolution": "resolved",
+    "observationId": "obs-96469197e66cb8597a43454357209005",
+    "possibleSyntheticMarker": false,
+    "specifier": "express"
+  },
+  {
+    "call": {
+      "calledSymbol": "config",
+      "enclosingFunction": "<module>",
+      "file": "api/app.ts",
+      "line": 6,
+      "reachability": "unknown",
+      "resolution": "resolved"
+    },
+    "callIndex": 0,
+    "causeCategory": "no_resolved_entry_point_path",
+    "importResolution": "resolved",
+    "observationId": "obs-4d1e61d4558f5bb33d712f1560a4e9dd",
+    "possibleSyntheticMarker": false,
+    "specifier": "dotenv"
+  },
+  {
+    "call": {
+      "callPath": [
+        {
+          "file": "api/app.ts",
+          "function": "<route_handler>",
+          "line": 19
+        }
+      ],
+      "calledSymbol": "unserialize",
+      "column": 19,
+      "enclosingFunction": "<route_handler>",
+      "entryPointId": "ep-9c7131343ff056b51c3cf42b8176cc94",
+      "file": "api/app.ts",
+      "line": 22,
+      "reachability": "reachable",
+      "resolution": "resolved"
+    },
+    "callIndex": 0,
+    "causeCategory": null,
+    "importResolution": "resolved",
+    "observationId": "obs-939022028af785c276ef7196697e9df3",
+    "possibleSyntheticMarker": false,
+    "specifier": "node-serialize"
+  },
+  {
+    "call": {
+      "calledSymbol": "serialize",
+      "column": 21,
+      "file": "exploit-poc/poc.js",
+      "line": 33,
+      "reachability": "unknown",
+      "resolution": "resolved"
+    },
+    "callIndex": 0,
+    "causeCategory": "no_recorded_enclosing_function",
+    "importResolution": "resolved",
+    "observationId": "obs-a86521392ce3ada53730bfa94e61fd5a",
+    "possibleSyntheticMarker": false,
+    "specifier": "node-serialize"
+  },
+  {
+    "call": {
+      "calledSymbol": "serialize",
+      "column": 26,
+      "enclosingFunction": "<module>",
+      "file": "exploit-poc/serialiser.js",
+      "line": 13,
+      "reachability": "unknown",
+      "resolution": "resolved"
+    },
+    "callIndex": 0,
+    "causeCategory": "no_resolved_entry_point_path",
+    "importResolution": "resolved",
+    "observationId": "obs-567d3d38843b2af89c98601d030e2f8b",
+    "possibleSyntheticMarker": false,
+    "specifier": "node-serialize"
+  }
+]

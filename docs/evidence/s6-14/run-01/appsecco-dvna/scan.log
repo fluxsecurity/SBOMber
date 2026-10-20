@@ -1,0 +1,11 @@
+Selected SBOM export format: cyclonedx
+Found 1 repository under /home/sbomber1/dev/sbomber/evaluation-repos-152/appsecco-dvna
+- appsecco-dvna  /home/sbomber1/dev/sbomber/evaluation-repos-152/appsecco-dvna  [npm]
+  output folder: /home/sbomber1/.sbomber/reports/appsecco-dvna_38b82fef
+  exported SBOM: sbom-cyclonedx.xml
+  packages:  19 direct
+  direct dependencies (package.json): 19 (runtime: 19)
+  sample packages: bcrypt, csurf, ejs, express, express-fileupload
+
+Scan complete: 1 repositories scanned
+Wrote /home/sbomber1/dev/sbomber/issue152-reachability-evaluation/docs/evidence/s6-14/run-01/appsecco-dvna/canonical-scan.json

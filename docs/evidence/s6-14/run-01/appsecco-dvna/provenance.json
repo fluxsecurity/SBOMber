@@ -1,0 +1,126 @@
+{
+  "canonicalSha256": "55b05276e7606e78c8295d25f76fde137362ba4dcc33fe338043704d1203070e",
+  "commands": [
+    [
+      "/home/sbomber1/dev/sbomber/issue152-reachability-evaluation/docs/evidence/s6-14/run-01/sbomber",
+      "scan",
+      "--no-color",
+      "--canonical-scan",
+      "/home/sbomber1/dev/sbomber/issue152-reachability-evaluation/docs/evidence/s6-14/run-01/appsecco-dvna/canonical-scan.json",
+      "--",
+      "/home/sbomber1/dev/sbomber/evaluation-repos-152/appsecco-dvna"
+    ],
+    [
+      "/home/sbomber1/dev/sbomber/issue152-reachability-evaluation/docs/evidence/s6-14/run-01/sbomber",
+      "usage",
+      "--canonical-scan",
+      "/home/sbomber1/dev/sbomber/issue152-reachability-evaluation/docs/evidence/s6-14/run-01/appsecco-dvna/canonical-scan.json",
+      "--out",
+      "/home/sbomber1/dev/sbomber/issue152-reachability-evaluation/docs/evidence/s6-14/run-01/appsecco-dvna/usage-graph.json",
+      "--max-files",
+      "10000",
+      "--max-file-bytes",
+      "1000000"
+    ],
+    [
+      "/home/sbomber1/dev/sbomber/issue152-reachability-evaluation/docs/evidence/s6-14/run-01/sbomber",
+      "usage",
+      "--canonical-scan",
+      "/home/sbomber1/dev/sbomber/issue152-reachability-evaluation/docs/evidence/s6-14/run-01/appsecco-dvna/canonical-scan.json",
+      "--out",
+      "/home/sbomber1/dev/sbomber/issue152-reachability-evaluation/docs/evidence/s6-14/run-01/appsecco-dvna/usage-graph-repeat.json",
+      "--max-files",
+      "10000",
+      "--max-file-bytes",
+      "1000000"
+    ]
+  ],
+  "commit": "9ba473add536f66ac9007966acb2a775dd31277a",
+  "deterministicRepeat": "PASS",
+  "graphSha256": "b59a76f8879d98da45cad417850ecd98b33f16f0999c1db86bc37d3c2f225a7f",
+  "id": "appsecco-dvna",
+  "metrics": {
+    "analyser": {
+      "binding": "github.com/tree-sitter/go-tree-sitter",
+      "bindingVersion": "0.25.0",
+      "cgoEnabled": true,
+      "ecosystems": [
+        "npm"
+      ],
+      "grammarVersions": {
+        "javascript": "0.25.0",
+        "typescript": "0.23.2"
+      },
+      "parser": "tree-sitter",
+      "reachabilityAnalysed": true
+    },
+    "analysis": {
+      "analyzerId": "component2-js-ts-tree-sitter",
+      "ecosystem": "npm",
+      "status": "partial"
+    },
+    "contractCallRecords": 25,
+    "coverage": {
+      "callPathsResolved": 8,
+      "callPathsUnresolved": 17,
+      "entryPointsDetected": 15,
+      "filesDiscovered": 14,
+      "filesFailed": 0,
+      "filesParsed": 12,
+      "filesParsedWithErrors": 0,
+      "filesSkipped": 2,
+      "limitsHit": [],
+      "perRepository": [
+        {
+          "filesDiscovered": 14,
+          "filesFailed": 0,
+          "filesParsed": 12,
+          "filesParsedWithErrors": 0,
+          "filesSkipped": 2,
+          "repositoryId": "repo-appsecco-dvna"
+        }
+      ],
+      "thirdPartyCallSitesResolved": 23,
+      "thirdPartyCallSitesUnresolved": 2,
+      "thirdPartyImportsResolved": 18,
+      "thirdPartyImportsTypeOnly": 0,
+      "thirdPartyImportsUnresolved": 1
+    },
+    "entryPointsDetected": 15,
+    "notAnalysed": 0,
+    "parseFailures": [],
+    "possibleSyntheticMarkers": 2,
+    "reachable": 8,
+    "resolutionDenominator": 25,
+    "resolutionRate": 0.32,
+    "resolvedSymbolCallRecords": 23,
+    "resolvedSymbolCallsNotAnalysed": 0,
+    "resolvedSymbolCallsUnknown": 15,
+    "resolvedSymbolResolutionDenominator": 23,
+    "resolvedSymbolResolutionRate": 0.34782608695652173,
+    "unanalysedOccurrenceReasons": {
+      "excluded_by_limits": 5
+    },
+    "unknown": 17,
+    "unknownByCause": {
+      "call_resolution:outside_supported_syntax": 2,
+      "import_resolution:not_in_inventory": 1,
+      "no_recorded_enclosing_function": 12,
+      "no_resolved_entry_point_path": 2
+    },
+    "unresolvedCallRecords": 2,
+    "unresolvedImportsWithoutCallRecords": 0
+  },
+  "pinProvenance": "testdata/audit/appsecco-dvna/CASE.md",
+  "roles": [
+    "end-to-end audit repository"
+  ],
+  "scanExitCode": 0,
+  "sourceDateEpoch": "1699445509",
+  "url": "https://github.com/appsecco/dvna.git",
+  "usageExitCode": 2,
+  "validation": {
+    "invariantChecks": 339,
+    "schemaValidation": "PASS"
+  }
+}

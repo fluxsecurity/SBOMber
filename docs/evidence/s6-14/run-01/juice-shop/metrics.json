@@ -1,0 +1,72 @@
+{
+  "analyser": {
+    "binding": "github.com/tree-sitter/go-tree-sitter",
+    "bindingVersion": "0.25.0",
+    "cgoEnabled": true,
+    "ecosystems": [
+      "npm"
+    ],
+    "grammarVersions": {
+      "javascript": "0.25.0",
+      "typescript": "0.23.2"
+    },
+    "parser": "tree-sitter",
+    "reachabilityAnalysed": true
+  },
+  "analysis": {
+    "analyzerId": "component2-js-ts-tree-sitter",
+    "ecosystem": "npm",
+    "status": "partial"
+  },
+  "contractCallRecords": 5597,
+  "coverage": {
+    "callPathsResolved": 2,
+    "callPathsUnresolved": 5595,
+    "entryPointsDetected": 8,
+    "filesDiscovered": 657,
+    "filesFailed": 0,
+    "filesParsed": 616,
+    "filesParsedWithErrors": 39,
+    "filesSkipped": 2,
+    "limitsHit": [],
+    "perRepository": [
+      {
+        "filesDiscovered": 657,
+        "filesFailed": 0,
+        "filesParsed": 616,
+        "filesParsedWithErrors": 39,
+        "filesSkipped": 2,
+        "repositoryId": "repo-juice-shop"
+      }
+    ],
+    "thirdPartyCallSitesResolved": 3977,
+    "thirdPartyCallSitesUnresolved": 1620,
+    "thirdPartyImportsResolved": 288,
+    "thirdPartyImportsTypeOnly": 321,
+    "thirdPartyImportsUnresolved": 2937
+  },
+  "entryPointsDetected": 8,
+  "notAnalysed": 0,
+  "parseFailures": [],
+  "possibleSyntheticMarkers": 1620,
+  "reachable": 2,
+  "resolutionDenominator": 5597,
+  "resolutionRate": 0.00035733428622476324,
+  "resolvedSymbolCallRecords": 3977,
+  "resolvedSymbolCallsNotAnalysed": 0,
+  "resolvedSymbolCallsUnknown": 3975,
+  "resolvedSymbolResolutionDenominator": 3977,
+  "resolvedSymbolResolutionRate": 0.0005028916268544129,
+  "unanalysedOccurrenceReasons": {
+    "computed_specifier": 48
+  },
+  "unknown": 5595,
+  "unknownByCause": {
+    "call_resolution:outside_supported_syntax": 46,
+    "import_resolution:not_in_inventory": 4336,
+    "no_recorded_enclosing_function": 800,
+    "no_resolved_entry_point_path": 413
+  },
+  "unresolvedCallRecords": 1620,
+  "unresolvedImportsWithoutCallRecords": 266
+}

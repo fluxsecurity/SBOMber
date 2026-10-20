@@ -1,0 +1,479 @@
+[
+  {
+    "call": {
+      "calledSymbol": "hashSync",
+      "column": 21,
+      "file": "core/appHandler.js",
+      "line": 153,
+      "reachability": "unknown",
+      "resolution": "resolved"
+    },
+    "callIndex": 0,
+    "causeCategory": "no_recorded_enclosing_function",
+    "importResolution": "resolved",
+    "observationId": "obs-8924eff69ec6797fb0d7b1492867331c",
+    "possibleSyntheticMarker": false,
+    "specifier": "bcrypt"
+  },
+  {
+    "call": {
+      "calledSymbol": "genSaltSync",
+      "column": 56,
+      "file": "core/appHandler.js",
+      "line": 153,
+      "reachability": "unknown",
+      "resolution": "resolved"
+    },
+    "callIndex": 1,
+    "causeCategory": "no_recorded_enclosing_function",
+    "importResolution": "resolved",
+    "observationId": "obs-8924eff69ec6797fb0d7b1492867331c",
+    "possibleSyntheticMarker": false,
+    "specifier": "bcrypt"
+  },
+  {
+    "call": {
+      "calledSymbol": "eval",
+      "column": 11,
+      "file": "core/appHandler.js",
+      "line": 197,
+      "reachability": "unknown",
+      "resolution": "resolved"
+    },
+    "callIndex": 0,
+    "causeCategory": "no_recorded_enclosing_function",
+    "importResolution": "resolved",
+    "observationId": "obs-018e06aa69dc1836a39eeafa1ecacb26",
+    "possibleSyntheticMarker": false,
+    "specifier": "mathjs"
+  },
+  {
+    "call": {
+      "calledSymbol": "parseXmlString",
+      "column": 17,
+      "file": "core/appHandler.js",
+      "line": 235,
+      "reachability": "unknown",
+      "resolution": "resolved"
+    },
+    "callIndex": 0,
+    "causeCategory": "no_recorded_enclosing_function",
+    "importResolution": "resolved",
+    "observationId": "obs-30d94ff33d8b4dcaad780a27a3db47d6",
+    "possibleSyntheticMarker": false,
+    "specifier": "libxmljs"
+  },
+  {
+    "call": {
+      "calledSymbol": "unserialize",
+      "column": 17,
+      "file": "core/appHandler.js",
+      "line": 218,
+      "reachability": "unknown",
+      "resolution": "resolved"
+    },
+    "callIndex": 0,
+    "causeCategory": "no_recorded_enclosing_function",
+    "importResolution": "resolved",
+    "observationId": "obs-c27dcd05ae4eb51678c077d011c4bb0e",
+    "possibleSyntheticMarker": false,
+    "specifier": "node-serialize"
+  },
+  {
+    "call": {
+      "calledSymbol": "hashSync",
+      "column": 22,
+      "file": "core/authHandler.js",
+      "line": 79,
+      "reachability": "unknown",
+      "resolution": "resolved"
+    },
+    "callIndex": 0,
+    "causeCategory": "no_recorded_enclosing_function",
+    "importResolution": "resolved",
+    "observationId": "obs-16fd4543efa07a3b1fa857e690c7907d",
+    "possibleSyntheticMarker": false,
+    "specifier": "bcrypt"
+  },
+  {
+    "call": {
+      "calledSymbol": "genSaltSync",
+      "column": 57,
+      "file": "core/authHandler.js",
+      "line": 79,
+      "reachability": "unknown",
+      "resolution": "resolved"
+    },
+    "callIndex": 1,
+    "causeCategory": "no_recorded_enclosing_function",
+    "importResolution": "resolved",
+    "observationId": "obs-16fd4543efa07a3b1fa857e690c7907d",
+    "possibleSyntheticMarker": false,
+    "specifier": "bcrypt"
+  },
+  {
+    "call": {
+      "calledSymbol": "default",
+      "column": 27,
+      "file": "core/authHandler.js",
+      "line": 49,
+      "reachability": "unknown",
+      "resolution": "resolved"
+    },
+    "callIndex": 0,
+    "causeCategory": "no_recorded_enclosing_function",
+    "importResolution": "resolved",
+    "observationId": "obs-f36f3c5568856843399a183ab9ea6a36",
+    "possibleSyntheticMarker": false,
+    "specifier": "md5"
+  },
+  {
+    "call": {
+      "calledSymbol": "default",
+      "column": 27,
+      "file": "core/authHandler.js",
+      "line": 78,
+      "reachability": "unknown",
+      "resolution": "resolved"
+    },
+    "callIndex": 1,
+    "causeCategory": "no_recorded_enclosing_function",
+    "importResolution": "resolved",
+    "observationId": "obs-f36f3c5568856843399a183ab9ea6a36",
+    "possibleSyntheticMarker": false,
+    "specifier": "md5"
+  },
+  {
+    "call": {
+      "calledSymbol": "compareSync",
+      "column": 15,
+      "file": "core/passport.js",
+      "line": 47,
+      "reachability": "unknown",
+      "resolution": "resolved"
+    },
+    "callIndex": 0,
+    "causeCategory": "no_recorded_enclosing_function",
+    "importResolution": "resolved",
+    "observationId": "obs-c218d5380332c1e9da85eacf2bdabb15",
+    "possibleSyntheticMarker": false,
+    "specifier": "bcrypt"
+  },
+  {
+    "call": {
+      "calledSymbol": "hashSync",
+      "column": 15,
+      "file": "core/passport.js",
+      "line": 86,
+      "reachability": "unknown",
+      "resolution": "resolved"
+    },
+    "callIndex": 1,
+    "causeCategory": "no_recorded_enclosing_function",
+    "importResolution": "resolved",
+    "observationId": "obs-c218d5380332c1e9da85eacf2bdabb15",
+    "possibleSyntheticMarker": false,
+    "specifier": "bcrypt"
+  },
+  {
+    "call": {
+      "calledSymbol": "genSaltSync",
+      "column": 41,
+      "file": "core/passport.js",
+      "line": 86,
+      "reachability": "unknown",
+      "resolution": "resolved"
+    },
+    "callIndex": 2,
+    "causeCategory": "no_recorded_enclosing_function",
+    "importResolution": "resolved",
+    "observationId": "obs-c218d5380332c1e9da85eacf2bdabb15",
+    "possibleSyntheticMarker": false,
+    "specifier": "bcrypt"
+  },
+  {
+    "call": {
+      "column": 4,
+      "enclosingFunction": "<module>",
+      "file": "models/index.js",
+      "line": 5,
+      "reachability": "unknown",
+      "resolution": "unresolved",
+      "unresolvedReason": "outside_supported_syntax"
+    },
+    "callIndex": 0,
+    "causeCategory": "call_resolution:outside_supported_syntax",
+    "importResolution": "resolved",
+    "observationId": "obs-69d27979cf7451ccb07381da54480192",
+    "possibleSyntheticMarker": true,
+    "specifier": "sequelize"
+  },
+  {
+    "call": {
+      "calledSymbol": "Router",
+      "column": 13,
+      "enclosingFunction": "<module>",
+      "file": "routes/app.js",
+      "line": 1,
+      "reachability": "unknown",
+      "resolution": "resolved"
+    },
+    "callIndex": 0,
+    "causeCategory": "no_resolved_entry_point_path",
+    "importResolution": "resolved",
+    "observationId": "obs-c90404eca198f711ffe42f37a0f0802e",
+    "possibleSyntheticMarker": false,
+    "specifier": "express"
+  },
+  {
+    "call": {
+      "calledSymbol": "Router",
+      "column": 13,
+      "enclosingFunction": "<module>",
+      "file": "routes/main.js",
+      "line": 1,
+      "reachability": "unknown",
+      "resolution": "resolved"
+    },
+    "callIndex": 0,
+    "causeCategory": "no_resolved_entry_point_path",
+    "importResolution": "resolved",
+    "observationId": "obs-e1e137d5eedba1981ef86c90b53e5359",
+    "possibleSyntheticMarker": false,
+    "specifier": "express"
+  },
+  {
+    "call": {
+      "callPath": [
+        {
+          "file": "server.js",
+          "function": "<module>",
+          "line": 1
+        }
+      ],
+      "calledSymbol": "default",
+      "column": 10,
+      "enclosingFunction": "<module>",
+      "entryPointId": "ep-8b0d2484cf3efbe26ebedaf451a80161",
+      "file": "server.js",
+      "line": 11,
+      "reachability": "reachable",
+      "resolution": "resolved"
+    },
+    "callIndex": 0,
+    "causeCategory": null,
+    "importResolution": "resolved",
+    "observationId": "obs-d59d4d0ffa8086bd697e8e7543ecba96",
+    "possibleSyntheticMarker": false,
+    "specifier": "express"
+  },
+  {
+    "call": {
+      "callPath": [
+        {
+          "file": "server.js",
+          "function": "<module>",
+          "line": 1
+        }
+      ],
+      "calledSymbol": "static",
+      "column": 8,
+      "enclosingFunction": "<module>",
+      "entryPointId": "ep-8b0d2484cf3efbe26ebedaf451a80161",
+      "file": "server.js",
+      "line": 13,
+      "reachability": "reachable",
+      "resolution": "resolved"
+    },
+    "callIndex": 1,
+    "causeCategory": null,
+    "importResolution": "resolved",
+    "observationId": "obs-d59d4d0ffa8086bd697e8e7543ecba96",
+    "possibleSyntheticMarker": false,
+    "specifier": "express"
+  },
+  {
+    "call": {
+      "calledSymbol": "urlencoded",
+      "column": 8,
+      "enclosingFunction": "<module>",
+      "file": "server.js",
+      "line": 16,
+      "reachability": "unknown",
+      "resolution": "resolved"
+    },
+    "callIndex": 0,
+    "causeCategory": "import_resolution:not_in_inventory",
+    "importResolution": "unresolved",
+    "observationId": "obs-91d0a3b49aee6f5fad65ba97cdacaea3",
+    "possibleSyntheticMarker": false,
+    "specifier": "body-parser"
+  },
+  {
+    "call": {
+      "column": 4,
+      "enclosingFunction": "<module>",
+      "file": "server.js",
+      "line": 3,
+      "reachability": "unknown",
+      "resolution": "unresolved",
+      "unresolvedReason": "outside_supported_syntax"
+    },
+    "callIndex": 0,
+    "causeCategory": "call_resolution:outside_supported_syntax",
+    "importResolution": "resolved",
+    "observationId": "obs-f5dbeed753368ef128a8998f0d4558e6",
+    "possibleSyntheticMarker": true,
+    "specifier": "passport"
+  },
+  {
+    "call": {
+      "callPath": [
+        {
+          "file": "server.js",
+          "function": "<module>",
+          "line": 1
+        }
+      ],
+      "calledSymbol": "initialize",
+      "column": 8,
+      "enclosingFunction": "<module>",
+      "entryPointId": "ep-8b0d2484cf3efbe26ebedaf451a80161",
+      "file": "server.js",
+      "line": 31,
+      "reachability": "reachable",
+      "resolution": "resolved"
+    },
+    "callIndex": 1,
+    "causeCategory": null,
+    "importResolution": "resolved",
+    "observationId": "obs-f5dbeed753368ef128a8998f0d4558e6",
+    "possibleSyntheticMarker": false,
+    "specifier": "passport"
+  },
+  {
+    "call": {
+      "callPath": [
+        {
+          "file": "server.js",
+          "function": "<module>",
+          "line": 1
+        }
+      ],
+      "calledSymbol": "session",
+      "column": 8,
+      "enclosingFunction": "<module>",
+      "entryPointId": "ep-8b0d2484cf3efbe26ebedaf451a80161",
+      "file": "server.js",
+      "line": 32,
+      "reachability": "reachable",
+      "resolution": "resolved"
+    },
+    "callIndex": 2,
+    "causeCategory": null,
+    "importResolution": "resolved",
+    "observationId": "obs-f5dbeed753368ef128a8998f0d4558e6",
+    "possibleSyntheticMarker": false,
+    "specifier": "passport"
+  },
+  {
+    "call": {
+      "callPath": [
+        {
+          "file": "server.js",
+          "function": "<module>",
+          "line": 1
+        }
+      ],
+      "calledSymbol": "default",
+      "column": 8,
+      "enclosingFunction": "<module>",
+      "entryPointId": "ep-8b0d2484cf3efbe26ebedaf451a80161",
+      "file": "server.js",
+      "line": 23,
+      "reachability": "reachable",
+      "resolution": "resolved"
+    },
+    "callIndex": 0,
+    "causeCategory": null,
+    "importResolution": "resolved",
+    "observationId": "obs-866af33f712ba6c401168487cb3665c7",
+    "possibleSyntheticMarker": false,
+    "specifier": "express-session"
+  },
+  {
+    "call": {
+      "callPath": [
+        {
+          "file": "server.js",
+          "function": "<module>",
+          "line": 1
+        }
+      ],
+      "calledSymbol": "default",
+      "column": 8,
+      "enclosingFunction": "<module>",
+      "entryPointId": "ep-8b0d2484cf3efbe26ebedaf451a80161",
+      "file": "server.js",
+      "line": 15,
+      "reachability": "reachable",
+      "resolution": "resolved"
+    },
+    "callIndex": 0,
+    "causeCategory": null,
+    "importResolution": "resolved",
+    "observationId": "obs-8a9bdfc9b8d38d0f2e94b17c73222055",
+    "possibleSyntheticMarker": false,
+    "specifier": "morgan"
+  },
+  {
+    "call": {
+      "callPath": [
+        {
+          "file": "server.js",
+          "function": "<module>",
+          "line": 1
+        }
+      ],
+      "calledSymbol": "default",
+      "column": 8,
+      "enclosingFunction": "<module>",
+      "entryPointId": "ep-8b0d2484cf3efbe26ebedaf451a80161",
+      "file": "server.js",
+      "line": 17,
+      "reachability": "reachable",
+      "resolution": "resolved"
+    },
+    "callIndex": 0,
+    "causeCategory": null,
+    "importResolution": "resolved",
+    "observationId": "obs-e5b4a173b1df9be0b89b122374ea0235",
+    "possibleSyntheticMarker": false,
+    "specifier": "express-fileupload"
+  },
+  {
+    "call": {
+      "callPath": [
+        {
+          "file": "server.js",
+          "function": "<module>",
+          "line": 1
+        }
+      ],
+      "calledSymbol": "default",
+      "column": 8,
+      "enclosingFunction": "<module>",
+      "entryPointId": "ep-8b0d2484cf3efbe26ebedaf451a80161",
+      "file": "server.js",
+      "line": 35,
+      "reachability": "reachable",
+      "resolution": "resolved"
+    },
+    "callIndex": 0,
+    "causeCategory": null,
+    "importResolution": "resolved",
+    "observationId": "obs-f9beb44baaea907ca04900416466c0da",
+    "possibleSyntheticMarker": false,
+    "specifier": "express-flash"
+  }
+]

@@ -1,0 +1,11 @@
+Selected SBOM export format: cyclonedx
+Found 1 repository under /home/sbomber1/dev/sbomber/evaluation-repos-152/kirill89-prototype-pollution-explained
+- kirill89-prototype-pollution-explained  /home/sbomber1/dev/sbomber/evaluation-repos-152/kirill89-prototype-pollution-explained  [npm]
+  output folder: /home/sbomber1/.sbomber/reports/kirill89-prototype-pollution-explained_01856801
+  exported SBOM: sbom-cyclonedx.xml
+  packages:  3 direct
+  direct dependencies (package.json): 3 (runtime: 3)
+  sample packages: body-parser, express, lodash
+
+Scan complete: 1 repositories scanned
+Wrote /home/sbomber1/dev/sbomber/issue152-reachability-evaluation/docs/evidence/s6-14/run-01/kirill89-prototype-pollution-explained/canonical-scan.json

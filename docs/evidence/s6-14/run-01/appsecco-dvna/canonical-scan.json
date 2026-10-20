@@ -1,0 +1,397 @@
+{
+  "schemaVersion": "1.0.0",
+  "scan": {
+    "scanId": "scan-20231108T121149Z-3d642abc",
+    "startedAt": "2023-11-08T12:11:49Z",
+    "completedAt": "2023-11-08T12:11:49Z",
+    "toolVersions": {
+      "go": "go1.26.9",
+      "sbomber": "0.1.1"
+    },
+    "status": "partial",
+    "statusDetail": {
+      "skippedFiles": [],
+      "failedFiles": [],
+      "truncatedTree": false,
+      "limitsHit": [
+        "repo-appsecco-dvna: npm: no package-lock.json; versions are as declared and transitive dependencies are not listed"
+      ]
+    },
+    "repositories": [
+      {
+        "repositoryId": "repo-appsecco-dvna",
+        "path": "../../../../../../evaluation-repos-152/appsecco-dvna",
+        "commit": "9ba473add536f66ac9007966acb2a775dd31277a",
+        "source": "local"
+      }
+    ],
+    "enrichment": [
+      {
+        "source": "epss",
+        "status": "skipped",
+        "detail": "vulnerability scanning was not requested"
+      },
+      {
+        "source": "cisa_kev",
+        "status": "skipped",
+        "detail": "vulnerability scanning was not requested"
+      },
+      {
+        "source": "ghsa",
+        "status": "skipped",
+        "detail": "vulnerability scanning was not requested"
+      },
+      {
+        "source": "registry",
+        "status": "skipped",
+        "detail": "vulnerability scanning was not requested"
+      },
+      {
+        "source": "malware",
+        "status": "skipped",
+        "detail": "vulnerability scanning was not requested"
+      }
+    ]
+  },
+  "components": [
+    {
+      "purl": "pkg:npm/bcrypt",
+      "ecosystem": "npm",
+      "name": "bcrypt",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^1.0.3"
+    },
+    {
+      "purl": "pkg:npm/csurf",
+      "ecosystem": "npm",
+      "name": "csurf",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^1.9.0"
+    },
+    {
+      "purl": "pkg:npm/ejs",
+      "ecosystem": "npm",
+      "name": "ejs",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^2.5.7"
+    },
+    {
+      "purl": "pkg:npm/express",
+      "ecosystem": "npm",
+      "name": "express",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^4.16.2"
+    },
+    {
+      "purl": "pkg:npm/express-fileupload",
+      "ecosystem": "npm",
+      "name": "express-fileupload",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^0.4.0"
+    },
+    {
+      "purl": "pkg:npm/express-flash@0.0.2",
+      "ecosystem": "npm",
+      "name": "express-flash",
+      "version": "0.0.2"
+    },
+    {
+      "purl": "pkg:npm/express-session",
+      "ecosystem": "npm",
+      "name": "express-session",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^1.15.6"
+    },
+    {
+      "purl": "pkg:npm/flash",
+      "ecosystem": "npm",
+      "name": "flash",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^1.1.0"
+    },
+    {
+      "purl": "pkg:npm/libxmljs",
+      "ecosystem": "npm",
+      "name": "libxmljs",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^0.19.1"
+    },
+    {
+      "purl": "pkg:npm/mathjs@3.10.1",
+      "ecosystem": "npm",
+      "name": "mathjs",
+      "version": "3.10.1"
+    },
+    {
+      "purl": "pkg:npm/md5",
+      "ecosystem": "npm",
+      "name": "md5",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^2.2.1"
+    },
+    {
+      "purl": "pkg:npm/morgan",
+      "ecosystem": "npm",
+      "name": "morgan",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^1.9.0"
+    },
+    {
+      "purl": "pkg:npm/mysql2",
+      "ecosystem": "npm",
+      "name": "mysql2",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^1.4.2"
+    },
+    {
+      "purl": "pkg:npm/node-serialize@0.0.4",
+      "ecosystem": "npm",
+      "name": "node-serialize",
+      "version": "0.0.4"
+    },
+    {
+      "purl": "pkg:npm/passport",
+      "ecosystem": "npm",
+      "name": "passport",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^0.4.0"
+    },
+    {
+      "purl": "pkg:npm/passport-local",
+      "ecosystem": "npm",
+      "name": "passport-local",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^1.0.0"
+    },
+    {
+      "purl": "pkg:npm/sequelize",
+      "ecosystem": "npm",
+      "name": "sequelize",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^4.13.10"
+    },
+    {
+      "purl": "pkg:npm/winston",
+      "ecosystem": "npm",
+      "name": "winston",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^3.0.0"
+    },
+    {
+      "purl": "pkg:npm/x-xss-protection",
+      "ecosystem": "npm",
+      "name": "x-xss-protection",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^1.1.0"
+    }
+  ],
+  "occurrences": [
+    {
+      "occurrenceId": "occ-b69331b470a5",
+      "purl": "pkg:npm/bcrypt",
+      "repositoryId": "repo-appsecco-dvna",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/bcrypt",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-88ddbaf85f8a",
+      "purl": "pkg:npm/csurf",
+      "repositoryId": "repo-appsecco-dvna",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/csurf",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-2964f926045e",
+      "purl": "pkg:npm/ejs",
+      "repositoryId": "repo-appsecco-dvna",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/ejs",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-c0f5f023b08a",
+      "purl": "pkg:npm/express",
+      "repositoryId": "repo-appsecco-dvna",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/express",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-3777eb1f2250",
+      "purl": "pkg:npm/express-fileupload",
+      "repositoryId": "repo-appsecco-dvna",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/express-fileupload",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-72b2e6349e11",
+      "purl": "pkg:npm/express-flash@0.0.2",
+      "repositoryId": "repo-appsecco-dvna",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/express-flash",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-ab11ef169363",
+      "purl": "pkg:npm/express-session",
+      "repositoryId": "repo-appsecco-dvna",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/express-session",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-762a3d3c0851",
+      "purl": "pkg:npm/flash",
+      "repositoryId": "repo-appsecco-dvna",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/flash",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-ce5dc7ca6d23",
+      "purl": "pkg:npm/libxmljs",
+      "repositoryId": "repo-appsecco-dvna",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/libxmljs",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-514d8350b81e",
+      "purl": "pkg:npm/mathjs@3.10.1",
+      "repositoryId": "repo-appsecco-dvna",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/mathjs",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-d73a0eb45178",
+      "purl": "pkg:npm/md5",
+      "repositoryId": "repo-appsecco-dvna",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/md5",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-ae6431a5dc99",
+      "purl": "pkg:npm/morgan",
+      "repositoryId": "repo-appsecco-dvna",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/morgan",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-63feb877fdfb",
+      "purl": "pkg:npm/mysql2",
+      "repositoryId": "repo-appsecco-dvna",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/mysql2",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-019c32d17313",
+      "purl": "pkg:npm/node-serialize@0.0.4",
+      "repositoryId": "repo-appsecco-dvna",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/node-serialize",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-e6ff3be21a81",
+      "purl": "pkg:npm/passport",
+      "repositoryId": "repo-appsecco-dvna",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/passport",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-f21c0b03607e",
+      "purl": "pkg:npm/passport-local",
+      "repositoryId": "repo-appsecco-dvna",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/passport-local",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-7d73b2f3a723",
+      "purl": "pkg:npm/sequelize",
+      "repositoryId": "repo-appsecco-dvna",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/sequelize",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-934c9151903d",
+      "purl": "pkg:npm/winston",
+      "repositoryId": "repo-appsecco-dvna",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/winston",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-f731171c7196",
+      "purl": "pkg:npm/x-xss-protection",
+      "repositoryId": "repo-appsecco-dvna",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/x-xss-protection",
+      "scope": "runtime"
+    }
+  ],
+  "findings": []
+}

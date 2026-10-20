@@ -1,0 +1,77 @@
+[
+  {
+    "call": {
+      "callPath": [
+        {
+          "file": "index.js",
+          "function": "<module>",
+          "line": 1
+        }
+      ],
+      "calledSymbol": "default",
+      "column": 12,
+      "enclosingFunction": "<module>",
+      "entryPointId": "ep-55015ff99d7bfc42ce77dc01e47b0adc",
+      "file": "index.js",
+      "line": 12,
+      "reachability": "reachable",
+      "resolution": "resolved"
+    },
+    "callIndex": 0,
+    "causeCategory": null,
+    "importResolution": "resolved",
+    "observationId": "obs-94201df6115a5bc3b3c7e2a918a41882",
+    "possibleSyntheticMarker": false,
+    "specifier": "express"
+  },
+  {
+    "call": {
+      "callPath": [
+        {
+          "file": "index.js",
+          "function": "<module>",
+          "line": 1
+        }
+      ],
+      "calledSymbol": "json",
+      "column": 8,
+      "enclosingFunction": "<module>",
+      "entryPointId": "ep-55015ff99d7bfc42ce77dc01e47b0adc",
+      "file": "index.js",
+      "line": 34,
+      "reachability": "reachable",
+      "resolution": "resolved"
+    },
+    "callIndex": 0,
+    "causeCategory": null,
+    "importResolution": "resolved",
+    "observationId": "obs-dc82af984ddcfc9f77c4fd86ec76eb97",
+    "possibleSyntheticMarker": false,
+    "specifier": "body-parser"
+  },
+  {
+    "call": {
+      "callPath": [
+        {
+          "file": "index.js",
+          "function": "<route_handler>",
+          "line": 42
+        }
+      ],
+      "calledSymbol": "merge",
+      "column": 2,
+      "enclosingFunction": "<route_handler>",
+      "entryPointId": "ep-70e458250ad60493d4dfce323d477d24",
+      "file": "index.js",
+      "line": 55,
+      "reachability": "reachable",
+      "resolution": "resolved"
+    },
+    "callIndex": 0,
+    "causeCategory": null,
+    "importResolution": "resolved",
+    "observationId": "obs-c3401952c22c21b953912e781432724c",
+    "possibleSyntheticMarker": false,
+    "specifier": "lodash"
+  }
+]

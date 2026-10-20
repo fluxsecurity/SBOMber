@@ -1,0 +1,833 @@
+{
+  "schemaVersion": "1.4.0",
+  "scanId": "scan-20231108T121149Z-3d642abc",
+  "analysis": {
+    "status": "partial",
+    "ecosystem": "npm",
+    "analyzerId": "component2-js-ts-tree-sitter"
+  },
+  "analyser": {
+    "parser": "tree-sitter",
+    "binding": "github.com/tree-sitter/go-tree-sitter",
+    "bindingVersion": "0.25.0",
+    "cgoEnabled": true,
+    "grammarVersions": {
+      "javascript": "0.25.0",
+      "typescript": "0.23.2"
+    },
+    "ecosystems": [
+      "npm"
+    ],
+    "reachabilityAnalysed": true
+  },
+  "entryPoints": [
+    {
+      "entryPointId": "ep-6e609a857c0f7bb0b098603b6a8b3bc5",
+      "kind": "route_handler",
+      "function": "\u003croute_handler\u003e",
+      "file": "routes/app.js",
+      "line": 6,
+      "repositoryId": "repo-appsecco-dvna"
+    },
+    {
+      "entryPointId": "ep-7d918dc6baac8b223ed58ff9f7912b90",
+      "kind": "route_handler",
+      "function": "\u003croute_handler\u003e",
+      "file": "routes/app.js",
+      "line": 10,
+      "repositoryId": "repo-appsecco-dvna"
+    },
+    {
+      "entryPointId": "ep-9b81f12bb0e4af458081d31733e12c0c",
+      "kind": "route_handler",
+      "function": "\u003croute_handler\u003e",
+      "file": "routes/app.js",
+      "line": 16,
+      "repositoryId": "repo-appsecco-dvna"
+    },
+    {
+      "entryPointId": "ep-9c4f4a844d6875e4b1df7089ee80cee8",
+      "kind": "route_handler",
+      "function": "\u003croute_handler\u003e",
+      "file": "routes/app.js",
+      "line": 22,
+      "repositoryId": "repo-appsecco-dvna"
+    },
+    {
+      "entryPointId": "ep-4022504c724195baea4fb63de882edec",
+      "kind": "route_handler",
+      "function": "\u003croute_handler\u003e",
+      "file": "routes/app.js",
+      "line": 32,
+      "repositoryId": "repo-appsecco-dvna"
+    },
+    {
+      "entryPointId": "ep-b7d83631c3a69a8614b86881a0630b45",
+      "kind": "route_handler",
+      "function": "\u003croute_handler\u003e",
+      "file": "routes/app.js",
+      "line": 36,
+      "repositoryId": "repo-appsecco-dvna"
+    },
+    {
+      "entryPointId": "ep-73b4dd8487152d460846159ad3ce5b7b",
+      "kind": "route_handler",
+      "function": "\u003croute_handler\u003e",
+      "file": "routes/app.js",
+      "line": 44,
+      "repositoryId": "repo-appsecco-dvna"
+    },
+    {
+      "entryPointId": "ep-90853c3efea3dd84f6e006feea393439",
+      "kind": "route_handler",
+      "function": "\u003croute_handler\u003e",
+      "file": "routes/main.js",
+      "line": 6,
+      "repositoryId": "repo-appsecco-dvna"
+    },
+    {
+      "entryPointId": "ep-a6862b1c6b9791678c34a672a9639c05",
+      "kind": "route_handler",
+      "function": "\u003croute_handler\u003e",
+      "file": "routes/main.js",
+      "line": 10,
+      "repositoryId": "repo-appsecco-dvna"
+    },
+    {
+      "entryPointId": "ep-56d9e4803ebe79a4aaea20814b7895fc",
+      "kind": "route_handler",
+      "function": "\u003croute_handler\u003e",
+      "file": "routes/main.js",
+      "line": 14,
+      "repositoryId": "repo-appsecco-dvna"
+    },
+    {
+      "entryPointId": "ep-27295c387136cb5bcaf1f61d99fdc9e3",
+      "kind": "route_handler",
+      "function": "\u003croute_handler\u003e",
+      "file": "routes/main.js",
+      "line": 32,
+      "repositoryId": "repo-appsecco-dvna"
+    },
+    {
+      "entryPointId": "ep-10f7c7094d6e9e947520b97aec25cae8",
+      "kind": "route_handler",
+      "function": "\u003croute_handler\u003e",
+      "file": "routes/main.js",
+      "line": 36,
+      "repositoryId": "repo-appsecco-dvna"
+    },
+    {
+      "entryPointId": "ep-a9f4add239adcc69156a8c637c5f596a",
+      "kind": "route_handler",
+      "function": "\u003croute_handler\u003e",
+      "file": "routes/main.js",
+      "line": 40,
+      "repositoryId": "repo-appsecco-dvna"
+    },
+    {
+      "entryPointId": "ep-04d1c12f3672938e71428fc7f2fd128b",
+      "kind": "route_handler",
+      "function": "\u003croute_handler\u003e",
+      "file": "routes/main.js",
+      "line": 45,
+      "repositoryId": "repo-appsecco-dvna"
+    },
+    {
+      "entryPointId": "ep-8b0d2484cf3efbe26ebedaf451a80161",
+      "kind": "package_main",
+      "function": "\u003cmodule\u003e",
+      "file": "server.js",
+      "line": 1,
+      "repositoryId": "repo-appsecco-dvna"
+    }
+  ],
+  "coverage": {
+    "filesDiscovered": 14,
+    "filesParsed": 12,
+    "filesParsedWithErrors": 0,
+    "filesFailed": 0,
+    "filesSkipped": 2,
+    "thirdPartyImportsResolved": 18,
+    "thirdPartyImportsTypeOnly": 0,
+    "thirdPartyImportsUnresolved": 1,
+    "thirdPartyCallSitesResolved": 23,
+    "thirdPartyCallSitesUnresolved": 2,
+    "limitsHit": [],
+    "perRepository": [
+      {
+        "repositoryId": "repo-appsecco-dvna",
+        "filesDiscovered": 14,
+        "filesParsed": 12,
+        "filesParsedWithErrors": 0,
+        "filesFailed": 0,
+        "filesSkipped": 2
+      }
+    ],
+    "entryPointsDetected": 15,
+    "callPathsResolved": 8,
+    "callPathsUnresolved": 17
+  },
+  "observations": [
+    {
+      "observationId": "obs-8924eff69ec6797fb0d7b1492867331c",
+      "occurrenceId": "occ-b69331b470a5",
+      "purl": "pkg:npm/bcrypt",
+      "importedSpecifier": "bcrypt",
+      "localAlias": "bCrypt",
+      "importedSymbol": "*",
+      "importKind": "cjs_require",
+      "resolution": "resolved",
+      "location": {
+        "repositoryId": "repo-appsecco-dvna",
+        "file": "core/appHandler.js",
+        "line": 2,
+        "column": 4
+      },
+      "evidenceLevel": 2,
+      "callSites": [
+        {
+          "file": "core/appHandler.js",
+          "line": 153,
+          "column": 21,
+          "calledSymbol": "hashSync",
+          "resolution": "resolved",
+          "reachability": "unknown"
+        },
+        {
+          "file": "core/appHandler.js",
+          "line": 153,
+          "column": 56,
+          "calledSymbol": "genSaltSync",
+          "resolution": "resolved",
+          "reachability": "unknown"
+        }
+      ]
+    },
+    {
+      "observationId": "obs-018e06aa69dc1836a39eeafa1ecacb26",
+      "occurrenceId": "occ-514d8350b81e",
+      "purl": "pkg:npm/mathjs@3.10.1",
+      "importedSpecifier": "mathjs",
+      "localAlias": "mathjs",
+      "importedSymbol": "*",
+      "importKind": "cjs_require",
+      "resolution": "resolved",
+      "location": {
+        "repositoryId": "repo-appsecco-dvna",
+        "file": "core/appHandler.js",
+        "line": 4,
+        "column": 4
+      },
+      "evidenceLevel": 2,
+      "callSites": [
+        {
+          "file": "core/appHandler.js",
+          "line": 197,
+          "column": 11,
+          "calledSymbol": "eval",
+          "resolution": "resolved",
+          "reachability": "unknown"
+        }
+      ]
+    },
+    {
+      "observationId": "obs-30d94ff33d8b4dcaad780a27a3db47d6",
+      "occurrenceId": "occ-ce5dc7ca6d23",
+      "purl": "pkg:npm/libxmljs",
+      "importedSpecifier": "libxmljs",
+      "localAlias": "libxmljs",
+      "importedSymbol": "*",
+      "importKind": "cjs_require",
+      "resolution": "resolved",
+      "location": {
+        "repositoryId": "repo-appsecco-dvna",
+        "file": "core/appHandler.js",
+        "line": 5,
+        "column": 4
+      },
+      "evidenceLevel": 2,
+      "callSites": [
+        {
+          "file": "core/appHandler.js",
+          "line": 235,
+          "column": 17,
+          "calledSymbol": "parseXmlString",
+          "resolution": "resolved",
+          "reachability": "unknown"
+        }
+      ]
+    },
+    {
+      "observationId": "obs-c27dcd05ae4eb51678c077d011c4bb0e",
+      "occurrenceId": "occ-019c32d17313",
+      "purl": "pkg:npm/node-serialize@0.0.4",
+      "importedSpecifier": "node-serialize",
+      "localAlias": "serialize",
+      "importedSymbol": "*",
+      "importKind": "cjs_require",
+      "resolution": "resolved",
+      "location": {
+        "repositoryId": "repo-appsecco-dvna",
+        "file": "core/appHandler.js",
+        "line": 6,
+        "column": 4
+      },
+      "evidenceLevel": 2,
+      "callSites": [
+        {
+          "file": "core/appHandler.js",
+          "line": 218,
+          "column": 17,
+          "calledSymbol": "unserialize",
+          "resolution": "resolved",
+          "reachability": "unknown"
+        }
+      ]
+    },
+    {
+      "observationId": "obs-16fd4543efa07a3b1fa857e690c7907d",
+      "occurrenceId": "occ-b69331b470a5",
+      "purl": "pkg:npm/bcrypt",
+      "importedSpecifier": "bcrypt",
+      "localAlias": "bCrypt",
+      "importedSymbol": "*",
+      "importKind": "cjs_require",
+      "resolution": "resolved",
+      "location": {
+        "repositoryId": "repo-appsecco-dvna",
+        "file": "core/authHandler.js",
+        "line": 2,
+        "column": 4
+      },
+      "evidenceLevel": 2,
+      "callSites": [
+        {
+          "file": "core/authHandler.js",
+          "line": 79,
+          "column": 22,
+          "calledSymbol": "hashSync",
+          "resolution": "resolved",
+          "reachability": "unknown"
+        },
+        {
+          "file": "core/authHandler.js",
+          "line": 79,
+          "column": 57,
+          "calledSymbol": "genSaltSync",
+          "resolution": "resolved",
+          "reachability": "unknown"
+        }
+      ]
+    },
+    {
+      "observationId": "obs-f36f3c5568856843399a183ab9ea6a36",
+      "occurrenceId": "occ-d73a0eb45178",
+      "purl": "pkg:npm/md5",
+      "importedSpecifier": "md5",
+      "localAlias": "md5",
+      "importedSymbol": "*",
+      "importKind": "cjs_require",
+      "resolution": "resolved",
+      "location": {
+        "repositoryId": "repo-appsecco-dvna",
+        "file": "core/authHandler.js",
+        "line": 3,
+        "column": 4
+      },
+      "evidenceLevel": 2,
+      "callSites": [
+        {
+          "file": "core/authHandler.js",
+          "line": 49,
+          "column": 27,
+          "calledSymbol": "default",
+          "resolution": "resolved",
+          "reachability": "unknown"
+        },
+        {
+          "file": "core/authHandler.js",
+          "line": 78,
+          "column": 27,
+          "calledSymbol": "default",
+          "resolution": "resolved",
+          "reachability": "unknown"
+        }
+      ]
+    },
+    {
+      "observationId": "obs-6d7fc87646439c9fb40470e8d94d402a",
+      "occurrenceId": "occ-f21c0b03607e",
+      "purl": "pkg:npm/passport-local",
+      "importedSpecifier": "passport-local",
+      "localAlias": "LocalStrategy",
+      "importedSymbol": "Strategy",
+      "importKind": "cjs_destructured",
+      "resolution": "resolved",
+      "location": {
+        "repositoryId": "repo-appsecco-dvna",
+        "file": "core/passport.js",
+        "line": 2,
+        "column": 4
+      },
+      "evidenceLevel": 1,
+      "callSites": []
+    },
+    {
+      "observationId": "obs-c218d5380332c1e9da85eacf2bdabb15",
+      "occurrenceId": "occ-b69331b470a5",
+      "purl": "pkg:npm/bcrypt",
+      "importedSpecifier": "bcrypt",
+      "localAlias": "bCrypt",
+      "importedSymbol": "*",
+      "importKind": "cjs_require",
+      "resolution": "resolved",
+      "location": {
+        "repositoryId": "repo-appsecco-dvna",
+        "file": "core/passport.js",
+        "line": 3,
+        "column": 4
+      },
+      "evidenceLevel": 2,
+      "callSites": [
+        {
+          "file": "core/passport.js",
+          "line": 47,
+          "column": 15,
+          "calledSymbol": "compareSync",
+          "resolution": "resolved",
+          "reachability": "unknown"
+        },
+        {
+          "file": "core/passport.js",
+          "line": 86,
+          "column": 15,
+          "calledSymbol": "hashSync",
+          "resolution": "resolved",
+          "reachability": "unknown"
+        },
+        {
+          "file": "core/passport.js",
+          "line": 86,
+          "column": 41,
+          "calledSymbol": "genSaltSync",
+          "resolution": "resolved",
+          "reachability": "unknown"
+        }
+      ]
+    },
+    {
+      "observationId": "obs-69d27979cf7451ccb07381da54480192",
+      "occurrenceId": "occ-7d73b2f3a723",
+      "purl": "pkg:npm/sequelize",
+      "importedSpecifier": "sequelize",
+      "localAlias": "Sequelize",
+      "importedSymbol": "*",
+      "importKind": "cjs_require",
+      "resolution": "resolved",
+      "location": {
+        "repositoryId": "repo-appsecco-dvna",
+        "file": "models/index.js",
+        "line": 5,
+        "column": 4
+      },
+      "evidenceLevel": 1,
+      "callSites": [
+        {
+          "file": "models/index.js",
+          "line": 5,
+          "column": 4,
+          "enclosingFunction": "\u003cmodule\u003e",
+          "resolution": "unresolved",
+          "unresolvedReason": "outside_supported_syntax",
+          "reachability": "unknown"
+        }
+      ]
+    },
+    {
+      "observationId": "obs-c90404eca198f711ffe42f37a0f0802e",
+      "occurrenceId": "occ-c0f5f023b08a",
+      "purl": "pkg:npm/express",
+      "importedSpecifier": "express",
+      "importedSymbol": "*",
+      "importKind": "cjs_require",
+      "resolution": "resolved",
+      "location": {
+        "repositoryId": "repo-appsecco-dvna",
+        "file": "routes/app.js",
+        "line": 1,
+        "column": 13
+      },
+      "evidenceLevel": 2,
+      "callSites": [
+        {
+          "file": "routes/app.js",
+          "line": 1,
+          "column": 13,
+          "calledSymbol": "Router",
+          "enclosingFunction": "\u003cmodule\u003e",
+          "resolution": "resolved",
+          "reachability": "unknown"
+        }
+      ]
+    },
+    {
+      "observationId": "obs-e1e137d5eedba1981ef86c90b53e5359",
+      "occurrenceId": "occ-c0f5f023b08a",
+      "purl": "pkg:npm/express",
+      "importedSpecifier": "express",
+      "importedSymbol": "*",
+      "importKind": "cjs_require",
+      "resolution": "resolved",
+      "location": {
+        "repositoryId": "repo-appsecco-dvna",
+        "file": "routes/main.js",
+        "line": 1,
+        "column": 13
+      },
+      "evidenceLevel": 2,
+      "callSites": [
+        {
+          "file": "routes/main.js",
+          "line": 1,
+          "column": 13,
+          "calledSymbol": "Router",
+          "enclosingFunction": "\u003cmodule\u003e",
+          "resolution": "resolved",
+          "reachability": "unknown"
+        }
+      ]
+    },
+    {
+      "observationId": "obs-d59d4d0ffa8086bd697e8e7543ecba96",
+      "occurrenceId": "occ-c0f5f023b08a",
+      "purl": "pkg:npm/express",
+      "importedSpecifier": "express",
+      "localAlias": "express",
+      "importedSymbol": "*",
+      "importKind": "cjs_require",
+      "resolution": "resolved",
+      "location": {
+        "repositoryId": "repo-appsecco-dvna",
+        "file": "server.js",
+        "line": 1,
+        "column": 4
+      },
+      "evidenceLevel": 3,
+      "callSites": [
+        {
+          "file": "server.js",
+          "line": 11,
+          "column": 10,
+          "calledSymbol": "default",
+          "enclosingFunction": "\u003cmodule\u003e",
+          "resolution": "resolved",
+          "reachability": "reachable",
+          "entryPointId": "ep-8b0d2484cf3efbe26ebedaf451a80161",
+          "callPath": [
+            {
+              "function": "\u003cmodule\u003e",
+              "file": "server.js",
+              "line": 1
+            }
+          ]
+        },
+        {
+          "file": "server.js",
+          "line": 13,
+          "column": 8,
+          "calledSymbol": "static",
+          "enclosingFunction": "\u003cmodule\u003e",
+          "resolution": "resolved",
+          "reachability": "reachable",
+          "entryPointId": "ep-8b0d2484cf3efbe26ebedaf451a80161",
+          "callPath": [
+            {
+              "function": "\u003cmodule\u003e",
+              "file": "server.js",
+              "line": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "observationId": "obs-91d0a3b49aee6f5fad65ba97cdacaea3",
+      "importedSpecifier": "body-parser",
+      "localAlias": "bodyParser",
+      "importedSymbol": "*",
+      "importKind": "cjs_require",
+      "resolution": "unresolved",
+      "unresolvedReason": "not_in_inventory",
+      "location": {
+        "repositoryId": "repo-appsecco-dvna",
+        "file": "server.js",
+        "line": 2,
+        "column": 4
+      },
+      "evidenceLevel": 2,
+      "callSites": [
+        {
+          "file": "server.js",
+          "line": 16,
+          "column": 8,
+          "calledSymbol": "urlencoded",
+          "enclosingFunction": "\u003cmodule\u003e",
+          "resolution": "resolved",
+          "reachability": "unknown"
+        }
+      ]
+    },
+    {
+      "observationId": "obs-f5dbeed753368ef128a8998f0d4558e6",
+      "occurrenceId": "occ-e6ff3be21a81",
+      "purl": "pkg:npm/passport",
+      "importedSpecifier": "passport",
+      "localAlias": "passport",
+      "importedSymbol": "*",
+      "importKind": "cjs_require",
+      "resolution": "resolved",
+      "location": {
+        "repositoryId": "repo-appsecco-dvna",
+        "file": "server.js",
+        "line": 3,
+        "column": 4
+      },
+      "evidenceLevel": 3,
+      "callSites": [
+        {
+          "file": "server.js",
+          "line": 3,
+          "column": 4,
+          "enclosingFunction": "\u003cmodule\u003e",
+          "resolution": "unresolved",
+          "unresolvedReason": "outside_supported_syntax",
+          "reachability": "unknown"
+        },
+        {
+          "file": "server.js",
+          "line": 31,
+          "column": 8,
+          "calledSymbol": "initialize",
+          "enclosingFunction": "\u003cmodule\u003e",
+          "resolution": "resolved",
+          "reachability": "reachable",
+          "entryPointId": "ep-8b0d2484cf3efbe26ebedaf451a80161",
+          "callPath": [
+            {
+              "function": "\u003cmodule\u003e",
+              "file": "server.js",
+              "line": 1
+            }
+          ]
+        },
+        {
+          "file": "server.js",
+          "line": 32,
+          "column": 8,
+          "calledSymbol": "session",
+          "enclosingFunction": "\u003cmodule\u003e",
+          "resolution": "resolved",
+          "reachability": "reachable",
+          "entryPointId": "ep-8b0d2484cf3efbe26ebedaf451a80161",
+          "callPath": [
+            {
+              "function": "\u003cmodule\u003e",
+              "file": "server.js",
+              "line": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "observationId": "obs-866af33f712ba6c401168487cb3665c7",
+      "occurrenceId": "occ-ab11ef169363",
+      "purl": "pkg:npm/express-session",
+      "importedSpecifier": "express-session",
+      "localAlias": "session",
+      "importedSymbol": "*",
+      "importKind": "cjs_require",
+      "resolution": "resolved",
+      "location": {
+        "repositoryId": "repo-appsecco-dvna",
+        "file": "server.js",
+        "line": 4,
+        "column": 4
+      },
+      "evidenceLevel": 3,
+      "callSites": [
+        {
+          "file": "server.js",
+          "line": 23,
+          "column": 8,
+          "calledSymbol": "default",
+          "enclosingFunction": "\u003cmodule\u003e",
+          "resolution": "resolved",
+          "reachability": "reachable",
+          "entryPointId": "ep-8b0d2484cf3efbe26ebedaf451a80161",
+          "callPath": [
+            {
+              "function": "\u003cmodule\u003e",
+              "file": "server.js",
+              "line": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "observationId": "obs-a1321e85444f101a3e727530ad39b2e2",
+      "occurrenceId": "occ-2964f926045e",
+      "purl": "pkg:npm/ejs",
+      "importedSpecifier": "ejs",
+      "localAlias": "ejs",
+      "importedSymbol": "*",
+      "importKind": "cjs_require",
+      "resolution": "resolved",
+      "location": {
+        "repositoryId": "repo-appsecco-dvna",
+        "file": "server.js",
+        "line": 5,
+        "column": 4
+      },
+      "evidenceLevel": 1,
+      "callSites": []
+    },
+    {
+      "observationId": "obs-8a9bdfc9b8d38d0f2e94b17c73222055",
+      "occurrenceId": "occ-ae6431a5dc99",
+      "purl": "pkg:npm/morgan",
+      "importedSpecifier": "morgan",
+      "localAlias": "morgan",
+      "importedSymbol": "*",
+      "importKind": "cjs_require",
+      "resolution": "resolved",
+      "location": {
+        "repositoryId": "repo-appsecco-dvna",
+        "file": "server.js",
+        "line": 6,
+        "column": 4
+      },
+      "evidenceLevel": 3,
+      "callSites": [
+        {
+          "file": "server.js",
+          "line": 15,
+          "column": 8,
+          "calledSymbol": "default",
+          "enclosingFunction": "\u003cmodule\u003e",
+          "resolution": "resolved",
+          "reachability": "reachable",
+          "entryPointId": "ep-8b0d2484cf3efbe26ebedaf451a80161",
+          "callPath": [
+            {
+              "function": "\u003cmodule\u003e",
+              "file": "server.js",
+              "line": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "observationId": "obs-e5b4a173b1df9be0b89b122374ea0235",
+      "occurrenceId": "occ-3777eb1f2250",
+      "purl": "pkg:npm/express-fileupload",
+      "importedSpecifier": "express-fileupload",
+      "localAlias": "fileUpload",
+      "importedSymbol": "*",
+      "importKind": "cjs_require",
+      "resolution": "resolved",
+      "location": {
+        "repositoryId": "repo-appsecco-dvna",
+        "file": "server.js",
+        "line": 7,
+        "column": 6
+      },
+      "evidenceLevel": 3,
+      "callSites": [
+        {
+          "file": "server.js",
+          "line": 17,
+          "column": 8,
+          "calledSymbol": "default",
+          "enclosingFunction": "\u003cmodule\u003e",
+          "resolution": "resolved",
+          "reachability": "reachable",
+          "entryPointId": "ep-8b0d2484cf3efbe26ebedaf451a80161",
+          "callPath": [
+            {
+              "function": "\u003cmodule\u003e",
+              "file": "server.js",
+              "line": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "observationId": "obs-f9beb44baaea907ca04900416466c0da",
+      "occurrenceId": "occ-72b2e6349e11",
+      "purl": "pkg:npm/express-flash@0.0.2",
+      "importedSpecifier": "express-flash",
+      "importedSymbol": "*",
+      "importKind": "cjs_require",
+      "resolution": "resolved",
+      "location": {
+        "repositoryId": "repo-appsecco-dvna",
+        "file": "server.js",
+        "line": 35,
+        "column": 8
+      },
+      "evidenceLevel": 3,
+      "callSites": [
+        {
+          "file": "server.js",
+          "line": 35,
+          "column": 8,
+          "calledSymbol": "default",
+          "enclosingFunction": "\u003cmodule\u003e",
+          "resolution": "resolved",
+          "reachability": "reachable",
+          "entryPointId": "ep-8b0d2484cf3efbe26ebedaf451a80161",
+          "callPath": [
+            {
+              "function": "\u003cmodule\u003e",
+              "file": "server.js",
+              "line": 1
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "unanalysedOccurrences": [
+    {
+      "occurrenceId": "occ-63feb877fdfb",
+      "purl": "pkg:npm/mysql2",
+      "reason": "excluded_by_limits"
+    },
+    {
+      "occurrenceId": "occ-762a3d3c0851",
+      "purl": "pkg:npm/flash",
+      "reason": "excluded_by_limits"
+    },
+    {
+      "occurrenceId": "occ-88ddbaf85f8a",
+      "purl": "pkg:npm/csurf",
+      "reason": "excluded_by_limits"
+    },
+    {
+      "occurrenceId": "occ-934c9151903d",
+      "purl": "pkg:npm/winston",
+      "reason": "excluded_by_limits"
+    },
+    {
+      "occurrenceId": "occ-f731171c7196",
+      "purl": "pkg:npm/x-xss-protection",
+      "reason": "excluded_by_limits"
+    }
+  ],
+  "parseFailures": []
+}

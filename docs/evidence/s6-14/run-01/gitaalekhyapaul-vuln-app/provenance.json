@@ -1,0 +1,125 @@
+{
+  "canonicalSha256": "3204f6026202beeb8ec3fbaa3aa1d5f806887561b58a7678b42de98fe405819f",
+  "commands": [
+    [
+      "/home/sbomber1/dev/sbomber/issue152-reachability-evaluation/docs/evidence/s6-14/run-01/sbomber",
+      "scan",
+      "--no-color",
+      "--canonical-scan",
+      "/home/sbomber1/dev/sbomber/issue152-reachability-evaluation/docs/evidence/s6-14/run-01/gitaalekhyapaul-vuln-app/canonical-scan.json",
+      "--",
+      "/home/sbomber1/dev/sbomber/evaluation-repos-152/gitaalekhyapaul-vuln-app"
+    ],
+    [
+      "/home/sbomber1/dev/sbomber/issue152-reachability-evaluation/docs/evidence/s6-14/run-01/sbomber",
+      "usage",
+      "--canonical-scan",
+      "/home/sbomber1/dev/sbomber/issue152-reachability-evaluation/docs/evidence/s6-14/run-01/gitaalekhyapaul-vuln-app/canonical-scan.json",
+      "--out",
+      "/home/sbomber1/dev/sbomber/issue152-reachability-evaluation/docs/evidence/s6-14/run-01/gitaalekhyapaul-vuln-app/usage-graph.json",
+      "--max-files",
+      "10000",
+      "--max-file-bytes",
+      "1000000"
+    ],
+    [
+      "/home/sbomber1/dev/sbomber/issue152-reachability-evaluation/docs/evidence/s6-14/run-01/sbomber",
+      "usage",
+      "--canonical-scan",
+      "/home/sbomber1/dev/sbomber/issue152-reachability-evaluation/docs/evidence/s6-14/run-01/gitaalekhyapaul-vuln-app/canonical-scan.json",
+      "--out",
+      "/home/sbomber1/dev/sbomber/issue152-reachability-evaluation/docs/evidence/s6-14/run-01/gitaalekhyapaul-vuln-app/usage-graph-repeat.json",
+      "--max-files",
+      "10000",
+      "--max-file-bytes",
+      "1000000"
+    ]
+  ],
+  "commit": "0ddf9bdc9672cc53ebd66cb829382bd702a98876",
+  "deterministicRepeat": "PASS",
+  "graphSha256": "d5d34f6af7ec756d9a4f7bf83fe94bc79ff80c6859d4f93dd12ec52e1e75ea44",
+  "id": "gitaalekhyapaul-vuln-app",
+  "metrics": {
+    "analyser": {
+      "binding": "github.com/tree-sitter/go-tree-sitter",
+      "bindingVersion": "0.25.0",
+      "cgoEnabled": true,
+      "ecosystems": [
+        "npm"
+      ],
+      "grammarVersions": {
+        "javascript": "0.25.0",
+        "typescript": "0.23.2"
+      },
+      "parser": "tree-sitter",
+      "reachabilityAnalysed": true
+    },
+    "analysis": {
+      "analyzerId": "component2-js-ts-tree-sitter",
+      "ecosystem": "npm",
+      "status": "complete"
+    },
+    "contractCallRecords": 6,
+    "coverage": {
+      "callPathsResolved": 1,
+      "callPathsUnresolved": 5,
+      "entryPointsDetected": 4,
+      "filesDiscovered": 6,
+      "filesFailed": 0,
+      "filesParsed": 6,
+      "filesParsedWithErrors": 0,
+      "filesSkipped": 0,
+      "limitsHit": [],
+      "perRepository": [
+        {
+          "filesDiscovered": 6,
+          "filesFailed": 0,
+          "filesParsed": 6,
+          "filesParsedWithErrors": 0,
+          "filesSkipped": 0,
+          "repositoryId": "repo-gitaalekhyapaul-vuln-app"
+        }
+      ],
+      "thirdPartyCallSitesResolved": 6,
+      "thirdPartyCallSitesUnresolved": 0,
+      "thirdPartyImportsResolved": 9,
+      "thirdPartyImportsTypeOnly": 0,
+      "thirdPartyImportsUnresolved": 0
+    },
+    "entryPointsDetected": 4,
+    "notAnalysed": 0,
+    "parseFailures": [],
+    "possibleSyntheticMarkers": 0,
+    "reachable": 1,
+    "resolutionDenominator": 6,
+    "resolutionRate": 0.16666666666666666,
+    "resolvedSymbolCallRecords": 6,
+    "resolvedSymbolCallsNotAnalysed": 0,
+    "resolvedSymbolCallsUnknown": 5,
+    "resolvedSymbolResolutionDenominator": 6,
+    "resolvedSymbolResolutionRate": 0.16666666666666666,
+    "unanalysedOccurrenceReasons": {
+      "nested_under_dependency": 91,
+      "not_imported_by_analysed_source": 9
+    },
+    "unknown": 5,
+    "unknownByCause": {
+      "no_recorded_enclosing_function": 1,
+      "no_resolved_entry_point_path": 4
+    },
+    "unresolvedCallRecords": 0,
+    "unresolvedImportsWithoutCallRecords": 0
+  },
+  "pinProvenance": "testdata/audit/gitaalekhyapaul-vuln-app/CASE.md",
+  "roles": [
+    "end-to-end audit repository"
+  ],
+  "scanExitCode": 0,
+  "sourceDateEpoch": "1623560726",
+  "url": "https://github.com/gitaalekhyapaul/vuln-app.git",
+  "usageExitCode": 0,
+  "validation": {
+    "invariantChecks": 907,
+    "schemaValidation": "PASS"
+  }
+}

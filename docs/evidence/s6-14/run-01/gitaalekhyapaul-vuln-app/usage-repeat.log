@@ -1,0 +1,8 @@
+Usage analysis for scan-20210613T050526Z-7b6af98b: complete
+  Repositories      1
+  Source files      6 found, 6 parsed, 0 with errors, 0 failed, 0 skipped
+  Package imports   9 resolved, 0 type-only, 0 unresolved
+  Package calls     6 resolved, 0 unresolved
+  Reachability      4 entry points, 1 calls reachable, 5 unknown
+  Not imported/analysed  nested_under_dependency 91, not_imported_by_analysed_source 9
+Wrote /home/sbomber1/dev/sbomber/issue152-reachability-evaluation/docs/evidence/s6-14/run-01/gitaalekhyapaul-vuln-app/usage-graph-repeat.json

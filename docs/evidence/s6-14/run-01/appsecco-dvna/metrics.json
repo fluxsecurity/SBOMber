@@ -1,0 +1,72 @@
+{
+  "analyser": {
+    "binding": "github.com/tree-sitter/go-tree-sitter",
+    "bindingVersion": "0.25.0",
+    "cgoEnabled": true,
+    "ecosystems": [
+      "npm"
+    ],
+    "grammarVersions": {
+      "javascript": "0.25.0",
+      "typescript": "0.23.2"
+    },
+    "parser": "tree-sitter",
+    "reachabilityAnalysed": true
+  },
+  "analysis": {
+    "analyzerId": "component2-js-ts-tree-sitter",
+    "ecosystem": "npm",
+    "status": "partial"
+  },
+  "contractCallRecords": 25,
+  "coverage": {
+    "callPathsResolved": 8,
+    "callPathsUnresolved": 17,
+    "entryPointsDetected": 15,
+    "filesDiscovered": 14,
+    "filesFailed": 0,
+    "filesParsed": 12,
+    "filesParsedWithErrors": 0,
+    "filesSkipped": 2,
+    "limitsHit": [],
+    "perRepository": [
+      {
+        "filesDiscovered": 14,
+        "filesFailed": 0,
+        "filesParsed": 12,
+        "filesParsedWithErrors": 0,
+        "filesSkipped": 2,
+        "repositoryId": "repo-appsecco-dvna"
+      }
+    ],
+    "thirdPartyCallSitesResolved": 23,
+    "thirdPartyCallSitesUnresolved": 2,
+    "thirdPartyImportsResolved": 18,
+    "thirdPartyImportsTypeOnly": 0,
+    "thirdPartyImportsUnresolved": 1
+  },
+  "entryPointsDetected": 15,
+  "notAnalysed": 0,
+  "parseFailures": [],
+  "possibleSyntheticMarkers": 2,
+  "reachable": 8,
+  "resolutionDenominator": 25,
+  "resolutionRate": 0.32,
+  "resolvedSymbolCallRecords": 23,
+  "resolvedSymbolCallsNotAnalysed": 0,
+  "resolvedSymbolCallsUnknown": 15,
+  "resolvedSymbolResolutionDenominator": 23,
+  "resolvedSymbolResolutionRate": 0.34782608695652173,
+  "unanalysedOccurrenceReasons": {
+    "excluded_by_limits": 5
+  },
+  "unknown": 17,
+  "unknownByCause": {
+    "call_resolution:outside_supported_syntax": 2,
+    "import_resolution:not_in_inventory": 1,
+    "no_recorded_enclosing_function": 12,
+    "no_resolved_entry_point_path": 2
+  },
+  "unresolvedCallRecords": 2,
+  "unresolvedImportsWithoutCallRecords": 0
+}

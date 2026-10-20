@@ -1,0 +1,8 @@
+Warning: canonical scan status is "partial"; packages it skipped are not in this usage graph either
+Usage analysis for scan-20220830T155554Z-a5e5a07e: complete
+  Repositories      1
+  Source files      1 found, 1 parsed, 0 with errors, 0 failed, 0 skipped
+  Package imports   3 resolved, 0 type-only, 0 unresolved
+  Package calls     3 resolved, 0 unresolved
+  Reachability      4 entry points, 3 calls reachable, 0 unknown
+Wrote /home/sbomber1/dev/sbomber/issue152-reachability-evaluation/docs/evidence/s6-14/run-01/kirill89-prototype-pollution-explained/usage-graph.json

@@ -1,0 +1,10 @@
+Warning: canonical scan status is "partial"; packages it skipped are not in this usage graph either
+Usage analysis for scan-20231108T121149Z-3d642abc: partial
+  Repositories      1
+  Source files      14 found, 12 parsed, 0 with errors, 0 failed, 2 skipped
+  Package imports   18 resolved, 0 type-only, 1 unresolved
+  Package calls     23 resolved, 2 unresolved
+  Reachability      15 entry points, 8 calls reachable, 17 unknown
+  Not imported/analysed  excluded_by_limits 5
+Wrote /home/sbomber1/dev/sbomber/issue152-reachability-evaluation/docs/evidence/s6-14/run-01/appsecco-dvna/usage-graph-repeat.json
+Analysis is partial (see coverage in /home/sbomber1/dev/sbomber/issue152-reachability-evaluation/docs/evidence/s6-14/run-01/appsecco-dvna/usage-graph-repeat.json); exiting 2. Use --allow-partial to accept it.

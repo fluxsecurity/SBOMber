@@ -1,0 +1,120 @@
+{
+  "canonicalSha256": "f243835306d8165db1753f97ad450d06d0636bdb0a909494892a01cb89386668",
+  "commands": [
+    [
+      "/home/sbomber1/dev/sbomber/issue152-reachability-evaluation/docs/evidence/s6-14/run-01/sbomber",
+      "scan",
+      "--no-color",
+      "--canonical-scan",
+      "/home/sbomber1/dev/sbomber/issue152-reachability-evaluation/docs/evidence/s6-14/run-01/kirill89-prototype-pollution-explained/canonical-scan.json",
+      "--",
+      "/home/sbomber1/dev/sbomber/evaluation-repos-152/kirill89-prototype-pollution-explained"
+    ],
+    [
+      "/home/sbomber1/dev/sbomber/issue152-reachability-evaluation/docs/evidence/s6-14/run-01/sbomber",
+      "usage",
+      "--canonical-scan",
+      "/home/sbomber1/dev/sbomber/issue152-reachability-evaluation/docs/evidence/s6-14/run-01/kirill89-prototype-pollution-explained/canonical-scan.json",
+      "--out",
+      "/home/sbomber1/dev/sbomber/issue152-reachability-evaluation/docs/evidence/s6-14/run-01/kirill89-prototype-pollution-explained/usage-graph.json",
+      "--max-files",
+      "10000",
+      "--max-file-bytes",
+      "1000000"
+    ],
+    [
+      "/home/sbomber1/dev/sbomber/issue152-reachability-evaluation/docs/evidence/s6-14/run-01/sbomber",
+      "usage",
+      "--canonical-scan",
+      "/home/sbomber1/dev/sbomber/issue152-reachability-evaluation/docs/evidence/s6-14/run-01/kirill89-prototype-pollution-explained/canonical-scan.json",
+      "--out",
+      "/home/sbomber1/dev/sbomber/issue152-reachability-evaluation/docs/evidence/s6-14/run-01/kirill89-prototype-pollution-explained/usage-graph-repeat.json",
+      "--max-files",
+      "10000",
+      "--max-file-bytes",
+      "1000000"
+    ]
+  ],
+  "commit": "d7b5d98515a95f9a8cb0fedef034010ee083a6a9",
+  "deterministicRepeat": "PASS",
+  "graphSha256": "9620500ea4812294db138cad6185fc77377d89f1463dd2aff5a520861af270d2",
+  "id": "kirill89-prototype-pollution-explained",
+  "metrics": {
+    "analyser": {
+      "binding": "github.com/tree-sitter/go-tree-sitter",
+      "bindingVersion": "0.25.0",
+      "cgoEnabled": true,
+      "ecosystems": [
+        "npm"
+      ],
+      "grammarVersions": {
+        "javascript": "0.25.0",
+        "typescript": "0.23.2"
+      },
+      "parser": "tree-sitter",
+      "reachabilityAnalysed": true
+    },
+    "analysis": {
+      "analyzerId": "component2-js-ts-tree-sitter",
+      "ecosystem": "npm",
+      "status": "complete"
+    },
+    "contractCallRecords": 3,
+    "coverage": {
+      "callPathsResolved": 3,
+      "callPathsUnresolved": 0,
+      "entryPointsDetected": 4,
+      "filesDiscovered": 1,
+      "filesFailed": 0,
+      "filesParsed": 1,
+      "filesParsedWithErrors": 0,
+      "filesSkipped": 0,
+      "limitsHit": [],
+      "perRepository": [
+        {
+          "filesDiscovered": 1,
+          "filesFailed": 0,
+          "filesParsed": 1,
+          "filesParsedWithErrors": 0,
+          "filesSkipped": 0,
+          "repositoryId": "repo-kirill89-prototype-pollution-explained"
+        }
+      ],
+      "thirdPartyCallSitesResolved": 3,
+      "thirdPartyCallSitesUnresolved": 0,
+      "thirdPartyImportsResolved": 3,
+      "thirdPartyImportsTypeOnly": 0,
+      "thirdPartyImportsUnresolved": 0
+    },
+    "entryPointsDetected": 4,
+    "notAnalysed": 0,
+    "parseFailures": [],
+    "possibleSyntheticMarkers": 0,
+    "reachable": 3,
+    "resolutionDenominator": 3,
+    "resolutionRate": 1.0,
+    "resolvedSymbolCallRecords": 3,
+    "resolvedSymbolCallsNotAnalysed": 0,
+    "resolvedSymbolCallsUnknown": 0,
+    "resolvedSymbolResolutionDenominator": 3,
+    "resolvedSymbolResolutionRate": 1.0,
+    "unanalysedOccurrenceReasons": {},
+    "unknown": 0,
+    "unknownByCause": {},
+    "unresolvedCallRecords": 0,
+    "unresolvedImportsWithoutCallRecords": 0
+  },
+  "pinProvenance": "docs/evaluation/component2-public-evaluation-repository.md and testdata/audit/kirill89-prototype-pollution-explained/CASE.md",
+  "roles": [
+    "pinned Component 2 evaluation repository",
+    "end-to-end audit repository"
+  ],
+  "scanExitCode": 0,
+  "sourceDateEpoch": "1661874954",
+  "url": "https://github.com/Kirill89/prototype-pollution-explained.git",
+  "usageExitCode": 0,
+  "validation": {
+    "invariantChecks": 73,
+    "schemaValidation": "PASS"
+  }
+}

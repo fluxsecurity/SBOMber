@@ -1,0 +1,71 @@
+{
+  "analyser": {
+    "binding": "github.com/tree-sitter/go-tree-sitter",
+    "bindingVersion": "0.25.0",
+    "cgoEnabled": true,
+    "ecosystems": [
+      "npm"
+    ],
+    "grammarVersions": {
+      "javascript": "0.25.0",
+      "typescript": "0.23.2"
+    },
+    "parser": "tree-sitter",
+    "reachabilityAnalysed": true
+  },
+  "analysis": {
+    "analyzerId": "component2-js-ts-tree-sitter",
+    "ecosystem": "npm",
+    "status": "complete"
+  },
+  "contractCallRecords": 6,
+  "coverage": {
+    "callPathsResolved": 1,
+    "callPathsUnresolved": 5,
+    "entryPointsDetected": 4,
+    "filesDiscovered": 6,
+    "filesFailed": 0,
+    "filesParsed": 6,
+    "filesParsedWithErrors": 0,
+    "filesSkipped": 0,
+    "limitsHit": [],
+    "perRepository": [
+      {
+        "filesDiscovered": 6,
+        "filesFailed": 0,
+        "filesParsed": 6,
+        "filesParsedWithErrors": 0,
+        "filesSkipped": 0,
+        "repositoryId": "repo-gitaalekhyapaul-vuln-app"
+      }
+    ],
+    "thirdPartyCallSitesResolved": 6,
+    "thirdPartyCallSitesUnresolved": 0,
+    "thirdPartyImportsResolved": 9,
+    "thirdPartyImportsTypeOnly": 0,
+    "thirdPartyImportsUnresolved": 0
+  },
+  "entryPointsDetected": 4,
+  "notAnalysed": 0,
+  "parseFailures": [],
+  "possibleSyntheticMarkers": 0,
+  "reachable": 1,
+  "resolutionDenominator": 6,
+  "resolutionRate": 0.16666666666666666,
+  "resolvedSymbolCallRecords": 6,
+  "resolvedSymbolCallsNotAnalysed": 0,
+  "resolvedSymbolCallsUnknown": 5,
+  "resolvedSymbolResolutionDenominator": 6,
+  "resolvedSymbolResolutionRate": 0.16666666666666666,
+  "unanalysedOccurrenceReasons": {
+    "nested_under_dependency": 91,
+    "not_imported_by_analysed_source": 9
+  },
+  "unknown": 5,
+  "unknownByCause": {
+    "no_recorded_enclosing_function": 1,
+    "no_resolved_entry_point_path": 4
+  },
+  "unresolvedCallRecords": 0,
+  "unresolvedImportsWithoutCallRecords": 0
+}

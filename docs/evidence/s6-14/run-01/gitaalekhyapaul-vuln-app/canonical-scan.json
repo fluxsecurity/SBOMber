@@ -1,0 +1,1616 @@
+{
+  "schemaVersion": "1.0.0",
+  "scan": {
+    "scanId": "scan-20210613T050526Z-7b6af98b",
+    "startedAt": "2021-06-13T05:05:26Z",
+    "completedAt": "2021-06-13T05:05:26Z",
+    "toolVersions": {
+      "go": "go1.26.9",
+      "sbomber": "0.1.1"
+    },
+    "status": "complete",
+    "statusDetail": {
+      "skippedFiles": [],
+      "failedFiles": [],
+      "truncatedTree": false,
+      "limitsHit": []
+    },
+    "repositories": [
+      {
+        "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+        "path": "../../../../../../evaluation-repos-152/gitaalekhyapaul-vuln-app",
+        "commit": "0ddf9bdc9672cc53ebd66cb829382bd702a98876",
+        "source": "local"
+      }
+    ],
+    "enrichment": [
+      {
+        "source": "epss",
+        "status": "skipped",
+        "detail": "vulnerability scanning was not requested"
+      },
+      {
+        "source": "cisa_kev",
+        "status": "skipped",
+        "detail": "vulnerability scanning was not requested"
+      },
+      {
+        "source": "ghsa",
+        "status": "skipped",
+        "detail": "vulnerability scanning was not requested"
+      },
+      {
+        "source": "registry",
+        "status": "skipped",
+        "detail": "vulnerability scanning was not requested"
+      },
+      {
+        "source": "malware",
+        "status": "skipped",
+        "detail": "vulnerability scanning was not requested"
+      }
+    ]
+  },
+  "components": [
+    {
+      "purl": "pkg:npm/%40types/body-parser@1.19.0",
+      "ecosystem": "npm",
+      "name": "@types/body-parser",
+      "version": "1.19.0"
+    },
+    {
+      "purl": "pkg:npm/%40types/connect@3.4.34",
+      "ecosystem": "npm",
+      "name": "@types/connect",
+      "version": "3.4.34"
+    },
+    {
+      "purl": "pkg:npm/%40types/dotenv@8.2.0",
+      "ecosystem": "npm",
+      "name": "@types/dotenv",
+      "version": "8.2.0"
+    },
+    {
+      "purl": "pkg:npm/%40types/ejs@3.0.6",
+      "ecosystem": "npm",
+      "name": "@types/ejs",
+      "version": "3.0.6"
+    },
+    {
+      "purl": "pkg:npm/%40types/express-serve-static-core@4.17.21",
+      "ecosystem": "npm",
+      "name": "@types/express-serve-static-core",
+      "version": "4.17.21"
+    },
+    {
+      "purl": "pkg:npm/%40types/express@4.17.12",
+      "ecosystem": "npm",
+      "name": "@types/express",
+      "version": "4.17.12"
+    },
+    {
+      "purl": "pkg:npm/%40types/mime@1.3.2",
+      "ecosystem": "npm",
+      "name": "@types/mime",
+      "version": "1.3.2"
+    },
+    {
+      "purl": "pkg:npm/%40types/node@15.12.2",
+      "ecosystem": "npm",
+      "name": "@types/node",
+      "version": "15.12.2"
+    },
+    {
+      "purl": "pkg:npm/%40types/qs@6.9.6",
+      "ecosystem": "npm",
+      "name": "@types/qs",
+      "version": "6.9.6"
+    },
+    {
+      "purl": "pkg:npm/%40types/range-parser@1.2.3",
+      "ecosystem": "npm",
+      "name": "@types/range-parser",
+      "version": "1.2.3"
+    },
+    {
+      "purl": "pkg:npm/%40types/serve-static@1.13.9",
+      "ecosystem": "npm",
+      "name": "@types/serve-static",
+      "version": "1.13.9"
+    },
+    {
+      "purl": "pkg:npm/accepts@1.3.7",
+      "ecosystem": "npm",
+      "name": "accepts",
+      "version": "1.3.7"
+    },
+    {
+      "purl": "pkg:npm/ansi-regex@5.0.0",
+      "ecosystem": "npm",
+      "name": "ansi-regex",
+      "version": "5.0.0"
+    },
+    {
+      "purl": "pkg:npm/ansi-styles@3.2.1",
+      "ecosystem": "npm",
+      "name": "ansi-styles",
+      "version": "3.2.1"
+    },
+    {
+      "purl": "pkg:npm/array-flatten@1.1.1",
+      "ecosystem": "npm",
+      "name": "array-flatten",
+      "version": "1.1.1"
+    },
+    {
+      "purl": "pkg:npm/async@0.9.2",
+      "ecosystem": "npm",
+      "name": "async",
+      "version": "0.9.2"
+    },
+    {
+      "purl": "pkg:npm/balanced-match@1.0.2",
+      "ecosystem": "npm",
+      "name": "balanced-match",
+      "version": "1.0.2"
+    },
+    {
+      "purl": "pkg:npm/body-parser@1.19.0",
+      "ecosystem": "npm",
+      "name": "body-parser",
+      "version": "1.19.0"
+    },
+    {
+      "purl": "pkg:npm/brace-expansion@1.1.11",
+      "ecosystem": "npm",
+      "name": "brace-expansion",
+      "version": "1.1.11"
+    },
+    {
+      "purl": "pkg:npm/bytes@3.1.0",
+      "ecosystem": "npm",
+      "name": "bytes",
+      "version": "3.1.0"
+    },
+    {
+      "purl": "pkg:npm/chalk@2.4.2",
+      "ecosystem": "npm",
+      "name": "chalk",
+      "version": "2.4.2"
+    },
+    {
+      "purl": "pkg:npm/color-convert@1.9.3",
+      "ecosystem": "npm",
+      "name": "color-convert",
+      "version": "1.9.3"
+    },
+    {
+      "purl": "pkg:npm/color-name@1.1.3",
+      "ecosystem": "npm",
+      "name": "color-name",
+      "version": "1.1.3"
+    },
+    {
+      "purl": "pkg:npm/concat-map@0.0.1",
+      "ecosystem": "npm",
+      "name": "concat-map",
+      "version": "0.0.1"
+    },
+    {
+      "purl": "pkg:npm/content-disposition@0.5.3",
+      "ecosystem": "npm",
+      "name": "content-disposition",
+      "version": "0.5.3"
+    },
+    {
+      "purl": "pkg:npm/content-type@1.0.4",
+      "ecosystem": "npm",
+      "name": "content-type",
+      "version": "1.0.4"
+    },
+    {
+      "purl": "pkg:npm/cookie-signature@1.0.6",
+      "ecosystem": "npm",
+      "name": "cookie-signature",
+      "version": "1.0.6"
+    },
+    {
+      "purl": "pkg:npm/cookie@0.4.0",
+      "ecosystem": "npm",
+      "name": "cookie",
+      "version": "0.4.0"
+    },
+    {
+      "purl": "pkg:npm/cross-spawn@7.0.3",
+      "ecosystem": "npm",
+      "name": "cross-spawn",
+      "version": "7.0.3"
+    },
+    {
+      "purl": "pkg:npm/debug@2.6.9",
+      "ecosystem": "npm",
+      "name": "debug",
+      "version": "2.6.9"
+    },
+    {
+      "purl": "pkg:npm/depd@1.1.2",
+      "ecosystem": "npm",
+      "name": "depd",
+      "version": "1.1.2"
+    },
+    {
+      "purl": "pkg:npm/destroy@1.0.4",
+      "ecosystem": "npm",
+      "name": "destroy",
+      "version": "1.0.4"
+    },
+    {
+      "purl": "pkg:npm/dotenv@10.0.0",
+      "ecosystem": "npm",
+      "name": "dotenv",
+      "version": "10.0.0"
+    },
+    {
+      "purl": "pkg:npm/duplexer@0.1.2",
+      "ecosystem": "npm",
+      "name": "duplexer",
+      "version": "0.1.2"
+    },
+    {
+      "purl": "pkg:npm/ee-first@1.1.1",
+      "ecosystem": "npm",
+      "name": "ee-first",
+      "version": "1.1.1"
+    },
+    {
+      "purl": "pkg:npm/ejs@3.1.6",
+      "ecosystem": "npm",
+      "name": "ejs",
+      "version": "3.1.6"
+    },
+    {
+      "purl": "pkg:npm/encodeurl@1.0.2",
+      "ecosystem": "npm",
+      "name": "encodeurl",
+      "version": "1.0.2"
+    },
+    {
+      "purl": "pkg:npm/escape-html@1.0.3",
+      "ecosystem": "npm",
+      "name": "escape-html",
+      "version": "1.0.3"
+    },
+    {
+      "purl": "pkg:npm/escape-string-regexp@1.0.5",
+      "ecosystem": "npm",
+      "name": "escape-string-regexp",
+      "version": "1.0.5"
+    },
+    {
+      "purl": "pkg:npm/etag@1.8.1",
+      "ecosystem": "npm",
+      "name": "etag",
+      "version": "1.8.1"
+    },
+    {
+      "purl": "pkg:npm/event-stream@3.3.4",
+      "ecosystem": "npm",
+      "name": "event-stream",
+      "version": "3.3.4"
+    },
+    {
+      "purl": "pkg:npm/express@4.17.1",
+      "ecosystem": "npm",
+      "name": "express",
+      "version": "4.17.1"
+    },
+    {
+      "purl": "pkg:npm/filelist@1.0.2",
+      "ecosystem": "npm",
+      "name": "filelist",
+      "version": "1.0.2"
+    },
+    {
+      "purl": "pkg:npm/finalhandler@1.1.2",
+      "ecosystem": "npm",
+      "name": "finalhandler",
+      "version": "1.1.2"
+    },
+    {
+      "purl": "pkg:npm/forwarded@0.2.0",
+      "ecosystem": "npm",
+      "name": "forwarded",
+      "version": "0.2.0"
+    },
+    {
+      "purl": "pkg:npm/fresh@0.5.2",
+      "ecosystem": "npm",
+      "name": "fresh",
+      "version": "0.5.2"
+    },
+    {
+      "purl": "pkg:npm/from@0.1.7",
+      "ecosystem": "npm",
+      "name": "from",
+      "version": "0.1.7"
+    },
+    {
+      "purl": "pkg:npm/has-flag@3.0.0",
+      "ecosystem": "npm",
+      "name": "has-flag",
+      "version": "3.0.0"
+    },
+    {
+      "purl": "pkg:npm/http-errors@1.7.2",
+      "ecosystem": "npm",
+      "name": "http-errors",
+      "version": "1.7.2"
+    },
+    {
+      "purl": "pkg:npm/http-errors@1.7.3",
+      "ecosystem": "npm",
+      "name": "http-errors",
+      "version": "1.7.3"
+    },
+    {
+      "purl": "pkg:npm/husky@6.0.0",
+      "ecosystem": "npm",
+      "name": "husky",
+      "version": "6.0.0"
+    },
+    {
+      "purl": "pkg:npm/iconv-lite@0.4.24",
+      "ecosystem": "npm",
+      "name": "iconv-lite",
+      "version": "0.4.24"
+    },
+    {
+      "purl": "pkg:npm/inherits@2.0.3",
+      "ecosystem": "npm",
+      "name": "inherits",
+      "version": "2.0.3"
+    },
+    {
+      "purl": "pkg:npm/inherits@2.0.4",
+      "ecosystem": "npm",
+      "name": "inherits",
+      "version": "2.0.4"
+    },
+    {
+      "purl": "pkg:npm/ipaddr.js@1.9.1",
+      "ecosystem": "npm",
+      "name": "ipaddr.js",
+      "version": "1.9.1"
+    },
+    {
+      "purl": "pkg:npm/isexe@2.0.0",
+      "ecosystem": "npm",
+      "name": "isexe",
+      "version": "2.0.0"
+    },
+    {
+      "purl": "pkg:npm/jake@10.8.2",
+      "ecosystem": "npm",
+      "name": "jake",
+      "version": "10.8.2"
+    },
+    {
+      "purl": "pkg:npm/map-stream@0.1.0",
+      "ecosystem": "npm",
+      "name": "map-stream",
+      "version": "0.1.0"
+    },
+    {
+      "purl": "pkg:npm/media-typer@0.3.0",
+      "ecosystem": "npm",
+      "name": "media-typer",
+      "version": "0.3.0"
+    },
+    {
+      "purl": "pkg:npm/merge-descriptors@1.0.1",
+      "ecosystem": "npm",
+      "name": "merge-descriptors",
+      "version": "1.0.1"
+    },
+    {
+      "purl": "pkg:npm/methods@1.1.2",
+      "ecosystem": "npm",
+      "name": "methods",
+      "version": "1.1.2"
+    },
+    {
+      "purl": "pkg:npm/mime-db@1.48.0",
+      "ecosystem": "npm",
+      "name": "mime-db",
+      "version": "1.48.0"
+    },
+    {
+      "purl": "pkg:npm/mime-types@2.1.31",
+      "ecosystem": "npm",
+      "name": "mime-types",
+      "version": "2.1.31"
+    },
+    {
+      "purl": "pkg:npm/mime@1.6.0",
+      "ecosystem": "npm",
+      "name": "mime",
+      "version": "1.6.0"
+    },
+    {
+      "purl": "pkg:npm/minimatch@3.0.4",
+      "ecosystem": "npm",
+      "name": "minimatch",
+      "version": "3.0.4"
+    },
+    {
+      "purl": "pkg:npm/ms@2.0.0",
+      "ecosystem": "npm",
+      "name": "ms",
+      "version": "2.0.0"
+    },
+    {
+      "purl": "pkg:npm/ms@2.1.1",
+      "ecosystem": "npm",
+      "name": "ms",
+      "version": "2.1.1"
+    },
+    {
+      "purl": "pkg:npm/negotiator@0.6.2",
+      "ecosystem": "npm",
+      "name": "negotiator",
+      "version": "0.6.2"
+    },
+    {
+      "purl": "pkg:npm/node-cleanup@2.1.2",
+      "ecosystem": "npm",
+      "name": "node-cleanup",
+      "version": "2.1.2"
+    },
+    {
+      "purl": "pkg:npm/node-serialize@0.0.4",
+      "ecosystem": "npm",
+      "name": "node-serialize",
+      "version": "0.0.4"
+    },
+    {
+      "purl": "pkg:npm/on-finished@2.3.0",
+      "ecosystem": "npm",
+      "name": "on-finished",
+      "version": "2.3.0"
+    },
+    {
+      "purl": "pkg:npm/parseurl@1.3.3",
+      "ecosystem": "npm",
+      "name": "parseurl",
+      "version": "1.3.3"
+    },
+    {
+      "purl": "pkg:npm/path-key@3.1.1",
+      "ecosystem": "npm",
+      "name": "path-key",
+      "version": "3.1.1"
+    },
+    {
+      "purl": "pkg:npm/path-to-regexp@0.1.7",
+      "ecosystem": "npm",
+      "name": "path-to-regexp",
+      "version": "0.1.7"
+    },
+    {
+      "purl": "pkg:npm/pause-stream@0.0.11",
+      "ecosystem": "npm",
+      "name": "pause-stream",
+      "version": "0.0.11"
+    },
+    {
+      "purl": "pkg:npm/proxy-addr@2.0.7",
+      "ecosystem": "npm",
+      "name": "proxy-addr",
+      "version": "2.0.7"
+    },
+    {
+      "purl": "pkg:npm/ps-tree@1.2.0",
+      "ecosystem": "npm",
+      "name": "ps-tree",
+      "version": "1.2.0"
+    },
+    {
+      "purl": "pkg:npm/qs@6.7.0",
+      "ecosystem": "npm",
+      "name": "qs",
+      "version": "6.7.0"
+    },
+    {
+      "purl": "pkg:npm/range-parser@1.2.1",
+      "ecosystem": "npm",
+      "name": "range-parser",
+      "version": "1.2.1"
+    },
+    {
+      "purl": "pkg:npm/raw-body@2.4.0",
+      "ecosystem": "npm",
+      "name": "raw-body",
+      "version": "2.4.0"
+    },
+    {
+      "purl": "pkg:npm/safe-buffer@5.1.2",
+      "ecosystem": "npm",
+      "name": "safe-buffer",
+      "version": "5.1.2"
+    },
+    {
+      "purl": "pkg:npm/safer-buffer@2.1.2",
+      "ecosystem": "npm",
+      "name": "safer-buffer",
+      "version": "2.1.2"
+    },
+    {
+      "purl": "pkg:npm/send@0.17.1",
+      "ecosystem": "npm",
+      "name": "send",
+      "version": "0.17.1"
+    },
+    {
+      "purl": "pkg:npm/serve-static@1.14.1",
+      "ecosystem": "npm",
+      "name": "serve-static",
+      "version": "1.14.1"
+    },
+    {
+      "purl": "pkg:npm/setprototypeof@1.1.1",
+      "ecosystem": "npm",
+      "name": "setprototypeof",
+      "version": "1.1.1"
+    },
+    {
+      "purl": "pkg:npm/shebang-command@2.0.0",
+      "ecosystem": "npm",
+      "name": "shebang-command",
+      "version": "2.0.0"
+    },
+    {
+      "purl": "pkg:npm/shebang-regex@3.0.0",
+      "ecosystem": "npm",
+      "name": "shebang-regex",
+      "version": "3.0.0"
+    },
+    {
+      "purl": "pkg:npm/split@0.3.3",
+      "ecosystem": "npm",
+      "name": "split",
+      "version": "0.3.3"
+    },
+    {
+      "purl": "pkg:npm/statuses@1.5.0",
+      "ecosystem": "npm",
+      "name": "statuses",
+      "version": "1.5.0"
+    },
+    {
+      "purl": "pkg:npm/stream-combiner@0.0.4",
+      "ecosystem": "npm",
+      "name": "stream-combiner",
+      "version": "0.0.4"
+    },
+    {
+      "purl": "pkg:npm/string-argv@0.1.2",
+      "ecosystem": "npm",
+      "name": "string-argv",
+      "version": "0.1.2"
+    },
+    {
+      "purl": "pkg:npm/strip-ansi@6.0.0",
+      "ecosystem": "npm",
+      "name": "strip-ansi",
+      "version": "6.0.0"
+    },
+    {
+      "purl": "pkg:npm/supports-color@5.5.0",
+      "ecosystem": "npm",
+      "name": "supports-color",
+      "version": "5.5.0"
+    },
+    {
+      "purl": "pkg:npm/through@2.3.8",
+      "ecosystem": "npm",
+      "name": "through",
+      "version": "2.3.8"
+    },
+    {
+      "purl": "pkg:npm/toidentifier@1.0.0",
+      "ecosystem": "npm",
+      "name": "toidentifier",
+      "version": "1.0.0"
+    },
+    {
+      "purl": "pkg:npm/tsc-watch@4.4.0",
+      "ecosystem": "npm",
+      "name": "tsc-watch",
+      "version": "4.4.0"
+    },
+    {
+      "purl": "pkg:npm/tsc@2.0.3",
+      "ecosystem": "npm",
+      "name": "tsc",
+      "version": "2.0.3"
+    },
+    {
+      "purl": "pkg:npm/type-is@1.6.18",
+      "ecosystem": "npm",
+      "name": "type-is",
+      "version": "1.6.18"
+    },
+    {
+      "purl": "pkg:npm/typescript@4.3.2",
+      "ecosystem": "npm",
+      "name": "typescript",
+      "version": "4.3.2"
+    },
+    {
+      "purl": "pkg:npm/unpipe@1.0.0",
+      "ecosystem": "npm",
+      "name": "unpipe",
+      "version": "1.0.0"
+    },
+    {
+      "purl": "pkg:npm/utils-merge@1.0.1",
+      "ecosystem": "npm",
+      "name": "utils-merge",
+      "version": "1.0.1"
+    },
+    {
+      "purl": "pkg:npm/vary@1.1.2",
+      "ecosystem": "npm",
+      "name": "vary",
+      "version": "1.1.2"
+    },
+    {
+      "purl": "pkg:npm/which@2.0.2",
+      "ecosystem": "npm",
+      "name": "which",
+      "version": "2.0.2"
+    }
+  ],
+  "occurrences": [
+    {
+      "occurrenceId": "occ-d54d089a9d47",
+      "purl": "pkg:npm/%40types/body-parser@1.19.0",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-7c7476fb513a",
+      "purl": "pkg:npm/%40types/connect@3.4.34",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-04acf1ce8483",
+      "purl": "pkg:npm/%40types/dotenv@8.2.0",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/@types/dotenv",
+      "scope": "development"
+    },
+    {
+      "occurrenceId": "occ-2d1d25ce2aca",
+      "purl": "pkg:npm/%40types/ejs@3.0.6",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/@types/ejs",
+      "scope": "development"
+    },
+    {
+      "occurrenceId": "occ-b22cbdccf26d",
+      "purl": "pkg:npm/%40types/express-serve-static-core@4.17.21",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-cdf82dabb4be",
+      "purl": "pkg:npm/%40types/express@4.17.12",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/@types/express",
+      "scope": "development"
+    },
+    {
+      "occurrenceId": "occ-f20de396a516",
+      "purl": "pkg:npm/%40types/mime@1.3.2",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-8acd517b9790",
+      "purl": "pkg:npm/%40types/node@15.12.2",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/@types/node",
+      "scope": "development"
+    },
+    {
+      "occurrenceId": "occ-1b45972657f2",
+      "purl": "pkg:npm/%40types/qs@6.9.6",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-d84e57ef0a6b",
+      "purl": "pkg:npm/%40types/range-parser@1.2.3",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-04a8e4f1a25d",
+      "purl": "pkg:npm/%40types/serve-static@1.13.9",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-eceb3aee9acd",
+      "purl": "pkg:npm/accepts@1.3.7",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-b5c7851d9454",
+      "purl": "pkg:npm/ansi-regex@5.0.0",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-715c1aed776b",
+      "purl": "pkg:npm/ansi-styles@3.2.1",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-310c63ef09ed",
+      "purl": "pkg:npm/array-flatten@1.1.1",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-33662f6cec8c",
+      "purl": "pkg:npm/async@0.9.2",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-bb9a15dab3c0",
+      "purl": "pkg:npm/balanced-match@1.0.2",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-099fa5573893",
+      "purl": "pkg:npm/body-parser@1.19.0",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-c6f8bd6ab47a",
+      "purl": "pkg:npm/brace-expansion@1.1.11",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-ca6eeb67cd3c",
+      "purl": "pkg:npm/bytes@3.1.0",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-35e977dabfd0",
+      "purl": "pkg:npm/chalk@2.4.2",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-8968f751db8e",
+      "purl": "pkg:npm/color-convert@1.9.3",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-5f34895db2db",
+      "purl": "pkg:npm/color-name@1.1.3",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-c9cfb9bb8611",
+      "purl": "pkg:npm/concat-map@0.0.1",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-40b415672afa",
+      "purl": "pkg:npm/content-disposition@0.5.3",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-69f62736abfd",
+      "purl": "pkg:npm/content-type@1.0.4",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-6837ae121064",
+      "purl": "pkg:npm/cookie-signature@1.0.6",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-a6f0f8ecda61",
+      "purl": "pkg:npm/cookie@0.4.0",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-36f902d7fabc",
+      "purl": "pkg:npm/cross-spawn@7.0.3",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-aa2f43c86d09",
+      "purl": "pkg:npm/debug@2.6.9",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-db8809379fcd",
+      "purl": "pkg:npm/depd@1.1.2",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-1b69fc0ab7f4",
+      "purl": "pkg:npm/destroy@1.0.4",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-d81bc65a59ac",
+      "purl": "pkg:npm/dotenv@10.0.0",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/dotenv",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-d6b72aa72a08",
+      "purl": "pkg:npm/duplexer@0.1.2",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-53497709eb6a",
+      "purl": "pkg:npm/ee-first@1.1.1",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-83cf633e95fe",
+      "purl": "pkg:npm/ejs@3.1.6",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/ejs",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-1ac6a052536a",
+      "purl": "pkg:npm/encodeurl@1.0.2",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-3697ebe799cc",
+      "purl": "pkg:npm/escape-html@1.0.3",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-93785752b989",
+      "purl": "pkg:npm/escape-string-regexp@1.0.5",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-0cd0ed2afa34",
+      "purl": "pkg:npm/etag@1.8.1",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-437e30667591",
+      "purl": "pkg:npm/event-stream@3.3.4",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-0cf14b051a14",
+      "purl": "pkg:npm/express@4.17.1",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/express",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-94df8d9fc7d9",
+      "purl": "pkg:npm/filelist@1.0.2",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-b834588af287",
+      "purl": "pkg:npm/finalhandler@1.1.2",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-4f371f6ba07d",
+      "purl": "pkg:npm/forwarded@0.2.0",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-0be37bbc133c",
+      "purl": "pkg:npm/fresh@0.5.2",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-75a729ba3718",
+      "purl": "pkg:npm/from@0.1.7",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-70c086eeb4bd",
+      "purl": "pkg:npm/has-flag@3.0.0",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-fc73b6eca7d6",
+      "purl": "pkg:npm/http-errors@1.7.2",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-0af60b92d048",
+      "purl": "pkg:npm/http-errors@1.7.3",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-b02cb3d4ca48",
+      "purl": "pkg:npm/husky@6.0.0",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/husky",
+      "scope": "development"
+    },
+    {
+      "occurrenceId": "occ-3e92b6582dde",
+      "purl": "pkg:npm/iconv-lite@0.4.24",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-8bf008e7446e",
+      "purl": "pkg:npm/inherits@2.0.3",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-2b865af58531",
+      "purl": "pkg:npm/inherits@2.0.4",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-00ffebe47bba",
+      "purl": "pkg:npm/ipaddr.js@1.9.1",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-b54e9d3f4858",
+      "purl": "pkg:npm/isexe@2.0.0",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-50ca878ca2e6",
+      "purl": "pkg:npm/jake@10.8.2",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-c0550b80abd0",
+      "purl": "pkg:npm/map-stream@0.1.0",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-a4536faad455",
+      "purl": "pkg:npm/media-typer@0.3.0",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-61c6d1b2959c",
+      "purl": "pkg:npm/merge-descriptors@1.0.1",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-d2b45ba14c21",
+      "purl": "pkg:npm/methods@1.1.2",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-d990bad654ab",
+      "purl": "pkg:npm/mime-db@1.48.0",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-3b7fd9a48886",
+      "purl": "pkg:npm/mime-types@2.1.31",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-40d4415c5fea",
+      "purl": "pkg:npm/mime@1.6.0",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-700f94037390",
+      "purl": "pkg:npm/minimatch@3.0.4",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-ad6c24939334",
+      "purl": "pkg:npm/ms@2.0.0",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-320c5589c97d",
+      "purl": "pkg:npm/ms@2.1.1",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-e95289b8bfa6",
+      "purl": "pkg:npm/negotiator@0.6.2",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-84301215cd4f",
+      "purl": "pkg:npm/node-cleanup@2.1.2",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-cbd6200de216",
+      "purl": "pkg:npm/node-serialize@0.0.4",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/node-serialize",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-7baf02589bd1",
+      "purl": "pkg:npm/on-finished@2.3.0",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-1d74190bceaa",
+      "purl": "pkg:npm/parseurl@1.3.3",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-117e2fee02fe",
+      "purl": "pkg:npm/path-key@3.1.1",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-e407baf9d5ef",
+      "purl": "pkg:npm/path-to-regexp@0.1.7",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-866f160c35da",
+      "purl": "pkg:npm/pause-stream@0.0.11",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-d400116b2a29",
+      "purl": "pkg:npm/proxy-addr@2.0.7",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-740c6736cec8",
+      "purl": "pkg:npm/ps-tree@1.2.0",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-3c8198b5277f",
+      "purl": "pkg:npm/qs@6.7.0",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-0190d81d9ffe",
+      "purl": "pkg:npm/range-parser@1.2.1",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-8490ce11af57",
+      "purl": "pkg:npm/raw-body@2.4.0",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-49c57d5073a6",
+      "purl": "pkg:npm/safe-buffer@5.1.2",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-bcbe89dd7e8a",
+      "purl": "pkg:npm/safer-buffer@2.1.2",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-cbb1af6341a8",
+      "purl": "pkg:npm/send@0.17.1",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-059bf1ea2ea7",
+      "purl": "pkg:npm/serve-static@1.14.1",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-7a2960656d6a",
+      "purl": "pkg:npm/setprototypeof@1.1.1",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-fb7c1ee179ed",
+      "purl": "pkg:npm/shebang-command@2.0.0",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-82705f242772",
+      "purl": "pkg:npm/shebang-regex@3.0.0",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-d80433b4d7e1",
+      "purl": "pkg:npm/split@0.3.3",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-4c4b4b4cee4a",
+      "purl": "pkg:npm/statuses@1.5.0",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-0f64113763d3",
+      "purl": "pkg:npm/stream-combiner@0.0.4",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-816530cd47a2",
+      "purl": "pkg:npm/string-argv@0.1.2",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-bdcb82361931",
+      "purl": "pkg:npm/strip-ansi@6.0.0",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-f10658614b46",
+      "purl": "pkg:npm/supports-color@5.5.0",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-47e0ca09ce15",
+      "purl": "pkg:npm/through@2.3.8",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-d3eaeb54f90c",
+      "purl": "pkg:npm/toidentifier@1.0.0",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-448d118736a4",
+      "purl": "pkg:npm/tsc-watch@4.4.0",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/tsc-watch",
+      "scope": "development"
+    },
+    {
+      "occurrenceId": "occ-8f49d0f8d8df",
+      "purl": "pkg:npm/tsc@2.0.3",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/tsc",
+      "scope": "development"
+    },
+    {
+      "occurrenceId": "occ-ca69f10d7a3e",
+      "purl": "pkg:npm/type-is@1.6.18",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-62cdae70e222",
+      "purl": "pkg:npm/typescript@4.3.2",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/typescript",
+      "scope": "development"
+    },
+    {
+      "occurrenceId": "occ-a7b148b59805",
+      "purl": "pkg:npm/unpipe@1.0.0",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-2c3c9c253337",
+      "purl": "pkg:npm/utils-merge@1.0.1",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-04cd528116da",
+      "purl": "pkg:npm/vary@1.1.2",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-13155033923e",
+      "purl": "pkg:npm/which@2.0.2",
+      "repositoryId": "repo-gitaalekhyapaul-vuln-app",
+      "manifest": "yarn.lock",
+      "relationship": "transitive",
+      "dependencyPath": [],
+      "scope": "runtime"
+    }
+  ],
+  "findings": []
+}
