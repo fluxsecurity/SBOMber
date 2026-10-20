@@ -1,0 +1,10 @@
+Warning: canonical scan status is "partial"; packages it skipped are not in this usage graph either
+Usage analysis for scan-20261015T203909Z-0c8b7321: partial
+  Repositories      1
+  Source files      657 found, 616 parsed, 39 with errors, 0 failed, 2 skipped
+  Package imports   288 resolved, 321 type-only, 2937 unresolved
+  Package calls     3977 resolved, 1620 unresolved
+  Reachability      8 entry points, 2 calls reachable, 5595 unknown
+  Not imported/analysed  computed_specifier 48
+Wrote /home/sbomber1/dev/sbomber/issue152-reachability-evaluation/docs/evidence/s6-14/run-01/juice-shop/usage-graph-repeat.json
+Analysis is partial (see coverage in /home/sbomber1/dev/sbomber/issue152-reachability-evaluation/docs/evidence/s6-14/run-01/juice-shop/usage-graph-repeat.json); exiting 2. Use --allow-partial to accept it.

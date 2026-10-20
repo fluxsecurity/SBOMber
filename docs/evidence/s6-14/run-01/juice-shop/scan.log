@@ -1,0 +1,11 @@
+Selected SBOM export format: cyclonedx
+Found 1 repository under /home/sbomber1/dev/sbomber/evaluation-repos-152/juice-shop
+- juice-shop  /home/sbomber1/dev/sbomber/evaluation-repos-152/juice-shop  [npm]
+  output folder: /home/sbomber1/.sbomber/reports/juice-shop_c61602fd
+  exported SBOM: sbom-cyclonedx.xml
+  packages:  114 direct
+  direct dependencies (package.json): 114 (runtime: 64, development: 50)
+  sample packages: @ai-sdk/openai-compatible, @cyclonedx/cyclonedx-npm, @eslint/js, @fontsource/roboto, @istanbuljs/nyc-config-typescript
+
+Scan complete: 1 repositories scanned
+Wrote /home/sbomber1/dev/sbomber/issue152-reachability-evaluation/docs/evidence/s6-14/run-01/juice-shop/canonical-scan.json

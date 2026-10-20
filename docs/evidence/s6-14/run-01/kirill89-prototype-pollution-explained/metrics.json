@@ -1,0 +1,65 @@
+{
+  "analyser": {
+    "binding": "github.com/tree-sitter/go-tree-sitter",
+    "bindingVersion": "0.25.0",
+    "cgoEnabled": true,
+    "ecosystems": [
+      "npm"
+    ],
+    "grammarVersions": {
+      "javascript": "0.25.0",
+      "typescript": "0.23.2"
+    },
+    "parser": "tree-sitter",
+    "reachabilityAnalysed": true
+  },
+  "analysis": {
+    "analyzerId": "component2-js-ts-tree-sitter",
+    "ecosystem": "npm",
+    "status": "complete"
+  },
+  "contractCallRecords": 3,
+  "coverage": {
+    "callPathsResolved": 3,
+    "callPathsUnresolved": 0,
+    "entryPointsDetected": 4,
+    "filesDiscovered": 1,
+    "filesFailed": 0,
+    "filesParsed": 1,
+    "filesParsedWithErrors": 0,
+    "filesSkipped": 0,
+    "limitsHit": [],
+    "perRepository": [
+      {
+        "filesDiscovered": 1,
+        "filesFailed": 0,
+        "filesParsed": 1,
+        "filesParsedWithErrors": 0,
+        "filesSkipped": 0,
+        "repositoryId": "repo-kirill89-prototype-pollution-explained"
+      }
+    ],
+    "thirdPartyCallSitesResolved": 3,
+    "thirdPartyCallSitesUnresolved": 0,
+    "thirdPartyImportsResolved": 3,
+    "thirdPartyImportsTypeOnly": 0,
+    "thirdPartyImportsUnresolved": 0
+  },
+  "entryPointsDetected": 4,
+  "notAnalysed": 0,
+  "parseFailures": [],
+  "possibleSyntheticMarkers": 0,
+  "reachable": 3,
+  "resolutionDenominator": 3,
+  "resolutionRate": 1.0,
+  "resolvedSymbolCallRecords": 3,
+  "resolvedSymbolCallsNotAnalysed": 0,
+  "resolvedSymbolCallsUnknown": 0,
+  "resolvedSymbolResolutionDenominator": 3,
+  "resolvedSymbolResolutionRate": 1.0,
+  "unanalysedOccurrenceReasons": {},
+  "unknown": 0,
+  "unknownByCause": {},
+  "unresolvedCallRecords": 0,
+  "unresolvedImportsWithoutCallRecords": 0
+}

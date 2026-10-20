@@ -1,0 +1,42 @@
+{
+  "issue": 152,
+  "repositories": [
+    {
+      "commit": "d7b5d98515a95f9a8cb0fedef034010ee083a6a9",
+      "id": "kirill89-prototype-pollution-explained",
+      "pinProvenance": "docs/evaluation/component2-public-evaluation-repository.md and testdata/audit/kirill89-prototype-pollution-explained/CASE.md",
+      "roles": [
+        "pinned Component 2 evaluation repository",
+        "end-to-end audit repository"
+      ],
+      "url": "https://github.com/Kirill89/prototype-pollution-explained.git"
+    },
+    {
+      "commit": "399fba76194305a312693eee44f4df64bdf0c3ce",
+      "id": "juice-shop",
+      "pinProvenance": "New evaluation pin selected on 2026-10-20 from GitHub commits/HEAD; commit dated 2026-10-15T20:39:09Z. No previous Juice Shop pin was recovered.",
+      "roles": [
+        "OWASP Juice Shop real-repository evaluation"
+      ],
+      "url": "https://github.com/juice-shop/juice-shop.git"
+    },
+    {
+      "commit": "9ba473add536f66ac9007966acb2a775dd31277a",
+      "id": "appsecco-dvna",
+      "pinProvenance": "testdata/audit/appsecco-dvna/CASE.md",
+      "roles": [
+        "end-to-end audit repository"
+      ],
+      "url": "https://github.com/appsecco/dvna.git"
+    },
+    {
+      "commit": "0ddf9bdc9672cc53ebd66cb829382bd702a98876",
+      "id": "gitaalekhyapaul-vuln-app",
+      "pinProvenance": "testdata/audit/gitaalekhyapaul-vuln-app/CASE.md",
+      "roles": [
+        "end-to-end audit repository"
+      ],
+      "url": "https://github.com/gitaalekhyapaul/vuln-app.git"
+    }
+  ]
+}

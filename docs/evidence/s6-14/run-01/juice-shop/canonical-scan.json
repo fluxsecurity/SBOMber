@@ -1,0 +1,2105 @@
+{
+  "schemaVersion": "1.0.0",
+  "scan": {
+    "scanId": "scan-20261015T203909Z-0c8b7321",
+    "startedAt": "2026-10-15T20:39:09Z",
+    "completedAt": "2026-10-15T20:39:09Z",
+    "toolVersions": {
+      "go": "go1.26.9",
+      "sbomber": "0.1.1"
+    },
+    "status": "partial",
+    "statusDetail": {
+      "skippedFiles": [],
+      "failedFiles": [],
+      "truncatedTree": false,
+      "limitsHit": [
+        "repo-juice-shop: npm: no package-lock.json; versions are as declared and transitive dependencies are not listed"
+      ]
+    },
+    "repositories": [
+      {
+        "repositoryId": "repo-juice-shop",
+        "path": "../../../../../../evaluation-repos-152/juice-shop",
+        "commit": "399fba76194305a312693eee44f4df64bdf0c3ce",
+        "source": "local"
+      }
+    ],
+    "enrichment": [
+      {
+        "source": "epss",
+        "status": "skipped",
+        "detail": "vulnerability scanning was not requested"
+      },
+      {
+        "source": "cisa_kev",
+        "status": "skipped",
+        "detail": "vulnerability scanning was not requested"
+      },
+      {
+        "source": "ghsa",
+        "status": "skipped",
+        "detail": "vulnerability scanning was not requested"
+      },
+      {
+        "source": "registry",
+        "status": "skipped",
+        "detail": "vulnerability scanning was not requested"
+      },
+      {
+        "source": "malware",
+        "status": "skipped",
+        "detail": "vulnerability scanning was not requested"
+      }
+    ]
+  },
+  "components": [
+    {
+      "purl": "pkg:npm/%40ai-sdk/openai-compatible",
+      "ecosystem": "npm",
+      "name": "@ai-sdk/openai-compatible",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^2.0.35"
+    },
+    {
+      "purl": "pkg:npm/%40cyclonedx/cyclonedx-npm",
+      "ecosystem": "npm",
+      "name": "@cyclonedx/cyclonedx-npm",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^2.0.0||^3.0.0||^4.00"
+    },
+    {
+      "purl": "pkg:npm/%40eslint/js",
+      "ecosystem": "npm",
+      "name": "@eslint/js",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^9.33.0"
+    },
+    {
+      "purl": "pkg:npm/%40fontsource/roboto",
+      "ecosystem": "npm",
+      "name": "@fontsource/roboto",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^5.2.9"
+    },
+    {
+      "purl": "pkg:npm/%40istanbuljs/nyc-config-typescript",
+      "ecosystem": "npm",
+      "name": "@istanbuljs/nyc-config-typescript",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^1.0.2"
+    },
+    {
+      "purl": "pkg:npm/%40types/clarinet",
+      "ecosystem": "npm",
+      "name": "@types/clarinet",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^0.12.3"
+    },
+    {
+      "purl": "pkg:npm/%40types/compression",
+      "ecosystem": "npm",
+      "name": "@types/compression",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^1.8.1"
+    },
+    {
+      "purl": "pkg:npm/%40types/config",
+      "ecosystem": "npm",
+      "name": "@types/config",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^3.3.5"
+    },
+    {
+      "purl": "pkg:npm/%40types/cookie-parser",
+      "ecosystem": "npm",
+      "name": "@types/cookie-parser",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^1.4.10"
+    },
+    {
+      "purl": "pkg:npm/%40types/cors",
+      "ecosystem": "npm",
+      "name": "@types/cors",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^2.8.19"
+    },
+    {
+      "purl": "pkg:npm/%40types/cross-spawn",
+      "ecosystem": "npm",
+      "name": "@types/cross-spawn",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^6.0.6"
+    },
+    {
+      "purl": "pkg:npm/%40types/diff",
+      "ecosystem": "npm",
+      "name": "@types/diff",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^7.0.1"
+    },
+    {
+      "purl": "pkg:npm/%40types/download",
+      "ecosystem": "npm",
+      "name": "@types/download",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^8.0.5"
+    },
+    {
+      "purl": "pkg:npm/%40types/errorhandler",
+      "ecosystem": "npm",
+      "name": "@types/errorhandler",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^1.5.3"
+    },
+    {
+      "purl": "pkg:npm/%40types/exif",
+      "ecosystem": "npm",
+      "name": "@types/exif",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^0.6.5"
+    },
+    {
+      "purl": "pkg:npm/%40types/express",
+      "ecosystem": "npm",
+      "name": "@types/express",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^4.17.25"
+    },
+    {
+      "purl": "pkg:npm/%40types/express-jwt",
+      "ecosystem": "npm",
+      "name": "@types/express-jwt",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^6.0.4"
+    },
+    {
+      "purl": "pkg:npm/%40types/fs-extra",
+      "ecosystem": "npm",
+      "name": "@types/fs-extra",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^9.0.13"
+    },
+    {
+      "purl": "pkg:npm/%40types/glob",
+      "ecosystem": "npm",
+      "name": "@types/glob",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^7.2.0"
+    },
+    {
+      "purl": "pkg:npm/%40types/graceful-fs",
+      "ecosystem": "npm",
+      "name": "@types/graceful-fs",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^4.1.9"
+    },
+    {
+      "purl": "pkg:npm/%40types/i18n",
+      "ecosystem": "npm",
+      "name": "@types/i18n",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^0.12.0"
+    },
+    {
+      "purl": "pkg:npm/%40types/js-yaml",
+      "ecosystem": "npm",
+      "name": "@types/js-yaml",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^3.12.10"
+    },
+    {
+      "purl": "pkg:npm/%40types/jsonwebtoken",
+      "ecosystem": "npm",
+      "name": "@types/jsonwebtoken",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^8.5.9"
+    },
+    {
+      "purl": "pkg:npm/%40types/jws",
+      "ecosystem": "npm",
+      "name": "@types/jws",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^3.2.10"
+    },
+    {
+      "purl": "pkg:npm/%40types/lodash",
+      "ecosystem": "npm",
+      "name": "@types/lodash",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^4.17.14"
+    },
+    {
+      "purl": "pkg:npm/%40types/morgan",
+      "ecosystem": "npm",
+      "name": "@types/morgan",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^1.9.9"
+    },
+    {
+      "purl": "pkg:npm/%40types/multer",
+      "ecosystem": "npm",
+      "name": "@types/multer",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^1.4.12"
+    },
+    {
+      "purl": "pkg:npm/%40types/node",
+      "ecosystem": "npm",
+      "name": "@types/node",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^26.0.1"
+    },
+    {
+      "purl": "pkg:npm/%40types/on-finished",
+      "ecosystem": "npm",
+      "name": "@types/on-finished",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^2.3.4"
+    },
+    {
+      "purl": "pkg:npm/%40types/pdfkit",
+      "ecosystem": "npm",
+      "name": "@types/pdfkit",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^0.10.6"
+    },
+    {
+      "purl": "pkg:npm/%40types/portscanner",
+      "ecosystem": "npm",
+      "name": "@types/portscanner",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^2.1.4"
+    },
+    {
+      "purl": "pkg:npm/%40types/pug",
+      "ecosystem": "npm",
+      "name": "@types/pug",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^2.0.10"
+    },
+    {
+      "purl": "pkg:npm/%40types/sanitize-html",
+      "ecosystem": "npm",
+      "name": "@types/sanitize-html",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^1.27.2"
+    },
+    {
+      "purl": "pkg:npm/%40types/semver",
+      "ecosystem": "npm",
+      "name": "@types/semver",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^7.5.8"
+    },
+    {
+      "purl": "pkg:npm/%40types/sequelize",
+      "ecosystem": "npm",
+      "name": "@types/sequelize",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^4.28.20"
+    },
+    {
+      "purl": "pkg:npm/%40types/serve-index",
+      "ecosystem": "npm",
+      "name": "@types/serve-index",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^1.9.4"
+    },
+    {
+      "purl": "pkg:npm/%40types/supertest",
+      "ecosystem": "npm",
+      "name": "@types/supertest",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^7.2.0"
+    },
+    {
+      "purl": "pkg:npm/%40types/swagger-ui-express",
+      "ecosystem": "npm",
+      "name": "@types/swagger-ui-express",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^4.1.6"
+    },
+    {
+      "purl": "pkg:npm/%40types/unzipper",
+      "ecosystem": "npm",
+      "name": "@types/unzipper",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^0.10.10"
+    },
+    {
+      "purl": "pkg:npm/ai",
+      "ecosystem": "npm",
+      "name": "ai",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^6.0.116"
+    },
+    {
+      "purl": "pkg:npm/beercss",
+      "ecosystem": "npm",
+      "name": "beercss",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^4.0.19"
+    },
+    {
+      "purl": "pkg:npm/body-parser",
+      "ecosystem": "npm",
+      "name": "body-parser",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^1.20.4"
+    },
+    {
+      "purl": "pkg:npm/check-dependencies",
+      "ecosystem": "npm",
+      "name": "check-dependencies",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^2.0.0"
+    },
+    {
+      "purl": "pkg:npm/clarinet",
+      "ecosystem": "npm",
+      "name": "clarinet",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^0.12.6"
+    },
+    {
+      "purl": "pkg:npm/colors@1.4.0",
+      "ecosystem": "npm",
+      "name": "colors",
+      "version": "1.4.0"
+    },
+    {
+      "purl": "pkg:npm/compression",
+      "ecosystem": "npm",
+      "name": "compression",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^1.8.1"
+    },
+    {
+      "purl": "pkg:npm/concurrently",
+      "ecosystem": "npm",
+      "name": "concurrently",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^5.3.0"
+    },
+    {
+      "purl": "pkg:npm/config",
+      "ecosystem": "npm",
+      "name": "config",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^3.3.12"
+    },
+    {
+      "purl": "pkg:npm/cookie-parser",
+      "ecosystem": "npm",
+      "name": "cookie-parser",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^1.4.7"
+    },
+    {
+      "purl": "pkg:npm/cookieconsent",
+      "ecosystem": "npm",
+      "name": "cookieconsent",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^3.1.1"
+    },
+    {
+      "purl": "pkg:npm/cors",
+      "ecosystem": "npm",
+      "name": "cors",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^2.8.5"
+    },
+    {
+      "purl": "pkg:npm/cypress",
+      "ecosystem": "npm",
+      "name": "cypress",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^15.16.0"
+    },
+    {
+      "purl": "pkg:npm/diff",
+      "ecosystem": "npm",
+      "name": "diff",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^9.0.0"
+    },
+    {
+      "purl": "pkg:npm/download",
+      "ecosystem": "npm",
+      "name": "download",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^8.0.0"
+    },
+    {
+      "purl": "pkg:npm/errorhandler",
+      "ecosystem": "npm",
+      "name": "errorhandler",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^1.5.1"
+    },
+    {
+      "purl": "pkg:npm/eslint",
+      "ecosystem": "npm",
+      "name": "eslint",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^9.39.4"
+    },
+    {
+      "purl": "pkg:npm/ethers",
+      "ecosystem": "npm",
+      "name": "ethers",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^6.16.0"
+    },
+    {
+      "purl": "pkg:npm/exif",
+      "ecosystem": "npm",
+      "name": "exif",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^0.6.0"
+    },
+    {
+      "purl": "pkg:npm/express",
+      "ecosystem": "npm",
+      "name": "express",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^4.22.1"
+    },
+    {
+      "purl": "pkg:npm/express-ipfilter",
+      "ecosystem": "npm",
+      "name": "express-ipfilter",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^1.3.2"
+    },
+    {
+      "purl": "pkg:npm/express-jwt@0.1.3",
+      "ecosystem": "npm",
+      "name": "express-jwt",
+      "version": "0.1.3"
+    },
+    {
+      "purl": "pkg:npm/express-rate-limit",
+      "ecosystem": "npm",
+      "name": "express-rate-limit",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^7.5.1"
+    },
+    {
+      "purl": "pkg:npm/express-robots-txt",
+      "ecosystem": "npm",
+      "name": "express-robots-txt",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^0.5.0"
+    },
+    {
+      "purl": "pkg:npm/express-security.txt",
+      "ecosystem": "npm",
+      "name": "express-security.txt",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^2.0.0"
+    },
+    {
+      "purl": "pkg:npm/feature-policy",
+      "ecosystem": "npm",
+      "name": "feature-policy",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^0.6.0"
+    },
+    {
+      "purl": "pkg:npm/file-stream-rotator",
+      "ecosystem": "npm",
+      "name": "file-stream-rotator",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^1.0.0"
+    },
+    {
+      "purl": "pkg:npm/file-type",
+      "ecosystem": "npm",
+      "name": "file-type",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^16.5.4"
+    },
+    {
+      "purl": "pkg:npm/finale-rest",
+      "ecosystem": "npm",
+      "name": "finale-rest",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^1.2.2"
+    },
+    {
+      "purl": "pkg:npm/fs-extra",
+      "ecosystem": "npm",
+      "name": "fs-extra",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^9.1.0"
+    },
+    {
+      "purl": "pkg:npm/glob",
+      "ecosystem": "npm",
+      "name": "glob",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^10.4.5"
+    },
+    {
+      "purl": "pkg:npm/globals",
+      "ecosystem": "npm",
+      "name": "globals",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^17.4.0"
+    },
+    {
+      "purl": "pkg:npm/graceful-fs",
+      "ecosystem": "npm",
+      "name": "graceful-fs",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^4.2.11"
+    },
+    {
+      "purl": "pkg:npm/hashids",
+      "ecosystem": "npm",
+      "name": "hashids",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^2.3.0"
+    },
+    {
+      "purl": "pkg:npm/hbs",
+      "ecosystem": "npm",
+      "name": "hbs",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^4.2.0"
+    },
+    {
+      "purl": "pkg:npm/helmet",
+      "ecosystem": "npm",
+      "name": "helmet",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^4.6.0"
+    },
+    {
+      "purl": "pkg:npm/html-entities",
+      "ecosystem": "npm",
+      "name": "html-entities",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^1.4.0"
+    },
+    {
+      "purl": "pkg:npm/i18n",
+      "ecosystem": "npm",
+      "name": "i18n",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^0.11.1"
+    },
+    {
+      "purl": "pkg:npm/js-yaml",
+      "ecosystem": "npm",
+      "name": "js-yaml",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^3.14.0"
+    },
+    {
+      "purl": "pkg:npm/jsonwebtoken@0.4.0",
+      "ecosystem": "npm",
+      "name": "jsonwebtoken",
+      "version": "0.4.0"
+    },
+    {
+      "purl": "pkg:npm/libxml2-wasm",
+      "ecosystem": "npm",
+      "name": "libxml2-wasm",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^0.7.1"
+    },
+    {
+      "purl": "pkg:npm/marsdb",
+      "ecosystem": "npm",
+      "name": "marsdb",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^0.6.11"
+    },
+    {
+      "purl": "pkg:npm/material-icons",
+      "ecosystem": "npm",
+      "name": "material-icons",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^1.13.14"
+    },
+    {
+      "purl": "pkg:npm/median",
+      "ecosystem": "npm",
+      "name": "median",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^0.0.2"
+    },
+    {
+      "purl": "pkg:npm/morgan",
+      "ecosystem": "npm",
+      "name": "morgan",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^1.10.0"
+    },
+    {
+      "purl": "pkg:npm/multer",
+      "ecosystem": "npm",
+      "name": "multer",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^2.4.0"
+    },
+    {
+      "purl": "pkg:npm/neostandard",
+      "ecosystem": "npm",
+      "name": "neostandard",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^0.13.0"
+    },
+    {
+      "purl": "pkg:npm/notevil",
+      "ecosystem": "npm",
+      "name": "notevil",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^1.3.3"
+    },
+    {
+      "purl": "pkg:npm/nyc",
+      "ecosystem": "npm",
+      "name": "nyc",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^15.1.0"
+    },
+    {
+      "purl": "pkg:npm/on-finished",
+      "ecosystem": "npm",
+      "name": "on-finished",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^2.3.0"
+    },
+    {
+      "purl": "pkg:npm/otplib",
+      "ecosystem": "npm",
+      "name": "otplib",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^13.4.0"
+    },
+    {
+      "purl": "pkg:npm/pdfkit",
+      "ecosystem": "npm",
+      "name": "pdfkit",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^0.11.0"
+    },
+    {
+      "purl": "pkg:npm/portscanner",
+      "ecosystem": "npm",
+      "name": "portscanner",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^2.2.0"
+    },
+    {
+      "purl": "pkg:npm/prom-client",
+      "ecosystem": "npm",
+      "name": "prom-client",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^15.1.3"
+    },
+    {
+      "purl": "pkg:npm/proxy-agent",
+      "ecosystem": "npm",
+      "name": "proxy-agent",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^8.0.2"
+    },
+    {
+      "purl": "pkg:npm/pug",
+      "ecosystem": "npm",
+      "name": "pug",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^3.0.3"
+    },
+    {
+      "purl": "pkg:npm/replace",
+      "ecosystem": "npm",
+      "name": "replace",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^1.2.2"
+    },
+    {
+      "purl": "pkg:npm/sanitize-filename",
+      "ecosystem": "npm",
+      "name": "sanitize-filename",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^1.6.3"
+    },
+    {
+      "purl": "pkg:npm/sanitize-html@1.4.2",
+      "ecosystem": "npm",
+      "name": "sanitize-html",
+      "version": "1.4.2"
+    },
+    {
+      "purl": "pkg:npm/semver",
+      "ecosystem": "npm",
+      "name": "semver",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^7.6.3"
+    },
+    {
+      "purl": "pkg:npm/sequelize",
+      "ecosystem": "npm",
+      "name": "sequelize",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^6.37.3"
+    },
+    {
+      "purl": "pkg:npm/serve-index",
+      "ecosystem": "npm",
+      "name": "serve-index",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^1.9.1"
+    },
+    {
+      "purl": "pkg:npm/socket.io",
+      "ecosystem": "npm",
+      "name": "socket.io",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^4.8.4"
+    },
+    {
+      "purl": "pkg:npm/socket.io-client",
+      "ecosystem": "npm",
+      "name": "socket.io-client",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^4.8.4"
+    },
+    {
+      "purl": "pkg:npm/sqlite3",
+      "ecosystem": "npm",
+      "name": "sqlite3",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^5.1.7"
+    },
+    {
+      "purl": "pkg:npm/supertest",
+      "ecosystem": "npm",
+      "name": "supertest",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^7.2.2"
+    },
+    {
+      "purl": "pkg:npm/svg-captcha",
+      "ecosystem": "npm",
+      "name": "svg-captcha",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^1.4.0"
+    },
+    {
+      "purl": "pkg:npm/swagger-ui-express",
+      "ecosystem": "npm",
+      "name": "swagger-ui-express",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^5.0.1"
+    },
+    {
+      "purl": "pkg:npm/tsx",
+      "ecosystem": "npm",
+      "name": "tsx",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^4.21.0"
+    },
+    {
+      "purl": "pkg:npm/typescript",
+      "ecosystem": "npm",
+      "name": "typescript",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^6.0.3"
+    },
+    {
+      "purl": "pkg:npm/typescript-eslint",
+      "ecosystem": "npm",
+      "name": "typescript-eslint",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^8.57.1"
+    },
+    {
+      "purl": "pkg:npm/unzipper",
+      "ecosystem": "npm",
+      "name": "unzipper",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^0.12.3"
+    },
+    {
+      "purl": "pkg:npm/winston",
+      "ecosystem": "npm",
+      "name": "winston",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^3.16.0"
+    },
+    {
+      "purl": "pkg:npm/z85",
+      "ecosystem": "npm",
+      "name": "z85",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^0.0.2"
+    },
+    {
+      "purl": "pkg:npm/zod",
+      "ecosystem": "npm",
+      "name": "zod",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^4.4.3"
+    }
+  ],
+  "occurrences": [
+    {
+      "occurrenceId": "occ-2f4da13e82a2",
+      "purl": "pkg:npm/%40ai-sdk/openai-compatible",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/@ai-sdk/openai-compatible",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-f026691cc735",
+      "purl": "pkg:npm/%40cyclonedx/cyclonedx-npm",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/@cyclonedx/cyclonedx-npm",
+      "scope": "development"
+    },
+    {
+      "occurrenceId": "occ-d5063ba3be49",
+      "purl": "pkg:npm/%40eslint/js",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/@eslint/js",
+      "scope": "development"
+    },
+    {
+      "occurrenceId": "occ-94e60d931e93",
+      "purl": "pkg:npm/%40fontsource/roboto",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/@fontsource/roboto",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-f198f1446663",
+      "purl": "pkg:npm/%40istanbuljs/nyc-config-typescript",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/@istanbuljs/nyc-config-typescript",
+      "scope": "development"
+    },
+    {
+      "occurrenceId": "occ-ce6e395c24c5",
+      "purl": "pkg:npm/%40types/clarinet",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/@types/clarinet",
+      "scope": "development"
+    },
+    {
+      "occurrenceId": "occ-58a039d3888b",
+      "purl": "pkg:npm/%40types/compression",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/@types/compression",
+      "scope": "development"
+    },
+    {
+      "occurrenceId": "occ-190f30d6edea",
+      "purl": "pkg:npm/%40types/config",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/@types/config",
+      "scope": "development"
+    },
+    {
+      "occurrenceId": "occ-e2e64d8e5fcf",
+      "purl": "pkg:npm/%40types/cookie-parser",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/@types/cookie-parser",
+      "scope": "development"
+    },
+    {
+      "occurrenceId": "occ-48345dfa98a9",
+      "purl": "pkg:npm/%40types/cors",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/@types/cors",
+      "scope": "development"
+    },
+    {
+      "occurrenceId": "occ-19ea9f2d5e09",
+      "purl": "pkg:npm/%40types/cross-spawn",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/@types/cross-spawn",
+      "scope": "development"
+    },
+    {
+      "occurrenceId": "occ-aa3cb6418b56",
+      "purl": "pkg:npm/%40types/diff",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/@types/diff",
+      "scope": "development"
+    },
+    {
+      "occurrenceId": "occ-e87386daa8e1",
+      "purl": "pkg:npm/%40types/download",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/@types/download",
+      "scope": "development"
+    },
+    {
+      "occurrenceId": "occ-9fdb9de61710",
+      "purl": "pkg:npm/%40types/errorhandler",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/@types/errorhandler",
+      "scope": "development"
+    },
+    {
+      "occurrenceId": "occ-e3fa215d01e6",
+      "purl": "pkg:npm/%40types/exif",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/@types/exif",
+      "scope": "development"
+    },
+    {
+      "occurrenceId": "occ-ad293dd1f608",
+      "purl": "pkg:npm/%40types/express",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/@types/express",
+      "scope": "development"
+    },
+    {
+      "occurrenceId": "occ-1befe794132d",
+      "purl": "pkg:npm/%40types/express-jwt",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/@types/express-jwt",
+      "scope": "development"
+    },
+    {
+      "occurrenceId": "occ-8f82e61e3ab1",
+      "purl": "pkg:npm/%40types/fs-extra",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/@types/fs-extra",
+      "scope": "development"
+    },
+    {
+      "occurrenceId": "occ-416e3d85a609",
+      "purl": "pkg:npm/%40types/glob",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/@types/glob",
+      "scope": "development"
+    },
+    {
+      "occurrenceId": "occ-cf78d7775fff",
+      "purl": "pkg:npm/%40types/graceful-fs",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/@types/graceful-fs",
+      "scope": "development"
+    },
+    {
+      "occurrenceId": "occ-349bd51223f5",
+      "purl": "pkg:npm/%40types/i18n",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/@types/i18n",
+      "scope": "development"
+    },
+    {
+      "occurrenceId": "occ-a9fe6119d621",
+      "purl": "pkg:npm/%40types/js-yaml",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/@types/js-yaml",
+      "scope": "development"
+    },
+    {
+      "occurrenceId": "occ-89cea87ed012",
+      "purl": "pkg:npm/%40types/jsonwebtoken",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/@types/jsonwebtoken",
+      "scope": "development"
+    },
+    {
+      "occurrenceId": "occ-b2a34b9d639a",
+      "purl": "pkg:npm/%40types/jws",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/@types/jws",
+      "scope": "development"
+    },
+    {
+      "occurrenceId": "occ-5efd4b590cd2",
+      "purl": "pkg:npm/%40types/lodash",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/@types/lodash",
+      "scope": "development"
+    },
+    {
+      "occurrenceId": "occ-fc211a07020f",
+      "purl": "pkg:npm/%40types/morgan",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/@types/morgan",
+      "scope": "development"
+    },
+    {
+      "occurrenceId": "occ-c9368b7de793",
+      "purl": "pkg:npm/%40types/multer",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/@types/multer",
+      "scope": "development"
+    },
+    {
+      "occurrenceId": "occ-61d577deecf2",
+      "purl": "pkg:npm/%40types/node",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/@types/node",
+      "scope": "development"
+    },
+    {
+      "occurrenceId": "occ-7ad14b6924ad",
+      "purl": "pkg:npm/%40types/on-finished",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/@types/on-finished",
+      "scope": "development"
+    },
+    {
+      "occurrenceId": "occ-8efc946b1782",
+      "purl": "pkg:npm/%40types/pdfkit",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/@types/pdfkit",
+      "scope": "development"
+    },
+    {
+      "occurrenceId": "occ-568860667ef3",
+      "purl": "pkg:npm/%40types/portscanner",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/@types/portscanner",
+      "scope": "development"
+    },
+    {
+      "occurrenceId": "occ-e53f506dd920",
+      "purl": "pkg:npm/%40types/pug",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/@types/pug",
+      "scope": "development"
+    },
+    {
+      "occurrenceId": "occ-725d0178d389",
+      "purl": "pkg:npm/%40types/sanitize-html",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/@types/sanitize-html",
+      "scope": "development"
+    },
+    {
+      "occurrenceId": "occ-6e517317b1e1",
+      "purl": "pkg:npm/%40types/semver",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/@types/semver",
+      "scope": "development"
+    },
+    {
+      "occurrenceId": "occ-e08e8379d8d3",
+      "purl": "pkg:npm/%40types/sequelize",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/@types/sequelize",
+      "scope": "development"
+    },
+    {
+      "occurrenceId": "occ-309c16b19bd8",
+      "purl": "pkg:npm/%40types/serve-index",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/@types/serve-index",
+      "scope": "development"
+    },
+    {
+      "occurrenceId": "occ-2bf29ee74e20",
+      "purl": "pkg:npm/%40types/supertest",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/@types/supertest",
+      "scope": "development"
+    },
+    {
+      "occurrenceId": "occ-d262fa93e0f4",
+      "purl": "pkg:npm/%40types/swagger-ui-express",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/@types/swagger-ui-express",
+      "scope": "development"
+    },
+    {
+      "occurrenceId": "occ-2915a1e1f4b6",
+      "purl": "pkg:npm/%40types/unzipper",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/@types/unzipper",
+      "scope": "development"
+    },
+    {
+      "occurrenceId": "occ-fd61401501ca",
+      "purl": "pkg:npm/ai",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/ai",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-3c4131236c2c",
+      "purl": "pkg:npm/beercss",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/beercss",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-46f33b19a6c7",
+      "purl": "pkg:npm/body-parser",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/body-parser",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-db3ca0bd7b3e",
+      "purl": "pkg:npm/check-dependencies",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/check-dependencies",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-4406ca91a51e",
+      "purl": "pkg:npm/clarinet",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/clarinet",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-edb5d8568284",
+      "purl": "pkg:npm/colors@1.4.0",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/colors",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-9ccfb0c036fe",
+      "purl": "pkg:npm/compression",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/compression",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-2d57ade310d0",
+      "purl": "pkg:npm/concurrently",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/concurrently",
+      "scope": "development"
+    },
+    {
+      "occurrenceId": "occ-65f9c5c56904",
+      "purl": "pkg:npm/config",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/config",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-dce71ae62b74",
+      "purl": "pkg:npm/cookie-parser",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/cookie-parser",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-abbdc75c0da4",
+      "purl": "pkg:npm/cookieconsent",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/cookieconsent",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-ef9731779efc",
+      "purl": "pkg:npm/cors",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/cors",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-6eb54ba2753e",
+      "purl": "pkg:npm/cypress",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/cypress",
+      "scope": "development"
+    },
+    {
+      "occurrenceId": "occ-6737261b0b3a",
+      "purl": "pkg:npm/diff",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/diff",
+      "scope": "development"
+    },
+    {
+      "occurrenceId": "occ-faad26f9b7eb",
+      "purl": "pkg:npm/download",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/download",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-698c4f458b3d",
+      "purl": "pkg:npm/errorhandler",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/errorhandler",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-9c33a6922b69",
+      "purl": "pkg:npm/eslint",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/eslint",
+      "scope": "development"
+    },
+    {
+      "occurrenceId": "occ-c303e621d15a",
+      "purl": "pkg:npm/ethers",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/ethers",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-5d5288b5f9f5",
+      "purl": "pkg:npm/exif",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/exif",
+      "scope": "development"
+    },
+    {
+      "occurrenceId": "occ-65a407260a20",
+      "purl": "pkg:npm/express",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/express",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-624f7be76d0c",
+      "purl": "pkg:npm/express-ipfilter",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/express-ipfilter",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-efd70e00a9d4",
+      "purl": "pkg:npm/express-jwt@0.1.3",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/express-jwt",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-8a99dfba5446",
+      "purl": "pkg:npm/express-rate-limit",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/express-rate-limit",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-a06effcbeb73",
+      "purl": "pkg:npm/express-robots-txt",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/express-robots-txt",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-c63cbbb3f04b",
+      "purl": "pkg:npm/express-security.txt",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/express-security.txt",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-575bd00bfa94",
+      "purl": "pkg:npm/feature-policy",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/feature-policy",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-a9373a7f68d7",
+      "purl": "pkg:npm/file-stream-rotator",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/file-stream-rotator",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-764413157704",
+      "purl": "pkg:npm/file-type",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/file-type",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-9288fd598826",
+      "purl": "pkg:npm/finale-rest",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/finale-rest",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-6610b14b0bfe",
+      "purl": "pkg:npm/fs-extra",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/fs-extra",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-e39899a2adcf",
+      "purl": "pkg:npm/glob",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/glob",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-2c029232389d",
+      "purl": "pkg:npm/globals",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/globals",
+      "scope": "development"
+    },
+    {
+      "occurrenceId": "occ-c6e516c45552",
+      "purl": "pkg:npm/graceful-fs",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/graceful-fs",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-2c0fd4262fd0",
+      "purl": "pkg:npm/hashids",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/hashids",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-1877cdae06d3",
+      "purl": "pkg:npm/hbs",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/hbs",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-038d0aa69070",
+      "purl": "pkg:npm/helmet",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/helmet",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-1cbd34363f16",
+      "purl": "pkg:npm/html-entities",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/html-entities",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-bc6ce46c1489",
+      "purl": "pkg:npm/i18n",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/i18n",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-3060ad4e6738",
+      "purl": "pkg:npm/js-yaml",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/js-yaml",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-02d7789ef9d6",
+      "purl": "pkg:npm/jsonwebtoken@0.4.0",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/jsonwebtoken",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-4b252f84342a",
+      "purl": "pkg:npm/libxml2-wasm",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/libxml2-wasm",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-8f1c8acabfc0",
+      "purl": "pkg:npm/marsdb",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/marsdb",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-95352c0c9eba",
+      "purl": "pkg:npm/material-icons",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/material-icons",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-982a44c671ed",
+      "purl": "pkg:npm/median",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/median",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-b10f65584199",
+      "purl": "pkg:npm/morgan",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/morgan",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-47e26d75a3d0",
+      "purl": "pkg:npm/multer",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/multer",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-73558ca8dff3",
+      "purl": "pkg:npm/neostandard",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/neostandard",
+      "scope": "development"
+    },
+    {
+      "occurrenceId": "occ-de3319955f9f",
+      "purl": "pkg:npm/notevil",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/notevil",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-fa35440470ef",
+      "purl": "pkg:npm/nyc",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/nyc",
+      "scope": "development"
+    },
+    {
+      "occurrenceId": "occ-c7956ede7b7d",
+      "purl": "pkg:npm/on-finished",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/on-finished",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-48f19a2d01bd",
+      "purl": "pkg:npm/otplib",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/otplib",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-1de61f8937d9",
+      "purl": "pkg:npm/pdfkit",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/pdfkit",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-faa7b9e56911",
+      "purl": "pkg:npm/portscanner",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/portscanner",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-a8800df41a77",
+      "purl": "pkg:npm/prom-client",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/prom-client",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-b828681270b1",
+      "purl": "pkg:npm/proxy-agent",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/proxy-agent",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-1ea9458c5332",
+      "purl": "pkg:npm/pug",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/pug",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-1a0cce385863",
+      "purl": "pkg:npm/replace",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/replace",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-217753f708ef",
+      "purl": "pkg:npm/sanitize-filename",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/sanitize-filename",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-2ab94d08d631",
+      "purl": "pkg:npm/sanitize-html@1.4.2",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/sanitize-html",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-f8816759b804",
+      "purl": "pkg:npm/semver",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/semver",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-34fa972b2743",
+      "purl": "pkg:npm/sequelize",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/sequelize",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-545847ceec81",
+      "purl": "pkg:npm/serve-index",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/serve-index",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-aac119a86944",
+      "purl": "pkg:npm/socket.io",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/socket.io",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-8159c6c253f7",
+      "purl": "pkg:npm/socket.io-client",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/socket.io-client",
+      "scope": "development"
+    },
+    {
+      "occurrenceId": "occ-f175bc2b020f",
+      "purl": "pkg:npm/sqlite3",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/sqlite3",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-6d1f90628d20",
+      "purl": "pkg:npm/supertest",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/supertest",
+      "scope": "development"
+    },
+    {
+      "occurrenceId": "occ-8d48c05be6ac",
+      "purl": "pkg:npm/svg-captcha",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/svg-captcha",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-9062d2d92799",
+      "purl": "pkg:npm/swagger-ui-express",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/swagger-ui-express",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-351698291382",
+      "purl": "pkg:npm/tsx",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/tsx",
+      "scope": "development"
+    },
+    {
+      "occurrenceId": "occ-bc46eb7ceedf",
+      "purl": "pkg:npm/typescript",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/typescript",
+      "scope": "development"
+    },
+    {
+      "occurrenceId": "occ-29f526dae3fa",
+      "purl": "pkg:npm/typescript-eslint",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/typescript-eslint",
+      "scope": "development"
+    },
+    {
+      "occurrenceId": "occ-17672cd2f1f9",
+      "purl": "pkg:npm/unzipper",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/unzipper",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-4f3586dbe908",
+      "purl": "pkg:npm/winston",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/winston",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-3d2a3ebab22d",
+      "purl": "pkg:npm/z85",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/z85",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-a174a3aa12ab",
+      "purl": "pkg:npm/zod",
+      "repositoryId": "repo-juice-shop",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/zod",
+      "scope": "runtime"
+    }
+  ],
+  "findings": []
+}

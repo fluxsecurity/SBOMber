@@ -1,0 +1,833 @@
+{
+  "analyserGitCommit": "da36e17a530a9f29a9330e25d44b1e0585c7ac3d",
+  "evidenceRoot": "run-01",
+  "reviewMethod": "Static source review by assistant; not independent human ground truth or paired-owner approval. Source hashes identify supplied pinned snapshots.",
+  "summaries": [
+    {
+      "repository": "kirill89-prototype-pollution-explained",
+      "sourceCommit": "d7b5d98515a95f9a8cb0fedef034010ee083a6a9",
+      "rawGraphSha256": "9620500ea4812294db138cad6185fc77377d89f1463dd2aff5a520861af270d2",
+      "inventoryStatus": "partial",
+      "inventoryStatusDetail": {
+        "skippedFiles": [],
+        "failedFiles": [],
+        "truncatedTree": false,
+        "limitsHit": [
+          "repo-kirill89-prototype-pollution-explained: npm: no package-lock.json; versions are as declared and transitive dependencies are not listed"
+        ]
+      },
+      "sourceAnalysisStatus": "complete",
+      "entryPoints": 4,
+      "contractRecords": 3,
+      "reachable": 3,
+      "unknown": 0,
+      "notAnalysed": 0,
+      "inventoryAndSymbolResolvedDenominator": 3,
+      "inventoryAndSymbolResolvedRate": 1.0,
+      "strata": [
+        {
+          "importResolution": "resolved",
+          "callResolution": "resolved",
+          "reachability": "reachable",
+          "records": 3
+        }
+      ]
+    },
+    {
+      "repository": "juice-shop",
+      "sourceCommit": "399fba76194305a312693eee44f4df64bdf0c3ce",
+      "rawGraphSha256": "0685c737476b4526537cebc45cc456b83c017b82bc691df33bb049635f387202",
+      "inventoryStatus": "partial",
+      "inventoryStatusDetail": {
+        "skippedFiles": [],
+        "failedFiles": [],
+        "truncatedTree": false,
+        "limitsHit": [
+          "repo-juice-shop: npm: no package-lock.json; versions are as declared and transitive dependencies are not listed"
+        ]
+      },
+      "sourceAnalysisStatus": "partial",
+      "entryPoints": 8,
+      "contractRecords": 5597,
+      "reachable": 2,
+      "unknown": 5595,
+      "notAnalysed": 0,
+      "inventoryAndSymbolResolvedDenominator": 1215,
+      "inventoryAndSymbolResolvedRate": 0.0016460905349794238,
+      "strata": [
+        {
+          "importResolution": "resolved",
+          "callResolution": "resolved",
+          "reachability": "reachable",
+          "records": 2
+        },
+        {
+          "importResolution": "resolved",
+          "callResolution": "resolved",
+          "reachability": "unknown",
+          "records": 1213
+        },
+        {
+          "importResolution": "resolved",
+          "callResolution": "unresolved",
+          "reachability": "unknown",
+          "records": 46
+        },
+        {
+          "importResolution": "unresolved",
+          "callResolution": "resolved",
+          "reachability": "unknown",
+          "records": 2762
+        },
+        {
+          "importResolution": "unresolved",
+          "callResolution": "unresolved",
+          "reachability": "unknown",
+          "records": 1574
+        }
+      ]
+    },
+    {
+      "repository": "appsecco-dvna",
+      "sourceCommit": "9ba473add536f66ac9007966acb2a775dd31277a",
+      "rawGraphSha256": "b59a76f8879d98da45cad417850ecd98b33f16f0999c1db86bc37d3c2f225a7f",
+      "inventoryStatus": "partial",
+      "inventoryStatusDetail": {
+        "skippedFiles": [],
+        "failedFiles": [],
+        "truncatedTree": false,
+        "limitsHit": [
+          "repo-appsecco-dvna: npm: no package-lock.json; versions are as declared and transitive dependencies are not listed"
+        ]
+      },
+      "sourceAnalysisStatus": "partial",
+      "entryPoints": 15,
+      "contractRecords": 25,
+      "reachable": 8,
+      "unknown": 17,
+      "notAnalysed": 0,
+      "inventoryAndSymbolResolvedDenominator": 22,
+      "inventoryAndSymbolResolvedRate": 0.36363636363636365,
+      "strata": [
+        {
+          "importResolution": "resolved",
+          "callResolution": "resolved",
+          "reachability": "reachable",
+          "records": 8
+        },
+        {
+          "importResolution": "resolved",
+          "callResolution": "resolved",
+          "reachability": "unknown",
+          "records": 14
+        },
+        {
+          "importResolution": "resolved",
+          "callResolution": "unresolved",
+          "reachability": "unknown",
+          "records": 2
+        },
+        {
+          "importResolution": "unresolved",
+          "callResolution": "resolved",
+          "reachability": "unknown",
+          "records": 1
+        }
+      ]
+    },
+    {
+      "repository": "gitaalekhyapaul-vuln-app",
+      "sourceCommit": "0ddf9bdc9672cc53ebd66cb829382bd702a98876",
+      "rawGraphSha256": "d5d34f6af7ec756d9a4f7bf83fe94bc79ff80c6859d4f93dd12ec52e1e75ea44",
+      "inventoryStatus": "complete",
+      "inventoryStatusDetail": {
+        "skippedFiles": [],
+        "failedFiles": [],
+        "truncatedTree": false,
+        "limitsHit": []
+      },
+      "sourceAnalysisStatus": "complete",
+      "entryPoints": 4,
+      "contractRecords": 6,
+      "reachable": 1,
+      "unknown": 5,
+      "notAnalysed": 0,
+      "inventoryAndSymbolResolvedDenominator": 6,
+      "inventoryAndSymbolResolvedRate": 0.16666666666666666,
+      "strata": [
+        {
+          "importResolution": "resolved",
+          "callResolution": "resolved",
+          "reachability": "reachable",
+          "records": 1
+        },
+        {
+          "importResolution": "resolved",
+          "callResolution": "resolved",
+          "reachability": "unknown",
+          "records": 5
+        }
+      ]
+    }
+  ],
+  "sourceAnnotations": [
+    {
+      "repository": "kirill89-prototype-pollution-explained",
+      "sourceCommit": "d7b5d98515a95f9a8cb0fedef034010ee083a6a9",
+      "file": "index.js",
+      "line": 55,
+      "sourceFileSha256": "a78a0dd024272fabe340abcca94a58a91b14c55a7b0044882bfe6c918ea6deac",
+      "category": "resolved_route",
+      "finding": "The PUT handler starts at line 42 and directly calls _.merge at line 55. The saved one-step route path corresponds to this source. It does not claim a path inside Lodash or demonstrate exploitability.",
+      "matchingRecords": [
+        {
+          "observationId": "obs-c3401952c22c21b953912e781432724c",
+          "callIndex": 0,
+          "reachability": "reachable",
+          "importResolution": "resolved",
+          "callResolution": "resolved"
+        }
+      ],
+      "sourceExcerpt": [
+        {
+          "line": 53,
+          "text": "  };"
+        },
+        {
+          "line": 54,
+          "text": ""
+        },
+        {
+          "line": 55,
+          "text": "  _.merge(message, req.body.message, {"
+        },
+        {
+          "line": 56,
+          "text": "    id: lastId++,"
+        },
+        {
+          "line": 57,
+          "text": "    timestamp: Date.now(),"
+        },
+        {
+          "line": 58,
+          "text": "    userName: user.name,"
+        }
+      ]
+    },
+    {
+      "repository": "juice-shop",
+      "sourceCommit": "399fba76194305a312693eee44f4df64bdf0c3ce",
+      "file": "server.ts",
+      "line": 199,
+      "sourceFileSha256": "1aef4d60cbdfb3458a25610d017a678ab4d69fc835bb8b592db9a13aceb20cb1",
+      "category": "resolved_route",
+      "finding": "config.get is inside the inline middleware registered by app.use at line 198. The saved path identifies that handler.",
+      "matchingRecords": [
+        {
+          "observationId": "obs-31753db182356beea13c0cfb6c470dba",
+          "callIndex": 1,
+          "reachability": "reachable",
+          "importResolution": "resolved",
+          "callResolution": "resolved"
+        }
+      ],
+      "sourceExcerpt": [
+        {
+          "line": 197,
+          "text": "  /* Hiring header */"
+        },
+        {
+          "line": 198,
+          "text": "  app.use((req: Request, res: Response, next: NextFunction) => {"
+        },
+        {
+          "line": 199,
+          "text": "    res.append('X-Recruiting', config.get('application.securityTxt.hiring'))"
+        },
+        {
+          "line": 200,
+          "text": "    next()"
+        },
+        {
+          "line": 201,
+          "text": "  })"
+        },
+        {
+          "line": 202,
+          "text": ""
+        }
+      ]
+    },
+    {
+      "repository": "juice-shop",
+      "sourceCommit": "399fba76194305a312693eee44f4df64bdf0c3ce",
+      "file": "server.ts",
+      "line": 284,
+      "sourceFileSha256": "1aef4d60cbdfb3458a25610d017a678ab4d69fc835bb8b592db9a13aceb20cb1",
+      "category": "resolved_route",
+      "finding": "The static middleware factory is directly invoked in the else branch of the /infrastructure handler beginning at line 271. The saved path reaches the express.static call; later invocation of the returned middleware is a separate operation.",
+      "matchingRecords": [
+        {
+          "observationId": "obs-405160abb4b6ee6ae4f20c083a2eab83",
+          "callIndex": 1,
+          "reachability": "reachable",
+          "importResolution": "resolved",
+          "callResolution": "resolved"
+        }
+      ],
+      "sourceExcerpt": [
+        {
+          "line": 282,
+          "text": "      })"
+        },
+        {
+          "line": 283,
+          "text": "    } else {"
+        },
+        {
+          "line": 284,
+          "text": "      express.static('infrastructure')(req, res, next)"
+        },
+        {
+          "line": 285,
+          "text": "    }"
+        },
+        {
+          "line": 286,
+          "text": "  })"
+        },
+        {
+          "line": 287,
+          "text": ""
+        }
+      ]
+    },
+    {
+      "repository": "gitaalekhyapaul-vuln-app",
+      "sourceCommit": "0ddf9bdc9672cc53ebd66cb829382bd702a98876",
+      "file": "api/app.ts",
+      "line": 22,
+      "sourceFileSha256": "db09e2a0dc5783d9e5c23430bfef44ff7cf0b769732720f77896c324716abeec",
+      "category": "resolved_route",
+      "finding": "The POST handler starts at line 19 and directly calls unserialize(payload) at line 22. The saved path is consistent with this source.",
+      "matchingRecords": [
+        {
+          "observationId": "obs-939022028af785c276ef7196697e9df3",
+          "callIndex": 0,
+          "reachability": "reachable",
+          "importResolution": "resolved",
+          "callResolution": "resolved"
+        }
+      ],
+      "sourceExcerpt": [
+        {
+          "line": 20,
+          "text": "    const payload = Buffer.from(req.body.payload, \"base64\").toString();"
+        },
+        {
+          "line": 21,
+          "text": "    console.log(payload);"
+        },
+        {
+          "line": 22,
+          "text": "    const parsed = unserialize(payload);"
+        },
+        {
+          "line": 23,
+          "text": "    console.log(parsed);"
+        },
+        {
+          "line": 24,
+          "text": "    const uppercase = parsed.word.toUpperCase();"
+        },
+        {
+          "line": 25,
+          "text": "    res.status(200).json({ success: true, result: uppercase });"
+        }
+      ]
+    },
+    {
+      "repository": "appsecco-dvna",
+      "sourceCommit": "9ba473add536f66ac9007966acb2a775dd31277a",
+      "file": "server.js",
+      "line": 15,
+      "sourceFileSha256": "46fea6b48ee71281ee4448224879e7b2633e2acbf8acb496298a33cef1598524",
+      "category": "resolved_module",
+      "finding": "morgan is called directly in server.js top-level code. package.json main names server.js. The saved path is the package main module.",
+      "matchingRecords": [
+        {
+          "observationId": "obs-8a9bdfc9b8d38d0f2e94b17c73222055",
+          "callIndex": 0,
+          "reachability": "reachable",
+          "importResolution": "resolved",
+          "callResolution": "resolved"
+        }
+      ],
+      "sourceExcerpt": [
+        {
+          "line": 13,
+          "text": "app.use(express.static('public'))"
+        },
+        {
+          "line": 14,
+          "text": "app.set('view engine','ejs')"
+        },
+        {
+          "line": 15,
+          "text": "app.use(morgan('tiny'))"
+        },
+        {
+          "line": 16,
+          "text": "app.use(bodyParser.urlencoded({ extended: false }))"
+        },
+        {
+          "line": 17,
+          "text": "app.use(fileUpload());"
+        },
+        {
+          "line": 18,
+          "text": ""
+        }
+      ]
+    },
+    {
+      "repository": "juice-shop",
+      "sourceCommit": "399fba76194305a312693eee44f4df64bdf0c3ce",
+      "file": "frontend/src/app/Services/address.service.spec.ts",
+      "line": 15,
+      "sourceFileSha256": "36f6bc1141fee1ed20a8e94effa3900380cb0ae0f3a000cdbe100ac7208e079b",
+      "category": "inventory_gap_and_framework_callback",
+      "finding": "The Angular test invokes provideHttpClientTesting inside beforeEach. Its import is unresolved against the supplied inventory; the package is declared in frontend/package.json, while the supplied canonical inventory contains root dependencies. Both nested-package inventory coverage and callback invocation limit interpretation.",
+      "matchingRecords": [
+        {
+          "observationId": "obs-9d650d7995f575ce6d86702c4d48d5f3",
+          "callIndex": 0,
+          "reachability": "unknown",
+          "importResolution": "unresolved",
+          "callResolution": "resolved"
+        },
+        {
+          "observationId": "obs-1312e910aebd8c291400a491fa1309a6",
+          "callIndex": 0,
+          "reachability": "unknown",
+          "importResolution": "unresolved",
+          "callResolution": "resolved"
+        },
+        {
+          "observationId": "obs-00eee8258b73a0276e8785ca2eceeaeb",
+          "callIndex": 0,
+          "reachability": "unknown",
+          "importResolution": "unresolved",
+          "callResolution": "resolved"
+        }
+      ],
+      "sourceExcerpt": [
+        {
+          "line": 13,
+          "text": "        TestBed.configureTestingModule({"
+        },
+        {
+          "line": 14,
+          "text": "            imports: [],"
+        },
+        {
+          "line": 15,
+          "text": "            providers: [AddressService, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]"
+        },
+        {
+          "line": 16,
+          "text": "        })"
+        },
+        {
+          "line": 17,
+          "text": "    })"
+        },
+        {
+          "line": 18,
+          "text": ""
+        }
+      ]
+    },
+    {
+      "repository": "juice-shop",
+      "sourceCommit": "399fba76194305a312693eee44f4df64bdf0c3ce",
+      "file": "data/staticData.ts",
+      "line": 3,
+      "sourceFileSha256": "6897e8e746cb05376e38b75bc04cc9e0c23629b0f6a42f2cd6f3a1f5ce821aac",
+      "category": "synthetic_unresolved_use",
+      "finding": "safeLoad is imported at line 3 and passed as a function reference to .then at line 10. The unresolved record sits at the import, not a call expression. The parser marks this escaped value outside_supported_syntax; the generic marker heuristic is consistent for this reviewed example.",
+      "matchingRecords": [
+        {
+          "observationId": "obs-79d061ba94042fcb5aa63512d38ec1d7",
+          "callIndex": 0,
+          "reachability": "unknown",
+          "importResolution": "resolved",
+          "callResolution": "unresolved"
+        }
+      ],
+      "sourceExcerpt": [
+        {
+          "line": 1,
+          "text": "import path from 'node:path'"
+        },
+        {
+          "line": 2,
+          "text": "import { readFile } from 'node:fs/promises'"
+        },
+        {
+          "line": 3,
+          "text": "import { safeLoad } from 'js-yaml'"
+        },
+        {
+          "line": 4,
+          "text": "import logger from '../lib/logger'"
+        },
+        {
+          "line": 5,
+          "text": "import { type ChallengeKey } from '@juice-shop/models/challenge'"
+        },
+        {
+          "line": 6,
+          "text": ""
+        }
+      ]
+    },
+    {
+      "repository": "juice-shop",
+      "sourceCommit": "399fba76194305a312693eee44f4df64bdf0c3ce",
+      "file": "data/datacreator.ts",
+      "line": 172,
+      "sourceFileSha256": "a119b02f98e67eb85c1e90690e29871704791bf88aca09701dca54effbc7a5b2",
+      "category": "anonymous_callback_owner",
+      "finding": "config.get occurs inside hints.map nested inside pendingHints.flatMap. This record has no enclosingFunction in the graph; source inspection supports anonymous callback nesting as a boundary for this example.",
+      "matchingRecords": [
+        {
+          "observationId": "obs-42874ea1525ffc4573eebc1e6088480d",
+          "callIndex": 5,
+          "reachability": "unknown",
+          "importResolution": "resolved",
+          "callResolution": "resolved"
+        }
+      ],
+      "sourceExcerpt": [
+        {
+          "line": 170,
+          "text": "      hints.map((hint, index) => ({"
+        },
+        {
+          "line": 171,
+          "text": "        ChallengeId: datacache.challenges[challengeKey].id,"
+        },
+        {
+          "line": 172,
+          "text": "        text: hint.replace(/OWASP Juice Shop/, `${config.get<string>('application.name')}`)"
+        },
+        {
+          "line": 173,
+          "text": "          .replace('http://htmledit.squarefree.com', config.get<string>('challenges.overwriteUrlForCsrfChallenge')),"
+        },
+        {
+          "line": 174,
+          "text": "        order: index + 1,"
+        },
+        {
+          "line": 175,
+          "text": "        unlocked: false"
+        }
+      ]
+    },
+    {
+      "repository": "juice-shop",
+      "sourceCommit": "399fba76194305a312693eee44f4df64bdf0c3ce",
+      "file": "cypress.config.ts",
+      "line": 8,
+      "sourceFileSha256": "fad3d1625526db46ff08f3bd8de80ef4c4628ed8d199febcb7a7951f7217a815",
+      "category": "tooling_module",
+      "finding": "defineConfig executes at the top level of a Cypress configuration module. The graph identifies the module owner but has no entry-point path. It is tooling source, not evidence of an unreachable application function.",
+      "matchingRecords": [
+        {
+          "observationId": "obs-0e737eb0c357e0c03e2b6e6204863d02",
+          "callIndex": 0,
+          "reachability": "unknown",
+          "importResolution": "resolved",
+          "callResolution": "resolved"
+        }
+      ],
+      "sourceExcerpt": [
+        {
+          "line": 6,
+          "text": "import { generateSync } from 'otplib'"
+        },
+        {
+          "line": 7,
+          "text": ""
+        },
+        {
+          "line": 8,
+          "text": "export default defineConfig({"
+        },
+        {
+          "line": 9,
+          "text": "  projectId: '3hrkhu',"
+        },
+        {
+          "line": 10,
+          "text": "  defaultCommandTimeout: 10000,"
+        },
+        {
+          "line": 11,
+          "text": "  retries: {"
+        }
+      ]
+    },
+    {
+      "repository": "appsecco-dvna",
+      "sourceCommit": "9ba473add536f66ac9007966acb2a775dd31277a",
+      "file": "core/appHandler.js",
+      "line": 197,
+      "sourceFileSha256": "0fc237589d5a9e73450d089f97124fb943d68222f70df0e973a8b9acfe2ebb6b",
+      "category": "commonjs_anonymous_member_export",
+      "finding": "mathjs.eval is inside module.exports.calc = function(req,res), an anonymous CommonJS member-exported function. routes/app.js:60 registers appHandler.calc through a member expression, with middleware arguments. The graph records a resolved dependency call but no owner/path. This is a concrete unsupported attribution/route-registration case, not absence of a runtime route.",
+      "matchingRecords": [
+        {
+          "observationId": "obs-018e06aa69dc1836a39eeafa1ecacb26",
+          "callIndex": 0,
+          "reachability": "unknown",
+          "importResolution": "resolved",
+          "callResolution": "resolved"
+        }
+      ],
+      "sourceExcerpt": [
+        {
+          "line": 195,
+          "text": "\tif (req.body.eqn) {"
+        },
+        {
+          "line": 196,
+          "text": "\t\tres.render('app/calc', {"
+        },
+        {
+          "line": 197,
+          "text": "\t\t\toutput: mathjs.eval(req.body.eqn)"
+        },
+        {
+          "line": 198,
+          "text": "\t\t})"
+        },
+        {
+          "line": 199,
+          "text": "\t} else {"
+        },
+        {
+          "line": 200,
+          "text": "\t\tres.render('app/calc', {"
+        }
+      ]
+    },
+    {
+      "repository": "appsecco-dvna",
+      "sourceCommit": "9ba473add536f66ac9007966acb2a775dd31277a",
+      "file": "server.js",
+      "line": 16,
+      "sourceFileSha256": "46fea6b48ee71281ee4448224879e7b2633e2acbf8acb496298a33cef1598524",
+      "category": "inventory_gap",
+      "finding": "body-parser.urlencoded is present in source, but body-parser is not a direct occurrence in the supplied inventory and the import is not_in_inventory. Do not relabel it as an unused dependency or add a fabricated inventory entry.",
+      "matchingRecords": [
+        {
+          "observationId": "obs-91d0a3b49aee6f5fad65ba97cdacaea3",
+          "callIndex": 0,
+          "reachability": "unknown",
+          "importResolution": "unresolved",
+          "callResolution": "resolved"
+        }
+      ],
+      "sourceExcerpt": [
+        {
+          "line": 14,
+          "text": "app.set('view engine','ejs')"
+        },
+        {
+          "line": 15,
+          "text": "app.use(morgan('tiny'))"
+        },
+        {
+          "line": 16,
+          "text": "app.use(bodyParser.urlencoded({ extended: false }))"
+        },
+        {
+          "line": 17,
+          "text": "app.use(fileUpload());"
+        },
+        {
+          "line": 18,
+          "text": ""
+        },
+        {
+          "line": 19,
+          "text": "// Enable for Reverse proxy support"
+        }
+      ]
+    },
+    {
+      "repository": "gitaalekhyapaul-vuln-app",
+      "sourceCommit": "0ddf9bdc9672cc53ebd66cb829382bd702a98876",
+      "file": "api/app.ts",
+      "line": 8,
+      "sourceFileSha256": "db09e2a0dc5783d9e5c23430bfef44ff7cf0b769732720f77896c324716abeec",
+      "category": "compiled_entry_boundary",
+      "finding": "express() is in module-level TypeScript code. package.json main points at build/app.js; that generated file is not the source module entry in this run. The route handlers are detected independently. An unknown module path here does not imply the startup call cannot execute.",
+      "matchingRecords": [
+        {
+          "observationId": "obs-96469197e66cb8597a43454357209005",
+          "callIndex": 0,
+          "reachability": "unknown",
+          "importResolution": "resolved",
+          "callResolution": "resolved"
+        }
+      ],
+      "sourceExcerpt": [
+        {
+          "line": 6,
+          "text": "dotenvConfig();"
+        },
+        {
+          "line": 7,
+          "text": ""
+        },
+        {
+          "line": 8,
+          "text": "const app: Express = express();"
+        },
+        {
+          "line": 9,
+          "text": "app.set(\"view engine\", \"ejs\");"
+        },
+        {
+          "line": 10,
+          "text": "app.set(\"views\", join(__dirname, \"views\"));"
+        },
+        {
+          "line": 11,
+          "text": "app.use(express.json());"
+        }
+      ]
+    },
+    {
+      "repository": "gitaalekhyapaul-vuln-app",
+      "sourceCommit": "0ddf9bdc9672cc53ebd66cb829382bd702a98876",
+      "file": "exploit-poc/poc.js",
+      "line": 33,
+      "sourceFileSha256": "8aec9c36347440d42a86a73ed10cbda9c264aceb79dd710f68c4a8aa4385377d",
+      "category": "nonshipping_callback",
+      "finding": "serialize occurs inside a spawn stdout data-event callback in exploit-poc tooling. The repository-wide default scan includes it even though the audit case defines api as shipped application source. Keep it in the measured denominator and describe the scope.",
+      "matchingRecords": [
+        {
+          "observationId": "obs-a86521392ce3ada53730bfa94e61fd5a",
+          "callIndex": 0,
+          "reachability": "unknown",
+          "importResolution": "resolved",
+          "callResolution": "resolved"
+        }
+      ],
+      "sourceExcerpt": [
+        {
+          "line": 31,
+          "text": "  console.log(\"OUTPUT PAYLOAD:\");"
+        },
+        {
+          "line": 32,
+          "text": "  console.log(\"<<<=====COPY AS IT IS=====>>>\");"
+        },
+        {
+          "line": 33,
+          "text": "  const serialized = serialize({"
+        },
+        {
+          "line": 34,
+          "text": "    ...config.PAYLOAD,"
+        },
+        {
+          "line": 35,
+          "text": "    rce: function () {},"
+        },
+        {
+          "line": 36,
+          "text": "  });"
+        }
+      ]
+    },
+    {
+      "repository": "gitaalekhyapaul-vuln-app",
+      "sourceCommit": "0ddf9bdc9672cc53ebd66cb829382bd702a98876",
+      "file": "api/app.ts",
+      "line": 14,
+      "sourceFileSha256": "db09e2a0dc5783d9e5c23430bfef44ff7cf0b769732720f77896c324716abeec",
+      "category": "issue172_dependency_internal_boundary",
+      "finding": "res.render follows app.set(view engine,ejs) at line 9, yet the ejs occurrence is not_imported_by_analysed_source in the graph. This reproduces the Component 2 evidence gap described in #172. This inventory-only evaluation has no vulnerability findings or decide output, so no downstream downgrade is claimed as newly confirmed.",
+      "matchingRecords": [],
+      "sourceExcerpt": [
+        {
+          "line": 12,
+          "text": ""
+        },
+        {
+          "line": 13,
+          "text": "app.get(\"/\", (req: Request, res: Response, next: NextFunction) => {"
+        },
+        {
+          "line": 14,
+          "text": "  res.render(\"index\", { result: null });"
+        },
+        {
+          "line": 15,
+          "text": "});"
+        },
+        {
+          "line": 16,
+          "text": ""
+        },
+        {
+          "line": 17,
+          "text": "app.post("
+        }
+      ]
+    },
+    {
+      "repository": "juice-shop",
+      "sourceCommit": "399fba76194305a312693eee44f4df64bdf0c3ce",
+      "file": "scripts/package.mjs",
+      "line": 21,
+      "sourceFileSha256": "f17e74f818a0498aac3bc6f36dbdec35401d36c4a8b743eb97e12def66ff1676",
+      "category": "computed_import_scope",
+      "finding": "The computed require of path.join(globalRoot,archiver) is an unresolved import-only observation with zero call records. Its repository-wide unknown-occurrence consequences belong to #151; this observation does not enter the reachability call-record denominator.",
+      "matchingRecords": [],
+      "sourceExcerpt": [
+        {
+          "line": 19,
+          "text": "  try {"
+        },
+        {
+          "line": 20,
+          "text": "    const globalRoot = execSync('npm root -g', { encoding: 'utf8' }).trim()"
+        },
+        {
+          "line": 21,
+          "text": "    return require(path.join(globalRoot, 'archiver'))"
+        },
+        {
+          "line": 22,
+          "text": "  } catch {"
+        },
+        {
+          "line": 23,
+          "text": "    console.error('archiver is not installed. Run: npm install -g archiver')"
+        },
+        {
+          "line": 24,
+          "text": "    process.exit(1)"
+        }
+      ]
+    }
+  ]
+}

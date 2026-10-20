@@ -1,0 +1,109 @@
+{
+  "schemaVersion": "1.0.0",
+  "scan": {
+    "scanId": "scan-20220830T155554Z-a5e5a07e",
+    "startedAt": "2022-08-30T15:55:54Z",
+    "completedAt": "2022-08-30T15:55:54Z",
+    "toolVersions": {
+      "go": "go1.26.9",
+      "sbomber": "0.1.1"
+    },
+    "status": "partial",
+    "statusDetail": {
+      "skippedFiles": [],
+      "failedFiles": [],
+      "truncatedTree": false,
+      "limitsHit": [
+        "repo-kirill89-prototype-pollution-explained: npm: no package-lock.json; versions are as declared and transitive dependencies are not listed"
+      ]
+    },
+    "repositories": [
+      {
+        "repositoryId": "repo-kirill89-prototype-pollution-explained",
+        "path": "../../../../../../evaluation-repos-152/kirill89-prototype-pollution-explained",
+        "commit": "d7b5d98515a95f9a8cb0fedef034010ee083a6a9",
+        "source": "local"
+      }
+    ],
+    "enrichment": [
+      {
+        "source": "epss",
+        "status": "skipped",
+        "detail": "vulnerability scanning was not requested"
+      },
+      {
+        "source": "cisa_kev",
+        "status": "skipped",
+        "detail": "vulnerability scanning was not requested"
+      },
+      {
+        "source": "ghsa",
+        "status": "skipped",
+        "detail": "vulnerability scanning was not requested"
+      },
+      {
+        "source": "registry",
+        "status": "skipped",
+        "detail": "vulnerability scanning was not requested"
+      },
+      {
+        "source": "malware",
+        "status": "skipped",
+        "detail": "vulnerability scanning was not requested"
+      }
+    ]
+  },
+  "components": [
+    {
+      "purl": "pkg:npm/body-parser@1.18.3",
+      "ecosystem": "npm",
+      "name": "body-parser",
+      "version": "1.18.3"
+    },
+    {
+      "purl": "pkg:npm/express@4.16.4",
+      "ecosystem": "npm",
+      "name": "express",
+      "version": "4.16.4"
+    },
+    {
+      "purl": "pkg:npm/lodash@4.17.4",
+      "ecosystem": "npm",
+      "name": "lodash",
+      "version": "4.17.4"
+    }
+  ],
+  "occurrences": [
+    {
+      "occurrenceId": "occ-5f6dd19006f2",
+      "purl": "pkg:npm/body-parser@1.18.3",
+      "repositoryId": "repo-kirill89-prototype-pollution-explained",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/body-parser",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-28d3d864e4e0",
+      "purl": "pkg:npm/express@4.16.4",
+      "repositoryId": "repo-kirill89-prototype-pollution-explained",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/express",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-c66c8d2aac67",
+      "purl": "pkg:npm/lodash@4.17.4",
+      "repositoryId": "repo-kirill89-prototype-pollution-explained",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/lodash",
+      "scope": "runtime"
+    }
+  ],
+  "findings": []
+}

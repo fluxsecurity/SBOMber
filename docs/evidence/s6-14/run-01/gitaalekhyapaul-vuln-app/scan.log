@@ -1,0 +1,13 @@
+Selected SBOM export format: cyclonedx
+Found 1 repository under /home/sbomber1/dev/sbomber/evaluation-repos-152/gitaalekhyapaul-vuln-app
+- gitaalekhyapaul-vuln-app  /home/sbomber1/dev/sbomber/evaluation-repos-152/gitaalekhyapaul-vuln-app  [npm]
+  output folder: /home/sbomber1/.sbomber/reports/gitaalekhyapaul-vuln-app_3ce324fd
+  exported SBOM: sbom-cyclonedx.xml
+  packages:  12 direct, 91 transitive (103 total)
+  direct dependencies (package.json): 12 (runtime: 4, development: 8)
+  transitive dependencies: 91
+  total known dependencies: 103
+  sample packages: @types/dotenv, @types/ejs, @types/express, @types/node, dotenv
+
+Scan complete: 1 repositories scanned
+Wrote /home/sbomber1/dev/sbomber/issue152-reachability-evaluation/docs/evidence/s6-14/run-01/gitaalekhyapaul-vuln-app/canonical-scan.json
