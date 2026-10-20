@@ -180,12 +180,13 @@ func TestScanCanonicalScanBoundaries(t *testing.T) {
 	}
 }
 
-func TestSBOMToScanPrefersSPDXAndNeverTheDirectory(t *testing.T) {
+func TestSBOMToScanPrefersCycloneDXAndNeverTheDirectory(t *testing.T) {
 	cases := []struct {
 		saved []string
 		want  string
 	}{
-		{[]string{"/r/sbom-cyclonedx.xml", "/r/sbom.spdx"}, "/r/sbom.spdx"},
+		{[]string{"/r/sbom-cyclonedx.xml", "/r/sbom.spdx"}, "/r/sbom-cyclonedx.xml"},
+		{[]string{"/r/sbom.spdx"}, "/r/sbom.spdx"},
 		{[]string{"/r/sbom-cyclonedx.xml"}, "/r/sbom-cyclonedx.xml"},
 		{[]string{"/r/sbom-cyclonedx.json"}, "/r/sbom-cyclonedx.json"},
 		{nil, ""},

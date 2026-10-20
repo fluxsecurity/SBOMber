@@ -538,8 +538,9 @@ func saveSPDX(repoDir, repoName string, summary deps.Summary) (string, error) {
 			"PackageLicenseConcluded: NOASSERTION",
 			"PackageLicenseDeclared: NOASSERTION",
 			"PackageCopyrightText: NONE",
-			fmt.Sprintf("Relationship: SPDXRef-DOCUMENT DESCRIBES %s", packageID),
 		)
+		lines = append(lines, spdxPurlRef(dependency)...)
+		lines = append(lines, fmt.Sprintf("Relationship: SPDXRef-DOCUMENT DESCRIBES %s", packageID))
 		packageIndex++
 	}
 
@@ -555,8 +556,9 @@ func saveSPDX(repoDir, repoName string, summary deps.Summary) (string, error) {
 			"PackageLicenseConcluded: NOASSERTION",
 			"PackageLicenseDeclared: NOASSERTION",
 			"PackageCopyrightText: NONE",
-			fmt.Sprintf("Relationship: SPDXRef-DOCUMENT DESCRIBES %s", packageID),
 		)
+		lines = append(lines, spdxPurlRef(dependency)...)
+		lines = append(lines, fmt.Sprintf("Relationship: SPDXRef-DOCUMENT DESCRIBES %s", packageID))
 		packageIndex++
 	}
 
@@ -571,4 +573,15 @@ func saveSPDX(repoDir, repoName string, summary deps.Summary) (string, error) {
 	}
 
 	return path, nil
+}
+
+// spdxPurlRef is a package's purl as an SPDX external reference. Without it a
+// scanner reading the SPDX document can only guess the package from its name
+// (Grype falls back to CPEs and reports no purl at all).
+func spdxPurlRef(dependency deps.Dependency) []string {
+	purl := dependency.Purl()
+	if purl == "" {
+		return nil
+	}
+	return []string{"ExternalRef: PACKAGE-MANAGER purl " + purl}
 }

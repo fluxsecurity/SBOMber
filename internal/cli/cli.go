@@ -1656,16 +1656,17 @@ type repoScan struct {
 // requested vulnerability scan did not complete.
 func (r repoScan) failed() bool { return r.summaryErr != nil || r.vulnErr != nil }
 
-// sbomToScan picks the exported SBOM Grype should read: SPDX when there is
-// one, otherwise CycloneDX.
+// sbomToScan picks the exported SBOM Grype should read: CycloneDX when there
+// is one (every component carries its purl, which Grype matches on and
+// reports back), otherwise SPDX.
 func sbomToScan(savedPaths []string) string {
 	for _, path := range savedPaths {
-		if strings.HasSuffix(path, ".spdx") {
+		if strings.Contains(filepath.Base(path), "cyclonedx") {
 			return path
 		}
 	}
 	for _, path := range savedPaths {
-		if strings.Contains(filepath.Base(path), "cyclonedx") {
+		if strings.HasSuffix(path, ".spdx") {
 			return path
 		}
 	}

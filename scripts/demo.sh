@@ -129,7 +129,10 @@ if $twice; then
 	step "Reproducibility"
 	differ=0
 	for f in $artefacts; do
-		if cmp -s "$out/run/$f" "$out/run2/$f"; then
+		if [ ! -e "$out/run/$f" ] && [ ! -e "$out/run2/$f" ]; then
+			# vex writes nothing when there are no decisions; both runs agree.
+			echo "  absent     $f (in both runs)"
+		elif cmp -s "$out/run/$f" "$out/run2/$f"; then
 			echo "  identical  $f"
 		else
 			echo "  DIFFERENT  $f"
