@@ -1,0 +1,38 @@
+{
+  "evaluationIssue": 152,
+  "status": "validated_reviewed_and_merged",
+  "measurementManifest": "run-01/manifest.json",
+  "measurementManifestStatusIsHistorical": true,
+  "pairedOwnerApproval": {
+    "reviewer": "Xsamsx",
+    "url": "https://github.com/fluxsecurity/SBOMber/pull/174#pullrequestreview-5583046103",
+    "submittedAt": "2026-10-20T09:11:26Z",
+    "reviewedHead": "68d094fc56145cbd9bc42edb62d6de3943c81a30"
+  },
+  "mergedPullRequest": {
+    "url": "https://github.com/fluxsecurity/SBOMber/pull/174",
+    "mergedAt": "2026-10-20T09:21:25Z",
+    "mergeCommit": "d85a5328c197b142af50b5ca32fb543547377d2c"
+  },
+  "reviewWordingCorrection": {
+    "markerCounts": {
+      "juice-shop": 46,
+      "appsecco-dvna": 2
+    },
+    "rawEvidenceChanged": false,
+    "measurementsChanged": false
+  },
+  "scopeDecisionIssue": 151,
+  "scopeDecisionAgreement": "pending_component_4",
+  "scopeDecisionPairedOwnerApproval": {
+    "reviewer": "Xsamsx",
+    "url": "https://github.com/fluxsecurity/SBOMber/pull/175#pullrequestreview-5583045843",
+    "submittedAt": "2026-10-20T09:11:24Z",
+    "reviewedHead": "96dcf29dad25fab1d1ea5ad5745959d1c9446b58"
+  },
+  "scopeDecisionMergedPullRequest": {
+    "url": "https://github.com/fluxsecurity/SBOMber/pull/175",
+    "mergedAt": "2026-10-20T09:21:43Z",
+    "mergeCommit": "07823bd31fd420adb216a88efd8cda61a15931e9"
+  }
+}

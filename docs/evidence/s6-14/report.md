@@ -79,10 +79,12 @@ These categories use the first observable blocking condition in public output. A
 | First observable blocking condition | Demo | Juice Shop | DVNA | TypeScript vuln-app |
 |---|---:|---:|---:|---:|
 | Import not in supplied inventory | 0 | 4,336 | 1 | 0 |
-| Call outside supported syntax, with resolved import | 0 | 46 | 2 | 0 |
+| Import-site unresolved-use markers, with resolved import | 0 | 46 | 2 | 0 |
 | No recorded enclosing function, with resolved import/call | 0 | 800 | 12 | 1 |
 | No resolved entry-point path, with recorded owner and resolved import/call | 0 | 413 | 2 | 4 |
 | **Total unknown** | **0** | **5,595** | **17** | **5** |
+
+The 46 Juice Shop and two DVNA records in the import-site marker row have `outside_supported_syntax`, no called symbol and the exact import location. They represent resolved imports used outside supported syntax, rather than directly observed call expressions. The machine-readable category key is preserved in the original evidence. This confirms only this 48-record subset, not every possible marker in the larger dataset.
 
 Every record, category and location is preserved in each repository's `run-01/<repository>/call-records.json`. Source-backed examples and hashes are in [source-review.json](source-review.json). The review is an assistant static inspection, not independent human labelling or paired-owner approval.
 
@@ -139,4 +141,6 @@ Issue #151 remains separate. Juice Shop's computed import at `scripts/package.mj
 
 Issue #172 remains a safety dependency. In vuln-app, `api/app.ts:9` configures EJS as the view engine and line 14 calls `res.render`, while the direct `ejs@3.1.6` occurrence is recorded as `not_imported_by_analysed_source`. This confirms the Component 2 absence-of-direct-import evidence gap. This run contains no vulnerability findings or final decisions, so it does **not** newly confirm a downstream unsafe downgrade. A separate real `usage → decide` case is needed to verify that outcome. These rates provide no justification for reducing risk or producing a negative VEX assertion.
 
-No production implementation change was required to report these findings. Full repository checks passed on 20 October 2026; see validation.md and checks/. Paired-owner review remains pending. Keep #152 open until required checks, review, saved evidence and PR merge are complete.
+No production implementation change was required to report these findings. Full repository checks passed on 20 October 2026; see validation.md and checks/. [Component 3 paired-owner review](https://github.com/fluxsecurity/SBOMber/pull/174#pullrequestreview-5583046103) approved the evaluated head, and PR #174 merged. The reviewer recomputed all four datasets and checked all 15 annotations; production reruns on macOS covered the demo, DVNA and vuln-app. Juice Shop was checked from saved output, not independently rerun.
+
+The `measured_pending_source_review_and_full_checks` status in `run-01/manifest.json` records the runner's original state. It is retained as measurement provenance; it does not describe current review completion. See `review-status.json` for approval and merge records. #152's evaluation, validation and paired-review requirements are satisfied; this follow-up addresses the review's wording and status clarification. #151 still awaits Component 4 agreement, and #172 remains separate.

@@ -782,7 +782,7 @@ The per-target search remains a reference for explicit equivalence tests only.
 
 **Date:** 20 October 2026. **Status:** Component 2 recommendation; computed-import
 policy awaits explicit Component 4 agreement. Existing behaviour is retained.
-This record is not evidence of Zane's sign-off or paired-owner review.
+This record does not establish Zane's sign-off. Component 3 paired-owner review was [approved by Xsamsx on 20 October 2026](https://github.com/fluxsecurity/SBOMber/pull/175#pullrequestreview-5583045843); PR #175 merged.
 
 ### 19.1 Computed imports: retain repository-wide uncertainty
 
@@ -869,5 +869,6 @@ synthetic closed-candidate policy inputs, not real vulnerability claims:
 No production analyser/decision code, schema, scope configuration or defaults
 change. The #152 measurement results are therefore unaffected by this record
 and test additions; no remeasurement is needed unless runtime policy changes.
-Full checks and paired-owner review are required before merge. Keep #151 open
-until Component 4 agreement is explicitly recorded and the accepted PR merges.
+Full checks passed and Component 3 paired-owner review approved PR #175,
+which has merged. Keep #151 open until Component 4 agreement is explicitly
+recorded with the owner, date and durable comment URL in section 19.1.

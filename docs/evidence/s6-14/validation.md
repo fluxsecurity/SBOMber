@@ -23,5 +23,6 @@ no token. The full suite passed with GITHUB_TOKEN and GH_TOKEN unset
 inside a subshell. Both the original failure and successful rerun logs
 are preserved. No production code was changed for this condition.
 
-Paired-owner review and PR merge remain pending. Issue #152 stays open
-until its acceptance criteria and review requirements are satisfied.
+Paired-owner review was approved by Xsamsx on 20 October 2026: https://github.com/fluxsecurity/SBOMber/pull/174#pullrequestreview-5583046103
+PR #174 merged. See review-status.json for the reviewed head and merge record.
+The original runner manifest remains an unchanged measurement snapshot.

@@ -14,5 +14,6 @@ Changes are limited to documentation, regression tests and saved logs.
 Production behaviour, schemas and defaults remain unchanged.
 Issue #152 measurements are unaffected.
 
-Component 4 agreement on computed-import scope and paired-owner review
-remain pending. Keep #151 open until agreement is recorded and the PR merges.
+Component 3 paired-owner review approved PR #175: https://github.com/fluxsecurity/SBOMber/pull/175#pullrequestreview-5583045843
+PR #175 merged. Component 4 agreement on computed-import scope remains
+pending. Keep #151 open until agreement is explicitly recorded.
