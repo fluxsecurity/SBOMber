@@ -1,0 +1,12 @@
+{
+  "name": "demo-app",
+  "version": "1.0.0",
+  "dependencies": {
+    "lodash": "^4.17.0",
+    "legacy-reporter": "^2.1.0",
+    "@scope/util": "1.0.0"
+  },
+  "devDependencies": {
+    "build-helper": "^4.0.0"
+  }
+}

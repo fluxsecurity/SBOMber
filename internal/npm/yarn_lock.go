@@ -73,8 +73,11 @@ func EnrichFromYarnLock(root string, summary deps.Summary) (deps.Summary, error)
 
 		if isDirect {
 			directLocked[key] = struct{}{}
-			// Update direct dependency with children
+			// The direct dependency's range becomes the version yarn
+			// resolved it to, as with package-lock.json; a range left in
+			// Version reaches the SBOM as if it were a version.
 			if idx, ok := directNames[entry.Name]; ok {
+				summary.Direct[idx].Version = entry.Version
 				summary.Direct[idx].Children = entry.Dependencies
 			}
 			continue
@@ -146,6 +149,10 @@ func parseYarnLock(file *os.File) ([]yarnEntry, error) {
 		case strings.HasPrefix(line, "  version:"):
 			current.Version = cleanYarnValue(strings.TrimSpace(strings.TrimPrefix(line, "  version:")))
 			inDependencies = false
+		case strings.HasPrefix(line, "  version "):
+			// Yarn v1 (classic): `  version "1.19.0"`.
+			current.Version = cleanYarnValue(strings.TrimSpace(strings.TrimPrefix(line, "  version ")))
+			inDependencies = false
 		case strings.HasPrefix(line, "  resolution:"):
 			resolution := cleanYarnValue(strings.TrimSpace(strings.TrimPrefix(line, "  resolution:")))
 			if name := nameFromDescriptor(resolution); name != "" {
@@ -157,13 +164,9 @@ func parseYarnLock(file *os.File) ([]yarnEntry, error) {
 		case strings.HasPrefix(line, "  peerDependencies:"), strings.HasPrefix(line, "  optionalDependencies:"):
 			inDependencies = false
 		case inDependencies && strings.HasPrefix(line, "    "):
-			// Parse dependency entry like "    lodash: ^4.17.21"
-			depLine := strings.TrimSpace(line)
-			if idx := strings.Index(depLine, ":"); idx > 0 {
-				depName := cleanYarnValue(depLine[:idx])
-				if depName != "" {
-					current.Dependencies = append(current.Dependencies, depName)
-				}
+			// Berry: `    lodash: ^4.17.21`; v1: `    lodash "^4.17.21"`.
+			if depName := yarnDependencyName(strings.TrimSpace(line)); depName != "" {
+				current.Dependencies = append(current.Dependencies, depName)
 			}
 		case strings.HasPrefix(line, "  ") && !strings.HasPrefix(line, "    "):
 			// Any other top-level property ends the dependencies section
@@ -176,6 +179,21 @@ func parseYarnLock(file *os.File) ([]yarnEntry, error) {
 	}
 
 	return entries, nil
+}
+
+// yarnDependencyName is the package name in one dependencies line, in either
+// lockfile format. A scoped name is quoted, so the quotes are read first.
+func yarnDependencyName(line string) string {
+	if strings.HasPrefix(line, `"`) {
+		if end := strings.Index(line[1:], `"`); end >= 0 {
+			return line[1 : end+1]
+		}
+		return ""
+	}
+	if idx := strings.IndexAny(line, ": "); idx > 0 {
+		return line[:idx]
+	}
+	return ""
 }
 
 func splitSelectors(value string) []string {

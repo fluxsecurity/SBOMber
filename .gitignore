@@ -10,3 +10,7 @@ bin/
 
 # Local cache used by the Makefile
 /.cache/go-build/
+
+# Pinned tools (scripts/install-tools.sh) and demo output (scripts/demo.sh)
+/.tools/
+/demo-out/

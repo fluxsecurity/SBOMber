@@ -10,6 +10,7 @@ import (
 	"time"
 
 	"github.com/Xsamsx/SBOMber/internal/deps"
+	"github.com/Xsamsx/SBOMber/internal/reproducible"
 )
 
 const (
@@ -193,7 +194,7 @@ func saveCycloneDXJSON(repoDir, repoName string, summary deps.Summary) (string, 
 		SpecVersion: "1.5",
 		Version:     1,
 		Metadata: cycloneDXJSONMetadata{
-			Timestamp: time.Now().UTC().Format(time.RFC3339),
+			Timestamp: reproducible.Now().Format(time.RFC3339),
 			Component: cycloneDXJSONComponent{
 				Type:   "application",
 				BOMRef: rootPurl,
@@ -321,7 +322,7 @@ func saveCycloneDX(repoDir, repoName string, summary deps.Summary) (string, erro
 		Xmlns:   "http://cyclonedx.org/schema/bom/1.5",
 		Version: 1,
 		Metadata: cycloneDXMetadata{
-			Timestamp: time.Now().UTC().Format(time.RFC3339),
+			Timestamp: reproducible.Now().Format(time.RFC3339),
 			Component: cycloneDXComponent{
 				Type:   "application",
 				BomRef: rootPurl,
@@ -521,7 +522,7 @@ func saveSPDX(repoDir, repoName string, summary deps.Summary) (string, error) {
 		fmt.Sprintf("DocumentName: %s", repoName),
 		fmt.Sprintf("DocumentNamespace: %s", namespace),
 		"Creator: Tool: SBOMber",
-		fmt.Sprintf("Created: %s", time.Now().UTC().Format(time.RFC3339)),
+		fmt.Sprintf("Created: %s", reproducible.Now().Format(time.RFC3339)),
 	}
 
 	packageIndex := 1

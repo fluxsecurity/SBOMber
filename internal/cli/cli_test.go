@@ -85,7 +85,8 @@ func TestInteractiveScanCurrentFolder(t *testing.T) {
 	root := t.TempDir()
 	repo := filepath.Join(root, "demo")
 	mustMkdirAll(t, filepath.Join(repo, ".git"))
-	mustWriteFile(t, filepath.Join(repo, "package.json"))
+	// An empty file is not a manifest: scan reports it as a tool error.
+	mustWriteFile(t, filepath.Join(repo, "package.json"), "{}")
 
 	previousWD, err := os.Getwd()
 	if err != nil {
@@ -102,7 +103,9 @@ func TestInteractiveScanCurrentFolder(t *testing.T) {
 	var stdout bytes.Buffer
 	var stderr bytes.Buffer
 
-	exitCode := Main(nil, strings.NewReader("1\n\nN\n"), &stdout, &stderr)
+	// Scan the current folder, default format, no vulnerability scan, and
+	// decline the ground-truth check the single-repository scan offers.
+	exitCode := Main(nil, strings.NewReader("1\n\nN\nn\n"), &stdout, &stderr)
 	if exitCode != 0 {
 		t.Fatalf("expected exit code 0, got %d, stderr=%q", exitCode, stderr.String())
 	}
