@@ -176,3 +176,35 @@ func TestCycloneDXBomRefNoCollisionAcrossVersions(t *testing.T) {
 		t.Fatalf("expected 2 distinct bom-refs for the two lodash versions, got %d: %v", len(lodashComponents), lodashComponents)
 	}
 }
+
+// Every SPDX package carries its purl, so a scanner reading the document
+// (Grype) matches the exact package and reports the purl back.
+func TestSPDXPackagesCarryPurls(t *testing.T) {
+	summary := deps.Summary{
+		Direct:     []deps.Dependency{{Name: "lodash", Version: "4.17.4", Ecosystem: "npm", IsDirect: true}},
+		Transitive: []deps.Dependency{{Name: "@scope/util", Version: "1.0.0", Ecosystem: "npm"}},
+	}
+	dir := t.TempDir()
+	paths, err := SaveSBOMToDir(dir, "demo", summary, "spdx")
+	if err != nil {
+		t.Fatal(err)
+	}
+	var spdx string
+	for _, p := range paths {
+		if strings.HasSuffix(p, ".spdx") {
+			data, err := os.ReadFile(p)
+			if err != nil {
+				t.Fatal(err)
+			}
+			spdx = string(data)
+		}
+	}
+	for _, want := range []string{
+		"ExternalRef: PACKAGE-MANAGER purl pkg:npm/lodash@4.17.4\nRelationship: SPDXRef-DOCUMENT DESCRIBES SPDXRef-Package-1",
+		"ExternalRef: PACKAGE-MANAGER purl pkg:npm/%40scope/util@1.0.0",
+	} {
+		if !strings.Contains(spdx, want) {
+			t.Errorf("SPDX output is missing %q:\n%s", want, spdx)
+		}
+	}
+}

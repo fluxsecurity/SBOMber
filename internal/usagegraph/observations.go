@@ -439,11 +439,14 @@ func npmPackageFromPURL(purl string) (string, bool) {
 	if index := strings.IndexAny(value, "?#"); index >= 0 {
 		value = value[:index]
 	}
-	versionAt := strings.LastIndex(value, "@")
-	if versionAt <= 0 {
-		return "", false
+	// A component whose version is unknown (versionKnown: false, from a
+	// manifest with no lockfile) has a versionless PURL. It is still an npm
+	// package an import can name, so it is matched, not set aside as an
+	// unsupported ecosystem. An @ at position 0 is an unencoded scope.
+	if versionAt := strings.LastIndex(value, "@"); versionAt > 0 {
+		value = value[:versionAt]
 	}
-	name, err := url.PathUnescape(value[:versionAt])
+	name, err := url.PathUnescape(value)
 	if err != nil || name == "" {
 		return "", false
 	}

@@ -1,6 +1,7 @@
 * text=auto
 *.go text eol=lf
 *.sh text eol=lf
+*.env text eol=lf
 *.md text eol=lf
 /spikes/parser-bindings/corpus/micro/12-edge.js -text -diff
 

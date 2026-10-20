@@ -10,6 +10,7 @@ import (
 	"time"
 
 	"github.com/Xsamsx/SBOMber/internal/deps"
+	"github.com/Xsamsx/SBOMber/internal/reproducible"
 )
 
 const (
@@ -193,7 +194,7 @@ func saveCycloneDXJSON(repoDir, repoName string, summary deps.Summary) (string, 
 		SpecVersion: "1.5",
 		Version:     1,
 		Metadata: cycloneDXJSONMetadata{
-			Timestamp: time.Now().UTC().Format(time.RFC3339),
+			Timestamp: reproducible.Now().Format(time.RFC3339),
 			Component: cycloneDXJSONComponent{
 				Type:   "application",
 				BOMRef: rootPurl,
@@ -321,7 +322,7 @@ func saveCycloneDX(repoDir, repoName string, summary deps.Summary) (string, erro
 		Xmlns:   "http://cyclonedx.org/schema/bom/1.5",
 		Version: 1,
 		Metadata: cycloneDXMetadata{
-			Timestamp: time.Now().UTC().Format(time.RFC3339),
+			Timestamp: reproducible.Now().Format(time.RFC3339),
 			Component: cycloneDXComponent{
 				Type:   "application",
 				BomRef: rootPurl,
@@ -521,7 +522,7 @@ func saveSPDX(repoDir, repoName string, summary deps.Summary) (string, error) {
 		fmt.Sprintf("DocumentName: %s", repoName),
 		fmt.Sprintf("DocumentNamespace: %s", namespace),
 		"Creator: Tool: SBOMber",
-		fmt.Sprintf("Created: %s", time.Now().UTC().Format(time.RFC3339)),
+		fmt.Sprintf("Created: %s", reproducible.Now().Format(time.RFC3339)),
 	}
 
 	packageIndex := 1
@@ -537,8 +538,9 @@ func saveSPDX(repoDir, repoName string, summary deps.Summary) (string, error) {
 			"PackageLicenseConcluded: NOASSERTION",
 			"PackageLicenseDeclared: NOASSERTION",
 			"PackageCopyrightText: NONE",
-			fmt.Sprintf("Relationship: SPDXRef-DOCUMENT DESCRIBES %s", packageID),
 		)
+		lines = append(lines, spdxPurlRef(dependency)...)
+		lines = append(lines, fmt.Sprintf("Relationship: SPDXRef-DOCUMENT DESCRIBES %s", packageID))
 		packageIndex++
 	}
 
@@ -554,8 +556,9 @@ func saveSPDX(repoDir, repoName string, summary deps.Summary) (string, error) {
 			"PackageLicenseConcluded: NOASSERTION",
 			"PackageLicenseDeclared: NOASSERTION",
 			"PackageCopyrightText: NONE",
-			fmt.Sprintf("Relationship: SPDXRef-DOCUMENT DESCRIBES %s", packageID),
 		)
+		lines = append(lines, spdxPurlRef(dependency)...)
+		lines = append(lines, fmt.Sprintf("Relationship: SPDXRef-DOCUMENT DESCRIBES %s", packageID))
 		packageIndex++
 	}
 
@@ -570,4 +573,15 @@ func saveSPDX(repoDir, repoName string, summary deps.Summary) (string, error) {
 	}
 
 	return path, nil
+}
+
+// spdxPurlRef is a package's purl as an SPDX external reference. Without it a
+// scanner reading the SPDX document can only guess the package from its name
+// (Grype falls back to CPEs and reports no purl at all).
+func spdxPurlRef(dependency deps.Dependency) []string {
+	purl := dependency.Purl()
+	if purl == "" {
+		return nil
+	}
+	return []string{"ExternalRef: PACKAGE-MANAGER purl " + purl}
 }

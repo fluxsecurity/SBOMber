@@ -44,6 +44,27 @@ make build
 **Requirements:** Go 1.26.9+ and [Grype](https://github.com/anchore/grype) (for vulnerability scanning).
 For GitHub scans, set `GITHUB_TOKEN` or just log in with the GitHub CLI (`gh auth login`); SBOMber uses that login automatically when `GITHUB_TOKEN` is unset.
 
+## Installation
+
+The pinned versions are in [`scripts/versions.env`](scripts/versions.env): Go 1.26.9, Grype v0.120.1, govulncheck v1.9.0.
+
+```bash
+# Go 1.26.9 from https://go.dev/dl/, and gcc (CGO is required)
+git clone https://github.com/fluxsecurity/SBOMber.git && cd SBOMber
+scripts/install-tools.sh               # pinned Grype and govulncheck into ./.tools/bin
+export PATH="$PWD/.tools/bin:$PATH"
+make build                             # ./bin/sbomber
+```
+
+## Demo
+
+```bash
+gh auth login                          # or export GITHUB_TOKEN: localise needs the GitHub API
+scripts/demo.sh --twice
+```
+
+The whole pipeline (`scan` → `usage` and `localise` → `decide` → `report` and `vex`) runs on a pinned demo repository, twice. The script checks the two runs are identical and validates every contract file. The official demonstration runs on Ubuntu 24.04 LTS. See [docs/demo.md](docs/demo.md) for the handover guide: installing, running each command, and reading the outputs.
+
 ## Features
 
 | Feature | Status |
@@ -323,6 +344,17 @@ for a complete, working reference workflow — it also scans this repository
 on every push to `main`.
 
 ## Known Limitations
+
+### Inventory (`canonical-scan.json`, Component 1)
+
+`scan --canonical-scan` writes the inventory the other components read. It is honest about what it could not do: `scan.status` is `partial`, and `scan.statusDetail.limitsHit` says why, when any of these apply.
+
+| Limitation | What it means |
+|---|---|
+| **No lockfile** | A range in `package.json` is not a version. The component gets `versionKnown: false` and the range in `declaredConstraint`, and transitive dependencies are not listed. |
+| **yarn.lock** | Exact versions, but no `installPath` or `dependencyPath`, so nested copies of one package are not told apart. |
+| **Cargo, Composer, NuGet** | canonical-scan 1.0.0 has no ecosystem value for them. Their packages are counted in `limitsHit`, not listed. |
+| **Online sources** | EPSS, KEV, GHSA and the npm registry are online. A source that fails is reported in `scan.enrichment` (never as clean), and a finding states `cisaKev` or `epss` only when that lookup succeeded. |
 
 ### JavaScript/TypeScript usage evidence and reachability (Component 2)
 
