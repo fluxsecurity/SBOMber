@@ -1,0 +1,36 @@
+CGO_ENABLED=1 GOCACHE=/home/sbomber1/dev/sbomber/issue151-usage-scope/.cache/go-build go test ./...
+?   	github.com/Xsamsx/SBOMber/cmd/sbomber	[no test files]
+ok  	github.com/Xsamsx/SBOMber/internal/audit	0.012s
+ok  	github.com/Xsamsx/SBOMber/internal/canonicalscan	0.015s
+?   	github.com/Xsamsx/SBOMber/internal/cargo	[no test files]
+ok  	github.com/Xsamsx/SBOMber/internal/cli	0.113s
+?   	github.com/Xsamsx/SBOMber/internal/composer	[no test files]
+?   	github.com/Xsamsx/SBOMber/internal/config	[no test files]
+ok  	github.com/Xsamsx/SBOMber/internal/decision	0.007s
+?   	github.com/Xsamsx/SBOMber/internal/deps	[no test files]
+?   	github.com/Xsamsx/SBOMber/internal/diff	[no test files]
+ok  	github.com/Xsamsx/SBOMber/internal/discovery	0.005s
+ok  	github.com/Xsamsx/SBOMber/internal/ecosystem	0.007s
+ok  	github.com/Xsamsx/SBOMber/internal/github	1.660s
+ok  	github.com/Xsamsx/SBOMber/internal/gitlab	1.787s
+ok  	github.com/Xsamsx/SBOMber/internal/golang	0.014s
+ok  	github.com/Xsamsx/SBOMber/internal/health	2.329s
+ok  	github.com/Xsamsx/SBOMber/internal/inventory	1.127s
+ok  	github.com/Xsamsx/SBOMber/internal/localisation	0.387s
+ok  	github.com/Xsamsx/SBOMber/internal/maven	0.007s
+ok  	github.com/Xsamsx/SBOMber/internal/netstatus	0.020s
+ok  	github.com/Xsamsx/SBOMber/internal/npm	0.009s
+?   	github.com/Xsamsx/SBOMber/internal/nuget	[no test files]
+ok  	github.com/Xsamsx/SBOMber/internal/python	0.009s
+ok  	github.com/Xsamsx/SBOMber/internal/reachability	0.021s
+ok  	github.com/Xsamsx/SBOMber/internal/remote	0.351s
+ok  	github.com/Xsamsx/SBOMber/internal/report	0.018s
+?   	github.com/Xsamsx/SBOMber/internal/reproducible	[no test files]
+ok  	github.com/Xsamsx/SBOMber/internal/ruby	0.003s
+ok  	github.com/Xsamsx/SBOMber/internal/sbom	0.006s
+ok  	github.com/Xsamsx/SBOMber/internal/sourceanalysis	0.211s
+ok  	github.com/Xsamsx/SBOMber/internal/supplychain	0.031s
+ok  	github.com/Xsamsx/SBOMber/internal/usagegraph	0.295s
+?   	github.com/Xsamsx/SBOMber/internal/verify	[no test files]
+ok  	github.com/Xsamsx/SBOMber/internal/vex	0.011s
+ok  	github.com/Xsamsx/SBOMber/internal/vulnerability	0.022s

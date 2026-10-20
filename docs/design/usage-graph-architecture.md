@@ -777,3 +777,97 @@ empty scope. The additive reason changes the usage-graph contract to 1.4.0.
 
 The reachability safety tests exercise the production multi-source path index.
 The per-target search remains a reference for explicit equivalence tests only.
+
+## 19. S6-06 scope decisions (#151)
+
+**Date:** 20 October 2026. **Status:** Component 2 recommendation; computed-import
+policy awaits explicit Component 4 agreement. Existing behaviour is retained.
+This record is not evidence of Zane's sign-off or paired-owner review.
+
+### 19.1 Computed imports: retain repository-wide uncertainty
+
+An unresolved `require(variable)` or `import(variable)` can select a package
+whose literal name never appears in an analysed import. The producer retains
+`computed_specifier` on unmatched direct npm occurrences in the same repository.
+An in-scope build/configuration script participates just like other analysed
+source. `scripts/` is not a proven non-runtime boundary. Default pruned trees
+such as `build/` and `node_modules/` remain outside the declared source scope.
+
+The policy is per repository, not every repository in a combined scan. Other
+blocking reasons (for example dependency-internal/transitive scope, ambiguity
+or empty source) may take precedence. Matched occurrences retain their resolved
+observations, and genuine positive evidence is not discarded merely because a
+computed import exists elsewhere. The detail names the first computed import
+by sorted source location; all computed observations remain available.
+
+Options considered:
+
+| Option | Benefit | False-negative risk / decision |
+|---|---|---|
+| Keep repository-wide uncertainty within analysed source | Preserves the delivered conservative contract | Recommended for Sprint 6; may produce more unknowns |
+| Ignore scripts or restrict to an inferred runtime directory | Fewer unknowns in some projects | Reject: no validated runtime/build boundary or complete entry/import closure establishes that these files cannot execute or affect dependency use |
+| Resolve computed values or add an explicit audited runtime scope | Could support a narrower scope with evidence | Future work: needs configuration, coverage semantics, producer/consumer agreement and labelled boundary cases; not implemented here |
+
+A computed *relative* import may select application code that itself imports a
+package. Component 4's legacy observation-level relative-expression exception
+must not erase a `computed_specifier` occurrence guard emitted by the current
+producer. The regression tests exercise the real producer → JSON → Component 4
+join/results path for both relative and non-relative computed expressions.
+
+Downstream, `computed_specifier` is a blocking unanalysed-occurrence reason:
+without resolved positive evidence for a matched occurrence, it cannot support
+`no_usage_detected`. Unknown exports as `under_investigation`. This policy does
+not claim dependency-internal analysis; the direct-but-indirectly-used gap in
+#172 remains separate.
+
+**Component 4 agreement:** pending. Record the reviewing owner, date and durable
+PR/issue comment URL here before marking the agreement acceptance criterion
+complete. A passing test or merge alone is not represented as policy agreement.
+
+### 19.2 MDX: retain unsupported-source treatment
+
+Keep `.mdx` (case-insensitive) in the unsupported application-source list.
+In an included directory it is recorded internally as skipped with
+`unsupported_source_format`, contributes to `filesSkipped` and
+`filesDiscovered`, and makes the source analysis `partial`. It supplies no
+invented import/call evidence. The public contract exposes the counter, not
+per-file skipped-source reasons. Unmatched packages are blocked from a negative
+occurrence reason; currently the generic public reason is `excluded_by_limits`.
+
+A file under `docs/` or containing only prose is not automatically exempt:
+MDX can contain imports and executable expressions, and no validated MDX
+classification pass establishes a documentation-only exception. Ordinary `.md`
+remains outside the candidate source formats. An MDX file inside an already
+pruned dependency/build tree is outside the declared discovery denominator.
+Neither boundary proves that excluded source has no runtime effect.
+
+Options considered:
+
+| Option | Benefit | False-negative risk / decision |
+|---|---|---|
+| Retain unsupported/partial handling | Visible uncertainty when MDX may load packages | Recommended; prose-only MDX still makes the scan partial |
+| Ignore every MDX file, or all `docs/*.mdx` | Fewer partial scans | Reject: path/extension alone does not prove absence of executable package use |
+| Parse MDX or prove a prose-only subset | Potentially more precise coverage | Future work; no parser/dependency or format support added in this issue |
+
+A resolved positive call in analysed JS/TS remains usable when MDX makes the
+scan partial. Absence of observed usage in the remaining source cannot be
+promoted to a negative decision. No public contract version change is required.
+
+### 19.3 Regression evidence and completion
+
+`internal/usagegraph/s606_scope_policy_test.go` exercises production parsing,
+graph generation, JSON serialisation and Component 4's join/results path with
+synthetic closed-candidate policy inputs, not real vulnerability claims:
+
+- success: resolved `merge` evidence survives an unrelated computed import or
+  an unsupported MDX file;
+- unknown paths: computed require/import in runtime and script files,
+  relative computed imports, and MDX containing executable source or prose;
+- boundaries: repository isolation, ordinary Markdown, uppercase MDX, pruned
+  dependency MDX and computed imports inside the pruned build tree.
+
+No production analyser/decision code, schema, scope configuration or defaults
+change. The #152 measurement results are therefore unaffected by this record
+and test additions; no remeasurement is needed unless runtime policy changes.
+Full checks and paired-owner review are required before merge. Keep #151 open
+until Component 4 agreement is explicitly recorded and the accepted PR merges.

@@ -1,0 +1,1 @@
+CGO_ENABLED=1 GOCACHE=/home/sbomber1/dev/sbomber/issue151-usage-scope/.cache/go-build go build -o ./bin/sbomber ./cmd/sbomber
