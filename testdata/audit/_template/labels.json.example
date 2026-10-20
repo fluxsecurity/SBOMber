@@ -1,0 +1,30 @@
+{
+  "schemaVersion": "1.0.0",
+  "caseId": "<case-id, same as the directory name>",
+  "repository": {
+    "url": "https://github.com/<owner>/<repo>",
+    "commit": "<full 40-character commit SHA>"
+  },
+  "labelledBy": "<your name>",
+  "labelledAt": "<YYYY-MM-DD>",
+  "labels": [
+    {
+      "findingId": "<findingId from canonical-scan.json>",
+      "vulnerabilityId": "<CVE or GHSA>",
+      "purl": "<purl from canonical-scan.json>",
+      "label": "genuine_usage",
+      "vulnerableSymbols": ["<function the advisory names>"],
+      "reasoning": "<why: what calls it, on what input, and whether that code ships>",
+      "evidence": ["<file>:<line> <the call>"]
+    },
+    {
+      "findingId": "<findingId>",
+      "vulnerabilityId": "<CVE or GHSA>",
+      "purl": "<purl>",
+      "label": "no_genuine_usage",
+      "vulnerableSymbols": ["<function the advisory names>"],
+      "reasoning": "<what you searched and how, and what you found>",
+      "evidence": ["<command you ran, e.g. grep -rn \"\\.template(\" src/>"]
+    }
+  ]
+}

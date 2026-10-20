@@ -1,0 +1,7 @@
+{
+  "name": "component2-s6-inline-type",
+  "version": "1.0.0",
+  "dependencies": {
+    "lodash": "4.17.21"
+  }
+}

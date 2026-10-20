@@ -1,0 +1,79 @@
+{
+  "schemaVersion": "1.4.0",
+  "scanId": "scan-test",
+  "analysis": {
+    "status": "complete",
+    "ecosystem": "npm",
+    "analyzerId": "component2-js-ts-tree-sitter"
+  },
+  "analyser": {
+    "parser": "tree-sitter",
+    "binding": "github.com/tree-sitter/go-tree-sitter",
+    "bindingVersion": "0.25.0",
+    "cgoEnabled": true,
+    "grammarVersions": {
+      "javascript": "0.25.0",
+      "typescript": "0.23.2"
+    },
+    "ecosystems": [
+      "npm"
+    ],
+    "reachabilityAnalysed": true
+  },
+  "entryPoints": [],
+  "coverage": {
+    "filesDiscovered": 1,
+    "filesParsed": 1,
+    "filesParsedWithErrors": 0,
+    "filesFailed": 0,
+    "filesSkipped": 0,
+    "thirdPartyImportsResolved": 1,
+    "thirdPartyImportsTypeOnly": 0,
+    "thirdPartyImportsUnresolved": 0,
+    "thirdPartyCallSitesResolved": 0,
+    "thirdPartyCallSitesUnresolved": 1,
+    "limitsHit": [],
+    "perRepository": [
+      {
+        "repositoryId": "repo-app",
+        "filesDiscovered": 1,
+        "filesParsed": 1,
+        "filesParsedWithErrors": 0,
+        "filesFailed": 0,
+        "filesSkipped": 0
+      }
+    ],
+    "entryPointsDetected": 0,
+    "callPathsResolved": 0,
+    "callPathsUnresolved": 1
+  },
+  "observations": [
+    {
+      "observationId": "obs-cf82d91157a6ebea5464c3a597b3e20b",
+      "occurrenceId": "occ-lodash",
+      "purl": "pkg:npm/lodash@4.17.21",
+      "importedSpecifier": "lodash",
+      "importedSymbol": "*",
+      "importKind": "esm_reexport",
+      "resolution": "resolved",
+      "location": {
+        "repositoryId": "repo-app",
+        "file": "src/index.js",
+        "line": 1
+      },
+      "evidenceLevel": 1,
+      "callSites": [
+        {
+          "file": "src/index.js",
+          "line": 1,
+          "enclosingFunction": "\u003cmodule\u003e",
+          "resolution": "unresolved",
+          "unresolvedReason": "reexport_chain",
+          "reachability": "unknown"
+        }
+      ]
+    }
+  ],
+  "unanalysedOccurrences": [],
+  "parseFailures": []
+}

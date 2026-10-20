@@ -1,0 +1,32 @@
+{
+  "schemaVersion": "1.1.0",
+  "scanId": "scan-2026-09-06-localisation-eval",
+  "online": true,
+  "results": 10,
+  "candidates": 38,
+  "candidatesTraced": 38,
+  "artefacts": 81,
+  "refetched": 81,
+  "unreachable": 0,
+  "tagChecks": {
+    "mismatch": 1,
+    "verified": 19
+  },
+  "issues": [
+    {
+      "findingId": "c01",
+      "severity": "warning",
+      "message": "tag check fixed 4.17.21: npm's gitHead c6e281b878 could not be compared in lodash/lodash, so the git tag 4.17.21 was used"
+    },
+    {
+      "findingId": "c01",
+      "severity": "warning",
+      "message": "tag check vulnerable 4.17.20: npm's gitHead f2e7063ee4 could not be compared in lodash/lodash, so the git tag 4.17.20 was used"
+    },
+    {
+      "findingId": "c06",
+      "severity": "warning",
+      "message": "tag check vulnerable 1.2.2: mismatch (Tag v1.2.2 and npm's gitHead agree. Vulnerable release 1.2.2 already contains linked commit 63e7ed05aa, so that commit was a partial fix or the version range is wrong.)"
+    }
+  ]
+}

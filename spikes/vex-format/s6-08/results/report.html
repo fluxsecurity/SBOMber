@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SBOMber remediation report — scan-s6-08-demo-app</title>
+<style>
+:root {
+  --bg: #ffffff; --fg: #1f2328; --muted: #57606a; --border: #d0d7de; --card: #f6f8fa;
+  --update: #cf222e; --insufficient: #9a6700; --nousage: #0969da; --lower: #6e7781;
+  --warn-bg: #fff8c5;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0d1117; --fg: #e6edf3; --muted: #9198a1; --border: #30363d; --card: #161b22;
+    --update: #ff7b72; --insufficient: #d29922; --nousage: #58a6ff; --lower: #9198a1;
+    --warn-bg: #3b2e00;
+  }
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--fg);
+  font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; }
+main { max-width: 1000px; margin: 0 auto; padding: 24px 16px 48px; }
+h1 { font-size: 1.5rem; margin: 0 0 4px; }
+.scan { color: var(--muted); margin: 0 0 16px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+.banner { background: var(--warn-bg); border: 1px solid var(--insufficient); border-radius: 6px; padding: 10px 14px; margin: 0 0 16px; }
+a { color: var(--nousage); }
+nav a { color: var(--fg); }
+nav ul { list-style: none; padding: 0; margin: 0 0 24px; display: flex; flex-wrap: wrap; gap: 8px 16px; }
+section { margin: 0 0 32px; }
+section > h2 { font-size: 1.2rem; margin: 0 0 8px; padding-left: 10px; border-left: 4px solid var(--accent); }
+.s-update { --accent: var(--update); }
+.s-insufficient { --accent: var(--insufficient); }
+.s-nousage { --accent: var(--nousage); }
+.s-lower { --accent: var(--lower); }
+.note { margin: 0 0 12px; }
+.coverage { background: var(--card); border: 1px solid var(--border); border-radius: 6px; padding: 10px 14px; margin: 0 0 16px; }
+.coverage h3 { font-size: 1rem; margin: 0 0 6px; }
+.coverage ul { margin: 0; padding-left: 20px; }
+.empty { color: var(--muted); font-style: italic; }
+article { border: 1px solid var(--border); border-radius: 6px; padding: 12px 14px; margin: 0 0 12px; }
+article h3 { font-size: 1rem; margin: 0 0 6px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; overflow-wrap: anywhere; }
+.meta { color: var(--muted); font-family: inherit; font-weight: normal; }
+article p { margin: 4px 0; }
+table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 0.92rem; }
+th, td { text-align: left; vertical-align: top; padding: 6px 8px; border-top: 1px solid var(--border); }
+th { color: var(--muted); font-weight: 600; }
+td.id { white-space: nowrap; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+.warn { background: var(--warn-bg); padding: 4px 6px; border-radius: 4px; margin-top: 4px; }
+.untrusted { font-weight: 600; }
+@media (max-width: 640px) {
+  table, tbody, tr, td { display: block; width: 100%; }
+  thead { display: none; }
+  td { border-top: none; padding: 2px 0; }
+  tr { border-top: 1px solid var(--border); padding: 6px 0; }
+}
+</style>
+</head>
+<body>
+<main>
+<h1>SBOMber remediation report</h1>
+<p class="scan">scan-s6-08-demo-app</p>
+
+
+
+<nav aria-label="Sections"><ul>
+<li><a href="#update-first">Update first</a></li>
+<li><a href="#insufficient-information">Insufficient information</a></li>
+<li><a href="#no-direct-usage">No direct usage evidence found within the analysed scope</a></li>
+</ul></nav>
+
+<section id="update-first" class="s-update">
+<h2>Update first</h2>
+
+
+
+
+<article>
+<h3>pkg:npm/lodash@4.17.20 <span class="meta">installed 4.17.20</span> <span class="meta">[direct]</span></h3>
+<p><strong>Why:</strong> 2 findings with usage detected in the application.</p>
+<p>Update to 4.18.0 (highest reported fixed version); covers 5 of 5 finding(s) on this package by reported fixed version (not verified).</p>
+
+<table>
+<thead><tr><th>Vulnerability</th><th>Details</th><th>Justification</th></tr></thead>
+<tbody>
+<tr data-finding-id="find-004">
+<td class="id">CVE-2020-28500</td>
+<td>unknown, confidence medium, medium, EPSS not reported, reported fix 4.17.21</td>
+<td>Localised to an internal function with no resolved public entry point (visibility of baseTrim, toNumber, trim, trimEnd and trimmedEndIndex is unknown).<div>Referenced import obs-2892557280466c1614d5fa2c95ca2d22: src/render.js:2</div><div>Observed call in obs-2892557280466c1614d5fa2c95ca2d22: src/render.js:5 template</div></td>
+</tr>
+<tr data-finding-id="find-005">
+<td class="id">CVE-2021-23337</td>
+<td>usage_detected, confidence high, high, EPSS not reported, reported fix 4.17.21</td>
+<td>The application calls template, which localisation names as a candidate or a public entry point to one.<div>Matched symbols: template</div><div>Referenced import obs-2892557280466c1614d5fa2c95ca2d22: src/render.js:2</div><div>Observed call in obs-2892557280466c1614d5fa2c95ca2d22: src/render.js:5 template</div></td>
+</tr>
+<tr data-finding-id="find-006">
+<td class="id">CVE-2026-2950</td>
+<td>unknown, confidence medium, medium, EPSS not reported, reported fix 4.18.0</td>
+<td>Localised to an internal function with no resolved public entry point (localisation 1.1.0 does not record whether omit and unset is public or internal; candidates came from advisory text, which cannot show the set is complete).<div>Referenced import obs-2892557280466c1614d5fa2c95ca2d22: src/render.js:2</div><div>Observed call in obs-2892557280466c1614d5fa2c95ca2d22: src/render.js:5 template</div></td>
+</tr>
+<tr data-finding-id="find-007">
+<td class="id">CVE-2026-4800</td>
+<td>usage_detected, confidence high, high, EPSS not reported, reported fix 4.18.0</td>
+<td>The application calls template, which localisation names as a candidate or a public entry point to one.<div>Matched symbols: template</div><div>Referenced import obs-2892557280466c1614d5fa2c95ca2d22: src/render.js:2</div><div>Observed call in obs-2892557280466c1614d5fa2c95ca2d22: src/render.js:5 template</div></td>
+</tr>
+<tr data-finding-id="find-008">
+<td class="id">CVE-2025-13465</td>
+<td>unknown, confidence medium, medium, EPSS not reported, reported fix 4.17.23</td>
+<td>Localised to an internal function with no resolved public entry point (visibility of baseUnset is unknown).<div>Referenced import obs-2892557280466c1614d5fa2c95ca2d22: src/render.js:2</div><div>Observed call in obs-2892557280466c1614d5fa2c95ca2d22: src/render.js:5 template</div></td>
+</tr>
+</tbody>
+</table>
+</article>
+
+<article>
+<h3>pkg:npm/decode-uri-component@0.2.0 <span class="meta">installed 0.2.0</span> <span class="meta">[direct]</span></h3>
+<p><strong>Why:</strong> 2 findings with usage detected in the application.</p>
+<p>Update to 0.5.0 (highest reported fixed version); covers 2 of 2 finding(s) on this package by reported fixed version (not verified).</p>
+
+<table>
+<thead><tr><th>Vulnerability</th><th>Details</th><th>Justification</th></tr></thead>
+<tbody>
+<tr data-finding-id="find-001">
+<td class="id">CVE-2026-45822</td>
+<td>usage_detected, confidence high, medium, EPSS not reported, reported fix 0.5.0</td>
+<td>The application calls default, which localisation names as a candidate or a public entry point to one.<div>Matched symbols: default</div><div>Referenced import obs-f2d0c52720ff8add78cdebd5e42b5f84: src/url.js:2</div><div>Observed call in obs-f2d0c52720ff8add78cdebd5e42b5f84: src/url.js:5 default</div></td>
+</tr>
+<tr data-finding-id="find-002">
+<td class="id">CVE-2022-38900</td>
+<td>usage_detected, confidence high, high, EPSS not reported, reported fix 0.2.1</td>
+<td>The application calls default, which localisation names as a candidate or a public entry point to one.<div>Matched symbols: default</div><div>Referenced import obs-f2d0c52720ff8add78cdebd5e42b5f84: src/url.js:2</div><div>Observed call in obs-f2d0c52720ff8add78cdebd5e42b5f84: src/url.js:5 default</div></td>
+</tr>
+</tbody>
+</table>
+</article>
+
+<article>
+<h3>pkg:npm/minimist@1.2.2 <span class="meta">installed 1.2.2</span> <span class="meta">[direct]</span></h3>
+<p><strong>Why:</strong> 2 findings with usage detected in the application.</p>
+<p>Update to 1.2.6 (highest reported fixed version); covers 2 of 2 finding(s) on this package by reported fixed version (not verified).</p>
+
+<table>
+<thead><tr><th>Vulnerability</th><th>Details</th><th>Justification</th></tr></thead>
+<tbody>
+<tr data-finding-id="find-009">
+<td class="id">CVE-2020-7598</td>
+<td>usage_detected, confidence high, medium, EPSS not reported, reported fix 1.2.3</td>
+<td>The application calls default, which localisation names as a candidate or a public entry point to one.<div>Matched symbols: default</div><div>Referenced import obs-fa4e52c9103ec68b0a0af839b61a0489: src/args.js:2</div><div>Observed call in obs-fa4e52c9103ec68b0a0af839b61a0489: src/args.js:5 default</div></td>
+</tr>
+<tr data-finding-id="find-010">
+<td class="id">CVE-2021-44906</td>
+<td>usage_detected, confidence high, critical, EPSS not reported, reported fix 1.2.6</td>
+<td>The application calls default, which localisation names as a candidate or a public entry point to one.<div>Matched symbols: default</div><div>Referenced import obs-fa4e52c9103ec68b0a0af839b61a0489: src/args.js:2</div><div>Observed call in obs-fa4e52c9103ec68b0a0af839b61a0489: src/args.js:5 default</div></td>
+</tr>
+</tbody>
+</table>
+</article>
+
+</section>
+
+<section id="insufficient-information" class="s-insufficient">
+<h2>Insufficient information</h2>
+
+<div class="coverage"><h3>Analysis coverage</h3><ul>
+<li>Analysis status: complete (npm, analyser component2-js-ts-tree-sitter)</li>
+<li>Files: 5 discovered, 5 parsed without errors, 0 parsed with errors, 0 failed, 0 skipped</li>
+<li>Third-party imports: 4 resolved, 0 type-only, 0 unresolved</li>
+<li>Third-party call sites: 4 resolved, 0 unresolved</li>
+<li>Call paths from 3 detected entry point(s): 4 resolved, 0 unresolved</li>
+<li>Limits hit: none</li>
+<li>Directory trees the source analyser excludes (dependency, build-output and version-control directories such as node_modules, build, dist and .git) are outside the declared analysis scope. They were not analysed and are not counted in the file totals above; they are not successfully analysed files.</li>
+</ul></div>
+<p class="empty">No findings in this section.</p>
+
+</section>
+
+<section id="no-direct-usage" class="s-nousage">
+<h2>No direct usage evidence found within the analysed scope</h2>
+<p class="note">These findings had no direct usage evidence within the analysed scope. They are listed here, not removed. This records what the analysis found, not whether the vulnerability can be exploited.</p>
+
+
+
+<article>
+<h3>pkg:npm/ini@1.3.5 <span class="meta">installed 1.3.5</span> <span class="meta">[direct]</span></h3>
+
+<p>Reported fixed version: 1.3.6; covers 1 of 1 finding(s) on this package by reported fixed version (not verified).</p>
+
+<table>
+<thead><tr><th>Vulnerability</th><th>Details</th><th>Justification</th></tr></thead>
+<tbody>
+<tr data-finding-id="find-003">
+<td class="id">CVE-2020-7788</td>
+<td>no_usage_detected, confidence medium, high, EPSS not reported, reported fix 1.3.6</td>
+<td>No usage evidence found within the analysed scope: analysis completed and no application call reached any public entry point of the localised functions.<div>Referenced import obs-4b2986fa2701ec68d0fe37c164520b85: src/config.js:2</div><div>Observed call in obs-4b2986fa2701ec68d0fe37c164520b85: src/config.js:5 stringify</div></td>
+</tr>
+</tbody>
+</table>
+</article>
+
+</section>
+
+</main>
+</body>
+</html>

@@ -1,0 +1,81 @@
+{
+  "schemaVersion": "1.4.0",
+  "scanId": "scan-test",
+  "analysis": {
+    "status": "complete",
+    "ecosystem": "npm",
+    "analyzerId": "component2-js-ts-tree-sitter"
+  },
+  "analyser": {
+    "parser": "tree-sitter",
+    "binding": "github.com/tree-sitter/go-tree-sitter",
+    "bindingVersion": "0.25.0",
+    "cgoEnabled": true,
+    "grammarVersions": {
+      "javascript": "0.25.0",
+      "typescript": "0.23.2"
+    },
+    "ecosystems": [
+      "npm"
+    ],
+    "reachabilityAnalysed": true
+  },
+  "entryPoints": [
+    {
+      "entryPointId": "ep-6e9406c82a129498d33e4b99af758375",
+      "kind": "exported_module",
+      "function": "invokeLocal",
+      "file": "src/index.ts",
+      "line": 5,
+      "repositoryId": "repo-app"
+    }
+  ],
+  "coverage": {
+    "filesDiscovered": 1,
+    "filesParsed": 1,
+    "filesParsedWithErrors": 0,
+    "filesFailed": 0,
+    "filesSkipped": 0,
+    "thirdPartyImportsResolved": 0,
+    "thirdPartyImportsTypeOnly": 1,
+    "thirdPartyImportsUnresolved": 0,
+    "thirdPartyCallSitesResolved": 0,
+    "thirdPartyCallSitesUnresolved": 0,
+    "limitsHit": [],
+    "perRepository": [
+      {
+        "repositoryId": "repo-app",
+        "filesDiscovered": 1,
+        "filesParsed": 1,
+        "filesParsedWithErrors": 0,
+        "filesFailed": 0,
+        "filesSkipped": 0
+      }
+    ],
+    "entryPointsDetected": 1,
+    "callPathsResolved": 0,
+    "callPathsUnresolved": 0
+  },
+  "observations": [
+    {
+      "observationId": "obs-fff6c91430378428274d9edb64bd3257",
+      "occurrenceId": "occ-lodash",
+      "purl": "pkg:npm/lodash@4.17.21",
+      "importedSpecifier": "lodash",
+      "localAlias": "Lookup",
+      "importedSymbol": "Dictionary",
+      "importKind": "esm_type_only",
+      "resolution": "type_only",
+      "location": {
+        "repositoryId": "repo-app",
+        "file": "src/index.ts",
+        "line": 1,
+        "column": 28
+      },
+      "evidenceLevel": 1,
+      "callSites": []
+    }
+  ],
+  "unanalysedOccurrences": [],
+  "parseFailures": []
+}

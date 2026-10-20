@@ -1,0 +1,46 @@
+{
+  "fixture": "component2-usage-route",
+  "labelMethod": "hand-authored before analyser execution",
+  "language": "javascript",
+  "expected": {
+    "entryPoints": [
+      {
+        "name": "<route_handler>",
+        "kind": "route_handler",
+        "file": "src/app.js",
+        "line": 11
+      }
+    ],
+    "thirdPartyImports": [
+      {
+        "specifier": "lodash",
+        "imported": "template",
+        "local": "template",
+        "kind": "esm_named",
+        "file": "src/app.js",
+        "line": 1
+      }
+    ],
+    "thirdPartyCalls": [
+      {
+        "symbol": "template",
+        "file": "src/app.js",
+        "line": 4,
+        "resolution": "resolved",
+        "reachability": "reachable",
+        "entryPoint": "<route_handler>",
+        "callPath": [
+          "<route_handler>",
+          "sendWelcome",
+          "renderWelcome"
+        ],
+        "evidenceLevel": 3
+      }
+    ],
+    "coverage": {
+      "entryPointsDetected": 1,
+      "callPathsResolved": 1,
+      "callPathsUnresolved": 0
+    }
+  }
+}

@@ -16,6 +16,10 @@ type changedFile struct {
 	Removed     []int  // old-file line numbers
 	Approximate bool
 	FetchError  string
+	// NewArtefact and OldArtefact are the provenance IDs of the two sides,
+	// so every candidate can cite the file it was read from.
+	NewArtefact string
+	OldArtefact string
 }
 
 // attribution is the outcome of mapping changed lines to functions.
@@ -78,6 +82,7 @@ func attributeChanges(files []changedFile) attribution {
 			if out.Candidates[i].Note == "" && c.Note != "" {
 				out.Candidates[i].Note = c.Note
 			}
+			out.Candidates[i].Evidence = addEvidence(out.Candidates[i].Evidence, c.Evidence...)
 			return
 		}
 		seenCand[key] = len(out.Candidates)
@@ -111,7 +116,7 @@ func attributeChanges(files []changedFile) attribution {
 			changeKind = "removed"
 		}
 
-		attributeSide := func(src []byte, lines []int, kind string) {
+		attributeSide := func(src []byte, lines []int, kind, artefact string) {
 			if src == nil || len(lines) == 0 {
 				return
 			}
@@ -149,26 +154,27 @@ func attributeChanges(files []changedFile) attribution {
 					}
 					continue
 				}
-				c := Candidate{Symbol: fn.Name, ModulePath: f.Path, ChangeKind: kind, Note: describeSpan(fn, fs)}
+				evidence := addEvidence(nil, artefact)
+				c := Candidate{Symbol: fn.Name, ModulePath: f.Path, ChangeKind: kind, Note: describeSpan(fn, fs), Evidence: evidence}
 				addCand(c)
 				for _, alias := range fs.ExportedNames(fn.Name) {
 					if alias == fn.Name {
 						continue
 					}
 					addCand(Candidate{Symbol: alias, ModulePath: f.Path, ChangeKind: kind,
-						Note: "export alias of " + fn.Name})
+						Note: "export alias of " + fn.Name, Evidence: evidence})
 				}
 				for _, alias := range fn.Aliases {
 					addCand(Candidate{Symbol: alias, ModulePath: f.Path, ChangeKind: kind,
-						Note: "also named " + alias + " (function expression name of " + fn.Name + ")"})
+						Note: "also named " + alias + " (function expression name of " + fn.Name + ")", Evidence: evidence})
 				}
 			}
 			if moduleLevel > 0 {
 				out.Notes = append(out.Notes, fmt.Sprintf("%s: %d changed line(s) at module level outside any function", f.Path, moduleLevel))
 			}
 		}
-		attributeSide(f.NewSource, f.Added, changeKind)
-		attributeSide(f.OldSource, f.Removed, changeKind)
+		attributeSide(f.NewSource, f.Added, changeKind, f.NewArtefact)
+		attributeSide(f.OldSource, f.Removed, changeKind, f.OldArtefact)
 	}
 	sort.Strings(out.Excluded)
 	if len(out.Candidates) > maxCandidateSymbols {

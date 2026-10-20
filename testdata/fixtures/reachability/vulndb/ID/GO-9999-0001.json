@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-9999-0001",
+  "modified": "2026-08-27T00:00:00Z",
+  "published": "2026-08-27T00:00:00Z",
+  "aliases": ["CVE-9999-00001"],
+  "summary": "A fake vulnerability used only for SBOMber reachability testing.",
+  "details": "This entry does not correspond to a real CVE. It exists solely as a deterministic, offline fixture for internal/reachability's tests.",
+  "affected": [
+    {
+      "package": {"name": "example.com/sbomber-reachability/vendorpkg", "ecosystem": "Go"},
+      "ranges": [{"type": "SEMVER", "events": [{"introduced": "0"}]}],
+      "ecosystem_specific": {
+        "imports": [
+          {"path": "example.com/sbomber-reachability/vendorpkg", "symbols": ["Vulnerable"]}
+        ]
+      }
+    }
+  ],
+  "database_specific": {"url": "https://example.invalid/GO-9999-0001"}
+}

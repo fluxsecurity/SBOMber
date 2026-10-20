@@ -19,12 +19,24 @@ func (TreeSitterAnalyzer) Analyze(path string) (Result, error) {
 	return extractFile(path)
 }
 
+// AnalyzeBytes parses source bytes already loaded by the caller.
+func (TreeSitterAnalyzer) AnalyzeBytes(path string, source []byte) (Result, error) {
+	if _, err := languageForPath(path); err != nil {
+		return Result{}, err
+	}
+
+	return extractSource(path, source)
+}
+
 func treeSitterLanguageForPath(path string) (*treesitter.Language, error) {
 	language, err := languageForPath(path)
 	if err != nil {
 		return nil, err
 	}
+	return treeSitterLanguage(language)
+}
 
+func treeSitterLanguage(language string) (*treesitter.Language, error) {
 	switch language {
 	case "javascript":
 		return treesitter.NewLanguage(javascript.Language()), nil

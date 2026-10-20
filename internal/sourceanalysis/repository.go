@@ -22,6 +22,11 @@ const (
 	SkipNonRegularFile    = "non_regular_file"
 	SkipSourceTooLarge    = "source_too_large"
 	SkipSourceFileLimit   = "source_file_limit"
+	// SkipUnsupportedSource marks application source in a format this
+	// analyser cannot parse, such as a Vue or Svelte single-file component.
+	// These files can import packages, so skipping them makes the analysis
+	// partial instead of silently shrinking the analysed scope.
+	SkipUnsupportedSource = "unsupported_source_format"
 )
 
 const (
@@ -32,6 +37,8 @@ const (
 // RepositoryOptions bounds source discovery and parsing. Zero values use the
 // documented defaults. Negative values are rejected.
 type RepositoryOptions struct {
+	// MaxSourceFiles limits supported, non-generated candidate source files
+	// considered before size, minification, read and parse checks.
 	MaxSourceFiles    int
 	MaxSourceBytes    int64
 	MinifiedLineBytes int
@@ -96,23 +103,43 @@ func excludedDirectory(name string) bool {
 	}
 }
 
+// unsupportedApplicationSource reports file formats that embed JavaScript or
+// TypeScript imports but are not parsed by this analyser.
+func unsupportedApplicationSource(name string) bool {
+	switch strings.ToLower(filepath.Ext(name)) {
+	case ".vue", ".svelte", ".astro", ".mdx", ".marko":
+		return true
+	default:
+		return false
+	}
+}
+
 func generatedSourceFile(name string) bool {
 	lower := strings.ToLower(name)
 
 	for _, suffix := range []string{
 		".bundle.cjs",
+		".bundle.cts",
 		".bundle.js",
+		".bundle.jsx",
 		".bundle.mjs",
+		".bundle.mts",
 		".bundle.ts",
 		".bundle.tsx",
 		".generated.cjs",
+		".generated.cts",
 		".generated.js",
+		".generated.jsx",
 		".generated.mjs",
+		".generated.mts",
 		".generated.ts",
 		".generated.tsx",
 		".min.cjs",
+		".min.cts",
 		".min.js",
+		".min.jsx",
 		".min.mjs",
+		".min.mts",
 		".min.ts",
 		".min.tsx",
 	} {
@@ -215,6 +242,9 @@ func AnalyzeRepository(root string, options RepositoryOptions) (RepositoryResult
 		}
 
 		if _, languageErr := languageForPath(path); languageErr != nil {
+			if unsupportedApplicationSource(entry.Name()) {
+				result.Skipped = append(result.Skipped, SkippedSource{Path: relative, Reason: SkipUnsupportedSource})
+			}
 			return nil
 		}
 
@@ -255,7 +285,7 @@ func AnalyzeRepository(root string, options RepositoryOptions) (RepositoryResult
 			return nil
 		}
 
-		analysis, analysisErr := AnalyzeSource(path)
+		analysis, analysisErr := AnalyzeSourceBytes(path, source)
 		if analysisErr != nil {
 			result.Failed = append(result.Failed, FailedSource{Path: relative, Reason: analysisErr.Error()})
 			return nil

@@ -31,6 +31,22 @@ jobs:
       - name: Test contract validator
         run: python -m unittest -v contracts/test_validate.py
 
+      - name: Test usage evaluation scripts
+        run: python -B -m unittest discover -s scripts -v
+
+      - name: Verify frozen localisation set
+        run: python spikes/localisation/freeze.py
+
+      - name: Verify localisation provenance of the frozen set
+        run: |
+          python spikes/localisation/verify_provenance.py
+          python -m unittest -v spikes/localisation/test_verify_provenance.py
+
+      - name: Check VEX consistency on the S6-08 run
+        run: |
+          python spikes/vex-format/s6-08/consistency.py spikes/vex-format/s6-08/results --check > /dev/null
+          python -m unittest -v spikes/vex-format/s6-08/test_consistency.py
+
       - name: Set up Go
         uses: actions/setup-go@v5
         with:
@@ -38,6 +54,9 @@ jobs:
 
       - name: Install golangci-lint
         run: go install github.com/golangci/golangci-lint/v2/cmd/golangci-lint@latest
+
+      - name: Install govulncheck
+        run: go install golang.org/x/vuln/cmd/govulncheck@latest
 
       - name: Verify formatting
         run: |
@@ -51,3 +70,6 @@ jobs:
 
       - name: Run golangci-lint
         run: golangci-lint run --timeout=5m ./...
+
+      - name: Verify localisation provenance with the tool (offline)
+        run: go run ./cmd/sbomber localise --verify spikes/localisation/results/provenance/localisation.json

@@ -15,7 +15,7 @@
 //	version_diff       the diff between the vulnerable and fixed npm tarballs
 //	unknown            an honest outcome; the finding falls back to package level
 //
-// Two rules hold everywhere in this package:
+// Three rules hold everywhere in this package:
 //
 //   - Downloaded package code is never executed. Tarballs are read in memory,
 //     only text files are inspected, and every artefact records
@@ -23,4 +23,7 @@
 //   - A function changed by a security patch is a CANDIDATE, not a proven
 //     culprit. Patches routinely bundle refactoring with the fix, and a public
 //     API is often fixed inside a private helper it calls.
+//   - Every candidate cites the artefacts it was read from, and every artefact
+//     records a checksum and how it was verified (provenance.go). VerifyDocument
+//     and Localiser.Refetch check a document against those records.
 package localisation

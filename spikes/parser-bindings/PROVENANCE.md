@@ -1,5 +1,11 @@
 # Evidence Provenance
 
+> **Frozen research history.** This directory records the Sprint 4 parser-binding
+> evaluation as it was performed and its historical counts are not rewritten.
+> Current production regression evidence is
+> `internal/sourceanalysis/TestSourceAnalyzerExactLabelledCorpus`, which checks
+> the 13 hand-labelled fixtures against the production analyser.
+
 This branch contains a curated, review-friendly version of the parser spike.
 
 The complete chronological research history remains available on:

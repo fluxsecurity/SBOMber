@@ -1,0 +1,87 @@
+{
+  "schemaVersion": "1.4.0",
+  "scanId": "scan-test",
+  "analysis": {
+    "status": "complete",
+    "ecosystem": "npm",
+    "analyzerId": "component2-js-ts-tree-sitter"
+  },
+  "analyser": {
+    "parser": "tree-sitter",
+    "binding": "github.com/tree-sitter/go-tree-sitter",
+    "bindingVersion": "0.25.0",
+    "cgoEnabled": true,
+    "grammarVersions": {
+      "javascript": "0.25.0",
+      "typescript": "0.23.2"
+    },
+    "ecosystems": [
+      "npm"
+    ],
+    "reachabilityAnalysed": true
+  },
+  "entryPoints": [
+    {
+      "entryPointId": "ep-e0af00ede560238aedc949b22b7ebfd2",
+      "kind": "exported_module",
+      "function": "load",
+      "file": "src/index.js",
+      "line": 1,
+      "repositoryId": "repo-app"
+    }
+  ],
+  "coverage": {
+    "filesDiscovered": 1,
+    "filesParsed": 1,
+    "filesParsedWithErrors": 0,
+    "filesFailed": 0,
+    "filesSkipped": 0,
+    "thirdPartyImportsResolved": 0,
+    "thirdPartyImportsTypeOnly": 0,
+    "thirdPartyImportsUnresolved": 1,
+    "thirdPartyCallSitesResolved": 0,
+    "thirdPartyCallSitesUnresolved": 0,
+    "limitsHit": [],
+    "perRepository": [
+      {
+        "repositoryId": "repo-app",
+        "filesDiscovered": 1,
+        "filesParsed": 1,
+        "filesParsedWithErrors": 0,
+        "filesFailed": 0,
+        "filesSkipped": 0
+      }
+    ],
+    "entryPointsDetected": 1,
+    "callPathsResolved": 0,
+    "callPathsUnresolved": 0
+  },
+  "observations": [
+    {
+      "observationId": "obs-7764be84142888203b1b571c2c5cecd8",
+      "importedSpecifier": "packageName",
+      "computedSpecifier": true,
+      "importedSymbol": "*",
+      "importKind": "dynamic_computed",
+      "resolution": "unresolved",
+      "unresolvedReason": "computed_specifier",
+      "location": {
+        "repositoryId": "repo-app",
+        "file": "src/index.js",
+        "line": 2,
+        "column": 8
+      },
+      "evidenceLevel": 1,
+      "callSites": []
+    }
+  ],
+  "unanalysedOccurrences": [
+    {
+      "occurrenceId": "occ-lodash",
+      "purl": "pkg:npm/lodash@4.17.21",
+      "reason": "computed_specifier",
+      "detail": "computed import at src/index.js:2 could load this package"
+    }
+  ],
+  "parseFailures": []
+}

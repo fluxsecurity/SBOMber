@@ -1,6 +1,6 @@
 # SBOMber contracts
 
-**Schema versions: `canonical-scan` 1.0.0 · `usage-graph` 1.2.0 · `localisation` 1.0.0 · `decision-results` 1.1.0**
+**Schema versions: `canonical-scan` 1.0.0 · `usage-graph` 1.4.0 · `localisation` 1.1.0 · `decision-results` 1.1.0**
 
 Four JSON contracts. Each component reads and writes **files**, never another component's running code — that is what lets four people build in parallel and integrate in Sprint 5 instead of queueing behind each other.
 
@@ -75,6 +75,9 @@ Schema conformance is the easy half. These are the rules a JSON Schema cannot ex
 - File counts sum: discovered = parsed + parsedWithErrors + failed + skipped
 - Import locations are never inside `node_modules` — only application source is parsed
 - **Every occurrence in `canonical-scan.json` appears either in `observations` or in `unanalysedOccurrences`.** This is the safety-critical rule: without it, "analysed and found nothing" and "never analysed" both look like silence
+- If an import could match more than one direct occurrence, each candidate is recorded as `ambiguous_occurrence`; none can support `no_usage_detected`.
+- If a computed dynamic import could load an unknown package, unmatched direct occurrences in that repository are recorded as `computed_specifier`; none can support `no_usage_detected`.
+- Every import form the parser recognises produces an observation. Forms whose value cannot be followed — re-exports (`esm_reexport`), `require()` passed as an argument or returned — carry one unresolved call site (`reexport_chain` / `outside_supported_syntax`), so the package is never read as imported-but-unused. `require(expression)` is `dynamic_computed`.
 
 **There is no `not_reachable`.** `reachability` is `reachable`, `unknown` or `not_analysed`. Within an application-source-only analysis, failing to resolve a path describes the analysis, not the code — the same reasoning that forbids automated `not_affected`. The schema makes the unsafe value unrepresentable rather than relying on anyone remembering the rule.
 
@@ -82,6 +85,8 @@ Schema conformance is the easy half. These are the rules a JSON Schema cannot ex
 
 **Localisation (R2)**
 - Every downloaded artefact records `executed: false`. Downloaded package code is never executed
+- From 1.1.0, every candidate cites at least one artefact by `id` (`evidence`); each cited artefact exists in the result's provenance, is `verified`, and has a SHA-256. A cited `source_file` also has its repo, full commit SHA, path and git blob SHA, and its path is the candidate's `modulePath`. Artefact ids are unique within a result
+- Only `internal` candidates carry `exposedVia`, `exposedViaSource` and `exposedViaComplete`, and an `internal` candidate carries all three. A complete route list must be `export_resolution`. Candidates from advisory prose are never `public` or `internal`
 - `method: unknown` cannot carry candidate symbols
 - An uncorroborated LLM result cannot claim high or medium confidence
 
@@ -93,6 +98,7 @@ Schema conformance is the easy half. These are the rules a JSON Schema cannot ex
 - Localisation `unknown` cannot produce `no_usage_detected`; it produces `unknown`
 - Justification text cannot contain "not affected", "is safe", "no risk" or "false positive"
 - Distribution counts must match the decisions
+- **Empty source scope:** a repository with zero discovered in-scope files makes analysis `partial`. Unmatched direct occurrences in that repository carry `no_source_files`, which always blocks `no_usage_detected`. An entirely empty scan also has `analysis.reasonCode: no_source_files`.
 - **A negative verdict requires that component 2 actually looked.** `no_usage_detected` is forbidden where the finding's occurrence was reported unanalysed for any reason other than `not_imported_by_analysed_source`
 
 **Honesty**

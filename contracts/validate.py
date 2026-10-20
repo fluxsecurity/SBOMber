@@ -11,6 +11,7 @@ Usage:
 
 import argparse
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -137,17 +138,23 @@ def validate_usage_graph(d, canon):
     incomplete_files = (cov["filesParsedWithErrors"] + cov["filesFailed"]
                         + cov["filesSkipped"])
     limits_hit = cov.get("limitsHit", [])
+    empty_source_scope = (cov["filesDiscovered"] == 0 or any(
+        r["filesDiscovered"] == 0 for r in cov.get("perRepository", [])
+    ))
     check(c, "complete status has complete file coverage",
-          analysis_status != "complete" or (incomplete_files == 0 and not limits_hit),
-          f"analysis is complete with {incomplete_files} incomplete files and limits {limits_hit}")
+          analysis_status != "complete" or (
+              incomplete_files == 0 and not limits_hit and not empty_source_scope),
+          f"analysis is complete with {incomplete_files} incomplete files, "
+          f"limits {limits_hit} and empty source scope {empty_source_scope}")
     check(c, "incomplete file coverage cannot be complete",
-          not (incomplete_files or limits_hit)
+          not (incomplete_files or limits_hit or
+               (empty_source_scope and analysis_status in ("complete", "partial")))
           or analysis_status in ("partial", "failed"),
           f"coverage has {incomplete_files} incomplete files or limits {limits_hit}, "
           f"but analysis status is {analysis_status}")
     check(c, "partial status explains itself in coverage",
-          analysis_status != "partial" or bool(incomplete_files or limits_hit),
-          "analysis is partial but coverage reports no incomplete files or limits")
+          analysis_status != "partial" or bool(incomplete_files or limits_hit or empty_source_scope),
+          "analysis is partial but coverage reports no incomplete files, limits or empty source scope")
 
     repository_ids = set()
     repository_totals = {
@@ -317,6 +324,8 @@ def validate_localisation(d, canon):
         for a in r.get("provenance", {}).get("artefacts", []):
             check(c, "downloaded code never executed", a.get("executed") is False,
                   f"{r['findingId']} artefact {a['url']} does not record executed: false")
+        if d["schemaVersion"] != "1.0.0":
+            validate_localisation_evidence(c, r)
         llm = r.get("provenance", {}).get("llm")
         if llm and llm.get("corroboratedBy", "none") == "none":
             check(c, "uncorroborated LLM stays low", r["confidence"] == "low",
@@ -329,6 +338,84 @@ def validate_localisation(d, canon):
         check(c, "byMethod matches results", s.get("byMethod") == methods,
               f"summary byMethod {s.get('byMethod')} != actual {methods}")
     return {r["findingId"]: r for r in d["results"]}
+
+
+SHA256 = re.compile(r"[0-9a-f]{64}")
+SOURCE_FILE_FIELDS = ("repo", "commit", "path", "gitBlobSha")
+EVIDENCE_KIND = {
+    "patch_reference": "source_file",
+    "version_diff": "tarball",
+    "advisory_metadata": "advisory",
+    "advisory_text": "advisory",
+}
+
+
+def expected_artefact_id(a, purl):
+    """The id an artefact's own fields imply (internal/localisation/provenance.go)."""
+    kind = a.get("kind")
+    if kind == "advisory":
+        return "advisory"
+    if kind == "source_file":
+        return f"github:{a.get('repo')}@{a.get('commit')}:{a.get('path')}"
+    if kind == "tarball" and purl.startswith("pkg:npm/") and "@" in purl[8:]:
+        name = purl[8:].rsplit("@", 1)[0].replace("%40", "@").replace("%2F", "/").replace("%2f", "/")
+        return f"npm:{name}@{a.get('version')}"
+    return None
+
+
+def validate_localisation_evidence(c, r):
+    """1.1.0: every candidate cites a verified, checksummed artefact (S6-07)."""
+    fid = r["findingId"]
+    arts = r.get("provenance", {}).get("artefacts", [])
+    ids = [a["id"] for a in arts if a.get("id")]
+    check(c, "artefact ids unique", len(ids) == len(set(ids)),
+          f"{fid} repeats an artefact id: {sorted(ids)}")
+    by_id = {a["id"]: a for a in arts if a.get("id")}
+    for a in arts:
+        want = expected_artefact_id(a, r["purl"])
+        if a.get("id") and want:
+            check(c, "artefact id matches its fields", a["id"] == want,
+                  f"{fid} artefact {a['id']} should be {want}")
+    allowed = EVIDENCE_KIND.get(r["method"])
+    for cand in r.get("candidateSymbols", []):
+        sym = cand["symbol"]
+        vis = cand.get("visibility")
+        via_fields = [k for k in ("exposedVia", "exposedViaSource", "exposedViaComplete") if k in cand]
+        if vis == "internal":
+            check(c, "internal candidate lists its public routes",
+                  bool(cand.get("exposedVia")) and "exposedViaSource" in cand and "exposedViaComplete" in cand,
+                  f"{fid} internal candidate {sym} lacks exposedVia, exposedViaSource or exposedViaComplete")
+        else:
+            check(c, "only internal candidates carry exposedVia", not via_fields,
+                  f"{fid} {vis or 'unset'} candidate {sym} carries {', '.join(via_fields)}")
+        if cand.get("exposedViaComplete") is True:
+            check(c, "a complete route list is code-derived", cand.get("exposedViaSource") == "export_resolution",
+                  f"{fid} candidate {sym} claims a complete route list from {cand.get('exposedViaSource')}")
+        if vis in ("public", "internal") and r["method"] in ("advisory_text", "llm_suggested"):
+            check(c, "prose-derived candidates are not resolved", False,
+                  f"{fid} {r['method']} candidate {sym} claims visibility {vis}")
+        evidence = cand.get("evidence", [])
+        check(c, "candidate cites an artefact", bool(evidence),
+              f"{fid} candidate {sym} cites no artefact")
+        for ref in evidence:
+            a = by_id.get(ref)
+            check(c, "cited artefact exists", a is not None,
+                  f"{fid} candidate {sym} cites {ref}, which is not in provenance.artefacts")
+            if a is None:
+                continue
+            check(c, "cited artefact has a checksum", SHA256.fullmatch(a.get("sha256", "")) is not None,
+                  f"{fid} artefact {ref} has no SHA-256")
+            check(c, "cited artefact verified", a.get("verified") is True,
+                  f"{fid} candidate {sym} rests on unverified artefact {ref}: {a.get('note', 'no reason recorded')}")
+            if allowed:
+                check(c, "evidence kind matches the method", a.get("kind") == allowed,
+                      f"{fid} {r['method']} candidate {sym} cites a {a.get('kind')} artefact, not {allowed}")
+            if a.get("kind") == "source_file":
+                check(c, "source file identity complete", all(a.get(k) for k in SOURCE_FILE_FIELDS),
+                      f"{fid} artefact {ref} lacks one of {', '.join(SOURCE_FILE_FIELDS)}")
+                if cand.get("modulePath"):
+                    check(c, "candidate cites its own file", a.get("path") == cand["modulePath"],
+                          f"{fid} candidate {sym} is in {cand['modulePath']} but cites {a.get('path')}")
 
 
 # -------------------------------------------------------------- decision-results

@@ -122,6 +122,11 @@ const (
 	ReasonEcosystemUnsupported  UnanalysedReason = "ecosystem_unsupported"
 	ReasonImportSiteParseFailed UnanalysedReason = "import_site_parse_failed"
 	ReasonExcludedByLimits      UnanalysedReason = "excluded_by_limits"
+
+	// usage-graph 1.3.0 (#135). Both block a negative verdict; they are
+	// named here only so the justification can describe them.
+	ReasonAmbiguousOccurrence UnanalysedReason = "ambiguous_occurrence"
+	ReasonComputedSpecifier   UnanalysedReason = "computed_specifier"
 )
 
 // blocksNegativeVerdict reports whether an unanalysed occurrence carrying

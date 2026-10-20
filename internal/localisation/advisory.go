@@ -2,6 +2,8 @@ package localisation
 
 import (
 	"context"
+	"crypto/sha256"
+	"encoding/hex"
 	"encoding/json"
 	"fmt"
 	"regexp"
@@ -23,6 +25,11 @@ type Advisory struct {
 	// evaluation can show they are absent for npm.
 	EcosystemSpecific []json.RawMessage
 	DatabaseSpecific  json.RawMessage
+	// NamesPackage is true when an npm entry in affected[] is this package.
+	NamesPackage bool
+	// Artefact records the record as fetched: API URL, SHA-256 of the bytes
+	// read, and whether it names the finding and the package.
+	Artefact Artefact
 }
 
 // Reference is one advisory link.
@@ -40,6 +47,7 @@ type AffectedRange struct {
 
 type osvRecord struct {
 	ID       string   `json:"id"`
+	Modified string   `json:"modified"`
 	Aliases  []string `json:"aliases"`
 	Summary  string   `json:"summary"`
 	Details  string   `json:"details"`
@@ -88,8 +96,8 @@ func (c *Client) FetchAdvisory(ctx context.Context, f Finding) (*Advisory, error
 			lastErr = fmt.Errorf("unsupported advisory identifier %q", id)
 			continue
 		}
-		var rec osvRecord
-		err := c.getJSON(ctx, c.OSVBaseURL+"/v1/vulns/"+id, "application/json", &rec)
+		apiURL := c.OSVBaseURL + "/v1/vulns/" + id
+		body, _, err := c.get(ctx, apiURL, "application/json", maxJSONResponseBytes)
 		if err != nil {
 			lastErr = err
 			if isNotFound(err) {
@@ -97,9 +105,49 @@ func (c *Client) FetchAdvisory(ctx context.Context, f Finding) (*Advisory, error
 			}
 			return nil, err
 		}
-		return advisoryFromOSV(rec, f.PURL), nil
+		var rec osvRecord
+		if err := json.Unmarshal(body, &rec); err != nil {
+			return nil, fmt.Errorf("decode %s: %w", apiURL, err)
+		}
+		adv := advisoryFromOSV(rec, f.PURL)
+		adv.Artefact = advisoryArtefact(apiURL, body, rec, f, adv)
+		return adv, nil
 	}
 	return nil, lastErr
+}
+
+// advisoryArtefact records the OSV record as read. The checksum is over the
+// record in canonical JSON (sorted keys), because OSV serves the same record
+// with its keys in varying order. There is no published checksum for an
+// advisory, so Verified means identity: the record names the finding's
+// vulnerability (by ID or alias) and lists this npm package.
+func advisoryArtefact(apiURL string, body []byte, rec osvRecord, f Finding, adv *Advisory) Artefact {
+	canon, err := canonicalJSON(body)
+	if err != nil {
+		canon = body
+	}
+	sum := sha256.Sum256(canon)
+	art := Artefact{
+		ID: AdvisoryArtefactID, Kind: ArtefactAdvisory, URL: apiURL,
+		SHA256: hex.EncodeToString(sum[:]), SizeBytes: int64(len(canon)), Modified: rec.Modified,
+	}
+	ids := map[string]bool{strings.ToUpper(rec.ID): true}
+	for _, a := range rec.Aliases {
+		ids[strings.ToUpper(a)] = true
+	}
+	namesFinding := ids[strings.ToUpper(f.VulnerabilityID)]
+	for _, a := range f.Aliases {
+		namesFinding = namesFinding || ids[strings.ToUpper(a)]
+	}
+	switch {
+	case !namesFinding:
+		art.Note = "record " + rec.ID + " does not name " + f.VulnerabilityID + " or its aliases"
+	case !adv.NamesPackage:
+		art.Note = "record " + rec.ID + " does not list this npm package as affected"
+	default:
+		art.Verified = true
+	}
+	return art
 }
 
 func advisoryFromOSV(rec osvRecord, purl string) *Advisory {
@@ -123,6 +171,7 @@ func advisoryFromOSV(rec osvRecord, purl string) *Advisory {
 		if name != "" && a.Package.Name != name {
 			continue
 		}
+		adv.NamesPackage = true
 		if len(a.EcosystemSpecific) > 0 && string(a.EcosystemSpecific) != "null" {
 			adv.EcosystemSpecific = append(adv.EcosystemSpecific, a.EcosystemSpecific)
 		}

@@ -2,11 +2,15 @@
 (import_statement
   source: (string) @import.source) @import.statement
 
-; CommonJS require
+; ESM re-exports: export { x } from "pkg", export * from "pkg"
+(export_statement
+  source: (string) @reexport.source) @reexport.statement
+
+; CommonJS require, any argument. Non-literal arguments become
+; dynamic_computed imports rather than being dropped.
 (call_expression
   function: (identifier) @_require
-  arguments: (arguments
-    (string) @require.source)
+  arguments: (arguments) @require.arguments
   (#eq? @_require "require")) @require.statement
 
 ; Dynamic import

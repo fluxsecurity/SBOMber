@@ -1,0 +1,107 @@
+{
+  "schemaVersion": "1.4.0",
+  "scanId": "scan-test",
+  "analysis": {
+    "status": "complete",
+    "ecosystem": "npm",
+    "analyzerId": "component2-js-ts-tree-sitter"
+  },
+  "analyser": {
+    "parser": "tree-sitter",
+    "binding": "github.com/tree-sitter/go-tree-sitter",
+    "bindingVersion": "0.25.0",
+    "cgoEnabled": true,
+    "grammarVersions": {
+      "javascript": "0.25.0",
+      "typescript": "0.23.2"
+    },
+    "ecosystems": [
+      "npm"
+    ],
+    "reachabilityAnalysed": true
+  },
+  "entryPoints": [
+    {
+      "entryPointId": "ep-58fef758b551a6a45e9dd464babd7d02",
+      "kind": "exported_module",
+      "function": "run",
+      "file": "src/index.js",
+      "line": 3,
+      "repositoryId": "repo-app"
+    },
+    {
+      "entryPointId": "ep-92fef230fe7d49689c36bb682b131a23",
+      "kind": "exported_module",
+      "function": "shadowed",
+      "file": "src/index.js",
+      "line": 7,
+      "repositoryId": "repo-app"
+    }
+  ],
+  "coverage": {
+    "filesDiscovered": 1,
+    "filesParsed": 1,
+    "filesParsedWithErrors": 0,
+    "filesFailed": 0,
+    "filesSkipped": 0,
+    "thirdPartyImportsResolved": 1,
+    "thirdPartyImportsTypeOnly": 0,
+    "thirdPartyImportsUnresolved": 0,
+    "thirdPartyCallSitesResolved": 1,
+    "thirdPartyCallSitesUnresolved": 0,
+    "limitsHit": [],
+    "perRepository": [
+      {
+        "repositoryId": "repo-app",
+        "filesDiscovered": 1,
+        "filesParsed": 1,
+        "filesParsedWithErrors": 0,
+        "filesFailed": 0,
+        "filesSkipped": 0
+      }
+    ],
+    "entryPointsDetected": 2,
+    "callPathsResolved": 1,
+    "callPathsUnresolved": 0
+  },
+  "observations": [
+    {
+      "observationId": "obs-1f2e8b5410eabef6ec594ede52361f75",
+      "occurrenceId": "occ-lodash",
+      "purl": "pkg:npm/lodash@4.17.21",
+      "importedSpecifier": "lodash",
+      "localAlias": "lodash",
+      "importedSymbol": "*",
+      "importKind": "esm_namespace",
+      "resolution": "resolved",
+      "location": {
+        "repositoryId": "repo-app",
+        "file": "src/index.js",
+        "line": 1,
+        "column": 12
+      },
+      "evidenceLevel": 3,
+      "callSites": [
+        {
+          "file": "src/index.js",
+          "line": 4,
+          "column": 9,
+          "calledSymbol": "merge",
+          "enclosingFunction": "run",
+          "resolution": "resolved",
+          "reachability": "reachable",
+          "entryPointId": "ep-58fef758b551a6a45e9dd464babd7d02",
+          "callPath": [
+            {
+              "function": "run",
+              "file": "src/index.js",
+              "line": 3
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "unanalysedOccurrences": [],
+  "parseFailures": []
+}

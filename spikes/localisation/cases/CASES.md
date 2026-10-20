@@ -50,3 +50,26 @@ often than not:
   usually lands in a **private** one (c02, c03, c04, c07, c10). Diff-based
   methods find the private function; joining it to application usage needs
   either the advisory's public name or export-alias resolution.
+
+## Frozen (S5-13)
+
+The set is frozen as `localisation-set-v1`, so the ground truth cannot drift
+once measurement begins. `cases.json` itself was not edited; it is
+byte-identical to the file committed in `1ef9d95` on 2026-09-06, before the
+tool was run.
+
+`FROZEN.json` pins, per case:
+
+- the expected changed functions and public symbols;
+- the source the expected answer was read from: each fix commit by full SHA,
+  with the advisory reference that linked it;
+- both npm tarballs (vulnerable and fixed) by URL, `sha512` integrity, `shasum`
+  and, where npm publishes one, the release `gitHead`.
+
+It also records the SHA-256 of `cases.json`. To check the set has not changed:
+
+    python3 spikes/localisation/freeze.py            # offline: hash, case list, answers, sources
+    python3 spikes/localisation/freeze.py --online   # also re-checks every integrity hash on the registry
+
+A changed expected answer is a new set with a new tag, never an edit to this
+one. `freeze.py --write` refuses to overwrite an existing `FROZEN.json`.

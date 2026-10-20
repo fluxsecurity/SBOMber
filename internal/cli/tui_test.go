@@ -3,6 +3,7 @@ package cli
 import (
 	"os"
 	"path/filepath"
+	"slices"
 	"strings"
 	"testing"
 
@@ -111,12 +112,7 @@ func TestResultsModelSkipsGroundTruthActionForMultiRepo(t *testing.T) {
 }
 
 func actionsInclude(actions []string, target string) bool {
-	for _, a := range actions {
-		if a == target {
-			return true
-		}
-	}
-	return false
+	return slices.Contains(actions, target)
 }
 
 func updateResultsModel(t *testing.T, m resultsModel, msg tea.Msg) resultsModel {

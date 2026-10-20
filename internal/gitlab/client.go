@@ -116,12 +116,28 @@ func (c *Client) GetFileContent(namespace, project, path, ref string) (*FileCont
 		return nil, fmt.Errorf("GitLab API error %d for %s", resp.StatusCode, path)
 	}
 
-	data, err := io.ReadAll(resp.Body)
+	data, err := readLimited(resp.Body)
 	if err != nil {
 		return nil, err
 	}
 
 	return &FileContent{Content: data, Path: path}, nil
+}
+
+// maxBodyBytes bounds how much of any API response is read: a bare io.ReadAll
+// on an HTTP body has no upper bound.
+const maxBodyBytes = 50 << 20 // 50 MiB
+
+// readLimited reads r, refusing to buffer more than maxBodyBytes.
+func readLimited(r io.Reader) ([]byte, error) {
+	body, err := io.ReadAll(io.LimitReader(r, maxBodyBytes+1))
+	if err != nil {
+		return nil, err
+	}
+	if len(body) > maxBodyBytes {
+		return nil, fmt.Errorf("response body exceeds %d byte limit", maxBodyBytes)
+	}
+	return body, nil
 }
 
 func (c *Client) do(apiURL string) (*http.Response, error) {
@@ -158,11 +174,11 @@ func (c *Client) getWithPagination(apiURL string) ([]byte, string, error) {
 	defer func() { _ = resp.Body.Close() }()
 
 	if resp.StatusCode != http.StatusOK {
-		body, _ := io.ReadAll(resp.Body)
+		body, _ := io.ReadAll(io.LimitReader(resp.Body, 4<<10))
 		return nil, "", fmt.Errorf("GitLab API error %d: %s", resp.StatusCode, string(body))
 	}
 
-	body, err := io.ReadAll(resp.Body)
+	body, err := readLimited(resp.Body)
 	if err != nil {
 		return nil, "", err
 	}

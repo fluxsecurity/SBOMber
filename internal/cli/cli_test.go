@@ -272,18 +272,15 @@ func TestMainNoColorDisablesANSI(t *testing.T) {
 }
 
 func TestMainMissingGrypeIsToolError(t *testing.T) {
-	t.Parallel()
-
 	root := t.TempDir()
 	mustMkdirAll(t, filepath.Join(root, ".git"))
 	mustWriteFile(t, filepath.Join(root, "package.json"), `{"name":"demo"}`)
 
-	oldPath := os.Getenv("PATH")
-	noGrypeDir := t.TempDir()
-	if err := os.Setenv("PATH", noGrypeDir); err != nil {
-		t.Fatalf("set PATH: %v", err)
+	// Hide Grype from PATH and from every fallback install location.
+	empty := t.TempDir()
+	for _, key := range []string{"PATH", "LOCALAPPDATA", "GOBIN", "GOPATH", "HOME", "USERPROFILE"} {
+		t.Setenv(key, empty)
 	}
-	defer func() { _ = os.Setenv("PATH", oldPath) }()
 
 	var stdout bytes.Buffer
 	var stderr bytes.Buffer
@@ -354,5 +351,16 @@ func TestScanMissingPathIsToolError(t *testing.T) {
 	var stdout, stderr bytes.Buffer
 	if code := Main([]string{"scan", "--no-color", "--", missing}, strings.NewReader(""), &stdout, &stderr); code != 2 {
 		t.Fatalf("exit code = %d, want 2; stderr=%q", code, stderr.String())
+	}
+}
+
+func TestGitHubScanFailedRepoIsToolError(t *testing.T) {
+	t.Setenv("HOME", t.TempDir())
+	t.Setenv("USERPROFILE", t.TempDir())
+	var stdout, stderr bytes.Buffer
+	// Not a GitHub URL: ScanRepo fails before any request is made.
+	code := Main([]string{"github", "not-a-repository-url"}, strings.NewReader(""), &stdout, &stderr)
+	if code != 2 {
+		t.Fatalf("exit code = %d, want 2\nstdout: %s\nstderr: %s", code, stdout.String(), stderr.String())
 	}
 }
