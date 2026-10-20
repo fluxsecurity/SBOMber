@@ -205,7 +205,7 @@ func runScan(args []string, stdout io.Writer, stderr io.Writer) int {
 	repos, err := discovery.FindGitRepositories(absoluteRoot)
 	if err != nil {
 		_, _ = fmt.Fprintf(stderr, "scan repositories: %v\n", err)
-		return 1
+		return 2
 	}
 
 	if len(repos) == 0 {
@@ -576,7 +576,7 @@ func runTrace(args []string, stdout io.Writer, stderr io.Writer) int {
 	repos, err := discovery.FindGitRepositories(absoluteRoot)
 	if err != nil {
 		_, _ = fmt.Fprintf(stderr, "scan repositories: %v\n", err)
-		return 1
+		return 2
 	}
 
 	if len(repos) == 0 {

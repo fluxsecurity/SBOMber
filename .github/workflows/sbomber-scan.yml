@@ -1,0 +1,95 @@
+name: SBOMber scan (reference)
+
+# Reference workflow for consumers of ./action.yml: check out the
+# repository to scan, then run the SBOMber action against it. Runs on pushes
+# to main, on demand, and on any PR that touches the action itself, so
+# changes to action.yml are validated against a real Actions runner before
+# merging, without this becoming a gate on unrelated PRs.
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    paths:
+      - "action.yml"
+      - ".github/workflows/sbomber-scan.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  # Dogfood: scan this repository and publish the report. Report-only, so
+  # this repository's own findings never turn main red.
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Run SBOMber
+        id: sbomber
+        uses: ./
+        with:
+          scan-path: "."
+          format: "both"
+          include-vulnerabilities: "true"
+          fail-on-vuln: "false"
+          github-token: ${{ github.token }}
+
+      - name: Check the scan ran and produced an SBOM
+        env:
+          SCAN_EXIT: ${{ steps.sbomber.outputs.exit-code }}
+          REPORT_DIR: ${{ steps.sbomber.outputs.report-dir }}
+        run: |
+          echo "exit-code: $SCAN_EXIT"
+          echo "report-dir: $REPORT_DIR"
+          test "$SCAN_EXIT" = "0"
+          find "$REPORT_DIR" -name 'sbom-cyclonedx.xml' | grep -q .
+          find "$REPORT_DIR" -name 'sbom.spdx' | grep -q .
+
+  # The policy-fail (1) and tool-error (2) paths, checked explicitly.
+  exit-codes:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Prepare a repository with known vulnerabilities
+        run: |
+          mkdir -p "$RUNNER_TEMP/vulnerable"
+          cp -r testdata/fixtures/npm-basic "$RUNNER_TEMP/vulnerable/npm-basic"
+          git -C "$RUNNER_TEMP/vulnerable/npm-basic" init -q
+
+      - name: Policy failure (vulnerabilities found)
+        id: policy
+        continue-on-error: true
+        uses: ./
+        with:
+          scan-path: ${{ runner.temp }}/vulnerable
+          include-vulnerabilities: "true"
+          fail-on-vuln: "true"
+          github-token: ${{ github.token }}
+          artifact-name: sbomber-report-policy
+
+      - name: Tool error (missing path)
+        id: toolerror
+        continue-on-error: true
+        uses: ./
+        with:
+          scan-path: does-not-exist
+          include-vulnerabilities: "false"
+          artifact-name: sbomber-report-toolerror
+
+      - name: Check exit codes
+        env:
+          POLICY_EXIT: ${{ steps.policy.outputs.exit-code }}
+          POLICY_OUTCOME: ${{ steps.policy.outcome }}
+          TOOL_EXIT: ${{ steps.toolerror.outputs.exit-code }}
+          TOOL_OUTCOME: ${{ steps.toolerror.outcome }}
+        run: |
+          echo "policy: exit-code=$POLICY_EXIT outcome=$POLICY_OUTCOME"
+          echo "tool error: exit-code=$TOOL_EXIT outcome=$TOOL_OUTCOME"
+          test "$POLICY_EXIT" = "1" && test "$POLICY_OUTCOME" = "failure"
+          test "$TOOL_EXIT" = "2" && test "$TOOL_OUTCOME" = "failure"
