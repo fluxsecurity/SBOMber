@@ -1,0 +1,38 @@
+=== RUN   TestS606ComputedImportScope
+=== RUN   TestS606ComputedImportScope/src/load.js/require(name)
+=== RUN   TestS606ComputedImportScope/src/load.js/import(name)
+=== RUN   TestS606ComputedImportScope/src/load.js/import('./plugins/'_+_name)
+=== RUN   TestS606ComputedImportScope/scripts/package.mjs/require(name)
+=== RUN   TestS606ComputedImportScope/scripts/package.mjs/import(name)
+=== RUN   TestS606ComputedImportScope/scripts/package.mjs/import('./plugins/'_+_name)
+--- PASS: TestS606ComputedImportScope (0.02s)
+    --- PASS: TestS606ComputedImportScope/src/load.js/require(name) (0.01s)
+    --- PASS: TestS606ComputedImportScope/src/load.js/import(name) (0.00s)
+    --- PASS: TestS606ComputedImportScope/src/load.js/import('./plugins/'_+_name) (0.00s)
+    --- PASS: TestS606ComputedImportScope/scripts/package.mjs/require(name) (0.00s)
+    --- PASS: TestS606ComputedImportScope/scripts/package.mjs/import(name) (0.00s)
+    --- PASS: TestS606ComputedImportScope/scripts/package.mjs/import('./plugins/'_+_name) (0.00s)
+=== RUN   TestS606MDXScope
+=== RUN   TestS606MDXScope/ordinary_markdown
+=== RUN   TestS606MDXScope/plain_MDX_documentation
+=== RUN   TestS606MDXScope/executable_MDX
+=== RUN   TestS606MDXScope/uppercase_MDX
+=== RUN   TestS606MDXScope/excluded_dependency_MDX
+--- PASS: TestS606MDXScope (0.00s)
+    --- PASS: TestS606MDXScope/ordinary_markdown (0.00s)
+    --- PASS: TestS606MDXScope/plain_MDX_documentation (0.00s)
+    --- PASS: TestS606MDXScope/executable_MDX (0.00s)
+    --- PASS: TestS606MDXScope/uppercase_MDX (0.00s)
+    --- PASS: TestS606MDXScope/excluded_dependency_MDX (0.00s)
+=== RUN   TestS606PositiveEvidencePreserved
+=== RUN   TestS606PositiveEvidencePreserved/scripts/package.mjs
+=== RUN   TestS606PositiveEvidencePreserved/docs/guide.mdx
+--- PASS: TestS606PositiveEvidencePreserved (0.00s)
+    --- PASS: TestS606PositiveEvidencePreserved/scripts/package.mjs (0.00s)
+    --- PASS: TestS606PositiveEvidencePreserved/docs/guide.mdx (0.00s)
+=== RUN   TestS606ComputedImportRepositoryBoundary
+--- PASS: TestS606ComputedImportRepositoryBoundary (0.00s)
+=== RUN   TestS606ExcludedComputedImport
+--- PASS: TestS606ExcludedComputedImport (0.00s)
+PASS
+ok  	github.com/Xsamsx/SBOMber/internal/usagegraph	0.032s

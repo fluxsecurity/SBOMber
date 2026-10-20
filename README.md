@@ -384,8 +384,7 @@ Neither means the call cannot happen.
 | **Computed import scope** | A computed `require(variable)` or `import(variable)` in analysed source prevents unmatched packages in that repository from being treated as not imported. Excluded build/output trees do not participate. The summary detail names only the first computed import in lexicographic file order; inspect all `dynamic_computed` observations for the other locations. |
 | **Excluded files and coverage** | Directories named `.git`, `node_modules`, `vendor`, `dist`, `build`, `out`, `coverage`, `.next` or `generated` are pruned wherever they appear. Even handwritten `src/out/server.js` is excluded. Analysis can still be `complete`, and unmatched packages can receive `not_imported_by_analysed_source`. A line over 4,000 bytes triggers the minified-file skip: it increases `filesSkipped`, makes analysis `partial` and can give unmatched packages `excluded_by_limits`. Check the repository layout, counters and limits; a complete status covers only the declared scope. |
 
-These are the current rules. Any changes to computed-import scope or MDX
-handling are tracked in [issue #151](https://github.com/fluxsecurity/SBOMber/issues/151).
+The [S6-06 scope decision record](docs/design/usage-graph-architecture.md#19-s6-06-scope-decisions-151) recommends retaining repository-wide computed-import uncertainty and unsupported/partial MDX handling. Computed-import policy agreement from Component 4 is pending in [issue #151](https://github.com/fluxsecurity/SBOMber/issues/151). Existing behaviour is unchanged.
 No usage evidence found within the analysed scope is not proof that a package
 is unused or a vulnerability cannot be exploited. The current VEX exporter never automatically emits `not_affected`, regardless
 of the usage evidence: both `no_usage_detected` and unknown decisions export as
