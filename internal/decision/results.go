@@ -148,6 +148,7 @@ func BuildResults(scan CanonicalScan, graph UsageGraph, loc LocalisationReport) 
 	if res.Decisions == nil {
 		res.Decisions = []ResultDecision{}
 	}
+	SortDecisions(res.Decisions)
 	res.RemediationGroups = BuildRemediationGroups(res.Decisions, scan.Findings)
 	return res, nil
 }

@@ -109,6 +109,21 @@ type CallSite struct {
 	Resolution       string `json:"resolution"`
 	UnresolvedReason string `json:"unresolvedReason"`
 	Reachability     string `json:"reachability"`
+
+	// EntryPointID and CallPath are present only when Reachability is
+	// "reachable" (usage-graph.schema.json). They are read as untrusted:
+	// a "reachable" call site without both is not treated as a resolved
+	// path (see reachablePath in join.go).
+	EntryPointID string         `json:"entryPointId"`
+	CallPath     []CallPathStep `json:"callPath"`
+}
+
+// CallPathStep is one application function on a resolved call path, from
+// the entry point (first) to the function enclosing the call (last).
+type CallPathStep struct {
+	Function string `json:"function"`
+	File     string `json:"file"`
+	Line     int    `json:"line"`
 }
 
 // UnanalysedOccurrence is usage-graph.json's safety-critical array entry.

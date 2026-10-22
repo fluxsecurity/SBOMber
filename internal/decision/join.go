@@ -334,6 +334,7 @@ func BuildFindingInputs(scan CanonicalScan, graph UsageGraph, loc LocalisationRe
 			matched            = map[string]bool{}
 			matchedCodeDerived bool
 			agree              bool
+			path               *ReachablePath
 			level              int
 			relevant           []string
 			unresolvedImports  int
@@ -381,8 +382,16 @@ func BuildFindingInputs(scan CanonicalScan, graph UsageGraph, loc LocalisationRe
 				if codeDerived {
 					matchedCodeDerived = true
 				}
-				if cs.Reachability != "" && cs.Reachability != "not_analysed" {
+				// Only a resolved path counts as a second, independent
+				// method agreeing with the symbol match (S6-15, #156).
+				// "unknown" means the level-3 pass ran and found no path;
+				// that is not corroboration, and neither is a "reachable"
+				// site from untrusted input that carries no path.
+				if p, ok := reachablePath(cs); ok {
 					agree = true
+					if path == nil || p.shorterThan(*path) {
+						path = &p
+					}
 				}
 			}
 		}
@@ -412,6 +421,7 @@ func BuildFindingInputs(scan CanonicalScan, graph UsageGraph, loc LocalisationRe
 				RelevantUnresolved:        relevant,
 				CandidateSetClosed:        set.closed,
 				CandidateSetOpenDetail:    set.openDetail,
+				ReachablePath:             path,
 			},
 			Confidence: ConfidenceInputs{
 				LocalisationMethod:            method,
@@ -457,4 +467,21 @@ func unresolvedCallText(cs CallSite) string {
 		reason = "no reason given"
 	}
 	return fmt.Sprintf("a call on this package at %s could not be resolved (%s) and could reach a candidate function", location(cs.File, cs.Line), reason)
+}
+
+// reachablePath returns the resolved call path for a call site, and false
+// unless the site is "reachable" AND carries both the entry point and a
+// non-empty path the schema requires for that value. Upstream output is
+// untrusted: a bare "reachable" is not accepted as a resolved path.
+func reachablePath(cs CallSite) (ReachablePath, bool) {
+	if cs.Reachability != "reachable" || cs.EntryPointID == "" || len(cs.CallPath) == 0 {
+		return ReachablePath{}, false
+	}
+	return ReachablePath{
+		EntryPointID: cs.EntryPointID,
+		Symbol:       cs.CalledSymbol,
+		File:         cs.File,
+		Line:         cs.Line,
+		Steps:        append([]CallPathStep(nil), cs.CallPath...),
+	}, true
 }
