@@ -1,0 +1,93 @@
+case:            kirill89-prototype-pollution-explained
+repository:      https://github.com/Kirill89/prototype-pollution-explained.git
+commit:          d7b5d98515a95f9a8cb0fedef034010ee083a6a9
+sbomber commit:  a0d0d7b447f265a04f98e90cb83c198d5c6e8eae (uncommitted source changes: 0)
+SOURCE_DATE_EPOCH=1661874954
+date run:        2026-10-22T09:53:33Z
+--- grype db status
+Path:      /root/.cache/grype/db/6/vulnerability.db
+Schema:    v6.1.10
+Built:     2026-10-22T06:29:52Z
+From:      https://grype.anchore.io/databases/v6/vulnerability-db_v6.1.10_2026-10-21T00:30:22Z_1792650592.tar.zst?checksum=sha256%3A05c82f2ff6a19f149279374a8355cbcee55ea036d160fc2382f3b3d4de41006c
+Status:    valid
+--- commands
++ bin/sbomber scan --include-vulnerabilities --no-color --canonical-scan audit-work/kirill89-prototype-pollution-explained/out/canonical-scan.json -- audit-work/kirill89-prototype-pollution-explained/prototype-pollution-explained
+Selected SBOM export format: cyclonedx
+Vulnerability scanning: enabled (Grype)
+Found 1 repository under /root/SBOMber/audit-work/kirill89-prototype-pollution-explained/prototype-pollution-explained
+- prototype-pollution-explained  /root/SBOMber/audit-work/kirill89-prototype-pollution-explained/prototype-pollution-explained  [npm]
+  output folder: /root/.sbomber/reports/prototype-pollution-explained_e2340ea2
+  exported SBOM: sbom-cyclonedx.xml
+  vulnerabilities found: 14
+    - critical: 1
+    - high: 5
+    - medium: 6
+    - low: 2
+  HTML report: vulnerability-report.html
+  [malware] skipped: malware scanning is not yet implemented
+  packages:  3 direct
+  direct dependencies (package.json): 3 (runtime: 3)
+  sample packages: body-parser, express, lodash
+
+Scan complete: 1 repositories scanned
+Wrote /root/SBOMber/audit-work/kirill89-prototype-pollution-explained/out/canonical-scan.json
+  exit 0
++ bin/sbomber usage --allow-partial --canonical-scan audit-work/kirill89-prototype-pollution-explained/out/canonical-scan.json --out audit-work/kirill89-prototype-pollution-explained/out/usage-graph.json
+Warning: canonical scan status is "partial"; packages it skipped are not in this usage graph either
+Usage analysis for scan-20220830T155554Z-31c6824d: complete
+  Repositories      1
+  Source files      1 found, 1 parsed, 0 with errors, 0 failed, 0 skipped
+  Package imports   3 resolved, 0 type-only, 0 unresolved
+  Package calls     3 resolved, 0 unresolved
+  Reachability      4 entry points, 3 calls reachable, 0 unknown
+Wrote /root/SBOMber/audit-work/kirill89-prototype-pollution-explained/out/usage-graph.json
+  exit 0
++ bin/sbomber localise --canonical-scan audit-work/kirill89-prototype-pollution-explained/out/canonical-scan.json --out audit-work/kirill89-prototype-pollution-explained/out/localisation.json
+Localising 14 finding(s) from scan-20220830T155554Z-31c6824d
+  find-cb6987956252 GHSA-qwcr-r2fm-qrc7 pkg:npm/body-parser@1.18.3           patch_reference    medium urlencoded, default, urlencodedParser, extendedparser, queryparse
+  find-71c614264f34 GHSA-v422-hmwv-36x6 pkg:npm/body-parser@1.18.3           patch_reference    medium normalizeOptions, json, default, raw, default, text, +3 more
+  find-3201d8f964cf GHSA-qw6h-vgh9-j6wx pkg:npm/express@4.16.4               patch_reference    high   html
+  find-08cc91b773d8 GHSA-rv95-896h-c2vc pkg:npm/express@4.16.4               patch_reference    high   location
+  find-69ad2599263f GHSA-29mw-wpgm-hmr9 pkg:npm/lodash@4.17.4                patch_reference    medium baseTrim, trimmedEndIndex, toNumber, trim, trimEnd
+  find-15ad437c70d1 GHSA-35jh-r3h4-6jhm pkg:npm/lodash@4.17.4                patch_reference    high   template
+  find-28c210d965f5 GHSA-4xc9-xhrj-v574 pkg:npm/lodash@4.17.4                patch_reference    high   safeGet
+  find-340a4e8a755b GHSA-f23m-r3pf-42rh pkg:npm/lodash@4.17.4                advisory_text      medium omit, unset
+  find-2590fff8b864 GHSA-fvqr-27wr-82fm pkg:npm/lodash@4.17.4                patch_reference    high   safeGet, baseMerge, baseMergeDeep
+  find-cf2d7f62f4f2 GHSA-jf85-cpcp-j695 pkg:npm/lodash@4.17.4                patch_reference    high   safeGet
+  find-8588c377e10f GHSA-p6mc-m468-83gw pkg:npm/lodash@4.17.4                patch_reference    high   baseSet
+  find-eeecb3d50058 GHSA-r5fr-rjxr-66jc pkg:npm/lodash@4.17.4                patch_reference    high   template
+  find-473a234ef8a5 GHSA-x5rq-j2xg-h7qm pkg:npm/lodash@4.17.4                version_diff       low    addMapEntry, default, addSetEntry, default, baseClone, default, +37 more
+  find-7b374189db54 GHSA-xxjr-mmjv-4gpg pkg:npm/lodash@4.17.4                patch_reference    high   baseUnset, baseUnset
+Processed 14, unknown 0, by method map[advisory_text:1 patch_reference:12 version_diff:1]
+Wrote /root/SBOMber/audit-work/kirill89-prototype-pollution-explained/out/localisation.json
+  exit 0
++ python3 contracts/validate.py --dir audit-work/kirill89-prototype-pollution-explained/out
+missing VEX decision record: /root/SBOMber/audit-work/kirill89-prototype-pollution-explained/out/vex-decision.sample.json
+  exit 2
+--- validation rerun (script fix: --vex-decision was missing)
++ python3 contracts/validate.py --dir audit-work/kirill89-prototype-pollution-explained/out --vex-decision contracts/fixtures/vex-decision.json
+missing: decision-results
+  exit 2
+--- decide + validation rerun (validate.py needs decision-results)
++ bin/sbomber decide --canonical-scan audit-work/kirill89-prototype-pollution-explained/out/canonical-scan.json --usage-graph audit-work/kirill89-prototype-pollution-explained/out/usage-graph.json --localisation audit-work/kirill89-prototype-pollution-explained/out/localisation.json --out audit-work/kirill89-prototype-pollution-explained/out/decision-results.json
+Decided 14 finding(s) for scan-20220830T155554Z-31c6824d
+  find-cb6987956252 GHSA-qwcr-r2fm-qrc7 insufficient information                         medium insufficient_information
+  find-71c614264f34 GHSA-v422-hmwv-36x6 insufficient information                         medium insufficient_information
+  find-3201d8f964cf GHSA-qw6h-vgh9-j6wx usage detected                                   high   act_now
+  find-08cc91b773d8 GHSA-rv95-896h-c2vc usage detected                                   high   act_now
+  find-69ad2599263f GHSA-29mw-wpgm-hmr9 insufficient information                         medium insufficient_information
+  find-15ad437c70d1 GHSA-35jh-r3h4-6jhm insufficient information                         medium insufficient_information
+  find-28c210d965f5 GHSA-4xc9-xhrj-v574 insufficient information                         medium insufficient_information
+  find-340a4e8a755b GHSA-f23m-r3pf-42rh insufficient information                         medium insufficient_information
+  find-2590fff8b864 GHSA-fvqr-27wr-82fm insufficient information                         medium insufficient_information
+  find-cf2d7f62f4f2 GHSA-jf85-cpcp-j695 insufficient information                         medium insufficient_information
+  find-8588c377e10f GHSA-p6mc-m468-83gw insufficient information                         medium insufficient_information
+  find-eeecb3d50058 GHSA-r5fr-rjxr-66jc insufficient information                         medium insufficient_information
+  find-473a234ef8a5 GHSA-x5rq-j2xg-h7qm insufficient information                         medium insufficient_information
+  find-7b374189db54 GHSA-xxjr-mmjv-4gpg insufficient information                         medium insufficient_information
+Distribution: 2 usage detected, 0 no usage evidence within the analysed scope, 12 unknown, 0 unsupported
+Wrote audit-work/kirill89-prototype-pollution-explained/out/decision-results.json
+  exit 0
++ python3 contracts/validate.py --dir audit-work/kirill89-prototype-pollution-explained/out --vex-decision contracts/fixtures/vex-decision.json
+OK - 1261 invariant checks passed across four contracts
+  exit 0

@@ -1,0 +1,815 @@
+{
+  "schemaVersion": "1.4.0",
+  "scanId": "scan-20210613T050526Z-869ff6d0",
+  "analysis": {
+    "status": "complete",
+    "ecosystem": "npm",
+    "analyzerId": "component2-js-ts-tree-sitter"
+  },
+  "analyser": {
+    "parser": "tree-sitter",
+    "binding": "github.com/tree-sitter/go-tree-sitter",
+    "bindingVersion": "0.25.0",
+    "cgoEnabled": true,
+    "grammarVersions": {
+      "javascript": "0.25.0",
+      "typescript": "0.23.2"
+    },
+    "ecosystems": [
+      "npm"
+    ],
+    "reachabilityAnalysed": true
+  },
+  "entryPoints": [
+    {
+      "entryPointId": "ep-76e011055deee5292bb45fc63905e355",
+      "kind": "route_handler",
+      "function": "\u003croute_handler\u003e",
+      "file": "api/app.ts",
+      "line": 13,
+      "repositoryId": "repo-vuln-app"
+    },
+    {
+      "entryPointId": "ep-27c169675dd46097ac31589e22d9935d",
+      "kind": "route_handler",
+      "function": "\u003croute_handler\u003e",
+      "file": "api/app.ts",
+      "line": 19,
+      "repositoryId": "repo-vuln-app"
+    },
+    {
+      "entryPointId": "ep-8784736aad39b611039c056f8ef689d4",
+      "kind": "route_handler",
+      "function": "\u003croute_handler\u003e",
+      "file": "api/app.ts",
+      "line": 29,
+      "repositoryId": "repo-vuln-app"
+    },
+    {
+      "entryPointId": "ep-44bda8eaa954104342dc6ec5efd83251",
+      "kind": "route_handler",
+      "function": "\u003croute_handler\u003e",
+      "file": "api/app.ts",
+      "line": 35,
+      "repositoryId": "repo-vuln-app"
+    }
+  ],
+  "coverage": {
+    "filesDiscovered": 6,
+    "filesParsed": 6,
+    "filesParsedWithErrors": 0,
+    "filesFailed": 0,
+    "filesSkipped": 0,
+    "thirdPartyImportsResolved": 9,
+    "thirdPartyImportsTypeOnly": 0,
+    "thirdPartyImportsUnresolved": 0,
+    "thirdPartyCallSitesResolved": 6,
+    "thirdPartyCallSitesUnresolved": 0,
+    "limitsHit": [],
+    "perRepository": [
+      {
+        "repositoryId": "repo-vuln-app",
+        "filesDiscovered": 6,
+        "filesParsed": 6,
+        "filesParsedWithErrors": 0,
+        "filesFailed": 0,
+        "filesSkipped": 0
+      }
+    ],
+    "entryPointsDetected": 4,
+    "callPathsResolved": 1,
+    "callPathsUnresolved": 5
+  },
+  "observations": [
+    {
+      "observationId": "obs-8beb206ba3097bbb5ee3de15d98418c5",
+      "occurrenceId": "occ-84f53a6d6131",
+      "purl": "pkg:npm/express@4.17.1",
+      "importedSpecifier": "express",
+      "localAlias": "express",
+      "importedSymbol": "default",
+      "importKind": "esm_default",
+      "resolution": "resolved",
+      "location": {
+        "repositoryId": "repo-vuln-app",
+        "file": "api/app.ts",
+        "line": 1,
+        "column": 7
+      },
+      "evidenceLevel": 2,
+      "callSites": [
+        {
+          "file": "api/app.ts",
+          "line": 8,
+          "column": 21,
+          "calledSymbol": "default",
+          "enclosingFunction": "\u003cmodule\u003e",
+          "resolution": "resolved",
+          "reachability": "unknown"
+        },
+        {
+          "file": "api/app.ts",
+          "line": 11,
+          "column": 8,
+          "calledSymbol": "json",
+          "enclosingFunction": "\u003cmodule\u003e",
+          "resolution": "resolved",
+          "reachability": "unknown"
+        }
+      ]
+    },
+    {
+      "observationId": "obs-cd768a547ec39f26b1f85eda650a8565",
+      "occurrenceId": "occ-84f53a6d6131",
+      "purl": "pkg:npm/express@4.17.1",
+      "importedSpecifier": "express",
+      "localAlias": "Request",
+      "importedSymbol": "Request",
+      "importKind": "esm_named",
+      "resolution": "resolved",
+      "location": {
+        "repositoryId": "repo-vuln-app",
+        "file": "api/app.ts",
+        "line": 1,
+        "column": 18
+      },
+      "evidenceLevel": 1,
+      "callSites": []
+    },
+    {
+      "observationId": "obs-918cce05d91aacdd3d52cc436ff39743",
+      "occurrenceId": "occ-84f53a6d6131",
+      "purl": "pkg:npm/express@4.17.1",
+      "importedSpecifier": "express",
+      "localAlias": "Response",
+      "importedSymbol": "Response",
+      "importKind": "esm_named",
+      "resolution": "resolved",
+      "location": {
+        "repositoryId": "repo-vuln-app",
+        "file": "api/app.ts",
+        "line": 1,
+        "column": 27
+      },
+      "evidenceLevel": 1,
+      "callSites": []
+    },
+    {
+      "observationId": "obs-a874160756611d294129cd8c638c0d24",
+      "occurrenceId": "occ-84f53a6d6131",
+      "purl": "pkg:npm/express@4.17.1",
+      "importedSpecifier": "express",
+      "localAlias": "NextFunction",
+      "importedSymbol": "NextFunction",
+      "importKind": "esm_named",
+      "resolution": "resolved",
+      "location": {
+        "repositoryId": "repo-vuln-app",
+        "file": "api/app.ts",
+        "line": 1,
+        "column": 37
+      },
+      "evidenceLevel": 1,
+      "callSites": []
+    },
+    {
+      "observationId": "obs-0d43d4e93a6197a7a3db48a7ff01230d",
+      "occurrenceId": "occ-84f53a6d6131",
+      "purl": "pkg:npm/express@4.17.1",
+      "importedSpecifier": "express",
+      "localAlias": "Express",
+      "importedSymbol": "Express",
+      "importKind": "esm_named",
+      "resolution": "resolved",
+      "location": {
+        "repositoryId": "repo-vuln-app",
+        "file": "api/app.ts",
+        "line": 1,
+        "column": 51
+      },
+      "evidenceLevel": 1,
+      "callSites": []
+    },
+    {
+      "observationId": "obs-29eb4dee6089ee0edd9b65333baab4bd",
+      "occurrenceId": "occ-bc1bd5ad2ed8",
+      "purl": "pkg:npm/dotenv@10.0.0",
+      "importedSpecifier": "dotenv",
+      "localAlias": "dotenvConfig",
+      "importedSymbol": "config",
+      "importKind": "esm_named",
+      "resolution": "resolved",
+      "location": {
+        "repositoryId": "repo-vuln-app",
+        "file": "api/app.ts",
+        "line": 2,
+        "column": 19
+      },
+      "evidenceLevel": 2,
+      "callSites": [
+        {
+          "file": "api/app.ts",
+          "line": 6,
+          "calledSymbol": "config",
+          "enclosingFunction": "\u003cmodule\u003e",
+          "resolution": "resolved",
+          "reachability": "unknown"
+        }
+      ]
+    },
+    {
+      "observationId": "obs-9bb1d23c916f561d74d6f49e8356b913",
+      "occurrenceId": "occ-48f5c8897b39",
+      "purl": "pkg:npm/node-serialize@0.0.4",
+      "importedSpecifier": "node-serialize",
+      "localAlias": "unserialize",
+      "importedSymbol": "unserialize",
+      "importKind": "esm_named",
+      "resolution": "resolved",
+      "location": {
+        "repositoryId": "repo-vuln-app",
+        "file": "api/app.ts",
+        "line": 4,
+        "column": 9
+      },
+      "evidenceLevel": 3,
+      "callSites": [
+        {
+          "file": "api/app.ts",
+          "line": 22,
+          "column": 19,
+          "calledSymbol": "unserialize",
+          "enclosingFunction": "\u003croute_handler\u003e",
+          "resolution": "resolved",
+          "reachability": "reachable",
+          "entryPointId": "ep-27c169675dd46097ac31589e22d9935d",
+          "callPath": [
+            {
+              "function": "\u003croute_handler\u003e",
+              "file": "api/app.ts",
+              "line": 19
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "observationId": "obs-29c8e672692b2de46b32f4375c2c4bc9",
+      "occurrenceId": "occ-48f5c8897b39",
+      "purl": "pkg:npm/node-serialize@0.0.4",
+      "importedSpecifier": "node-serialize",
+      "localAlias": "serialize",
+      "importedSymbol": "serialize",
+      "importKind": "cjs_destructured",
+      "resolution": "resolved",
+      "location": {
+        "repositoryId": "repo-vuln-app",
+        "file": "exploit-poc/poc.js",
+        "line": 1,
+        "column": 8
+      },
+      "evidenceLevel": 2,
+      "callSites": [
+        {
+          "file": "exploit-poc/poc.js",
+          "line": 33,
+          "column": 21,
+          "calledSymbol": "serialize",
+          "resolution": "resolved",
+          "reachability": "unknown"
+        }
+      ]
+    },
+    {
+      "observationId": "obs-d200a31908a264d8d79b368c26844efc",
+      "occurrenceId": "occ-48f5c8897b39",
+      "purl": "pkg:npm/node-serialize@0.0.4",
+      "importedSpecifier": "node-serialize",
+      "localAlias": "serialize",
+      "importedSymbol": "serialize",
+      "importKind": "cjs_destructured",
+      "resolution": "resolved",
+      "location": {
+        "repositoryId": "repo-vuln-app",
+        "file": "exploit-poc/serialiser.js",
+        "line": 5,
+        "column": 8
+      },
+      "evidenceLevel": 2,
+      "callSites": [
+        {
+          "file": "exploit-poc/serialiser.js",
+          "line": 13,
+          "column": 26,
+          "calledSymbol": "serialize",
+          "enclosingFunction": "\u003cmodule\u003e",
+          "resolution": "resolved",
+          "reachability": "unknown"
+        }
+      ]
+    }
+  ],
+  "unanalysedOccurrences": [
+    {
+      "occurrenceId": "occ-026f09ac0465",
+      "purl": "pkg:npm/ee-first@1.1.1",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-044a24e900fc",
+      "purl": "pkg:npm/etag@1.8.1",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-053fd8e5a859",
+      "purl": "pkg:npm/concat-map@0.0.1",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-0ee85ddc1dcc",
+      "purl": "pkg:npm/safe-buffer@5.1.2",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-121d58c718b8",
+      "purl": "pkg:npm/color-name@1.1.3",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-15c5cd18007e",
+      "purl": "pkg:npm/map-stream@0.1.0",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-17ac8f3485bb",
+      "purl": "pkg:npm/safer-buffer@2.1.2",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-1abc7f8bee0d",
+      "purl": "pkg:npm/supports-color@5.5.0",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-1cae6052d0e7",
+      "purl": "pkg:npm/mime@1.6.0",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-1d4d0ad882f7",
+      "purl": "pkg:npm/%40types/body-parser@1.19.0",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-256007fc7438",
+      "purl": "pkg:npm/has-flag@3.0.0",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-2da181b221f4",
+      "purl": "pkg:npm/%40types/dotenv@8.2.0",
+      "reason": "not_imported_by_analysed_source"
+    },
+    {
+      "occurrenceId": "occ-2e1ce337601e",
+      "purl": "pkg:npm/async@0.9.2",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-2f5bf32c9e6c",
+      "purl": "pkg:npm/bytes@3.1.0",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-3055bdad5be0",
+      "purl": "pkg:npm/vary@1.1.2",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-3851ba658075",
+      "purl": "pkg:npm/content-disposition@0.5.3",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-38bc784abf6b",
+      "purl": "pkg:npm/type-is@1.6.18",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-3d5322f6586c",
+      "purl": "pkg:npm/utils-merge@1.0.1",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-413099e5b30d",
+      "purl": "pkg:npm/tsc@2.0.3",
+      "reason": "not_imported_by_analysed_source"
+    },
+    {
+      "occurrenceId": "occ-49f405aa1eec",
+      "purl": "pkg:npm/ansi-styles@3.2.1",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-4a2f7136ecf8",
+      "purl": "pkg:npm/ejs@3.1.6",
+      "reason": "not_imported_by_analysed_source"
+    },
+    {
+      "occurrenceId": "occ-4c4eda49543d",
+      "purl": "pkg:npm/through@2.3.8",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-505a569f0c98",
+      "purl": "pkg:npm/ansi-regex@5.0.0",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-5414d9b9c932",
+      "purl": "pkg:npm/isexe@2.0.0",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-58a736273a3e",
+      "purl": "pkg:npm/%40types/connect@3.4.34",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-5adc70835019",
+      "purl": "pkg:npm/http-errors@1.7.3",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-5b9164255d7e",
+      "purl": "pkg:npm/inherits@2.0.3",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-5ccbea1e29a4",
+      "purl": "pkg:npm/depd@1.1.2",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-606bda3be342",
+      "purl": "pkg:npm/send@0.17.1",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-60f6c8557f66",
+      "purl": "pkg:npm/husky@6.0.0",
+      "reason": "not_imported_by_analysed_source"
+    },
+    {
+      "occurrenceId": "occ-6442cb8ff0a9",
+      "purl": "pkg:npm/shebang-command@2.0.0",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-652f7d6232fa",
+      "purl": "pkg:npm/serve-static@1.14.1",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-65a2860b9b0c",
+      "purl": "pkg:npm/%40types/qs@6.9.6",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-65a8f3e108cc",
+      "purl": "pkg:npm/ipaddr.js@1.9.1",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-65adf42ab993",
+      "purl": "pkg:npm/pause-stream@0.0.11",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-6638824dfa9f",
+      "purl": "pkg:npm/http-errors@1.7.2",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-67aa1de451e7",
+      "purl": "pkg:npm/mime-types@2.1.31",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-68f96ba18f1f",
+      "purl": "pkg:npm/strip-ansi@6.0.0",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-69e4c08c57bf",
+      "purl": "pkg:npm/stream-combiner@0.0.4",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-6b1eb27a42a5",
+      "purl": "pkg:npm/array-flatten@1.1.1",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-6d3331275e0e",
+      "purl": "pkg:npm/cross-spawn@7.0.3",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-6de9f72aeb1e",
+      "purl": "pkg:npm/on-finished@2.3.0",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-7133af92cd3f",
+      "purl": "pkg:npm/toidentifier@1.0.0",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-723a93fe77fa",
+      "purl": "pkg:npm/inherits@2.0.4",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-746572226252",
+      "purl": "pkg:npm/raw-body@2.4.0",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-754de8949e9f",
+      "purl": "pkg:npm/%40types/serve-static@1.13.9",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-78375cf6b96b",
+      "purl": "pkg:npm/setprototypeof@1.1.1",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-78fae9e3a538",
+      "purl": "pkg:npm/negotiator@0.6.2",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-7eb63d780b6c",
+      "purl": "pkg:npm/ms@2.1.1",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-7f00a3f63343",
+      "purl": "pkg:npm/event-stream@3.3.4",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-8287aecd2609",
+      "purl": "pkg:npm/from@0.1.7",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-83cf8f42a8ab",
+      "purl": "pkg:npm/range-parser@1.2.1",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-841aabb652af",
+      "purl": "pkg:npm/fresh@0.5.2",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-8a34fe3873b2",
+      "purl": "pkg:npm/node-cleanup@2.1.2",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-8bb8631bff0a",
+      "purl": "pkg:npm/mime-db@1.48.0",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-9491df0421a4",
+      "purl": "pkg:npm/statuses@1.5.0",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-96703f65dafc",
+      "purl": "pkg:npm/color-convert@1.9.3",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-98060d0a4656",
+      "purl": "pkg:npm/brace-expansion@1.1.11",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-9a4bde22b7a5",
+      "purl": "pkg:npm/methods@1.1.2",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-9ee5f96b1c07",
+      "purl": "pkg:npm/minimatch@3.0.4",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-a4554d385959",
+      "purl": "pkg:npm/%40types/express@4.17.12",
+      "reason": "not_imported_by_analysed_source"
+    },
+    {
+      "occurrenceId": "occ-a717a3896145",
+      "purl": "pkg:npm/tsc-watch@4.4.0",
+      "reason": "not_imported_by_analysed_source"
+    },
+    {
+      "occurrenceId": "occ-a84450e30b92",
+      "purl": "pkg:npm/%40types/node@15.12.2",
+      "reason": "not_imported_by_analysed_source"
+    },
+    {
+      "occurrenceId": "occ-a96aa0d64fd1",
+      "purl": "pkg:npm/body-parser@1.19.0",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-aa29de9d78d6",
+      "purl": "pkg:npm/debug@2.6.9",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-aa4fda167909",
+      "purl": "pkg:npm/filelist@1.0.2",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-abd27fa707dc",
+      "purl": "pkg:npm/media-typer@0.3.0",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-ad093c8278e7",
+      "purl": "pkg:npm/chalk@2.4.2",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-ad82ea9c2305",
+      "purl": "pkg:npm/balanced-match@1.0.2",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-b07ed0eceea0",
+      "purl": "pkg:npm/ps-tree@1.2.0",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-b396338b371d",
+      "purl": "pkg:npm/finalhandler@1.1.2",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-b3edb47bb9ae",
+      "purl": "pkg:npm/path-key@3.1.1",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-b51725da2143",
+      "purl": "pkg:npm/cookie-signature@1.0.6",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-b605089c880b",
+      "purl": "pkg:npm/which@2.0.2",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-b720f6b14599",
+      "purl": "pkg:npm/cookie@0.4.0",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-b9034a173caf",
+      "purl": "pkg:npm/forwarded@0.2.0",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-b9bc39afb94b",
+      "purl": "pkg:npm/accepts@1.3.7",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-ba24b4e90cee",
+      "purl": "pkg:npm/parseurl@1.3.3",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-ba4859313eee",
+      "purl": "pkg:npm/%40types/mime@1.3.2",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-bac1f27dc9bd",
+      "purl": "pkg:npm/path-to-regexp@0.1.7",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-be1704f68872",
+      "purl": "pkg:npm/ms@2.0.0",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-beda8de53084",
+      "purl": "pkg:npm/destroy@1.0.4",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-bf4bcb5f3e22",
+      "purl": "pkg:npm/split@0.3.3",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-c54c14a06962",
+      "purl": "pkg:npm/duplexer@0.1.2",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-c7b2a6b0bca2",
+      "purl": "pkg:npm/escape-string-regexp@1.0.5",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-c96e025513eb",
+      "purl": "pkg:npm/unpipe@1.0.0",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-cb64eaf111e8",
+      "purl": "pkg:npm/escape-html@1.0.3",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-cbf7e95f57c1",
+      "purl": "pkg:npm/%40types/range-parser@1.2.3",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-cfdaab4759f5",
+      "purl": "pkg:npm/string-argv@0.1.2",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-d1f6fcfea425",
+      "purl": "pkg:npm/shebang-regex@3.0.0",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-d42aceb97fa0",
+      "purl": "pkg:npm/content-type@1.0.4",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-d929fd7a8b3f",
+      "purl": "pkg:npm/jake@10.8.2",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-dff72e97412c",
+      "purl": "pkg:npm/%40types/ejs@3.0.6",
+      "reason": "not_imported_by_analysed_source"
+    },
+    {
+      "occurrenceId": "occ-ec75f83619ce",
+      "purl": "pkg:npm/proxy-addr@2.0.7",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-ef9ba4059b7e",
+      "purl": "pkg:npm/typescript@4.3.2",
+      "reason": "not_imported_by_analysed_source"
+    },
+    {
+      "occurrenceId": "occ-f0086debb2cb",
+      "purl": "pkg:npm/iconv-lite@0.4.24",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-f126325ada19",
+      "purl": "pkg:npm/encodeurl@1.0.2",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-f7663595ee75",
+      "purl": "pkg:npm/%40types/express-serve-static-core@4.17.21",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-fb9d2a7893da",
+      "purl": "pkg:npm/qs@6.7.0",
+      "reason": "nested_under_dependency"
+    },
+    {
+      "occurrenceId": "occ-fe78dd626338",
+      "purl": "pkg:npm/merge-descriptors@1.0.1",
+      "reason": "nested_under_dependency"
+    }
+  ],
+  "parseFailures": []
+}

@@ -123,8 +123,13 @@ for entry in "${cases[@]}"; do
 	for f in canonical-scan.json usage-graph.json localisation.json; do
 		cp "$out/$f" "$dest/$f"
 	done
+	# decide only so validate.py can check all four contracts together; the
+	# harness recomputes decisions, so decision-results.json is not copied.
+	run "$sbomber" decide --canonical-scan "$out/canonical-scan.json" --usage-graph "$out/usage-graph.json" \
+		--localisation "$out/localisation.json" --out "$out/decision-results.json" ||
+		{ echo "$id: decide failed, see $log" >&2; exit 1; }
 	if command -v python3 >/dev/null 2>&1; then
-		run python3 "$root/contracts/validate.py" --dir "$out" || echo "$id: contract validation reported problems, see $log" >&2
+		run python3 "$root/contracts/validate.py" --dir "$out" --vex-decision "$root/contracts/fixtures/vex-decision.json" || echo "$id: contract validation reported problems, see $log" >&2
 	fi
 
 	findings=$(python3 -c 'import json,sys; print(len(json.load(open(sys.argv[1]))["findings"]))' "$dest/canonical-scan.json" 2>/dev/null || echo "?")
