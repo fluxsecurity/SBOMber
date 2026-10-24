@@ -93,7 +93,8 @@ func (c joinCase) decide(t *testing.T) (FindingInputs, Decision, ResultDecision)
 }
 
 // lodashCall is a resolved lodash observation whose call sites call the
-// given symbols, e.g. _.merge(...) -> calledSymbol "merge".
+// given symbols, e.g. _.merge(...) -> calledSymbol "merge". Each call site
+// is schema-valid "reachable": it carries an entry point and a call path.
 func lodashCall(symbols ...string) UsageObservation {
 	o := UsageObservation{
 		ObservationID: "obs-lodash", OccurrenceID: lodashOcc, PURL: lodashPURL,
@@ -103,6 +104,8 @@ func lodashCall(symbols ...string) UsageObservation {
 	for i, s := range symbols {
 		o.CallSites = append(o.CallSites, CallSite{
 			File: "src/app.js", Line: 10 + i, CalledSymbol: s, Resolution: "resolved", Reachability: "reachable",
+			EntryPointID: "ep-001",
+			CallPath:     []CallPathStep{{Function: "handler", File: "src/app.js", Line: 5}},
 		})
 	}
 	return o

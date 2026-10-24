@@ -34,11 +34,14 @@ type ConfidenceInputs struct {
 	UnresolvedCallSitesForPackage int
 
 	// DeterministicMethodsAgree is true when more than one
-	// non-LLM-derived signal agrees on the outcome — for example,
-	// localisation's candidate symbol matches a resolved call site AND
-	// that call site's reachability result is not "not_analysed". A
-	// single deterministic method with no second method to check it
-	// against should leave this false rather than assumed true.
+	// non-LLM-derived signal agrees on the outcome: localisation's
+	// candidate symbol matches a resolved call site AND that call site
+	// has reachability "reachable" with a resolved call path (S6-15,
+	// #156). "unknown" and "not_analysed" do not count: a level-3 pass
+	// that found no path, or did not run, corroborates nothing. A single
+	// deterministic method with no second method to check it against
+	// leaves this false rather than assumed true. Nothing here reads
+	// EPSS, severity or KEV; those order findings, they never rate them.
 	DeterministicMethodsAgree bool
 
 	// MatchFromAdvisoryTextOnly is true when the only join keys that

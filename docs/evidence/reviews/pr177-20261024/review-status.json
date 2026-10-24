@@ -1,0 +1,121 @@
+{
+  "pr": 177,
+  "inspectedHead": "1e05852b4cf893124fcc517032c9aa921804290b",
+  "reviewBranch": "review/pr177-fixes-20261024",
+  "worktree": "/home/sbomber1/dev/sbomber/review177178-20261024-7e5krw6h/pr177",
+  "logs": "/home/sbomber1/shared-folder/VM_shared_SBOMber/SBOMber-pr177-validation-mwf0pf3b",
+  "status": "checks_passed_pending_diff_review_commit_and_push",
+  "checks": [
+    {
+      "command": [
+        "go",
+        "test",
+        "-count=1",
+        "-run",
+        "^TestReview177MalformedPathCannotCorroborateUsage$",
+        "./internal/decision"
+      ],
+      "log": "original-malformed-path.log",
+      "exitCode": 1
+    },
+    {
+      "command": [
+        "gofmt",
+        "-w",
+        "internal/decision/join.go",
+        "internal/decision/review177_path_fields_test.go"
+      ],
+      "log": "format-changed-files.log",
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "go",
+        "test",
+        "-count=1",
+        "./internal/decision"
+      ],
+      "log": "decision-tests-fixed.log",
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "make",
+        "build"
+      ],
+      "log": "build.log",
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "make",
+        "test"
+      ],
+      "log": "test.log",
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "make",
+        "vet"
+      ],
+      "log": "vet.log",
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "make",
+        "lint"
+      ],
+      "log": "lint.log",
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "python3",
+        "-B",
+        "contracts/validate.py"
+      ],
+      "log": "contract-fixtures.log",
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "gofmt",
+        "-l",
+        "cmd",
+        "internal"
+      ],
+      "log": "gofmt-check.log",
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "log": "whitespace.log",
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--stat"
+      ],
+      "log": "diff-stat.log",
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "git",
+        "status",
+        "--short",
+        "--branch"
+      ],
+      "log": "worktree-status.log",
+      "exitCode": 0
+    }
+  ]
+}

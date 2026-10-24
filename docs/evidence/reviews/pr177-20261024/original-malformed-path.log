@@ -1,0 +1,22 @@
+--- FAIL: TestReview177MalformedPathCannotCorroborateUsage (0.00s)
+    --- FAIL: TestReview177MalformedPathCannotCorroborateUsage/missing_step_fields (0.00s)
+        review177_path_fields_test.go:28: malformed path corroborated usage: agreement=true confidence=high
+    --- FAIL: TestReview177MalformedPathCannotCorroborateUsage/missing_function (0.00s)
+        review177_path_fields_test.go:28: malformed path corroborated usage: agreement=true confidence=high
+    --- FAIL: TestReview177MalformedPathCannotCorroborateUsage/missing_file (0.00s)
+        review177_path_fields_test.go:28: malformed path corroborated usage: agreement=true confidence=high
+    --- FAIL: TestReview177MalformedPathCannotCorroborateUsage/zero_line (0.00s)
+        review177_path_fields_test.go:28: malformed path corroborated usage: agreement=true confidence=high
+    --- FAIL: TestReview177MalformedPathCannotCorroborateUsage/negative_line (0.00s)
+        review177_path_fields_test.go:28: malformed path corroborated usage: agreement=true confidence=high
+    --- FAIL: TestReview177MalformedPathCannotCorroborateUsage/blank_entry (0.00s)
+        review177_path_fields_test.go:28: malformed path corroborated usage: agreement=true confidence=high
+    --- FAIL: TestReview177MalformedPathCannotCorroborateUsage/blank_function (0.00s)
+        review177_path_fields_test.go:28: malformed path corroborated usage: agreement=true confidence=high
+    --- FAIL: TestReview177MalformedPathCannotCorroborateUsage/blank_file (0.00s)
+        review177_path_fields_test.go:28: malformed path corroborated usage: agreement=true confidence=high
+    --- FAIL: TestReview177MalformedPathCannotCorroborateUsage/invalid_intermediate_step (0.00s)
+        review177_path_fields_test.go:28: malformed path corroborated usage: agreement=true confidence=high
+FAIL
+FAIL	github.com/Xsamsx/SBOMber/internal/decision	0.005s
+FAIL

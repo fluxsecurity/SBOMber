@@ -1,6 +1,10 @@
 package decision
 
-import "sort"
+import (
+	"fmt"
+	"sort"
+	"strings"
+)
 
 // StateInputs is everything the state guard needs for one finding. Every
 // field traces to a specific upstream contract field so the mapping from
@@ -59,6 +63,75 @@ type StateInputs struct {
 	// CandidateSetOpenDetail says why the set is open, for the
 	// justification. Ignored when CandidateSetClosed is true.
 	CandidateSetOpenDetail string
+
+	// ReachablePath is the resolved call path from an application entry
+	// point to a call site that matched a candidate symbol, when Component
+	// 2's level-3 pass found one (S6-15, #156). It is supporting evidence
+	// for the justification only: it never decides the state, and nil does
+	// not count against a finding.
+	ReachablePath *ReachablePath
+}
+
+// ReachablePath is one resolved call path, as usage-graph.json reports it
+// for a call site with reachability "reachable".
+type ReachablePath struct {
+	EntryPointID string
+	Symbol       string
+	File         string
+	Line         int
+	Steps        []CallPathStep
+}
+
+// shorterThan picks one path deterministically when several call sites
+// resolve: fewest steps, then file, then line.
+func (p ReachablePath) shorterThan(q ReachablePath) bool {
+	if len(p.Steps) != len(q.Steps) {
+		return len(p.Steps) < len(q.Steps)
+	}
+	if p.File != q.File {
+		return p.File < q.File
+	}
+	return p.Line < q.Line
+}
+
+// maxPathSteps bounds how much of an untrusted path is written into a
+// justification. Longer paths keep their first and last steps.
+const maxPathSteps = 6
+
+// text renders the path for a justification, for example:
+// "a resolved call path reaches the call to template at src/a.js:47 from
+// entry point ep-001: postWelcome (src/routes/users.js:18) -> ...".
+func (p ReachablePath) text() string {
+	steps := p.Steps
+	var parts []string
+	if len(steps) > maxPathSteps {
+		head, tail := steps[:maxPathSteps/2], steps[len(steps)-maxPathSteps/2:]
+		for _, st := range head {
+			parts = append(parts, stepText(st))
+		}
+		parts = append(parts, fmt.Sprintf("(%d more)", len(steps)-maxPathSteps))
+		for _, st := range tail {
+			parts = append(parts, stepText(st))
+		}
+	} else {
+		for _, st := range steps {
+			parts = append(parts, stepText(st))
+		}
+	}
+	call := "the call"
+	if p.Symbol != "" {
+		call = "the call to " + p.Symbol
+	}
+	return fmt.Sprintf("a resolved call path reaches %s at %s from application entry point %s: %s",
+		call, location(p.File, p.Line), p.EntryPointID, strings.Join(parts, " -> "))
+}
+
+func stepText(st CallPathStep) string {
+	name := st.Function
+	if name == "" {
+		name = "(anonymous)"
+	}
+	return name + " (" + location(st.File, st.Line) + ")"
 }
 
 // OpenSetCriterion is the criterion text agreed in #139 for a finding whose
@@ -190,6 +263,9 @@ func usageReasons(in StateInputs) []string {
 		reason = "the application calls " + joinQuoted(in.MatchedSymbols) + ", which localisation names as a candidate or a public entry point to one"
 	}
 	out := []string{reason}
+	if in.ReachablePath != nil {
+		out = append(out, in.ReachablePath.text())
+	}
 	if in.MatchFromAdvisoryTextOnly {
 		out = append(out, "the matched name came from the advisory text, not from the package's own code, so confidence is capped at medium")
 	}
