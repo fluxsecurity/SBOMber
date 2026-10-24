@@ -1,0 +1,60 @@
+{
+  "schemaVersion": "1.1.0",
+  "scanId": "synthetic-172-observed-other-symbol",
+  "distribution": {
+    "totalFindings": 1,
+    "usageDetected": 0,
+    "noUsageDetected": 1,
+    "unknown": 0,
+    "unsupported": 0
+  },
+  "decisions": [
+    {
+      "findingId": "find-172",
+      "vulnerabilityId": "SYNTHETIC-172",
+      "purl": "pkg:npm/dep-b@1.0.0",
+      "state": "no_usage_detected",
+      "analysisConfidence": "medium",
+      "confidenceCriteria": [
+        "localisation method patch_reference",
+        "parse coverage 100.0 percent",
+        "no second deterministic method available to corroborate"
+      ],
+      "riskPriority": {
+        "band": "lower_priority",
+        "severity": "high",
+        "relationship": "direct",
+        "fixAvailable": false
+      },
+      "justification": "No usage evidence found within the analysed scope: analysis completed and no application call reached any public entry point of the localised functions.",
+      "basedOn": {
+        "usageObservationIds": [
+          "obs-489dbf8f50fe5967e7cbfb8a6196e7c9"
+        ],
+        "localisationMethod": "patch_reference",
+        "localisationConfidence": "high",
+        "matchedSymbols": [],
+        "evidenceLevel": 3,
+        "coverageSummary": {
+          "parseCoveragePercent": 100,
+          "unresolvedImportsInScope": 0,
+          "scanStatus": "complete"
+        }
+      },
+      "vexMapping": {
+        "statement": "under_investigation"
+      }
+    }
+  ],
+  "remediationGroups": [
+    {
+      "purl": "pkg:npm/dep-b@1.0.0",
+      "installedVersion": "1.0.0",
+      "findingIds": [
+        "find-172"
+      ],
+      "highestBand": "lower_priority",
+      "relationship": "direct"
+    }
+  ]
+}

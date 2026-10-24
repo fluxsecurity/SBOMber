@@ -1,0 +1,7 @@
+copied-function: unknown; schemas/policy invariants PASS
+destructured-copy: unknown; schemas/policy invariants PASS
+direct-positive-b: usage_detected; schemas/policy invariants PASS
+direct-unimported-b: no_usage_detected; schemas/policy invariants PASS
+observed-other-symbol: no_usage_detected; schemas/policy invariants PASS
+transitive-b: unknown; schemas/policy invariants PASS
+Saved 6 labelled policy cases: /mnt/hgfs/VM_shared_SBOMber/SBOMber-issue172-validation-i6jlcsvh/original-cases

@@ -1,0 +1,4 @@
+Decided 1 finding(s) for synthetic-172-direct-positive-b
+  find-172   SYNTHETIC-172      usage detected                                   high   act_now
+Distribution: 1 usage detected, 0 no usage evidence within the analysed scope, 0 unknown, 0 unsupported
+Wrote /mnt/hgfs/VM_shared_SBOMber/SBOMber-issue172-validation-i6jlcsvh/original-cases/direct-positive-b/decision-results.json

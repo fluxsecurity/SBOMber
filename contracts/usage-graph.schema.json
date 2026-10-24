@@ -370,7 +370,7 @@
 
     "unanalysedOccurrences": {
       "type": "array",
-      "description": "Package occurrences from canonical-scan.json that this analysis did not or could not examine. THIS IS THE SAFETY-CRITICAL ARRAY. Without it, 'analysed and found no usage' and 'never analysed' both look like an occurrence with no observations, and component 4 cannot tell no_usage_detected from unknown. An occurrence listed here must not support a negative finding, except when reason is 'not_imported_by_analysed_source', which means the analysed application source was checked and no import was found.",
+      "description": "Package occurrences from canonical-scan.json that this analysis did not or could not examine. THIS IS THE SAFETY-CRITICAL ARRAY. Without it, 'analysed and found no usage' and 'never analysed' both look like an occurrence with no observations, and component 4 cannot tell no_usage_detected from unknown. An occurrence listed here must not support a negative finding. The reason 'not_imported_by_analysed_source' records absence of an application import, not absence of dependency-internal usage (#172). Matched positive call evidence may still be preserved by the decision policy.",
       "items": {
         "type": "object",
         "required": ["occurrenceId", "reason"],
@@ -390,7 +390,7 @@
               "import_site_parse_failed",
               "excluded_by_limits"
             ],
-            "description": "no_source_files: no in-scope source files were discovered for this occurrence's repository; never supports no_usage_detected. nested_under_dependency: source inside a dependency was not parsed. ambiguous_occurrence: an import matched multiple direct occurrences and could not be assigned safely. computed_specifier: a dynamic import could refer to this occurrence. These reasons never support no_usage_detected. not_imported_by_analysed_source: the analysis completed and found no import; this is the only reason that may support no_usage_detected. ecosystem_unsupported: outside the analysed ecosystems. import_site_parse_failed / excluded_by_limits: the analysis was incomplete."
+            "description": "no_source_files: no in-scope source files were discovered for this occurrence's repository; never supports no_usage_detected. nested_under_dependency: source inside a dependency was not parsed. ambiguous_occurrence: an import matched multiple direct occurrences and could not be assigned safely. computed_specifier: a dynamic import could refer to this occurrence. These reasons never support no_usage_detected. not_imported_by_analysed_source: the analysis completed and found no application import; dependency-internal use was not examined, so this reason cannot support no_usage_detected. ecosystem_unsupported: outside the analysed ecosystems. import_site_parse_failed / excluded_by_limits: the analysis was incomplete."
           },
           "detail": { "type": "string" }
         }

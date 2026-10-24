@@ -299,8 +299,7 @@ def validate_usage_graph(d, canon):
           f"usage-graph scanId {d['scanId']} != canonical-scan {canon['scanId']}")
 
     return {"observationIds": obs_ids,
-            "negativeEligible": {uid for uid, u in unan.items()
-                                 if u["reason"] == "not_imported_by_analysed_source"} | observed_occurrences,
+            "negativeEligible": observed_occurrences,
             "unanalysed": unan,
             "analysisStatus": analysis_status,
             "filesDiscovered": cov["filesDiscovered"]}
@@ -562,8 +561,8 @@ def validate_decisions(d, canon, usage, loc, vex_policy):
         if dec["state"] != "no_usage_detected":
             continue
         occs = set(findings[dec["findingId"]].get("occurrenceIds", []))
-        blocked = [o for o in occs if o in usage["unanalysed"]
-                   and usage["unanalysed"][o]["reason"] != "not_imported_by_analysed_source"]
+        blocked = [oid for oid, entry in usage["unanalysed"].items()
+                   if oid in occs or entry.get("purl") == findings[dec["findingId"]].get("purl")]
         check(c, "no negative on an unanalysed occurrence", not blocked,
               f"{dec['findingId']} is no_usage_detected but occurrence(s) {blocked} were reported "
               f"unanalysed by component 2 - this must be unknown")

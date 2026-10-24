@@ -1,0 +1,12 @@
+{
+  "fixture": "observed-other-symbol",
+  "labelType": "author_labelled_synthetic_policy_case",
+  "reasoning": "Application calls only other, not merge. Control preserves the existing scoped symbol comparison; it does not establish dependency-internal non-use.",
+  "candidateSymbol": "merge",
+  "expectedState": "no_usage_detected",
+  "expectedOriginalState": "no_usage_detected",
+  "expectedUnanalysedReason": null,
+  "requiresUnresolvedUse": false,
+  "analysisScope": "app/ only; dependency-source/ is supplied for manual labels and intentionally outside analysis",
+  "vulnerabilityClaim": false
+}

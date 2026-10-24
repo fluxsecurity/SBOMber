@@ -1,0 +1,8 @@
+{
+  "name": "synthetic-destructured-copy",
+  "version": "1.0.0",
+  "type": "module",
+  "dependencies": {
+    "dep-b": "1.0.0"
+  }
+}

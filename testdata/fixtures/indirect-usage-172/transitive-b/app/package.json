@@ -1,0 +1,8 @@
+{
+  "name": "synthetic-transitive-b",
+  "version": "1.0.0",
+  "type": "module",
+  "dependencies": {
+    "dep-a": "1.0.0"
+  }
+}
