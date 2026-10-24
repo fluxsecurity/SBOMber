@@ -1,0 +1,17 @@
+Decided 14 finding(s) for scan-20220830T155554Z-31c6824d
+  find-08cc91b773d8 GHSA-rv95-896h-c2vc usage detected                                   high   act_now
+  find-3201d8f964cf GHSA-qw6h-vgh9-j6wx usage detected                                   high   act_now
+  find-cf2d7f62f4f2 GHSA-jf85-cpcp-j695 insufficient information                         medium insufficient_information
+  find-15ad437c70d1 GHSA-35jh-r3h4-6jhm insufficient information                         medium insufficient_information
+  find-8588c377e10f GHSA-p6mc-m468-83gw insufficient information                         medium insufficient_information
+  find-eeecb3d50058 GHSA-r5fr-rjxr-66jc insufficient information                         medium insufficient_information
+  find-28c210d965f5 GHSA-4xc9-xhrj-v574 insufficient information                         medium insufficient_information
+  find-cb6987956252 GHSA-qwcr-r2fm-qrc7 insufficient information                         medium insufficient_information
+  find-69ad2599263f GHSA-29mw-wpgm-hmr9 insufficient information                         medium insufficient_information
+  find-473a234ef8a5 GHSA-x5rq-j2xg-h7qm insufficient information                         medium insufficient_information
+  find-2590fff8b864 GHSA-fvqr-27wr-82fm insufficient information                         medium insufficient_information
+  find-7b374189db54 GHSA-xxjr-mmjv-4gpg insufficient information                         medium insufficient_information
+  find-340a4e8a755b GHSA-f23m-r3pf-42rh insufficient information                         medium insufficient_information
+  find-71c614264f34 GHSA-v422-hmwv-36x6 insufficient information                         medium insufficient_information
+Distribution: 2 usage detected, 0 no usage evidence within the analysed scope, 12 unknown, 0 unsupported
+Wrote /home/sbomber1/shared-folder/VM_shared_SBOMber/SBOMber-pr178-integration-ainub3/kirill89-prototype-pollution-explained/decision-results.json

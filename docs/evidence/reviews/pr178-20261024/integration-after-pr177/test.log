@@ -1,0 +1,36 @@
+CGO_ENABLED=1 GOCACHE=/home/sbomber1/dev/sbomber/review177178-20261024-7e5krw6h/pr178/.cache/go-build go test ./...
+?   	github.com/Xsamsx/SBOMber/cmd/sbomber	[no test files]
+ok  	github.com/Xsamsx/SBOMber/internal/audit	0.012s
+ok  	github.com/Xsamsx/SBOMber/internal/canonicalscan	(cached)
+?   	github.com/Xsamsx/SBOMber/internal/cargo	[no test files]
+ok  	github.com/Xsamsx/SBOMber/internal/cli	0.082s
+?   	github.com/Xsamsx/SBOMber/internal/composer	[no test files]
+?   	github.com/Xsamsx/SBOMber/internal/config	[no test files]
+ok  	github.com/Xsamsx/SBOMber/internal/decision	0.013s
+?   	github.com/Xsamsx/SBOMber/internal/deps	[no test files]
+?   	github.com/Xsamsx/SBOMber/internal/diff	[no test files]
+ok  	github.com/Xsamsx/SBOMber/internal/discovery	(cached)
+ok  	github.com/Xsamsx/SBOMber/internal/ecosystem	(cached)
+ok  	github.com/Xsamsx/SBOMber/internal/github	(cached)
+ok  	github.com/Xsamsx/SBOMber/internal/gitlab	(cached)
+ok  	github.com/Xsamsx/SBOMber/internal/golang	(cached)
+ok  	github.com/Xsamsx/SBOMber/internal/health	(cached)
+ok  	github.com/Xsamsx/SBOMber/internal/inventory	(cached)
+ok  	github.com/Xsamsx/SBOMber/internal/localisation	(cached)
+ok  	github.com/Xsamsx/SBOMber/internal/maven	(cached)
+ok  	github.com/Xsamsx/SBOMber/internal/netstatus	(cached)
+ok  	github.com/Xsamsx/SBOMber/internal/npm	(cached)
+?   	github.com/Xsamsx/SBOMber/internal/nuget	[no test files]
+ok  	github.com/Xsamsx/SBOMber/internal/python	(cached)
+ok  	github.com/Xsamsx/SBOMber/internal/reachability	(cached)
+ok  	github.com/Xsamsx/SBOMber/internal/remote	(cached)
+ok  	github.com/Xsamsx/SBOMber/internal/report	(cached)
+?   	github.com/Xsamsx/SBOMber/internal/reproducible	[no test files]
+ok  	github.com/Xsamsx/SBOMber/internal/ruby	(cached)
+ok  	github.com/Xsamsx/SBOMber/internal/sbom	(cached)
+ok  	github.com/Xsamsx/SBOMber/internal/sourceanalysis	(cached)
+ok  	github.com/Xsamsx/SBOMber/internal/supplychain	(cached)
+ok  	github.com/Xsamsx/SBOMber/internal/usagegraph	0.208s
+?   	github.com/Xsamsx/SBOMber/internal/verify	[no test files]
+ok  	github.com/Xsamsx/SBOMber/internal/vex	(cached)
+ok  	github.com/Xsamsx/SBOMber/internal/vulnerability	(cached)

@@ -1,0 +1,833 @@
+{
+  "schemaVersion": "1.4.0",
+  "scanId": "scan-20231108T121149Z-8279ac77",
+  "analysis": {
+    "status": "partial",
+    "ecosystem": "npm",
+    "analyzerId": "component2-js-ts-tree-sitter"
+  },
+  "analyser": {
+    "parser": "tree-sitter",
+    "binding": "github.com/tree-sitter/go-tree-sitter",
+    "bindingVersion": "0.25.0",
+    "cgoEnabled": true,
+    "grammarVersions": {
+      "javascript": "0.25.0",
+      "typescript": "0.23.2"
+    },
+    "ecosystems": [
+      "npm"
+    ],
+    "reachabilityAnalysed": true
+  },
+  "entryPoints": [
+    {
+      "entryPointId": "ep-143a215bb1ecd01b9ba599c42a39d55d",
+      "kind": "route_handler",
+      "function": "\u003croute_handler\u003e",
+      "file": "routes/app.js",
+      "line": 6,
+      "repositoryId": "repo-dvna"
+    },
+    {
+      "entryPointId": "ep-290abf7e7ecd2c43dec122dfbdc35bc3",
+      "kind": "route_handler",
+      "function": "\u003croute_handler\u003e",
+      "file": "routes/app.js",
+      "line": 10,
+      "repositoryId": "repo-dvna"
+    },
+    {
+      "entryPointId": "ep-9a06083211e9b18cbe85367b6a1bf4e9",
+      "kind": "route_handler",
+      "function": "\u003croute_handler\u003e",
+      "file": "routes/app.js",
+      "line": 16,
+      "repositoryId": "repo-dvna"
+    },
+    {
+      "entryPointId": "ep-cef9906feea29eb05a768d287b9318cc",
+      "kind": "route_handler",
+      "function": "\u003croute_handler\u003e",
+      "file": "routes/app.js",
+      "line": 22,
+      "repositoryId": "repo-dvna"
+    },
+    {
+      "entryPointId": "ep-416b145e78d5e023ba9af00b73db41a1",
+      "kind": "route_handler",
+      "function": "\u003croute_handler\u003e",
+      "file": "routes/app.js",
+      "line": 32,
+      "repositoryId": "repo-dvna"
+    },
+    {
+      "entryPointId": "ep-f97338c22e8de312ed0572be0b6d0e95",
+      "kind": "route_handler",
+      "function": "\u003croute_handler\u003e",
+      "file": "routes/app.js",
+      "line": 36,
+      "repositoryId": "repo-dvna"
+    },
+    {
+      "entryPointId": "ep-3fffcc84813f0612fcbd8c23124657b9",
+      "kind": "route_handler",
+      "function": "\u003croute_handler\u003e",
+      "file": "routes/app.js",
+      "line": 44,
+      "repositoryId": "repo-dvna"
+    },
+    {
+      "entryPointId": "ep-b8407cf574a84684250efd0bf9ba04cb",
+      "kind": "route_handler",
+      "function": "\u003croute_handler\u003e",
+      "file": "routes/main.js",
+      "line": 6,
+      "repositoryId": "repo-dvna"
+    },
+    {
+      "entryPointId": "ep-20d89a76f1ee9c17a6c1ba2ae8fde06a",
+      "kind": "route_handler",
+      "function": "\u003croute_handler\u003e",
+      "file": "routes/main.js",
+      "line": 10,
+      "repositoryId": "repo-dvna"
+    },
+    {
+      "entryPointId": "ep-5b42d017af43bd4980bf6ed696b82cf5",
+      "kind": "route_handler",
+      "function": "\u003croute_handler\u003e",
+      "file": "routes/main.js",
+      "line": 14,
+      "repositoryId": "repo-dvna"
+    },
+    {
+      "entryPointId": "ep-e3acecd49ce6ec83748ee51a34ba192e",
+      "kind": "route_handler",
+      "function": "\u003croute_handler\u003e",
+      "file": "routes/main.js",
+      "line": 32,
+      "repositoryId": "repo-dvna"
+    },
+    {
+      "entryPointId": "ep-6259ee5f4c0342c7b20e0706ffac81a5",
+      "kind": "route_handler",
+      "function": "\u003croute_handler\u003e",
+      "file": "routes/main.js",
+      "line": 36,
+      "repositoryId": "repo-dvna"
+    },
+    {
+      "entryPointId": "ep-a2f4ba1198af10e66ffc27e031d00808",
+      "kind": "route_handler",
+      "function": "\u003croute_handler\u003e",
+      "file": "routes/main.js",
+      "line": 40,
+      "repositoryId": "repo-dvna"
+    },
+    {
+      "entryPointId": "ep-3fc9450cbd8606a9244e63c4502319b3",
+      "kind": "route_handler",
+      "function": "\u003croute_handler\u003e",
+      "file": "routes/main.js",
+      "line": 45,
+      "repositoryId": "repo-dvna"
+    },
+    {
+      "entryPointId": "ep-d4356323161d1211ad4c331e02d6b600",
+      "kind": "package_main",
+      "function": "\u003cmodule\u003e",
+      "file": "server.js",
+      "line": 1,
+      "repositoryId": "repo-dvna"
+    }
+  ],
+  "coverage": {
+    "filesDiscovered": 14,
+    "filesParsed": 12,
+    "filesParsedWithErrors": 0,
+    "filesFailed": 0,
+    "filesSkipped": 2,
+    "thirdPartyImportsResolved": 18,
+    "thirdPartyImportsTypeOnly": 0,
+    "thirdPartyImportsUnresolved": 1,
+    "thirdPartyCallSitesResolved": 23,
+    "thirdPartyCallSitesUnresolved": 2,
+    "limitsHit": [],
+    "perRepository": [
+      {
+        "repositoryId": "repo-dvna",
+        "filesDiscovered": 14,
+        "filesParsed": 12,
+        "filesParsedWithErrors": 0,
+        "filesFailed": 0,
+        "filesSkipped": 2
+      }
+    ],
+    "entryPointsDetected": 15,
+    "callPathsResolved": 8,
+    "callPathsUnresolved": 17
+  },
+  "observations": [
+    {
+      "observationId": "obs-c041ae4c6fc09a84b4ffab9ff3f1dab9",
+      "occurrenceId": "occ-eee41277d7e3",
+      "purl": "pkg:npm/bcrypt",
+      "importedSpecifier": "bcrypt",
+      "localAlias": "bCrypt",
+      "importedSymbol": "*",
+      "importKind": "cjs_require",
+      "resolution": "resolved",
+      "location": {
+        "repositoryId": "repo-dvna",
+        "file": "core/appHandler.js",
+        "line": 2,
+        "column": 4
+      },
+      "evidenceLevel": 2,
+      "callSites": [
+        {
+          "file": "core/appHandler.js",
+          "line": 153,
+          "column": 21,
+          "calledSymbol": "hashSync",
+          "resolution": "resolved",
+          "reachability": "unknown"
+        },
+        {
+          "file": "core/appHandler.js",
+          "line": 153,
+          "column": 56,
+          "calledSymbol": "genSaltSync",
+          "resolution": "resolved",
+          "reachability": "unknown"
+        }
+      ]
+    },
+    {
+      "observationId": "obs-8322d942ef6d31aa9c06042eb7b5cec7",
+      "occurrenceId": "occ-1d28377e76c7",
+      "purl": "pkg:npm/mathjs@3.10.1",
+      "importedSpecifier": "mathjs",
+      "localAlias": "mathjs",
+      "importedSymbol": "*",
+      "importKind": "cjs_require",
+      "resolution": "resolved",
+      "location": {
+        "repositoryId": "repo-dvna",
+        "file": "core/appHandler.js",
+        "line": 4,
+        "column": 4
+      },
+      "evidenceLevel": 2,
+      "callSites": [
+        {
+          "file": "core/appHandler.js",
+          "line": 197,
+          "column": 11,
+          "calledSymbol": "eval",
+          "resolution": "resolved",
+          "reachability": "unknown"
+        }
+      ]
+    },
+    {
+      "observationId": "obs-e0cded771de06f3fecffae9a4fc6a355",
+      "occurrenceId": "occ-3e3922dbfd55",
+      "purl": "pkg:npm/libxmljs",
+      "importedSpecifier": "libxmljs",
+      "localAlias": "libxmljs",
+      "importedSymbol": "*",
+      "importKind": "cjs_require",
+      "resolution": "resolved",
+      "location": {
+        "repositoryId": "repo-dvna",
+        "file": "core/appHandler.js",
+        "line": 5,
+        "column": 4
+      },
+      "evidenceLevel": 2,
+      "callSites": [
+        {
+          "file": "core/appHandler.js",
+          "line": 235,
+          "column": 17,
+          "calledSymbol": "parseXmlString",
+          "resolution": "resolved",
+          "reachability": "unknown"
+        }
+      ]
+    },
+    {
+      "observationId": "obs-46831947046c08c3d4bb7d10f7dfc74f",
+      "occurrenceId": "occ-b637c64fe875",
+      "purl": "pkg:npm/node-serialize@0.0.4",
+      "importedSpecifier": "node-serialize",
+      "localAlias": "serialize",
+      "importedSymbol": "*",
+      "importKind": "cjs_require",
+      "resolution": "resolved",
+      "location": {
+        "repositoryId": "repo-dvna",
+        "file": "core/appHandler.js",
+        "line": 6,
+        "column": 4
+      },
+      "evidenceLevel": 2,
+      "callSites": [
+        {
+          "file": "core/appHandler.js",
+          "line": 218,
+          "column": 17,
+          "calledSymbol": "unserialize",
+          "resolution": "resolved",
+          "reachability": "unknown"
+        }
+      ]
+    },
+    {
+      "observationId": "obs-68c234c09ef601e761c103b9952ca028",
+      "occurrenceId": "occ-eee41277d7e3",
+      "purl": "pkg:npm/bcrypt",
+      "importedSpecifier": "bcrypt",
+      "localAlias": "bCrypt",
+      "importedSymbol": "*",
+      "importKind": "cjs_require",
+      "resolution": "resolved",
+      "location": {
+        "repositoryId": "repo-dvna",
+        "file": "core/authHandler.js",
+        "line": 2,
+        "column": 4
+      },
+      "evidenceLevel": 2,
+      "callSites": [
+        {
+          "file": "core/authHandler.js",
+          "line": 79,
+          "column": 22,
+          "calledSymbol": "hashSync",
+          "resolution": "resolved",
+          "reachability": "unknown"
+        },
+        {
+          "file": "core/authHandler.js",
+          "line": 79,
+          "column": 57,
+          "calledSymbol": "genSaltSync",
+          "resolution": "resolved",
+          "reachability": "unknown"
+        }
+      ]
+    },
+    {
+      "observationId": "obs-9eafe7bbce6c0ecb77eaa8142f6ddf45",
+      "occurrenceId": "occ-7c9307580930",
+      "purl": "pkg:npm/md5",
+      "importedSpecifier": "md5",
+      "localAlias": "md5",
+      "importedSymbol": "*",
+      "importKind": "cjs_require",
+      "resolution": "resolved",
+      "location": {
+        "repositoryId": "repo-dvna",
+        "file": "core/authHandler.js",
+        "line": 3,
+        "column": 4
+      },
+      "evidenceLevel": 2,
+      "callSites": [
+        {
+          "file": "core/authHandler.js",
+          "line": 49,
+          "column": 27,
+          "calledSymbol": "default",
+          "resolution": "resolved",
+          "reachability": "unknown"
+        },
+        {
+          "file": "core/authHandler.js",
+          "line": 78,
+          "column": 27,
+          "calledSymbol": "default",
+          "resolution": "resolved",
+          "reachability": "unknown"
+        }
+      ]
+    },
+    {
+      "observationId": "obs-223c54503ef4cb22e679f5a59a280c66",
+      "occurrenceId": "occ-2bbd4c84609e",
+      "purl": "pkg:npm/passport-local",
+      "importedSpecifier": "passport-local",
+      "localAlias": "LocalStrategy",
+      "importedSymbol": "Strategy",
+      "importKind": "cjs_destructured",
+      "resolution": "resolved",
+      "location": {
+        "repositoryId": "repo-dvna",
+        "file": "core/passport.js",
+        "line": 2,
+        "column": 4
+      },
+      "evidenceLevel": 1,
+      "callSites": []
+    },
+    {
+      "observationId": "obs-e7a886fd5917df06d6f18ec9788c1d07",
+      "occurrenceId": "occ-eee41277d7e3",
+      "purl": "pkg:npm/bcrypt",
+      "importedSpecifier": "bcrypt",
+      "localAlias": "bCrypt",
+      "importedSymbol": "*",
+      "importKind": "cjs_require",
+      "resolution": "resolved",
+      "location": {
+        "repositoryId": "repo-dvna",
+        "file": "core/passport.js",
+        "line": 3,
+        "column": 4
+      },
+      "evidenceLevel": 2,
+      "callSites": [
+        {
+          "file": "core/passport.js",
+          "line": 47,
+          "column": 15,
+          "calledSymbol": "compareSync",
+          "resolution": "resolved",
+          "reachability": "unknown"
+        },
+        {
+          "file": "core/passport.js",
+          "line": 86,
+          "column": 15,
+          "calledSymbol": "hashSync",
+          "resolution": "resolved",
+          "reachability": "unknown"
+        },
+        {
+          "file": "core/passport.js",
+          "line": 86,
+          "column": 41,
+          "calledSymbol": "genSaltSync",
+          "resolution": "resolved",
+          "reachability": "unknown"
+        }
+      ]
+    },
+    {
+      "observationId": "obs-147d4f4b10a39a7b70ac826e37147d28",
+      "occurrenceId": "occ-0ba4a84b1591",
+      "purl": "pkg:npm/sequelize",
+      "importedSpecifier": "sequelize",
+      "localAlias": "Sequelize",
+      "importedSymbol": "*",
+      "importKind": "cjs_require",
+      "resolution": "resolved",
+      "location": {
+        "repositoryId": "repo-dvna",
+        "file": "models/index.js",
+        "line": 5,
+        "column": 4
+      },
+      "evidenceLevel": 1,
+      "callSites": [
+        {
+          "file": "models/index.js",
+          "line": 5,
+          "column": 4,
+          "enclosingFunction": "\u003cmodule\u003e",
+          "resolution": "unresolved",
+          "unresolvedReason": "outside_supported_syntax",
+          "reachability": "unknown"
+        }
+      ]
+    },
+    {
+      "observationId": "obs-2a4076b405a1856c43bde5d7eee43b97",
+      "occurrenceId": "occ-c84ed138dd7b",
+      "purl": "pkg:npm/express",
+      "importedSpecifier": "express",
+      "importedSymbol": "*",
+      "importKind": "cjs_require",
+      "resolution": "resolved",
+      "location": {
+        "repositoryId": "repo-dvna",
+        "file": "routes/app.js",
+        "line": 1,
+        "column": 13
+      },
+      "evidenceLevel": 2,
+      "callSites": [
+        {
+          "file": "routes/app.js",
+          "line": 1,
+          "column": 13,
+          "calledSymbol": "Router",
+          "enclosingFunction": "\u003cmodule\u003e",
+          "resolution": "resolved",
+          "reachability": "unknown"
+        }
+      ]
+    },
+    {
+      "observationId": "obs-7b9d16b08930e59ae973ddd4dd135289",
+      "occurrenceId": "occ-c84ed138dd7b",
+      "purl": "pkg:npm/express",
+      "importedSpecifier": "express",
+      "importedSymbol": "*",
+      "importKind": "cjs_require",
+      "resolution": "resolved",
+      "location": {
+        "repositoryId": "repo-dvna",
+        "file": "routes/main.js",
+        "line": 1,
+        "column": 13
+      },
+      "evidenceLevel": 2,
+      "callSites": [
+        {
+          "file": "routes/main.js",
+          "line": 1,
+          "column": 13,
+          "calledSymbol": "Router",
+          "enclosingFunction": "\u003cmodule\u003e",
+          "resolution": "resolved",
+          "reachability": "unknown"
+        }
+      ]
+    },
+    {
+      "observationId": "obs-7503e37d47ab9ab4db6edd5bfbdbe25f",
+      "occurrenceId": "occ-c84ed138dd7b",
+      "purl": "pkg:npm/express",
+      "importedSpecifier": "express",
+      "localAlias": "express",
+      "importedSymbol": "*",
+      "importKind": "cjs_require",
+      "resolution": "resolved",
+      "location": {
+        "repositoryId": "repo-dvna",
+        "file": "server.js",
+        "line": 1,
+        "column": 4
+      },
+      "evidenceLevel": 3,
+      "callSites": [
+        {
+          "file": "server.js",
+          "line": 11,
+          "column": 10,
+          "calledSymbol": "default",
+          "enclosingFunction": "\u003cmodule\u003e",
+          "resolution": "resolved",
+          "reachability": "reachable",
+          "entryPointId": "ep-d4356323161d1211ad4c331e02d6b600",
+          "callPath": [
+            {
+              "function": "\u003cmodule\u003e",
+              "file": "server.js",
+              "line": 1
+            }
+          ]
+        },
+        {
+          "file": "server.js",
+          "line": 13,
+          "column": 8,
+          "calledSymbol": "static",
+          "enclosingFunction": "\u003cmodule\u003e",
+          "resolution": "resolved",
+          "reachability": "reachable",
+          "entryPointId": "ep-d4356323161d1211ad4c331e02d6b600",
+          "callPath": [
+            {
+              "function": "\u003cmodule\u003e",
+              "file": "server.js",
+              "line": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "observationId": "obs-f9d26ff61aa76ff78988b7d325c75bbd",
+      "importedSpecifier": "body-parser",
+      "localAlias": "bodyParser",
+      "importedSymbol": "*",
+      "importKind": "cjs_require",
+      "resolution": "unresolved",
+      "unresolvedReason": "not_in_inventory",
+      "location": {
+        "repositoryId": "repo-dvna",
+        "file": "server.js",
+        "line": 2,
+        "column": 4
+      },
+      "evidenceLevel": 2,
+      "callSites": [
+        {
+          "file": "server.js",
+          "line": 16,
+          "column": 8,
+          "calledSymbol": "urlencoded",
+          "enclosingFunction": "\u003cmodule\u003e",
+          "resolution": "resolved",
+          "reachability": "unknown"
+        }
+      ]
+    },
+    {
+      "observationId": "obs-3e39840998ac64fba3d3e140c83883ad",
+      "occurrenceId": "occ-4e05036ced08",
+      "purl": "pkg:npm/passport",
+      "importedSpecifier": "passport",
+      "localAlias": "passport",
+      "importedSymbol": "*",
+      "importKind": "cjs_require",
+      "resolution": "resolved",
+      "location": {
+        "repositoryId": "repo-dvna",
+        "file": "server.js",
+        "line": 3,
+        "column": 4
+      },
+      "evidenceLevel": 3,
+      "callSites": [
+        {
+          "file": "server.js",
+          "line": 3,
+          "column": 4,
+          "enclosingFunction": "\u003cmodule\u003e",
+          "resolution": "unresolved",
+          "unresolvedReason": "outside_supported_syntax",
+          "reachability": "unknown"
+        },
+        {
+          "file": "server.js",
+          "line": 31,
+          "column": 8,
+          "calledSymbol": "initialize",
+          "enclosingFunction": "\u003cmodule\u003e",
+          "resolution": "resolved",
+          "reachability": "reachable",
+          "entryPointId": "ep-d4356323161d1211ad4c331e02d6b600",
+          "callPath": [
+            {
+              "function": "\u003cmodule\u003e",
+              "file": "server.js",
+              "line": 1
+            }
+          ]
+        },
+        {
+          "file": "server.js",
+          "line": 32,
+          "column": 8,
+          "calledSymbol": "session",
+          "enclosingFunction": "\u003cmodule\u003e",
+          "resolution": "resolved",
+          "reachability": "reachable",
+          "entryPointId": "ep-d4356323161d1211ad4c331e02d6b600",
+          "callPath": [
+            {
+              "function": "\u003cmodule\u003e",
+              "file": "server.js",
+              "line": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "observationId": "obs-b1bd4fc820a86de8c2bb771d1bc85621",
+      "occurrenceId": "occ-1e73170f4bb9",
+      "purl": "pkg:npm/express-session",
+      "importedSpecifier": "express-session",
+      "localAlias": "session",
+      "importedSymbol": "*",
+      "importKind": "cjs_require",
+      "resolution": "resolved",
+      "location": {
+        "repositoryId": "repo-dvna",
+        "file": "server.js",
+        "line": 4,
+        "column": 4
+      },
+      "evidenceLevel": 3,
+      "callSites": [
+        {
+          "file": "server.js",
+          "line": 23,
+          "column": 8,
+          "calledSymbol": "default",
+          "enclosingFunction": "\u003cmodule\u003e",
+          "resolution": "resolved",
+          "reachability": "reachable",
+          "entryPointId": "ep-d4356323161d1211ad4c331e02d6b600",
+          "callPath": [
+            {
+              "function": "\u003cmodule\u003e",
+              "file": "server.js",
+              "line": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "observationId": "obs-02fe49a6aa7ef25de3576d9f3332fb38",
+      "occurrenceId": "occ-19a58ff6b3fa",
+      "purl": "pkg:npm/ejs",
+      "importedSpecifier": "ejs",
+      "localAlias": "ejs",
+      "importedSymbol": "*",
+      "importKind": "cjs_require",
+      "resolution": "resolved",
+      "location": {
+        "repositoryId": "repo-dvna",
+        "file": "server.js",
+        "line": 5,
+        "column": 4
+      },
+      "evidenceLevel": 1,
+      "callSites": []
+    },
+    {
+      "observationId": "obs-693ba1bbd2c30ea1632de019724997e0",
+      "occurrenceId": "occ-c52961d1d7f3",
+      "purl": "pkg:npm/morgan",
+      "importedSpecifier": "morgan",
+      "localAlias": "morgan",
+      "importedSymbol": "*",
+      "importKind": "cjs_require",
+      "resolution": "resolved",
+      "location": {
+        "repositoryId": "repo-dvna",
+        "file": "server.js",
+        "line": 6,
+        "column": 4
+      },
+      "evidenceLevel": 3,
+      "callSites": [
+        {
+          "file": "server.js",
+          "line": 15,
+          "column": 8,
+          "calledSymbol": "default",
+          "enclosingFunction": "\u003cmodule\u003e",
+          "resolution": "resolved",
+          "reachability": "reachable",
+          "entryPointId": "ep-d4356323161d1211ad4c331e02d6b600",
+          "callPath": [
+            {
+              "function": "\u003cmodule\u003e",
+              "file": "server.js",
+              "line": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "observationId": "obs-cfc06fa489e27e1c64976bdf8b2099f7",
+      "occurrenceId": "occ-a5663092fe0c",
+      "purl": "pkg:npm/express-fileupload",
+      "importedSpecifier": "express-fileupload",
+      "localAlias": "fileUpload",
+      "importedSymbol": "*",
+      "importKind": "cjs_require",
+      "resolution": "resolved",
+      "location": {
+        "repositoryId": "repo-dvna",
+        "file": "server.js",
+        "line": 7,
+        "column": 6
+      },
+      "evidenceLevel": 3,
+      "callSites": [
+        {
+          "file": "server.js",
+          "line": 17,
+          "column": 8,
+          "calledSymbol": "default",
+          "enclosingFunction": "\u003cmodule\u003e",
+          "resolution": "resolved",
+          "reachability": "reachable",
+          "entryPointId": "ep-d4356323161d1211ad4c331e02d6b600",
+          "callPath": [
+            {
+              "function": "\u003cmodule\u003e",
+              "file": "server.js",
+              "line": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "observationId": "obs-da9276986119f696ffe8f2608347a1d4",
+      "occurrenceId": "occ-2e2cefc82dc6",
+      "purl": "pkg:npm/express-flash@0.0.2",
+      "importedSpecifier": "express-flash",
+      "importedSymbol": "*",
+      "importKind": "cjs_require",
+      "resolution": "resolved",
+      "location": {
+        "repositoryId": "repo-dvna",
+        "file": "server.js",
+        "line": 35,
+        "column": 8
+      },
+      "evidenceLevel": 3,
+      "callSites": [
+        {
+          "file": "server.js",
+          "line": 35,
+          "column": 8,
+          "calledSymbol": "default",
+          "enclosingFunction": "\u003cmodule\u003e",
+          "resolution": "resolved",
+          "reachability": "reachable",
+          "entryPointId": "ep-d4356323161d1211ad4c331e02d6b600",
+          "callPath": [
+            {
+              "function": "\u003cmodule\u003e",
+              "file": "server.js",
+              "line": 1
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "unanalysedOccurrences": [
+    {
+      "occurrenceId": "occ-017a01bf9f57",
+      "purl": "pkg:npm/winston",
+      "reason": "excluded_by_limits"
+    },
+    {
+      "occurrenceId": "occ-1938525f0b70",
+      "purl": "pkg:npm/csurf",
+      "reason": "excluded_by_limits"
+    },
+    {
+      "occurrenceId": "occ-98ac12803521",
+      "purl": "pkg:npm/x-xss-protection",
+      "reason": "excluded_by_limits"
+    },
+    {
+      "occurrenceId": "occ-e6d7f3eb9d76",
+      "purl": "pkg:npm/flash",
+      "reason": "excluded_by_limits"
+    },
+    {
+      "occurrenceId": "occ-e725cd277bc3",
+      "purl": "pkg:npm/mysql2",
+      "reason": "excluded_by_limits"
+    }
+  ],
+  "parseFailures": []
+}

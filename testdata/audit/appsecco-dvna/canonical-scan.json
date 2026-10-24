@@ -1,0 +1,1664 @@
+{
+  "schemaVersion": "1.0.0",
+  "scan": {
+    "scanId": "scan-20231108T121149Z-8279ac77",
+    "startedAt": "2023-11-08T12:11:49Z",
+    "completedAt": "2023-11-08T12:11:49Z",
+    "toolVersions": {
+      "go": "go1.26.9",
+      "grype": "0.120.1",
+      "grype-db": "v6.1.10 built 2026-10-22T06:29:52Z",
+      "sbomber": "0.1.1"
+    },
+    "status": "partial",
+    "statusDetail": {
+      "skippedFiles": [],
+      "failedFiles": [],
+      "truncatedTree": false,
+      "limitsHit": [
+        "repo-dvna: npm: no package-lock.json; versions are as declared and transitive dependencies are not listed"
+      ]
+    },
+    "repositories": [
+      {
+        "repositoryId": "repo-dvna",
+        "path": "../dvna",
+        "commit": "9ba473add536f66ac9007966acb2a775dd31277a",
+        "source": "local"
+      }
+    ],
+    "enrichment": [
+      {
+        "source": "epss",
+        "status": "success"
+      },
+      {
+        "source": "cisa_kev",
+        "status": "success"
+      },
+      {
+        "source": "ghsa",
+        "status": "success"
+      },
+      {
+        "source": "registry",
+        "status": "success"
+      },
+      {
+        "source": "malware",
+        "status": "skipped",
+        "detail": "malware scanning is not yet implemented"
+      }
+    ]
+  },
+  "components": [
+    {
+      "purl": "pkg:npm/bcrypt",
+      "ecosystem": "npm",
+      "name": "bcrypt",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^1.0.3"
+    },
+    {
+      "purl": "pkg:npm/csurf",
+      "ecosystem": "npm",
+      "name": "csurf",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^1.9.0"
+    },
+    {
+      "purl": "pkg:npm/ejs",
+      "ecosystem": "npm",
+      "name": "ejs",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^2.5.7"
+    },
+    {
+      "purl": "pkg:npm/express",
+      "ecosystem": "npm",
+      "name": "express",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^4.16.2"
+    },
+    {
+      "purl": "pkg:npm/express-fileupload",
+      "ecosystem": "npm",
+      "name": "express-fileupload",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^0.4.0"
+    },
+    {
+      "purl": "pkg:npm/express-flash@0.0.2",
+      "ecosystem": "npm",
+      "name": "express-flash",
+      "version": "0.0.2"
+    },
+    {
+      "purl": "pkg:npm/express-session",
+      "ecosystem": "npm",
+      "name": "express-session",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^1.15.6"
+    },
+    {
+      "purl": "pkg:npm/flash",
+      "ecosystem": "npm",
+      "name": "flash",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^1.1.0"
+    },
+    {
+      "purl": "pkg:npm/libxmljs",
+      "ecosystem": "npm",
+      "name": "libxmljs",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^0.19.1"
+    },
+    {
+      "purl": "pkg:npm/mathjs@3.10.1",
+      "ecosystem": "npm",
+      "name": "mathjs",
+      "version": "3.10.1"
+    },
+    {
+      "purl": "pkg:npm/md5",
+      "ecosystem": "npm",
+      "name": "md5",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^2.2.1"
+    },
+    {
+      "purl": "pkg:npm/morgan",
+      "ecosystem": "npm",
+      "name": "morgan",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^1.9.0"
+    },
+    {
+      "purl": "pkg:npm/mysql2",
+      "ecosystem": "npm",
+      "name": "mysql2",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^1.4.2"
+    },
+    {
+      "purl": "pkg:npm/node-serialize@0.0.4",
+      "ecosystem": "npm",
+      "name": "node-serialize",
+      "version": "0.0.4"
+    },
+    {
+      "purl": "pkg:npm/passport",
+      "ecosystem": "npm",
+      "name": "passport",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^0.4.0"
+    },
+    {
+      "purl": "pkg:npm/passport-local",
+      "ecosystem": "npm",
+      "name": "passport-local",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^1.0.0"
+    },
+    {
+      "purl": "pkg:npm/sequelize",
+      "ecosystem": "npm",
+      "name": "sequelize",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^4.13.10"
+    },
+    {
+      "purl": "pkg:npm/winston",
+      "ecosystem": "npm",
+      "name": "winston",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^3.0.0"
+    },
+    {
+      "purl": "pkg:npm/x-xss-protection",
+      "ecosystem": "npm",
+      "name": "x-xss-protection",
+      "version": "",
+      "versionKnown": false,
+      "declaredConstraint": "^1.1.0"
+    }
+  ],
+  "occurrences": [
+    {
+      "occurrenceId": "occ-eee41277d7e3",
+      "purl": "pkg:npm/bcrypt",
+      "repositoryId": "repo-dvna",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/bcrypt",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-1938525f0b70",
+      "purl": "pkg:npm/csurf",
+      "repositoryId": "repo-dvna",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/csurf",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-19a58ff6b3fa",
+      "purl": "pkg:npm/ejs",
+      "repositoryId": "repo-dvna",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/ejs",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-c84ed138dd7b",
+      "purl": "pkg:npm/express",
+      "repositoryId": "repo-dvna",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/express",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-a5663092fe0c",
+      "purl": "pkg:npm/express-fileupload",
+      "repositoryId": "repo-dvna",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/express-fileupload",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-2e2cefc82dc6",
+      "purl": "pkg:npm/express-flash@0.0.2",
+      "repositoryId": "repo-dvna",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/express-flash",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-1e73170f4bb9",
+      "purl": "pkg:npm/express-session",
+      "repositoryId": "repo-dvna",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/express-session",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-e6d7f3eb9d76",
+      "purl": "pkg:npm/flash",
+      "repositoryId": "repo-dvna",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/flash",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-3e3922dbfd55",
+      "purl": "pkg:npm/libxmljs",
+      "repositoryId": "repo-dvna",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/libxmljs",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-1d28377e76c7",
+      "purl": "pkg:npm/mathjs@3.10.1",
+      "repositoryId": "repo-dvna",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/mathjs",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-7c9307580930",
+      "purl": "pkg:npm/md5",
+      "repositoryId": "repo-dvna",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/md5",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-c52961d1d7f3",
+      "purl": "pkg:npm/morgan",
+      "repositoryId": "repo-dvna",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/morgan",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-e725cd277bc3",
+      "purl": "pkg:npm/mysql2",
+      "repositoryId": "repo-dvna",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/mysql2",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-b637c64fe875",
+      "purl": "pkg:npm/node-serialize@0.0.4",
+      "repositoryId": "repo-dvna",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/node-serialize",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-4e05036ced08",
+      "purl": "pkg:npm/passport",
+      "repositoryId": "repo-dvna",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/passport",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-2bbd4c84609e",
+      "purl": "pkg:npm/passport-local",
+      "repositoryId": "repo-dvna",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/passport-local",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-0ba4a84b1591",
+      "purl": "pkg:npm/sequelize",
+      "repositoryId": "repo-dvna",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/sequelize",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-017a01bf9f57",
+      "purl": "pkg:npm/winston",
+      "repositoryId": "repo-dvna",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/winston",
+      "scope": "runtime"
+    },
+    {
+      "occurrenceId": "occ-98ac12803521",
+      "purl": "pkg:npm/x-xss-protection",
+      "repositoryId": "repo-dvna",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/x-xss-protection",
+      "scope": "runtime"
+    }
+  ],
+  "findings": [
+    {
+      "findingId": "find-61edfdc8551a",
+      "vulnerabilityId": "GHSA-5wg4-74h6-q47v",
+      "aliases": [
+        "CVE-2020-7689"
+      ],
+      "purl": "pkg:npm/bcrypt",
+      "occurrenceIds": [
+        "occ-eee41277d7e3"
+      ],
+      "severity": "medium",
+      "cvssScore": 5.9,
+      "fixedVersion": "5.0.0",
+      "epss": {
+        "score": 0.00785,
+        "percentile": 0.55562
+      },
+      "cisaKev": false,
+      "provenance": {
+        "scanner": "grype",
+        "scannerVersion": "0.120.1",
+        "enrichedBy": [
+          "epss",
+          "cisa_kev",
+          "ghsa"
+        ]
+      }
+    },
+    {
+      "findingId": "find-18ebcfc0b1e9",
+      "vulnerabilityId": "GHSA-3w5v-p54c-f74x",
+      "aliases": [
+        "CVE-2017-1000228"
+      ],
+      "purl": "pkg:npm/ejs",
+      "occurrenceIds": [
+        "occ-19a58ff6b3fa"
+      ],
+      "severity": "critical",
+      "cvssScore": 9.8,
+      "fixedVersion": "2.5.5",
+      "epss": {
+        "score": 0.06328,
+        "percentile": 0.93596
+      },
+      "cisaKev": false,
+      "provenance": {
+        "scanner": "grype",
+        "scannerVersion": "0.120.1",
+        "enrichedBy": [
+          "epss",
+          "cisa_kev",
+          "ghsa"
+        ]
+      }
+    },
+    {
+      "findingId": "find-b20e224205c4",
+      "vulnerabilityId": "GHSA-6x77-rpqf-j6mw",
+      "aliases": [
+        "CVE-2017-1000189"
+      ],
+      "purl": "pkg:npm/ejs",
+      "occurrenceIds": [
+        "occ-19a58ff6b3fa"
+      ],
+      "severity": "high",
+      "cvssScore": 7.5,
+      "fixedVersion": "2.5.5",
+      "epss": {
+        "score": 0.02267,
+        "percentile": 0.8287
+      },
+      "cisaKev": false,
+      "provenance": {
+        "scanner": "grype",
+        "scannerVersion": "0.120.1",
+        "enrichedBy": [
+          "epss",
+          "cisa_kev",
+          "ghsa"
+        ]
+      }
+    },
+    {
+      "findingId": "find-13bdcb6e25fb",
+      "vulnerabilityId": "GHSA-ghr5-ch3p-vcr6",
+      "aliases": [
+        "CVE-2024-33883"
+      ],
+      "purl": "pkg:npm/ejs",
+      "occurrenceIds": [
+        "occ-19a58ff6b3fa"
+      ],
+      "severity": "medium",
+      "cvssScore": 6.9,
+      "fixedVersion": "3.1.10",
+      "epss": {
+        "score": 0.00614,
+        "percentile": 0.48688
+      },
+      "cisaKev": false,
+      "provenance": {
+        "scanner": "grype",
+        "scannerVersion": "0.120.1",
+        "enrichedBy": [
+          "epss",
+          "cisa_kev",
+          "ghsa"
+        ]
+      }
+    },
+    {
+      "findingId": "find-5424af04d1ea",
+      "vulnerabilityId": "GHSA-hwcf-pp87-7x6p",
+      "aliases": [
+        "CVE-2017-1000188"
+      ],
+      "purl": "pkg:npm/ejs",
+      "occurrenceIds": [
+        "occ-19a58ff6b3fa"
+      ],
+      "severity": "medium",
+      "cvssScore": 6.1,
+      "fixedVersion": "2.5.5",
+      "epss": {
+        "score": 0.01233,
+        "percentile": 0.68747
+      },
+      "cisaKev": false,
+      "provenance": {
+        "scanner": "grype",
+        "scannerVersion": "0.120.1",
+        "enrichedBy": [
+          "epss",
+          "cisa_kev",
+          "ghsa"
+        ]
+      }
+    },
+    {
+      "findingId": "find-794b6c29fa0f",
+      "vulnerabilityId": "GHSA-phwq-j96m-2c2q",
+      "aliases": [
+        "CVE-2022-29078"
+      ],
+      "purl": "pkg:npm/ejs",
+      "occurrenceIds": [
+        "occ-19a58ff6b3fa"
+      ],
+      "severity": "critical",
+      "cvssScore": 9.8,
+      "fixedVersion": "3.1.7",
+      "epss": {
+        "score": 0.32808,
+        "percentile": 0.98352
+      },
+      "cisaKev": false,
+      "provenance": {
+        "scanner": "grype",
+        "scannerVersion": "0.120.1",
+        "enrichedBy": [
+          "epss",
+          "cisa_kev",
+          "ghsa"
+        ]
+      }
+    },
+    {
+      "findingId": "find-f79900ae7632",
+      "vulnerabilityId": "GHSA-cm5g-3pgc-8rg4",
+      "aliases": [
+        "CVE-2024-10491"
+      ],
+      "purl": "pkg:npm/express",
+      "occurrenceIds": [
+        "occ-c84ed138dd7b"
+      ],
+      "severity": "medium",
+      "cvssScore": 4,
+      "fixedVersion": "4.0.0-rc1",
+      "epss": {
+        "score": 0.00441,
+        "percentile": 0.37227
+      },
+      "cisaKev": false,
+      "provenance": {
+        "scanner": "grype",
+        "scannerVersion": "0.120.1",
+        "enrichedBy": [
+          "epss",
+          "cisa_kev",
+          "ghsa"
+        ]
+      }
+    },
+    {
+      "findingId": "find-53f265fa6ecc",
+      "vulnerabilityId": "GHSA-gpvr-g6gh-9mc2",
+      "aliases": [
+        "CVE-2014-6393"
+      ],
+      "purl": "pkg:npm/express",
+      "occurrenceIds": [
+        "occ-c84ed138dd7b"
+      ],
+      "severity": "medium",
+      "cvssScore": 6.1,
+      "fixedVersion": "3.11.0",
+      "epss": {
+        "score": 0.01144,
+        "percentile": 0.66409
+      },
+      "cisaKev": false,
+      "provenance": {
+        "scanner": "grype",
+        "scannerVersion": "0.120.1",
+        "enrichedBy": [
+          "epss",
+          "cisa_kev",
+          "ghsa"
+        ]
+      }
+    },
+    {
+      "findingId": "find-d73ddf394bcd",
+      "vulnerabilityId": "GHSA-qw6h-vgh9-j6wx",
+      "aliases": [
+        "CVE-2024-43796"
+      ],
+      "purl": "pkg:npm/express",
+      "occurrenceIds": [
+        "occ-c84ed138dd7b"
+      ],
+      "severity": "low",
+      "cvssScore": 2.3,
+      "fixedVersion": "4.20.0",
+      "epss": {
+        "score": 0.00486,
+        "percentile": 0.40849
+      },
+      "cisaKev": false,
+      "provenance": {
+        "scanner": "grype",
+        "scannerVersion": "0.120.1",
+        "enrichedBy": [
+          "epss",
+          "cisa_kev",
+          "ghsa"
+        ]
+      }
+    },
+    {
+      "findingId": "find-0178f6bea73d",
+      "vulnerabilityId": "GHSA-rv95-896h-c2vc",
+      "aliases": [
+        "CVE-2024-29041"
+      ],
+      "purl": "pkg:npm/express",
+      "occurrenceIds": [
+        "occ-c84ed138dd7b"
+      ],
+      "severity": "medium",
+      "cvssScore": 6.1,
+      "fixedVersion": "4.19.2",
+      "epss": {
+        "score": 0.00786,
+        "percentile": 0.55586
+      },
+      "cisaKev": false,
+      "provenance": {
+        "scanner": "grype",
+        "scannerVersion": "0.120.1",
+        "enrichedBy": [
+          "epss",
+          "cisa_kev",
+          "ghsa"
+        ]
+      }
+    },
+    {
+      "findingId": "find-e7b2e19950fa",
+      "vulnerabilityId": "GHSA-9wcg-jrwf-8gg7",
+      "aliases": [
+        "CVE-2020-7699"
+      ],
+      "purl": "pkg:npm/express-fileupload",
+      "occurrenceIds": [
+        "occ-a5663092fe0c"
+      ],
+      "severity": "critical",
+      "cvssScore": 9.8,
+      "fixedVersion": "1.1.9",
+      "epss": {
+        "score": 0.04762,
+        "percentile": 0.91849
+      },
+      "cisaKev": false,
+      "provenance": {
+        "scanner": "grype",
+        "scannerVersion": "0.120.1",
+        "enrichedBy": [
+          "epss",
+          "cisa_kev",
+          "ghsa"
+        ]
+      }
+    },
+    {
+      "findingId": "find-082d54012e79",
+      "vulnerabilityId": "GHSA-q3w9-g74q-vp5f",
+      "purl": "pkg:npm/express-fileupload",
+      "occurrenceIds": [
+        "occ-a5663092fe0c"
+      ],
+      "severity": "low",
+      "fixedVersion": "1.1.6-alpha.6",
+      "cisaKev": false,
+      "provenance": {
+        "scanner": "grype",
+        "scannerVersion": "0.120.1",
+        "enrichedBy": [
+          "cisa_kev",
+          "ghsa"
+        ]
+      }
+    },
+    {
+      "findingId": "find-977d05a0f08a",
+      "vulnerabilityId": "GHSA-w4m6-x6c2-j5c9",
+      "aliases": [
+        "CVE-2022-27261"
+      ],
+      "purl": "pkg:npm/express-fileupload",
+      "occurrenceIds": [
+        "occ-a5663092fe0c"
+      ],
+      "severity": "high",
+      "cvssScore": 7.5,
+      "epss": {
+        "score": 0.01381,
+        "percentile": 0.71886
+      },
+      "cisaKev": false,
+      "provenance": {
+        "scanner": "grype",
+        "scannerVersion": "0.120.1",
+        "enrichedBy": [
+          "epss",
+          "cisa_kev",
+          "ghsa"
+        ]
+      }
+    },
+    {
+      "findingId": "find-3fc57cb51da1",
+      "vulnerabilityId": "GHSA-6433-x5p4-8jc7",
+      "aliases": [
+        "CVE-2024-34391"
+      ],
+      "purl": "pkg:npm/libxmljs",
+      "occurrenceIds": [
+        "occ-3e3922dbfd55"
+      ],
+      "severity": "critical",
+      "cvssScore": 9.2,
+      "epss": {
+        "score": 0.01103,
+        "percentile": 0.6542
+      },
+      "cisaKev": false,
+      "provenance": {
+        "scanner": "grype",
+        "scannerVersion": "0.120.1",
+        "enrichedBy": [
+          "epss",
+          "cisa_kev",
+          "ghsa"
+        ]
+      }
+    },
+    {
+      "findingId": "find-6820d17592d9",
+      "vulnerabilityId": "GHSA-773h-w45w-f2f9",
+      "aliases": [
+        "CVE-2022-21144"
+      ],
+      "purl": "pkg:npm/libxmljs",
+      "occurrenceIds": [
+        "occ-3e3922dbfd55"
+      ],
+      "severity": "high",
+      "cvssScore": 7.5,
+      "fixedVersion": "0.19.8",
+      "epss": {
+        "score": 0.01918,
+        "percentile": 0.79686
+      },
+      "cisaKev": false,
+      "provenance": {
+        "scanner": "grype",
+        "scannerVersion": "0.120.1",
+        "enrichedBy": [
+          "epss",
+          "cisa_kev",
+          "ghsa"
+        ]
+      }
+    },
+    {
+      "findingId": "find-0659d06b6694",
+      "vulnerabilityId": "GHSA-jv72-59wq-8rxm",
+      "aliases": [
+        "CVE-2025-25341"
+      ],
+      "purl": "pkg:npm/libxmljs",
+      "occurrenceIds": [
+        "occ-3e3922dbfd55"
+      ],
+      "severity": "high",
+      "cvssScore": 7.5,
+      "epss": {
+        "score": 0.00422,
+        "percentile": 0.35403
+      },
+      "cisaKev": false,
+      "provenance": {
+        "scanner": "grype",
+        "scannerVersion": "0.120.1",
+        "enrichedBy": [
+          "epss",
+          "cisa_kev",
+          "ghsa"
+        ]
+      }
+    },
+    {
+      "findingId": "find-fc277c42f6a0",
+      "vulnerabilityId": "GHSA-mg49-jqgw-gcj6",
+      "aliases": [
+        "CVE-2024-34392"
+      ],
+      "purl": "pkg:npm/libxmljs",
+      "occurrenceIds": [
+        "occ-3e3922dbfd55"
+      ],
+      "severity": "critical",
+      "cvssScore": 9.3,
+      "epss": {
+        "score": 0.01136,
+        "percentile": 0.66217
+      },
+      "cisaKev": false,
+      "provenance": {
+        "scanner": "grype",
+        "scannerVersion": "0.120.1",
+        "enrichedBy": [
+          "epss",
+          "cisa_kev",
+          "ghsa"
+        ]
+      }
+    },
+    {
+      "findingId": "find-b2e825236639",
+      "vulnerabilityId": "GHSA-pv8x-p9hq-j328",
+      "aliases": [
+        "CVE-2017-1001003"
+      ],
+      "purl": "pkg:npm/mathjs@3.10.1",
+      "occurrenceIds": [
+        "occ-1d28377e76c7"
+      ],
+      "severity": "critical",
+      "cvssScore": 9.8,
+      "fixedVersion": "3.17.0",
+      "epss": {
+        "score": 0.01689,
+        "percentile": 0.76842
+      },
+      "cisaKev": false,
+      "provenance": {
+        "scanner": "grype",
+        "scannerVersion": "0.120.1",
+        "enrichedBy": [
+          "epss",
+          "cisa_kev",
+          "ghsa"
+        ]
+      }
+    },
+    {
+      "findingId": "find-56e8bfac9606",
+      "vulnerabilityId": "GHSA-vx5c-87qx-cv6c",
+      "aliases": [
+        "CVE-2017-1001002"
+      ],
+      "purl": "pkg:npm/mathjs@3.10.1",
+      "occurrenceIds": [
+        "occ-1d28377e76c7"
+      ],
+      "severity": "critical",
+      "cvssScore": 9.8,
+      "fixedVersion": "3.17.0",
+      "epss": {
+        "score": 0.02357,
+        "percentile": 0.83601
+      },
+      "cisaKev": false,
+      "provenance": {
+        "scanner": "grype",
+        "scannerVersion": "0.120.1",
+        "enrichedBy": [
+          "epss",
+          "cisa_kev",
+          "ghsa"
+        ]
+      }
+    },
+    {
+      "findingId": "find-2a326a94a56d",
+      "vulnerabilityId": "GHSA-x2fc-mxcx-w4mf",
+      "aliases": [
+        "CVE-2020-7743"
+      ],
+      "purl": "pkg:npm/mathjs@3.10.1",
+      "occurrenceIds": [
+        "occ-1d28377e76c7"
+      ],
+      "severity": "high",
+      "cvssScore": 7.3,
+      "fixedVersion": "7.5.1",
+      "epss": {
+        "score": 0.03924,
+        "percentile": 0.9029
+      },
+      "cisaKev": false,
+      "provenance": {
+        "scanner": "grype",
+        "scannerVersion": "0.120.1",
+        "enrichedBy": [
+          "epss",
+          "cisa_kev",
+          "ghsa"
+        ]
+      }
+    },
+    {
+      "findingId": "find-1ab267104895",
+      "vulnerabilityId": "GHSA-9f6g-j8ch-79g4",
+      "aliases": [
+        "CVE-2026-87859"
+      ],
+      "purl": "pkg:npm/morgan",
+      "occurrenceIds": [
+        "occ-c52961d1d7f3"
+      ],
+      "severity": "medium",
+      "cvssScore": 5.3,
+      "fixedVersion": "1.12.1",
+      "epss": {
+        "score": 0.0041,
+        "percentile": 0.34089
+      },
+      "cisaKev": false,
+      "provenance": {
+        "scanner": "grype",
+        "scannerVersion": "0.120.1",
+        "enrichedBy": [
+          "epss",
+          "cisa_kev",
+          "ghsa"
+        ]
+      }
+    },
+    {
+      "findingId": "find-984648b19aae",
+      "vulnerabilityId": "GHSA-gwg9-rgvj-4h5j",
+      "aliases": [
+        "CVE-2019-5413"
+      ],
+      "purl": "pkg:npm/morgan",
+      "occurrenceIds": [
+        "occ-c52961d1d7f3"
+      ],
+      "severity": "critical",
+      "cvssScore": 9.8,
+      "fixedVersion": "1.9.1",
+      "epss": {
+        "score": 0.03399,
+        "percentile": 0.88763
+      },
+      "cisaKev": false,
+      "provenance": {
+        "scanner": "grype",
+        "scannerVersion": "0.120.1",
+        "enrichedBy": [
+          "epss",
+          "cisa_kev",
+          "ghsa"
+        ]
+      }
+    },
+    {
+      "findingId": "find-6adae3956e99",
+      "vulnerabilityId": "GHSA-jxfw-x594-9x9m",
+      "aliases": [
+        "CVE-2026-15603"
+      ],
+      "purl": "pkg:npm/morgan",
+      "occurrenceIds": [
+        "occ-c52961d1d7f3"
+      ],
+      "severity": "medium",
+      "cvssScore": 5.3,
+      "fixedVersion": "1.12.0",
+      "epss": {
+        "score": 0.00294,
+        "percentile": 0.20893
+      },
+      "cisaKev": false,
+      "provenance": {
+        "scanner": "grype",
+        "scannerVersion": "0.120.1",
+        "enrichedBy": [
+          "epss",
+          "cisa_kev",
+          "ghsa"
+        ]
+      }
+    },
+    {
+      "findingId": "find-2ab3026e57d6",
+      "vulnerabilityId": "GHSA-3f6p-5ww8-9rcr",
+      "purl": "pkg:npm/mysql2",
+      "occurrenceIds": [
+        "occ-e725cd277bc3"
+      ],
+      "severity": "high",
+      "cvssScore": 8.2,
+      "fixedVersion": "3.22.0",
+      "cisaKev": false,
+      "provenance": {
+        "scanner": "grype",
+        "scannerVersion": "0.120.1",
+        "enrichedBy": [
+          "cisa_kev",
+          "ghsa"
+        ]
+      }
+    },
+    {
+      "findingId": "find-26b5e5155b4b",
+      "vulnerabilityId": "GHSA-49j4-86m8-q2jw",
+      "aliases": [
+        "CVE-2024-21509"
+      ],
+      "purl": "pkg:npm/mysql2",
+      "occurrenceIds": [
+        "occ-e725cd277bc3"
+      ],
+      "severity": "medium",
+      "cvssScore": 6.9,
+      "fixedVersion": "3.9.4",
+      "epss": {
+        "score": 0.00955,
+        "percentile": 0.60963
+      },
+      "cisaKev": false,
+      "provenance": {
+        "scanner": "grype",
+        "scannerVersion": "0.120.1",
+        "enrichedBy": [
+          "epss",
+          "cisa_kev",
+          "ghsa"
+        ]
+      }
+    },
+    {
+      "findingId": "find-4e6487556528",
+      "vulnerabilityId": "GHSA-4rch-2fh8-94vw",
+      "aliases": [
+        "CVE-2024-21511"
+      ],
+      "purl": "pkg:npm/mysql2",
+      "occurrenceIds": [
+        "occ-e725cd277bc3"
+      ],
+      "severity": "critical",
+      "cvssScore": 9.8,
+      "fixedVersion": "3.9.7",
+      "epss": {
+        "score": 0.01034,
+        "percentile": 0.63489
+      },
+      "cisaKev": false,
+      "provenance": {
+        "scanner": "grype",
+        "scannerVersion": "0.120.1",
+        "enrichedBy": [
+          "epss",
+          "cisa_kev",
+          "ghsa"
+        ]
+      }
+    },
+    {
+      "findingId": "find-9807a9a7478d",
+      "vulnerabilityId": "GHSA-fpw7-j2hg-69v5",
+      "aliases": [
+        "CVE-2024-21508"
+      ],
+      "purl": "pkg:npm/mysql2",
+      "occurrenceIds": [
+        "occ-e725cd277bc3"
+      ],
+      "severity": "critical",
+      "cvssScore": 9.8,
+      "fixedVersion": "3.9.4",
+      "epss": {
+        "score": 0.02554,
+        "percentile": 0.84918
+      },
+      "cisaKev": false,
+      "provenance": {
+        "scanner": "grype",
+        "scannerVersion": "0.120.1",
+        "enrichedBy": [
+          "epss",
+          "cisa_kev",
+          "ghsa"
+        ]
+      }
+    },
+    {
+      "findingId": "find-5507fe7a9e2e",
+      "vulnerabilityId": "GHSA-mqr2-w7wj-jjgr",
+      "aliases": [
+        "CVE-2024-21507"
+      ],
+      "purl": "pkg:npm/mysql2",
+      "occurrenceIds": [
+        "occ-e725cd277bc3"
+      ],
+      "severity": "medium",
+      "cvssScore": 6.9,
+      "fixedVersion": "3.9.3",
+      "epss": {
+        "score": 0.00744,
+        "percentile": 0.54198
+      },
+      "cisaKev": false,
+      "provenance": {
+        "scanner": "grype",
+        "scannerVersion": "0.120.1",
+        "enrichedBy": [
+          "epss",
+          "cisa_kev",
+          "ghsa"
+        ]
+      }
+    },
+    {
+      "findingId": "find-4dff63ffc5c1",
+      "vulnerabilityId": "GHSA-pmh2-wpjm-fj45",
+      "aliases": [
+        "CVE-2024-21512"
+      ],
+      "purl": "pkg:npm/mysql2",
+      "occurrenceIds": [
+        "occ-e725cd277bc3"
+      ],
+      "severity": "high",
+      "cvssScore": 8.2,
+      "fixedVersion": "3.9.8",
+      "epss": {
+        "score": 0.03139,
+        "percentile": 0.87796
+      },
+      "cisaKev": false,
+      "provenance": {
+        "scanner": "grype",
+        "scannerVersion": "0.120.1",
+        "enrichedBy": [
+          "epss",
+          "cisa_kev",
+          "ghsa"
+        ]
+      }
+    },
+    {
+      "findingId": "find-4749f580c7de",
+      "vulnerabilityId": "GHSA-rgwj-5xj2-c3m3",
+      "purl": "pkg:npm/mysql2",
+      "occurrenceIds": [
+        "occ-e725cd277bc3"
+      ],
+      "severity": "medium",
+      "cvssScore": 5.9,
+      "fixedVersion": "3.23.1",
+      "cisaKev": false,
+      "provenance": {
+        "scanner": "grype",
+        "scannerVersion": "0.120.1",
+        "enrichedBy": [
+          "cisa_kev",
+          "ghsa"
+        ]
+      }
+    },
+    {
+      "findingId": "find-3cbfc75f01f8",
+      "vulnerabilityId": "GHSA-q4v7-4rhw-9hqm",
+      "aliases": [
+        "CVE-2017-5941"
+      ],
+      "purl": "pkg:npm/node-serialize@0.0.4",
+      "occurrenceIds": [
+        "occ-b637c64fe875"
+      ],
+      "severity": "critical",
+      "cvssScore": 9.8,
+      "epss": {
+        "score": 0.61025,
+        "percentile": 0.99155
+      },
+      "cisaKev": false,
+      "provenance": {
+        "scanner": "grype",
+        "scannerVersion": "0.120.1",
+        "enrichedBy": [
+          "epss",
+          "cisa_kev",
+          "ghsa"
+        ]
+      }
+    },
+    {
+      "findingId": "find-940d41412024",
+      "vulnerabilityId": "GHSA-v923-w3x8-wh69",
+      "aliases": [
+        "CVE-2022-25896"
+      ],
+      "purl": "pkg:npm/passport",
+      "occurrenceIds": [
+        "occ-4e05036ced08"
+      ],
+      "severity": "medium",
+      "cvssScore": 4.8,
+      "fixedVersion": "0.6.0",
+      "epss": {
+        "score": 0.0109,
+        "percentile": 0.65045
+      },
+      "cisaKev": false,
+      "provenance": {
+        "scanner": "grype",
+        "scannerVersion": "0.120.1",
+        "enrichedBy": [
+          "epss",
+          "cisa_kev",
+          "ghsa"
+        ]
+      }
+    },
+    {
+      "findingId": "find-6be28fec6eb7",
+      "vulnerabilityId": "GHSA-2598-2f59-rmhq",
+      "aliases": [
+        "CVE-2019-10749"
+      ],
+      "purl": "pkg:npm/sequelize",
+      "occurrenceIds": [
+        "occ-0ba4a84b1591"
+      ],
+      "severity": "critical",
+      "cvssScore": 9.8,
+      "fixedVersion": "3.35.1",
+      "epss": {
+        "score": 0.01228,
+        "percentile": 0.68609
+      },
+      "cisaKev": false,
+      "provenance": {
+        "scanner": "grype",
+        "scannerVersion": "0.120.1",
+        "enrichedBy": [
+          "epss",
+          "cisa_kev",
+          "ghsa"
+        ]
+      }
+    },
+    {
+      "findingId": "find-cec36fdfd5d9",
+      "vulnerabilityId": "GHSA-2v7q-2xqx-f4q5",
+      "aliases": [
+        "CVE-2016-10553"
+      ],
+      "purl": "pkg:npm/sequelize",
+      "occurrenceIds": [
+        "occ-0ba4a84b1591"
+      ],
+      "severity": "high",
+      "cvssScore": 9.8,
+      "fixedVersion": "3.0.0",
+      "epss": {
+        "score": 0.01265,
+        "percentile": 0.69469
+      },
+      "cisaKev": false,
+      "provenance": {
+        "scanner": "grype",
+        "scannerVersion": "0.120.1",
+        "enrichedBy": [
+          "epss",
+          "cisa_kev",
+          "ghsa"
+        ]
+      }
+    },
+    {
+      "findingId": "find-6392efe7c03a",
+      "vulnerabilityId": "GHSA-8c25-f3mj-v6h8",
+      "aliases": [
+        "CVE-2023-22580"
+      ],
+      "purl": "pkg:npm/sequelize",
+      "occurrenceIds": [
+        "occ-0ba4a84b1591"
+      ],
+      "severity": "medium",
+      "cvssScore": 5.3,
+      "fixedVersion": "6.28.1",
+      "epss": {
+        "score": 0.00582,
+        "percentile": 0.47053
+      },
+      "cisaKev": false,
+      "provenance": {
+        "scanner": "grype",
+        "scannerVersion": "0.120.1",
+        "enrichedBy": [
+          "epss",
+          "cisa_kev",
+          "ghsa"
+        ]
+      }
+    },
+    {
+      "findingId": "find-63db82af3ce3",
+      "vulnerabilityId": "GHSA-98pq-pmw9-4gpm",
+      "aliases": [
+        "CVE-2016-10550"
+      ],
+      "purl": "pkg:npm/sequelize",
+      "occurrenceIds": [
+        "occ-0ba4a84b1591"
+      ],
+      "severity": "high",
+      "cvssScore": 9.8,
+      "fixedVersion": "3.17.0",
+      "epss": {
+        "score": 0.01884,
+        "percentile": 0.79297
+      },
+      "cisaKev": false,
+      "provenance": {
+        "scanner": "grype",
+        "scannerVersion": "0.120.1",
+        "enrichedBy": [
+          "epss",
+          "cisa_kev",
+          "ghsa"
+        ]
+      }
+    },
+    {
+      "findingId": "find-abc848c6d565",
+      "vulnerabilityId": "GHSA-9c2p-jw8p-f84v",
+      "aliases": [
+        "CVE-2016-10556"
+      ],
+      "purl": "pkg:npm/sequelize",
+      "occurrenceIds": [
+        "occ-0ba4a84b1591"
+      ],
+      "severity": "high",
+      "cvssScore": 7.5,
+      "fixedVersion": "3.20.0",
+      "epss": {
+        "score": 0.01322,
+        "percentile": 0.7062
+      },
+      "cisaKev": false,
+      "provenance": {
+        "scanner": "grype",
+        "scannerVersion": "0.120.1",
+        "enrichedBy": [
+          "epss",
+          "cisa_kev",
+          "ghsa"
+        ]
+      }
+    },
+    {
+      "findingId": "find-657b7c6451fb",
+      "vulnerabilityId": "GHSA-f598-mfpv-gmfx",
+      "aliases": [
+        "CVE-2023-22578"
+      ],
+      "purl": "pkg:npm/sequelize",
+      "occurrenceIds": [
+        "occ-0ba4a84b1591"
+      ],
+      "severity": "critical",
+      "cvssScore": 10,
+      "fixedVersion": "6.29.0",
+      "epss": {
+        "score": 0.00831,
+        "percentile": 0.57105
+      },
+      "cisaKev": false,
+      "provenance": {
+        "scanner": "grype",
+        "scannerVersion": "0.120.1",
+        "enrichedBy": [
+          "epss",
+          "cisa_kev",
+          "ghsa"
+        ]
+      }
+    },
+    {
+      "findingId": "find-d82ede587593",
+      "vulnerabilityId": "GHSA-fw4p-36j9-rrj3",
+      "purl": "pkg:npm/sequelize",
+      "occurrenceIds": [
+        "occ-0ba4a84b1591"
+      ],
+      "severity": "medium",
+      "fixedVersion": "4.44.4",
+      "cisaKev": false,
+      "provenance": {
+        "scanner": "grype",
+        "scannerVersion": "0.120.1",
+        "enrichedBy": [
+          "cisa_kev",
+          "ghsa"
+        ]
+      }
+    },
+    {
+      "findingId": "find-860df807076e",
+      "vulnerabilityId": "GHSA-j9xp-92vc-559j",
+      "aliases": [
+        "CVE-2019-10748"
+      ],
+      "purl": "pkg:npm/sequelize",
+      "occurrenceIds": [
+        "occ-0ba4a84b1591"
+      ],
+      "severity": "critical",
+      "cvssScore": 9.8,
+      "fixedVersion": "3.35.1",
+      "epss": {
+        "score": 0.01315,
+        "percentile": 0.70491
+      },
+      "cisaKev": false,
+      "provenance": {
+        "scanner": "grype",
+        "scannerVersion": "0.120.1",
+        "enrichedBy": [
+          "epss",
+          "cisa_kev",
+          "ghsa"
+        ]
+      }
+    },
+    {
+      "findingId": "find-a8199b2ee084",
+      "vulnerabilityId": "GHSA-m9jw-237r-gvfv",
+      "aliases": [
+        "CVE-2019-10752"
+      ],
+      "purl": "pkg:npm/sequelize",
+      "occurrenceIds": [
+        "occ-0ba4a84b1591"
+      ],
+      "severity": "critical",
+      "cvssScore": 9.8,
+      "fixedVersion": "4.44.3",
+      "epss": {
+        "score": 0.01462,
+        "percentile": 0.73373
+      },
+      "cisaKev": false,
+      "provenance": {
+        "scanner": "grype",
+        "scannerVersion": "0.120.1",
+        "enrichedBy": [
+          "epss",
+          "cisa_kev",
+          "ghsa"
+        ]
+      }
+    },
+    {
+      "findingId": "find-ea9e94ee7db3",
+      "vulnerabilityId": "GHSA-v8fg-2rw7-q452",
+      "aliases": [
+        "CVE-2026-69240"
+      ],
+      "purl": "pkg:npm/sequelize",
+      "occurrenceIds": [
+        "occ-0ba4a84b1591"
+      ],
+      "severity": "critical",
+      "cvssScore": 9.8,
+      "fixedVersion": "6.37.4",
+      "epss": {
+        "score": 0.0054,
+        "percentile": 0.44585
+      },
+      "cisaKev": false,
+      "provenance": {
+        "scanner": "grype",
+        "scannerVersion": "0.120.1",
+        "enrichedBy": [
+          "epss",
+          "cisa_kev",
+          "ghsa"
+        ]
+      }
+    },
+    {
+      "findingId": "find-a9b8b333f19d",
+      "vulnerabilityId": "GHSA-vqfx-gj96-3w95",
+      "aliases": [
+        "CVE-2023-22579"
+      ],
+      "purl": "pkg:npm/sequelize",
+      "occurrenceIds": [
+        "occ-0ba4a84b1591"
+      ],
+      "severity": "critical",
+      "cvssScore": 9.9,
+      "fixedVersion": "6.28.1",
+      "epss": {
+        "score": 0.00809,
+        "percentile": 0.56383
+      },
+      "cisaKev": false,
+      "provenance": {
+        "scanner": "grype",
+        "scannerVersion": "0.120.1",
+        "enrichedBy": [
+          "epss",
+          "cisa_kev",
+          "ghsa"
+        ]
+      }
+    },
+    {
+      "findingId": "find-25b761f80e13",
+      "vulnerabilityId": "GHSA-wfp9-vr4j-f49j",
+      "purl": "pkg:npm/sequelize",
+      "occurrenceIds": [
+        "occ-0ba4a84b1591"
+      ],
+      "severity": "high",
+      "fixedVersion": "4.12.0",
+      "cisaKev": false,
+      "provenance": {
+        "scanner": "grype",
+        "scannerVersion": "0.120.1",
+        "enrichedBy": [
+          "cisa_kev",
+          "ghsa"
+        ]
+      }
+    },
+    {
+      "findingId": "find-5a91ee2b1957",
+      "vulnerabilityId": "GHSA-wrh9-cjv3-2hpw",
+      "aliases": [
+        "CVE-2023-25813"
+      ],
+      "purl": "pkg:npm/sequelize",
+      "occurrenceIds": [
+        "occ-0ba4a84b1591"
+      ],
+      "severity": "critical",
+      "cvssScore": 10,
+      "fixedVersion": "6.19.1",
+      "epss": {
+        "score": 0.01444,
+        "percentile": 0.73013
+      },
+      "cisaKev": false,
+      "provenance": {
+        "scanner": "grype",
+        "scannerVersion": "0.120.1",
+        "enrichedBy": [
+          "epss",
+          "cisa_kev",
+          "ghsa"
+        ]
+      }
+    },
+    {
+      "findingId": "find-91b7a3b8217e",
+      "vulnerabilityId": "GHSA-x2jc-pwfj-h9p3",
+      "aliases": [
+        "CVE-2016-10554"
+      ],
+      "purl": "pkg:npm/sequelize",
+      "occurrenceIds": [
+        "occ-0ba4a84b1591"
+      ],
+      "severity": "medium",
+      "cvssScore": 9.8,
+      "fixedVersion": "1.7.0",
+      "epss": {
+        "score": 0.01884,
+        "percentile": 0.79297
+      },
+      "cisaKev": false,
+      "provenance": {
+        "scanner": "grype",
+        "scannerVersion": "0.120.1",
+        "enrichedBy": [
+          "epss",
+          "cisa_kev",
+          "ghsa"
+        ]
+      }
+    },
+    {
+      "findingId": "find-18f79de12bb3",
+      "vulnerabilityId": "GHSA-xqg8-cv3h-xppv",
+      "aliases": [
+        "CVE-2015-1369"
+      ],
+      "purl": "pkg:npm/sequelize",
+      "occurrenceIds": [
+        "occ-0ba4a84b1591"
+      ],
+      "severity": "high",
+      "cvssScore": 7.5,
+      "fixedVersion": "2.0.0-rc8",
+      "epss": {
+        "score": 0.02115,
+        "percentile": 0.81656
+      },
+      "cisaKev": false,
+      "provenance": {
+        "scanner": "grype",
+        "scannerVersion": "0.120.1",
+        "enrichedBy": [
+          "epss",
+          "cisa_kev",
+          "ghsa"
+        ]
+      }
+    }
+  ]
+}

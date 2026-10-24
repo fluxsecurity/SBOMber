@@ -1,0 +1,7 @@
+{
+  "scripts/audit_inputs.sh": "90f7f250cbedee333f8086408c3acde0fc7645f55caab259808dcf346b2485bd",
+  "scripts/test_audit_inputs.py": "1e23c2be7fd271cf35c1604ba7f34c6774699f33f30a7dba013fec7be89393cb",
+  "testdata/audit/appsecco-dvna/CASE.md": "242576d72d8c2f99bb063f106301e795efdc7381dc38b7ac4dac2f870b04f750",
+  "testdata/audit/gitaalekhyapaul-vuln-app/CASE.md": "316e2fdb8f13c9fed88db29655113c90300830397abd8bb5a2a6f834909f2322",
+  "testdata/audit/kirill89-prototype-pollution-explained/CASE.md": "2b005c52410eff0f14902ea8b2dfada416c0af17467a8c57c4674a6c088d97c6"
+}

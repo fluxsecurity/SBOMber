@@ -14,3 +14,6 @@ bin/
 # Pinned tools (scripts/install-tools.sh) and demo output (scripts/demo.sh)
 /.tools/
 /demo-out/
+
+# Audit case checkouts (scripts/audit_inputs.sh)
+/audit-work/

@@ -1,0 +1,813 @@
+{
+  "schemaVersion": "1.1.0",
+  "scanId": "scan-20231108T121149Z-8279ac77",
+  "summary": {
+    "findingsProcessed": 47,
+    "byMethod": {
+      "advisory_text": 1,
+      "patch_reference": 3,
+      "unknown": 43
+    },
+    "unknownCount": 43
+  },
+  "results": [
+    {
+      "findingId": "find-61edfdc8551a",
+      "vulnerabilityId": "GHSA-5wg4-74h6-q47v",
+      "purl": "pkg:npm/bcrypt",
+      "method": "unknown",
+      "confidence": "none",
+      "candidateSymbols": [],
+      "notes": "Not an npm package URL; only npm is supported in Sprint 4. purl \"pkg:npm/bcrypt\" has no version"
+    },
+    {
+      "findingId": "find-18ebcfc0b1e9",
+      "vulnerabilityId": "GHSA-3w5v-p54c-f74x",
+      "purl": "pkg:npm/ejs",
+      "method": "unknown",
+      "confidence": "none",
+      "candidateSymbols": [],
+      "notes": "Not an npm package URL; only npm is supported in Sprint 4. purl \"pkg:npm/ejs\" has no version"
+    },
+    {
+      "findingId": "find-b20e224205c4",
+      "vulnerabilityId": "GHSA-6x77-rpqf-j6mw",
+      "purl": "pkg:npm/ejs",
+      "method": "unknown",
+      "confidence": "none",
+      "candidateSymbols": [],
+      "notes": "Not an npm package URL; only npm is supported in Sprint 4. purl \"pkg:npm/ejs\" has no version"
+    },
+    {
+      "findingId": "find-13bdcb6e25fb",
+      "vulnerabilityId": "GHSA-ghr5-ch3p-vcr6",
+      "purl": "pkg:npm/ejs",
+      "method": "unknown",
+      "confidence": "none",
+      "candidateSymbols": [],
+      "notes": "Not an npm package URL; only npm is supported in Sprint 4. purl \"pkg:npm/ejs\" has no version"
+    },
+    {
+      "findingId": "find-5424af04d1ea",
+      "vulnerabilityId": "GHSA-hwcf-pp87-7x6p",
+      "purl": "pkg:npm/ejs",
+      "method": "unknown",
+      "confidence": "none",
+      "candidateSymbols": [],
+      "notes": "Not an npm package URL; only npm is supported in Sprint 4. purl \"pkg:npm/ejs\" has no version"
+    },
+    {
+      "findingId": "find-794b6c29fa0f",
+      "vulnerabilityId": "GHSA-phwq-j96m-2c2q",
+      "purl": "pkg:npm/ejs",
+      "method": "unknown",
+      "confidence": "none",
+      "candidateSymbols": [],
+      "notes": "Not an npm package URL; only npm is supported in Sprint 4. purl \"pkg:npm/ejs\" has no version"
+    },
+    {
+      "findingId": "find-f79900ae7632",
+      "vulnerabilityId": "GHSA-cm5g-3pgc-8rg4",
+      "purl": "pkg:npm/express",
+      "method": "unknown",
+      "confidence": "none",
+      "candidateSymbols": [],
+      "notes": "Not an npm package URL; only npm is supported in Sprint 4. purl \"pkg:npm/express\" has no version"
+    },
+    {
+      "findingId": "find-53f265fa6ecc",
+      "vulnerabilityId": "GHSA-gpvr-g6gh-9mc2",
+      "purl": "pkg:npm/express",
+      "method": "unknown",
+      "confidence": "none",
+      "candidateSymbols": [],
+      "notes": "Not an npm package URL; only npm is supported in Sprint 4. purl \"pkg:npm/express\" has no version"
+    },
+    {
+      "findingId": "find-d73ddf394bcd",
+      "vulnerabilityId": "GHSA-qw6h-vgh9-j6wx",
+      "purl": "pkg:npm/express",
+      "method": "unknown",
+      "confidence": "none",
+      "candidateSymbols": [],
+      "notes": "Not an npm package URL; only npm is supported in Sprint 4. purl \"pkg:npm/express\" has no version"
+    },
+    {
+      "findingId": "find-0178f6bea73d",
+      "vulnerabilityId": "GHSA-rv95-896h-c2vc",
+      "purl": "pkg:npm/express",
+      "method": "unknown",
+      "confidence": "none",
+      "candidateSymbols": [],
+      "notes": "Not an npm package URL; only npm is supported in Sprint 4. purl \"pkg:npm/express\" has no version"
+    },
+    {
+      "findingId": "find-e7b2e19950fa",
+      "vulnerabilityId": "GHSA-9wcg-jrwf-8gg7",
+      "purl": "pkg:npm/express-fileupload",
+      "method": "unknown",
+      "confidence": "none",
+      "candidateSymbols": [],
+      "notes": "Not an npm package URL; only npm is supported in Sprint 4. purl \"pkg:npm/express-fileupload\" has no version"
+    },
+    {
+      "findingId": "find-082d54012e79",
+      "vulnerabilityId": "GHSA-q3w9-g74q-vp5f",
+      "purl": "pkg:npm/express-fileupload",
+      "method": "unknown",
+      "confidence": "none",
+      "candidateSymbols": [],
+      "notes": "Not an npm package URL; only npm is supported in Sprint 4. purl \"pkg:npm/express-fileupload\" has no version"
+    },
+    {
+      "findingId": "find-977d05a0f08a",
+      "vulnerabilityId": "GHSA-w4m6-x6c2-j5c9",
+      "purl": "pkg:npm/express-fileupload",
+      "method": "unknown",
+      "confidence": "none",
+      "candidateSymbols": [],
+      "notes": "Not an npm package URL; only npm is supported in Sprint 4. purl \"pkg:npm/express-fileupload\" has no version"
+    },
+    {
+      "findingId": "find-3fc57cb51da1",
+      "vulnerabilityId": "GHSA-6433-x5p4-8jc7",
+      "purl": "pkg:npm/libxmljs",
+      "method": "unknown",
+      "confidence": "none",
+      "candidateSymbols": [],
+      "notes": "Not an npm package URL; only npm is supported in Sprint 4. purl \"pkg:npm/libxmljs\" has no version"
+    },
+    {
+      "findingId": "find-6820d17592d9",
+      "vulnerabilityId": "GHSA-773h-w45w-f2f9",
+      "purl": "pkg:npm/libxmljs",
+      "method": "unknown",
+      "confidence": "none",
+      "candidateSymbols": [],
+      "notes": "Not an npm package URL; only npm is supported in Sprint 4. purl \"pkg:npm/libxmljs\" has no version"
+    },
+    {
+      "findingId": "find-0659d06b6694",
+      "vulnerabilityId": "GHSA-jv72-59wq-8rxm",
+      "purl": "pkg:npm/libxmljs",
+      "method": "unknown",
+      "confidence": "none",
+      "candidateSymbols": [],
+      "notes": "Not an npm package URL; only npm is supported in Sprint 4. purl \"pkg:npm/libxmljs\" has no version"
+    },
+    {
+      "findingId": "find-fc277c42f6a0",
+      "vulnerabilityId": "GHSA-mg49-jqgw-gcj6",
+      "purl": "pkg:npm/libxmljs",
+      "method": "unknown",
+      "confidence": "none",
+      "candidateSymbols": [],
+      "notes": "Not an npm package URL; only npm is supported in Sprint 4. purl \"pkg:npm/libxmljs\" has no version"
+    },
+    {
+      "findingId": "find-b2e825236639",
+      "vulnerabilityId": "GHSA-pv8x-p9hq-j328",
+      "purl": "pkg:npm/mathjs@3.10.1",
+      "method": "patch_reference",
+      "confidence": "high",
+      "candidateSymbols": [
+        {
+          "symbol": "compileObjectNode",
+          "modulePath": "lib/expression/node/ObjectNode.js",
+          "changeKind": "modified",
+          "note": "nested in factory; visibility unknown: compileObjectNode is not defined in lib/expression/node/ObjectNode.js in the published package",
+          "evidence": [
+            "github:josdejong/mathjs@a60f3c8d9dd714244aed7a5569c3dccaa3a4e761:lib/expression/node/ObjectNode.js",
+            "github:josdejong/mathjs@8d2d48d81b3c233fb64eb2ec1d7a9e1cf6a55a90:lib/expression/node/ObjectNode.js"
+          ],
+          "visibility": "unknown"
+        }
+      ],
+      "vulnerableVersion": "3.10.1",
+      "fixedVersion": "3.17.0",
+      "provenance": {
+        "advisorySource": "osv",
+        "advisoryUrl": "https://osv.dev/vulnerability/GHSA-pv8x-p9hq-j328",
+        "patchCommit": "a60f3c8d9dd714244aed7a5569c3dccaa3a4e761",
+        "patchUrl": "https://github.com/josdejong/mathjs/commit/a60f3c8d9dd714244aed7a5569c3dccaa3a4e761",
+        "artefacts": [
+          {
+            "id": "advisory",
+            "kind": "advisory",
+            "url": "https://api.osv.dev/v1/vulns/GHSA-pv8x-p9hq-j328",
+            "sha256": "8ab79fcba7755ca9f48ff334b3b183bd35ef4ed06e646c12cade5ec597b1d179",
+            "sizeBytes": 1451,
+            "verified": true,
+            "executed": false,
+            "modified": "2023-11-08T03:58:48.069147Z"
+          },
+          {
+            "id": "github:josdejong/mathjs@a60f3c8d9dd714244aed7a5569c3dccaa3a4e761:lib/expression/node/ObjectNode.js",
+            "kind": "source_file",
+            "url": "https://github.com/josdejong/mathjs/blob/a60f3c8d9dd714244aed7a5569c3dccaa3a4e761/lib/expression/node/ObjectNode.js",
+            "sha256": "fe9daac22f2af9f9f85ce5312c7caebdff22f5e499b2712c5d36b4b6d1321b9e",
+            "sizeBytes": 5924,
+            "verified": true,
+            "executed": false,
+            "repo": "josdejong/mathjs",
+            "commit": "a60f3c8d9dd714244aed7a5569c3dccaa3a4e761",
+            "path": "lib/expression/node/ObjectNode.js",
+            "gitBlobSha": "ffb6125e62fea117fe275d0805aa84fdd600ba46"
+          },
+          {
+            "id": "github:josdejong/mathjs@8d2d48d81b3c233fb64eb2ec1d7a9e1cf6a55a90:lib/expression/node/ObjectNode.js",
+            "kind": "source_file",
+            "url": "https://github.com/josdejong/mathjs/blob/8d2d48d81b3c233fb64eb2ec1d7a9e1cf6a55a90/lib/expression/node/ObjectNode.js",
+            "sha256": "1c757a992e8cb22f739a889594e582000cd9cc1e1241e0edfb3b3826ccdbf84e",
+            "sizeBytes": 5671,
+            "verified": true,
+            "executed": false,
+            "repo": "josdejong/mathjs",
+            "commit": "8d2d48d81b3c233fb64eb2ec1d7a9e1cf6a55a90",
+            "path": "lib/expression/node/ObjectNode.js",
+            "gitBlobSha": "22681adae8b0f9d8dadd7d0786e740b17e8a1b66"
+          },
+          {
+            "id": "npm:mathjs@3.10.1",
+            "kind": "tarball",
+            "url": "https://registry.npmjs.org/mathjs/-/mathjs-3.10.1.tgz",
+            "sha256": "91a42edce3f00745f65a04b19c29bcfcac7e6288dd36208eeb3e30283aee4c70",
+            "sizeBytes": 1194514,
+            "verified": true,
+            "executed": false,
+            "version": "3.10.1",
+            "integrity": "sha512-tLE2qiW/m6Y1J0sVlUe3WdjLCoO3gxcZ9xPn7hdW0xBitHFilLDj4tmISJLZJBUL8xsB2HBGB3Y+lruipAppbA=="
+          }
+        ],
+        "tagChecks": [
+          {
+            "version": "3.17.0",
+            "role": "fixed",
+            "repo": "josdejong/mathjs",
+            "fixCommits": [
+              "a60f3c8d9dd714244aed7a5569c3dccaa3a4e761"
+            ],
+            "tag": "v3.17.0",
+            "tagCommit": "ad4932fce19337a7cd8688f504760a4d5dc6feaf",
+            "registryGitHead": "ad4932fce19337a7cd8688f504760a4d5dc6feaf",
+            "releaseCommit": "ad4932fce19337a7cd8688f504760a4d5dc6feaf",
+            "releaseSource": "registry_git_head",
+            "byAncestry": [
+              "a60f3c8d9dd714244aed7a5569c3dccaa3a4e761"
+            ],
+            "basis": "ancestry",
+            "result": "verified",
+            "note": "Tag v3.17.0 and npm's gitHead agree."
+          },
+          {
+            "version": "3.10.1",
+            "role": "vulnerable",
+            "repo": "josdejong/mathjs",
+            "fixCommits": [
+              "a60f3c8d9dd714244aed7a5569c3dccaa3a4e761"
+            ],
+            "tag": "v3.10.1",
+            "tagCommit": "691d555a7249d7a2b592010a4fa0394b07b757a4",
+            "registryGitHead": "691d555a7249d7a2b592010a4fa0394b07b757a4",
+            "releaseCommit": "691d555a7249d7a2b592010a4fa0394b07b757a4",
+            "releaseSource": "registry_git_head",
+            "basis": "ancestry",
+            "result": "verified",
+            "note": "Tag v3.10.1 and npm's gitHead agree."
+          }
+        ]
+      },
+      "excludedChanges": [
+        "docs",
+        "tests"
+      ],
+      "notes": "Selected patch_reference with 1 candidate symbol(s). advisory_metadata: empty. Visibility read from npm:mathjs@3.10.1: 0 of 1 candidate(s) public or completely resolved."
+    },
+    {
+      "findingId": "find-56e8bfac9606",
+      "vulnerabilityId": "GHSA-vx5c-87qx-cv6c",
+      "purl": "pkg:npm/mathjs@3.10.1",
+      "method": "patch_reference",
+      "confidence": "high",
+      "candidateSymbols": [
+        {
+          "symbol": "parseAssignment",
+          "modulePath": "lib/expression/parse.js",
+          "changeKind": "modified",
+          "note": "nested in factory; visibility internal via factory (incomplete): lib/expression/parse.js: export name is a string at line 1547; lib/expression/parse.js is loaded by lib/expression/Parser.js, which is not the entry module (only one hop is resolved); lib/expression/parse.js is loaded by lib/expression/function/compile.js, which is not the entry module (only one hop is resolved); lib/expression/parse.js is loaded by lib/expression/function/eval.js, which is not the entry module (only one hop is resolved); lib/expression/parse.js is loaded by lib/expression/function/parse.js, which is not the entry module (only one hop is resolved); lib/expression/parse.js is loaded by lib/expression/index.js, which is not the entry module (only one hop is resolved); lib/expression/parse.js is loaded by lib/function/algebra/derivative.js, which is not the entry module (only one hop is resolved); lib/expression/parse.js is loaded by lib/function/algebra/simplify.js, which is not the entry module (only one hop is resolved); index.js: export default is the result of a call at line 38; another copy of parseAssignment is in dist/math.js; dist/math.min.js is not fully parsed",
+          "evidence": [
+            "github:josdejong/mathjs@8d2d48d81b3c233fb64eb2ec1d7a9e1cf6a55a90:lib/expression/parse.js",
+            "github:josdejong/mathjs@4a9378789a50cd2b1f53803f3eb2a82fbc1c9ee4:lib/expression/parse.js"
+          ],
+          "visibility": "internal",
+          "exposedVia": [
+            "factory"
+          ],
+          "exposedViaSource": "export_resolution",
+          "exposedViaComplete": false
+        }
+      ],
+      "vulnerableVersion": "3.10.1",
+      "fixedVersion": "3.17.0",
+      "provenance": {
+        "advisorySource": "osv",
+        "advisoryUrl": "https://osv.dev/vulnerability/GHSA-vx5c-87qx-cv6c",
+        "patchCommit": "8d2d48d81b3c233fb64eb2ec1d7a9e1cf6a55a90",
+        "patchUrl": "https://github.com/josdejong/mathjs/commit/8d2d48d81b3c233fb64eb2ec1d7a9e1cf6a55a90",
+        "artefacts": [
+          {
+            "id": "advisory",
+            "kind": "advisory",
+            "url": "https://api.osv.dev/v1/vulns/GHSA-vx5c-87qx-cv6c",
+            "sha256": "bd4e417a6f3b0638fb9b4faa339bdad3d212a811456df462479ce2de9b54c5c2",
+            "sizeBytes": 1470,
+            "verified": true,
+            "executed": false,
+            "modified": "2023-11-08T03:58:48.008756Z"
+          },
+          {
+            "id": "github:josdejong/mathjs@8d2d48d81b3c233fb64eb2ec1d7a9e1cf6a55a90:lib/expression/parse.js",
+            "kind": "source_file",
+            "url": "https://github.com/josdejong/mathjs/blob/8d2d48d81b3c233fb64eb2ec1d7a9e1cf6a55a90/lib/expression/parse.js",
+            "sha256": "d6776ae0c3f07a1f0e874465d7c9a292f2468d881ad615ba12fb8da8dd4b9c93",
+            "sizeBytes": 37756,
+            "verified": true,
+            "executed": false,
+            "repo": "josdejong/mathjs",
+            "commit": "8d2d48d81b3c233fb64eb2ec1d7a9e1cf6a55a90",
+            "path": "lib/expression/parse.js",
+            "gitBlobSha": "f956429a45eb0bb55f0c2f9733556d56de57b036"
+          },
+          {
+            "id": "github:josdejong/mathjs@4a9378789a50cd2b1f53803f3eb2a82fbc1c9ee4:lib/expression/parse.js",
+            "kind": "source_file",
+            "url": "https://github.com/josdejong/mathjs/blob/4a9378789a50cd2b1f53803f3eb2a82fbc1c9ee4/lib/expression/parse.js",
+            "sha256": "6b081333e8dd80a3c42c618fdafc4c4d3ddd9e84e51582350b34eabe1b51a790",
+            "sizeBytes": 37726,
+            "verified": true,
+            "executed": false,
+            "repo": "josdejong/mathjs",
+            "commit": "4a9378789a50cd2b1f53803f3eb2a82fbc1c9ee4",
+            "path": "lib/expression/parse.js",
+            "gitBlobSha": "aef74f96e0ef1cb34ff3beb15e6f82c55e291445"
+          },
+          {
+            "id": "npm:mathjs@3.10.1",
+            "kind": "tarball",
+            "url": "https://registry.npmjs.org/mathjs/-/mathjs-3.10.1.tgz",
+            "sha256": "91a42edce3f00745f65a04b19c29bcfcac7e6288dd36208eeb3e30283aee4c70",
+            "sizeBytes": 1194514,
+            "verified": true,
+            "executed": false,
+            "version": "3.10.1",
+            "integrity": "sha512-tLE2qiW/m6Y1J0sVlUe3WdjLCoO3gxcZ9xPn7hdW0xBitHFilLDj4tmISJLZJBUL8xsB2HBGB3Y+lruipAppbA=="
+          }
+        ],
+        "tagChecks": [
+          {
+            "version": "3.17.0",
+            "role": "fixed",
+            "repo": "josdejong/mathjs",
+            "fixCommits": [
+              "8d2d48d81b3c233fb64eb2ec1d7a9e1cf6a55a90"
+            ],
+            "tag": "v3.17.0",
+            "tagCommit": "ad4932fce19337a7cd8688f504760a4d5dc6feaf",
+            "registryGitHead": "ad4932fce19337a7cd8688f504760a4d5dc6feaf",
+            "releaseCommit": "ad4932fce19337a7cd8688f504760a4d5dc6feaf",
+            "releaseSource": "registry_git_head",
+            "byAncestry": [
+              "8d2d48d81b3c233fb64eb2ec1d7a9e1cf6a55a90"
+            ],
+            "basis": "ancestry",
+            "result": "verified",
+            "note": "Tag v3.17.0 and npm's gitHead agree."
+          },
+          {
+            "version": "3.10.1",
+            "role": "vulnerable",
+            "repo": "josdejong/mathjs",
+            "fixCommits": [
+              "8d2d48d81b3c233fb64eb2ec1d7a9e1cf6a55a90"
+            ],
+            "tag": "v3.10.1",
+            "tagCommit": "691d555a7249d7a2b592010a4fa0394b07b757a4",
+            "registryGitHead": "691d555a7249d7a2b592010a4fa0394b07b757a4",
+            "releaseCommit": "691d555a7249d7a2b592010a4fa0394b07b757a4",
+            "releaseSource": "registry_git_head",
+            "basis": "ancestry",
+            "result": "verified",
+            "note": "Tag v3.10.1 and npm's gitHead agree."
+          }
+        ]
+      },
+      "excludedChanges": [
+        "build",
+        "docs",
+        "tests"
+      ],
+      "notes": "Selected patch_reference with 1 candidate symbol(s). advisory_metadata: empty. Visibility read from npm:mathjs@3.10.1: 0 of 1 candidate(s) public or completely resolved."
+    },
+    {
+      "findingId": "find-2a326a94a56d",
+      "vulnerabilityId": "GHSA-x2fc-mxcx-w4mf",
+      "purl": "pkg:npm/mathjs@3.10.1",
+      "method": "patch_reference",
+      "confidence": "high",
+      "candidateSymbols": [
+        {
+          "symbol": "deepExtend",
+          "modulePath": "src/utils/object.js",
+          "changeKind": "modified",
+          "note": "exported as deepExtend; visibility unknown: src/utils/object.js is not in the published vulnerable package",
+          "evidence": [
+            "github:josdejong/mathjs@ecb80514e80bce4e6ec7e71db8ff79954f07c57e:src/utils/object.js",
+            "github:josdejong/mathjs@a2858e266ad2baf7a71730629b76e10881a15330:src/utils/object.js"
+          ],
+          "visibility": "unknown"
+        }
+      ],
+      "vulnerableVersion": "3.10.1",
+      "fixedVersion": "7.5.1",
+      "provenance": {
+        "advisorySource": "osv",
+        "advisoryUrl": "https://osv.dev/vulnerability/GHSA-x2fc-mxcx-w4mf",
+        "patchCommit": "ecb80514e80bce4e6ec7e71db8ff79954f07c57e",
+        "patchUrl": "https://github.com/josdejong/mathjs/commit/ecb80514e80bce4e6ec7e71db8ff79954f07c57e",
+        "artefacts": [
+          {
+            "id": "advisory",
+            "kind": "advisory",
+            "url": "https://api.osv.dev/v1/vulns/GHSA-x2fc-mxcx-w4mf",
+            "sha256": "4578803fe8e0877996c181441cb79acf5d23a8955e9f4569cd80feaaaf49f58c",
+            "sizeBytes": 1689,
+            "verified": true,
+            "executed": false,
+            "modified": "2025-01-14T08:57:11.940336Z"
+          },
+          {
+            "id": "github:josdejong/mathjs@ecb80514e80bce4e6ec7e71db8ff79954f07c57e:src/utils/object.js",
+            "kind": "source_file",
+            "url": "https://github.com/josdejong/mathjs/blob/ecb80514e80bce4e6ec7e71db8ff79954f07c57e/src/utils/object.js",
+            "sha256": "c872303574db0ee951035d569d12000e4767f54e1fb030f42a2037bcfc47c580",
+            "sizeBytes": 9465,
+            "verified": true,
+            "executed": false,
+            "repo": "josdejong/mathjs",
+            "commit": "ecb80514e80bce4e6ec7e71db8ff79954f07c57e",
+            "path": "src/utils/object.js",
+            "gitBlobSha": "9c3abf7a5fb4fb09a994ffe11015034bba1d55b2"
+          },
+          {
+            "id": "github:josdejong/mathjs@a2858e266ad2baf7a71730629b76e10881a15330:src/utils/object.js",
+            "kind": "source_file",
+            "url": "https://github.com/josdejong/mathjs/blob/a2858e266ad2baf7a71730629b76e10881a15330/src/utils/object.js",
+            "sha256": "86cddf8f1de36d7d77e539d7fc0faf4b86e7ea7d080f3ab33c88ff4e5d59c036",
+            "sizeBytes": 9262,
+            "verified": true,
+            "executed": false,
+            "repo": "josdejong/mathjs",
+            "commit": "a2858e266ad2baf7a71730629b76e10881a15330",
+            "path": "src/utils/object.js",
+            "gitBlobSha": "46cf4b3c7ec3134f42a3759be42d7a4b775ffa89"
+          },
+          {
+            "id": "npm:mathjs@3.10.1",
+            "kind": "tarball",
+            "url": "https://registry.npmjs.org/mathjs/-/mathjs-3.10.1.tgz",
+            "sha256": "91a42edce3f00745f65a04b19c29bcfcac7e6288dd36208eeb3e30283aee4c70",
+            "sizeBytes": 1194514,
+            "verified": true,
+            "executed": false,
+            "version": "3.10.1",
+            "integrity": "sha512-tLE2qiW/m6Y1J0sVlUe3WdjLCoO3gxcZ9xPn7hdW0xBitHFilLDj4tmISJLZJBUL8xsB2HBGB3Y+lruipAppbA=="
+          }
+        ],
+        "tagChecks": [
+          {
+            "version": "7.5.1",
+            "role": "fixed",
+            "repo": "josdejong/mathjs",
+            "fixCommits": [
+              "ecb80514e80bce4e6ec7e71db8ff79954f07c57e"
+            ],
+            "tag": "v7.5.1",
+            "tagCommit": "2594c69910042bb24270d1dfffbbeb71b3b6ce8f",
+            "registryGitHead": "2594c69910042bb24270d1dfffbbeb71b3b6ce8f",
+            "releaseCommit": "2594c69910042bb24270d1dfffbbeb71b3b6ce8f",
+            "releaseSource": "registry_git_head",
+            "byAncestry": [
+              "ecb80514e80bce4e6ec7e71db8ff79954f07c57e"
+            ],
+            "basis": "ancestry",
+            "result": "verified",
+            "note": "Tag v7.5.1 and npm's gitHead agree."
+          },
+          {
+            "version": "3.10.1",
+            "role": "vulnerable",
+            "repo": "josdejong/mathjs",
+            "fixCommits": [
+              "ecb80514e80bce4e6ec7e71db8ff79954f07c57e"
+            ],
+            "tag": "v3.10.1",
+            "tagCommit": "691d555a7249d7a2b592010a4fa0394b07b757a4",
+            "registryGitHead": "691d555a7249d7a2b592010a4fa0394b07b757a4",
+            "releaseCommit": "691d555a7249d7a2b592010a4fa0394b07b757a4",
+            "releaseSource": "registry_git_head",
+            "basis": "ancestry",
+            "result": "verified",
+            "note": "Tag v3.10.1 and npm's gitHead agree."
+          }
+        ]
+      },
+      "excludedChanges": [
+        "docs",
+        "tests"
+      ],
+      "notes": "Selected patch_reference with 1 candidate symbol(s). advisory_metadata: empty. Visibility read from npm:mathjs@3.10.1: 0 of 1 candidate(s) public or completely resolved."
+    },
+    {
+      "findingId": "find-1ab267104895",
+      "vulnerabilityId": "GHSA-9f6g-j8ch-79g4",
+      "purl": "pkg:npm/morgan",
+      "method": "unknown",
+      "confidence": "none",
+      "candidateSymbols": [],
+      "notes": "Not an npm package URL; only npm is supported in Sprint 4. purl \"pkg:npm/morgan\" has no version"
+    },
+    {
+      "findingId": "find-984648b19aae",
+      "vulnerabilityId": "GHSA-gwg9-rgvj-4h5j",
+      "purl": "pkg:npm/morgan",
+      "method": "unknown",
+      "confidence": "none",
+      "candidateSymbols": [],
+      "notes": "Not an npm package URL; only npm is supported in Sprint 4. purl \"pkg:npm/morgan\" has no version"
+    },
+    {
+      "findingId": "find-6adae3956e99",
+      "vulnerabilityId": "GHSA-jxfw-x594-9x9m",
+      "purl": "pkg:npm/morgan",
+      "method": "unknown",
+      "confidence": "none",
+      "candidateSymbols": [],
+      "notes": "Not an npm package URL; only npm is supported in Sprint 4. purl \"pkg:npm/morgan\" has no version"
+    },
+    {
+      "findingId": "find-2ab3026e57d6",
+      "vulnerabilityId": "GHSA-3f6p-5ww8-9rcr",
+      "purl": "pkg:npm/mysql2",
+      "method": "unknown",
+      "confidence": "none",
+      "candidateSymbols": [],
+      "notes": "Not an npm package URL; only npm is supported in Sprint 4. purl \"pkg:npm/mysql2\" has no version"
+    },
+    {
+      "findingId": "find-26b5e5155b4b",
+      "vulnerabilityId": "GHSA-49j4-86m8-q2jw",
+      "purl": "pkg:npm/mysql2",
+      "method": "unknown",
+      "confidence": "none",
+      "candidateSymbols": [],
+      "notes": "Not an npm package URL; only npm is supported in Sprint 4. purl \"pkg:npm/mysql2\" has no version"
+    },
+    {
+      "findingId": "find-4e6487556528",
+      "vulnerabilityId": "GHSA-4rch-2fh8-94vw",
+      "purl": "pkg:npm/mysql2",
+      "method": "unknown",
+      "confidence": "none",
+      "candidateSymbols": [],
+      "notes": "Not an npm package URL; only npm is supported in Sprint 4. purl \"pkg:npm/mysql2\" has no version"
+    },
+    {
+      "findingId": "find-9807a9a7478d",
+      "vulnerabilityId": "GHSA-fpw7-j2hg-69v5",
+      "purl": "pkg:npm/mysql2",
+      "method": "unknown",
+      "confidence": "none",
+      "candidateSymbols": [],
+      "notes": "Not an npm package URL; only npm is supported in Sprint 4. purl \"pkg:npm/mysql2\" has no version"
+    },
+    {
+      "findingId": "find-5507fe7a9e2e",
+      "vulnerabilityId": "GHSA-mqr2-w7wj-jjgr",
+      "purl": "pkg:npm/mysql2",
+      "method": "unknown",
+      "confidence": "none",
+      "candidateSymbols": [],
+      "notes": "Not an npm package URL; only npm is supported in Sprint 4. purl \"pkg:npm/mysql2\" has no version"
+    },
+    {
+      "findingId": "find-4dff63ffc5c1",
+      "vulnerabilityId": "GHSA-pmh2-wpjm-fj45",
+      "purl": "pkg:npm/mysql2",
+      "method": "unknown",
+      "confidence": "none",
+      "candidateSymbols": [],
+      "notes": "Not an npm package URL; only npm is supported in Sprint 4. purl \"pkg:npm/mysql2\" has no version"
+    },
+    {
+      "findingId": "find-4749f580c7de",
+      "vulnerabilityId": "GHSA-rgwj-5xj2-c3m3",
+      "purl": "pkg:npm/mysql2",
+      "method": "unknown",
+      "confidence": "none",
+      "candidateSymbols": [],
+      "notes": "Not an npm package URL; only npm is supported in Sprint 4. purl \"pkg:npm/mysql2\" has no version"
+    },
+    {
+      "findingId": "find-3cbfc75f01f8",
+      "vulnerabilityId": "GHSA-q4v7-4rhw-9hqm",
+      "purl": "pkg:npm/node-serialize@0.0.4",
+      "method": "advisory_text",
+      "confidence": "medium",
+      "candidateSymbols": [
+        {
+          "symbol": "expression",
+          "note": "named in advisory text",
+          "evidence": [
+            "advisory"
+          ]
+        },
+        {
+          "symbol": "invoked",
+          "note": "named in advisory text",
+          "evidence": [
+            "advisory"
+          ]
+        },
+        {
+          "symbol": "unserialize",
+          "note": "named in advisory text",
+          "evidence": [
+            "advisory"
+          ]
+        }
+      ],
+      "vulnerableVersion": "0.0.4",
+      "provenance": {
+        "advisorySource": "osv",
+        "advisoryUrl": "https://osv.dev/vulnerability/GHSA-q4v7-4rhw-9hqm",
+        "artefacts": [
+          {
+            "id": "advisory",
+            "kind": "advisory",
+            "url": "https://api.osv.dev/v1/vulns/GHSA-q4v7-4rhw-9hqm",
+            "sha256": "3877c9e60ba6e827f2b801d71bd5abc51a408277a3c5a9ba362f5f2cef103029",
+            "sizeBytes": 2341,
+            "verified": true,
+            "executed": false,
+            "modified": "2023-11-08T03:59:23.528224Z"
+          }
+        ]
+      },
+      "notes": "Selected advisory_text with 3 candidate symbol(s). advisory_metadata: empty. patch_reference: empty."
+    },
+    {
+      "findingId": "find-940d41412024",
+      "vulnerabilityId": "GHSA-v923-w3x8-wh69",
+      "purl": "pkg:npm/passport",
+      "method": "unknown",
+      "confidence": "none",
+      "candidateSymbols": [],
+      "notes": "Not an npm package URL; only npm is supported in Sprint 4. purl \"pkg:npm/passport\" has no version"
+    },
+    {
+      "findingId": "find-6be28fec6eb7",
+      "vulnerabilityId": "GHSA-2598-2f59-rmhq",
+      "purl": "pkg:npm/sequelize",
+      "method": "unknown",
+      "confidence": "none",
+      "candidateSymbols": [],
+      "notes": "Not an npm package URL; only npm is supported in Sprint 4. purl \"pkg:npm/sequelize\" has no version"
+    },
+    {
+      "findingId": "find-cec36fdfd5d9",
+      "vulnerabilityId": "GHSA-2v7q-2xqx-f4q5",
+      "purl": "pkg:npm/sequelize",
+      "method": "unknown",
+      "confidence": "none",
+      "candidateSymbols": [],
+      "notes": "Not an npm package URL; only npm is supported in Sprint 4. purl \"pkg:npm/sequelize\" has no version"
+    },
+    {
+      "findingId": "find-6392efe7c03a",
+      "vulnerabilityId": "GHSA-8c25-f3mj-v6h8",
+      "purl": "pkg:npm/sequelize",
+      "method": "unknown",
+      "confidence": "none",
+      "candidateSymbols": [],
+      "notes": "Not an npm package URL; only npm is supported in Sprint 4. purl \"pkg:npm/sequelize\" has no version"
+    },
+    {
+      "findingId": "find-63db82af3ce3",
+      "vulnerabilityId": "GHSA-98pq-pmw9-4gpm",
+      "purl": "pkg:npm/sequelize",
+      "method": "unknown",
+      "confidence": "none",
+      "candidateSymbols": [],
+      "notes": "Not an npm package URL; only npm is supported in Sprint 4. purl \"pkg:npm/sequelize\" has no version"
+    },
+    {
+      "findingId": "find-abc848c6d565",
+      "vulnerabilityId": "GHSA-9c2p-jw8p-f84v",
+      "purl": "pkg:npm/sequelize",
+      "method": "unknown",
+      "confidence": "none",
+      "candidateSymbols": [],
+      "notes": "Not an npm package URL; only npm is supported in Sprint 4. purl \"pkg:npm/sequelize\" has no version"
+    },
+    {
+      "findingId": "find-657b7c6451fb",
+      "vulnerabilityId": "GHSA-f598-mfpv-gmfx",
+      "purl": "pkg:npm/sequelize",
+      "method": "unknown",
+      "confidence": "none",
+      "candidateSymbols": [],
+      "notes": "Not an npm package URL; only npm is supported in Sprint 4. purl \"pkg:npm/sequelize\" has no version"
+    },
+    {
+      "findingId": "find-d82ede587593",
+      "vulnerabilityId": "GHSA-fw4p-36j9-rrj3",
+      "purl": "pkg:npm/sequelize",
+      "method": "unknown",
+      "confidence": "none",
+      "candidateSymbols": [],
+      "notes": "Not an npm package URL; only npm is supported in Sprint 4. purl \"pkg:npm/sequelize\" has no version"
+    },
+    {
+      "findingId": "find-860df807076e",
+      "vulnerabilityId": "GHSA-j9xp-92vc-559j",
+      "purl": "pkg:npm/sequelize",
+      "method": "unknown",
+      "confidence": "none",
+      "candidateSymbols": [],
+      "notes": "Not an npm package URL; only npm is supported in Sprint 4. purl \"pkg:npm/sequelize\" has no version"
+    },
+    {
+      "findingId": "find-a8199b2ee084",
+      "vulnerabilityId": "GHSA-m9jw-237r-gvfv",
+      "purl": "pkg:npm/sequelize",
+      "method": "unknown",
+      "confidence": "none",
+      "candidateSymbols": [],
+      "notes": "Not an npm package URL; only npm is supported in Sprint 4. purl \"pkg:npm/sequelize\" has no version"
+    },
+    {
+      "findingId": "find-ea9e94ee7db3",
+      "vulnerabilityId": "GHSA-v8fg-2rw7-q452",
+      "purl": "pkg:npm/sequelize",
+      "method": "unknown",
+      "confidence": "none",
+      "candidateSymbols": [],
+      "notes": "Not an npm package URL; only npm is supported in Sprint 4. purl \"pkg:npm/sequelize\" has no version"
+    },
+    {
+      "findingId": "find-a9b8b333f19d",
+      "vulnerabilityId": "GHSA-vqfx-gj96-3w95",
+      "purl": "pkg:npm/sequelize",
+      "method": "unknown",
+      "confidence": "none",
+      "candidateSymbols": [],
+      "notes": "Not an npm package URL; only npm is supported in Sprint 4. purl \"pkg:npm/sequelize\" has no version"
+    },
+    {
+      "findingId": "find-25b761f80e13",
+      "vulnerabilityId": "GHSA-wfp9-vr4j-f49j",
+      "purl": "pkg:npm/sequelize",
+      "method": "unknown",
+      "confidence": "none",
+      "candidateSymbols": [],
+      "notes": "Not an npm package URL; only npm is supported in Sprint 4. purl \"pkg:npm/sequelize\" has no version"
+    },
+    {
+      "findingId": "find-5a91ee2b1957",
+      "vulnerabilityId": "GHSA-wrh9-cjv3-2hpw",
+      "purl": "pkg:npm/sequelize",
+      "method": "unknown",
+      "confidence": "none",
+      "candidateSymbols": [],
+      "notes": "Not an npm package URL; only npm is supported in Sprint 4. purl \"pkg:npm/sequelize\" has no version"
+    },
+    {
+      "findingId": "find-91b7a3b8217e",
+      "vulnerabilityId": "GHSA-x2jc-pwfj-h9p3",
+      "purl": "pkg:npm/sequelize",
+      "method": "unknown",
+      "confidence": "none",
+      "candidateSymbols": [],
+      "notes": "Not an npm package URL; only npm is supported in Sprint 4. purl \"pkg:npm/sequelize\" has no version"
+    },
+    {
+      "findingId": "find-18f79de12bb3",
+      "vulnerabilityId": "GHSA-xqg8-cv3h-xppv",
+      "purl": "pkg:npm/sequelize",
+      "method": "unknown",
+      "confidence": "none",
+      "candidateSymbols": [],
+      "notes": "Not an npm package URL; only npm is supported in Sprint 4. purl \"pkg:npm/sequelize\" has no version"
+    }
+  ]
+}

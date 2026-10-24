@@ -1,0 +1,160 @@
+case:            appsecco-dvna
+repository:      https://github.com/appsecco/dvna.git
+commit:          9ba473add536f66ac9007966acb2a775dd31277a
+sbomber commit:  a0d0d7b447f265a04f98e90cb83c198d5c6e8eae (uncommitted source changes: 0)
+SOURCE_DATE_EPOCH=1699445509
+date run:        2026-10-22T09:56:33Z
+--- grype db status
+Path:      /root/.cache/grype/db/6/vulnerability.db
+Schema:    v6.1.10
+Built:     2026-10-22T06:29:52Z
+From:      https://grype.anchore.io/databases/v6/vulnerability-db_v6.1.10_2026-10-21T00:30:22Z_1792650592.tar.zst?checksum=sha256%3A05c82f2ff6a19f149279374a8355cbcee55ea036d160fc2382f3b3d4de41006c
+Status:    valid
+--- commands
++ bin/sbomber scan --include-vulnerabilities --no-color --canonical-scan audit-work/appsecco-dvna/out/canonical-scan.json -- audit-work/appsecco-dvna/dvna
+Selected SBOM export format: cyclonedx
+Vulnerability scanning: enabled (Grype)
+Found 1 repository under /root/SBOMber/audit-work/appsecco-dvna/dvna
+- dvna  /root/SBOMber/audit-work/appsecco-dvna/dvna  [npm]
+  output folder: /root/.sbomber/reports/dvna_9a983a37
+  exported SBOM: sbom-cyclonedx.xml
+  vulnerabilities found: 47
+    - critical: 18
+    - high: 12
+    - medium: 15
+    - low: 2
+  HTML report: vulnerability-report.html
+  [malware] skipped: malware scanning is not yet implemented
+  packages:  19 direct
+  direct dependencies (package.json): 19 (runtime: 19)
+  sample packages: bcrypt, csurf, ejs, express, express-fileupload
+
+Scan complete: 1 repositories scanned
+Wrote /root/SBOMber/audit-work/appsecco-dvna/out/canonical-scan.json
+  exit 0
++ bin/sbomber usage --allow-partial --canonical-scan audit-work/appsecco-dvna/out/canonical-scan.json --out audit-work/appsecco-dvna/out/usage-graph.json
+Warning: canonical scan status is "partial"; packages it skipped are not in this usage graph either
+Usage analysis for scan-20231108T121149Z-8279ac77: partial
+  Repositories      1
+  Source files      14 found, 12 parsed, 0 with errors, 0 failed, 2 skipped
+  Package imports   18 resolved, 0 type-only, 1 unresolved
+  Package calls     23 resolved, 2 unresolved
+  Reachability      15 entry points, 8 calls reachable, 17 unknown
+  Not imported/analysed  excluded_by_limits 5
+Wrote /root/SBOMber/audit-work/appsecco-dvna/out/usage-graph.json
+  exit 0
++ bin/sbomber localise --canonical-scan audit-work/appsecco-dvna/out/canonical-scan.json --out audit-work/appsecco-dvna/out/localisation.json
+Localising 47 finding(s) from scan-20231108T121149Z-8279ac77
+  find-61edfdc8551a GHSA-5wg4-74h6-q47v pkg:npm/bcrypt                       unknown            none   
+  find-18ebcfc0b1e9 GHSA-3w5v-p54c-f74x pkg:npm/ejs                          unknown            none   
+  find-b20e224205c4 GHSA-6x77-rpqf-j6mw pkg:npm/ejs                          unknown            none   
+  find-13bdcb6e25fb GHSA-ghr5-ch3p-vcr6 pkg:npm/ejs                          unknown            none   
+  find-5424af04d1ea GHSA-hwcf-pp87-7x6p pkg:npm/ejs                          unknown            none   
+  find-794b6c29fa0f GHSA-phwq-j96m-2c2q pkg:npm/ejs                          unknown            none   
+  find-f79900ae7632 GHSA-cm5g-3pgc-8rg4 pkg:npm/express                      unknown            none   
+  find-53f265fa6ecc GHSA-gpvr-g6gh-9mc2 pkg:npm/express                      unknown            none   
+  find-d73ddf394bcd GHSA-qw6h-vgh9-j6wx pkg:npm/express                      unknown            none   
+  find-0178f6bea73d GHSA-rv95-896h-c2vc pkg:npm/express                      unknown            none   
+  find-e7b2e19950fa GHSA-9wcg-jrwf-8gg7 pkg:npm/express-fileupload           unknown            none   
+  find-082d54012e79 GHSA-q3w9-g74q-vp5f pkg:npm/express-fileupload           unknown            none   
+  find-977d05a0f08a GHSA-w4m6-x6c2-j5c9 pkg:npm/express-fileupload           unknown            none   
+  find-3fc57cb51da1 GHSA-6433-x5p4-8jc7 pkg:npm/libxmljs                     unknown            none   
+  find-6820d17592d9 GHSA-773h-w45w-f2f9 pkg:npm/libxmljs                     unknown            none   
+  find-0659d06b6694 GHSA-jv72-59wq-8rxm pkg:npm/libxmljs                     unknown            none   
+  find-fc277c42f6a0 GHSA-mg49-jqgw-gcj6 pkg:npm/libxmljs                     unknown            none   
+  find-b2e825236639 GHSA-pv8x-p9hq-j328 pkg:npm/mathjs@3.10.1                patch_reference    high   compileObjectNode
+  find-56e8bfac9606 GHSA-vx5c-87qx-cv6c pkg:npm/mathjs@3.10.1                patch_reference    high   parseAssignment
+  find-2a326a94a56d GHSA-x2fc-mxcx-w4mf pkg:npm/mathjs@3.10.1                patch_reference    high   deepExtend
+  find-1ab267104895 GHSA-9f6g-j8ch-79g4 pkg:npm/morgan                       unknown            none   
+  find-984648b19aae GHSA-gwg9-rgvj-4h5j pkg:npm/morgan                       unknown            none   
+  find-6adae3956e99 GHSA-jxfw-x594-9x9m pkg:npm/morgan                       unknown            none   
+  find-2ab3026e57d6 GHSA-3f6p-5ww8-9rcr pkg:npm/mysql2                       unknown            none   
+  find-26b5e5155b4b GHSA-49j4-86m8-q2jw pkg:npm/mysql2                       unknown            none   
+  find-4e6487556528 GHSA-4rch-2fh8-94vw pkg:npm/mysql2                       unknown            none   
+  find-9807a9a7478d GHSA-fpw7-j2hg-69v5 pkg:npm/mysql2                       unknown            none   
+  find-5507fe7a9e2e GHSA-mqr2-w7wj-jjgr pkg:npm/mysql2                       unknown            none   
+  find-4dff63ffc5c1 GHSA-pmh2-wpjm-fj45 pkg:npm/mysql2                       unknown            none   
+  find-4749f580c7de GHSA-rgwj-5xj2-c3m3 pkg:npm/mysql2                       unknown            none   
+  find-3cbfc75f01f8 GHSA-q4v7-4rhw-9hqm pkg:npm/node-serialize@0.0.4         advisory_text      medium expression, invoked, unserialize
+  find-940d41412024 GHSA-v923-w3x8-wh69 pkg:npm/passport                     unknown            none   
+  find-6be28fec6eb7 GHSA-2598-2f59-rmhq pkg:npm/sequelize                    unknown            none   
+  find-cec36fdfd5d9 GHSA-2v7q-2xqx-f4q5 pkg:npm/sequelize                    unknown            none   
+  find-6392efe7c03a GHSA-8c25-f3mj-v6h8 pkg:npm/sequelize                    unknown            none   
+  find-63db82af3ce3 GHSA-98pq-pmw9-4gpm pkg:npm/sequelize                    unknown            none   
+  find-abc848c6d565 GHSA-9c2p-jw8p-f84v pkg:npm/sequelize                    unknown            none   
+  find-657b7c6451fb GHSA-f598-mfpv-gmfx pkg:npm/sequelize                    unknown            none   
+  find-d82ede587593 GHSA-fw4p-36j9-rrj3 pkg:npm/sequelize                    unknown            none   
+  find-860df807076e GHSA-j9xp-92vc-559j pkg:npm/sequelize                    unknown            none   
+  find-a8199b2ee084 GHSA-m9jw-237r-gvfv pkg:npm/sequelize                    unknown            none   
+  find-ea9e94ee7db3 GHSA-v8fg-2rw7-q452 pkg:npm/sequelize                    unknown            none   
+  find-a9b8b333f19d GHSA-vqfx-gj96-3w95 pkg:npm/sequelize                    unknown            none   
+  find-25b761f80e13 GHSA-wfp9-vr4j-f49j pkg:npm/sequelize                    unknown            none   
+  find-5a91ee2b1957 GHSA-wrh9-cjv3-2hpw pkg:npm/sequelize                    unknown            none   
+  find-91b7a3b8217e GHSA-x2jc-pwfj-h9p3 pkg:npm/sequelize                    unknown            none   
+  find-18f79de12bb3 GHSA-xqg8-cv3h-xppv pkg:npm/sequelize                    unknown            none   
+Processed 47, unknown 43, by method map[advisory_text:1 patch_reference:3 unknown:43]
+Wrote /root/SBOMber/audit-work/appsecco-dvna/out/localisation.json
+  exit 0
++ python3 contracts/validate.py --dir audit-work/appsecco-dvna/out
+missing VEX decision record: /root/SBOMber/audit-work/appsecco-dvna/out/vex-decision.sample.json
+  exit 2
+--- validation rerun (script fix: --vex-decision was missing)
++ python3 contracts/validate.py --dir audit-work/appsecco-dvna/out --vex-decision contracts/fixtures/vex-decision.json
+missing: decision-results
+  exit 2
+--- decide + validation rerun (validate.py needs decision-results)
++ bin/sbomber decide --canonical-scan audit-work/appsecco-dvna/out/canonical-scan.json --usage-graph audit-work/appsecco-dvna/out/usage-graph.json --localisation audit-work/appsecco-dvna/out/localisation.json --out audit-work/appsecco-dvna/out/decision-results.json
+Decided 47 finding(s) for scan-20231108T121149Z-8279ac77
+  find-61edfdc8551a GHSA-5wg4-74h6-q47v insufficient information                         low    insufficient_information
+  find-18ebcfc0b1e9 GHSA-3w5v-p54c-f74x insufficient information                         low    insufficient_information
+  find-b20e224205c4 GHSA-6x77-rpqf-j6mw insufficient information                         low    insufficient_information
+  find-13bdcb6e25fb GHSA-ghr5-ch3p-vcr6 insufficient information                         low    insufficient_information
+  find-5424af04d1ea GHSA-hwcf-pp87-7x6p insufficient information                         low    insufficient_information
+  find-794b6c29fa0f GHSA-phwq-j96m-2c2q insufficient information                         low    insufficient_information
+  find-f79900ae7632 GHSA-cm5g-3pgc-8rg4 insufficient information                         low    insufficient_information
+  find-53f265fa6ecc GHSA-gpvr-g6gh-9mc2 insufficient information                         low    insufficient_information
+  find-d73ddf394bcd GHSA-qw6h-vgh9-j6wx insufficient information                         low    insufficient_information
+  find-0178f6bea73d GHSA-rv95-896h-c2vc insufficient information                         low    insufficient_information
+  find-e7b2e19950fa GHSA-9wcg-jrwf-8gg7 insufficient information                         low    insufficient_information
+  find-082d54012e79 GHSA-q3w9-g74q-vp5f insufficient information                         low    insufficient_information
+  find-977d05a0f08a GHSA-w4m6-x6c2-j5c9 insufficient information                         low    insufficient_information
+  find-3fc57cb51da1 GHSA-6433-x5p4-8jc7 insufficient information                         low    insufficient_information
+  find-6820d17592d9 GHSA-773h-w45w-f2f9 insufficient information                         low    insufficient_information
+  find-0659d06b6694 GHSA-jv72-59wq-8rxm insufficient information                         low    insufficient_information
+  find-fc277c42f6a0 GHSA-mg49-jqgw-gcj6 insufficient information                         low    insufficient_information
+  find-b2e825236639 GHSA-pv8x-p9hq-j328 insufficient information                         medium insufficient_information
+  find-56e8bfac9606 GHSA-vx5c-87qx-cv6c insufficient information                         medium insufficient_information
+  find-2a326a94a56d GHSA-x2fc-mxcx-w4mf insufficient information                         medium insufficient_information
+  find-1ab267104895 GHSA-9f6g-j8ch-79g4 insufficient information                         low    insufficient_information
+  find-984648b19aae GHSA-gwg9-rgvj-4h5j insufficient information                         low    insufficient_information
+  find-6adae3956e99 GHSA-jxfw-x594-9x9m insufficient information                         low    insufficient_information
+  find-2ab3026e57d6 GHSA-3f6p-5ww8-9rcr insufficient information                         low    insufficient_information
+  find-26b5e5155b4b GHSA-49j4-86m8-q2jw insufficient information                         low    insufficient_information
+  find-4e6487556528 GHSA-4rch-2fh8-94vw insufficient information                         low    insufficient_information
+  find-9807a9a7478d GHSA-fpw7-j2hg-69v5 insufficient information                         low    insufficient_information
+  find-5507fe7a9e2e GHSA-mqr2-w7wj-jjgr insufficient information                         low    insufficient_information
+  find-4dff63ffc5c1 GHSA-pmh2-wpjm-fj45 insufficient information                         low    insufficient_information
+  find-4749f580c7de GHSA-rgwj-5xj2-c3m3 insufficient information                         low    insufficient_information
+  find-3cbfc75f01f8 GHSA-q4v7-4rhw-9hqm usage detected                                   medium act_now
+  find-940d41412024 GHSA-v923-w3x8-wh69 insufficient information                         low    insufficient_information
+  find-6be28fec6eb7 GHSA-2598-2f59-rmhq insufficient information                         low    insufficient_information
+  find-cec36fdfd5d9 GHSA-2v7q-2xqx-f4q5 insufficient information                         low    insufficient_information
+  find-6392efe7c03a GHSA-8c25-f3mj-v6h8 insufficient information                         low    insufficient_information
+  find-63db82af3ce3 GHSA-98pq-pmw9-4gpm insufficient information                         low    insufficient_information
+  find-abc848c6d565 GHSA-9c2p-jw8p-f84v insufficient information                         low    insufficient_information
+  find-657b7c6451fb GHSA-f598-mfpv-gmfx insufficient information                         low    insufficient_information
+  find-d82ede587593 GHSA-fw4p-36j9-rrj3 insufficient information                         low    insufficient_information
+  find-860df807076e GHSA-j9xp-92vc-559j insufficient information                         low    insufficient_information
+  find-a8199b2ee084 GHSA-m9jw-237r-gvfv insufficient information                         low    insufficient_information
+  find-ea9e94ee7db3 GHSA-v8fg-2rw7-q452 insufficient information                         low    insufficient_information
+  find-a9b8b333f19d GHSA-vqfx-gj96-3w95 insufficient information                         low    insufficient_information
+  find-25b761f80e13 GHSA-wfp9-vr4j-f49j insufficient information                         low    insufficient_information
+  find-5a91ee2b1957 GHSA-wrh9-cjv3-2hpw insufficient information                         low    insufficient_information
+  find-91b7a3b8217e GHSA-x2jc-pwfj-h9p3 insufficient information                         low    insufficient_information
+  find-18f79de12bb3 GHSA-xqg8-cv3h-xppv insufficient information                         low    insufficient_information
+Distribution: 1 usage detected, 0 no usage evidence within the analysed scope, 46 unknown, 0 unsupported
+Wrote audit-work/appsecco-dvna/out/decision-results.json
+  exit 0
++ python3 contracts/validate.py --dir audit-work/appsecco-dvna/out --vex-decision contracts/fixtures/vex-decision.json
+OK - 1127 invariant checks passed across four contracts
+  exit 0

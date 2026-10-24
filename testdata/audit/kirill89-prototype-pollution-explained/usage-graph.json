@@ -1,0 +1,195 @@
+{
+  "schemaVersion": "1.4.0",
+  "scanId": "scan-20220830T155554Z-31c6824d",
+  "analysis": {
+    "status": "complete",
+    "ecosystem": "npm",
+    "analyzerId": "component2-js-ts-tree-sitter"
+  },
+  "analyser": {
+    "parser": "tree-sitter",
+    "binding": "github.com/tree-sitter/go-tree-sitter",
+    "bindingVersion": "0.25.0",
+    "cgoEnabled": true,
+    "grammarVersions": {
+      "javascript": "0.25.0",
+      "typescript": "0.23.2"
+    },
+    "ecosystems": [
+      "npm"
+    ],
+    "reachabilityAnalysed": true
+  },
+  "entryPoints": [
+    {
+      "entryPointId": "ep-b9afe5dfa3bb2fbb4d82d0055fe721e2",
+      "kind": "package_main",
+      "function": "\u003cmodule\u003e",
+      "file": "index.js",
+      "line": 1,
+      "repositoryId": "repo-prototype-pollution-explained"
+    },
+    {
+      "entryPointId": "ep-4718af0acda5927a7494be1581e8b5f8",
+      "kind": "route_handler",
+      "function": "\u003croute_handler\u003e",
+      "file": "index.js",
+      "line": 37,
+      "repositoryId": "repo-prototype-pollution-explained"
+    },
+    {
+      "entryPointId": "ep-d5894b5ae0d24f3ea7285dcd1a323514",
+      "kind": "route_handler",
+      "function": "\u003croute_handler\u003e",
+      "file": "index.js",
+      "line": 42,
+      "repositoryId": "repo-prototype-pollution-explained"
+    },
+    {
+      "entryPointId": "ep-348642efba4290f4440523b058cb3bac",
+      "kind": "route_handler",
+      "function": "\u003croute_handler\u003e",
+      "file": "index.js",
+      "line": 66,
+      "repositoryId": "repo-prototype-pollution-explained"
+    }
+  ],
+  "coverage": {
+    "filesDiscovered": 1,
+    "filesParsed": 1,
+    "filesParsedWithErrors": 0,
+    "filesFailed": 0,
+    "filesSkipped": 0,
+    "thirdPartyImportsResolved": 3,
+    "thirdPartyImportsTypeOnly": 0,
+    "thirdPartyImportsUnresolved": 0,
+    "thirdPartyCallSitesResolved": 3,
+    "thirdPartyCallSitesUnresolved": 0,
+    "limitsHit": [],
+    "perRepository": [
+      {
+        "repositoryId": "repo-prototype-pollution-explained",
+        "filesDiscovered": 1,
+        "filesParsed": 1,
+        "filesParsedWithErrors": 0,
+        "filesFailed": 0,
+        "filesSkipped": 0
+      }
+    ],
+    "entryPointsDetected": 4,
+    "callPathsResolved": 3,
+    "callPathsUnresolved": 0
+  },
+  "observations": [
+    {
+      "observationId": "obs-250eeb8de5b1951f2295f5fe67da0077",
+      "occurrenceId": "occ-4e1a974970c0",
+      "purl": "pkg:npm/express@4.16.4",
+      "importedSpecifier": "express",
+      "localAlias": "express",
+      "importedSymbol": "*",
+      "importKind": "cjs_require",
+      "resolution": "resolved",
+      "location": {
+        "repositoryId": "repo-prototype-pollution-explained",
+        "file": "index.js",
+        "line": 9,
+        "column": 6
+      },
+      "evidenceLevel": 3,
+      "callSites": [
+        {
+          "file": "index.js",
+          "line": 12,
+          "column": 12,
+          "calledSymbol": "default",
+          "enclosingFunction": "\u003cmodule\u003e",
+          "resolution": "resolved",
+          "reachability": "reachable",
+          "entryPointId": "ep-b9afe5dfa3bb2fbb4d82d0055fe721e2",
+          "callPath": [
+            {
+              "function": "\u003cmodule\u003e",
+              "file": "index.js",
+              "line": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "observationId": "obs-21dd1adf37030007650be8ad4cea89a9",
+      "occurrenceId": "occ-040b39173af6",
+      "purl": "pkg:npm/body-parser@1.18.3",
+      "importedSpecifier": "body-parser",
+      "localAlias": "bodyParser",
+      "importedSymbol": "*",
+      "importKind": "cjs_require",
+      "resolution": "resolved",
+      "location": {
+        "repositoryId": "repo-prototype-pollution-explained",
+        "file": "index.js",
+        "line": 10,
+        "column": 6
+      },
+      "evidenceLevel": 3,
+      "callSites": [
+        {
+          "file": "index.js",
+          "line": 34,
+          "column": 8,
+          "calledSymbol": "json",
+          "enclosingFunction": "\u003cmodule\u003e",
+          "resolution": "resolved",
+          "reachability": "reachable",
+          "entryPointId": "ep-b9afe5dfa3bb2fbb4d82d0055fe721e2",
+          "callPath": [
+            {
+              "function": "\u003cmodule\u003e",
+              "file": "index.js",
+              "line": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "observationId": "obs-2bc33c5825c88ccee6f35db159456b5f",
+      "occurrenceId": "occ-3ad87c2b79d7",
+      "purl": "pkg:npm/lodash@4.17.4",
+      "importedSpecifier": "lodash",
+      "localAlias": "_",
+      "importedSymbol": "*",
+      "importKind": "cjs_require",
+      "resolution": "resolved",
+      "location": {
+        "repositoryId": "repo-prototype-pollution-explained",
+        "file": "index.js",
+        "line": 11,
+        "column": 6
+      },
+      "evidenceLevel": 3,
+      "callSites": [
+        {
+          "file": "index.js",
+          "line": 55,
+          "column": 2,
+          "calledSymbol": "merge",
+          "enclosingFunction": "\u003croute_handler\u003e",
+          "resolution": "resolved",
+          "reachability": "reachable",
+          "entryPointId": "ep-d5894b5ae0d24f3ea7285dcd1a323514",
+          "callPath": [
+            {
+              "function": "\u003croute_handler\u003e",
+              "file": "index.js",
+              "line": 42
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "unanalysedOccurrences": [],
+  "parseFailures": []
+}

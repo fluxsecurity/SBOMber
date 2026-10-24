@@ -1,0 +1,2783 @@
+{
+  "schemaVersion": "1.1.0",
+  "scanId": "scan-20220830T155554Z-31c6824d",
+  "summary": {
+    "findingsProcessed": 14,
+    "byMethod": {
+      "advisory_text": 1,
+      "patch_reference": 12,
+      "version_diff": 1
+    },
+    "unknownCount": 0
+  },
+  "results": [
+    {
+      "findingId": "find-cb6987956252",
+      "vulnerabilityId": "GHSA-qwcr-r2fm-qrc7",
+      "purl": "pkg:npm/body-parser@1.18.3",
+      "method": "patch_reference",
+      "confidence": "medium",
+      "candidateSymbols": [
+        {
+          "symbol": "urlencoded",
+          "modulePath": "lib/types/urlencoded.js",
+          "changeKind": "modified",
+          "note": "exported as default; visibility internal via default (incomplete): index.js: export default is the result of a call at line 37",
+          "evidence": [
+            "github:expressjs/body-parser@b2695c4450f06ba3b0ccf48d872a229bb41c9bce:lib/types/urlencoded.js"
+          ],
+          "visibility": "internal",
+          "exposedVia": [
+            "default"
+          ],
+          "exposedViaSource": "export_resolution",
+          "exposedViaComplete": false
+        },
+        {
+          "symbol": "default",
+          "modulePath": "lib/types/urlencoded.js",
+          "changeKind": "modified",
+          "note": "export alias of urlencoded; visibility internal via default (incomplete): index.js: export default is the result of a call at line 37",
+          "evidence": [
+            "github:expressjs/body-parser@b2695c4450f06ba3b0ccf48d872a229bb41c9bce:lib/types/urlencoded.js"
+          ],
+          "visibility": "internal",
+          "exposedVia": [
+            "default"
+          ],
+          "exposedViaSource": "export_resolution",
+          "exposedViaComplete": false
+        },
+        {
+          "symbol": "urlencodedParser",
+          "modulePath": "lib/types/urlencoded.js",
+          "changeKind": "modified",
+          "note": "nested in urlencoded; visibility internal via default (incomplete): index.js: export default is the result of a call at line 37",
+          "evidence": [
+            "github:expressjs/body-parser@b2695c4450f06ba3b0ccf48d872a229bb41c9bce:lib/types/urlencoded.js",
+            "github:expressjs/body-parser@ade0f3f82f91086d6cd2ed2cb4b0aff448fbc2e5:lib/types/urlencoded.js"
+          ],
+          "visibility": "internal",
+          "exposedVia": [
+            "default"
+          ],
+          "exposedViaSource": "export_resolution",
+          "exposedViaComplete": false
+        },
+        {
+          "symbol": "extendedparser",
+          "modulePath": "lib/types/urlencoded.js",
+          "changeKind": "modified",
+          "note": "not exported from this file; visibility internal via default (incomplete): extendedparser is not exported from lib/types/urlencoded.js; index.js: export default is the result of a call at line 37",
+          "evidence": [
+            "github:expressjs/body-parser@b2695c4450f06ba3b0ccf48d872a229bb41c9bce:lib/types/urlencoded.js"
+          ],
+          "visibility": "internal",
+          "exposedVia": [
+            "default"
+          ],
+          "exposedViaSource": "export_resolution",
+          "exposedViaComplete": false
+        },
+        {
+          "symbol": "queryparse",
+          "modulePath": "lib/types/urlencoded.js",
+          "changeKind": "modified",
+          "note": "nested in extendedparser; visibility internal via default (incomplete): extendedparser is not exported from lib/types/urlencoded.js; simpleparser is not exported from lib/types/urlencoded.js; index.js: export default is the result of a call at line 37",
+          "evidence": [
+            "github:expressjs/body-parser@b2695c4450f06ba3b0ccf48d872a229bb41c9bce:lib/types/urlencoded.js",
+            "github:expressjs/body-parser@ade0f3f82f91086d6cd2ed2cb4b0aff448fbc2e5:lib/types/urlencoded.js"
+          ],
+          "visibility": "internal",
+          "exposedVia": [
+            "default"
+          ],
+          "exposedViaSource": "export_resolution",
+          "exposedViaComplete": false
+        }
+      ],
+      "vulnerableVersion": "1.18.3",
+      "fixedVersion": "1.20.3",
+      "provenance": {
+        "advisorySource": "osv",
+        "advisoryUrl": "https://osv.dev/vulnerability/GHSA-qwcr-r2fm-qrc7",
+        "patchCommit": "b2695c4450f06ba3b0ccf48d872a229bb41c9bce",
+        "patchUrl": "https://github.com/expressjs/body-parser/commit/b2695c4450f06ba3b0ccf48d872a229bb41c9bce",
+        "artefacts": [
+          {
+            "id": "advisory",
+            "kind": "advisory",
+            "url": "https://api.osv.dev/v1/vulns/GHSA-qwcr-r2fm-qrc7",
+            "sha256": "9e512f735669de8e49513cc8921ed85b414f18c0be77e8fdabc86e9206a1ffa6",
+            "sizeBytes": 1633,
+            "verified": true,
+            "executed": false,
+            "modified": "2026-09-10T03:50:18.292199548Z"
+          },
+          {
+            "id": "github:expressjs/body-parser@b2695c4450f06ba3b0ccf48d872a229bb41c9bce:lib/types/urlencoded.js",
+            "kind": "source_file",
+            "url": "https://github.com/expressjs/body-parser/blob/b2695c4450f06ba3b0ccf48d872a229bb41c9bce/lib/types/urlencoded.js",
+            "sha256": "0e6b3e5456c502811116be128ebc097e4efafe0f4a0bed7826796b36bafaca59",
+            "sizeBytes": 6403,
+            "verified": true,
+            "executed": false,
+            "repo": "expressjs/body-parser",
+            "commit": "b2695c4450f06ba3b0ccf48d872a229bb41c9bce",
+            "path": "lib/types/urlencoded.js",
+            "gitBlobSha": "886a3ce237e629ee81b14dec517d7ee37a47a1be"
+          },
+          {
+            "id": "github:expressjs/body-parser@ade0f3f82f91086d6cd2ed2cb4b0aff448fbc2e5:lib/types/urlencoded.js",
+            "kind": "source_file",
+            "url": "https://github.com/expressjs/body-parser/blob/ade0f3f82f91086d6cd2ed2cb4b0aff448fbc2e5/lib/types/urlencoded.js",
+            "sha256": "752717d87aad57451638af2073b04eba964f348910c0bcf0070c43e732de5eb2",
+            "sizeBytes": 5797,
+            "verified": true,
+            "executed": false,
+            "repo": "expressjs/body-parser",
+            "commit": "ade0f3f82f91086d6cd2ed2cb4b0aff448fbc2e5",
+            "path": "lib/types/urlencoded.js",
+            "gitBlobSha": "b2ca8f16d0c105424acd16282e629346698e140b"
+          },
+          {
+            "id": "npm:body-parser@1.18.3",
+            "kind": "tarball",
+            "url": "https://registry.npmjs.org/body-parser/-/body-parser-1.18.3.tgz",
+            "sha256": "c896205913f01f7251068c84fbfbb23fc8be3b8f5892ca57b5878b5887d01847",
+            "sizeBytes": 15537,
+            "verified": true,
+            "executed": false,
+            "version": "1.18.3",
+            "integrity": "sha512-YQyoqQG3sO8iCmf8+hyVpgHHOv0/hCEFiS4zTGUwTA1HjAFX66wRcNQrVCeJq9pgESMRvUAOvSil5MJlmccuKQ=="
+          }
+        ],
+        "tagChecks": [
+          {
+            "version": "1.20.3",
+            "role": "fixed",
+            "repo": "expressjs/body-parser",
+            "fixCommits": [
+              "b2695c4450f06ba3b0ccf48d872a229bb41c9bce"
+            ],
+            "tag": "1.20.3",
+            "tagCommit": "17529513673e39ba79886a7ce3363320cf1c0c50",
+            "registryGitHead": "17529513673e39ba79886a7ce3363320cf1c0c50",
+            "releaseCommit": "17529513673e39ba79886a7ce3363320cf1c0c50",
+            "releaseSource": "registry_git_head",
+            "byAncestry": [
+              "b2695c4450f06ba3b0ccf48d872a229bb41c9bce"
+            ],
+            "basis": "ancestry",
+            "result": "verified",
+            "note": "Tag 1.20.3 and npm's gitHead agree."
+          },
+          {
+            "version": "1.18.3",
+            "role": "vulnerable",
+            "repo": "expressjs/body-parser",
+            "fixCommits": [
+              "b2695c4450f06ba3b0ccf48d872a229bb41c9bce"
+            ],
+            "tag": "1.18.3",
+            "tagCommit": "e6ccf98015fece0851c0c673fc2776c30ad79e5d",
+            "registryGitHead": "e6ccf98015fece0851c0c673fc2776c30ad79e5d",
+            "releaseCommit": "e6ccf98015fece0851c0c673fc2776c30ad79e5d",
+            "releaseSource": "registry_git_head",
+            "basis": "ancestry",
+            "result": "verified",
+            "note": "Tag 1.18.3 and npm's gitHead agree."
+          }
+        ]
+      },
+      "excludedChanges": [
+        "build",
+        "docs",
+        "tests"
+      ],
+      "notes": "Selected patch_reference with 5 candidate symbol(s). advisory_metadata: empty. Visibility read from npm:body-parser@1.18.3: 0 of 5 candidate(s) public or completely resolved."
+    },
+    {
+      "findingId": "find-71c614264f34",
+      "vulnerabilityId": "GHSA-v422-hmwv-36x6",
+      "purl": "pkg:npm/body-parser@1.18.3",
+      "method": "patch_reference",
+      "confidence": "medium",
+      "candidateSymbols": [
+        {
+          "symbol": "normalizeOptions",
+          "modulePath": "lib/utils.js",
+          "changeKind": "modified",
+          "note": "exported as normalizeOptions; visibility unknown: lib/utils.js is not in the published vulnerable package",
+          "evidence": [
+            "github:expressjs/body-parser@2322e111cc321413ec2b7b76d01be533d3de9d7d:lib/utils.js",
+            "github:expressjs/body-parser@f644408dd10e2a0d9c137480076346981cb0a46f:lib/utils.js",
+            "github:expressjs/body-parser@a6e2ed1bd0a7acea7279ba012a808e3aa1e8dd8e:lib/utils.js",
+            "github:expressjs/body-parser@266e69e976baa21add0e99efe69d264ccb1da69a:lib/utils.js",
+            "github:expressjs/body-parser@a639447a4ac46ecd190199bc9704f835f72f6a0d:lib/utils.js"
+          ],
+          "visibility": "unknown"
+        },
+        {
+          "symbol": "json",
+          "modulePath": "lib/types/json.js",
+          "changeKind": "modified",
+          "note": "exported as default; visibility internal via default (incomplete): index.js: export default is the result of a call at line 37",
+          "evidence": [
+            "github:expressjs/body-parser@3492672eee593d5c158f239b6e9115498a5dbeac:lib/types/json.js",
+            "github:expressjs/body-parser@0defdbe7f95ad0d3bc007d3a7c59c8c0ab9e6575:lib/types/json.js",
+            "github:expressjs/body-parser@d7d2c27c13bb7b5342c57ee865e76f0ce2d045cb:lib/types/json.js"
+          ],
+          "visibility": "internal",
+          "exposedVia": [
+            "default"
+          ],
+          "exposedViaSource": "export_resolution",
+          "exposedViaComplete": false
+        },
+        {
+          "symbol": "default",
+          "modulePath": "lib/types/json.js",
+          "changeKind": "modified",
+          "note": "export alias of json; visibility internal via default (incomplete): index.js: export default is the result of a call at line 37",
+          "evidence": [
+            "github:expressjs/body-parser@3492672eee593d5c158f239b6e9115498a5dbeac:lib/types/json.js",
+            "github:expressjs/body-parser@0defdbe7f95ad0d3bc007d3a7c59c8c0ab9e6575:lib/types/json.js",
+            "github:expressjs/body-parser@d7d2c27c13bb7b5342c57ee865e76f0ce2d045cb:lib/types/json.js"
+          ],
+          "visibility": "internal",
+          "exposedVia": [
+            "default"
+          ],
+          "exposedViaSource": "export_resolution",
+          "exposedViaComplete": false
+        },
+        {
+          "symbol": "raw",
+          "modulePath": "lib/types/raw.js",
+          "changeKind": "modified",
+          "note": "exported as default; visibility internal via default (incomplete): index.js: export default is the result of a call at line 37",
+          "evidence": [
+            "github:expressjs/body-parser@3492672eee593d5c158f239b6e9115498a5dbeac:lib/types/raw.js",
+            "github:expressjs/body-parser@0defdbe7f95ad0d3bc007d3a7c59c8c0ab9e6575:lib/types/raw.js",
+            "github:expressjs/body-parser@d7d2c27c13bb7b5342c57ee865e76f0ce2d045cb:lib/types/raw.js"
+          ],
+          "visibility": "internal",
+          "exposedVia": [
+            "default"
+          ],
+          "exposedViaSource": "export_resolution",
+          "exposedViaComplete": false
+        },
+        {
+          "symbol": "default",
+          "modulePath": "lib/types/raw.js",
+          "changeKind": "modified",
+          "note": "export alias of raw; visibility internal via default (incomplete): index.js: export default is the result of a call at line 37",
+          "evidence": [
+            "github:expressjs/body-parser@3492672eee593d5c158f239b6e9115498a5dbeac:lib/types/raw.js",
+            "github:expressjs/body-parser@0defdbe7f95ad0d3bc007d3a7c59c8c0ab9e6575:lib/types/raw.js",
+            "github:expressjs/body-parser@d7d2c27c13bb7b5342c57ee865e76f0ce2d045cb:lib/types/raw.js"
+          ],
+          "visibility": "internal",
+          "exposedVia": [
+            "default"
+          ],
+          "exposedViaSource": "export_resolution",
+          "exposedViaComplete": false
+        },
+        {
+          "symbol": "text",
+          "modulePath": "lib/types/text.js",
+          "changeKind": "modified",
+          "note": "exported as default; visibility internal via default (incomplete): index.js: export default is the result of a call at line 37",
+          "evidence": [
+            "github:expressjs/body-parser@3492672eee593d5c158f239b6e9115498a5dbeac:lib/types/text.js",
+            "github:expressjs/body-parser@0defdbe7f95ad0d3bc007d3a7c59c8c0ab9e6575:lib/types/text.js",
+            "github:expressjs/body-parser@d7d2c27c13bb7b5342c57ee865e76f0ce2d045cb:lib/types/text.js"
+          ],
+          "visibility": "internal",
+          "exposedVia": [
+            "default"
+          ],
+          "exposedViaSource": "export_resolution",
+          "exposedViaComplete": false
+        },
+        {
+          "symbol": "default",
+          "modulePath": "lib/types/text.js",
+          "changeKind": "modified",
+          "note": "export alias of text; visibility internal via default (incomplete): index.js: export default is the result of a call at line 37",
+          "evidence": [
+            "github:expressjs/body-parser@3492672eee593d5c158f239b6e9115498a5dbeac:lib/types/text.js",
+            "github:expressjs/body-parser@0defdbe7f95ad0d3bc007d3a7c59c8c0ab9e6575:lib/types/text.js",
+            "github:expressjs/body-parser@d7d2c27c13bb7b5342c57ee865e76f0ce2d045cb:lib/types/text.js"
+          ],
+          "visibility": "internal",
+          "exposedVia": [
+            "default"
+          ],
+          "exposedViaSource": "export_resolution",
+          "exposedViaComplete": false
+        },
+        {
+          "symbol": "urlencoded",
+          "modulePath": "lib/types/urlencoded.js",
+          "changeKind": "modified",
+          "note": "exported as default; visibility internal via default (incomplete): index.js: export default is the result of a call at line 37",
+          "evidence": [
+            "github:expressjs/body-parser@3492672eee593d5c158f239b6e9115498a5dbeac:lib/types/urlencoded.js",
+            "github:expressjs/body-parser@0defdbe7f95ad0d3bc007d3a7c59c8c0ab9e6575:lib/types/urlencoded.js",
+            "github:expressjs/body-parser@d7d2c27c13bb7b5342c57ee865e76f0ce2d045cb:lib/types/urlencoded.js"
+          ],
+          "visibility": "internal",
+          "exposedVia": [
+            "default"
+          ],
+          "exposedViaSource": "export_resolution",
+          "exposedViaComplete": false
+        },
+        {
+          "symbol": "default",
+          "modulePath": "lib/types/urlencoded.js",
+          "changeKind": "modified",
+          "note": "export alias of urlencoded; visibility internal via default (incomplete): index.js: export default is the result of a call at line 37",
+          "evidence": [
+            "github:expressjs/body-parser@3492672eee593d5c158f239b6e9115498a5dbeac:lib/types/urlencoded.js",
+            "github:expressjs/body-parser@0defdbe7f95ad0d3bc007d3a7c59c8c0ab9e6575:lib/types/urlencoded.js",
+            "github:expressjs/body-parser@d7d2c27c13bb7b5342c57ee865e76f0ce2d045cb:lib/types/urlencoded.js"
+          ],
+          "visibility": "internal",
+          "exposedVia": [
+            "default"
+          ],
+          "exposedViaSource": "export_resolution",
+          "exposedViaComplete": false
+        }
+      ],
+      "vulnerableVersion": "1.18.3",
+      "fixedVersion": "1.20.6",
+      "provenance": {
+        "advisorySource": "osv",
+        "advisoryUrl": "https://osv.dev/vulnerability/GHSA-v422-hmwv-36x6",
+        "patchCommit": "2322e111cc321413ec2b7b76d01be533d3de9d7d",
+        "patchUrl": "https://github.com/expressjs/body-parser/commit/2322e111cc321413ec2b7b76d01be533d3de9d7d",
+        "artefacts": [
+          {
+            "id": "advisory",
+            "kind": "advisory",
+            "url": "https://api.osv.dev/v1/vulns/GHSA-v422-hmwv-36x6",
+            "sha256": "122c40787ba40161e63b7f2fa1784cd9da0452fcfc0db0447db305cfe52ac9a1",
+            "sizeBytes": 3538,
+            "verified": true,
+            "executed": false,
+            "modified": "2026-09-10T03:50:53.014509971Z"
+          },
+          {
+            "id": "github:expressjs/body-parser@2322e111cc321413ec2b7b76d01be533d3de9d7d:lib/utils.js",
+            "kind": "source_file",
+            "url": "https://github.com/expressjs/body-parser/blob/2322e111cc321413ec2b7b76d01be533d3de9d7d/lib/utils.js",
+            "sha256": "db8094c0d2d40cab5b3b152685df54b49924f43be735d58fb98b6858b4d986b0",
+            "sizeBytes": 2165,
+            "verified": true,
+            "executed": false,
+            "repo": "expressjs/body-parser",
+            "commit": "2322e111cc321413ec2b7b76d01be533d3de9d7d",
+            "path": "lib/utils.js",
+            "gitBlobSha": "232e2e253aa55b0f41ef0fa8630a4a10d8147bad"
+          },
+          {
+            "id": "github:expressjs/body-parser@f644408dd10e2a0d9c137480076346981cb0a46f:lib/utils.js",
+            "kind": "source_file",
+            "url": "https://github.com/expressjs/body-parser/blob/f644408dd10e2a0d9c137480076346981cb0a46f/lib/utils.js",
+            "sha256": "1fd0b4bea67032ff37f634afee68c8e5ef49b21e01eac72a9fae54e8b73dc11d",
+            "sizeBytes": 2031,
+            "verified": true,
+            "executed": false,
+            "repo": "expressjs/body-parser",
+            "commit": "f644408dd10e2a0d9c137480076346981cb0a46f",
+            "path": "lib/utils.js",
+            "gitBlobSha": "e0bf9741edfed571381a3cc4bf82f647889d073e"
+          },
+          {
+            "id": "github:expressjs/body-parser@3492672eee593d5c158f239b6e9115498a5dbeac:lib/types/json.js",
+            "kind": "source_file",
+            "url": "https://github.com/expressjs/body-parser/blob/3492672eee593d5c158f239b6e9115498a5dbeac/lib/types/json.js",
+            "sha256": "3b19e93395f011b99a31e5c16086eeaa9e52acdc6a680191c1ceaeab31b15fc4",
+            "sizeBytes": 5384,
+            "verified": true,
+            "executed": false,
+            "repo": "expressjs/body-parser",
+            "commit": "3492672eee593d5c158f239b6e9115498a5dbeac",
+            "path": "lib/types/json.js",
+            "gitBlobSha": "f1802434f845240bd6b7e740b8cf94ce3c23413c"
+          },
+          {
+            "id": "github:expressjs/body-parser@0defdbe7f95ad0d3bc007d3a7c59c8c0ab9e6575:lib/types/json.js",
+            "kind": "source_file",
+            "url": "https://github.com/expressjs/body-parser/blob/0defdbe7f95ad0d3bc007d3a7c59c8c0ab9e6575/lib/types/json.js",
+            "sha256": "c3a763414e0201173e421492fdbe71ff8af80af91d2111a222e7c3b76aacf2ed",
+            "sizeBytes": 5247,
+            "verified": true,
+            "executed": false,
+            "repo": "expressjs/body-parser",
+            "commit": "0defdbe7f95ad0d3bc007d3a7c59c8c0ab9e6575",
+            "path": "lib/types/json.js",
+            "gitBlobSha": "d1f510d93e61362a424aec2720a4063c45299ff6"
+          },
+          {
+            "id": "github:expressjs/body-parser@3492672eee593d5c158f239b6e9115498a5dbeac:lib/types/raw.js",
+            "kind": "source_file",
+            "url": "https://github.com/expressjs/body-parser/blob/3492672eee593d5c158f239b6e9115498a5dbeac/lib/types/raw.js",
+            "sha256": "14548e46265ba5d67d6ce727fbe6f2ede1c1706b73a541502fc309b13d4fa5c1",
+            "sizeBytes": 2021,
+            "verified": true,
+            "executed": false,
+            "repo": "expressjs/body-parser",
+            "commit": "3492672eee593d5c158f239b6e9115498a5dbeac",
+            "path": "lib/types/raw.js",
+            "gitBlobSha": "2b3e06d7aa361efc78468dcc3b0081978491f811"
+          },
+          {
+            "id": "github:expressjs/body-parser@0defdbe7f95ad0d3bc007d3a7c59c8c0ab9e6575:lib/types/raw.js",
+            "kind": "source_file",
+            "url": "https://github.com/expressjs/body-parser/blob/0defdbe7f95ad0d3bc007d3a7c59c8c0ab9e6575/lib/types/raw.js",
+            "sha256": "4e9cc80a7ee8bd667c68c264b4c374b28e731246ddb6ec22c3968daf837e30a2",
+            "sizeBytes": 1884,
+            "verified": true,
+            "executed": false,
+            "repo": "expressjs/body-parser",
+            "commit": "0defdbe7f95ad0d3bc007d3a7c59c8c0ab9e6575",
+            "path": "lib/types/raw.js",
+            "gitBlobSha": "f5d1b67475405284e3dac312f92ade101571329f"
+          },
+          {
+            "id": "github:expressjs/body-parser@3492672eee593d5c158f239b6e9115498a5dbeac:lib/types/text.js",
+            "kind": "source_file",
+            "url": "https://github.com/expressjs/body-parser/blob/3492672eee593d5c158f239b6e9115498a5dbeac/lib/types/text.js",
+            "sha256": "578ba8915fbbebb4c3deced3c545d3277014d2d08911a91ae540f60ad61f2bd4",
+            "sizeBytes": 2422,
+            "verified": true,
+            "executed": false,
+            "repo": "expressjs/body-parser",
+            "commit": "3492672eee593d5c158f239b6e9115498a5dbeac",
+            "path": "lib/types/text.js",
+            "gitBlobSha": "5247a9259f98c8e08b2d91dcc9405b664d8e6093"
+          },
+          {
+            "id": "github:expressjs/body-parser@0defdbe7f95ad0d3bc007d3a7c59c8c0ab9e6575:lib/types/text.js",
+            "kind": "source_file",
+            "url": "https://github.com/expressjs/body-parser/blob/0defdbe7f95ad0d3bc007d3a7c59c8c0ab9e6575/lib/types/text.js",
+            "sha256": "54a6e8ef720b06a300b21f6c60387805dec743a64154784a609dfe8c6860776a",
+            "sizeBytes": 2285,
+            "verified": true,
+            "executed": false,
+            "repo": "expressjs/body-parser",
+            "commit": "0defdbe7f95ad0d3bc007d3a7c59c8c0ab9e6575",
+            "path": "lib/types/text.js",
+            "gitBlobSha": "083a00908a6299a8ef72f477983359f5675f82ef"
+          },
+          {
+            "id": "github:expressjs/body-parser@3492672eee593d5c158f239b6e9115498a5dbeac:lib/types/urlencoded.js",
+            "kind": "source_file",
+            "url": "https://github.com/expressjs/body-parser/blob/3492672eee593d5c158f239b6e9115498a5dbeac/lib/types/urlencoded.js",
+            "sha256": "9716e562cb2e944bcce9748fd095ab920849df4fb94f1cf03316c91f1850e916",
+            "sizeBytes": 6389,
+            "verified": true,
+            "executed": false,
+            "repo": "expressjs/body-parser",
+            "commit": "3492672eee593d5c158f239b6e9115498a5dbeac",
+            "path": "lib/types/urlencoded.js",
+            "gitBlobSha": "52ebe5f94c69093385e3475add04e025c361adff"
+          },
+          {
+            "id": "github:expressjs/body-parser@0defdbe7f95ad0d3bc007d3a7c59c8c0ab9e6575:lib/types/urlencoded.js",
+            "kind": "source_file",
+            "url": "https://github.com/expressjs/body-parser/blob/0defdbe7f95ad0d3bc007d3a7c59c8c0ab9e6575/lib/types/urlencoded.js",
+            "sha256": "41de19d276046974f2ab86226cf084652691b18c533204dea3c4d43f9e2f1a55",
+            "sizeBytes": 6252,
+            "verified": true,
+            "executed": false,
+            "repo": "expressjs/body-parser",
+            "commit": "0defdbe7f95ad0d3bc007d3a7c59c8c0ab9e6575",
+            "path": "lib/types/urlencoded.js",
+            "gitBlobSha": "892e3469a0b2fcf9b0a60bb8a79992e38af99a60"
+          },
+          {
+            "id": "github:expressjs/body-parser@a6e2ed1bd0a7acea7279ba012a808e3aa1e8dd8e:lib/utils.js",
+            "kind": "source_file",
+            "url": "https://github.com/expressjs/body-parser/blob/a6e2ed1bd0a7acea7279ba012a808e3aa1e8dd8e/lib/utils.js",
+            "sha256": "68100f84b7162cf853bff1272cf98bddea98227e593e71c7246deecc4459dd81",
+            "sizeBytes": 2156,
+            "verified": true,
+            "executed": false,
+            "repo": "expressjs/body-parser",
+            "commit": "a6e2ed1bd0a7acea7279ba012a808e3aa1e8dd8e",
+            "path": "lib/utils.js",
+            "gitBlobSha": "a1a8f4f6d4455d5b3a04dd2ac0953efbfe860890"
+          },
+          {
+            "id": "github:expressjs/body-parser@266e69e976baa21add0e99efe69d264ccb1da69a:lib/utils.js",
+            "kind": "source_file",
+            "url": "https://github.com/expressjs/body-parser/blob/266e69e976baa21add0e99efe69d264ccb1da69a/lib/utils.js",
+            "sha256": "1fd0b4bea67032ff37f634afee68c8e5ef49b21e01eac72a9fae54e8b73dc11d",
+            "sizeBytes": 2031,
+            "verified": true,
+            "executed": false,
+            "repo": "expressjs/body-parser",
+            "commit": "266e69e976baa21add0e99efe69d264ccb1da69a",
+            "path": "lib/utils.js",
+            "gitBlobSha": "e0bf9741edfed571381a3cc4bf82f647889d073e"
+          },
+          {
+            "id": "github:expressjs/body-parser@a639447a4ac46ecd190199bc9704f835f72f6a0d:lib/utils.js",
+            "kind": "source_file",
+            "url": "https://github.com/expressjs/body-parser/blob/a639447a4ac46ecd190199bc9704f835f72f6a0d/lib/utils.js",
+            "sha256": "db8094c0d2d40cab5b3b152685df54b49924f43be735d58fb98b6858b4d986b0",
+            "sizeBytes": 2165,
+            "verified": true,
+            "executed": false,
+            "repo": "expressjs/body-parser",
+            "commit": "a639447a4ac46ecd190199bc9704f835f72f6a0d",
+            "path": "lib/utils.js",
+            "gitBlobSha": "232e2e253aa55b0f41ef0fa8630a4a10d8147bad"
+          },
+          {
+            "id": "github:expressjs/body-parser@d7d2c27c13bb7b5342c57ee865e76f0ce2d045cb:lib/types/json.js",
+            "kind": "source_file",
+            "url": "https://github.com/expressjs/body-parser/blob/d7d2c27c13bb7b5342c57ee865e76f0ce2d045cb/lib/types/json.js",
+            "sha256": "3b19e93395f011b99a31e5c16086eeaa9e52acdc6a680191c1ceaeab31b15fc4",
+            "sizeBytes": 5384,
+            "verified": true,
+            "executed": false,
+            "repo": "expressjs/body-parser",
+            "commit": "d7d2c27c13bb7b5342c57ee865e76f0ce2d045cb",
+            "path": "lib/types/json.js",
+            "gitBlobSha": "f1802434f845240bd6b7e740b8cf94ce3c23413c"
+          },
+          {
+            "id": "github:expressjs/body-parser@d7d2c27c13bb7b5342c57ee865e76f0ce2d045cb:lib/types/raw.js",
+            "kind": "source_file",
+            "url": "https://github.com/expressjs/body-parser/blob/d7d2c27c13bb7b5342c57ee865e76f0ce2d045cb/lib/types/raw.js",
+            "sha256": "14548e46265ba5d67d6ce727fbe6f2ede1c1706b73a541502fc309b13d4fa5c1",
+            "sizeBytes": 2021,
+            "verified": true,
+            "executed": false,
+            "repo": "expressjs/body-parser",
+            "commit": "d7d2c27c13bb7b5342c57ee865e76f0ce2d045cb",
+            "path": "lib/types/raw.js",
+            "gitBlobSha": "2b3e06d7aa361efc78468dcc3b0081978491f811"
+          },
+          {
+            "id": "github:expressjs/body-parser@d7d2c27c13bb7b5342c57ee865e76f0ce2d045cb:lib/types/text.js",
+            "kind": "source_file",
+            "url": "https://github.com/expressjs/body-parser/blob/d7d2c27c13bb7b5342c57ee865e76f0ce2d045cb/lib/types/text.js",
+            "sha256": "578ba8915fbbebb4c3deced3c545d3277014d2d08911a91ae540f60ad61f2bd4",
+            "sizeBytes": 2422,
+            "verified": true,
+            "executed": false,
+            "repo": "expressjs/body-parser",
+            "commit": "d7d2c27c13bb7b5342c57ee865e76f0ce2d045cb",
+            "path": "lib/types/text.js",
+            "gitBlobSha": "5247a9259f98c8e08b2d91dcc9405b664d8e6093"
+          },
+          {
+            "id": "github:expressjs/body-parser@d7d2c27c13bb7b5342c57ee865e76f0ce2d045cb:lib/types/urlencoded.js",
+            "kind": "source_file",
+            "url": "https://github.com/expressjs/body-parser/blob/d7d2c27c13bb7b5342c57ee865e76f0ce2d045cb/lib/types/urlencoded.js",
+            "sha256": "9716e562cb2e944bcce9748fd095ab920849df4fb94f1cf03316c91f1850e916",
+            "sizeBytes": 6389,
+            "verified": true,
+            "executed": false,
+            "repo": "expressjs/body-parser",
+            "commit": "d7d2c27c13bb7b5342c57ee865e76f0ce2d045cb",
+            "path": "lib/types/urlencoded.js",
+            "gitBlobSha": "52ebe5f94c69093385e3475add04e025c361adff"
+          },
+          {
+            "id": "npm:body-parser@1.18.3",
+            "kind": "tarball",
+            "url": "https://registry.npmjs.org/body-parser/-/body-parser-1.18.3.tgz",
+            "sha256": "c896205913f01f7251068c84fbfbb23fc8be3b8f5892ca57b5878b5887d01847",
+            "sizeBytes": 15537,
+            "verified": true,
+            "executed": false,
+            "version": "1.18.3",
+            "integrity": "sha512-YQyoqQG3sO8iCmf8+hyVpgHHOv0/hCEFiS4zTGUwTA1HjAFX66wRcNQrVCeJq9pgESMRvUAOvSil5MJlmccuKQ=="
+          }
+        ],
+        "tagChecks": [
+          {
+            "version": "1.20.6",
+            "role": "fixed",
+            "repo": "expressjs/body-parser",
+            "fixCommits": [
+              "2322e111cc321413ec2b7b76d01be533d3de9d7d",
+              "3492672eee593d5c158f239b6e9115498a5dbeac",
+              "a6e2ed1bd0a7acea7279ba012a808e3aa1e8dd8e",
+              "a639447a4ac46ecd190199bc9704f835f72f6a0d",
+              "d7d2c27c13bb7b5342c57ee865e76f0ce2d045cb"
+            ],
+            "tag": "1.20.6",
+            "tagCommit": "5cc4fb8867c93a3aa4455927e38858c9ab89ff43",
+            "registryGitHead": "5cc4fb8867c93a3aa4455927e38858c9ab89ff43",
+            "releaseCommit": "5cc4fb8867c93a3aa4455927e38858c9ab89ff43",
+            "releaseSource": "registry_git_head",
+            "byAncestry": [
+              "3492672eee593d5c158f239b6e9115498a5dbeac"
+            ],
+            "byContent": [
+              "d7d2c27c13bb7b5342c57ee865e76f0ce2d045cb"
+            ],
+            "content": [
+              {
+                "commit": "d7d2c27c13bb7b5342c57ee865e76f0ce2d045cb",
+                "parent": "0defdbe7f95ad0d3bc007d3a7c59c8c0ab9e6575",
+                "path": "lib/types/json.js",
+                "lines": [
+                  "var limit = typeof opts.limit === 'undefined' || opts.limit === null",
+                  "? 102400 // 100kb default",
+                  ": bytes.parse(opts.limit)",
+                  "if (limit === null) {",
+                  "throw new TypeError('option limit \"' + String(opts.limit) + '\" is invalid')"
+                ]
+              },
+              {
+                "commit": "d7d2c27c13bb7b5342c57ee865e76f0ce2d045cb",
+                "parent": "0defdbe7f95ad0d3bc007d3a7c59c8c0ab9e6575",
+                "path": "lib/types/raw.js",
+                "lines": [
+                  "var limit = typeof opts.limit === 'undefined' || opts.limit === null",
+                  "? 102400 // 100kb default",
+                  ": bytes.parse(opts.limit)",
+                  "if (limit === null) {",
+                  "throw new TypeError('option limit \"' + String(opts.limit) + '\" is invalid')"
+                ]
+              },
+              {
+                "commit": "d7d2c27c13bb7b5342c57ee865e76f0ce2d045cb",
+                "parent": "0defdbe7f95ad0d3bc007d3a7c59c8c0ab9e6575",
+                "path": "lib/types/text.js",
+                "lines": [
+                  "var limit = typeof opts.limit === 'undefined' || opts.limit === null",
+                  "? 102400 // 100kb default",
+                  ": bytes.parse(opts.limit)",
+                  "if (limit === null) {",
+                  "throw new TypeError('option limit \"' + String(opts.limit) + '\" is invalid')"
+                ]
+              },
+              {
+                "commit": "d7d2c27c13bb7b5342c57ee865e76f0ce2d045cb",
+                "parent": "0defdbe7f95ad0d3bc007d3a7c59c8c0ab9e6575",
+                "path": "lib/types/urlencoded.js",
+                "lines": [
+                  "var limit = typeof opts.limit === 'undefined' || opts.limit === null",
+                  "? 102400 // 100kb default",
+                  ": bytes.parse(opts.limit)",
+                  "if (limit === null) {",
+                  "throw new TypeError('option limit \"' + String(opts.limit) + '\" is invalid')"
+                ]
+              }
+            ],
+            "basis": "ancestry",
+            "result": "verified",
+            "note": "Tag 1.20.6 and npm's gitHead agree. Not ancestors but every line they add is present (backport or squash merge): d7d2c27c13. Not in this release, so another release line or superseded: 2322e111cc (lib/utils.js does not exist at the release); a6e2ed1bd0 (lib/utils.js does not exist at the release); a639447a4a (lib/utils.js does not exist at the release)."
+          },
+          {
+            "version": "1.18.3",
+            "role": "vulnerable",
+            "repo": "expressjs/body-parser",
+            "fixCommits": [
+              "2322e111cc321413ec2b7b76d01be533d3de9d7d",
+              "3492672eee593d5c158f239b6e9115498a5dbeac",
+              "a6e2ed1bd0a7acea7279ba012a808e3aa1e8dd8e",
+              "a639447a4ac46ecd190199bc9704f835f72f6a0d",
+              "d7d2c27c13bb7b5342c57ee865e76f0ce2d045cb"
+            ],
+            "tag": "1.18.3",
+            "tagCommit": "e6ccf98015fece0851c0c673fc2776c30ad79e5d",
+            "registryGitHead": "e6ccf98015fece0851c0c673fc2776c30ad79e5d",
+            "releaseCommit": "e6ccf98015fece0851c0c673fc2776c30ad79e5d",
+            "releaseSource": "registry_git_head",
+            "basis": "ancestry",
+            "result": "verified",
+            "note": "Tag 1.18.3 and npm's gitHead agree."
+          }
+        ]
+      },
+      "excludedChanges": [
+        "ci_config",
+        "docs",
+        "tests"
+      ],
+      "notes": "Selected patch_reference with 9 candidate symbol(s). advisory_metadata: empty. Visibility read from npm:body-parser@1.18.3: 0 of 9 candidate(s) public or completely resolved."
+    },
+    {
+      "findingId": "find-3201d8f964cf",
+      "vulnerabilityId": "GHSA-qw6h-vgh9-j6wx",
+      "purl": "pkg:npm/express@4.16.4",
+      "method": "patch_reference",
+      "confidence": "high",
+      "candidateSymbols": [
+        {
+          "symbol": "html",
+          "modulePath": "lib/response.js",
+          "changeKind": "modified",
+          "note": "nested in redirect; visibility internal via default (incomplete): redirect is not exported from lib/response.js; lib/response.js is loaded by lib/express.js, which is not the entry module (only one hop is resolved); lib/view.js loads a module by a computed path",
+          "evidence": [
+            "github:expressjs/express@54271f69b511fea198471e6ff3400ab805d6b553:lib/response.js",
+            "github:expressjs/express@125bb742a38cd97938a3932b47cc301e41c31f5d:lib/response.js"
+          ],
+          "visibility": "internal",
+          "exposedVia": [
+            "default"
+          ],
+          "exposedViaSource": "export_resolution",
+          "exposedViaComplete": false
+        }
+      ],
+      "vulnerableVersion": "4.16.4",
+      "fixedVersion": "4.20.0",
+      "provenance": {
+        "advisorySource": "osv",
+        "advisoryUrl": "https://osv.dev/vulnerability/GHSA-qw6h-vgh9-j6wx",
+        "patchCommit": "54271f69b511fea198471e6ff3400ab805d6b553",
+        "patchUrl": "https://github.com/expressjs/express/commit/54271f69b511fea198471e6ff3400ab805d6b553",
+        "artefacts": [
+          {
+            "id": "advisory",
+            "kind": "advisory",
+            "url": "https://api.osv.dev/v1/vulns/GHSA-qw6h-vgh9-j6wx",
+            "sha256": "e9ed24fdd82e4d78f6c1a4855a8dd65d38f81b2d4b833da5161118d21b1f2464",
+            "sizeBytes": 2355,
+            "verified": true,
+            "executed": false,
+            "modified": "2026-09-10T03:50:18.298562940Z"
+          },
+          {
+            "id": "github:expressjs/express@54271f69b511fea198471e6ff3400ab805d6b553:lib/response.js",
+            "kind": "source_file",
+            "url": "https://github.com/expressjs/express/blob/54271f69b511fea198471e6ff3400ab805d6b553/lib/response.js",
+            "sha256": "13a87a6a9fba5bd344781e591d34c4140eb6e34df0f77e512ada78e46c9dde75",
+            "sizeBytes": 28579,
+            "verified": true,
+            "executed": false,
+            "repo": "expressjs/express",
+            "commit": "54271f69b511fea198471e6ff3400ab805d6b553",
+            "path": "lib/response.js",
+            "gitBlobSha": "76b6b54a3b8f7947ba307f96d21dd7bbb5b2ef8f"
+          },
+          {
+            "id": "github:expressjs/express@125bb742a38cd97938a3932b47cc301e41c31f5d:lib/response.js",
+            "kind": "source_file",
+            "url": "https://github.com/expressjs/express/blob/125bb742a38cd97938a3932b47cc301e41c31f5d/lib/response.js",
+            "sha256": "559e5262367f38e7f4fcc6872b59d272ab46205050c6b09b64e5352d99618d03",
+            "sizeBytes": 28603,
+            "verified": true,
+            "executed": false,
+            "repo": "expressjs/express",
+            "commit": "125bb742a38cd97938a3932b47cc301e41c31f5d",
+            "path": "lib/response.js",
+            "gitBlobSha": "68d969ff05b1bffff2ed68d91e4059dbd4fdad73"
+          },
+          {
+            "id": "npm:express@4.16.4",
+            "kind": "tarball",
+            "url": "https://registry.npmjs.org/express/-/express-4.16.4.tgz",
+            "sha256": "ceef2879dfca73e472e5aa6ea5f0f56c10049aa66907c56599533b329692adb5",
+            "sizeBytes": 54259,
+            "verified": true,
+            "executed": false,
+            "version": "4.16.4",
+            "integrity": "sha512-j12Uuyb4FMrd/qQAm6uCHAkPtO8FDTRJZBDd5D2KOL2eLaz1yUNdUB/NOIyq0iU4q4cFarsUCrnFDPBcnksuOg=="
+          }
+        ],
+        "tagChecks": [
+          {
+            "version": "4.20.0",
+            "role": "fixed",
+            "repo": "expressjs/express",
+            "fixCommits": [
+              "54271f69b511fea198471e6ff3400ab805d6b553"
+            ],
+            "tag": "4.20.0",
+            "tagCommit": "21df421ebc7a5249bb31101da666bbf22adc3f18",
+            "registryGitHead": "21df421ebc7a5249bb31101da666bbf22adc3f18",
+            "releaseCommit": "21df421ebc7a5249bb31101da666bbf22adc3f18",
+            "releaseSource": "registry_git_head",
+            "byAncestry": [
+              "54271f69b511fea198471e6ff3400ab805d6b553"
+            ],
+            "basis": "ancestry",
+            "result": "verified",
+            "note": "Tag 4.20.0 and npm's gitHead agree."
+          },
+          {
+            "version": "4.16.4",
+            "role": "vulnerable",
+            "repo": "expressjs/express",
+            "fixCommits": [
+              "54271f69b511fea198471e6ff3400ab805d6b553"
+            ],
+            "tag": "4.16.4",
+            "tagCommit": "dc538f6e810bd462c98ee7e6aae24c64d4b1da93",
+            "registryGitHead": "dc538f6e810bd462c98ee7e6aae24c64d4b1da93",
+            "releaseCommit": "dc538f6e810bd462c98ee7e6aae24c64d4b1da93",
+            "releaseSource": "registry_git_head",
+            "basis": "ancestry",
+            "result": "verified",
+            "note": "Tag 4.16.4 and npm's gitHead agree."
+          }
+        ]
+      },
+      "excludedChanges": [
+        "tests"
+      ],
+      "notes": "Selected patch_reference with 1 candidate symbol(s). advisory_metadata: empty. Visibility read from npm:express@4.16.4: 0 of 1 candidate(s) public or completely resolved."
+    },
+    {
+      "findingId": "find-08cc91b773d8",
+      "vulnerabilityId": "GHSA-rv95-896h-c2vc",
+      "purl": "pkg:npm/express@4.16.4",
+      "method": "patch_reference",
+      "confidence": "high",
+      "candidateSymbols": [
+        {
+          "symbol": "location",
+          "modulePath": "lib/response.js",
+          "changeKind": "modified",
+          "note": "not exported from this file; visibility internal via default (incomplete): location is not exported from lib/response.js; lib/response.js is loaded by lib/express.js, which is not the entry module (only one hop is resolved); lib/view.js loads a module by a computed path",
+          "evidence": [
+            "github:expressjs/express@0867302ddbde0e9463d0564fea5861feb708c2dd:lib/response.js",
+            "github:expressjs/express@567c9c665d0de4c344b8e160146050770233783c:lib/response.js",
+            "github:expressjs/express@0b746953c4bd8e377123527db11f9cd866e39f94:lib/response.js",
+            "github:expressjs/express@4f0f6cc67d531431c096ea006c2191b92931bbc3:lib/response.js",
+            "github:expressjs/express@154921f83614ef81d7e1606106df6354616cbc82:lib/response.js"
+          ],
+          "visibility": "internal",
+          "exposedVia": [
+            "default"
+          ],
+          "exposedViaSource": "export_resolution",
+          "exposedViaComplete": false
+        }
+      ],
+      "vulnerableVersion": "4.16.4",
+      "fixedVersion": "4.19.2",
+      "provenance": {
+        "advisorySource": "osv",
+        "advisoryUrl": "https://osv.dev/vulnerability/GHSA-rv95-896h-c2vc",
+        "patchCommit": "0867302ddbde0e9463d0564fea5861feb708c2dd",
+        "patchUrl": "https://github.com/expressjs/express/commit/0867302ddbde0e9463d0564fea5861feb708c2dd",
+        "artefacts": [
+          {
+            "id": "advisory",
+            "kind": "advisory",
+            "url": "https://api.osv.dev/v1/vulns/GHSA-rv95-896h-c2vc",
+            "sha256": "8b352fc0173316e62590df6905a8fa79b86b375dc2e30d7d7c56da1b8a5eee06",
+            "sizeBytes": 3311,
+            "verified": true,
+            "executed": false,
+            "modified": "2026-09-10T03:50:10.750068508Z"
+          },
+          {
+            "id": "github:expressjs/express@0867302ddbde0e9463d0564fea5861feb708c2dd:lib/response.js",
+            "kind": "source_file",
+            "url": "https://github.com/expressjs/express/blob/0867302ddbde0e9463d0564fea5861feb708c2dd/lib/response.js",
+            "sha256": "b4fd393eb95259ee014a1e157a1a4843358ef7b628609b1e1e1b8292a8ed4731",
+            "sizeBytes": 28672,
+            "verified": true,
+            "executed": false,
+            "repo": "expressjs/express",
+            "commit": "0867302ddbde0e9463d0564fea5861feb708c2dd",
+            "path": "lib/response.js",
+            "gitBlobSha": "f7c94d10e7810fa15538f53e7da5220e0cf7a25c"
+          },
+          {
+            "id": "github:expressjs/express@567c9c665d0de4c344b8e160146050770233783c:lib/response.js",
+            "kind": "source_file",
+            "url": "https://github.com/expressjs/express/blob/567c9c665d0de4c344b8e160146050770233783c/lib/response.js",
+            "sha256": "7fdb8547558f9ea42606888eed597a30d84ac67d66b487244a417cd1c3d8a97e",
+            "sizeBytes": 28014,
+            "verified": true,
+            "executed": false,
+            "repo": "expressjs/express",
+            "commit": "567c9c665d0de4c344b8e160146050770233783c",
+            "path": "lib/response.js",
+            "gitBlobSha": "fede486c06d8c96f8d565b3c1d70c2585033a69c"
+          },
+          {
+            "id": "github:expressjs/express@0b746953c4bd8e377123527db11f9cd866e39f94:lib/response.js",
+            "kind": "source_file",
+            "url": "https://github.com/expressjs/express/blob/0b746953c4bd8e377123527db11f9cd866e39f94/lib/response.js",
+            "sha256": "8761b1592827b8d4708dc17810a7359b35ca469bde3bb10aabdce6a1884629a8",
+            "sizeBytes": 28339,
+            "verified": true,
+            "executed": false,
+            "repo": "expressjs/express",
+            "commit": "0b746953c4bd8e377123527db11f9cd866e39f94",
+            "path": "lib/response.js",
+            "gitBlobSha": "dd7b3c8201d24c47a537b85f6615a967392f8691"
+          },
+          {
+            "id": "github:expressjs/express@4f0f6cc67d531431c096ea006c2191b92931bbc3:lib/response.js",
+            "kind": "source_file",
+            "url": "https://github.com/expressjs/express/blob/4f0f6cc67d531431c096ea006c2191b92931bbc3/lib/response.js",
+            "sha256": "67c6619bf36cfd1d1e816c279d107369a28b91976fb7d53b03b0d2e244812609",
+            "sizeBytes": 28680,
+            "verified": true,
+            "executed": false,
+            "repo": "expressjs/express",
+            "commit": "4f0f6cc67d531431c096ea006c2191b92931bbc3",
+            "path": "lib/response.js",
+            "gitBlobSha": "6fddbf35165efcd47310018fcb0d8f25ced94ec7"
+          },
+          {
+            "id": "github:expressjs/express@154921f83614ef81d7e1606106df6354616cbc82:lib/response.js",
+            "kind": "source_file",
+            "url": "https://github.com/expressjs/express/blob/154921f83614ef81d7e1606106df6354616cbc82/lib/response.js",
+            "sha256": "eef32e44d73e5db12adf044f7a1c91401068f138e40a6ea791a662016af70d7c",
+            "sizeBytes": 28168,
+            "verified": true,
+            "executed": false,
+            "repo": "expressjs/express",
+            "commit": "154921f83614ef81d7e1606106df6354616cbc82",
+            "path": "lib/response.js",
+            "gitBlobSha": "b6480795f95b63a020b4a7926c2bbef3babcb079"
+          },
+          {
+            "id": "npm:express@4.16.4",
+            "kind": "tarball",
+            "url": "https://registry.npmjs.org/express/-/express-4.16.4.tgz",
+            "sha256": "ceef2879dfca73e472e5aa6ea5f0f56c10049aa66907c56599533b329692adb5",
+            "sizeBytes": 54259,
+            "verified": true,
+            "executed": false,
+            "version": "4.16.4",
+            "integrity": "sha512-j12Uuyb4FMrd/qQAm6uCHAkPtO8FDTRJZBDd5D2KOL2eLaz1yUNdUB/NOIyq0iU4q4cFarsUCrnFDPBcnksuOg=="
+          }
+        ],
+        "tagChecks": [
+          {
+            "version": "4.19.2",
+            "role": "fixed",
+            "repo": "expressjs/express",
+            "fixCommits": [
+              "0867302ddbde0e9463d0564fea5861feb708c2dd",
+              "0b746953c4bd8e377123527db11f9cd866e39f94",
+              "154921f83614ef81d7e1606106df6354616cbc82"
+            ],
+            "tag": "4.19.2",
+            "tagCommit": "04bc62787be974874bc1467b23606c36bc9779ba",
+            "registryGitHead": "b28db2c12c3bd9cd763316824446f79bf81e0686",
+            "releaseCommit": "b28db2c12c3bd9cd763316824446f79bf81e0686",
+            "releaseSource": "registry_git_head",
+            "byAncestry": [
+              "0867302ddbde0e9463d0564fea5861feb708c2dd",
+              "0b746953c4bd8e377123527db11f9cd866e39f94"
+            ],
+            "basis": "ancestry",
+            "result": "verified",
+            "note": "Tag 4.19.2 is commit 04bc62787b but npm says express@4.19.2 was published from b28db2c12c; npm's gitHead is checked first. Not in this release, so another release line or superseded: 154921f836 (2 of 2 added line(s) missing from lib/response.js)."
+          },
+          {
+            "version": "4.16.4",
+            "role": "vulnerable",
+            "repo": "expressjs/express",
+            "fixCommits": [
+              "0867302ddbde0e9463d0564fea5861feb708c2dd",
+              "0b746953c4bd8e377123527db11f9cd866e39f94",
+              "154921f83614ef81d7e1606106df6354616cbc82"
+            ],
+            "tag": "4.16.4",
+            "tagCommit": "dc538f6e810bd462c98ee7e6aae24c64d4b1da93",
+            "registryGitHead": "dc538f6e810bd462c98ee7e6aae24c64d4b1da93",
+            "releaseCommit": "dc538f6e810bd462c98ee7e6aae24c64d4b1da93",
+            "releaseSource": "registry_git_head",
+            "basis": "ancestry",
+            "result": "verified",
+            "note": "Tag 4.16.4 and npm's gitHead agree."
+          }
+        ]
+      },
+      "excludedChanges": [
+        "docs",
+        "tests"
+      ],
+      "notes": "Selected patch_reference with 1 candidate symbol(s). advisory_metadata: empty. Non-function changes: urlParse (lib/response.js), schemaAndHostRegExp (lib/response.js). Visibility read from npm:express@4.16.4: 0 of 1 candidate(s) public or completely resolved."
+    },
+    {
+      "findingId": "find-69ad2599263f",
+      "vulnerabilityId": "GHSA-29mw-wpgm-hmr9",
+      "purl": "pkg:npm/lodash@4.17.4",
+      "method": "patch_reference",
+      "confidence": "medium",
+      "candidateSymbols": [
+        {
+          "symbol": "baseTrim",
+          "modulePath": "lodash.js",
+          "changeKind": "modified",
+          "note": "visibility unknown: baseTrim is not defined in lodash.js in the published package",
+          "evidence": [
+            "github:lodash/lodash@02906b8191d3c100c193fe6f7b27d1c40f200bb7:lodash.js",
+            "github:lodash/lodash@c4847ebe7d14540bb28a8b932a9ce1b9ecbfee1a:lodash.js"
+          ],
+          "visibility": "unknown"
+        },
+        {
+          "symbol": "trimmedEndIndex",
+          "modulePath": "lodash.js",
+          "changeKind": "modified",
+          "note": "visibility unknown: trimmedEndIndex is not defined in lodash.js in the published package",
+          "evidence": [
+            "github:lodash/lodash@02906b8191d3c100c193fe6f7b27d1c40f200bb7:lodash.js",
+            "github:lodash/lodash@c4847ebe7d14540bb28a8b932a9ce1b9ecbfee1a:lodash.js"
+          ],
+          "visibility": "unknown"
+        },
+        {
+          "symbol": "toNumber",
+          "modulePath": "lodash.js",
+          "changeKind": "modified",
+          "note": "nested in runInContext; visibility unknown: the exports of lodash.js could not be resolved statically: exports used outside a plain assignment at line 426",
+          "evidence": [
+            "github:lodash/lodash@02906b8191d3c100c193fe6f7b27d1c40f200bb7:lodash.js",
+            "github:lodash/lodash@ded9bc66583ed0b4e3b7dc906206d40757b4a90a:lodash.js",
+            "github:lodash/lodash@c4847ebe7d14540bb28a8b932a9ce1b9ecbfee1a:lodash.js",
+            "github:lodash/lodash@3469357cff396a26c363f8c1b5a91dde28ba4b1c:lodash.js"
+          ],
+          "visibility": "unknown"
+        },
+        {
+          "symbol": "trim",
+          "modulePath": "lodash.js",
+          "changeKind": "modified",
+          "note": "nested in runInContext; visibility unknown: the exports of lodash.js could not be resolved statically: exports used outside a plain assignment at line 426",
+          "evidence": [
+            "github:lodash/lodash@02906b8191d3c100c193fe6f7b27d1c40f200bb7:lodash.js",
+            "github:lodash/lodash@ded9bc66583ed0b4e3b7dc906206d40757b4a90a:lodash.js",
+            "github:lodash/lodash@c4847ebe7d14540bb28a8b932a9ce1b9ecbfee1a:lodash.js",
+            "github:lodash/lodash@3469357cff396a26c363f8c1b5a91dde28ba4b1c:lodash.js"
+          ],
+          "visibility": "unknown"
+        },
+        {
+          "symbol": "trimEnd",
+          "modulePath": "lodash.js",
+          "changeKind": "modified",
+          "note": "nested in runInContext; visibility unknown: the exports of lodash.js could not be resolved statically: exports used outside a plain assignment at line 426",
+          "evidence": [
+            "github:lodash/lodash@02906b8191d3c100c193fe6f7b27d1c40f200bb7:lodash.js",
+            "github:lodash/lodash@ded9bc66583ed0b4e3b7dc906206d40757b4a90a:lodash.js",
+            "github:lodash/lodash@c4847ebe7d14540bb28a8b932a9ce1b9ecbfee1a:lodash.js",
+            "github:lodash/lodash@3469357cff396a26c363f8c1b5a91dde28ba4b1c:lodash.js"
+          ],
+          "visibility": "unknown"
+        }
+      ],
+      "vulnerableVersion": "4.17.4",
+      "fixedVersion": "4.17.21",
+      "provenance": {
+        "advisorySource": "osv",
+        "advisoryUrl": "https://osv.dev/vulnerability/GHSA-29mw-wpgm-hmr9",
+        "patchCommit": "02906b8191d3c100c193fe6f7b27d1c40f200bb7",
+        "patchUrl": "https://github.com/lodash/lodash/commit/02906b8191d3c100c193fe6f7b27d1c40f200bb7",
+        "artefacts": [
+          {
+            "id": "advisory",
+            "kind": "advisory",
+            "url": "https://api.osv.dev/v1/vulns/GHSA-29mw-wpgm-hmr9",
+            "sha256": "058e2a27804a31c48efc7ead30dfd8c9788123c75f6661b6bca8a5b9f274ebeb",
+            "sizeBytes": 4841,
+            "verified": true,
+            "executed": false,
+            "modified": "2025-09-29T21:12:31.102523Z"
+          },
+          {
+            "id": "github:lodash/lodash@02906b8191d3c100c193fe6f7b27d1c40f200bb7:lodash.js",
+            "kind": "source_file",
+            "url": "https://github.com/lodash/lodash/blob/02906b8191d3c100c193fe6f7b27d1c40f200bb7/lodash.js",
+            "sha256": "7d4b0e83697c9d83790c4ddea21edec1768b4436dafadbb0ad7ae8391521720c",
+            "sizeBytes": 543320,
+            "verified": true,
+            "executed": false,
+            "repo": "lodash/lodash",
+            "commit": "02906b8191d3c100c193fe6f7b27d1c40f200bb7",
+            "path": "lodash.js",
+            "gitBlobSha": "7d40df03054e2d36097cff9aed716a7e60a012c6"
+          },
+          {
+            "id": "github:lodash/lodash@ded9bc66583ed0b4e3b7dc906206d40757b4a90a:lodash.js",
+            "kind": "source_file",
+            "url": "https://github.com/lodash/lodash/blob/ded9bc66583ed0b4e3b7dc906206d40757b4a90a/lodash.js",
+            "sha256": "8f6acca8bb2e6231eba689ddc74fd017c125a9672e0e8f55786101f1927b83e7",
+            "sizeBytes": 542563,
+            "verified": true,
+            "executed": false,
+            "repo": "lodash/lodash",
+            "commit": "ded9bc66583ed0b4e3b7dc906206d40757b4a90a",
+            "path": "lodash.js",
+            "gitBlobSha": "1fd7116f426a2801ee5ac3bb3c86236c11637403"
+          },
+          {
+            "id": "github:lodash/lodash@c4847ebe7d14540bb28a8b932a9ce1b9ecbfee1a:lodash.js",
+            "kind": "source_file",
+            "url": "https://github.com/lodash/lodash/blob/c4847ebe7d14540bb28a8b932a9ce1b9ecbfee1a/lodash.js",
+            "sha256": "1f4f7883df1e1ba8f00d68f124c0c7040ca2a220320f0cc5c7754668d3e2f7a6",
+            "sizeBytes": 544098,
+            "verified": true,
+            "executed": false,
+            "repo": "lodash/lodash",
+            "commit": "c4847ebe7d14540bb28a8b932a9ce1b9ecbfee1a",
+            "path": "lodash.js",
+            "gitBlobSha": "379ce88cf086f8138e7eb01e77802c9fe23df287"
+          },
+          {
+            "id": "github:lodash/lodash@3469357cff396a26c363f8c1b5a91dde28ba4b1c:lodash.js",
+            "kind": "source_file",
+            "url": "https://github.com/lodash/lodash/blob/3469357cff396a26c363f8c1b5a91dde28ba4b1c/lodash.js",
+            "sha256": "4d69c77b216b3d8b0c4093726a8a98a8bb6bc1b4a2eae92668fb1f8581b53ffe",
+            "sizeBytes": 543341,
+            "verified": true,
+            "executed": false,
+            "repo": "lodash/lodash",
+            "commit": "3469357cff396a26c363f8c1b5a91dde28ba4b1c",
+            "path": "lodash.js",
+            "gitBlobSha": "278c70204300930b7c60e153d346d44461188003"
+          },
+          {
+            "id": "npm:lodash@4.17.4",
+            "kind": "tarball",
+            "url": "https://registry.npmjs.org/lodash/-/lodash-4.17.4.tgz",
+            "sha256": "f14bfa44822bd45ec6ae995f8c5a0067cfddc680e74f105b03c8e28a9104c59d",
+            "sizeBytes": 310669,
+            "verified": true,
+            "executed": false,
+            "version": "4.17.4",
+            "integrity": "sha512-6X37Sq9KCpLSXEh8uM12AKYlviHPNNk4RxiGBn4cmKGJinbXBneWIV7iE/nXkM928O7ytHcHb6+X6Svl0f4hXg=="
+          }
+        ],
+        "tagChecks": [
+          {
+            "version": "4.17.21",
+            "role": "fixed",
+            "repo": "lodash/lodash",
+            "fixCommits": [
+              "02906b8191d3c100c193fe6f7b27d1c40f200bb7",
+              "c4847ebe7d14540bb28a8b932a9ce1b9ecbfee1a"
+            ],
+            "tag": "4.17.21",
+            "tagCommit": "f299b52f39486275a9e6483b60a410e06520c538",
+            "registryGitHead": "c6e281b878b315c7a10d90f9c2af4cdb112d9625",
+            "releaseCommit": "f299b52f39486275a9e6483b60a410e06520c538",
+            "releaseSource": "git_tag",
+            "byAncestry": [
+              "c4847ebe7d14540bb28a8b932a9ce1b9ecbfee1a"
+            ],
+            "byContent": [
+              "02906b8191d3c100c193fe6f7b27d1c40f200bb7"
+            ],
+            "content": [
+              {
+                "commit": "02906b8191d3c100c193fe6f7b27d1c40f200bb7",
+                "parent": "ded9bc66583ed0b4e3b7dc906206d40757b4a90a",
+                "path": "lodash.js",
+                "lines": [
+                  "var reTrimStart = /^\\s+/;",
+                  "var reWhitespace = /\\s/;",
+                  "function baseTrim(string) {",
+                  "return string",
+                  "? string.slice(0, trimmedEndIndex(string) + 1).replace(reTrimStart, '')",
+                  ": string;",
+                  "function trimmedEndIndex(string) {",
+                  "var index = string.length;",
+                  "while (index-- \u0026\u0026 reWhitespace.test(string.charAt(index))) {}",
+                  "return index;",
+                  "value = baseTrim(value);",
+                  "return baseTrim(string);",
+                  "return string.slice(0, trimmedEndIndex(string) + 1);"
+                ]
+              }
+            ],
+            "basis": "ancestry",
+            "result": "verified",
+            "note": "Tag 4.17.21 is commit f299b52f39 but npm says lodash@4.17.21 was published from c6e281b878; npm's gitHead is checked first. Compare against c6e281b878 failed: HTTP 404 for https://api.github.com/repos/lodash/lodash/compare/02906b8191d3c100c193fe6f7b27d1c40f200bb7...c6e281b878b315c7a10d90f9c2af4cdb112d9625?per_page=1. Not ancestors but every line they add is present (backport or squash merge): 02906b8191."
+          },
+          {
+            "version": "4.17.4",
+            "role": "vulnerable",
+            "repo": "lodash/lodash",
+            "fixCommits": [
+              "02906b8191d3c100c193fe6f7b27d1c40f200bb7",
+              "c4847ebe7d14540bb28a8b932a9ce1b9ecbfee1a"
+            ],
+            "tag": "4.17.4",
+            "tagCommit": "912d6b04a1f6b732508a6da72a95ec4f96bda154",
+            "releaseCommit": "912d6b04a1f6b732508a6da72a95ec4f96bda154",
+            "releaseSource": "git_tag",
+            "basis": "ancestry",
+            "result": "verified"
+          }
+        ]
+      },
+      "excludedChanges": [
+        "tests"
+      ],
+      "notes": "Selected patch_reference with 5 candidate symbol(s). advisory_metadata: empty. Visibility read from npm:lodash@4.17.4: 0 of 5 candidate(s) public or completely resolved."
+    },
+    {
+      "findingId": "find-15ad437c70d1",
+      "vulnerabilityId": "GHSA-35jh-r3h4-6jhm",
+      "purl": "pkg:npm/lodash@4.17.4",
+      "method": "patch_reference",
+      "confidence": "high",
+      "candidateSymbols": [
+        {
+          "symbol": "template",
+          "modulePath": "lodash.js",
+          "changeKind": "modified",
+          "note": "nested in runInContext; visibility unknown: the exports of lodash.js could not be resolved statically: exports used outside a plain assignment at line 426",
+          "evidence": [
+            "github:lodash/lodash@3469357cff396a26c363f8c1b5a91dde28ba4b1c:lodash.js"
+          ],
+          "visibility": "unknown"
+        }
+      ],
+      "vulnerableVersion": "4.17.4",
+      "fixedVersion": "4.17.21",
+      "provenance": {
+        "advisorySource": "osv",
+        "advisoryUrl": "https://osv.dev/vulnerability/GHSA-35jh-r3h4-6jhm",
+        "patchCommit": "3469357cff396a26c363f8c1b5a91dde28ba4b1c",
+        "patchUrl": "https://github.com/lodash/lodash/commit/3469357cff396a26c363f8c1b5a91dde28ba4b1c",
+        "artefacts": [
+          {
+            "id": "advisory",
+            "kind": "advisory",
+            "url": "https://api.osv.dev/v1/vulns/GHSA-35jh-r3h4-6jhm",
+            "sha256": "7cf722323e4190b84d050dcf0565c0e9dc949fe6bdb63d9df46f9a14507c8498",
+            "sizeBytes": 4178,
+            "verified": true,
+            "executed": false,
+            "modified": "2026-10-17T02:55:38.085813876Z"
+          },
+          {
+            "id": "github:lodash/lodash@3469357cff396a26c363f8c1b5a91dde28ba4b1c:lodash.js",
+            "kind": "source_file",
+            "url": "https://github.com/lodash/lodash/blob/3469357cff396a26c363f8c1b5a91dde28ba4b1c/lodash.js",
+            "sha256": "4d69c77b216b3d8b0c4093726a8a98a8bb6bc1b4a2eae92668fb1f8581b53ffe",
+            "sizeBytes": 543341,
+            "verified": true,
+            "executed": false,
+            "repo": "lodash/lodash",
+            "commit": "3469357cff396a26c363f8c1b5a91dde28ba4b1c",
+            "path": "lodash.js",
+            "gitBlobSha": "278c70204300930b7c60e153d346d44461188003"
+          },
+          {
+            "id": "github:lodash/lodash@ded9bc66583ed0b4e3b7dc906206d40757b4a90a:lodash.js",
+            "kind": "source_file",
+            "url": "https://github.com/lodash/lodash/blob/ded9bc66583ed0b4e3b7dc906206d40757b4a90a/lodash.js",
+            "sha256": "8f6acca8bb2e6231eba689ddc74fd017c125a9672e0e8f55786101f1927b83e7",
+            "sizeBytes": 542563,
+            "verified": true,
+            "executed": false,
+            "repo": "lodash/lodash",
+            "commit": "ded9bc66583ed0b4e3b7dc906206d40757b4a90a",
+            "path": "lodash.js",
+            "gitBlobSha": "1fd7116f426a2801ee5ac3bb3c86236c11637403"
+          },
+          {
+            "id": "npm:lodash@4.17.4",
+            "kind": "tarball",
+            "url": "https://registry.npmjs.org/lodash/-/lodash-4.17.4.tgz",
+            "sha256": "f14bfa44822bd45ec6ae995f8c5a0067cfddc680e74f105b03c8e28a9104c59d",
+            "sizeBytes": 310669,
+            "verified": true,
+            "executed": false,
+            "version": "4.17.4",
+            "integrity": "sha512-6X37Sq9KCpLSXEh8uM12AKYlviHPNNk4RxiGBn4cmKGJinbXBneWIV7iE/nXkM928O7ytHcHb6+X6Svl0f4hXg=="
+          }
+        ],
+        "tagChecks": [
+          {
+            "version": "4.17.21",
+            "role": "fixed",
+            "repo": "lodash/lodash",
+            "fixCommits": [
+              "3469357cff396a26c363f8c1b5a91dde28ba4b1c"
+            ],
+            "tag": "4.17.21",
+            "tagCommit": "f299b52f39486275a9e6483b60a410e06520c538",
+            "registryGitHead": "c6e281b878b315c7a10d90f9c2af4cdb112d9625",
+            "releaseCommit": "f299b52f39486275a9e6483b60a410e06520c538",
+            "releaseSource": "git_tag",
+            "byAncestry": [
+              "3469357cff396a26c363f8c1b5a91dde28ba4b1c"
+            ],
+            "basis": "ancestry",
+            "result": "verified",
+            "note": "Tag 4.17.21 is commit f299b52f39 but npm says lodash@4.17.21 was published from c6e281b878; npm's gitHead is checked first. Compare against c6e281b878 failed: HTTP 404 for https://api.github.com/repos/lodash/lodash/compare/3469357cff396a26c363f8c1b5a91dde28ba4b1c...c6e281b878b315c7a10d90f9c2af4cdb112d9625?per_page=1."
+          },
+          {
+            "version": "4.17.4",
+            "role": "vulnerable",
+            "repo": "lodash/lodash",
+            "fixCommits": [
+              "3469357cff396a26c363f8c1b5a91dde28ba4b1c"
+            ],
+            "tag": "4.17.4",
+            "tagCommit": "912d6b04a1f6b732508a6da72a95ec4f96bda154",
+            "releaseCommit": "912d6b04a1f6b732508a6da72a95ec4f96bda154",
+            "releaseSource": "git_tag",
+            "basis": "ancestry",
+            "result": "verified"
+          }
+        ]
+      },
+      "excludedChanges": [
+        "tests"
+      ],
+      "notes": "Selected patch_reference with 1 candidate symbol(s). advisory_metadata: empty. Visibility read from npm:lodash@4.17.4: 0 of 1 candidate(s) public or completely resolved."
+    },
+    {
+      "findingId": "find-28c210d965f5",
+      "vulnerabilityId": "GHSA-4xc9-xhrj-v574",
+      "purl": "pkg:npm/lodash@4.17.4",
+      "method": "patch_reference",
+      "confidence": "high",
+      "candidateSymbols": [
+        {
+          "symbol": "safeGet",
+          "modulePath": "lodash.js",
+          "changeKind": "modified",
+          "note": "nested in runInContext; visibility unknown: safeGet is not defined in lodash.js in the published package",
+          "evidence": [
+            "github:lodash/lodash@90e6199a161b6445b01454517b40ef65ebecd2ad:lodash.js",
+            "github:lodash/lodash@67389a8c78975d97505fa15aa79bec6397749807:lodash.js"
+          ],
+          "visibility": "unknown"
+        }
+      ],
+      "vulnerableVersion": "4.17.4",
+      "fixedVersion": "4.17.11",
+      "provenance": {
+        "advisorySource": "osv",
+        "advisoryUrl": "https://osv.dev/vulnerability/GHSA-4xc9-xhrj-v574",
+        "patchCommit": "90e6199a161b6445b01454517b40ef65ebecd2ad",
+        "patchUrl": "https://github.com/lodash/lodash/commit/90e6199a161b6445b01454517b40ef65ebecd2ad",
+        "artefacts": [
+          {
+            "id": "advisory",
+            "kind": "advisory",
+            "url": "https://api.osv.dev/v1/vulns/GHSA-4xc9-xhrj-v574",
+            "sha256": "e80f31c2e0d44fed2e5181ed8fdd35c82264fac6838dd3fe799bb65837388200",
+            "sizeBytes": 2360,
+            "verified": true,
+            "executed": false,
+            "modified": "2025-08-12T21:55:35.778975Z"
+          },
+          {
+            "id": "github:lodash/lodash@90e6199a161b6445b01454517b40ef65ebecd2ad:lodash.js",
+            "kind": "source_file",
+            "url": "https://github.com/lodash/lodash/blob/90e6199a161b6445b01454517b40ef65ebecd2ad/lodash.js",
+            "sha256": "12ed4a8009a8869fe7337cae5289e8f4942fbd7d047a41160bb09b3adf593938",
+            "sizeBytes": 540005,
+            "verified": true,
+            "executed": false,
+            "repo": "lodash/lodash",
+            "commit": "90e6199a161b6445b01454517b40ef65ebecd2ad",
+            "path": "lodash.js",
+            "gitBlobSha": "c7081ddefb13bdd1da456b15a0c6c62f9f0d1ab9"
+          },
+          {
+            "id": "github:lodash/lodash@67389a8c78975d97505fa15aa79bec6397749807:lodash.js",
+            "kind": "source_file",
+            "url": "https://github.com/lodash/lodash/blob/67389a8c78975d97505fa15aa79bec6397749807/lodash.js",
+            "sha256": "ab06c398d54b882aa4a91069178eaae5b8d81f5d63e5c77e2be63a0f7fe36b6f",
+            "sizeBytes": 539838,
+            "verified": true,
+            "executed": false,
+            "repo": "lodash/lodash",
+            "commit": "67389a8c78975d97505fa15aa79bec6397749807",
+            "path": "lodash.js",
+            "gitBlobSha": "cd8df6fe67f220dc876fa2051e3bb0acfa6ef4cb"
+          },
+          {
+            "id": "npm:lodash@4.17.4",
+            "kind": "tarball",
+            "url": "https://registry.npmjs.org/lodash/-/lodash-4.17.4.tgz",
+            "sha256": "f14bfa44822bd45ec6ae995f8c5a0067cfddc680e74f105b03c8e28a9104c59d",
+            "sizeBytes": 310669,
+            "verified": true,
+            "executed": false,
+            "version": "4.17.4",
+            "integrity": "sha512-6X37Sq9KCpLSXEh8uM12AKYlviHPNNk4RxiGBn4cmKGJinbXBneWIV7iE/nXkM928O7ytHcHb6+X6Svl0f4hXg=="
+          }
+        ],
+        "tagChecks": [
+          {
+            "version": "4.17.11",
+            "role": "fixed",
+            "repo": "lodash/lodash",
+            "fixCommits": [
+              "90e6199a161b6445b01454517b40ef65ebecd2ad"
+            ],
+            "tag": "4.17.11",
+            "tagCommit": "0843bd46ef805dd03c0c8d804630804f3ba0ca3c",
+            "releaseCommit": "0843bd46ef805dd03c0c8d804630804f3ba0ca3c",
+            "releaseSource": "git_tag",
+            "byAncestry": [
+              "90e6199a161b6445b01454517b40ef65ebecd2ad"
+            ],
+            "basis": "ancestry",
+            "result": "verified"
+          },
+          {
+            "version": "4.17.4",
+            "role": "vulnerable",
+            "repo": "lodash/lodash",
+            "fixCommits": [
+              "90e6199a161b6445b01454517b40ef65ebecd2ad"
+            ],
+            "tag": "4.17.4",
+            "tagCommit": "912d6b04a1f6b732508a6da72a95ec4f96bda154",
+            "releaseCommit": "912d6b04a1f6b732508a6da72a95ec4f96bda154",
+            "releaseSource": "git_tag",
+            "basis": "ancestry",
+            "result": "verified"
+          }
+        ]
+      },
+      "excludedChanges": [
+        "tests"
+      ],
+      "notes": "Selected patch_reference with 1 candidate symbol(s). advisory_metadata: empty. Visibility read from npm:lodash@4.17.4: 0 of 1 candidate(s) public or completely resolved."
+    },
+    {
+      "findingId": "find-340a4e8a755b",
+      "vulnerabilityId": "GHSA-f23m-r3pf-42rh",
+      "purl": "pkg:npm/lodash@4.17.4",
+      "method": "advisory_text",
+      "confidence": "medium",
+      "candidateSymbols": [
+        {
+          "symbol": "omit",
+          "note": "named in advisory text",
+          "evidence": [
+            "advisory"
+          ]
+        },
+        {
+          "symbol": "unset",
+          "note": "named in advisory text",
+          "evidence": [
+            "advisory"
+          ]
+        }
+      ],
+      "vulnerableVersion": "4.17.4",
+      "fixedVersion": "4.18.0",
+      "provenance": {
+        "advisorySource": "osv",
+        "advisoryUrl": "https://osv.dev/vulnerability/GHSA-f23m-r3pf-42rh",
+        "artefacts": [
+          {
+            "id": "advisory",
+            "kind": "advisory",
+            "url": "https://api.osv.dev/v1/vulns/GHSA-f23m-r3pf-42rh",
+            "sha256": "696cef131dab61c359b3c6d45fab3e57a762cbb5078aa212b10cbdbe7e9cdd48",
+            "sizeBytes": 3037,
+            "verified": true,
+            "executed": false,
+            "modified": "2026-10-17T02:56:13.084362346Z"
+          }
+        ]
+      },
+      "notes": "Selected advisory_text with 2 candidate symbol(s). advisory_metadata: empty. patch_reference: empty."
+    },
+    {
+      "findingId": "find-2590fff8b864",
+      "vulnerabilityId": "GHSA-fvqr-27wr-82fm",
+      "purl": "pkg:npm/lodash@4.17.4",
+      "method": "patch_reference",
+      "confidence": "high",
+      "candidateSymbols": [
+        {
+          "symbol": "safeGet",
+          "modulePath": "lodash.js",
+          "changeKind": "modified",
+          "note": "visibility unknown: safeGet is not defined in lodash.js in the published package",
+          "evidence": [
+            "github:lodash/lodash@d8e069cc3410082e44eb18fcf8e7f3d08ebe1d4a:lodash.js"
+          ],
+          "visibility": "unknown"
+        },
+        {
+          "symbol": "baseMerge",
+          "modulePath": "lodash.js",
+          "changeKind": "modified",
+          "note": "nested in runInContext; visibility unknown: the exports of lodash.js could not be resolved statically: exports used outside a plain assignment at line 426",
+          "evidence": [
+            "github:lodash/lodash@d8e069cc3410082e44eb18fcf8e7f3d08ebe1d4a:lodash.js",
+            "github:lodash/lodash@5a3ff73997b773a28a5a160b95acfd133a8162e7:lodash.js"
+          ],
+          "visibility": "unknown"
+        },
+        {
+          "symbol": "baseMergeDeep",
+          "modulePath": "lodash.js",
+          "changeKind": "modified",
+          "note": "nested in runInContext; visibility unknown: the exports of lodash.js could not be resolved statically: exports used outside a plain assignment at line 426",
+          "evidence": [
+            "github:lodash/lodash@d8e069cc3410082e44eb18fcf8e7f3d08ebe1d4a:lodash.js",
+            "github:lodash/lodash@5a3ff73997b773a28a5a160b95acfd133a8162e7:lodash.js"
+          ],
+          "visibility": "unknown"
+        }
+      ],
+      "vulnerableVersion": "4.17.4",
+      "fixedVersion": "4.17.5",
+      "provenance": {
+        "advisorySource": "osv",
+        "advisoryUrl": "https://osv.dev/vulnerability/GHSA-fvqr-27wr-82fm",
+        "patchCommit": "d8e069cc3410082e44eb18fcf8e7f3d08ebe1d4a",
+        "patchUrl": "https://github.com/lodash/lodash/commit/d8e069cc3410082e44eb18fcf8e7f3d08ebe1d4a",
+        "artefacts": [
+          {
+            "id": "advisory",
+            "kind": "advisory",
+            "url": "https://api.osv.dev/v1/vulns/GHSA-fvqr-27wr-82fm",
+            "sha256": "843c9c435752da2d5b6f8681ec2d42f0ffea82fbdff6ddb5f5c7c1678028eb45",
+            "sizeBytes": 2430,
+            "verified": true,
+            "executed": false,
+            "modified": "2025-08-12T21:55:16.003066Z"
+          },
+          {
+            "id": "github:lodash/lodash@d8e069cc3410082e44eb18fcf8e7f3d08ebe1d4a:lodash.js",
+            "kind": "source_file",
+            "url": "https://github.com/lodash/lodash/blob/d8e069cc3410082e44eb18fcf8e7f3d08ebe1d4a/lodash.js",
+            "sha256": "b5f8e0f7527a1e1ff99ed4d0d442db25dbfb9b574efc8395dbe73d23a2c3c85c",
+            "sizeBytes": 539967,
+            "verified": true,
+            "executed": false,
+            "repo": "lodash/lodash",
+            "commit": "d8e069cc3410082e44eb18fcf8e7f3d08ebe1d4a",
+            "path": "lodash.js",
+            "gitBlobSha": "f8a1b96d8586ad20bd6f0f40a995e6e737e18675"
+          },
+          {
+            "id": "github:lodash/lodash@5a3ff73997b773a28a5a160b95acfd133a8162e7:lodash.js",
+            "kind": "source_file",
+            "url": "https://github.com/lodash/lodash/blob/5a3ff73997b773a28a5a160b95acfd133a8162e7/lodash.js",
+            "sha256": "8c244fa00808228a024e72e6692c8a30fac580587afd3d1ef1cde2f8a91967a5",
+            "sizeBytes": 539590,
+            "verified": true,
+            "executed": false,
+            "repo": "lodash/lodash",
+            "commit": "5a3ff73997b773a28a5a160b95acfd133a8162e7",
+            "path": "lodash.js",
+            "gitBlobSha": "b39ddce69b3e2360bf23a7f51a824d4b2f4ea299"
+          },
+          {
+            "id": "npm:lodash@4.17.4",
+            "kind": "tarball",
+            "url": "https://registry.npmjs.org/lodash/-/lodash-4.17.4.tgz",
+            "sha256": "f14bfa44822bd45ec6ae995f8c5a0067cfddc680e74f105b03c8e28a9104c59d",
+            "sizeBytes": 310669,
+            "verified": true,
+            "executed": false,
+            "version": "4.17.4",
+            "integrity": "sha512-6X37Sq9KCpLSXEh8uM12AKYlviHPNNk4RxiGBn4cmKGJinbXBneWIV7iE/nXkM928O7ytHcHb6+X6Svl0f4hXg=="
+          }
+        ],
+        "tagChecks": [
+          {
+            "version": "4.17.5",
+            "role": "fixed",
+            "repo": "lodash/lodash",
+            "fixCommits": [
+              "d8e069cc3410082e44eb18fcf8e7f3d08ebe1d4a"
+            ],
+            "tag": "4.17.5",
+            "tagCommit": "97e9edc53d2cc55df7adf765a003c800c54a6bda",
+            "releaseCommit": "97e9edc53d2cc55df7adf765a003c800c54a6bda",
+            "releaseSource": "git_tag",
+            "byAncestry": [
+              "d8e069cc3410082e44eb18fcf8e7f3d08ebe1d4a"
+            ],
+            "basis": "ancestry",
+            "result": "verified"
+          },
+          {
+            "version": "4.17.4",
+            "role": "vulnerable",
+            "repo": "lodash/lodash",
+            "fixCommits": [
+              "d8e069cc3410082e44eb18fcf8e7f3d08ebe1d4a"
+            ],
+            "tag": "4.17.4",
+            "tagCommit": "912d6b04a1f6b732508a6da72a95ec4f96bda154",
+            "releaseCommit": "912d6b04a1f6b732508a6da72a95ec4f96bda154",
+            "releaseSource": "git_tag",
+            "basis": "ancestry",
+            "result": "verified"
+          }
+        ]
+      },
+      "excludedChanges": [
+        "tests"
+      ],
+      "notes": "Selected patch_reference with 3 candidate symbol(s). advisory_metadata: empty. Visibility read from npm:lodash@4.17.4: 0 of 3 candidate(s) public or completely resolved."
+    },
+    {
+      "findingId": "find-cf2d7f62f4f2",
+      "vulnerabilityId": "GHSA-jf85-cpcp-j695",
+      "purl": "pkg:npm/lodash@4.17.4",
+      "method": "patch_reference",
+      "confidence": "high",
+      "candidateSymbols": [
+        {
+          "symbol": "safeGet",
+          "modulePath": "lodash.js",
+          "changeKind": "modified",
+          "note": "nested in runInContext; visibility unknown: safeGet is not defined in lodash.js in the published package",
+          "evidence": [
+            "github:lodash/lodash@a01e4fa727e7294cb7b2845570ba96b206926790:lodash.js"
+          ],
+          "visibility": "unknown"
+        }
+      ],
+      "vulnerableVersion": "4.17.4",
+      "fixedVersion": "4.17.12",
+      "provenance": {
+        "advisorySource": "osv",
+        "advisoryUrl": "https://osv.dev/vulnerability/GHSA-jf85-cpcp-j695",
+        "patchCommit": "a01e4fa727e7294cb7b2845570ba96b206926790",
+        "patchUrl": "https://github.com/lodash/lodash/commit/a01e4fa727e7294cb7b2845570ba96b206926790",
+        "artefacts": [
+          {
+            "id": "advisory",
+            "kind": "advisory",
+            "url": "https://api.osv.dev/v1/vulns/GHSA-jf85-cpcp-j695",
+            "sha256": "1c149f73c8bf3bed4a02b4c57f4b552ca7e02a1e2ce2bc0f8e14c26dee67d2f7",
+            "sizeBytes": 3865,
+            "verified": true,
+            "executed": false,
+            "modified": "2026-09-10T03:47:55.238868631Z"
+          },
+          {
+            "id": "github:lodash/lodash@a01e4fa727e7294cb7b2845570ba96b206926790:lodash.js",
+            "kind": "source_file",
+            "url": "https://github.com/lodash/lodash/blob/a01e4fa727e7294cb7b2845570ba96b206926790/lodash.js",
+            "sha256": "766632c0dc398675031763ee28ac808bffab644197ef8ac9301fc39f93441ed6",
+            "sizeBytes": 539527,
+            "verified": true,
+            "executed": false,
+            "repo": "lodash/lodash",
+            "commit": "a01e4fa727e7294cb7b2845570ba96b206926790",
+            "path": "lodash.js",
+            "gitBlobSha": "5c308f6057a66ea2bb1f421169c217e430155f18"
+          },
+          {
+            "id": "github:lodash/lodash@e42cd97dae460a7c306d0d214b0783c7eccae144:lodash.js",
+            "kind": "source_file",
+            "url": "https://github.com/lodash/lodash/blob/e42cd97dae460a7c306d0d214b0783c7eccae144/lodash.js",
+            "sha256": "dc75c30980cb601b76e2eadf2f246edb6e534a8c595a32a4641a71c3d284ee90",
+            "sizeBytes": 539407,
+            "verified": true,
+            "executed": false,
+            "repo": "lodash/lodash",
+            "commit": "e42cd97dae460a7c306d0d214b0783c7eccae144",
+            "path": "lodash.js",
+            "gitBlobSha": "92c566ac952ad822ae67e27ab0b86e89fd4ca31a"
+          },
+          {
+            "id": "npm:lodash@4.17.4",
+            "kind": "tarball",
+            "url": "https://registry.npmjs.org/lodash/-/lodash-4.17.4.tgz",
+            "sha256": "f14bfa44822bd45ec6ae995f8c5a0067cfddc680e74f105b03c8e28a9104c59d",
+            "sizeBytes": 310669,
+            "verified": true,
+            "executed": false,
+            "version": "4.17.4",
+            "integrity": "sha512-6X37Sq9KCpLSXEh8uM12AKYlviHPNNk4RxiGBn4cmKGJinbXBneWIV7iE/nXkM928O7ytHcHb6+X6Svl0f4hXg=="
+          }
+        ],
+        "tagChecks": [
+          {
+            "version": "4.17.12",
+            "role": "fixed",
+            "repo": "lodash/lodash",
+            "fixCommits": [
+              "a01e4fa727e7294cb7b2845570ba96b206926790"
+            ],
+            "tag": "4.17.12",
+            "tagCommit": "fd9a062d57646450b61f74029315abd4cc834b08",
+            "releaseCommit": "fd9a062d57646450b61f74029315abd4cc834b08",
+            "releaseSource": "git_tag",
+            "byContent": [
+              "a01e4fa727e7294cb7b2845570ba96b206926790"
+            ],
+            "content": [
+              {
+                "commit": "a01e4fa727e7294cb7b2845570ba96b206926790",
+                "parent": "e42cd97dae460a7c306d0d214b0783c7eccae144",
+                "path": "lodash.js",
+                "lines": [
+                  "if (key === 'constructor' \u0026\u0026 typeof object[key] === 'function') {"
+                ]
+              }
+            ],
+            "basis": "content",
+            "result": "verified",
+            "note": "Not ancestors but every line they add is present (backport or squash merge): a01e4fa727."
+          },
+          {
+            "version": "4.17.4",
+            "role": "vulnerable",
+            "repo": "lodash/lodash",
+            "fixCommits": [
+              "a01e4fa727e7294cb7b2845570ba96b206926790"
+            ],
+            "tag": "4.17.4",
+            "tagCommit": "912d6b04a1f6b732508a6da72a95ec4f96bda154",
+            "releaseCommit": "912d6b04a1f6b732508a6da72a95ec4f96bda154",
+            "releaseSource": "git_tag",
+            "basis": "ancestry",
+            "result": "verified"
+          }
+        ]
+      },
+      "excludedChanges": [
+        "tests"
+      ],
+      "notes": "Selected patch_reference with 1 candidate symbol(s). advisory_metadata: empty. Visibility read from npm:lodash@4.17.4: 0 of 1 candidate(s) public or completely resolved."
+    },
+    {
+      "findingId": "find-8588c377e10f",
+      "vulnerabilityId": "GHSA-p6mc-m468-83gw",
+      "purl": "pkg:npm/lodash@4.17.4",
+      "method": "patch_reference",
+      "confidence": "high",
+      "candidateSymbols": [
+        {
+          "symbol": "baseSet",
+          "modulePath": "lodash.js",
+          "changeKind": "modified",
+          "note": "nested in runInContext; visibility unknown: the exports of lodash.js could not be resolved statically: exports used outside a plain assignment at line 426",
+          "evidence": [
+            "github:lodash/lodash@c84fe82760fb2d3e03a63379b297a1cc1a2fce12:lodash.js"
+          ],
+          "visibility": "unknown"
+        }
+      ],
+      "vulnerableVersion": "4.17.4",
+      "fixedVersion": "4.17.19",
+      "provenance": {
+        "advisorySource": "osv",
+        "advisoryUrl": "https://osv.dev/vulnerability/GHSA-p6mc-m468-83gw",
+        "patchCommit": "c84fe82760fb2d3e03a63379b297a1cc1a2fce12",
+        "patchUrl": "https://github.com/lodash/lodash/commit/c84fe82760fb2d3e03a63379b297a1cc1a2fce12",
+        "artefacts": [
+          {
+            "id": "advisory",
+            "kind": "advisory",
+            "url": "https://api.osv.dev/v1/vulns/GHSA-p6mc-m468-83gw",
+            "sha256": "94c68079bdee2ef14ccd74a9c3c22369aaa01a7355b8db55fb19f62614694550",
+            "sizeBytes": 4949,
+            "verified": true,
+            "executed": false,
+            "modified": "2025-08-12T21:56:17.174859Z"
+          },
+          {
+            "id": "github:lodash/lodash@c84fe82760fb2d3e03a63379b297a1cc1a2fce12:lodash.js",
+            "kind": "source_file",
+            "url": "https://github.com/lodash/lodash/blob/c84fe82760fb2d3e03a63379b297a1cc1a2fce12/lodash.js",
+            "sha256": "10621ce376e21ed8d6484022ca6ae92354d23e7ba9e458a795d660130ba7c4dc",
+            "sizeBytes": 542559,
+            "verified": true,
+            "executed": false,
+            "repo": "lodash/lodash",
+            "commit": "c84fe82760fb2d3e03a63379b297a1cc1a2fce12",
+            "path": "lodash.js",
+            "gitBlobSha": "8b0caea3f6b2980c96db32d897e315fdfb5227a6"
+          },
+          {
+            "id": "npm:lodash@4.17.4",
+            "kind": "tarball",
+            "url": "https://registry.npmjs.org/lodash/-/lodash-4.17.4.tgz",
+            "sha256": "f14bfa44822bd45ec6ae995f8c5a0067cfddc680e74f105b03c8e28a9104c59d",
+            "sizeBytes": 310669,
+            "verified": true,
+            "executed": false,
+            "version": "4.17.4",
+            "integrity": "sha512-6X37Sq9KCpLSXEh8uM12AKYlviHPNNk4RxiGBn4cmKGJinbXBneWIV7iE/nXkM928O7ytHcHb6+X6Svl0f4hXg=="
+          }
+        ],
+        "tagChecks": [
+          {
+            "version": "4.17.19",
+            "role": "fixed",
+            "repo": "lodash/lodash",
+            "fixCommits": [
+              "c84fe82760fb2d3e03a63379b297a1cc1a2fce12"
+            ],
+            "tag": "4.17.19",
+            "tagCommit": "d7fbc52ee0466a6d248f047b5d5c3e6d1e099056",
+            "releaseCommit": "d7fbc52ee0466a6d248f047b5d5c3e6d1e099056",
+            "releaseSource": "git_tag",
+            "byAncestry": [
+              "c84fe82760fb2d3e03a63379b297a1cc1a2fce12"
+            ],
+            "basis": "ancestry",
+            "result": "verified"
+          },
+          {
+            "version": "4.17.4",
+            "role": "vulnerable",
+            "repo": "lodash/lodash",
+            "fixCommits": [
+              "c84fe82760fb2d3e03a63379b297a1cc1a2fce12"
+            ],
+            "tag": "4.17.4",
+            "tagCommit": "912d6b04a1f6b732508a6da72a95ec4f96bda154",
+            "releaseCommit": "912d6b04a1f6b732508a6da72a95ec4f96bda154",
+            "releaseSource": "git_tag",
+            "basis": "ancestry",
+            "result": "verified"
+          }
+        ]
+      },
+      "excludedChanges": [
+        "tests"
+      ],
+      "notes": "Selected patch_reference with 1 candidate symbol(s). advisory_metadata: empty. Visibility read from npm:lodash@4.17.4: 0 of 1 candidate(s) public or completely resolved."
+    },
+    {
+      "findingId": "find-eeecb3d50058",
+      "vulnerabilityId": "GHSA-r5fr-rjxr-66jc",
+      "purl": "pkg:npm/lodash@4.17.4",
+      "method": "patch_reference",
+      "confidence": "high",
+      "candidateSymbols": [
+        {
+          "symbol": "template",
+          "modulePath": "lodash.js",
+          "changeKind": "modified",
+          "note": "nested in runInContext; visibility unknown: the exports of lodash.js could not be resolved statically: exports used outside a plain assignment at line 426",
+          "evidence": [
+            "github:lodash/lodash@3469357cff396a26c363f8c1b5a91dde28ba4b1c:lodash.js"
+          ],
+          "visibility": "unknown"
+        }
+      ],
+      "vulnerableVersion": "4.17.4",
+      "fixedVersion": "4.18.0",
+      "provenance": {
+        "advisorySource": "osv",
+        "advisoryUrl": "https://osv.dev/vulnerability/GHSA-r5fr-rjxr-66jc",
+        "patchCommit": "3469357cff396a26c363f8c1b5a91dde28ba4b1c",
+        "patchUrl": "https://github.com/lodash/lodash/commit/3469357cff396a26c363f8c1b5a91dde28ba4b1c",
+        "artefacts": [
+          {
+            "id": "advisory",
+            "kind": "advisory",
+            "url": "https://api.osv.dev/v1/vulns/GHSA-r5fr-rjxr-66jc",
+            "sha256": "07b3c1195b4e2a1cf800587bbe2f198f52f77565e2948c9453d0b2863ad6c974",
+            "sizeBytes": 3688,
+            "verified": true,
+            "executed": false,
+            "modified": "2026-10-17T02:56:15.633068434Z"
+          },
+          {
+            "id": "github:lodash/lodash@3469357cff396a26c363f8c1b5a91dde28ba4b1c:lodash.js",
+            "kind": "source_file",
+            "url": "https://github.com/lodash/lodash/blob/3469357cff396a26c363f8c1b5a91dde28ba4b1c/lodash.js",
+            "sha256": "4d69c77b216b3d8b0c4093726a8a98a8bb6bc1b4a2eae92668fb1f8581b53ffe",
+            "sizeBytes": 543341,
+            "verified": true,
+            "executed": false,
+            "repo": "lodash/lodash",
+            "commit": "3469357cff396a26c363f8c1b5a91dde28ba4b1c",
+            "path": "lodash.js",
+            "gitBlobSha": "278c70204300930b7c60e153d346d44461188003"
+          },
+          {
+            "id": "github:lodash/lodash@ded9bc66583ed0b4e3b7dc906206d40757b4a90a:lodash.js",
+            "kind": "source_file",
+            "url": "https://github.com/lodash/lodash/blob/ded9bc66583ed0b4e3b7dc906206d40757b4a90a/lodash.js",
+            "sha256": "8f6acca8bb2e6231eba689ddc74fd017c125a9672e0e8f55786101f1927b83e7",
+            "sizeBytes": 542563,
+            "verified": true,
+            "executed": false,
+            "repo": "lodash/lodash",
+            "commit": "ded9bc66583ed0b4e3b7dc906206d40757b4a90a",
+            "path": "lodash.js",
+            "gitBlobSha": "1fd7116f426a2801ee5ac3bb3c86236c11637403"
+          },
+          {
+            "id": "npm:lodash@4.17.4",
+            "kind": "tarball",
+            "url": "https://registry.npmjs.org/lodash/-/lodash-4.17.4.tgz",
+            "sha256": "f14bfa44822bd45ec6ae995f8c5a0067cfddc680e74f105b03c8e28a9104c59d",
+            "sizeBytes": 310669,
+            "verified": true,
+            "executed": false,
+            "version": "4.17.4",
+            "integrity": "sha512-6X37Sq9KCpLSXEh8uM12AKYlviHPNNk4RxiGBn4cmKGJinbXBneWIV7iE/nXkM928O7ytHcHb6+X6Svl0f4hXg=="
+          }
+        ],
+        "tagChecks": [
+          {
+            "version": "4.18.0",
+            "role": "fixed",
+            "repo": "lodash/lodash",
+            "fixCommits": [
+              "3469357cff396a26c363f8c1b5a91dde28ba4b1c"
+            ],
+            "tag": "4.18.0",
+            "tagCommit": "59be2de61f8aa9461c7856533b51d31b7d8babc4",
+            "registryGitHead": "0c9b60c1ae2656ef0d605e6726d72307eb5c31ff",
+            "releaseCommit": "59be2de61f8aa9461c7856533b51d31b7d8babc4",
+            "releaseSource": "git_tag",
+            "byAncestry": [
+              "3469357cff396a26c363f8c1b5a91dde28ba4b1c"
+            ],
+            "basis": "ancestry",
+            "result": "verified",
+            "note": "Tag 4.18.0 is commit 59be2de61f but npm says lodash@4.18.0 was published from 0c9b60c1ae; npm's gitHead is checked first. Compare against 0c9b60c1ae failed: HTTP 404 for https://api.github.com/repos/lodash/lodash/compare/3469357cff396a26c363f8c1b5a91dde28ba4b1c...0c9b60c1ae2656ef0d605e6726d72307eb5c31ff?per_page=1."
+          },
+          {
+            "version": "4.17.4",
+            "role": "vulnerable",
+            "repo": "lodash/lodash",
+            "fixCommits": [
+              "3469357cff396a26c363f8c1b5a91dde28ba4b1c"
+            ],
+            "tag": "4.17.4",
+            "tagCommit": "912d6b04a1f6b732508a6da72a95ec4f96bda154",
+            "releaseCommit": "912d6b04a1f6b732508a6da72a95ec4f96bda154",
+            "releaseSource": "git_tag",
+            "basis": "ancestry",
+            "result": "verified"
+          }
+        ]
+      },
+      "excludedChanges": [
+        "tests"
+      ],
+      "notes": "Selected patch_reference with 1 candidate symbol(s). advisory_metadata: empty. Visibility read from npm:lodash@4.17.4: 0 of 1 candidate(s) public or completely resolved."
+    },
+    {
+      "findingId": "find-473a234ef8a5",
+      "vulnerabilityId": "GHSA-x5rq-j2xg-h7qm",
+      "purl": "pkg:npm/lodash@4.17.4",
+      "method": "version_diff",
+      "confidence": "low",
+      "candidateSymbols": [
+        {
+          "symbol": "addMapEntry",
+          "modulePath": "_addMapEntry.js",
+          "changeKind": "removed",
+          "note": "exported as default; visibility internal via default (incomplete): _addMapEntry.js is loaded by _cloneMap.js, which is not the entry module (only one hop is resolved); lodash.js: exports used outside a plain assignment at line 426; another copy of addMapEntry is in lodash.js; core.min.js is not fully parsed; lodash.min.js is not fully parsed",
+          "evidence": [
+            "npm:lodash@4.17.4"
+          ],
+          "visibility": "internal",
+          "exposedVia": [
+            "default"
+          ],
+          "exposedViaSource": "export_resolution",
+          "exposedViaComplete": false
+        },
+        {
+          "symbol": "default",
+          "modulePath": "_addMapEntry.js",
+          "changeKind": "removed",
+          "note": "export alias of addMapEntry; visibility internal via default (incomplete): _addMapEntry.js is loaded by _cloneMap.js, which is not the entry module (only one hop is resolved); lodash.js: exports used outside a plain assignment at line 426; core.min.js is not fully parsed; lodash.min.js is not fully parsed",
+          "evidence": [
+            "npm:lodash@4.17.4"
+          ],
+          "visibility": "internal",
+          "exposedVia": [
+            "default"
+          ],
+          "exposedViaSource": "export_resolution",
+          "exposedViaComplete": false
+        },
+        {
+          "symbol": "addSetEntry",
+          "modulePath": "_addSetEntry.js",
+          "changeKind": "removed",
+          "note": "exported as default; visibility internal via default (incomplete): _addSetEntry.js is loaded by _cloneSet.js, which is not the entry module (only one hop is resolved); lodash.js: exports used outside a plain assignment at line 426; another copy of addSetEntry is in lodash.js; core.min.js is not fully parsed; lodash.min.js is not fully parsed",
+          "evidence": [
+            "npm:lodash@4.17.4"
+          ],
+          "visibility": "internal",
+          "exposedVia": [
+            "default"
+          ],
+          "exposedViaSource": "export_resolution",
+          "exposedViaComplete": false
+        },
+        {
+          "symbol": "default",
+          "modulePath": "_addSetEntry.js",
+          "changeKind": "removed",
+          "note": "export alias of addSetEntry; visibility internal via default (incomplete): _addSetEntry.js is loaded by _cloneSet.js, which is not the entry module (only one hop is resolved); lodash.js: exports used outside a plain assignment at line 426; core.min.js is not fully parsed; lodash.min.js is not fully parsed",
+          "evidence": [
+            "npm:lodash@4.17.4"
+          ],
+          "visibility": "internal",
+          "exposedVia": [
+            "default"
+          ],
+          "exposedViaSource": "export_resolution",
+          "exposedViaComplete": false
+        },
+        {
+          "symbol": "baseClone",
+          "modulePath": "_baseClone.js",
+          "changeKind": "modified",
+          "note": "exported as default; visibility internal via default (incomplete): _baseClone.js is loaded by clone.js, which is not the entry module (only one hop is resolved); _baseClone.js is loaded by cloneDeep.js, which is not the entry module (only one hop is resolved); _baseClone.js is loaded by cloneDeepWith.js, which is not the entry module (only one hop is resolved); _baseClone.js is loaded by cloneWith.js, which is not the entry module (only one hop is resolved); _baseClone.js is loaded by conforms.js, which is not the entry module (only one hop is resolved); _baseClone.js is loaded by iteratee.js, which is not the entry module (only one hop is resolved); _baseClone.js is loaded by matches.js, which is not the entry module (only one hop is resolved); _baseClone.js is loaded by matchesProperty.js, which is not the entry module (only one hop is resolved); _baseClone.js is loaded by omit.js, which is not the entry module (only one hop is resolved); lodash.js: exports used outside a plain assignment at line 426; another copy of baseClone is in lodash.js; core.min.js is not fully parsed; lodash.min.js is not fully parsed",
+          "evidence": [
+            "npm:lodash@4.17.11",
+            "npm:lodash@4.17.4"
+          ],
+          "visibility": "internal",
+          "exposedVia": [
+            "default"
+          ],
+          "exposedViaSource": "export_resolution",
+          "exposedViaComplete": false
+        },
+        {
+          "symbol": "default",
+          "modulePath": "_baseClone.js",
+          "changeKind": "modified",
+          "note": "export alias of baseClone; visibility internal via default (incomplete): _baseClone.js is loaded by clone.js, which is not the entry module (only one hop is resolved); _baseClone.js is loaded by cloneDeep.js, which is not the entry module (only one hop is resolved); _baseClone.js is loaded by cloneDeepWith.js, which is not the entry module (only one hop is resolved); _baseClone.js is loaded by cloneWith.js, which is not the entry module (only one hop is resolved); _baseClone.js is loaded by conforms.js, which is not the entry module (only one hop is resolved); _baseClone.js is loaded by iteratee.js, which is not the entry module (only one hop is resolved); _baseClone.js is loaded by matches.js, which is not the entry module (only one hop is resolved); _baseClone.js is loaded by matchesProperty.js, which is not the entry module (only one hop is resolved); _baseClone.js is loaded by omit.js, which is not the entry module (only one hop is resolved); lodash.js: exports used outside a plain assignment at line 426; core.min.js is not fully parsed; lodash.min.js is not fully parsed",
+          "evidence": [
+            "npm:lodash@4.17.11",
+            "npm:lodash@4.17.4"
+          ],
+          "visibility": "internal",
+          "exposedVia": [
+            "default"
+          ],
+          "exposedViaSource": "export_resolution",
+          "exposedViaComplete": false
+        },
+        {
+          "symbol": "baseMerge",
+          "modulePath": "_baseMerge.js",
+          "changeKind": "modified",
+          "note": "exported as default; visibility internal via default (incomplete): _baseMerge.js is loaded by _customDefaultsMerge.js, which is not the entry module (only one hop is resolved); _baseMerge.js is loaded by merge.js, which is not the entry module (only one hop is resolved); _baseMerge.js is loaded by mergeWith.js, which is not the entry module (only one hop is resolved); lodash.js: exports used outside a plain assignment at line 426; another copy of baseMerge is in lodash.js; core.min.js is not fully parsed; lodash.min.js is not fully parsed",
+          "evidence": [
+            "npm:lodash@4.17.11",
+            "npm:lodash@4.17.4"
+          ],
+          "visibility": "internal",
+          "exposedVia": [
+            "default"
+          ],
+          "exposedViaSource": "export_resolution",
+          "exposedViaComplete": false
+        },
+        {
+          "symbol": "default",
+          "modulePath": "_baseMerge.js",
+          "changeKind": "modified",
+          "note": "export alias of baseMerge; visibility internal via default (incomplete): _baseMerge.js is loaded by _customDefaultsMerge.js, which is not the entry module (only one hop is resolved); _baseMerge.js is loaded by merge.js, which is not the entry module (only one hop is resolved); _baseMerge.js is loaded by mergeWith.js, which is not the entry module (only one hop is resolved); lodash.js: exports used outside a plain assignment at line 426; core.min.js is not fully parsed; lodash.min.js is not fully parsed",
+          "evidence": [
+            "npm:lodash@4.17.11",
+            "npm:lodash@4.17.4"
+          ],
+          "visibility": "internal",
+          "exposedVia": [
+            "default"
+          ],
+          "exposedViaSource": "export_resolution",
+          "exposedViaComplete": false
+        },
+        {
+          "symbol": "baseMergeDeep",
+          "modulePath": "_baseMergeDeep.js",
+          "changeKind": "modified",
+          "note": "exported as default; visibility internal via default (incomplete): _baseMergeDeep.js is loaded by _baseMerge.js, which is not the entry module (only one hop is resolved); lodash.js: exports used outside a plain assignment at line 426; another copy of baseMergeDeep is in lodash.js; core.min.js is not fully parsed; lodash.min.js is not fully parsed",
+          "evidence": [
+            "npm:lodash@4.17.11",
+            "npm:lodash@4.17.4"
+          ],
+          "visibility": "internal",
+          "exposedVia": [
+            "default"
+          ],
+          "exposedViaSource": "export_resolution",
+          "exposedViaComplete": false
+        },
+        {
+          "symbol": "default",
+          "modulePath": "_baseMergeDeep.js",
+          "changeKind": "modified",
+          "note": "export alias of baseMergeDeep; visibility internal via default (incomplete): _baseMergeDeep.js is loaded by _baseMerge.js, which is not the entry module (only one hop is resolved); lodash.js: exports used outside a plain assignment at line 426; core.min.js is not fully parsed; lodash.min.js is not fully parsed",
+          "evidence": [
+            "npm:lodash@4.17.11",
+            "npm:lodash@4.17.4"
+          ],
+          "visibility": "internal",
+          "exposedVia": [
+            "default"
+          ],
+          "exposedViaSource": "export_resolution",
+          "exposedViaComplete": false
+        },
+        {
+          "symbol": "cloneMap",
+          "modulePath": "_cloneMap.js",
+          "changeKind": "removed",
+          "note": "exported as default; visibility internal via default (incomplete): _cloneMap.js is loaded by _initCloneByTag.js, which is not the entry module (only one hop is resolved); lodash.js: exports used outside a plain assignment at line 426; another copy of cloneMap is in lodash.js; core.min.js is not fully parsed; lodash.min.js is not fully parsed",
+          "evidence": [
+            "npm:lodash@4.17.4"
+          ],
+          "visibility": "internal",
+          "exposedVia": [
+            "default"
+          ],
+          "exposedViaSource": "export_resolution",
+          "exposedViaComplete": false
+        },
+        {
+          "symbol": "default",
+          "modulePath": "_cloneMap.js",
+          "changeKind": "removed",
+          "note": "export alias of cloneMap; visibility internal via default (incomplete): _cloneMap.js is loaded by _initCloneByTag.js, which is not the entry module (only one hop is resolved); lodash.js: exports used outside a plain assignment at line 426; core.min.js is not fully parsed; lodash.min.js is not fully parsed",
+          "evidence": [
+            "npm:lodash@4.17.4"
+          ],
+          "visibility": "internal",
+          "exposedVia": [
+            "default"
+          ],
+          "exposedViaSource": "export_resolution",
+          "exposedViaComplete": false
+        },
+        {
+          "symbol": "cloneSet",
+          "modulePath": "_cloneSet.js",
+          "changeKind": "removed",
+          "note": "exported as default; visibility internal via default (incomplete): _cloneSet.js is loaded by _initCloneByTag.js, which is not the entry module (only one hop is resolved); lodash.js: exports used outside a plain assignment at line 426; another copy of cloneSet is in lodash.js; core.min.js is not fully parsed; lodash.min.js is not fully parsed",
+          "evidence": [
+            "npm:lodash@4.17.4"
+          ],
+          "visibility": "internal",
+          "exposedVia": [
+            "default"
+          ],
+          "exposedViaSource": "export_resolution",
+          "exposedViaComplete": false
+        },
+        {
+          "symbol": "default",
+          "modulePath": "_cloneSet.js",
+          "changeKind": "removed",
+          "note": "export alias of cloneSet; visibility internal via default (incomplete): _cloneSet.js is loaded by _initCloneByTag.js, which is not the entry module (only one hop is resolved); lodash.js: exports used outside a plain assignment at line 426; core.min.js is not fully parsed; lodash.min.js is not fully parsed",
+          "evidence": [
+            "npm:lodash@4.17.4"
+          ],
+          "visibility": "internal",
+          "exposedVia": [
+            "default"
+          ],
+          "exposedViaSource": "export_resolution",
+          "exposedViaComplete": false
+        },
+        {
+          "symbol": "initCloneArray",
+          "modulePath": "_initCloneArray.js",
+          "changeKind": "modified",
+          "note": "exported as default; visibility internal via default (incomplete): _initCloneArray.js is loaded by _baseClone.js, which is not the entry module (only one hop is resolved); lodash.js: exports used outside a plain assignment at line 426; another copy of initCloneArray is in lodash.js; core.min.js is not fully parsed; lodash.min.js is not fully parsed",
+          "evidence": [
+            "npm:lodash@4.17.11",
+            "npm:lodash@4.17.4"
+          ],
+          "visibility": "internal",
+          "exposedVia": [
+            "default"
+          ],
+          "exposedViaSource": "export_resolution",
+          "exposedViaComplete": false
+        },
+        {
+          "symbol": "default",
+          "modulePath": "_initCloneArray.js",
+          "changeKind": "modified",
+          "note": "export alias of initCloneArray; visibility internal via default (incomplete): _initCloneArray.js is loaded by _baseClone.js, which is not the entry module (only one hop is resolved); lodash.js: exports used outside a plain assignment at line 426; core.min.js is not fully parsed; lodash.min.js is not fully parsed",
+          "evidence": [
+            "npm:lodash@4.17.11",
+            "npm:lodash@4.17.4"
+          ],
+          "visibility": "internal",
+          "exposedVia": [
+            "default"
+          ],
+          "exposedViaSource": "export_resolution",
+          "exposedViaComplete": false
+        },
+        {
+          "symbol": "initCloneByTag",
+          "modulePath": "_initCloneByTag.js",
+          "changeKind": "modified",
+          "note": "exported as default; visibility internal via default (incomplete): _initCloneByTag.js is loaded by _baseClone.js, which is not the entry module (only one hop is resolved); lodash.js: exports used outside a plain assignment at line 426; another copy of initCloneByTag is in lodash.js; core.min.js is not fully parsed; lodash.min.js is not fully parsed",
+          "evidence": [
+            "npm:lodash@4.17.11",
+            "npm:lodash@4.17.4"
+          ],
+          "visibility": "internal",
+          "exposedVia": [
+            "default"
+          ],
+          "exposedViaSource": "export_resolution",
+          "exposedViaComplete": false
+        },
+        {
+          "symbol": "default",
+          "modulePath": "_initCloneByTag.js",
+          "changeKind": "modified",
+          "note": "export alias of initCloneByTag; visibility internal via default (incomplete): _initCloneByTag.js is loaded by _baseClone.js, which is not the entry module (only one hop is resolved); lodash.js: exports used outside a plain assignment at line 426; core.min.js is not fully parsed; lodash.min.js is not fully parsed",
+          "evidence": [
+            "npm:lodash@4.17.11",
+            "npm:lodash@4.17.4"
+          ],
+          "visibility": "internal",
+          "exposedVia": [
+            "default"
+          ],
+          "exposedViaSource": "export_resolution",
+          "exposedViaComplete": false
+        },
+        {
+          "symbol": "isIndex",
+          "modulePath": "_isIndex.js",
+          "changeKind": "modified",
+          "note": "exported as default; visibility internal via default (incomplete): _isIndex.js is loaded by _arrayLikeKeys.js, which is not the entry module (only one hop is resolved); _isIndex.js is loaded by _baseNth.js, which is not the entry module (only one hop is resolved); _isIndex.js is loaded by _basePullAt.js, which is not the entry module (only one hop is resolved); _isIndex.js is loaded by _baseSet.js, which is not the entry module (only one hop is resolved); _isIndex.js is loaded by _hasPath.js, which is not the entry module (only one hop is resolved); _isIndex.js is loaded by _isIterateeCall.js, which is not the entry module (only one hop is resolved); _isIndex.js is loaded by _reorder.js, which is not the entry module (only one hop is resolved); _isIndex.js is loaded by pullAt.js, which is not the entry module (only one hop is resolved); _isIndex.js is loaded by wrapperAt.js, which is not the entry module (only one hop is resolved); lodash.js: exports used outside a plain assignment at line 426; another copy of isIndex is in lodash.js; core.min.js is not fully parsed; lodash.min.js is not fully parsed",
+          "evidence": [
+            "npm:lodash@4.17.11",
+            "npm:lodash@4.17.4"
+          ],
+          "visibility": "internal",
+          "exposedVia": [
+            "default"
+          ],
+          "exposedViaSource": "export_resolution",
+          "exposedViaComplete": false
+        },
+        {
+          "symbol": "default",
+          "modulePath": "_isIndex.js",
+          "changeKind": "modified",
+          "note": "export alias of isIndex; visibility internal via default (incomplete): _isIndex.js is loaded by _arrayLikeKeys.js, which is not the entry module (only one hop is resolved); _isIndex.js is loaded by _baseNth.js, which is not the entry module (only one hop is resolved); _isIndex.js is loaded by _basePullAt.js, which is not the entry module (only one hop is resolved); _isIndex.js is loaded by _baseSet.js, which is not the entry module (only one hop is resolved); _isIndex.js is loaded by _hasPath.js, which is not the entry module (only one hop is resolved); _isIndex.js is loaded by _isIterateeCall.js, which is not the entry module (only one hop is resolved); _isIndex.js is loaded by _reorder.js, which is not the entry module (only one hop is resolved); _isIndex.js is loaded by pullAt.js, which is not the entry module (only one hop is resolved); _isIndex.js is loaded by wrapperAt.js, which is not the entry module (only one hop is resolved); lodash.js: exports used outside a plain assignment at line 426; core.min.js is not fully parsed; lodash.min.js is not fully parsed",
+          "evidence": [
+            "npm:lodash@4.17.11",
+            "npm:lodash@4.17.4"
+          ],
+          "visibility": "internal",
+          "exposedVia": [
+            "default"
+          ],
+          "exposedViaSource": "export_resolution",
+          "exposedViaComplete": false
+        },
+        {
+          "symbol": "safeGet",
+          "modulePath": "_safeGet.js",
+          "changeKind": "added",
+          "note": "exported as default; visibility unknown: _safeGet.js is not in the published vulnerable package",
+          "evidence": [
+            "npm:lodash@4.17.11"
+          ],
+          "visibility": "unknown"
+        },
+        {
+          "symbol": "default",
+          "modulePath": "_safeGet.js",
+          "changeKind": "added",
+          "note": "export alias of safeGet; visibility unknown: _safeGet.js is not in the published vulnerable package",
+          "evidence": [
+            "npm:lodash@4.17.11"
+          ],
+          "visibility": "unknown"
+        },
+        {
+          "symbol": "isIndex",
+          "modulePath": "core.js",
+          "changeKind": "modified",
+          "note": "visibility unknown: isIndex is not defined in core.js in the published package",
+          "evidence": [
+            "npm:lodash@4.17.11"
+          ],
+          "visibility": "unknown"
+        },
+        {
+          "symbol": "isIterateeCall",
+          "modulePath": "core.js",
+          "changeKind": "modified",
+          "note": "visibility unknown: isIterateeCall is not defined in core.js in the published package",
+          "evidence": [
+            "npm:lodash@4.17.11"
+          ],
+          "visibility": "unknown"
+        },
+        {
+          "symbol": "customDefaultsAssignIn",
+          "modulePath": "core.js",
+          "changeKind": "modified",
+          "note": "visibility unknown: the exports of core.js could not be resolved statically: exports used outside a plain assignment at line 71",
+          "evidence": [
+            "npm:lodash@4.17.4"
+          ],
+          "visibility": "unknown"
+        },
+        {
+          "symbol": "remainingWait",
+          "modulePath": "debounce.js",
+          "changeKind": "modified",
+          "note": "nested in debounce; visibility internal via default (incomplete): debounce.js is loaded by fp/debounce.js, which is not the entry module (only one hop is resolved); debounce.js is loaded by function.js, which is not the entry module (only one hop is resolved); debounce.js is loaded by throttle.js, which is not the entry module (only one hop is resolved); lodash.js: exports used outside a plain assignment at line 426; another copy of remainingWait is in lodash.js; core.min.js is not fully parsed; lodash.min.js is not fully parsed",
+          "evidence": [
+            "npm:lodash@4.17.11",
+            "npm:lodash@4.17.4"
+          ],
+          "visibility": "internal",
+          "exposedVia": [
+            "default"
+          ],
+          "exposedViaSource": "export_resolution",
+          "exposedViaComplete": false
+        },
+        {
+          "symbol": "baseConvert",
+          "modulePath": "fp/_baseConvert.js",
+          "changeKind": "modified",
+          "note": "exported as default; visibility internal via default (incomplete): fp/_baseConvert.js is loaded by fp.js, which is not the entry module (only one hop is resolved); fp/_baseConvert.js is loaded by fp/_convertBrowser.js, which is not the entry module (only one hop is resolved); fp/_baseConvert.js is loaded by fp/convert.js, which is not the entry module (only one hop is resolved); lodash.js: exports used outside a plain assignment at line 426; core.min.js is not fully parsed; lodash.min.js is not fully parsed",
+          "evidence": [
+            "npm:lodash@4.17.11",
+            "npm:lodash@4.17.4"
+          ],
+          "visibility": "internal",
+          "exposedVia": [
+            "default"
+          ],
+          "exposedViaSource": "export_resolution",
+          "exposedViaComplete": false
+        },
+        {
+          "symbol": "default",
+          "modulePath": "fp/_baseConvert.js",
+          "changeKind": "modified",
+          "note": "export alias of baseConvert; visibility internal via default (incomplete): fp/_baseConvert.js is loaded by fp.js, which is not the entry module (only one hop is resolved); fp/_baseConvert.js is loaded by fp/_convertBrowser.js, which is not the entry module (only one hop is resolved); fp/_baseConvert.js is loaded by fp/convert.js, which is not the entry module (only one hop is resolved); lodash.js: exports used outside a plain assignment at line 426; core.min.js is not fully parsed; lodash.min.js is not fully parsed",
+          "evidence": [
+            "npm:lodash@4.17.11",
+            "npm:lodash@4.17.4"
+          ],
+          "visibility": "internal",
+          "exposedVia": [
+            "default"
+          ],
+          "exposedViaSource": "export_resolution",
+          "exposedViaComplete": false
+        },
+        {
+          "symbol": "cloneByPath",
+          "modulePath": "fp/_baseConvert.js",
+          "changeKind": "modified",
+          "note": "nested in baseConvert; visibility internal via default (incomplete): fp/_baseConvert.js is loaded by fp.js, which is not the entry module (only one hop is resolved); fp/_baseConvert.js is loaded by fp/_convertBrowser.js, which is not the entry module (only one hop is resolved); fp/_baseConvert.js is loaded by fp/convert.js, which is not the entry module (only one hop is resolved); lodash.js: exports used outside a plain assignment at line 426; core.min.js is not fully parsed; lodash.min.js is not fully parsed",
+          "evidence": [
+            "npm:lodash@4.17.11",
+            "npm:lodash@4.17.4"
+          ],
+          "visibility": "internal",
+          "exposedVia": [
+            "default"
+          ],
+          "exposedViaSource": "export_resolution",
+          "exposedViaComplete": false
+        },
+        {
+          "symbol": "wrap",
+          "modulePath": "fp/_baseConvert.js",
+          "changeKind": "modified",
+          "note": "nested in baseConvert; visibility internal via default (incomplete): fp/_baseConvert.js is loaded by fp.js, which is not the entry module (only one hop is resolved); fp/_baseConvert.js is loaded by fp/_convertBrowser.js, which is not the entry module (only one hop is resolved); fp/_baseConvert.js is loaded by fp/convert.js, which is not the entry module (only one hop is resolved); lodash.js: exports used outside a plain assignment at line 426; another copy of wrap is in lodash.js, wrap.js; core.min.js is not fully parsed; lodash.min.js is not fully parsed",
+          "evidence": [
+            "npm:lodash@4.17.11",
+            "npm:lodash@4.17.4"
+          ],
+          "visibility": "internal",
+          "exposedVia": [
+            "default"
+          ],
+          "exposedViaSource": "export_resolution",
+          "exposedViaComplete": false
+        },
+        {
+          "symbol": "baseClone",
+          "modulePath": "lodash.js",
+          "changeKind": "modified",
+          "note": "nested in runInContext; visibility unknown: the exports of lodash.js could not be resolved statically: exports used outside a plain assignment at line 426",
+          "evidence": [
+            "npm:lodash@4.17.11",
+            "npm:lodash@4.17.4"
+          ],
+          "visibility": "unknown"
+        },
+        {
+          "symbol": "baseMerge",
+          "modulePath": "lodash.js",
+          "changeKind": "modified",
+          "note": "nested in runInContext; visibility unknown: the exports of lodash.js could not be resolved statically: exports used outside a plain assignment at line 426",
+          "evidence": [
+            "npm:lodash@4.17.11",
+            "npm:lodash@4.17.4"
+          ],
+          "visibility": "unknown"
+        },
+        {
+          "symbol": "baseMergeDeep",
+          "modulePath": "lodash.js",
+          "changeKind": "modified",
+          "note": "nested in runInContext; visibility unknown: the exports of lodash.js could not be resolved statically: exports used outside a plain assignment at line 426",
+          "evidence": [
+            "npm:lodash@4.17.11",
+            "npm:lodash@4.17.4"
+          ],
+          "visibility": "unknown"
+        },
+        {
+          "symbol": "initCloneArray",
+          "modulePath": "lodash.js",
+          "changeKind": "modified",
+          "note": "nested in runInContext; visibility unknown: the exports of lodash.js could not be resolved statically: exports used outside a plain assignment at line 426",
+          "evidence": [
+            "npm:lodash@4.17.11",
+            "npm:lodash@4.17.4"
+          ],
+          "visibility": "unknown"
+        },
+        {
+          "symbol": "initCloneByTag",
+          "modulePath": "lodash.js",
+          "changeKind": "modified",
+          "note": "nested in runInContext; visibility unknown: the exports of lodash.js could not be resolved statically: exports used outside a plain assignment at line 426",
+          "evidence": [
+            "npm:lodash@4.17.11",
+            "npm:lodash@4.17.4"
+          ],
+          "visibility": "unknown"
+        },
+        {
+          "symbol": "isIndex",
+          "modulePath": "lodash.js",
+          "changeKind": "modified",
+          "note": "nested in runInContext; visibility unknown: the exports of lodash.js could not be resolved statically: exports used outside a plain assignment at line 426",
+          "evidence": [
+            "npm:lodash@4.17.11",
+            "npm:lodash@4.17.4"
+          ],
+          "visibility": "unknown"
+        },
+        {
+          "symbol": "safeGet",
+          "modulePath": "lodash.js",
+          "changeKind": "modified",
+          "note": "nested in runInContext; visibility unknown: safeGet is not defined in lodash.js in the published package",
+          "evidence": [
+            "npm:lodash@4.17.11"
+          ],
+          "visibility": "unknown"
+        },
+        {
+          "symbol": "runInContext",
+          "modulePath": "lodash.js",
+          "changeKind": "modified",
+          "note": "visibility unknown: the exports of lodash.js could not be resolved statically: exports used outside a plain assignment at line 426",
+          "evidence": [
+            "npm:lodash@4.17.11",
+            "npm:lodash@4.17.4"
+          ],
+          "visibility": "unknown"
+        },
+        {
+          "symbol": "remainingWait",
+          "modulePath": "lodash.js",
+          "changeKind": "modified",
+          "note": "nested in debounce; visibility unknown: the exports of lodash.js could not be resolved statically: exports used outside a plain assignment at line 426",
+          "evidence": [
+            "npm:lodash@4.17.11",
+            "npm:lodash@4.17.4"
+          ],
+          "visibility": "unknown"
+        },
+        {
+          "symbol": "addMapEntry",
+          "modulePath": "lodash.js",
+          "changeKind": "modified",
+          "note": "visibility unknown: the exports of lodash.js could not be resolved statically: exports used outside a plain assignment at line 426",
+          "evidence": [
+            "npm:lodash@4.17.4"
+          ],
+          "visibility": "unknown"
+        },
+        {
+          "symbol": "addSetEntry",
+          "modulePath": "lodash.js",
+          "changeKind": "modified",
+          "note": "visibility unknown: the exports of lodash.js could not be resolved statically: exports used outside a plain assignment at line 426",
+          "evidence": [
+            "npm:lodash@4.17.4"
+          ],
+          "visibility": "unknown"
+        },
+        {
+          "symbol": "cloneMap",
+          "modulePath": "lodash.js",
+          "changeKind": "modified",
+          "note": "nested in runInContext; visibility unknown: the exports of lodash.js could not be resolved statically: exports used outside a plain assignment at line 426",
+          "evidence": [
+            "npm:lodash@4.17.4"
+          ],
+          "visibility": "unknown"
+        },
+        {
+          "symbol": "cloneSet",
+          "modulePath": "lodash.js",
+          "changeKind": "modified",
+          "note": "nested in runInContext; visibility unknown: the exports of lodash.js could not be resolved statically: exports used outside a plain assignment at line 426",
+          "evidence": [
+            "npm:lodash@4.17.4"
+          ],
+          "visibility": "unknown"
+        }
+      ],
+      "vulnerableVersion": "4.17.4",
+      "fixedVersion": "4.17.11",
+      "provenance": {
+        "advisorySource": "osv",
+        "advisoryUrl": "https://osv.dev/vulnerability/GHSA-x5rq-j2xg-h7qm",
+        "artefacts": [
+          {
+            "id": "advisory",
+            "kind": "advisory",
+            "url": "https://api.osv.dev/v1/vulns/GHSA-x5rq-j2xg-h7qm",
+            "sha256": "93d161fbe3e6ab15576ec44574d568b7e7b4e176efe7dfd538326dff2edc5584",
+            "sizeBytes": 3012,
+            "verified": true,
+            "executed": false,
+            "modified": "2026-09-10T03:48:25.206281974Z"
+          },
+          {
+            "id": "npm:lodash@4.17.4",
+            "kind": "tarball",
+            "url": "https://registry.npmjs.org/lodash/-/lodash-4.17.4.tgz",
+            "sha256": "f14bfa44822bd45ec6ae995f8c5a0067cfddc680e74f105b03c8e28a9104c59d",
+            "sizeBytes": 310669,
+            "verified": true,
+            "executed": false,
+            "version": "4.17.4",
+            "integrity": "sha512-6X37Sq9KCpLSXEh8uM12AKYlviHPNNk4RxiGBn4cmKGJinbXBneWIV7iE/nXkM928O7ytHcHb6+X6Svl0f4hXg=="
+          },
+          {
+            "id": "npm:lodash@4.17.11",
+            "kind": "tarball",
+            "url": "https://registry.npmjs.org/lodash/-/lodash-4.17.11.tgz",
+            "sha256": "8eb2165aed24a7e42c841114a3d9d92585cb922ef41e2d1fda72f5a4a8976b9b",
+            "sizeBytes": 305584,
+            "verified": true,
+            "executed": false,
+            "version": "4.17.11",
+            "integrity": "sha512-cQKh8igo5QUhZ7lg38DYWAxMvjSAKG0A8wGSVimP07SIUEK2UO+arSRKbRZWtelMtN5V0Hkwh5ryOto/SshYIg=="
+          }
+        ]
+      },
+      "notes": "Selected version_diff with 43 candidate symbol(s). advisory_metadata: empty. patch_reference: empty. advisory_text: empty. Non-function changes: isMap (_baseClone.js), isSet (_baseClone.js), keysIn (_baseMerge.js), safeGet (_baseMerge.js), safeGet (_baseMergeDeep.js), addMapEntry (_cloneMap.js), arrayReduce (_cloneMap.js), mapToArray (_cloneMap.js), CLONE_DEEP_FLAG (_cloneMap.js), addSetEntry (_cloneSet.js), arrayReduce (_cloneSet.js), setToArray (_cloneSet.js), CLONE_DEEP_FLAG (_cloneSet.js), reHasUnicodeWord (_hasUnicodeWord.js), cloneMap (_initCloneByTag.js), cloneSet (_initCloneByTag.js), nodeUtil (_nodeUtil.js), rePropName (_stringToPath.js), stringToPath (_stringToPath.js), reLeadingDot (_stringToPath.js), rsOrdLower (_unicodeWords.js), rsOrdUpper (_unicodeWords.js), baseRest (defaults.js), eq (defaults.js), isIterateeCall (defaults.js), keysIn (defaults.js), objectProto (defaults.js), hasOwnProperty (defaults.js), defaults (defaults.js), apply (defaults.js), assignInWith (defaults.js), customDefaultsAssignIn (defaults.js), objectProto (invert.js), nativeObjectToString (invert.js), invert (invert.js), nativeObjectToString (invertBy.js), invertBy (invertBy.js). Visibility read from npm:lodash@4.17.4: 0 of 43 candidate(s) public or completely resolved."
+    },
+    {
+      "findingId": "find-7b374189db54",
+      "vulnerabilityId": "GHSA-xxjr-mmjv-4gpg",
+      "purl": "pkg:npm/lodash@4.17.4",
+      "method": "patch_reference",
+      "confidence": "high",
+      "candidateSymbols": [
+        {
+          "symbol": "baseUnset",
+          "modulePath": "dist/lodash.js",
+          "changeKind": "modified",
+          "note": "nested in runInContext; visibility unknown: dist/lodash.js is not in the published vulnerable package",
+          "evidence": [
+            "github:lodash/lodash@edadd452146f7e4bad4ea684e955708931d84d81:dist/lodash.js",
+            "github:lodash/lodash@4879a7a7d0a4494b0e83c7fa21bcc9fc6e7f1a6d:dist/lodash.js"
+          ],
+          "visibility": "unknown"
+        },
+        {
+          "symbol": "baseUnset",
+          "modulePath": "lodash.js",
+          "changeKind": "modified",
+          "note": "nested in runInContext; visibility unknown: the exports of lodash.js could not be resolved statically: exports used outside a plain assignment at line 426",
+          "evidence": [
+            "github:lodash/lodash@edadd452146f7e4bad4ea684e955708931d84d81:lodash.js",
+            "github:lodash/lodash@4879a7a7d0a4494b0e83c7fa21bcc9fc6e7f1a6d:lodash.js"
+          ],
+          "visibility": "unknown"
+        }
+      ],
+      "vulnerableVersion": "4.17.4",
+      "fixedVersion": "4.17.23",
+      "provenance": {
+        "advisorySource": "osv",
+        "advisoryUrl": "https://osv.dev/vulnerability/GHSA-xxjr-mmjv-4gpg",
+        "patchCommit": "edadd452146f7e4bad4ea684e955708931d84d81",
+        "patchUrl": "https://github.com/lodash/lodash/commit/edadd452146f7e4bad4ea684e955708931d84d81",
+        "artefacts": [
+          {
+            "id": "advisory",
+            "kind": "advisory",
+            "url": "https://api.osv.dev/v1/vulns/GHSA-xxjr-mmjv-4gpg",
+            "sha256": "5946e71ccf0568e945293f30511e6e24b7d9f1f37d026fc3b18fe510ca07ecdb",
+            "sizeBytes": 2927,
+            "verified": true,
+            "executed": false,
+            "modified": "2026-10-17T02:55:54.229635593Z"
+          },
+          {
+            "id": "github:lodash/lodash@edadd452146f7e4bad4ea684e955708931d84d81:dist/lodash.js",
+            "kind": "source_file",
+            "url": "https://github.com/lodash/lodash/blob/edadd452146f7e4bad4ea684e955708931d84d81/dist/lodash.js",
+            "sha256": "9f7a41be4d51b2ac65b6af8a373d361a89a2f427ca804ff37e3abffaf27964fa",
+            "sizeBytes": 545267,
+            "verified": true,
+            "executed": false,
+            "repo": "lodash/lodash",
+            "commit": "edadd452146f7e4bad4ea684e955708931d84d81",
+            "path": "dist/lodash.js",
+            "gitBlobSha": "900cedf3dca63775be5c659da2d68fd0672211ef"
+          },
+          {
+            "id": "github:lodash/lodash@4879a7a7d0a4494b0e83c7fa21bcc9fc6e7f1a6d:dist/lodash.js",
+            "kind": "source_file",
+            "url": "https://github.com/lodash/lodash/blob/4879a7a7d0a4494b0e83c7fa21bcc9fc6e7f1a6d/dist/lodash.js",
+            "sha256": "7f32cce4240f4a6c77fcda10fc3afee527412298a6dc7b81761b4f08f9343cc1",
+            "sizeBytes": 544099,
+            "verified": true,
+            "executed": false,
+            "repo": "lodash/lodash",
+            "commit": "4879a7a7d0a4494b0e83c7fa21bcc9fc6e7f1a6d",
+            "path": "dist/lodash.js",
+            "gitBlobSha": "1d232ac5ef413587b1aefd75f5a6e6c25324a9b4"
+          },
+          {
+            "id": "github:lodash/lodash@edadd452146f7e4bad4ea684e955708931d84d81:dist/lodash.min.js",
+            "kind": "source_file",
+            "url": "https://github.com/lodash/lodash/blob/edadd452146f7e4bad4ea684e955708931d84d81/dist/lodash.min.js",
+            "sha256": "0456d4c756118c4fe72e7b9e444e2b92efac04d34c442c8234b2d3af62f15197",
+            "sizeBytes": 73320,
+            "verified": true,
+            "executed": false,
+            "repo": "lodash/lodash",
+            "commit": "edadd452146f7e4bad4ea684e955708931d84d81",
+            "path": "dist/lodash.min.js",
+            "gitBlobSha": "843a20ddd8ade7e6606234521e50ea86580286de"
+          },
+          {
+            "id": "github:lodash/lodash@4879a7a7d0a4494b0e83c7fa21bcc9fc6e7f1a6d:dist/lodash.min.js",
+            "kind": "source_file",
+            "url": "https://github.com/lodash/lodash/blob/4879a7a7d0a4494b0e83c7fa21bcc9fc6e7f1a6d/dist/lodash.min.js",
+            "sha256": "a9705dfc47c0763380d851ab1801be6f76019f6b67e40e9b873f8b4a0603f7a9",
+            "sizeBytes": 73015,
+            "verified": true,
+            "executed": false,
+            "repo": "lodash/lodash",
+            "commit": "4879a7a7d0a4494b0e83c7fa21bcc9fc6e7f1a6d",
+            "path": "dist/lodash.min.js",
+            "gitBlobSha": "4219da738cbb17f96c30aeac5885ebef94ced1e4"
+          },
+          {
+            "id": "github:lodash/lodash@edadd452146f7e4bad4ea684e955708931d84d81:lodash.js",
+            "kind": "source_file",
+            "url": "https://github.com/lodash/lodash/blob/edadd452146f7e4bad4ea684e955708931d84d81/lodash.js",
+            "sha256": "9f7a41be4d51b2ac65b6af8a373d361a89a2f427ca804ff37e3abffaf27964fa",
+            "sizeBytes": 545267,
+            "verified": true,
+            "executed": false,
+            "repo": "lodash/lodash",
+            "commit": "edadd452146f7e4bad4ea684e955708931d84d81",
+            "path": "lodash.js",
+            "gitBlobSha": "900cedf3dca63775be5c659da2d68fd0672211ef"
+          },
+          {
+            "id": "github:lodash/lodash@4879a7a7d0a4494b0e83c7fa21bcc9fc6e7f1a6d:lodash.js",
+            "kind": "source_file",
+            "url": "https://github.com/lodash/lodash/blob/4879a7a7d0a4494b0e83c7fa21bcc9fc6e7f1a6d/lodash.js",
+            "sha256": "7f32cce4240f4a6c77fcda10fc3afee527412298a6dc7b81761b4f08f9343cc1",
+            "sizeBytes": 544099,
+            "verified": true,
+            "executed": false,
+            "repo": "lodash/lodash",
+            "commit": "4879a7a7d0a4494b0e83c7fa21bcc9fc6e7f1a6d",
+            "path": "lodash.js",
+            "gitBlobSha": "1d232ac5ef413587b1aefd75f5a6e6c25324a9b4"
+          },
+          {
+            "id": "npm:lodash@4.17.4",
+            "kind": "tarball",
+            "url": "https://registry.npmjs.org/lodash/-/lodash-4.17.4.tgz",
+            "sha256": "f14bfa44822bd45ec6ae995f8c5a0067cfddc680e74f105b03c8e28a9104c59d",
+            "sizeBytes": 310669,
+            "verified": true,
+            "executed": false,
+            "version": "4.17.4",
+            "integrity": "sha512-6X37Sq9KCpLSXEh8uM12AKYlviHPNNk4RxiGBn4cmKGJinbXBneWIV7iE/nXkM928O7ytHcHb6+X6Svl0f4hXg=="
+          }
+        ],
+        "tagChecks": [
+          {
+            "version": "4.17.23",
+            "role": "fixed",
+            "repo": "lodash/lodash",
+            "fixCommits": [
+              "edadd452146f7e4bad4ea684e955708931d84d81"
+            ],
+            "tag": "4.17.23",
+            "tagCommit": "dec55b7a3b382da075e2eac90089b4cd00a26cbb",
+            "registryGitHead": "835a537f36ee2fd5fb7f524e213ff9ba2d8698f8",
+            "releaseCommit": "dec55b7a3b382da075e2eac90089b4cd00a26cbb",
+            "releaseSource": "git_tag",
+            "byAncestry": [
+              "edadd452146f7e4bad4ea684e955708931d84d81"
+            ],
+            "basis": "ancestry",
+            "result": "verified",
+            "note": "Tag 4.17.23 is commit dec55b7a3b but npm says lodash@4.17.23 was published from 835a537f36; npm's gitHead is checked first. Compare against 835a537f36 failed: HTTP 404 for https://api.github.com/repos/lodash/lodash/compare/edadd452146f7e4bad4ea684e955708931d84d81...835a537f36ee2fd5fb7f524e213ff9ba2d8698f8?per_page=1."
+          },
+          {
+            "version": "4.17.4",
+            "role": "vulnerable",
+            "repo": "lodash/lodash",
+            "fixCommits": [
+              "edadd452146f7e4bad4ea684e955708931d84d81"
+            ],
+            "tag": "4.17.4",
+            "tagCommit": "912d6b04a1f6b732508a6da72a95ec4f96bda154",
+            "releaseCommit": "912d6b04a1f6b732508a6da72a95ec4f96bda154",
+            "releaseSource": "git_tag",
+            "basis": "ancestry",
+            "result": "verified"
+          }
+        ]
+      },
+      "excludedChanges": [
+        "tests"
+      ],
+      "notes": "Selected patch_reference with 2 candidate symbol(s). advisory_metadata: empty. Visibility read from npm:lodash@4.17.4: 0 of 2 candidate(s) public or completely resolved."
+    }
+  ]
+}
