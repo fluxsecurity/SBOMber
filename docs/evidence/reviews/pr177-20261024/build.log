@@ -1,0 +1,1 @@
+CGO_ENABLED=1 GOCACHE=/home/sbomber1/dev/sbomber/review177178-20261024-7e5krw6h/pr177/.cache/go-build go build -o ./bin/sbomber ./cmd/sbomber

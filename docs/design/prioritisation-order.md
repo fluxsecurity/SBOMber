@@ -40,7 +40,8 @@ Findings are ordered by these keys, in this order:
 A resolved call path is evidence, not an ordering key:
 
 - **Method agreement.** Only a call site with reachability `reachable`, *and*
-  carrying the `entryPointId` and non-empty `callPath` the schema requires,
+  carrying a non-blank `entryPointId` and non-empty `callPath` with non-blank
+  function/file names and positive line numbers,
   counts towards `DeterministicMethodsAgree`. `unknown` (the level-3 pass ran
   and found no path) and `not_analysed` do not count. Before S6-15, `unknown`
   counted as agreement.

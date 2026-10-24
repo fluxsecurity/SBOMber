@@ -474,8 +474,16 @@ func unresolvedCallText(cs CallSite) string {
 // non-empty path the schema requires for that value. Upstream output is
 // untrusted: a bare "reachable" is not accepted as a resolved path.
 func reachablePath(cs CallSite) (ReachablePath, bool) {
-	if cs.Reachability != "reachable" || cs.EntryPointID == "" || len(cs.CallPath) == 0 {
+	if cs.Reachability != "reachable" || strings.TrimSpace(cs.EntryPointID) == "" || len(cs.CallPath) == 0 {
 		return ReachablePath{}, false
+	}
+	// The consumer does not run the JSON Schema validator. A non-empty
+	// array can still contain missing or invalid step fields; it cannot
+	// corroborate the symbol match or support a call-path claim.
+	for _, step := range cs.CallPath {
+		if strings.TrimSpace(step.Function) == "" || strings.TrimSpace(step.File) == "" || step.Line < 1 {
+			return ReachablePath{}, false
+		}
 	}
 	return ReachablePath{
 		EntryPointID: cs.EntryPointID,
