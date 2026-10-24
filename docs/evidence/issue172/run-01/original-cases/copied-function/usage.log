@@ -1,0 +1,7 @@
+Usage analysis for synthetic-172-copied-function: complete
+  Repositories      1
+  Source files      1 found, 1 parsed, 0 with errors, 0 failed, 0 skipped
+  Package imports   1 resolved, 0 type-only, 0 unresolved
+  Package calls     0 resolved, 1 unresolved
+  Reachability      1 entry points, 0 calls reachable, 1 unknown
+Wrote /mnt/hgfs/VM_shared_SBOMber/SBOMber-issue172-validation-i6jlcsvh/original-cases/copied-function/usage-graph.json

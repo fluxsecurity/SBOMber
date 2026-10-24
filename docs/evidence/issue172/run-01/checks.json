@@ -1,0 +1,199 @@
+[
+  {
+    "argv": [
+      "go",
+      "build",
+      "-o",
+      "/home/sbomber1/shared-folder/VM_shared_SBOMber/SBOMber-issue172-validation-i6jlcsvh/sbomber-original",
+      "./cmd/sbomber"
+    ],
+    "cwd": "/home/sbomber1/shared-folder/VM_shared_SBOMber/SBOMber-issue172-validation-i6jlcsvh/original-source",
+    "exitCode": 0,
+    "log": "original-build.log"
+  },
+  {
+    "argv": [
+      "go",
+      "test",
+      "-count=1",
+      "-run",
+      "^TestIssue172AbsentImportCannotSupportNegative$",
+      "./internal/decision"
+    ],
+    "cwd": "/home/sbomber1/shared-folder/VM_shared_SBOMber/SBOMber-issue172-validation-i6jlcsvh/original-source",
+    "exitCode": 1,
+    "log": "original-guard-regression.log"
+  },
+  {
+    "argv": [
+      "/usr/bin/python3",
+      "-B",
+      "scripts/run_issue172_policy.py",
+      "--binary",
+      "/home/sbomber1/shared-folder/VM_shared_SBOMber/SBOMber-issue172-validation-i6jlcsvh/sbomber-original",
+      "--out",
+      "/home/sbomber1/shared-folder/VM_shared_SBOMber/SBOMber-issue172-validation-i6jlcsvh/original-cases",
+      "--expect-original",
+      "--source-commit",
+      "f0eda3fe558902e24ecae19ad7fd618d596cecf4"
+    ],
+    "cwd": "/home/sbomber1/shared-folder/VM_shared_SBOMber/SBOMber-issue172-validation-i6jlcsvh/original-source",
+    "exitCode": 0,
+    "log": "original-policy-cases.log"
+  },
+  {
+    "argv": [
+      "gofmt",
+      "-w",
+      "internal/decision/state.go",
+      "internal/decision/types.go",
+      "internal/decision/indirect_usage_policy_test.go",
+      "internal/cli/indirect_usage_policy_test.go"
+    ],
+    "cwd": "/home/sbomber1/dev/sbomber/issue172-indirect-usage",
+    "exitCode": 0,
+    "log": "format.log"
+  },
+  {
+    "argv": [
+      "make",
+      "build"
+    ],
+    "cwd": "/home/sbomber1/dev/sbomber/issue172-indirect-usage",
+    "exitCode": 0,
+    "log": "build.log"
+  },
+  {
+    "argv": [
+      "go",
+      "test",
+      "-count=1",
+      "-run",
+      "^TestIssue172",
+      "-v",
+      "./internal/cli",
+      "./internal/decision"
+    ],
+    "cwd": "/home/sbomber1/dev/sbomber/issue172-indirect-usage",
+    "exitCode": 0,
+    "log": "policy-tests.log"
+  },
+  {
+    "argv": [
+      "/usr/bin/python3",
+      "-B",
+      "scripts/run_issue172_policy.py",
+      "--binary",
+      "/home/sbomber1/dev/sbomber/issue172-indirect-usage/bin/sbomber",
+      "--out",
+      "/home/sbomber1/shared-folder/VM_shared_SBOMber/SBOMber-issue172-validation-i6jlcsvh/proposed-cases"
+    ],
+    "cwd": "/home/sbomber1/dev/sbomber/issue172-indirect-usage",
+    "exitCode": 0,
+    "log": "proposed-policy-cases.log"
+  },
+  {
+    "argv": [
+      "make",
+      "test"
+    ],
+    "cwd": "/home/sbomber1/dev/sbomber/issue172-indirect-usage",
+    "exitCode": 0,
+    "log": "go-tests.log"
+  },
+  {
+    "argv": [
+      "make",
+      "vet"
+    ],
+    "cwd": "/home/sbomber1/dev/sbomber/issue172-indirect-usage",
+    "exitCode": 0,
+    "log": "go-vet.log"
+  },
+  {
+    "argv": [
+      "make",
+      "lint"
+    ],
+    "cwd": "/home/sbomber1/dev/sbomber/issue172-indirect-usage",
+    "exitCode": 0,
+    "log": "lint.log"
+  },
+  {
+    "argv": [
+      "/usr/bin/python3",
+      "-B",
+      "contracts/validate.py"
+    ],
+    "cwd": "/home/sbomber1/dev/sbomber/issue172-indirect-usage",
+    "exitCode": 0,
+    "log": "contracts.log"
+  },
+  {
+    "argv": [
+      "/usr/bin/python3",
+      "-B",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "contracts",
+      "-p",
+      "test_*.py",
+      "-v"
+    ],
+    "cwd": "/home/sbomber1/dev/sbomber/issue172-indirect-usage",
+    "exitCode": 0,
+    "log": "contract-tests.log"
+  },
+  {
+    "argv": [
+      "/usr/bin/python3",
+      "-B",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "scripts",
+      "-p",
+      "test_*.py",
+      "-v"
+    ],
+    "cwd": "/home/sbomber1/dev/sbomber/issue172-indirect-usage",
+    "exitCode": 0,
+    "log": "python-tests.log"
+  },
+  {
+    "argv": [
+      "gofmt",
+      "-l",
+      "cmd",
+      "internal"
+    ],
+    "cwd": "/home/sbomber1/dev/sbomber/issue172-indirect-usage",
+    "exitCode": 0,
+    "log": "gofmt.log"
+  },
+  {
+    "argv": [
+      "git",
+      "diff",
+      "--check"
+    ],
+    "cwd": "/home/sbomber1/dev/sbomber/issue172-indirect-usage",
+    "exitCode": 0,
+    "log": "whitespace.log"
+  },
+  {
+    "argv": [
+      "git",
+      "diff",
+      "--exit-code",
+      "--",
+      "docs/evidence/s6-14/run-01/"
+    ],
+    "cwd": "/home/sbomber1/dev/sbomber/issue172-indirect-usage",
+    "exitCode": 0,
+    "log": "original-reachability-evidence.log"
+  }
+]

@@ -1,0 +1,65 @@
+{
+  "schemaVersion": "1.1.0",
+  "scanId": "synthetic-172-direct-positive-b",
+  "distribution": {
+    "totalFindings": 1,
+    "usageDetected": 1,
+    "noUsageDetected": 0,
+    "unknown": 0,
+    "unsupported": 0
+  },
+  "decisions": [
+    {
+      "findingId": "find-172",
+      "vulnerabilityId": "SYNTHETIC-172",
+      "purl": "pkg:npm/dep-b@1.0.0",
+      "state": "usage_detected",
+      "analysisConfidence": "high",
+      "confidenceCriteria": [
+        "localisation method patch_reference",
+        "parse coverage 100.0 percent",
+        "no unresolved imports for this package",
+        "no unresolved call sites for this package",
+        "agreement between independent deterministic methods"
+      ],
+      "riskPriority": {
+        "band": "act_now",
+        "severity": "high",
+        "relationship": "direct",
+        "fixAvailable": false
+      },
+      "justification": "The application calls merge, which localisation names as a candidate or a public entry point to one. A resolved call path reaches the call to merge at index.js:2 from application entry point ep-ac70615c90bab9c7793e9141388b3869: main (index.js:2).",
+      "basedOn": {
+        "usageObservationIds": [
+          "obs-9bb1b70d15a8e15c7d249b53b0565c95"
+        ],
+        "localisationMethod": "patch_reference",
+        "localisationConfidence": "high",
+        "matchedSymbols": [
+          "merge"
+        ],
+        "evidenceLevel": 3,
+        "coverageSummary": {
+          "parseCoveragePercent": 100,
+          "unresolvedImportsInScope": 0,
+          "scanStatus": "complete"
+        }
+      },
+      "vexMapping": {
+        "statement": "affected",
+        "actionStatement": "No fixed version is reported; review the matched call sites and the advisory."
+      }
+    }
+  ],
+  "remediationGroups": [
+    {
+      "purl": "pkg:npm/dep-b@1.0.0",
+      "installedVersion": "1.0.0",
+      "findingIds": [
+        "find-172"
+      ],
+      "highestBand": "act_now",
+      "relationship": "direct"
+    }
+  ]
+}

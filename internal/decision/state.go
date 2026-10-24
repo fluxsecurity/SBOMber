@@ -180,7 +180,8 @@ type Verdict struct {
 //     b. at least one source file was discovered (#119 rule 3);
 //     c. no unresolved import or call could refer to this package
 //     (#119 rule 4);
-//     d. the localisation candidate set is closed (#139 rule 4, the S5-08
+//     d. no occurrence is known only by absence of application imports (#172);
+//     e. the localisation candidate set is closed (#139 rule 4, the S5-08
 //     implementation of #119 rule 6).
 //  6. All of 5 hold -> no_usage_detected. This is the only path to it.
 func DetermineState(in StateInputs) Verdict {
@@ -213,6 +214,12 @@ func DetermineState(in StateInputs) Verdict {
 	// negative precondition rather than stopping at the first, so the
 	// justification states everything that could not be seen.
 	var missing []string
+	for _, reason := range in.UnanalysedReasons {
+		if reason == ReasonNotImportedByAnalysedSource {
+			missing = append(missing, "no direct application import was found for a package occurrence; dependency-internal usage was not analysed")
+			break
+		}
+	}
 	if in.AnalysisStatus != AnalysisComplete {
 		// Partial, failed, or an unrecognised status from untrusted input.
 		missing = append(missing, "Component 2 analysis was "+statusText(in.AnalysisStatus)+", so absence of evidence is not evidence of absence")

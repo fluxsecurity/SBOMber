@@ -325,8 +325,10 @@ Supported reasons are:
 - `excluded_by_limits`.
 
 Only `not_imported_by_analysed_source` represents a completed application
-source check that found no import. The other reasons describe unsupported or
-incomplete analysis and cannot support a negative conclusion downstream.
+source check that found no import. It does not establish absence of dependency-internal
+usage. Under the #172 decision policy, it cannot support a negative verdict either;
+matched positive evidence is considered before this absence-only guard. The other
+reasons describe unsupported or incomplete analysis.
 
 ## 8. Call-site resolution
 
@@ -876,3 +878,48 @@ Full checks passed and Component 3 paired-owner review approved PR #175,
 which has merged. Component 4 agreement is now recorded with its owner, date
 and comment URL in section 19.1. Issue #151 can close when the agreement
 record in follow-up PR #176 merges.
+
+
+## 20. Indirect dependency usage policy (#172)
+
+**Status:** proposed implementation; explicit Component 4 agreement and Component 3
+paired review pending. This record does not claim policy approval.
+
+Component 2 analyses application source only. A dependency being declared directly
+in the inventory does not prevent another dependency from invoking it. Preserve
+`not_imported_by_analysed_source` as an accurate observation about application
+imports, but do not treat it as evidence about dependency-internal use.
+
+The decision guard checks this reason after preserving a resolved candidate-symbol
+match. Without positive evidence, any such occurrence makes the finding `unknown`
+with `insufficient_information` priority. Transitive unanalysed occurrences remain
+`nested_under_dependency` / `unknown`. Other existing blocking reasons retain their
+current precedence. VEX remains `under_investigation` for unknown and scoped negatives.
+
+This is a conservative decision policy, not a dependency graph or a new source
+coverage claim. The usage-graph schema, observation reasons, parser, counters and
+reachability implementation are unchanged. Existing saved #152 graphs remain
+historical measurements of their recorded analyser version.
+
+The change applies to *all* absence-only occurrences, even when no intermediary
+import can be identified. The current graph cannot establish whether framework
+configuration, runtime loading or another dependency invokes them. Expected cost:
+more abstentions, fewer scoped negative decisions; not measured noise reduction.
+
+An occurrence with an observed import and a call to a different symbol may still
+receive a scoped negative under existing rules. This proposal does not prove absence
+of dependency-internal use for those cases, nor resolve all indirect-use limitations.
+
+Precise copied-function attribution is deferred for this delivery. Keep unresolved
+import-site evidence (`outside_supported_syntax`) for copied and destructured
+function references. Do not invent the later call or its entry-point path. Existing
+alias/shadow safety tests remain in place; the new cases also preserve this fallback.
+
+`testdata/fixtures/indirect-usage-172/` contains six author-labelled synthetic cases.
+Labels cite the application and dependency implementation source; only `app/` is
+analysed. Localisation is a hand-authored closed-candidate policy input, not a real
+vulnerability or generated provenance claim. See its README for reproduction.
+
+**Component 4 agreement:** pending; record owner, date and durable comment URL.
+**Paired review:** pending. Keep #172 open until validation, agreement and review
+are complete and the accepted change merges. Review #150 against the final policy.

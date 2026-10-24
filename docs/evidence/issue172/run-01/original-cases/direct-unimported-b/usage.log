@@ -1,0 +1,8 @@
+Usage analysis for synthetic-172-direct-unimported-b: complete
+  Repositories      1
+  Source files      1 found, 1 parsed, 0 with errors, 0 failed, 0 skipped
+  Package imports   1 resolved, 0 type-only, 0 unresolved
+  Package calls     1 resolved, 0 unresolved
+  Reachability      1 entry points, 1 calls reachable, 0 unknown
+  Not imported/analysed  not_imported_by_analysed_source 1
+Wrote /mnt/hgfs/VM_shared_SBOMber/SBOMber-issue172-validation-i6jlcsvh/original-cases/direct-unimported-b/usage-graph.json

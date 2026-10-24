@@ -99,7 +99,7 @@ Schema conformance is the easy half. These are the rules a JSON Schema cannot ex
 - Justification text cannot contain "not affected", "is safe", "no risk" or "false positive"
 - Distribution counts must match the decisions
 - **Empty source scope:** a repository with zero discovered in-scope files makes analysis `partial`. Unmatched direct occurrences in that repository carry `no_source_files`, which always blocks `no_usage_detected`. An entirely empty scan also has `analysis.reasonCode: no_source_files`.
-- **A negative verdict requires that component 2 actually looked.** `no_usage_detected` is forbidden where the finding's occurrence was reported unanalysed for any reason other than `not_imported_by_analysed_source`
+- **A negative verdict requires that component 2 actually looked.** `no_usage_detected` is forbidden where any finding occurrence was reported unanalysed, including `not_imported_by_analysed_source`: absence of a direct import does not establish absence of dependency-internal usage (#172). Matched positive calls remain positive under the decision policy
 
 **Honesty**
 - A scan reporting `complete` cannot have skipped files, hit limits, or a truncated tree

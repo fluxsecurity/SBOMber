@@ -1,0 +1,12 @@
+{
+  "fixture": "direct-unimported-b",
+  "labelType": "author_labelled_synthetic_policy_case",
+  "reasoning": "Same app -> A.run -> B.merge chain, but B is also declared directly. A direct declaration does not stop A using B.",
+  "candidateSymbol": "merge",
+  "expectedState": "unknown",
+  "expectedOriginalState": "no_usage_detected",
+  "expectedUnanalysedReason": "not_imported_by_analysed_source",
+  "requiresUnresolvedUse": false,
+  "analysisScope": "app/ only; dependency-source/ is supplied for manual labels and intentionally outside analysis",
+  "vulnerabilityClaim": false
+}

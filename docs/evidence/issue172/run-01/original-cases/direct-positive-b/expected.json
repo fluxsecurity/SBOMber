@@ -1,0 +1,12 @@
+{
+  "fixture": "direct-positive-b",
+  "labelType": "author_labelled_synthetic_policy_case",
+  "reasoning": "Application index.js:2 directly calls the labelled merge symbol; preserve positive evidence.",
+  "candidateSymbol": "merge",
+  "expectedState": "usage_detected",
+  "expectedOriginalState": "usage_detected",
+  "expectedUnanalysedReason": null,
+  "requiresUnresolvedUse": false,
+  "analysisScope": "app/ only; dependency-source/ is supplied for manual labels and intentionally outside analysis",
+  "vulnerabilityClaim": false
+}

@@ -1,0 +1,21 @@
+{
+  "schemaVersion": "1.1.0",
+  "scanId": "synthetic-172-copied-function",
+  "results": [
+    {
+      "findingId": "find-172",
+      "vulnerabilityId": "SYNTHETIC-172",
+      "purl": "pkg:npm/dep-b@1.0.0",
+      "method": "patch_reference",
+      "confidence": "high",
+      "candidateSymbols": [
+        {
+          "symbol": "merge",
+          "visibility": "public",
+          "modulePath": "index.js"
+        }
+      ],
+      "notes": "Synthetic closed public candidate for decision-policy testing. Not generated localisation or vulnerability evidence."
+    }
+  ]
+}
