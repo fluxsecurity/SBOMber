@@ -14,7 +14,7 @@
 # Reproducibility follows scripts/demo.sh: SOURCE_DATE_EPOCH is the case
 # commit's time, and Grype's database is updated once and frozen for the run.
 # A log of every command, the SBOMber commit and the Grype database status is
-# written to docs/evidence/s5-14/<case>.log for the CASE.md provenance table.
+# written to docs/evidence/s5-14/run-*/<case>.log for the CASE.md provenance table.
 #
 # Network: Grype's database, enrichment (EPSS, KEV, GHSA, npm registry) and
 # localise's advisory and patch lookups are online. Set GITHUB_TOKEN or run
@@ -39,6 +39,9 @@ only=${1:-}
 work="$root/audit-work"
 evidence="$root/docs/evidence/s5-14"
 mkdir -p "$work" "$evidence"
+command -v python3 >/dev/null 2>&1 || { echo "python3 is required for contract validation." >&2; exit 2; }
+python3 -c 'import jsonschema' || { echo "Install contracts/requirements.txt before producing audit inputs." >&2; exit 2; }
+run_evidence=$(mktemp -d "$evidence/run-XXXXXX")
 
 export PATH="$root/.tools/bin:$PATH"
 "$root/scripts/install-tools.sh" --check || {
@@ -55,6 +58,7 @@ export GITHUB_TOKEN
 sbomber="$root/bin/sbomber"
 sbomber_commit=$(git -C "$root" rev-parse HEAD)
 sbomber_dirty=$(git -C "$root" status --porcelain -- cmd internal go.mod go.sum | wc -l)
+[ "$sbomber_dirty" -eq 0 ] || { echo "Commit production source changes before generating versioned audit evidence." >&2; exit 2; }
 
 grype db update >/dev/null
 export GRYPE_DB_AUTO_UPDATE=false
@@ -67,24 +71,28 @@ for entry in "${cases[@]}"; do
 	dest="$root/testdata/audit/$id"
 	[ -f "$dest/CASE.md" ] || { echo "$dest/CASE.md missing" >&2; exit 2; }
 	grep -q "$commit" "$dest/CASE.md" || { echo "$id: commit $commit is not the one in CASE.md" >&2; exit 2; }
+	[ ! -e "$dest/labels.json" ] || { echo "$id: labels.json exists; refresh inputs and labels together in a separate reviewed change." >&2; exit 2; }
 
 	# The workspace holds only this repository, so scan finds exactly one.
 	ws="$work/$id"
 	repo="$ws/$(basename "$url" .git)"
-	if [ ! -d "$repo/.git" ]; then
+	if [ ! -e "$repo" ]; then
 		mkdir -p "$ws"
 		git clone --quiet --no-checkout "$url" "$repo"
+		git -C "$repo" -c advice.detachedHead=false checkout --quiet --detach "$commit"
+	else
+		[ -d "$repo/.git" ] || { echo "$id: existing path is not the expected checkout: $repo" >&2; exit 2; }
+		[ -z "$(git -C "$repo" status --porcelain --untracked-files=all --ignored)" ] || {
+			echo "$id: existing checkout has changes or untracked/ignored files; preserve them and use a clean checkout." >&2; exit 2;
+		}
 	fi
-	git -C "$repo" -c advice.detachedHead=false checkout --quiet --force "$commit"
-	[ "$(git -C "$repo" rev-parse HEAD)" = "$commit" ] || { echo "$id: checkout failed" >&2; exit 1; }
+	[ "$(git -C "$repo" rev-parse HEAD)" = "$commit" ] || { echo "$id: existing checkout has the wrong commit; preserve it and use a fresh cache directory." >&2; exit 2; }
 
 	SOURCE_DATE_EPOCH=$(git -C "$repo" log -1 --format=%ct)
 	export SOURCE_DATE_EPOCH
 
-	out="$ws/out"
-	rm -rf "$out"
-	mkdir -p "$out"
-	log="$evidence/$id.log"
+	out=$(mktemp -d "$ws/out.XXXXXX")
+	log="$run_evidence/$id.log"
 	{
 		echo "case:            $id"
 		echo "repository:      $url"
@@ -111,8 +119,8 @@ for entry in "${cases[@]}"; do
 	run "$sbomber" scan --include-vulnerabilities --no-color \
 		--canonical-scan "$out/canonical-scan.json" -- "$repo" ||
 		{ echo "$id: scan failed, see $log" >&2; exit 1; }
-	# usage exits 2 on a partial analysis without --allow-partial; partial is
-	# an honest result here (e.g. no lockfile) and is recorded in the file.
+	# usage exits 2 on partial source analysis without --allow-partial.
+	# Keep its explicit coverage/status; inventory completeness is separate.
 	run "$sbomber" usage --allow-partial --canonical-scan "$out/canonical-scan.json" \
 		--out "$out/usage-graph.json" ||
 		{ echo "$id: usage failed, see $log" >&2; exit 1; }
@@ -120,17 +128,18 @@ for entry in "${cases[@]}"; do
 		--out "$out/localisation.json" ||
 		{ echo "$id: localise failed, see $log" >&2; exit 1; }
 
-	for f in canonical-scan.json usage-graph.json localisation.json; do
-		cp "$out/$f" "$dest/$f"
-	done
 	# decide only so validate.py can check all four contracts together; the
 	# harness recomputes decisions, so decision-results.json is not copied.
 	run "$sbomber" decide --canonical-scan "$out/canonical-scan.json" --usage-graph "$out/usage-graph.json" \
 		--localisation "$out/localisation.json" --out "$out/decision-results.json" ||
 		{ echo "$id: decide failed, see $log" >&2; exit 1; }
-	if command -v python3 >/dev/null 2>&1; then
-		run python3 "$root/contracts/validate.py" --dir "$out" --vex-decision "$root/contracts/fixtures/vex-decision.json" || echo "$id: contract validation reported problems, see $log" >&2
-	fi
+	run python3 "$root/contracts/validate.py" --dir "$out" --vex-decision "$root/contracts/fixtures/vex-decision.json" ||
+		{ echo "$id: contract validation failed; existing audit inputs are preserved. See $log" >&2; exit 1; }
+	# Publish only after all four contracts validate. Failed attempts remain
+	# in their unique work/log directories for diagnosis, never as case inputs.
+	for f in canonical-scan.json usage-graph.json localisation.json; do
+		cp "$out/$f" "$dest/$f"
+	done
 
 	findings=$(python3 -c 'import json,sys; print(len(json.load(open(sys.argv[1]))["findings"]))' "$dest/canonical-scan.json" 2>/dev/null || echo "?")
 	echo "  $findings findings -> $dest"

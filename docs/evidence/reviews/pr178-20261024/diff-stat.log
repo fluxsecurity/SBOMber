@@ -1,0 +1,5 @@
+ scripts/audit_inputs.sh                            | 41 +++++++++++++---------
+ testdata/audit/appsecco-dvna/CASE.md               | 14 ++++++--
+ testdata/audit/gitaalekhyapaul-vuln-app/CASE.md    | 14 ++++++--
+ .../kirill89-prototype-pollution-explained/CASE.md | 14 ++++++--
+ 4 files changed, 58 insertions(+), 25 deletions(-)

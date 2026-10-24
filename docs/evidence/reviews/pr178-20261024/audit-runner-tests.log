@@ -1,0 +1,12 @@
+test_dirty_cached_checkout_is_not_reset (test_audit_inputs.AuditInputPublicationTests.test_dirty_cached_checkout_is_not_reset) ... ok
+test_existing_labels_prevent_input_refresh (test_audit_inputs.AuditInputPublicationTests.test_existing_labels_prevent_input_refresh) ... ok
+test_previous_run_output_and_log_are_preserved (test_audit_inputs.AuditInputPublicationTests.test_previous_run_output_and_log_are_preserved) ... ok
+test_success_publishes_validated_inputs (test_audit_inputs.AuditInputPublicationTests.test_success_publishes_validated_inputs) ... ok
+test_uncommitted_production_source_is_rejected (test_audit_inputs.AuditInputPublicationTests.test_uncommitted_production_source_is_rejected) ... ok
+test_validation_failure_preserves_case_inputs (test_audit_inputs.AuditInputPublicationTests.test_validation_failure_preserves_case_inputs) ... ok
+test_wrong_cached_commit_is_not_reset (test_audit_inputs.AuditInputPublicationTests.test_wrong_cached_commit_is_not_reset) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.587s
+
+OK

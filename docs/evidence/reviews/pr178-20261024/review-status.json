@@ -1,0 +1,210 @@
+{
+  "pr": 178,
+  "inspectedHead": "fa1bbdfe9458ab82f99f3e8e67100758175f527e",
+  "reviewBranch": "review/pr178-fixes-20261024",
+  "worktree": "/home/sbomber1/dev/sbomber/review177178-20261024-7e5krw6h/pr178",
+  "logs": "/home/sbomber1/shared-folder/VM_shared_SBOMber/SBOMber-pr178-validation-9p2vgdj_",
+  "status": "checks_passed_pending_diff_review_commit_and_push",
+  "checks": [
+    {
+      "command": [
+        "bash",
+        "-n",
+        "scripts/audit_inputs.sh"
+      ],
+      "log": "bash-syntax.log",
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "python3",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "scripts",
+        "-p",
+        "test_audit_inputs.py",
+        "-v"
+      ],
+      "log": "audit-runner-tests.log",
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "make",
+        "build"
+      ],
+      "log": "build.log",
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "make",
+        "test"
+      ],
+      "log": "test.log",
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "make",
+        "vet"
+      ],
+      "log": "vet.log",
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "make",
+        "lint"
+      ],
+      "log": "lint.log",
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "python3",
+        "-B",
+        "contracts/validate.py"
+      ],
+      "log": "contract-fixtures.log",
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "python3",
+        "-c",
+        "import jsonschema"
+      ],
+      "log": "jsonschema-preflight.log",
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "/home/sbomber1/dev/sbomber/review177178-20261024-7e5krw6h/pr178/bin/sbomber",
+        "decide",
+        "--canonical-scan",
+        "/home/sbomber1/shared-folder/VM_shared_SBOMber/SBOMber-pr178-validation-9p2vgdj_/case-replay/appsecco-dvna/canonical-scan.json",
+        "--usage-graph",
+        "/home/sbomber1/shared-folder/VM_shared_SBOMber/SBOMber-pr178-validation-9p2vgdj_/case-replay/appsecco-dvna/usage-graph.json",
+        "--localisation",
+        "/home/sbomber1/shared-folder/VM_shared_SBOMber/SBOMber-pr178-validation-9p2vgdj_/case-replay/appsecco-dvna/localisation.json",
+        "--out",
+        "/home/sbomber1/shared-folder/VM_shared_SBOMber/SBOMber-pr178-validation-9p2vgdj_/case-replay/appsecco-dvna/decision-results.json"
+      ],
+      "log": "appsecco-dvna-decide.log",
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "python3",
+        "-B",
+        "contracts/validate.py",
+        "--dir",
+        "/home/sbomber1/shared-folder/VM_shared_SBOMber/SBOMber-pr178-validation-9p2vgdj_/case-replay/appsecco-dvna",
+        "--vex-decision",
+        "/home/sbomber1/dev/sbomber/review177178-20261024-7e5krw6h/pr178/contracts/fixtures/vex-decision.json"
+      ],
+      "log": "appsecco-dvna-contracts.log",
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "/home/sbomber1/dev/sbomber/review177178-20261024-7e5krw6h/pr178/bin/sbomber",
+        "decide",
+        "--canonical-scan",
+        "/home/sbomber1/shared-folder/VM_shared_SBOMber/SBOMber-pr178-validation-9p2vgdj_/case-replay/gitaalekhyapaul-vuln-app/canonical-scan.json",
+        "--usage-graph",
+        "/home/sbomber1/shared-folder/VM_shared_SBOMber/SBOMber-pr178-validation-9p2vgdj_/case-replay/gitaalekhyapaul-vuln-app/usage-graph.json",
+        "--localisation",
+        "/home/sbomber1/shared-folder/VM_shared_SBOMber/SBOMber-pr178-validation-9p2vgdj_/case-replay/gitaalekhyapaul-vuln-app/localisation.json",
+        "--out",
+        "/home/sbomber1/shared-folder/VM_shared_SBOMber/SBOMber-pr178-validation-9p2vgdj_/case-replay/gitaalekhyapaul-vuln-app/decision-results.json"
+      ],
+      "log": "gitaalekhyapaul-vuln-app-decide.log",
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "python3",
+        "-B",
+        "contracts/validate.py",
+        "--dir",
+        "/home/sbomber1/shared-folder/VM_shared_SBOMber/SBOMber-pr178-validation-9p2vgdj_/case-replay/gitaalekhyapaul-vuln-app",
+        "--vex-decision",
+        "/home/sbomber1/dev/sbomber/review177178-20261024-7e5krw6h/pr178/contracts/fixtures/vex-decision.json"
+      ],
+      "log": "gitaalekhyapaul-vuln-app-contracts.log",
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "/home/sbomber1/dev/sbomber/review177178-20261024-7e5krw6h/pr178/bin/sbomber",
+        "decide",
+        "--canonical-scan",
+        "/home/sbomber1/shared-folder/VM_shared_SBOMber/SBOMber-pr178-validation-9p2vgdj_/case-replay/kirill89-prototype-pollution-explained/canonical-scan.json",
+        "--usage-graph",
+        "/home/sbomber1/shared-folder/VM_shared_SBOMber/SBOMber-pr178-validation-9p2vgdj_/case-replay/kirill89-prototype-pollution-explained/usage-graph.json",
+        "--localisation",
+        "/home/sbomber1/shared-folder/VM_shared_SBOMber/SBOMber-pr178-validation-9p2vgdj_/case-replay/kirill89-prototype-pollution-explained/localisation.json",
+        "--out",
+        "/home/sbomber1/shared-folder/VM_shared_SBOMber/SBOMber-pr178-validation-9p2vgdj_/case-replay/kirill89-prototype-pollution-explained/decision-results.json"
+      ],
+      "log": "kirill89-prototype-pollution-explained-decide.log",
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "python3",
+        "-B",
+        "contracts/validate.py",
+        "--dir",
+        "/home/sbomber1/shared-folder/VM_shared_SBOMber/SBOMber-pr178-validation-9p2vgdj_/case-replay/kirill89-prototype-pollution-explained",
+        "--vex-decision",
+        "/home/sbomber1/dev/sbomber/review177178-20261024-7e5krw6h/pr178/contracts/fixtures/vex-decision.json"
+      ],
+      "log": "kirill89-prototype-pollution-explained-contracts.log",
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "gofmt",
+        "-l",
+        "cmd",
+        "internal"
+      ],
+      "log": "gofmt-check.log",
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "log": "whitespace.log",
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--stat"
+      ],
+      "log": "diff-stat.log",
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "git",
+        "status",
+        "--short",
+        "--branch"
+      ],
+      "log": "worktree-status.log",
+      "exitCode": 0
+    }
+  ]
+}

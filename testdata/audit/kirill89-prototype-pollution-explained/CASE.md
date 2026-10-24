@@ -11,9 +11,17 @@
 
 | File | Produced by | Command / branch / commit of SBOMber used |
 |---|---|---|
-| canonical-scan.json | Component 1 | pending: no command on main writes it yet |
-| usage-graph.json | Component 2 | pending: `sbomber usage` (feature/s5-10-usage-cli, not merged) |
-| localisation.json | Component 3 (`sbomber localise`) | pending |
+| canonical-scan.json | Component 1 | Production `scan --include-vulnerabilities --canonical-scan ...`; SBOMber `a0d0d7b447f265a04f98e90cb83c198d5c6e8eae` |
+| usage-graph.json | Component 2 | Production `usage --allow-partial --canonical-scan ... --out ...`; same SBOMber source commit |
+| localisation.json | Component 3 | Production `localise --canonical-scan ... --out ...`; same SBOMber source commit |
+
+Generation commands, exit codes, run date and Grype database provenance are
+recorded in [the saved generation log](../../../docs/evidence/s5-14/kirill89-prototype-pollution-explained.log).
+The inputs are now available. `labels.json` is still absent, so this directory
+is not yet an active labelled audit case. These inputs alone do not complete
+#124 or establish an S6-10/S6-11 result. The worksheet below remains the
+pre-existing source-labelling evidence; final finding IDs and any version-dependent
+labels still need to be reconciled against the committed scan.
 
 The three files are committed exactly as produced. Do not edit them by hand;
 if one is wrong, regenerate it and record the new command here.
