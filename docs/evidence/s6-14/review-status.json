@@ -23,7 +23,7 @@
     "measurementsChanged": false
   },
   "scopeDecisionIssue": 151,
-  "scopeDecisionAgreement": "pending_component_4",
+  "scopeDecisionAgreement": "agreed",
   "scopeDecisionPairedOwnerApproval": {
     "reviewer": "Xsamsx",
     "url": "https://github.com/fluxsecurity/SBOMber/pull/175#pullrequestreview-5583045843",
@@ -34,5 +34,15 @@
     "url": "https://github.com/fluxsecurity/SBOMber/pull/175",
     "mergedAt": "2026-10-20T09:21:43Z",
     "mergeCommit": "07823bd31fd420adb216a88efd8cda61a15931e9"
+  },
+  "scopeDecisionAgreementEvidence": {
+    "owner": "Zane",
+    "githubLogin": "XUZANE",
+    "component": 4,
+    "agreementDate": "2026-10-22",
+    "commentCreatedAt": "2026-10-22T02:34:55Z",
+    "commentUrl": "https://github.com/fluxsecurity/SBOMber/pull/176#issuecomment-6331298063",
+    "computedImportPolicy": "repository_wide_within_analysed_source_including_scripts",
+    "mdxPolicy": "unsupported_partial"
   }
 }

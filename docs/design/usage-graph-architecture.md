@@ -780,9 +780,9 @@ The per-target search remains a reference for explicit equivalence tests only.
 
 ## 19. S6-06 scope decisions (#151)
 
-**Date:** 20 October 2026. **Status:** Component 2 recommendation; computed-import
-policy awaits explicit Component 4 agreement. Existing behaviour is retained.
-This record does not establish Zane's sign-off. Component 3 paired-owner review was [approved by Xsamsx on 20 October 2026](https://github.com/fluxsecurity/SBOMber/pull/175#pullrequestreview-5583045843); PR #175 merged.
+**Proposed:** 20 October 2026. **Agreed:** 22 October 2026.
+**Status:** agreed by Components 2 and 4; existing behaviour is retained.
+Component 4 agreement is recorded in section 19.1. Component 3 paired-owner review was [approved by Xsamsx on 20 October 2026](https://github.com/fluxsecurity/SBOMber/pull/175#pullrequestreview-5583045843); PR #175 merged.
 
 ### 19.1 Computed imports: retain repository-wide uncertainty
 
@@ -820,9 +820,12 @@ without resolved positive evidence for a matched occurrence, it cannot support
 not claim dependency-internal analysis; the direct-but-indirectly-used gap in
 #172 remains separate.
 
-**Component 4 agreement:** pending. Record the reviewing owner, date and durable
-PR/issue comment URL here before marking the agreement acceptance criterion
-complete. A passing test or merge alone is not represented as policy agreement.
+**Component 4 agreement:** [Zane (Component 4), 22 October 2026](https://github.com/fluxsecurity/SBOMber/pull/176#issuecomment-6331298063). Zane explicitly agreed to repository-wide
+computed-specifier uncertainty within analysed source, including in-scope
+scripts, and confirmed that the occurrence-level guard blocks a negative
+verdict while matched positive evidence is retained. He also recorded no
+objection to section 19.2: MDX stays unsupported/partial. Runtime-scope
+narrowing remains future work. The agreement acceptance criterion is met.
 
 ### 19.2 MDX: retain unsupported-source treatment
 
@@ -870,5 +873,6 @@ No production analyser/decision code, schema, scope configuration or defaults
 change. The #152 measurement results are therefore unaffected by this record
 and test additions; no remeasurement is needed unless runtime policy changes.
 Full checks passed and Component 3 paired-owner review approved PR #175,
-which has merged. Keep #151 open until Component 4 agreement is explicitly
-recorded with the owner, date and durable comment URL in section 19.1.
+which has merged. Component 4 agreement is now recorded with its owner, date
+and comment URL in section 19.1. Issue #151 can close when the agreement
+record in follow-up PR #176 merges.
