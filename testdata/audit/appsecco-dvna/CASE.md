@@ -1,3 +1,28 @@
+# Evaluation status: provisional, excluded from the active audit
+
+The proposed labels are preserved byte-for-byte as `labels.provisional.json`.
+There is intentionally no `labels.json`, so the existing harness excludes this
+case under README labelling rule 6. This does not assert that all labels are
+wrong: four findings have exact-version identities. It prevents a partially
+unresolved case from being presented as a completed labelled repository.
+
+Forty-three of the 47 findings lack exact component versions; 29 label proposals
+assume declaration floors and one trigger explanation is explicitly speculative.
+These proposals need a reproducible version context / direct trigger evidence
+before promotion. The original 47-row run is preserved in
+`docs/evidence/s5-14/audit-results.original-93.json`; its labels are not counted
+in the active audit or any validated usage denominator. No verdict or label was
+invented to replace an uncertain one. Known-version rows are retained here rather
+than creating a filtered inventory and claiming it is a complete original scan.
+
+The 12 below-floor advisory exclusions are applicability assertions, not usage
+absence observations. Keep them separate from usage evaluation when verifying
+ranges. Shared fix references do not establish the weak Sequelize trigger.
+
+The historical source worksheet and original reviewer notes follow unchanged
+except for the correction of the component-version count above. Issue #124 remains
+open until at least three evaluable real-repository cases are available.
+
 # appsecco-dvna
 
 - Repository: <https://github.com/appsecco/dvna>
@@ -106,12 +131,75 @@ or the advisory names no function the application source can be checked against.
 
 ### Added after the scan listing
 
-(none yet)
+**Order of work, recorded honestly.** The 29 rows below (the 17 "Pending: version"
+advisories and 12 findings the worksheet did not list) were labelled on
+2026-10-25, after canonical-scan.json, usage-graph.json and localisation.json
+had been produced and the `decide` output had been seen (every finding except
+node-serialize was `insufficient_information`). The note above said these would
+be labelled before usage-graph.json, localisation.json or the audit; that did
+not happen. Rule 2 asks for labels first, so a reviewer should weigh these 29
+rows accordingly. The 18 worksheet rows above were written before any SBOMber
+run.
+
+**Version used.** The repository has no lockfile. The scan has exact versions for mathjs,
+node-serialize and express-flash, but not the other 16 components. Of 47
+findings, 43 reference unversioned components (purls such as `pkg:npm/ejs`). These rows are
+labelled at the `package.json` range floor: ejs 2.5.7, express 4.16.2,
+express-fileupload 0.4.0, libxmljs 0.19.1, morgan 1.9.0, mysql2 1.4.2 (loaded by
+sequelize for dialect `mysql`), sequelize 4.13.10. Which advisories affect each
+floor was checked with the npm advisory API:
+
+```
+POST https://registry.npmjs.org/-/npm/v1/security/advisories/bulk
+{"ejs":["2.5.7"],"express":["4.16.2"],"express-fileupload":["0.4.0"],"libxmljs":["0.19.1"],
+ "morgan":["1.9.0"],"mysql2":["1.4.2"],"sequelize":["4.13.10"]}
+```
+
+Package source at each floor was read from the registry tarball.
+
+#### Vulnerable range ends below the floor (12)
+
+None of these is returned for the floor version: every version the
+`package.json` range allows already has the fix, so nothing the application
+calls can reach the vulnerable code. All labelled no_genuine_usage.
+
+| Package | Advisories | Fixed in |
+|---|---|---|
+| ejs (^2.5.7) | GHSA-3w5v-p54c-f74x, GHSA-6x77-rpqf-j6mw, GHSA-hwcf-pp87-7x6p | 2.5.5 |
+| express (^4.16.2) | GHSA-cm5g-3pgc-8rg4; GHSA-gpvr-g6gh-9mc2 | 4.0.0-rc1; 3.11.0 |
+| sequelize (^4.13.10) | GHSA-2598-2f59-rmhq, GHSA-2v7q-2xqx-f4q5, GHSA-98pq-pmw9-4gpm, GHSA-9c2p-jw8p-f84v, GHSA-wfp9-vr4j-f49j, GHSA-x2jc-pwfj-h9p3, GHSA-xqg8-cv3h-xppv | 3.35.1, 3.0.0, 3.17.0, 3.20.0, 4.12.0, 1.7.0, 2.0.0-rc8 |
+
+#### Labelled at the floor from package source (17)
+
+| Package @ floor | Advisory | Trigger the advisory names | Label | Evidence / reasoning |
+|---|---|---|---|---|
+| express-fileupload 0.4.0 | GHSA-q3w9-g74q-vp5f | large filename of `.` characters | no_genuine_usage (rule 8) | the only filename processing (lib/index.js:105-137) runs inside `if (options.safeFileNames)`; server.js:17 `fileUpload()` sets no options. The advisory names no function |
+| express-fileupload 0.4.0 | GHSA-w4m6-x6c2-j5c9 / CVE-2022-27261 | same-name uploads overwrite server files (disputed) | no_genuine_usage | the only filesystem write is `mv()` (lib/index.js:147-173); the app never calls `.mv()` (S4) and reads `req.files.products.data` in memory |
+| libxmljs 0.19.1 | GHSA-773h-w45w-f2f9 / CVE-2022-21144 | `parseXml` with a non-Buffer argument whose `toString` is not a function | no_genuine_usage (rule 8) | `parseXmlString` is `parseXml` (index.js:10, :32); core/appHandler.js:235 always passes a string |
+| libxmljs 0.19.1 | GHSA-jv72-59wq-8rxm / CVE-2025-25341 | reading `_ref` on entity_ref/entity_decl nodes | no_genuine_usage | the app reads only `root()`, `childNodes()`, `text()` (:236-241); 0.19.1 defines no `_ref` (`grep -rn _ref lib src`: none); `noent:true` substitutes entities |
+| morgan 1.9.0 | GHSA-jxfw-x594-9x9m / CVE-2026-15603 | unescaped U+0085/U+2028/U+2029 in `:url`, headers, `:remote-user` | genuine_usage (rule 8) | server.js:15 `morgan('tiny')` logs `:url` (index.js:177, :212) for every request and 1.9.0 escapes nothing. `tiny` is not in the advisory's format list but contains `:url`; recorded |
+| mysql2 1.4.2 | GHSA-fpw7-j2hg-69v5 / CVE-2024-21508 | attacker-chosen `supportBigNumbers`/`bigNumberStrings` concatenated into generated code | no_genuine_usage (rule 8) | concatenation exists (compile_text_parser.js:151), but sequelize sets the constants `true`/`false` (connection-manager.js:73-90) and DVNA sets no dialectOptions |
+| mysql2 1.4.2 | GHSA-4rch-2fh8-94vw / CVE-2024-21511 | `timezone` injected through `readCodeFor` | no_genuine_usage (rule 8) | 1.4.2's `readCodeFor` does not use timezone (`grep timezone compile_text_parser.js`: none); no timezone option is set |
+| mysql2 1.4.2 | GHSA-pmh2-wpjm-fj45 / CVE-2024-21512 | field/table names when `nestTables` is used | no_genuine_usage (rule 8) | neither sequelize 4.13.10 (`grep -rn nestTables lib`: none) nor DVNA sets nestTables |
+| mysql2 1.4.2 | GHSA-mqr2-w7wj-jjgr / CVE-2024-21507 | `:` injected into the `keyFromFields` cache key | genuine_usage (rule 8) | `keyFromFields` (connection.js:642-657) runs for every result (commands/query.js:201) and joins field names with `:`; result column names are client-influenced via the raw SQL at core/appHandler.js:10 |
+| mysql2 1.4.2 | GHSA-49j4-86m8-q2jw / CVE-2024-21509 | results object built from field names (`__proto__`) | genuine_usage (rule 8) | generated parser assigns `this[<field name>]` (compile_text_parser.js:88) for every result; column names client-influenced as above |
+| mysql2 1.4.2 | GHSA-3f6p-5ww8-9rcr | `mysql_clear_password` plugin accepted on auth switch | no_genuine_usage | code absent at the floor: 1.4.2 has no `lib/auth_plugins/`, no `commands/auth_switch.js`, no clear-password handling |
+| mysql2 1.4.2 | GHSA-rgwj-5xj2-c3m3 | unbounded inflate with `compress: true` | no_genuine_usage (rule 8) | compress defaults to false (connection_config.js:65) and neither sequelize nor DVNA sets it |
+| sequelize 4.13.10 | GHSA-vqfx-gj96-3w95 / CVE-2023-22579 | invalid top-level `where` value (e.g. a Date) silently skipped | no_genuine_usage (rule 8) | every `where` is an object literal: core/appHandler.js:59-63, :86-88, :108-110, :146-148; core/authHandler.js:22-24, :44-46, :73-75 |
+| sequelize 4.13.10 | GHSA-8c25-f3mj-v6h8 / CVE-2023-22580 | not stated ("malicious queries") | no_genuine_usage (rule 8) | shares its fix (PRs #15375, #15699) with GHSA-vqfx-gj96-3w95 and is labelled on the same basis. **Weakest label in this case: check the PRs** |
+| sequelize 4.13.10 | GHSA-m9jw-237r-gvfv / CVE-2019-10752 | `sequelize.json()` with a user sub-path | no_genuine_usage | not called anywhere |
+| sequelize 4.13.10 | GHSA-j9xp-92vc-559j / CVE-2019-10748 | JSON path keys, MySQL/MariaDB | no_genuine_usage (rule 8) | 4.13.10 builds JSON paths only for JSON-typed attributes (query-generator.js:2003-2005, :2068-2069); User and Product have none, so a nested `req.query.id` object (:86-88) takes the equality branch |
+| sequelize 4.13.10 | GHSA-fw4p-36j9-rrj3 | uncaught TypeError, SQLite dialect | no_genuine_usage (rule 8) | config/db.js:7 dialect `mysql` |
+
+The worksheet row for morgan GHSA-4vj7-5mj6-jm8m (CVE-2026-5078) has no finding:
+the npm advisory API reports it affects morgan 1.9.0, but the scan did not list it,
+so it is not in labels.json. Recorded as a scan omission, not a label.
 
 ## Known limitations of this case
 
 - No lockfile: versions are caret ranges, so which advisories appear depends on how Component 1 resolves them.
-- 17 advisories are labelled after the scan listing (see "Pending: version").
+- 29 advisories were labelled after SBOMber output had been seen (see "Added after the scan listing").
+- canonical-scan.json records no versions (bare purls), so Grype matched advisories regardless of version; 12 of the 47 findings cannot apply to any version the package.json ranges allow. Labels for the rest assume the range floor.
 - `views/` (EJS templates) and `public/` were not searched for server-side calls beyond what `res.render` implies.
 - Advisory list above comes from the GitHub Advisory Database at the range floors; the findings in
   canonical-scan.json are what the labels are finally keyed to.

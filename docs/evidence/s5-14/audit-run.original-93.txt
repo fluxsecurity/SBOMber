@@ -1,0 +1,122 @@
+SBOMber audit harness: 3 case(s) under testdata/audit
+Labels are hand-made judgements. Counts are reported, not an accuracy rate: a handful of repositories cannot support one.
+
+== appsecco-dvna  (https://github.com/appsecco/dvna @ 9ba473add536)
+   analysis partial; files discovered 14, parsed 12, parsed with errors 0, failed 0, skipped 2
+   WARNING: usage analysis was partial for this case; its verdicts rest on partial evidence.
+
+   FINDING      VULNERABILITY        LABEL             SBOMBER STATE                                      BAND                     OUTCOME
+   find-0178f6bea73d GHSA-rv95-896h-c2vc  genuine_usage     insufficient information                           insufficient_information abstained (insufficient information)
+   find-0659d06b6694 GHSA-jv72-59wq-8rxm  no_genuine_usage  insufficient information                           insufficient_information abstained (insufficient information)
+   find-082d54012e79 GHSA-q3w9-g74q-vp5f  no_genuine_usage  insufficient information                           insufficient_information abstained (insufficient information)
+   find-13bdcb6e25fb GHSA-ghr5-ch3p-vcr6  genuine_usage     insufficient information                           insufficient_information abstained (insufficient information)
+   find-18ebcfc0b1e9 GHSA-3w5v-p54c-f74x  no_genuine_usage  insufficient information                           insufficient_information abstained (insufficient information)
+   find-18f79de12bb3 GHSA-xqg8-cv3h-xppv  no_genuine_usage  insufficient information                           insufficient_information abstained (insufficient information)
+   find-1ab267104895 GHSA-9f6g-j8ch-79g4  no_genuine_usage  insufficient information                           insufficient_information abstained (insufficient information)
+   find-25b761f80e13 GHSA-wfp9-vr4j-f49j  no_genuine_usage  insufficient information                           insufficient_information abstained (insufficient information)
+   find-26b5e5155b4b GHSA-49j4-86m8-q2jw  genuine_usage     insufficient information                           insufficient_information abstained (insufficient information)
+   find-2a326a94a56d GHSA-x2fc-mxcx-w4mf  no_genuine_usage  insufficient information                           insufficient_information abstained (insufficient information)
+   find-2ab3026e57d6 GHSA-3f6p-5ww8-9rcr  no_genuine_usage  insufficient information                           insufficient_information abstained (insufficient information)
+   find-3cbfc75f01f8 GHSA-q4v7-4rhw-9hqm  genuine_usage     usage detected                                     act_now                  agrees (usage)
+   find-3fc57cb51da1 GHSA-6433-x5p4-8jc7  no_genuine_usage  insufficient information                           insufficient_information abstained (insufficient information)
+   find-4749f580c7de GHSA-rgwj-5xj2-c3m3  no_genuine_usage  insufficient information                           insufficient_information abstained (insufficient information)
+   find-4dff63ffc5c1 GHSA-pmh2-wpjm-fj45  no_genuine_usage  insufficient information                           insufficient_information abstained (insufficient information)
+   find-4e6487556528 GHSA-4rch-2fh8-94vw  no_genuine_usage  insufficient information                           insufficient_information abstained (insufficient information)
+   find-53f265fa6ecc GHSA-gpvr-g6gh-9mc2  no_genuine_usage  insufficient information                           insufficient_information abstained (insufficient information)
+   find-5424af04d1ea GHSA-hwcf-pp87-7x6p  no_genuine_usage  insufficient information                           insufficient_information abstained (insufficient information)
+   find-5507fe7a9e2e GHSA-mqr2-w7wj-jjgr  genuine_usage     insufficient information                           insufficient_information abstained (insufficient information)
+   find-56e8bfac9606 GHSA-vx5c-87qx-cv6c  genuine_usage     insufficient information                           insufficient_information abstained (insufficient information)
+   find-5a91ee2b1957 GHSA-wrh9-cjv3-2hpw  no_genuine_usage  insufficient information                           insufficient_information abstained (insufficient information)
+   find-61edfdc8551a GHSA-5wg4-74h6-q47v  genuine_usage     insufficient information                           insufficient_information abstained (insufficient information)
+   find-6392efe7c03a GHSA-8c25-f3mj-v6h8  no_genuine_usage  insufficient information                           insufficient_information abstained (insufficient information)
+   find-63db82af3ce3 GHSA-98pq-pmw9-4gpm  no_genuine_usage  insufficient information                           insufficient_information abstained (insufficient information)
+   find-657b7c6451fb GHSA-f598-mfpv-gmfx  no_genuine_usage  insufficient information                           insufficient_information abstained (insufficient information)
+   find-6820d17592d9 GHSA-773h-w45w-f2f9  no_genuine_usage  insufficient information                           insufficient_information abstained (insufficient information)
+   find-6adae3956e99 GHSA-jxfw-x594-9x9m  genuine_usage     insufficient information                           insufficient_information abstained (insufficient information)
+   find-6be28fec6eb7 GHSA-2598-2f59-rmhq  no_genuine_usage  insufficient information                           insufficient_information abstained (insufficient information)
+   find-794b6c29fa0f GHSA-phwq-j96m-2c2q  genuine_usage     insufficient information                           insufficient_information abstained (insufficient information)
+   find-860df807076e GHSA-j9xp-92vc-559j  no_genuine_usage  insufficient information                           insufficient_information abstained (insufficient information)
+   find-91b7a3b8217e GHSA-x2jc-pwfj-h9p3  no_genuine_usage  insufficient information                           insufficient_information abstained (insufficient information)
+   find-940d41412024 GHSA-v923-w3x8-wh69  genuine_usage     insufficient information                           insufficient_information abstained (insufficient information)
+   find-977d05a0f08a GHSA-w4m6-x6c2-j5c9  no_genuine_usage  insufficient information                           insufficient_information abstained (insufficient information)
+   find-9807a9a7478d GHSA-fpw7-j2hg-69v5  no_genuine_usage  insufficient information                           insufficient_information abstained (insufficient information)
+   find-984648b19aae GHSA-gwg9-rgvj-4h5j  genuine_usage     insufficient information                           insufficient_information abstained (insufficient information)
+   find-a8199b2ee084 GHSA-m9jw-237r-gvfv  no_genuine_usage  insufficient information                           insufficient_information abstained (insufficient information)
+   find-a9b8b333f19d GHSA-vqfx-gj96-3w95  no_genuine_usage  insufficient information                           insufficient_information abstained (insufficient information)
+   find-abc848c6d565 GHSA-9c2p-jw8p-f84v  no_genuine_usage  insufficient information                           insufficient_information abstained (insufficient information)
+   find-b20e224205c4 GHSA-6x77-rpqf-j6mw  no_genuine_usage  insufficient information                           insufficient_information abstained (insufficient information)
+   find-b2e825236639 GHSA-pv8x-p9hq-j328  genuine_usage     insufficient information                           insufficient_information abstained (insufficient information)
+   find-cec36fdfd5d9 GHSA-2v7q-2xqx-f4q5  no_genuine_usage  insufficient information                           insufficient_information abstained (insufficient information)
+   find-d73ddf394bcd GHSA-qw6h-vgh9-j6wx  genuine_usage     insufficient information                           insufficient_information abstained (insufficient information)
+   find-d82ede587593 GHSA-fw4p-36j9-rrj3  no_genuine_usage  insufficient information                           insufficient_information abstained (insufficient information)
+   find-e7b2e19950fa GHSA-9wcg-jrwf-8gg7  no_genuine_usage  insufficient information                           insufficient_information abstained (insufficient information)
+   find-ea9e94ee7db3 GHSA-v8fg-2rw7-q452  no_genuine_usage  insufficient information                           insufficient_information abstained (insufficient information)
+   find-f79900ae7632 GHSA-cm5g-3pgc-8rg4  no_genuine_usage  insufficient information                           insufficient_information abstained (insufficient information)
+   find-fc277c42f6a0 GHSA-mg49-jqgw-gcj6  no_genuine_usage  insufficient information                           insufficient_information abstained (insufficient information)
+   47 finding(s): 1 agree usage, 0 agree no usage found, 0 missed usage, 0 over-reported, 46 abstained, 0 unlabelled, 0 without decision, 0 label mismatch; 0 downgrade(s)
+
+== gitaalekhyapaul-vuln-app  (https://github.com/gitaalekhyapaul/vuln-app @ 0ddf9bdc9672)
+   analysis complete; files discovered 6, parsed 6, parsed with errors 0, failed 0, skipped 0
+
+   FINDING      VULNERABILITY        LABEL             SBOMBER STATE                                      BAND                     OUTCOME
+   find-06f0e555d50d GHSA-3xgq-45jj-v275  no_genuine_usage  insufficient information                           insufficient_information abstained (insufficient information)
+   find-08e194686232 GHSA-q2hr-2g5m-vwhr  no_genuine_usage  insufficient information                           insufficient_information abstained (insufficient information)
+   find-0c850f74de38 GHSA-37ch-88jc-xwx2  no_genuine_usage  insufficient information                           insufficient_information abstained (insufficient information)
+   find-0ddbba2251eb GHSA-m6fv-jmcg-4jfg  no_genuine_usage  insufficient information                           insufficient_information abstained (insufficient information)
+   find-1875faec2c26 GHSA-w7fw-mjwx-w883  no_genuine_usage  insufficient information                           insufficient_information abstained (insufficient information)
+   find-1ee6a37ff466 GHSA-6rw7-vpxm-498p  genuine_usage     insufficient information                           insufficient_information abstained (insufficient information)
+   find-2125a802bd15 GHSA-ghr5-ch3p-vcr6  genuine_usage     insufficient information                           insufficient_information abstained (insufficient information)
+   find-25cf2a0264b1 GHSA-f8q6-p94x-37v3  no_genuine_usage  insufficient information                           insufficient_information abstained (insufficient information)
+   find-333702d19682 GHSA-9wv6-86v2-598j  no_genuine_usage  insufficient information                           insufficient_information abstained (insufficient information)
+   find-3cbfc75f01f8 GHSA-q4v7-4rhw-9hqm  genuine_usage     usage detected                                     act_now                  agrees (usage)
+   find-3cca66a8e2b2 GHSA-rv95-896h-c2vc  no_genuine_usage  usage detected                                     act_now                  over-reported usage
+   find-4cae37a0b79d GHSA-7r86-cg39-jmmj  no_genuine_usage  insufficient information                           insufficient_information abstained (insufficient information)
+   find-4e2384e66e2d GHSA-v6h2-p8h4-qcjw  no_genuine_usage  insufficient information                           insufficient_information abstained (insufficient information)
+   find-5cda3f451b50 GHSA-93q8-gq69-wqmw  no_genuine_usage  insufficient information                           insufficient_information abstained (insufficient information)
+   find-5f23e1178b17 GHSA-jqcg-44mw-7w3h  no_genuine_usage  insufficient information                           insufficient_information abstained (insufficient information)
+   find-5f33ba5e89bb GHSA-6j4f-fj2g-mc7p  no_genuine_usage  insufficient information                           insufficient_information abstained (insufficient information)
+   find-676606284257 GHSA-mh99-v99m-4gvg  no_genuine_usage  insufficient information                           insufficient_information abstained (insufficient information)
+   find-6983e7a964b5 GHSA-pxg6-pf52-xh8x  no_genuine_usage  insufficient information                           insufficient_information abstained (insufficient information)
+   find-7b84ba99d0fa GHSA-qhr7-859c-m2p7  no_genuine_usage  insufficient information                           insufficient_information abstained (insufficient information)
+   find-7ff7255ee5d3 GHSA-cm22-4g7w-348p  no_genuine_usage  insufficient information                           insufficient_information abstained (insufficient information)
+   find-81be91849e4f GHSA-23c5-xmqv-rm74  no_genuine_usage  insufficient information                           insufficient_information abstained (insufficient information)
+   find-898d6baffa60 GHSA-3jxr-9vmj-r5cp  no_genuine_usage  insufficient information                           insufficient_information abstained (insufficient information)
+   find-8c20744483aa GHSA-f886-m6hf-6m8v  no_genuine_usage  insufficient information                           insufficient_information abstained (insufficient information)
+   find-99f2eb1639ff GHSA-4mjr-xmp4-gh2g  no_genuine_usage  insufficient information                           insufficient_information abstained (insufficient information)
+   find-9f46538f864a GHSA-3ppc-4f35-3m26  no_genuine_usage  insufficient information                           insufficient_information abstained (insufficient information)
+   find-b66d8383f35d GHSA-rgw5-rvv9-x895  no_genuine_usage  insufficient information                           insufficient_information abstained (insufficient information)
+   find-bd1b0bdf96ec GHSA-rhx6-c78j-4q9w  no_genuine_usage  insufficient information                           insufficient_information abstained (insufficient information)
+   find-bdb585c87cfa GHSA-v422-hmwv-36x6  no_genuine_usage  insufficient information                           insufficient_information abstained (insufficient information)
+   find-c241f797ae4b GHSA-qw6h-vgh9-j6wx  no_genuine_usage  usage detected                                     act_now                  over-reported usage
+   find-d759af5484a7 GHSA-hrpp-h998-j3pp  genuine_usage     insufficient information                           insufficient_information abstained (insufficient information)
+   find-d8642f2fb8cc GHSA-phwq-j96m-2c2q  genuine_usage     insufficient information                           insufficient_information abstained (insufficient information)
+   find-f070e931585c GHSA-qwcr-r2fm-qrc7  no_genuine_usage  insufficient information                           insufficient_information abstained (insufficient information)
+   32 finding(s): 1 agree usage, 0 agree no usage found, 0 missed usage, 2 over-reported, 29 abstained, 0 unlabelled, 0 without decision, 0 label mismatch; 0 downgrade(s)
+
+== kirill89-prototype-pollution-explained  (https://github.com/Kirill89/prototype-pollution-explained @ d7b5d98515a9)
+   analysis complete; files discovered 1, parsed 1, parsed with errors 0, failed 0, skipped 0
+
+   FINDING      VULNERABILITY        LABEL             SBOMBER STATE                                      BAND                     OUTCOME
+   find-08cc91b773d8 GHSA-rv95-896h-c2vc  no_genuine_usage  usage detected                                     act_now                  over-reported usage
+   find-15ad437c70d1 GHSA-35jh-r3h4-6jhm  no_genuine_usage  insufficient information                           insufficient_information abstained (insufficient information)
+   find-2590fff8b864 GHSA-fvqr-27wr-82fm  genuine_usage     insufficient information                           insufficient_information abstained (insufficient information)
+   find-28c210d965f5 GHSA-4xc9-xhrj-v574  genuine_usage     insufficient information                           insufficient_information abstained (insufficient information)
+   find-3201d8f964cf GHSA-qw6h-vgh9-j6wx  no_genuine_usage  usage detected                                     act_now                  over-reported usage
+   find-340a4e8a755b GHSA-f23m-r3pf-42rh  no_genuine_usage  insufficient information                           insufficient_information abstained (insufficient information)
+   find-473a234ef8a5 GHSA-x5rq-j2xg-h7qm  no_genuine_usage  insufficient information                           insufficient_information abstained (insufficient information)
+   find-69ad2599263f GHSA-29mw-wpgm-hmr9  no_genuine_usage  insufficient information                           insufficient_information abstained (insufficient information)
+   find-71c614264f34 GHSA-v422-hmwv-36x6  no_genuine_usage  insufficient information                           insufficient_information abstained (insufficient information)
+   find-7b374189db54 GHSA-xxjr-mmjv-4gpg  no_genuine_usage  insufficient information                           insufficient_information abstained (insufficient information)
+   find-8588c377e10f GHSA-p6mc-m468-83gw  no_genuine_usage  insufficient information                           insufficient_information abstained (insufficient information)
+   find-cb6987956252 GHSA-qwcr-r2fm-qrc7  no_genuine_usage  insufficient information                           insufficient_information abstained (insufficient information)
+   find-cf2d7f62f4f2 GHSA-jf85-cpcp-j695  genuine_usage     insufficient information                           insufficient_information abstained (insufficient information)
+   find-eeecb3d50058 GHSA-r5fr-rjxr-66jc  no_genuine_usage  insufficient information                           insufficient_information abstained (insufficient information)
+   14 finding(s): 0 agree usage, 0 agree no usage found, 0 missed usage, 2 over-reported, 12 abstained, 0 unlabelled, 0 without decision, 0 label mismatch; 0 downgrade(s)
+
+== All cases
+   93 finding(s): 2 agree usage, 0 agree no usage found, 0 missed usage, 4 over-reported, 87 abstained, 0 unlabelled, 0 without decision, 0 label mismatch; 0 downgrade(s)
+
+No finding was moved into "No direct usage evidence found within the analysed scope" in this run.
+
+RESULT: PASS - no labelled genuine usage was moved out of usage detected.
+Wrote docs/evidence/s5-14/audit-results.json

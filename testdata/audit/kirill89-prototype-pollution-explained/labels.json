@@ -1,0 +1,228 @@
+{
+  "schemaVersion": "1.0.0",
+  "caseId": "kirill89-prototype-pollution-explained",
+  "repository": {
+    "url": "https://github.com/Kirill89/prototype-pollution-explained",
+    "commit": "d7b5d98515a95f9a8cb0fedef034010ee083a6a9"
+  },
+  "labelledBy": "Zane Wylie",
+  "labelledAt": "25-10-2026",
+  "labels": [
+    {
+      "findingId": "find-cb6987956252",
+      "vulnerabilityId": "GHSA-qwcr-r2fm-qrc7",
+      "purl": "pkg:npm/body-parser@1.18.3",
+      "label": "no_genuine_usage",
+      "vulnerableSymbols": [
+        "urlencoded"
+      ],
+      "reasoning": "Only bodyParser.json() is used (index.js:34); urlencoded is never mounted.",
+      "evidence": [
+        "grep -rnoE \"bodyParser\\.[A-Za-z]+\\([^)]*\\)\" --include=*.js . -> index.js:34 bodyParser.json()"
+      ]
+    },
+    {
+      "findingId": "find-71c614264f34",
+      "vulnerabilityId": "GHSA-v422-hmwv-36x6",
+      "purl": "pkg:npm/body-parser@1.18.3",
+      "label": "no_genuine_usage",
+      "vulnerableSymbols": [
+        "json",
+        "urlencoded",
+        "raw",
+        "text"
+      ],
+      "reasoning": "Rule 8: the trigger is an invalid limit value. index.js:34 calls bodyParser.json() with no options and no limit is set anywhere.",
+      "evidence": [
+        "grep -rnoE \"bodyParser\\.[A-Za-z]+\\([^)]*\\)\" --include=*.js . -> index.js:34 bodyParser.json()",
+        "grep -rn \"limit\" --include=*.js . -> no matches"
+      ]
+    },
+    {
+      "findingId": "find-3201d8f964cf",
+      "vulnerabilityId": "GHSA-qw6h-vgh9-j6wx",
+      "purl": "pkg:npm/express@4.16.4",
+      "label": "no_genuine_usage",
+      "vulnerableSymbols": [
+        "res.redirect"
+      ],
+      "reasoning": "res.redirect is not called anywhere in the application source.",
+      "evidence": [
+        "grep -rnE \"\\.(redirect|location)\\(\" --include=*.js . -> no matches"
+      ]
+    },
+    {
+      "findingId": "find-08cc91b773d8",
+      "vulnerabilityId": "GHSA-rv95-896h-c2vc",
+      "purl": "pkg:npm/express@4.16.4",
+      "label": "no_genuine_usage",
+      "vulnerableSymbols": [
+        "res.location",
+        "res.redirect"
+      ],
+      "reasoning": "Neither res.location nor res.redirect is called.",
+      "evidence": [
+        "grep -rnE \"\\.(redirect|location)\\(\" --include=*.js . -> no matches"
+      ]
+    },
+    {
+      "findingId": "find-69ad2599263f",
+      "vulnerabilityId": "GHSA-29mw-wpgm-hmr9",
+      "purl": "pkg:npm/lodash@4.17.4",
+      "label": "no_genuine_usage",
+      "vulnerableSymbols": [
+        "toNumber",
+        "trim",
+        "trimEnd"
+      ],
+      "reasoning": "None of the named functions is called; the only lodash call is _.merge at index.js:55.",
+      "evidence": [
+        "grep -rnoE \"\\b_\\.[A-Za-z]+\" --include=*.js . | sort | uniq -c -> one call: index.js:55 _.merge",
+        "grep -rnwE \"defaultsDeep|mergeWith|zipObjectDeep|pick|set|setWith|update|updateWith|template|toNumber|trim|trimEnd|words|camelCase|kebabCase|snakeCase|startCase|lowerCase|upperCase|unset|omit\" --include=*.js . -> no matches"
+      ]
+    },
+    {
+      "findingId": "find-15ad437c70d1",
+      "vulnerabilityId": "GHSA-35jh-r3h4-6jhm",
+      "purl": "pkg:npm/lodash@4.17.4",
+      "label": "no_genuine_usage",
+      "vulnerableSymbols": [
+        "template"
+      ],
+      "reasoning": "_.template is not called; the only lodash call is _.merge at index.js:55.",
+      "evidence": [
+        "grep -rnoE \"\\b_\\.[A-Za-z]+\" --include=*.js . | sort | uniq -c -> one call: index.js:55 _.merge",
+        "grep -rnwE \"defaultsDeep|mergeWith|zipObjectDeep|pick|set|setWith|update|updateWith|template|toNumber|trim|trimEnd|words|camelCase|kebabCase|snakeCase|startCase|lowerCase|upperCase|unset|omit\" --include=*.js . -> no matches"
+      ]
+    },
+    {
+      "findingId": "find-28c210d965f5",
+      "vulnerabilityId": "GHSA-4xc9-xhrj-v574",
+      "purl": "pkg:npm/lodash@4.17.4",
+      "label": "genuine_usage",
+      "vulnerableSymbols": [
+        "merge",
+        "mergeWith",
+        "defaultsDeep"
+      ],
+      "reasoning": "index.js:55 calls _.merge on req.body.message in the PUT / handler; the repository README names this CVE.",
+      "evidence": [
+        "index.js:55 _.merge(message, req.body.message, {...}) in the PUT / handler"
+      ]
+    },
+    {
+      "findingId": "find-340a4e8a755b",
+      "vulnerabilityId": "GHSA-f23m-r3pf-42rh",
+      "purl": "pkg:npm/lodash@4.17.4",
+      "label": "no_genuine_usage",
+      "vulnerableSymbols": [
+        "unset"
+      ],
+      "reasoning": "unset is not called; the only lodash call is _.merge at index.js:55.",
+      "evidence": [
+        "grep -rnoE \"\\b_\\.[A-Za-z]+\" --include=*.js . | sort | uniq -c -> one call: index.js:55 _.merge",
+        "grep -rnwE \"defaultsDeep|mergeWith|zipObjectDeep|pick|set|setWith|update|updateWith|template|toNumber|trim|trimEnd|words|camelCase|kebabCase|snakeCase|startCase|lowerCase|upperCase|unset|omit\" --include=*.js . -> no matches"
+      ]
+    },
+    {
+      "findingId": "find-2590fff8b864",
+      "vulnerabilityId": "GHSA-fvqr-27wr-82fm",
+      "purl": "pkg:npm/lodash@4.17.4",
+      "label": "genuine_usage",
+      "vulnerableSymbols": [
+        "merge",
+        "mergeWith",
+        "defaultsDeep"
+      ],
+      "reasoning": "index.js:55 calls _.merge on req.body.message (request input) in the PUT / handler, which ships (package.json main index.js).",
+      "evidence": [
+        "index.js:55 _.merge(message, req.body.message, {...}) in the PUT / handler"
+      ]
+    },
+    {
+      "findingId": "find-cf2d7f62f4f2",
+      "vulnerabilityId": "GHSA-jf85-cpcp-j695",
+      "purl": "pkg:npm/lodash@4.17.4",
+      "label": "genuine_usage",
+      "vulnerableSymbols": [
+        "defaultsDeep"
+      ],
+      "reasoning": "The advisory names only defaultsDeep, which is not called. The 4.17.12 fix adds a constructor check to safeGet, used by baseMerge and baseMergeDeep; _.merge calls baseMerge and 4.17.4 has no such check, so index.js:55 executes the code path the fix changed (rule 3: a public function that reaches it). See CASE.md 'Decision: CVE-2019-10744'.",
+      "evidence": [
+        "index.js:55 _.merge(message, req.body.message, {...}) in the PUT / handler",
+        "lodash@4.17.12 lodash.js:6609 safeGet constructor check; used at 3607 (baseMerge), 3634-3635 (baseMergeDeep)",
+        "lodash@4.17.12 lodash.js:13437-13438 merge = createAssigner -> baseMerge",
+        "grep -c safeGet lodash@4.17.4/lodash.js -> 0"
+      ]
+    },
+    {
+      "findingId": "find-8588c377e10f",
+      "vulnerabilityId": "GHSA-p6mc-m468-83gw",
+      "purl": "pkg:npm/lodash@4.17.4",
+      "label": "no_genuine_usage",
+      "vulnerableSymbols": [
+        "pick",
+        "set",
+        "setWith",
+        "update",
+        "updateWith",
+        "zipObjectDeep"
+      ],
+      "reasoning": "None of the named functions is called (S2, S3). The fix is in baseSet, whose callers (basePickBy, baseUpdate, set, setWith) are not on the _.merge path.",
+      "evidence": [
+        "grep -rnoE \"\\b_\\.[A-Za-z]+\" --include=*.js . | sort | uniq -c -> one call: index.js:55 _.merge",
+        "grep -rnwE \"defaultsDeep|mergeWith|zipObjectDeep|pick|set|setWith|update|updateWith|template|toNumber|trim|trimEnd|words|camelCase|kebabCase|snakeCase|startCase|lowerCase|upperCase|unset|omit\" --include=*.js . -> no matches",
+        "grep -n \"baseSet(\" lodash@4.17.4/lodash.js -> 3782, 4337, 13652, 13681; none in baseMerge/baseMergeDeep"
+      ]
+    },
+    {
+      "findingId": "find-eeecb3d50058",
+      "vulnerabilityId": "GHSA-r5fr-rjxr-66jc",
+      "purl": "pkg:npm/lodash@4.17.4",
+      "label": "no_genuine_usage",
+      "vulnerableSymbols": [
+        "template"
+      ],
+      "reasoning": "_.template (imports option) is not called; the only lodash call is _.merge at index.js:55.",
+      "evidence": [
+        "grep -rnoE \"\\b_\\.[A-Za-z]+\" --include=*.js . | sort | uniq -c -> one call: index.js:55 _.merge",
+        "grep -rnwE \"defaultsDeep|mergeWith|zipObjectDeep|pick|set|setWith|update|updateWith|template|toNumber|trim|trimEnd|words|camelCase|kebabCase|snakeCase|startCase|lowerCase|upperCase|unset|omit\" --include=*.js . -> no matches"
+      ]
+    },
+    {
+      "findingId": "find-473a234ef8a5",
+      "vulnerabilityId": "GHSA-x5rq-j2xg-h7qm",
+      "purl": "pkg:npm/lodash@4.17.4",
+      "label": "no_genuine_usage",
+      "vulnerableSymbols": [
+        "words",
+        "camelCase",
+        "kebabCase",
+        "snakeCase",
+        "startCase",
+        "lowerCase",
+        "upperCase"
+      ],
+      "reasoning": "The advisory names no function; NVD describes a date handler, while the referenced lodash issue #3359 is the words regex used by the case functions. Labelled against #3359: none of these is called.",
+      "evidence": [
+        "grep -rnoE \"\\b_\\.[A-Za-z]+\" --include=*.js . | sort | uniq -c -> one call: index.js:55 _.merge",
+        "grep -rnwE \"defaultsDeep|mergeWith|zipObjectDeep|pick|set|setWith|update|updateWith|template|toNumber|trim|trimEnd|words|camelCase|kebabCase|snakeCase|startCase|lowerCase|upperCase|unset|omit\" --include=*.js . -> no matches"
+      ]
+    },
+    {
+      "findingId": "find-7b374189db54",
+      "vulnerabilityId": "GHSA-xxjr-mmjv-4gpg",
+      "purl": "pkg:npm/lodash@4.17.4",
+      "label": "no_genuine_usage",
+      "vulnerableSymbols": [
+        "unset",
+        "omit"
+      ],
+      "reasoning": "Neither unset nor omit is called; the only lodash call is _.merge at index.js:55.",
+      "evidence": [
+        "grep -rnoE \"\\b_\\.[A-Za-z]+\" --include=*.js . | sort | uniq -c -> one call: index.js:55 _.merge",
+        "grep -rnwE \"defaultsDeep|mergeWith|zipObjectDeep|pick|set|setWith|update|updateWith|template|toNumber|trim|trimEnd|words|camelCase|kebabCase|snakeCase|startCase|lowerCase|upperCase|unset|omit\" --include=*.js . -> no matches"
+      ]
+    }
+  ]
+}

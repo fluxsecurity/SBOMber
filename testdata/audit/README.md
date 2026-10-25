@@ -48,11 +48,34 @@ justification, confidence criteria, matched symbols and coverage.
 Results are counts, never an accuracy percentage: three to five
 repositories cannot support one.
 
-Until localisation 1.1.0 ships, every candidate set is open, so real cases
-will show `abstained` where a closed set would allow a determination, and
-zero downgrades. That is expected and should be reported as such. The
-downgrade path is exercised by the hand-built case in
-`internal/audit/testdata/cases/`.
+Localisation 1.1.0 is implemented. A candidate set can still be open when
+visibility or public routes are incomplete, so real cases can abstain. Report
+actual counts rather than predicting zero downgrades from a schema version.
+The negative-verdict gate is independently exercised by the hand-built case
+in `internal/audit/testdata/cases/`.
+
+## Active and provisional labels
+
+`labels.json` activates a case. If unresolved version/trigger evidence prevents
+completion, preserve the proposals as `labels.provisional.json` and keep the
+case outside discovery, following rule 6 below. Do not silently delete uncertain
+findings, fabricate exact versions or treat a passing empty/partial gate as
+completion of #124. The input generator refuses both active and provisional
+labels so regeneration cannot overwrite their source evidence unnoticed.
+
+Current scope: two active repositories (46 findings). DVNA's 47 provisional
+proposals are excluded together. The original 93-row report is retained with
+an `.original-93` name, clearly separate from the regenerated active report.
+This is useful partial audit evidence, not completion of the three-to-five
+repository acceptance criterion.
+
+The source worksheet and retrospective label timing are separate strata in
+`docs/evidence/s5-14/label-provenance.json`. One active vuln-app label was written
+after seeing output. It remains explicitly retrospective, not blind/pre-output
+evaluation; no real-world accuracy or recall percentage is claimed. These timing
+classifications follow author disclosures, not an independent blinding claim.
+All DVNA labels, including the uncertain Sequelize inference and version/applicability
+assertions, remain excluded regardless of their proposed binary label.
 
 ## Labelling rules
 

@@ -1,0 +1,30 @@
+test_candidate_without_evidence_is_rejected (test_validate.ContractValidatorTests.test_candidate_without_evidence_is_rejected) ... ok
+test_complete_analysis_rejects_empty_repository (test_validate.ContractValidatorTests.test_complete_analysis_rejects_empty_repository) ... ok
+test_complete_analysis_rejects_incomplete_file_coverage (test_validate.ContractValidatorTests.test_complete_analysis_rejects_incomplete_file_coverage) ... ok
+test_complete_analysis_requires_analyzer_id (test_validate.ContractValidatorTests.test_complete_analysis_requires_analyzer_id) ... ok
+test_each_supported_format_accepts_its_own_vocabulary (test_validate.ContractValidatorTests.test_each_supported_format_accepts_its_own_vocabulary) ... ok
+test_empty_source_graph_is_valid_and_blocks_negative (test_validate.ContractValidatorTests.test_empty_source_graph_is_valid_and_blocks_negative) ... ok
+test_every_candidate_cites_a_verified_artefact (test_validate.ContractValidatorTests.test_every_candidate_cites_a_verified_artefact) ... ok
+test_evidence_kind_and_artefact_id_are_checked (test_validate.ContractValidatorTests.test_evidence_kind_and_artefact_id_are_checked) ... ok
+test_hostile_artefact_references_are_rejected (test_validate.ContractValidatorTests.test_hostile_artefact_references_are_rejected) ... ok
+test_join_rule_fields_are_consistent (test_validate.ContractValidatorTests.test_join_rule_fields_are_consistent) ... ok
+test_localisation_1_0_0_without_evidence_still_validates (test_validate.ContractValidatorTests.test_localisation_1_0_0_without_evidence_still_validates) ... ok
+test_mixed_vex_vocabularies_are_rejected (test_validate.ContractValidatorTests.test_mixed_vex_vocabularies_are_rejected) ... ok
+test_not_affected_without_manual_reviewer_is_rejected (test_validate.ContractValidatorTests.test_not_affected_without_manual_reviewer_is_rejected) ... ok
+test_partial_analysis_with_empty_repository_is_valid (test_validate.ContractValidatorTests.test_partial_analysis_with_empty_repository_is_valid) ... ok
+test_partial_and_failed_analysis_cannot_produce_negative_evidence (test_validate.ContractValidatorTests.test_partial_and_failed_analysis_cannot_produce_negative_evidence) ... ok
+test_per_repository_file_totals_must_match_global_coverage (test_validate.ContractValidatorTests.test_per_repository_file_totals_must_match_global_coverage) ... ok
+test_reachable_call_requires_call_path (test_validate.ContractValidatorTests.test_reachable_call_requires_call_path) ... ok
+test_unresolved_import_in_scope_blocks_negative_decision (test_validate.ContractValidatorTests.test_unresolved_import_in_scope_blocks_negative_decision) ... ok
+test_unsupported_analysis_cannot_emit_nonunsupported_findings (test_validate.ContractValidatorTests.test_unsupported_analysis_cannot_emit_nonunsupported_findings) ... ok
+test_unsupported_analysis_requires_reason_code (test_validate.ContractValidatorTests.test_unsupported_analysis_requires_reason_code) ... ok
+test_unverified_or_missing_artefact_is_rejected (test_validate.ContractValidatorTests.test_unverified_or_missing_artefact_is_rejected) ... ok
+test_usage_graph_complete_analysis_is_valid (test_validate.ContractValidatorTests.test_usage_graph_complete_analysis_is_valid) ... ok
+test_usage_graph_partial_analysis_is_valid (test_validate.ContractValidatorTests.test_usage_graph_partial_analysis_is_valid) ... ok
+test_usage_graph_unsupported_analysis_is_valid (test_validate.ContractValidatorTests.test_usage_graph_unsupported_analysis_is_valid) ... ok
+test_zero_discovered_source_cannot_support_negative_decision (test_validate.ContractValidatorTests.test_zero_discovered_source_cannot_support_negative_decision) ... ok
+
+----------------------------------------------------------------------
+Ran 25 tests in 5.775s
+
+OK

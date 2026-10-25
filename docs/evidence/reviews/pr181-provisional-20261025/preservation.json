@@ -1,0 +1,20 @@
+{
+  "originalReports": {
+    "audit-results.original-93.json": "ba28eafe3e991666299f7f6dd072fd1ffa8b91f0be8cb676de5584180353ce81",
+    "audit-run.original-93.txt": "6c6444cc0bfa62e86ef39933daa3573e96fc3f937ba88d23c02ca117a0a2a568"
+  },
+  "producerInputs": {
+    "testdata/audit/appsecco-dvna/canonical-scan.json": "b2568d5a1962436d466ca4d0c9ff33a76ed99ec0ab334814f3c039f986085fe5",
+    "testdata/audit/appsecco-dvna/usage-graph.json": "acc2e7cd9bcd4e47ce72e28c5778a284f0e867ff8bb1c47a6b74dd2f94d69851",
+    "testdata/audit/appsecco-dvna/localisation.json": "470feafd3dd58841a2bf0b76e60e5d863e94fec6a78d87f5a334714d1835ae7a",
+    "testdata/audit/gitaalekhyapaul-vuln-app/canonical-scan.json": "d3af71347fc1d885e42c37d63c21c23f5bd21c7c08fde0c1ee99b0015d99ae2a",
+    "testdata/audit/gitaalekhyapaul-vuln-app/usage-graph.json": "e4dd7638134011861addbac72aaa07a6d26e65ac1ba3c39e2ba14b850978c1cd",
+    "testdata/audit/gitaalekhyapaul-vuln-app/localisation.json": "8f113f672553ab484593bdb12bcb929d79cbcdda0629f48ae120b9fa5fd90280",
+    "testdata/audit/kirill89-prototype-pollution-explained/canonical-scan.json": "370a2086a947cd172bcf8bf5903a7622d4cf04c8dd678bfbd23857917a1c68fa",
+    "testdata/audit/kirill89-prototype-pollution-explained/usage-graph.json": "80e19e9237abf11330bb5c13121d405d70e10d9f6ed13c58eeeab4e8354e5dd2",
+    "testdata/audit/kirill89-prototype-pollution-explained/localisation.json": "204ce16f1072bb024cc878f3139043810a38a628bef549382cd6a41eb7ec2fe8"
+  },
+  "dvnaProvisionalLabelsSha256": "9737311f2db6e59ba0eda89b70a4acd9a8bb286e4b5cc7a1b0fcda55a6a94b50",
+  "otherLabelsChanged": false,
+  "issue124Complete": false
+}

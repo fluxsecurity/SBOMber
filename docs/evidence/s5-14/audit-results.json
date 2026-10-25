@@ -1,0 +1,1928 @@
+{
+  "schemaVersion": "1.0.0",
+  "casesRoot": "testdata/audit",
+  "totals": {
+    "findings": 46,
+    "agreeUsage": 1,
+    "missedUsage": 0,
+    "overReportedUsage": 4,
+    "agreeNoUsage": 0,
+    "abstained": 41,
+    "unlabelled": 0,
+    "noDecision": 0,
+    "labelMismatch": 0,
+    "downgrades": 0
+  },
+  "cases": [
+    {
+      "caseId": "gitaalekhyapaul-vuln-app",
+      "dir": "testdata/audit/gitaalekhyapaul-vuln-app",
+      "repository": {
+        "url": "https://github.com/gitaalekhyapaul/vuln-app",
+        "commit": "0ddf9bdc9672cc53ebd66cb829382bd702a98876"
+      },
+      "scanId": "scan-20210613T050526Z-869ff6d0",
+      "coverage": {
+        "analysisStatus": "complete",
+        "filesDiscovered": 6,
+        "filesParsed": 6,
+        "filesParsedWithErrors": 0,
+        "filesFailed": 0,
+        "filesSkipped": 0,
+        "limitsHit": []
+      },
+      "totals": {
+        "findings": 32,
+        "agreeUsage": 1,
+        "missedUsage": 0,
+        "overReportedUsage": 2,
+        "agreeNoUsage": 0,
+        "abstained": 29,
+        "unlabelled": 0,
+        "noDecision": 0,
+        "labelMismatch": 0,
+        "downgrades": 0
+      },
+      "rows": [
+        {
+          "findingId": "find-06f0e555d50d",
+          "vulnerabilityId": "GHSA-3xgq-45jj-v275",
+          "purl": "pkg:npm/cross-spawn@7.0.3",
+          "outcome": "abstained",
+          "downgrade": false,
+          "label": "no_genuine_usage",
+          "labelVulnerabilityId": "GHSA-3xgq-45jj-v275",
+          "labelPurl": "pkg:npm/cross-spawn@7.0.3",
+          "labelReasoning": "Rule 5: pulled in only by tsc-watch, a devDependency used by the dev script; not part of build/.",
+          "labelEvidence": [
+            "yarn.lock: jake \u003c- ejs; filelist \u003c- jake; minimatch \u003c- jake, filelist; brace-expansion \u003c- minimatch; cross-spawn, strip-ansi \u003c- tsc-watch (devDependency); ansi-regex \u003c- strip-ansi"
+          ],
+          "vulnerableSymbols": [
+            "crossSpawn"
+          ],
+          "state": "unknown",
+          "band": "insufficient_information",
+          "analysisConfidence": "medium",
+          "confidenceCriteria": [
+            "localisation method patch_reference",
+            "parse coverage 100.0 percent",
+            "no second deterministic method available to corroborate"
+          ],
+          "justification": "A package occurrence for this finding is nested under a dependency, whose internals are not parsed.",
+          "basedOn": {
+            "usageObservationIds": [],
+            "localisationMethod": "patch_reference",
+            "localisationConfidence": "high",
+            "matchedSymbols": [],
+            "coverageSummary": {
+              "parseCoveragePercent": 100,
+              "unresolvedImportsInScope": 0,
+              "scanStatus": "complete"
+            }
+          }
+        },
+        {
+          "findingId": "find-08e194686232",
+          "vulnerabilityId": "GHSA-q2hr-2g5m-vwhr",
+          "purl": "pkg:npm/brace-expansion@1.1.11",
+          "outcome": "abstained",
+          "downgrade": false,
+          "label": "no_genuine_usage",
+          "labelVulnerabilityId": "GHSA-q2hr-2g5m-vwhr",
+          "labelPurl": "pkg:npm/brace-expansion@1.1.11",
+          "labelReasoning": "Only reachable through minimatch, which is reachable only through jake; the ejs runtime the application loads does not require jake (D1, D7).",
+          "labelEvidence": [
+            "ejs@3.1.6: grep -n \"require(\" lib/ejs.js -\u003e fs, path, ./utils (47-49); jake used only by bin/cli.js",
+            "yarn.lock: jake \u003c- ejs; filelist \u003c- jake; minimatch \u003c- jake, filelist; brace-expansion \u003c- minimatch; cross-spawn, strip-ansi \u003c- tsc-watch (devDependency); ansi-regex \u003c- strip-ansi"
+          ],
+          "vulnerableSymbols": [
+            "expand"
+          ],
+          "state": "unknown",
+          "band": "insufficient_information",
+          "analysisConfidence": "medium",
+          "confidenceCriteria": [
+            "localisation method patch_reference",
+            "parse coverage 100.0 percent",
+            "no second deterministic method available to corroborate"
+          ],
+          "justification": "A package occurrence for this finding is nested under a dependency, whose internals are not parsed.",
+          "basedOn": {
+            "usageObservationIds": [],
+            "localisationMethod": "patch_reference",
+            "localisationConfidence": "medium",
+            "matchedSymbols": [],
+            "coverageSummary": {
+              "parseCoveragePercent": 100,
+              "unresolvedImportsInScope": 0,
+              "scanStatus": "complete"
+            }
+          }
+        },
+        {
+          "findingId": "find-0c850f74de38",
+          "vulnerabilityId": "GHSA-37ch-88jc-xwx2",
+          "purl": "pkg:npm/path-to-regexp@0.1.7",
+          "outcome": "abstained",
+          "downgrade": false,
+          "label": "no_genuine_usage",
+          "labelVulnerabilityId": "GHSA-37ch-88jc-xwx2",
+          "labelPurl": "pkg:npm/path-to-regexp@0.1.7",
+          "labelReasoning": "Rule 8: the trigger is three or more parameters in one segment. No route has a parameter.",
+          "labelEvidence": [
+            "grep -rnE \"app\\.(set|use|get|post|put|delete|all)\\(|express\\.[a-z]+\\(\" api -\u003e :9 view engine ejs, :10 views, :11 express.json(), routes \"/\" :13, \"/api/v1/uppercase\" :17, \"*\" :29"
+          ],
+          "vulnerableSymbols": [
+            "pathToRegexp"
+          ],
+          "state": "unknown",
+          "band": "insufficient_information",
+          "analysisConfidence": "medium",
+          "confidenceCriteria": [
+            "localisation method version_diff",
+            "parse coverage 100.0 percent",
+            "no second deterministic method available to corroborate"
+          ],
+          "justification": "A package occurrence for this finding is nested under a dependency, whose internals are not parsed.",
+          "basedOn": {
+            "usageObservationIds": [],
+            "localisationMethod": "version_diff",
+            "localisationConfidence": "medium",
+            "matchedSymbols": [],
+            "coverageSummary": {
+              "parseCoveragePercent": 100,
+              "unresolvedImportsInScope": 0,
+              "scanStatus": "complete"
+            }
+          }
+        },
+        {
+          "findingId": "find-0ddbba2251eb",
+          "vulnerabilityId": "GHSA-m6fv-jmcg-4jfg",
+          "purl": "pkg:npm/send@0.17.1",
+          "outcome": "abstained",
+          "downgrade": false,
+          "label": "no_genuine_usage",
+          "labelVulnerabilityId": "GHSA-m6fv-jmcg-4jfg",
+          "labelPurl": "pkg:npm/send@0.17.1",
+          "labelReasoning": "send is reached through res.sendFile/res.download (express response.js:430, :499) or serve-static; none is used.",
+          "labelEvidence": [
+            "express@4.17.1 lib/response.js:430, :499 send only in sendFile/download",
+            "grep -rnE \"\\.(render|redirect|location|cookie|clearCookie|sendFile|download)\\(|express\\.static|urlencoded|limit|query parser|comma\" api -\u003e only :14 res.render(\"index\", { result: null })"
+          ],
+          "vulnerableSymbols": [
+            "SendStream.redirect"
+          ],
+          "state": "unknown",
+          "band": "insufficient_information",
+          "analysisConfidence": "medium",
+          "confidenceCriteria": [
+            "localisation method patch_reference",
+            "parse coverage 100.0 percent",
+            "no second deterministic method available to corroborate"
+          ],
+          "justification": "A package occurrence for this finding is nested under a dependency, whose internals are not parsed.",
+          "basedOn": {
+            "usageObservationIds": [],
+            "localisationMethod": "patch_reference",
+            "localisationConfidence": "high",
+            "matchedSymbols": [],
+            "coverageSummary": {
+              "parseCoveragePercent": 100,
+              "unresolvedImportsInScope": 0,
+              "scanStatus": "complete"
+            }
+          }
+        },
+        {
+          "findingId": "find-1875faec2c26",
+          "vulnerabilityId": "GHSA-w7fw-mjwx-w883",
+          "purl": "pkg:npm/qs@6.7.0",
+          "outcome": "abstained",
+          "downgrade": false,
+          "label": "no_genuine_usage",
+          "labelVulnerabilityId": "GHSA-w7fw-mjwx-w883",
+          "labelPurl": "pkg:npm/qs@6.7.0",
+          "labelReasoning": "Rule 8: the trigger needs comma: true. express passes only allowPrototypes: true and the application does not configure the query parser.",
+          "labelEvidence": [
+            "express@4.17.1 lib/utils.js:291-295 parseExtendedQueryString -\u003e qs.parse(str, { allowPrototypes: true })",
+            "grep -rnE \"\\.(render|redirect|location|cookie|clearCookie|sendFile|download)\\(|express\\.static|urlencoded|limit|query parser|comma\" api -\u003e only :14 res.render(\"index\", { result: null })"
+          ],
+          "vulnerableSymbols": [
+            "parse"
+          ],
+          "state": "unknown",
+          "band": "insufficient_information",
+          "analysisConfidence": "medium",
+          "confidenceCriteria": [
+            "localisation method patch_reference",
+            "parse coverage 100.0 percent",
+            "no second deterministic method available to corroborate"
+          ],
+          "justification": "A package occurrence for this finding is nested under a dependency, whose internals are not parsed.",
+          "basedOn": {
+            "usageObservationIds": [],
+            "localisationMethod": "patch_reference",
+            "localisationConfidence": "high",
+            "matchedSymbols": [],
+            "coverageSummary": {
+              "parseCoveragePercent": 100,
+              "unresolvedImportsInScope": 0,
+              "scanStatus": "complete"
+            }
+          }
+        },
+        {
+          "findingId": "find-1ee6a37ff466",
+          "vulnerabilityId": "GHSA-6rw7-vpxm-498p",
+          "purl": "pkg:npm/qs@6.7.0",
+          "outcome": "abstained",
+          "downgrade": false,
+          "label": "genuine_usage",
+          "labelVulnerabilityId": "GHSA-6rw7-vpxm-498p",
+          "labelPurl": "pkg:npm/qs@6.7.0",
+          "labelReasoning": "Rule 8: the same default qs.parse call runs with the default arrayLimit. The advisory notes the default parameterLimit (1000) bounds the practical effect; the label is about the executed path.",
+          "labelEvidence": [
+            "express@4.17.1 lib/application.js:77 default query parser 'extended'; :144 query middleware on the router",
+            "express@4.17.1 lib/utils.js:291-295 parseExtendedQueryString -\u003e qs.parse(str, { allowPrototypes: true })",
+            "api/app.ts:13 \"/\", :17 \"/api/v1/uppercase\", :29 \"*\""
+          ],
+          "vulnerableSymbols": [
+            "parse"
+          ],
+          "state": "unknown",
+          "band": "insufficient_information",
+          "analysisConfidence": "medium",
+          "confidenceCriteria": [
+            "localisation method patch_reference",
+            "parse coverage 100.0 percent",
+            "no second deterministic method available to corroborate"
+          ],
+          "justification": "A package occurrence for this finding is nested under a dependency, whose internals are not parsed.",
+          "basedOn": {
+            "usageObservationIds": [],
+            "localisationMethod": "patch_reference",
+            "localisationConfidence": "medium",
+            "matchedSymbols": [],
+            "coverageSummary": {
+              "parseCoveragePercent": 100,
+              "unresolvedImportsInScope": 0,
+              "scanStatus": "complete"
+            }
+          }
+        },
+        {
+          "findingId": "find-2125a802bd15",
+          "vulnerabilityId": "GHSA-ghr5-ch3p-vcr6",
+          "purl": "pkg:npm/ejs@3.1.6",
+          "outcome": "abstained",
+          "downgrade": false,
+          "label": "genuine_usage",
+          "labelVulnerabilityId": "GHSA-ghr5-ch3p-vcr6",
+          "labelPurl": "pkg:npm/ejs@3.1.6",
+          "labelReasoning": "Rule 8: same path as CVE-2022-29078: api/app.ts:9 view engine ejs and :14 res.render run ejs.renderFile.",
+          "labelEvidence": [
+            "api/app.ts:9 app.set(\"view engine\", \"ejs\")",
+            "api/app.ts:14 res.render(\"index\", { result: null })",
+            "ejs@3.1.6 lib/ejs.js:914 __express = renderFile; :473-481 copies data.settings['view options'] and data into options"
+          ],
+          "vulnerableSymbols": [
+            "renderFile"
+          ],
+          "state": "unknown",
+          "band": "insufficient_information",
+          "analysisConfidence": "medium",
+          "confidenceCriteria": [
+            "localisation method patch_reference",
+            "parse coverage 100.0 percent",
+            "no second deterministic method available to corroborate"
+          ],
+          "justification": "Localised to an internal function with no resolved public entry point (visibility of hasOwnOnlyObject is unknown; Template has no complete, code-derived list of public entry points).",
+          "basedOn": {
+            "usageObservationIds": [],
+            "localisationMethod": "patch_reference",
+            "localisationConfidence": "high",
+            "matchedSymbols": [],
+            "coverageSummary": {
+              "parseCoveragePercent": 100,
+              "unresolvedImportsInScope": 0,
+              "scanStatus": "complete"
+            }
+          }
+        },
+        {
+          "findingId": "find-25cf2a0264b1",
+          "vulnerabilityId": "GHSA-f8q6-p94x-37v3",
+          "purl": "pkg:npm/minimatch@3.0.4",
+          "outcome": "abstained",
+          "downgrade": false,
+          "label": "no_genuine_usage",
+          "labelVulnerabilityId": "GHSA-f8q6-p94x-37v3",
+          "labelPurl": "pkg:npm/minimatch@3.0.4",
+          "labelReasoning": "Only reachable through jake (via ejs and filelist), which ejs uses only in bin/cli.js; the ejs runtime the application loads does not require it (D1, D7).",
+          "labelEvidence": [
+            "ejs@3.1.6: grep -n \"require(\" lib/ejs.js -\u003e fs, path, ./utils (47-49); jake used only by bin/cli.js",
+            "yarn.lock: jake \u003c- ejs; filelist \u003c- jake; minimatch \u003c- jake, filelist; brace-expansion \u003c- minimatch; cross-spawn, strip-ansi \u003c- tsc-watch (devDependency); ansi-regex \u003c- strip-ansi"
+          ],
+          "vulnerableSymbols": [
+            "minimatch"
+          ],
+          "state": "unknown",
+          "band": "insufficient_information",
+          "analysisConfidence": "medium",
+          "confidenceCriteria": [
+            "localisation method patch_reference",
+            "parse coverage 100.0 percent",
+            "no second deterministic method available to corroborate"
+          ],
+          "justification": "A package occurrence for this finding is nested under a dependency, whose internals are not parsed.",
+          "basedOn": {
+            "usageObservationIds": [],
+            "localisationMethod": "patch_reference",
+            "localisationConfidence": "low",
+            "matchedSymbols": [],
+            "coverageSummary": {
+              "parseCoveragePercent": 100,
+              "unresolvedImportsInScope": 0,
+              "scanStatus": "complete"
+            }
+          }
+        },
+        {
+          "findingId": "find-333702d19682",
+          "vulnerabilityId": "GHSA-9wv6-86v2-598j",
+          "purl": "pkg:npm/path-to-regexp@0.1.7",
+          "outcome": "abstained",
+          "downgrade": false,
+          "label": "no_genuine_usage",
+          "labelVulnerabilityId": "GHSA-9wv6-86v2-598j",
+          "labelPurl": "pkg:npm/path-to-regexp@0.1.7",
+          "labelReasoning": "Rule 8: the trigger is two or more parameters in one path segment. express compiles the routes, but none has a parameter.",
+          "labelEvidence": [
+            "grep -rnE \"app\\.(set|use|get|post|put|delete|all)\\(|express\\.[a-z]+\\(\" api -\u003e :9 view engine ejs, :10 views, :11 express.json(), routes \"/\" :13, \"/api/v1/uppercase\" :17, \"*\" :29"
+          ],
+          "vulnerableSymbols": [
+            "pathToRegexp"
+          ],
+          "state": "unknown",
+          "band": "insufficient_information",
+          "analysisConfidence": "medium",
+          "confidenceCriteria": [
+            "localisation method patch_reference",
+            "parse coverage 100.0 percent",
+            "no second deterministic method available to corroborate"
+          ],
+          "justification": "A package occurrence for this finding is nested under a dependency, whose internals are not parsed.",
+          "basedOn": {
+            "usageObservationIds": [],
+            "localisationMethod": "patch_reference",
+            "localisationConfidence": "low",
+            "matchedSymbols": [],
+            "coverageSummary": {
+              "parseCoveragePercent": 100,
+              "unresolvedImportsInScope": 0,
+              "scanStatus": "complete"
+            }
+          }
+        },
+        {
+          "findingId": "find-3cbfc75f01f8",
+          "vulnerabilityId": "GHSA-q4v7-4rhw-9hqm",
+          "purl": "pkg:npm/node-serialize@0.0.4",
+          "outcome": "agree_usage",
+          "downgrade": false,
+          "label": "genuine_usage",
+          "labelVulnerabilityId": "GHSA-q4v7-4rhw-9hqm",
+          "labelPurl": "pkg:npm/node-serialize@0.0.4",
+          "labelReasoning": "api/app.ts:22 calls unserialize(payload) on a payload decoded from req.body.payload (:20) in the POST /api/v1/uppercase handler; the README names this CVE. api/ is the shipped source (tsconfig rootDir ./api).",
+          "labelEvidence": [
+            "api/app.ts:4 import { unserialize } from \"node-serialize\"",
+            "api/app.ts:22 unserialize(payload)"
+          ],
+          "vulnerableSymbols": [
+            "unserialize"
+          ],
+          "state": "usage_detected",
+          "band": "act_now",
+          "analysisConfidence": "medium",
+          "confidenceCriteria": [
+            "localisation method advisory_text",
+            "parse coverage 100.0 percent",
+            "no second deterministic method available to corroborate",
+            "matched name came from advisory text only, so confidence is capped at medium"
+          ],
+          "justification": "The application calls unserialize, which localisation names as a candidate or a public entry point to one. A resolved call path reaches the call to unserialize at api/app.ts:22 from application entry point ep-27c169675dd46097ac31589e22d9935d: \u003croute_handler\u003e (api/app.ts:19). The matched name came from the advisory text, not from the package's own code, so confidence is capped at medium.",
+          "basedOn": {
+            "usageObservationIds": [
+              "obs-29c8e672692b2de46b32f4375c2c4bc9",
+              "obs-9bb1d23c916f561d74d6f49e8356b913",
+              "obs-d200a31908a264d8d79b368c26844efc"
+            ],
+            "localisationMethod": "advisory_text",
+            "localisationConfidence": "medium",
+            "matchedSymbols": [
+              "unserialize"
+            ],
+            "evidenceLevel": 3,
+            "coverageSummary": {
+              "parseCoveragePercent": 100,
+              "unresolvedImportsInScope": 0,
+              "scanStatus": "complete"
+            }
+          }
+        },
+        {
+          "findingId": "find-3cca66a8e2b2",
+          "vulnerabilityId": "GHSA-rv95-896h-c2vc",
+          "purl": "pkg:npm/express@4.17.1",
+          "outcome": "over_reported_usage",
+          "downgrade": false,
+          "label": "no_genuine_usage",
+          "labelVulnerabilityId": "GHSA-rv95-896h-c2vc",
+          "labelPurl": "pkg:npm/express@4.17.1",
+          "labelReasoning": "Neither res.location nor res.redirect is called.",
+          "labelEvidence": [
+            "grep -rnE \"\\.(render|redirect|location|cookie|clearCookie|sendFile|download)\\(|express\\.static|urlencoded|limit|query parser|comma\" api -\u003e only :14 res.render(\"index\", { result: null })"
+          ],
+          "vulnerableSymbols": [
+            "res.location",
+            "res.redirect"
+          ],
+          "state": "usage_detected",
+          "band": "act_now",
+          "analysisConfidence": "medium",
+          "confidenceCriteria": [
+            "localisation method patch_reference",
+            "parse coverage 100.0 percent",
+            "no second deterministic method available to corroborate"
+          ],
+          "justification": "The application calls default, which localisation names as a candidate or a public entry point to one.",
+          "basedOn": {
+            "usageObservationIds": [
+              "obs-0d43d4e93a6197a7a3db48a7ff01230d",
+              "obs-8beb206ba3097bbb5ee3de15d98418c5",
+              "obs-918cce05d91aacdd3d52cc436ff39743",
+              "obs-a874160756611d294129cd8c638c0d24",
+              "obs-cd768a547ec39f26b1f85eda650a8565"
+            ],
+            "localisationMethod": "patch_reference",
+            "localisationConfidence": "high",
+            "matchedSymbols": [
+              "default"
+            ],
+            "evidenceLevel": 2,
+            "coverageSummary": {
+              "parseCoveragePercent": 100,
+              "unresolvedImportsInScope": 0,
+              "scanStatus": "complete"
+            }
+          }
+        },
+        {
+          "findingId": "find-4cae37a0b79d",
+          "vulnerabilityId": "GHSA-7r86-cg39-jmmj",
+          "purl": "pkg:npm/minimatch@3.0.4",
+          "outcome": "abstained",
+          "downgrade": false,
+          "label": "no_genuine_usage",
+          "labelVulnerabilityId": "GHSA-7r86-cg39-jmmj",
+          "labelPurl": "pkg:npm/minimatch@3.0.4",
+          "labelReasoning": "Only reachable through jake (via ejs and filelist), which ejs uses only in bin/cli.js; the ejs runtime the application loads does not require it (D1, D7).",
+          "labelEvidence": [
+            "ejs@3.1.6: grep -n \"require(\" lib/ejs.js -\u003e fs, path, ./utils (47-49); jake used only by bin/cli.js",
+            "yarn.lock: jake \u003c- ejs; filelist \u003c- jake; minimatch \u003c- jake, filelist; brace-expansion \u003c- minimatch; cross-spawn, strip-ansi \u003c- tsc-watch (devDependency); ansi-regex \u003c- strip-ansi"
+          ],
+          "vulnerableSymbols": [
+            "minimatch"
+          ],
+          "state": "unknown",
+          "band": "insufficient_information",
+          "analysisConfidence": "medium",
+          "confidenceCriteria": [
+            "localisation method patch_reference",
+            "parse coverage 100.0 percent",
+            "no second deterministic method available to corroborate"
+          ],
+          "justification": "A package occurrence for this finding is nested under a dependency, whose internals are not parsed.",
+          "basedOn": {
+            "usageObservationIds": [],
+            "localisationMethod": "patch_reference",
+            "localisationConfidence": "medium",
+            "matchedSymbols": [],
+            "coverageSummary": {
+              "parseCoveragePercent": 100,
+              "unresolvedImportsInScope": 0,
+              "scanStatus": "complete"
+            }
+          }
+        },
+        {
+          "findingId": "find-4e2384e66e2d",
+          "vulnerabilityId": "GHSA-v6h2-p8h4-qcjw",
+          "purl": "pkg:npm/brace-expansion@1.1.11",
+          "outcome": "abstained",
+          "downgrade": false,
+          "label": "no_genuine_usage",
+          "labelVulnerabilityId": "GHSA-v6h2-p8h4-qcjw",
+          "labelPurl": "pkg:npm/brace-expansion@1.1.11",
+          "labelReasoning": "Only reachable through minimatch, which is reachable only through jake; the ejs runtime the application loads does not require jake (D1, D7).",
+          "labelEvidence": [
+            "ejs@3.1.6: grep -n \"require(\" lib/ejs.js -\u003e fs, path, ./utils (47-49); jake used only by bin/cli.js",
+            "yarn.lock: jake \u003c- ejs; filelist \u003c- jake; minimatch \u003c- jake, filelist; brace-expansion \u003c- minimatch; cross-spawn, strip-ansi \u003c- tsc-watch (devDependency); ansi-regex \u003c- strip-ansi"
+          ],
+          "vulnerableSymbols": [
+            "expand"
+          ],
+          "state": "unknown",
+          "band": "insufficient_information",
+          "analysisConfidence": "medium",
+          "confidenceCriteria": [
+            "localisation method patch_reference",
+            "parse coverage 100.0 percent",
+            "no second deterministic method available to corroborate"
+          ],
+          "justification": "A package occurrence for this finding is nested under a dependency, whose internals are not parsed.",
+          "basedOn": {
+            "usageObservationIds": [],
+            "localisationMethod": "patch_reference",
+            "localisationConfidence": "high",
+            "matchedSymbols": [],
+            "coverageSummary": {
+              "parseCoveragePercent": 100,
+              "unresolvedImportsInScope": 0,
+              "scanStatus": "complete"
+            }
+          }
+        },
+        {
+          "findingId": "find-5cda3f451b50",
+          "vulnerabilityId": "GHSA-93q8-gq69-wqmw",
+          "purl": "pkg:npm/ansi-regex@5.0.0",
+          "outcome": "abstained",
+          "downgrade": false,
+          "label": "no_genuine_usage",
+          "labelVulnerabilityId": "GHSA-93q8-gq69-wqmw",
+          "labelPurl": "pkg:npm/ansi-regex@5.0.0",
+          "labelReasoning": "Rule 5: pulled in only by tsc-watch (devDependency) through strip-ansi; not part of build/.",
+          "labelEvidence": [
+            "yarn.lock: jake \u003c- ejs; filelist \u003c- jake; minimatch \u003c- jake, filelist; brace-expansion \u003c- minimatch; cross-spawn, strip-ansi \u003c- tsc-watch (devDependency); ansi-regex \u003c- strip-ansi"
+          ],
+          "vulnerableSymbols": [
+            "ansiRegex"
+          ],
+          "state": "unknown",
+          "band": "insufficient_information",
+          "analysisConfidence": "medium",
+          "confidenceCriteria": [
+            "localisation method patch_reference",
+            "parse coverage 100.0 percent",
+            "no second deterministic method available to corroborate"
+          ],
+          "justification": "A package occurrence for this finding is nested under a dependency, whose internals are not parsed.",
+          "basedOn": {
+            "usageObservationIds": [],
+            "localisationMethod": "patch_reference",
+            "localisationConfidence": "high",
+            "matchedSymbols": [],
+            "coverageSummary": {
+              "parseCoveragePercent": 100,
+              "unresolvedImportsInScope": 0,
+              "scanStatus": "complete"
+            }
+          }
+        },
+        {
+          "findingId": "find-5f23e1178b17",
+          "vulnerabilityId": "GHSA-jqcg-44mw-7w3h",
+          "purl": "pkg:npm/proxy-addr@2.0.7",
+          "outcome": "abstained",
+          "downgrade": false,
+          "label": "no_genuine_usage",
+          "labelVulnerabilityId": "GHSA-jqcg-44mw-7w3h",
+          "labelPurl": "pkg:npm/proxy-addr@2.0.7",
+          "labelReasoning": "Rule 8: the bug needs a 'trust proxy' setting with an IPv6 subnet of zero leading bits (e.g. ::ffff:10.0.0.0/8 or ::/1). The application never sets 'trust proxy' (only view engine and views at api/app.ts:9-10), so express's default trusts nothing.",
+          "labelEvidence": [
+            "grep -rnE \"app\\.(set|enable)\\(\" api -\u003e :9 view engine, :10 views only",
+            "grep -rn \"trust proxy\" api -\u003e no matches"
+          ],
+          "vulnerableSymbols": [
+            "proxyaddr"
+          ],
+          "state": "unknown",
+          "band": "insufficient_information",
+          "analysisConfidence": "medium",
+          "confidenceCriteria": [
+            "localisation method patch_reference",
+            "parse coverage 100.0 percent",
+            "no second deterministic method available to corroborate"
+          ],
+          "justification": "A package occurrence for this finding is nested under a dependency, whose internals are not parsed.",
+          "basedOn": {
+            "usageObservationIds": [],
+            "localisationMethod": "patch_reference",
+            "localisationConfidence": "high",
+            "matchedSymbols": [],
+            "coverageSummary": {
+              "parseCoveragePercent": 100,
+              "unresolvedImportsInScope": 0,
+              "scanStatus": "complete"
+            }
+          }
+        },
+        {
+          "findingId": "find-5f33ba5e89bb",
+          "vulnerabilityId": "GHSA-6j4f-fj2g-mc7p",
+          "purl": "pkg:npm/brace-expansion@1.1.11",
+          "outcome": "abstained",
+          "downgrade": false,
+          "label": "no_genuine_usage",
+          "labelVulnerabilityId": "GHSA-6j4f-fj2g-mc7p",
+          "labelPurl": "pkg:npm/brace-expansion@1.1.11",
+          "labelReasoning": "Only reachable through minimatch, which is reachable only through jake; the ejs runtime the application loads does not require jake (D1, D7).",
+          "labelEvidence": [
+            "ejs@3.1.6: grep -n \"require(\" lib/ejs.js -\u003e fs, path, ./utils (47-49); jake used only by bin/cli.js",
+            "yarn.lock: jake \u003c- ejs; filelist \u003c- jake; minimatch \u003c- jake, filelist; brace-expansion \u003c- minimatch; cross-spawn, strip-ansi \u003c- tsc-watch (devDependency); ansi-regex \u003c- strip-ansi"
+          ],
+          "vulnerableSymbols": [
+            "expand"
+          ],
+          "state": "unknown",
+          "band": "insufficient_information",
+          "analysisConfidence": "medium",
+          "confidenceCriteria": [
+            "localisation method patch_reference",
+            "parse coverage 100.0 percent",
+            "no second deterministic method available to corroborate"
+          ],
+          "justification": "A package occurrence for this finding is nested under a dependency, whose internals are not parsed.",
+          "basedOn": {
+            "usageObservationIds": [],
+            "localisationMethod": "patch_reference",
+            "localisationConfidence": "medium",
+            "matchedSymbols": [],
+            "coverageSummary": {
+              "parseCoveragePercent": 100,
+              "unresolvedImportsInScope": 0,
+              "scanStatus": "complete"
+            }
+          }
+        },
+        {
+          "findingId": "find-676606284257",
+          "vulnerabilityId": "GHSA-mh99-v99m-4gvg",
+          "purl": "pkg:npm/brace-expansion@1.1.11",
+          "outcome": "abstained",
+          "downgrade": false,
+          "label": "no_genuine_usage",
+          "labelVulnerabilityId": "GHSA-mh99-v99m-4gvg",
+          "labelPurl": "pkg:npm/brace-expansion@1.1.11",
+          "labelReasoning": "Only reachable through minimatch, which is reachable only through jake; the ejs runtime the application loads does not require jake (D1, D7).",
+          "labelEvidence": [
+            "ejs@3.1.6: grep -n \"require(\" lib/ejs.js -\u003e fs, path, ./utils (47-49); jake used only by bin/cli.js",
+            "yarn.lock: jake \u003c- ejs; filelist \u003c- jake; minimatch \u003c- jake, filelist; brace-expansion \u003c- minimatch; cross-spawn, strip-ansi \u003c- tsc-watch (devDependency); ansi-regex \u003c- strip-ansi"
+          ],
+          "vulnerableSymbols": [
+            "expand"
+          ],
+          "state": "unknown",
+          "band": "insufficient_information",
+          "analysisConfidence": "medium",
+          "confidenceCriteria": [
+            "localisation method patch_reference",
+            "parse coverage 100.0 percent",
+            "no second deterministic method available to corroborate"
+          ],
+          "justification": "A package occurrence for this finding is nested under a dependency, whose internals are not parsed.",
+          "basedOn": {
+            "usageObservationIds": [],
+            "localisationMethod": "patch_reference",
+            "localisationConfidence": "medium",
+            "matchedSymbols": [],
+            "coverageSummary": {
+              "parseCoveragePercent": 100,
+              "unresolvedImportsInScope": 0,
+              "scanStatus": "complete"
+            }
+          }
+        },
+        {
+          "findingId": "find-6983e7a964b5",
+          "vulnerabilityId": "GHSA-pxg6-pf52-xh8x",
+          "purl": "pkg:npm/cookie@0.4.0",
+          "outcome": "abstained",
+          "downgrade": false,
+          "label": "no_genuine_usage",
+          "labelVulnerabilityId": "GHSA-pxg6-pf52-xh8x",
+          "labelPurl": "pkg:npm/cookie@0.4.0",
+          "labelReasoning": "cookie.serialize is reached only through res.cookie (express response.js:857); the application sets no cookies.",
+          "labelEvidence": [
+            "express@4.17.1 lib/response.js:857 cookie.serialize only in res.cookie",
+            "grep -rnE \"\\.(render|redirect|location|cookie|clearCookie|sendFile|download)\\(|express\\.static|urlencoded|limit|query parser|comma\" api -\u003e only :14 res.render(\"index\", { result: null })"
+          ],
+          "vulnerableSymbols": [
+            "serialize"
+          ],
+          "state": "unknown",
+          "band": "insufficient_information",
+          "analysisConfidence": "medium",
+          "confidenceCriteria": [
+            "localisation method patch_reference",
+            "parse coverage 100.0 percent",
+            "no second deterministic method available to corroborate"
+          ],
+          "justification": "A package occurrence for this finding is nested under a dependency, whose internals are not parsed.",
+          "basedOn": {
+            "usageObservationIds": [],
+            "localisationMethod": "patch_reference",
+            "localisationConfidence": "high",
+            "matchedSymbols": [],
+            "coverageSummary": {
+              "parseCoveragePercent": 100,
+              "unresolvedImportsInScope": 0,
+              "scanStatus": "complete"
+            }
+          }
+        },
+        {
+          "findingId": "find-7b84ba99d0fa",
+          "vulnerabilityId": "GHSA-qhr7-859c-m2p7",
+          "purl": "pkg:npm/brace-expansion@1.1.11",
+          "outcome": "abstained",
+          "downgrade": false,
+          "label": "no_genuine_usage",
+          "labelVulnerabilityId": "GHSA-qhr7-859c-m2p7",
+          "labelPurl": "pkg:npm/brace-expansion@1.1.11",
+          "labelReasoning": "Only reachable through minimatch, which is reachable only through jake; the ejs runtime the application loads does not require jake (D1, D7).",
+          "labelEvidence": [
+            "ejs@3.1.6: grep -n \"require(\" lib/ejs.js -\u003e fs, path, ./utils (47-49); jake used only by bin/cli.js",
+            "yarn.lock: jake \u003c- ejs; filelist \u003c- jake; minimatch \u003c- jake, filelist; brace-expansion \u003c- minimatch; cross-spawn, strip-ansi \u003c- tsc-watch (devDependency); ansi-regex \u003c- strip-ansi"
+          ],
+          "vulnerableSymbols": [
+            "expand"
+          ],
+          "state": "unknown",
+          "band": "insufficient_information",
+          "analysisConfidence": "medium",
+          "confidenceCriteria": [
+            "localisation method patch_reference",
+            "parse coverage 100.0 percent",
+            "no second deterministic method available to corroborate"
+          ],
+          "justification": "A package occurrence for this finding is nested under a dependency, whose internals are not parsed.",
+          "basedOn": {
+            "usageObservationIds": [],
+            "localisationMethod": "patch_reference",
+            "localisationConfidence": "medium",
+            "matchedSymbols": [],
+            "coverageSummary": {
+              "parseCoveragePercent": 100,
+              "unresolvedImportsInScope": 0,
+              "scanStatus": "complete"
+            }
+          }
+        },
+        {
+          "findingId": "find-7ff7255ee5d3",
+          "vulnerabilityId": "GHSA-cm22-4g7w-348p",
+          "purl": "pkg:npm/serve-static@1.14.1",
+          "outcome": "abstained",
+          "downgrade": false,
+          "label": "no_genuine_usage",
+          "labelVulnerabilityId": "GHSA-cm22-4g7w-348p",
+          "labelPurl": "pkg:npm/serve-static@1.14.1",
+          "labelReasoning": "express.static (serve-static) is not used.",
+          "labelEvidence": [
+            "grep -rnE \"\\.(render|redirect|location|cookie|clearCookie|sendFile|download)\\(|express\\.static|urlencoded|limit|query parser|comma\" api -\u003e only :14 res.render(\"index\", { result: null })"
+          ],
+          "vulnerableSymbols": [
+            "serveStatic"
+          ],
+          "state": "unknown",
+          "band": "insufficient_information",
+          "analysisConfidence": "medium",
+          "confidenceCriteria": [
+            "localisation method patch_reference",
+            "parse coverage 100.0 percent",
+            "no second deterministic method available to corroborate"
+          ],
+          "justification": "A package occurrence for this finding is nested under a dependency, whose internals are not parsed.",
+          "basedOn": {
+            "usageObservationIds": [],
+            "localisationMethod": "patch_reference",
+            "localisationConfidence": "high",
+            "matchedSymbols": [],
+            "coverageSummary": {
+              "parseCoveragePercent": 100,
+              "unresolvedImportsInScope": 0,
+              "scanStatus": "complete"
+            }
+          }
+        },
+        {
+          "findingId": "find-81be91849e4f",
+          "vulnerabilityId": "GHSA-23c5-xmqv-rm74",
+          "purl": "pkg:npm/minimatch@3.0.4",
+          "outcome": "abstained",
+          "downgrade": false,
+          "label": "no_genuine_usage",
+          "labelVulnerabilityId": "GHSA-23c5-xmqv-rm74",
+          "labelPurl": "pkg:npm/minimatch@3.0.4",
+          "labelReasoning": "Only reachable through jake (via ejs and filelist), which ejs uses only in bin/cli.js; the ejs runtime the application loads does not require it (D1, D7).",
+          "labelEvidence": [
+            "ejs@3.1.6: grep -n \"require(\" lib/ejs.js -\u003e fs, path, ./utils (47-49); jake used only by bin/cli.js",
+            "yarn.lock: jake \u003c- ejs; filelist \u003c- jake; minimatch \u003c- jake, filelist; brace-expansion \u003c- minimatch; cross-spawn, strip-ansi \u003c- tsc-watch (devDependency); ansi-regex \u003c- strip-ansi"
+          ],
+          "vulnerableSymbols": [
+            "minimatch"
+          ],
+          "state": "unknown",
+          "band": "insufficient_information",
+          "analysisConfidence": "medium",
+          "confidenceCriteria": [
+            "localisation method patch_reference",
+            "parse coverage 100.0 percent",
+            "no second deterministic method available to corroborate"
+          ],
+          "justification": "A package occurrence for this finding is nested under a dependency, whose internals are not parsed.",
+          "basedOn": {
+            "usageObservationIds": [],
+            "localisationMethod": "patch_reference",
+            "localisationConfidence": "low",
+            "matchedSymbols": [],
+            "coverageSummary": {
+              "parseCoveragePercent": 100,
+              "unresolvedImportsInScope": 0,
+              "scanStatus": "complete"
+            }
+          }
+        },
+        {
+          "findingId": "find-898d6baffa60",
+          "vulnerabilityId": "GHSA-3jxr-9vmj-r5cp",
+          "purl": "pkg:npm/brace-expansion@1.1.11",
+          "outcome": "abstained",
+          "downgrade": false,
+          "label": "no_genuine_usage",
+          "labelVulnerabilityId": "GHSA-3jxr-9vmj-r5cp",
+          "labelPurl": "pkg:npm/brace-expansion@1.1.11",
+          "labelReasoning": "Only reachable through minimatch, which is reachable only through jake; the ejs runtime the application loads does not require jake (D1, D7).",
+          "labelEvidence": [
+            "ejs@3.1.6: grep -n \"require(\" lib/ejs.js -\u003e fs, path, ./utils (47-49); jake used only by bin/cli.js",
+            "yarn.lock: jake \u003c- ejs; filelist \u003c- jake; minimatch \u003c- jake, filelist; brace-expansion \u003c- minimatch; cross-spawn, strip-ansi \u003c- tsc-watch (devDependency); ansi-regex \u003c- strip-ansi"
+          ],
+          "vulnerableSymbols": [
+            "expand"
+          ],
+          "state": "unknown",
+          "band": "insufficient_information",
+          "analysisConfidence": "medium",
+          "confidenceCriteria": [
+            "localisation method patch_reference",
+            "parse coverage 100.0 percent",
+            "no second deterministic method available to corroborate"
+          ],
+          "justification": "A package occurrence for this finding is nested under a dependency, whose internals are not parsed.",
+          "basedOn": {
+            "usageObservationIds": [],
+            "localisationMethod": "patch_reference",
+            "localisationConfidence": "high",
+            "matchedSymbols": [],
+            "coverageSummary": {
+              "parseCoveragePercent": 100,
+              "unresolvedImportsInScope": 0,
+              "scanStatus": "complete"
+            }
+          }
+        },
+        {
+          "findingId": "find-8c20744483aa",
+          "vulnerabilityId": "GHSA-f886-m6hf-6m8v",
+          "purl": "pkg:npm/brace-expansion@1.1.11",
+          "outcome": "abstained",
+          "downgrade": false,
+          "label": "no_genuine_usage",
+          "labelVulnerabilityId": "GHSA-f886-m6hf-6m8v",
+          "labelPurl": "pkg:npm/brace-expansion@1.1.11",
+          "labelReasoning": "Only reachable through minimatch, which is reachable only through jake; the ejs runtime the application loads does not require jake (D1, D7).",
+          "labelEvidence": [
+            "ejs@3.1.6: grep -n \"require(\" lib/ejs.js -\u003e fs, path, ./utils (47-49); jake used only by bin/cli.js",
+            "yarn.lock: jake \u003c- ejs; filelist \u003c- jake; minimatch \u003c- jake, filelist; brace-expansion \u003c- minimatch; cross-spawn, strip-ansi \u003c- tsc-watch (devDependency); ansi-regex \u003c- strip-ansi"
+          ],
+          "vulnerableSymbols": [
+            "expand"
+          ],
+          "state": "unknown",
+          "band": "insufficient_information",
+          "analysisConfidence": "medium",
+          "confidenceCriteria": [
+            "localisation method patch_reference",
+            "parse coverage 100.0 percent",
+            "no second deterministic method available to corroborate"
+          ],
+          "justification": "A package occurrence for this finding is nested under a dependency, whose internals are not parsed.",
+          "basedOn": {
+            "usageObservationIds": [],
+            "localisationMethod": "patch_reference",
+            "localisationConfidence": "high",
+            "matchedSymbols": [],
+            "coverageSummary": {
+              "parseCoveragePercent": 100,
+              "unresolvedImportsInScope": 0,
+              "scanStatus": "complete"
+            }
+          }
+        },
+        {
+          "findingId": "find-99f2eb1639ff",
+          "vulnerabilityId": "GHSA-4mjr-xmp4-gh2g",
+          "purl": "pkg:npm/qs@6.7.0",
+          "outcome": "abstained",
+          "downgrade": false,
+          "label": "no_genuine_usage",
+          "labelVulnerabilityId": "GHSA-4mjr-xmp4-gh2g",
+          "labelPurl": "pkg:npm/qs@6.7.0",
+          "labelReasoning": "Rule 8: the parse half runs, but the trigger also needs qs.stringify on the result, which neither the application nor express calls.",
+          "labelEvidence": [
+            "express@4.17.1 lib/utils.js:291-295 parseExtendedQueryString -\u003e qs.parse(str, { allowPrototypes: true })",
+            "grep -rn \"stringify\" api -\u003e only client-side JSON.stringify in api/views/index.ejs:52, :58",
+            "grep -rn \"stringify\" express@4.17.1/lib | grep -v \"JSON|function stringify|= stringify(\" -\u003e no matches"
+          ],
+          "vulnerableSymbols": [
+            "parse",
+            "stringify"
+          ],
+          "state": "unknown",
+          "band": "insufficient_information",
+          "analysisConfidence": "medium",
+          "confidenceCriteria": [
+            "localisation method patch_reference",
+            "parse coverage 100.0 percent",
+            "no second deterministic method available to corroborate"
+          ],
+          "justification": "A package occurrence for this finding is nested under a dependency, whose internals are not parsed.",
+          "basedOn": {
+            "usageObservationIds": [],
+            "localisationMethod": "patch_reference",
+            "localisationConfidence": "high",
+            "matchedSymbols": [],
+            "coverageSummary": {
+              "parseCoveragePercent": 100,
+              "unresolvedImportsInScope": 0,
+              "scanStatus": "complete"
+            }
+          }
+        },
+        {
+          "findingId": "find-9f46538f864a",
+          "vulnerabilityId": "GHSA-3ppc-4f35-3m26",
+          "purl": "pkg:npm/minimatch@3.0.4",
+          "outcome": "abstained",
+          "downgrade": false,
+          "label": "no_genuine_usage",
+          "labelVulnerabilityId": "GHSA-3ppc-4f35-3m26",
+          "labelPurl": "pkg:npm/minimatch@3.0.4",
+          "labelReasoning": "Only reachable through jake (via ejs and filelist), which ejs uses only in bin/cli.js; the ejs runtime the application loads does not require it (D1, D7).",
+          "labelEvidence": [
+            "ejs@3.1.6: grep -n \"require(\" lib/ejs.js -\u003e fs, path, ./utils (47-49); jake used only by bin/cli.js",
+            "yarn.lock: jake \u003c- ejs; filelist \u003c- jake; minimatch \u003c- jake, filelist; brace-expansion \u003c- minimatch; cross-spawn, strip-ansi \u003c- tsc-watch (devDependency); ansi-regex \u003c- strip-ansi"
+          ],
+          "vulnerableSymbols": [
+            "minimatch"
+          ],
+          "state": "unknown",
+          "band": "insufficient_information",
+          "analysisConfidence": "medium",
+          "confidenceCriteria": [
+            "localisation method patch_reference",
+            "parse coverage 100.0 percent",
+            "no second deterministic method available to corroborate"
+          ],
+          "justification": "A package occurrence for this finding is nested under a dependency, whose internals are not parsed.",
+          "basedOn": {
+            "usageObservationIds": [],
+            "localisationMethod": "patch_reference",
+            "localisationConfidence": "high",
+            "matchedSymbols": [],
+            "coverageSummary": {
+              "parseCoveragePercent": 100,
+              "unresolvedImportsInScope": 0,
+              "scanStatus": "complete"
+            }
+          }
+        },
+        {
+          "findingId": "find-b66d8383f35d",
+          "vulnerabilityId": "GHSA-rgw5-rvv9-x895",
+          "purl": "pkg:npm/brace-expansion@1.1.11",
+          "outcome": "abstained",
+          "downgrade": false,
+          "label": "no_genuine_usage",
+          "labelVulnerabilityId": "GHSA-rgw5-rvv9-x895",
+          "labelPurl": "pkg:npm/brace-expansion@1.1.11",
+          "labelReasoning": "Only reachable through minimatch, which is reachable only through jake; the ejs runtime the application loads does not require jake (D1, D7).",
+          "labelEvidence": [
+            "ejs@3.1.6: grep -n \"require(\" lib/ejs.js -\u003e fs, path, ./utils (47-49); jake used only by bin/cli.js",
+            "yarn.lock: jake \u003c- ejs; filelist \u003c- jake; minimatch \u003c- jake, filelist; brace-expansion \u003c- minimatch; cross-spawn, strip-ansi \u003c- tsc-watch (devDependency); ansi-regex \u003c- strip-ansi"
+          ],
+          "vulnerableSymbols": [
+            "expand"
+          ],
+          "state": "unknown",
+          "band": "insufficient_information",
+          "analysisConfidence": "medium",
+          "confidenceCriteria": [
+            "localisation method patch_reference",
+            "parse coverage 100.0 percent",
+            "no second deterministic method available to corroborate"
+          ],
+          "justification": "A package occurrence for this finding is nested under a dependency, whose internals are not parsed.",
+          "basedOn": {
+            "usageObservationIds": [],
+            "localisationMethod": "patch_reference",
+            "localisationConfidence": "medium",
+            "matchedSymbols": [],
+            "coverageSummary": {
+              "parseCoveragePercent": 100,
+              "unresolvedImportsInScope": 0,
+              "scanStatus": "complete"
+            }
+          }
+        },
+        {
+          "findingId": "find-bd1b0bdf96ec",
+          "vulnerabilityId": "GHSA-rhx6-c78j-4q9w",
+          "purl": "pkg:npm/path-to-regexp@0.1.7",
+          "outcome": "abstained",
+          "downgrade": false,
+          "label": "no_genuine_usage",
+          "labelVulnerabilityId": "GHSA-rhx6-c78j-4q9w",
+          "labelPurl": "pkg:npm/path-to-regexp@0.1.7",
+          "labelReasoning": "Rule 8: the trigger is two parameters in one segment (e.g. /:a-:b). No route has a parameter.",
+          "labelEvidence": [
+            "grep -rnE \"app\\.(set|use|get|post|put|delete|all)\\(|express\\.[a-z]+\\(\" api -\u003e :9 view engine ejs, :10 views, :11 express.json(), routes \"/\" :13, \"/api/v1/uppercase\" :17, \"*\" :29"
+          ],
+          "vulnerableSymbols": [
+            "pathToRegexp"
+          ],
+          "state": "unknown",
+          "band": "insufficient_information",
+          "analysisConfidence": "medium",
+          "confidenceCriteria": [
+            "localisation method patch_reference",
+            "parse coverage 100.0 percent",
+            "no second deterministic method available to corroborate"
+          ],
+          "justification": "A package occurrence for this finding is nested under a dependency, whose internals are not parsed.",
+          "basedOn": {
+            "usageObservationIds": [],
+            "localisationMethod": "patch_reference",
+            "localisationConfidence": "high",
+            "matchedSymbols": [],
+            "coverageSummary": {
+              "parseCoveragePercent": 100,
+              "unresolvedImportsInScope": 0,
+              "scanStatus": "complete"
+            }
+          }
+        },
+        {
+          "findingId": "find-bdb585c87cfa",
+          "vulnerabilityId": "GHSA-v422-hmwv-36x6",
+          "purl": "pkg:npm/body-parser@1.19.0",
+          "outcome": "abstained",
+          "downgrade": false,
+          "label": "no_genuine_usage",
+          "labelVulnerabilityId": "GHSA-v422-hmwv-36x6",
+          "labelPurl": "pkg:npm/body-parser@1.19.0",
+          "labelReasoning": "Rule 8: the trigger is an invalid limit value. express.json() at api/app.ts:11 is called with no options and no limit is set.",
+          "labelEvidence": [
+            "grep -rnE \"app\\.(set|use|get|post|put|delete|all)\\(|express\\.[a-z]+\\(\" api -\u003e :9 view engine ejs, :10 views, :11 express.json(), routes \"/\" :13, \"/api/v1/uppercase\" :17, \"*\" :29",
+            "grep -rnE \"\\.(render|redirect|location|cookie|clearCookie|sendFile|download)\\(|express\\.static|urlencoded|limit|query parser|comma\" api -\u003e only :14 res.render(\"index\", { result: null })"
+          ],
+          "vulnerableSymbols": [
+            "json",
+            "urlencoded",
+            "raw",
+            "text"
+          ],
+          "state": "unknown",
+          "band": "insufficient_information",
+          "analysisConfidence": "medium",
+          "confidenceCriteria": [
+            "localisation method patch_reference",
+            "parse coverage 100.0 percent",
+            "no second deterministic method available to corroborate"
+          ],
+          "justification": "A package occurrence for this finding is nested under a dependency, whose internals are not parsed.",
+          "basedOn": {
+            "usageObservationIds": [],
+            "localisationMethod": "patch_reference",
+            "localisationConfidence": "medium",
+            "matchedSymbols": [],
+            "coverageSummary": {
+              "parseCoveragePercent": 100,
+              "unresolvedImportsInScope": 0,
+              "scanStatus": "complete"
+            }
+          }
+        },
+        {
+          "findingId": "find-c241f797ae4b",
+          "vulnerabilityId": "GHSA-qw6h-vgh9-j6wx",
+          "purl": "pkg:npm/express@4.17.1",
+          "outcome": "over_reported_usage",
+          "downgrade": false,
+          "label": "no_genuine_usage",
+          "labelVulnerabilityId": "GHSA-qw6h-vgh9-j6wx",
+          "labelPurl": "pkg:npm/express@4.17.1",
+          "labelReasoning": "res.redirect is not called.",
+          "labelEvidence": [
+            "grep -rnE \"\\.(render|redirect|location|cookie|clearCookie|sendFile|download)\\(|express\\.static|urlencoded|limit|query parser|comma\" api -\u003e only :14 res.render(\"index\", { result: null })"
+          ],
+          "vulnerableSymbols": [
+            "res.redirect"
+          ],
+          "state": "usage_detected",
+          "band": "act_now",
+          "analysisConfidence": "medium",
+          "confidenceCriteria": [
+            "localisation method patch_reference",
+            "parse coverage 100.0 percent",
+            "no second deterministic method available to corroborate"
+          ],
+          "justification": "The application calls default, which localisation names as a candidate or a public entry point to one.",
+          "basedOn": {
+            "usageObservationIds": [
+              "obs-0d43d4e93a6197a7a3db48a7ff01230d",
+              "obs-8beb206ba3097bbb5ee3de15d98418c5",
+              "obs-918cce05d91aacdd3d52cc436ff39743",
+              "obs-a874160756611d294129cd8c638c0d24",
+              "obs-cd768a547ec39f26b1f85eda650a8565"
+            ],
+            "localisationMethod": "patch_reference",
+            "localisationConfidence": "high",
+            "matchedSymbols": [
+              "default"
+            ],
+            "evidenceLevel": 2,
+            "coverageSummary": {
+              "parseCoveragePercent": 100,
+              "unresolvedImportsInScope": 0,
+              "scanStatus": "complete"
+            }
+          }
+        },
+        {
+          "findingId": "find-d759af5484a7",
+          "vulnerabilityId": "GHSA-hrpp-h998-j3pp",
+          "purl": "pkg:npm/qs@6.7.0",
+          "outcome": "abstained",
+          "downgrade": false,
+          "label": "genuine_usage",
+          "labelVulnerabilityId": "GHSA-hrpp-h998-j3pp",
+          "labelPurl": "pkg:npm/qs@6.7.0",
+          "labelReasoning": "Rule 8: the application never sets 'query parser', so express's default extended parser runs qs.parse(str, { allowPrototypes: true }) on the query string of every request.",
+          "labelEvidence": [
+            "express@4.17.1 lib/application.js:77 default query parser 'extended'; :144 query middleware on the router",
+            "express@4.17.1 lib/utils.js:291-295 parseExtendedQueryString -\u003e qs.parse(str, { allowPrototypes: true })",
+            "api/app.ts:13 \"/\", :17 \"/api/v1/uppercase\", :29 \"*\""
+          ],
+          "vulnerableSymbols": [
+            "parse"
+          ],
+          "state": "unknown",
+          "band": "insufficient_information",
+          "analysisConfidence": "medium",
+          "confidenceCriteria": [
+            "localisation method patch_reference",
+            "parse coverage 100.0 percent",
+            "no second deterministic method available to corroborate"
+          ],
+          "justification": "A package occurrence for this finding is nested under a dependency, whose internals are not parsed.",
+          "basedOn": {
+            "usageObservationIds": [],
+            "localisationMethod": "patch_reference",
+            "localisationConfidence": "high",
+            "matchedSymbols": [],
+            "coverageSummary": {
+              "parseCoveragePercent": 100,
+              "unresolvedImportsInScope": 0,
+              "scanStatus": "complete"
+            }
+          }
+        },
+        {
+          "findingId": "find-d8642f2fb8cc",
+          "vulnerabilityId": "GHSA-phwq-j96m-2c2q",
+          "purl": "pkg:npm/ejs@3.1.6",
+          "outcome": "abstained",
+          "downgrade": false,
+          "label": "genuine_usage",
+          "labelVulnerabilityId": "GHSA-phwq-j96m-2c2q",
+          "labelPurl": "pkg:npm/ejs@3.1.6",
+          "labelReasoning": "Rule 8: ejs is not imported, but api/app.ts:9 sets it as the view engine and :14 calls res.render, which runs ejs.renderFile and its copy of options from data. The data is constant ({ result: null }); the label is about the executed path, not input control.",
+          "labelEvidence": [
+            "api/app.ts:9 app.set(\"view engine\", \"ejs\")",
+            "api/app.ts:14 res.render(\"index\", { result: null })",
+            "ejs@3.1.6 lib/ejs.js:914 __express = renderFile; :473-481 copies data.settings['view options'] and data into options"
+          ],
+          "vulnerableSymbols": [
+            "renderFile"
+          ],
+          "state": "unknown",
+          "band": "insufficient_information",
+          "analysisConfidence": "medium",
+          "confidenceCriteria": [
+            "localisation method patch_reference",
+            "parse coverage 100.0 percent",
+            "no second deterministic method available to corroborate"
+          ],
+          "justification": "Localised to an internal function with no resolved public entry point (compile has no complete, code-derived list of public entry points).",
+          "basedOn": {
+            "usageObservationIds": [],
+            "localisationMethod": "patch_reference",
+            "localisationConfidence": "high",
+            "matchedSymbols": [],
+            "coverageSummary": {
+              "parseCoveragePercent": 100,
+              "unresolvedImportsInScope": 0,
+              "scanStatus": "complete"
+            }
+          }
+        },
+        {
+          "findingId": "find-f070e931585c",
+          "vulnerabilityId": "GHSA-qwcr-r2fm-qrc7",
+          "purl": "pkg:npm/body-parser@1.19.0",
+          "outcome": "abstained",
+          "downgrade": false,
+          "label": "no_genuine_usage",
+          "labelVulnerabilityId": "GHSA-qwcr-r2fm-qrc7",
+          "labelPurl": "pkg:npm/body-parser@1.19.0",
+          "labelReasoning": "Only express.json() (body-parser json) is mounted, at api/app.ts:11; urlencoded is not used.",
+          "labelEvidence": [
+            "grep -rnE \"app\\.(set|use|get|post|put|delete|all)\\(|express\\.[a-z]+\\(\" api -\u003e :9 view engine ejs, :10 views, :11 express.json(), routes \"/\" :13, \"/api/v1/uppercase\" :17, \"*\" :29",
+            "grep -rnE \"\\.(render|redirect|location|cookie|clearCookie|sendFile|download)\\(|express\\.static|urlencoded|limit|query parser|comma\" api -\u003e only :14 res.render(\"index\", { result: null })"
+          ],
+          "vulnerableSymbols": [
+            "urlencoded"
+          ],
+          "state": "unknown",
+          "band": "insufficient_information",
+          "analysisConfidence": "medium",
+          "confidenceCriteria": [
+            "localisation method patch_reference",
+            "parse coverage 100.0 percent",
+            "no second deterministic method available to corroborate"
+          ],
+          "justification": "A package occurrence for this finding is nested under a dependency, whose internals are not parsed.",
+          "basedOn": {
+            "usageObservationIds": [],
+            "localisationMethod": "patch_reference",
+            "localisationConfidence": "medium",
+            "matchedSymbols": [],
+            "coverageSummary": {
+              "parseCoveragePercent": 100,
+              "unresolvedImportsInScope": 0,
+              "scanStatus": "complete"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "caseId": "kirill89-prototype-pollution-explained",
+      "dir": "testdata/audit/kirill89-prototype-pollution-explained",
+      "repository": {
+        "url": "https://github.com/Kirill89/prototype-pollution-explained",
+        "commit": "d7b5d98515a95f9a8cb0fedef034010ee083a6a9"
+      },
+      "scanId": "scan-20220830T155554Z-31c6824d",
+      "coverage": {
+        "analysisStatus": "complete",
+        "filesDiscovered": 1,
+        "filesParsed": 1,
+        "filesParsedWithErrors": 0,
+        "filesFailed": 0,
+        "filesSkipped": 0,
+        "limitsHit": []
+      },
+      "totals": {
+        "findings": 14,
+        "agreeUsage": 0,
+        "missedUsage": 0,
+        "overReportedUsage": 2,
+        "agreeNoUsage": 0,
+        "abstained": 12,
+        "unlabelled": 0,
+        "noDecision": 0,
+        "labelMismatch": 0,
+        "downgrades": 0
+      },
+      "rows": [
+        {
+          "findingId": "find-08cc91b773d8",
+          "vulnerabilityId": "GHSA-rv95-896h-c2vc",
+          "purl": "pkg:npm/express@4.16.4",
+          "outcome": "over_reported_usage",
+          "downgrade": false,
+          "label": "no_genuine_usage",
+          "labelVulnerabilityId": "GHSA-rv95-896h-c2vc",
+          "labelPurl": "pkg:npm/express@4.16.4",
+          "labelReasoning": "Neither res.location nor res.redirect is called.",
+          "labelEvidence": [
+            "grep -rnE \"\\.(redirect|location)\\(\" --include=*.js . -\u003e no matches"
+          ],
+          "vulnerableSymbols": [
+            "res.location",
+            "res.redirect"
+          ],
+          "state": "usage_detected",
+          "band": "act_now",
+          "analysisConfidence": "high",
+          "confidenceCriteria": [
+            "localisation method patch_reference",
+            "parse coverage 100.0 percent",
+            "no unresolved imports for this package",
+            "no unresolved call sites for this package",
+            "agreement between independent deterministic methods"
+          ],
+          "justification": "The application calls default, which localisation names as a candidate or a public entry point to one. A resolved call path reaches the call to default at index.js:12 from application entry point ep-b9afe5dfa3bb2fbb4d82d0055fe721e2: \u003cmodule\u003e (index.js:1).",
+          "basedOn": {
+            "usageObservationIds": [
+              "obs-250eeb8de5b1951f2295f5fe67da0077"
+            ],
+            "localisationMethod": "patch_reference",
+            "localisationConfidence": "high",
+            "matchedSymbols": [
+              "default"
+            ],
+            "evidenceLevel": 3,
+            "coverageSummary": {
+              "parseCoveragePercent": 100,
+              "unresolvedImportsInScope": 0,
+              "scanStatus": "complete"
+            }
+          }
+        },
+        {
+          "findingId": "find-15ad437c70d1",
+          "vulnerabilityId": "GHSA-35jh-r3h4-6jhm",
+          "purl": "pkg:npm/lodash@4.17.4",
+          "outcome": "abstained",
+          "downgrade": false,
+          "label": "no_genuine_usage",
+          "labelVulnerabilityId": "GHSA-35jh-r3h4-6jhm",
+          "labelPurl": "pkg:npm/lodash@4.17.4",
+          "labelReasoning": "_.template is not called; the only lodash call is _.merge at index.js:55.",
+          "labelEvidence": [
+            "grep -rnoE \"\\b_\\.[A-Za-z]+\" --include=*.js . | sort | uniq -c -\u003e one call: index.js:55 _.merge",
+            "grep -rnwE \"defaultsDeep|mergeWith|zipObjectDeep|pick|set|setWith|update|updateWith|template|toNumber|trim|trimEnd|words|camelCase|kebabCase|snakeCase|startCase|lowerCase|upperCase|unset|omit\" --include=*.js . -\u003e no matches"
+          ],
+          "vulnerableSymbols": [
+            "template"
+          ],
+          "state": "unknown",
+          "band": "insufficient_information",
+          "analysisConfidence": "medium",
+          "confidenceCriteria": [
+            "localisation method patch_reference",
+            "parse coverage 100.0 percent",
+            "no second deterministic method available to corroborate"
+          ],
+          "justification": "Localised to an internal function with no resolved public entry point (visibility of template is unknown).",
+          "basedOn": {
+            "usageObservationIds": [
+              "obs-2bc33c5825c88ccee6f35db159456b5f"
+            ],
+            "localisationMethod": "patch_reference",
+            "localisationConfidence": "high",
+            "matchedSymbols": [],
+            "evidenceLevel": 3,
+            "coverageSummary": {
+              "parseCoveragePercent": 100,
+              "unresolvedImportsInScope": 0,
+              "scanStatus": "complete"
+            }
+          }
+        },
+        {
+          "findingId": "find-2590fff8b864",
+          "vulnerabilityId": "GHSA-fvqr-27wr-82fm",
+          "purl": "pkg:npm/lodash@4.17.4",
+          "outcome": "abstained",
+          "downgrade": false,
+          "label": "genuine_usage",
+          "labelVulnerabilityId": "GHSA-fvqr-27wr-82fm",
+          "labelPurl": "pkg:npm/lodash@4.17.4",
+          "labelReasoning": "index.js:55 calls _.merge on req.body.message (request input) in the PUT / handler, which ships (package.json main index.js).",
+          "labelEvidence": [
+            "index.js:55 _.merge(message, req.body.message, {...}) in the PUT / handler"
+          ],
+          "vulnerableSymbols": [
+            "merge",
+            "mergeWith",
+            "defaultsDeep"
+          ],
+          "state": "unknown",
+          "band": "insufficient_information",
+          "analysisConfidence": "medium",
+          "confidenceCriteria": [
+            "localisation method patch_reference",
+            "parse coverage 100.0 percent",
+            "no second deterministic method available to corroborate"
+          ],
+          "justification": "Localised to an internal function with no resolved public entry point (visibility of baseMerge, baseMergeDeep and safeGet is unknown).",
+          "basedOn": {
+            "usageObservationIds": [
+              "obs-2bc33c5825c88ccee6f35db159456b5f"
+            ],
+            "localisationMethod": "patch_reference",
+            "localisationConfidence": "high",
+            "matchedSymbols": [],
+            "evidenceLevel": 3,
+            "coverageSummary": {
+              "parseCoveragePercent": 100,
+              "unresolvedImportsInScope": 0,
+              "scanStatus": "complete"
+            }
+          }
+        },
+        {
+          "findingId": "find-28c210d965f5",
+          "vulnerabilityId": "GHSA-4xc9-xhrj-v574",
+          "purl": "pkg:npm/lodash@4.17.4",
+          "outcome": "abstained",
+          "downgrade": false,
+          "label": "genuine_usage",
+          "labelVulnerabilityId": "GHSA-4xc9-xhrj-v574",
+          "labelPurl": "pkg:npm/lodash@4.17.4",
+          "labelReasoning": "index.js:55 calls _.merge on req.body.message in the PUT / handler; the repository README names this CVE.",
+          "labelEvidence": [
+            "index.js:55 _.merge(message, req.body.message, {...}) in the PUT / handler"
+          ],
+          "vulnerableSymbols": [
+            "merge",
+            "mergeWith",
+            "defaultsDeep"
+          ],
+          "state": "unknown",
+          "band": "insufficient_information",
+          "analysisConfidence": "medium",
+          "confidenceCriteria": [
+            "localisation method patch_reference",
+            "parse coverage 100.0 percent",
+            "no second deterministic method available to corroborate"
+          ],
+          "justification": "Localised to an internal function with no resolved public entry point (visibility of safeGet is unknown).",
+          "basedOn": {
+            "usageObservationIds": [
+              "obs-2bc33c5825c88ccee6f35db159456b5f"
+            ],
+            "localisationMethod": "patch_reference",
+            "localisationConfidence": "high",
+            "matchedSymbols": [],
+            "evidenceLevel": 3,
+            "coverageSummary": {
+              "parseCoveragePercent": 100,
+              "unresolvedImportsInScope": 0,
+              "scanStatus": "complete"
+            }
+          }
+        },
+        {
+          "findingId": "find-3201d8f964cf",
+          "vulnerabilityId": "GHSA-qw6h-vgh9-j6wx",
+          "purl": "pkg:npm/express@4.16.4",
+          "outcome": "over_reported_usage",
+          "downgrade": false,
+          "label": "no_genuine_usage",
+          "labelVulnerabilityId": "GHSA-qw6h-vgh9-j6wx",
+          "labelPurl": "pkg:npm/express@4.16.4",
+          "labelReasoning": "res.redirect is not called anywhere in the application source.",
+          "labelEvidence": [
+            "grep -rnE \"\\.(redirect|location)\\(\" --include=*.js . -\u003e no matches"
+          ],
+          "vulnerableSymbols": [
+            "res.redirect"
+          ],
+          "state": "usage_detected",
+          "band": "act_now",
+          "analysisConfidence": "high",
+          "confidenceCriteria": [
+            "localisation method patch_reference",
+            "parse coverage 100.0 percent",
+            "no unresolved imports for this package",
+            "no unresolved call sites for this package",
+            "agreement between independent deterministic methods"
+          ],
+          "justification": "The application calls default, which localisation names as a candidate or a public entry point to one. A resolved call path reaches the call to default at index.js:12 from application entry point ep-b9afe5dfa3bb2fbb4d82d0055fe721e2: \u003cmodule\u003e (index.js:1).",
+          "basedOn": {
+            "usageObservationIds": [
+              "obs-250eeb8de5b1951f2295f5fe67da0077"
+            ],
+            "localisationMethod": "patch_reference",
+            "localisationConfidence": "high",
+            "matchedSymbols": [
+              "default"
+            ],
+            "evidenceLevel": 3,
+            "coverageSummary": {
+              "parseCoveragePercent": 100,
+              "unresolvedImportsInScope": 0,
+              "scanStatus": "complete"
+            }
+          }
+        },
+        {
+          "findingId": "find-340a4e8a755b",
+          "vulnerabilityId": "GHSA-f23m-r3pf-42rh",
+          "purl": "pkg:npm/lodash@4.17.4",
+          "outcome": "abstained",
+          "downgrade": false,
+          "label": "no_genuine_usage",
+          "labelVulnerabilityId": "GHSA-f23m-r3pf-42rh",
+          "labelPurl": "pkg:npm/lodash@4.17.4",
+          "labelReasoning": "unset is not called; the only lodash call is _.merge at index.js:55.",
+          "labelEvidence": [
+            "grep -rnoE \"\\b_\\.[A-Za-z]+\" --include=*.js . | sort | uniq -c -\u003e one call: index.js:55 _.merge",
+            "grep -rnwE \"defaultsDeep|mergeWith|zipObjectDeep|pick|set|setWith|update|updateWith|template|toNumber|trim|trimEnd|words|camelCase|kebabCase|snakeCase|startCase|lowerCase|upperCase|unset|omit\" --include=*.js . -\u003e no matches"
+          ],
+          "vulnerableSymbols": [
+            "unset"
+          ],
+          "state": "unknown",
+          "band": "insufficient_information",
+          "analysisConfidence": "medium",
+          "confidenceCriteria": [
+            "localisation method advisory_text",
+            "parse coverage 100.0 percent",
+            "no second deterministic method available to corroborate"
+          ],
+          "justification": "Localised to an internal function with no resolved public entry point (localisation 1.1.0 does not record whether omit and unset is public or internal; candidates came from advisory text, which cannot show the set is complete).",
+          "basedOn": {
+            "usageObservationIds": [
+              "obs-2bc33c5825c88ccee6f35db159456b5f"
+            ],
+            "localisationMethod": "advisory_text",
+            "localisationConfidence": "medium",
+            "matchedSymbols": [],
+            "evidenceLevel": 3,
+            "coverageSummary": {
+              "parseCoveragePercent": 100,
+              "unresolvedImportsInScope": 0,
+              "scanStatus": "complete"
+            }
+          }
+        },
+        {
+          "findingId": "find-473a234ef8a5",
+          "vulnerabilityId": "GHSA-x5rq-j2xg-h7qm",
+          "purl": "pkg:npm/lodash@4.17.4",
+          "outcome": "abstained",
+          "downgrade": false,
+          "label": "no_genuine_usage",
+          "labelVulnerabilityId": "GHSA-x5rq-j2xg-h7qm",
+          "labelPurl": "pkg:npm/lodash@4.17.4",
+          "labelReasoning": "The advisory names no function; NVD describes a date handler, while the referenced lodash issue #3359 is the words regex used by the case functions. Labelled against #3359: none of these is called.",
+          "labelEvidence": [
+            "grep -rnoE \"\\b_\\.[A-Za-z]+\" --include=*.js . | sort | uniq -c -\u003e one call: index.js:55 _.merge",
+            "grep -rnwE \"defaultsDeep|mergeWith|zipObjectDeep|pick|set|setWith|update|updateWith|template|toNumber|trim|trimEnd|words|camelCase|kebabCase|snakeCase|startCase|lowerCase|upperCase|unset|omit\" --include=*.js . -\u003e no matches"
+          ],
+          "vulnerableSymbols": [
+            "words",
+            "camelCase",
+            "kebabCase",
+            "snakeCase",
+            "startCase",
+            "lowerCase",
+            "upperCase"
+          ],
+          "state": "unknown",
+          "band": "insufficient_information",
+          "analysisConfidence": "medium",
+          "confidenceCriteria": [
+            "localisation method version_diff",
+            "parse coverage 100.0 percent",
+            "no second deterministic method available to corroborate"
+          ],
+          "justification": "Localised to an internal function with no resolved public entry point (visibility of addMapEntry, addSetEntry, baseClone, baseMerge, baseMergeDeep, cloneMap, cloneSet, customDefaultsAssignIn, default, initCloneArray, initCloneByTag, isIndex, isIterateeCall, remainingWait, runInContext and safeGet is unknown; addMapEntry, addSetEntry, baseClone, baseConvert, baseMerge, baseMergeDeep, cloneByPath, cloneMap, cloneSet, default, initCloneArray, initCloneByTag, isIndex, remainingWait and wrap has no complete, code-derived list of public entry points).",
+          "basedOn": {
+            "usageObservationIds": [
+              "obs-2bc33c5825c88ccee6f35db159456b5f"
+            ],
+            "localisationMethod": "version_diff",
+            "localisationConfidence": "low",
+            "matchedSymbols": [],
+            "evidenceLevel": 3,
+            "coverageSummary": {
+              "parseCoveragePercent": 100,
+              "unresolvedImportsInScope": 0,
+              "scanStatus": "complete"
+            }
+          }
+        },
+        {
+          "findingId": "find-69ad2599263f",
+          "vulnerabilityId": "GHSA-29mw-wpgm-hmr9",
+          "purl": "pkg:npm/lodash@4.17.4",
+          "outcome": "abstained",
+          "downgrade": false,
+          "label": "no_genuine_usage",
+          "labelVulnerabilityId": "GHSA-29mw-wpgm-hmr9",
+          "labelPurl": "pkg:npm/lodash@4.17.4",
+          "labelReasoning": "None of the named functions is called; the only lodash call is _.merge at index.js:55.",
+          "labelEvidence": [
+            "grep -rnoE \"\\b_\\.[A-Za-z]+\" --include=*.js . | sort | uniq -c -\u003e one call: index.js:55 _.merge",
+            "grep -rnwE \"defaultsDeep|mergeWith|zipObjectDeep|pick|set|setWith|update|updateWith|template|toNumber|trim|trimEnd|words|camelCase|kebabCase|snakeCase|startCase|lowerCase|upperCase|unset|omit\" --include=*.js . -\u003e no matches"
+          ],
+          "vulnerableSymbols": [
+            "toNumber",
+            "trim",
+            "trimEnd"
+          ],
+          "state": "unknown",
+          "band": "insufficient_information",
+          "analysisConfidence": "medium",
+          "confidenceCriteria": [
+            "localisation method patch_reference",
+            "parse coverage 100.0 percent",
+            "no second deterministic method available to corroborate"
+          ],
+          "justification": "Localised to an internal function with no resolved public entry point (visibility of baseTrim, toNumber, trim, trimEnd and trimmedEndIndex is unknown).",
+          "basedOn": {
+            "usageObservationIds": [
+              "obs-2bc33c5825c88ccee6f35db159456b5f"
+            ],
+            "localisationMethod": "patch_reference",
+            "localisationConfidence": "medium",
+            "matchedSymbols": [],
+            "evidenceLevel": 3,
+            "coverageSummary": {
+              "parseCoveragePercent": 100,
+              "unresolvedImportsInScope": 0,
+              "scanStatus": "complete"
+            }
+          }
+        },
+        {
+          "findingId": "find-71c614264f34",
+          "vulnerabilityId": "GHSA-v422-hmwv-36x6",
+          "purl": "pkg:npm/body-parser@1.18.3",
+          "outcome": "abstained",
+          "downgrade": false,
+          "label": "no_genuine_usage",
+          "labelVulnerabilityId": "GHSA-v422-hmwv-36x6",
+          "labelPurl": "pkg:npm/body-parser@1.18.3",
+          "labelReasoning": "Rule 8: the trigger is an invalid limit value. index.js:34 calls bodyParser.json() with no options and no limit is set anywhere.",
+          "labelEvidence": [
+            "grep -rnoE \"bodyParser\\.[A-Za-z]+\\([^)]*\\)\" --include=*.js . -\u003e index.js:34 bodyParser.json()",
+            "grep -rn \"limit\" --include=*.js . -\u003e no matches"
+          ],
+          "vulnerableSymbols": [
+            "json",
+            "urlencoded",
+            "raw",
+            "text"
+          ],
+          "state": "unknown",
+          "band": "insufficient_information",
+          "analysisConfidence": "medium",
+          "confidenceCriteria": [
+            "localisation method patch_reference",
+            "parse coverage 100.0 percent",
+            "no second deterministic method available to corroborate"
+          ],
+          "justification": "Localised to an internal function with no resolved public entry point (visibility of normalizeOptions is unknown; default, json, raw, text and urlencoded has no complete, code-derived list of public entry points).",
+          "basedOn": {
+            "usageObservationIds": [
+              "obs-21dd1adf37030007650be8ad4cea89a9"
+            ],
+            "localisationMethod": "patch_reference",
+            "localisationConfidence": "medium",
+            "matchedSymbols": [],
+            "evidenceLevel": 3,
+            "coverageSummary": {
+              "parseCoveragePercent": 100,
+              "unresolvedImportsInScope": 0,
+              "scanStatus": "complete"
+            }
+          }
+        },
+        {
+          "findingId": "find-7b374189db54",
+          "vulnerabilityId": "GHSA-xxjr-mmjv-4gpg",
+          "purl": "pkg:npm/lodash@4.17.4",
+          "outcome": "abstained",
+          "downgrade": false,
+          "label": "no_genuine_usage",
+          "labelVulnerabilityId": "GHSA-xxjr-mmjv-4gpg",
+          "labelPurl": "pkg:npm/lodash@4.17.4",
+          "labelReasoning": "Neither unset nor omit is called; the only lodash call is _.merge at index.js:55.",
+          "labelEvidence": [
+            "grep -rnoE \"\\b_\\.[A-Za-z]+\" --include=*.js . | sort | uniq -c -\u003e one call: index.js:55 _.merge",
+            "grep -rnwE \"defaultsDeep|mergeWith|zipObjectDeep|pick|set|setWith|update|updateWith|template|toNumber|trim|trimEnd|words|camelCase|kebabCase|snakeCase|startCase|lowerCase|upperCase|unset|omit\" --include=*.js . -\u003e no matches"
+          ],
+          "vulnerableSymbols": [
+            "unset",
+            "omit"
+          ],
+          "state": "unknown",
+          "band": "insufficient_information",
+          "analysisConfidence": "medium",
+          "confidenceCriteria": [
+            "localisation method patch_reference",
+            "parse coverage 100.0 percent",
+            "no second deterministic method available to corroborate"
+          ],
+          "justification": "Localised to an internal function with no resolved public entry point (visibility of baseUnset is unknown).",
+          "basedOn": {
+            "usageObservationIds": [
+              "obs-2bc33c5825c88ccee6f35db159456b5f"
+            ],
+            "localisationMethod": "patch_reference",
+            "localisationConfidence": "high",
+            "matchedSymbols": [],
+            "evidenceLevel": 3,
+            "coverageSummary": {
+              "parseCoveragePercent": 100,
+              "unresolvedImportsInScope": 0,
+              "scanStatus": "complete"
+            }
+          }
+        },
+        {
+          "findingId": "find-8588c377e10f",
+          "vulnerabilityId": "GHSA-p6mc-m468-83gw",
+          "purl": "pkg:npm/lodash@4.17.4",
+          "outcome": "abstained",
+          "downgrade": false,
+          "label": "no_genuine_usage",
+          "labelVulnerabilityId": "GHSA-p6mc-m468-83gw",
+          "labelPurl": "pkg:npm/lodash@4.17.4",
+          "labelReasoning": "None of the named functions is called (S2, S3). The fix is in baseSet, whose callers (basePickBy, baseUpdate, set, setWith) are not on the _.merge path.",
+          "labelEvidence": [
+            "grep -rnoE \"\\b_\\.[A-Za-z]+\" --include=*.js . | sort | uniq -c -\u003e one call: index.js:55 _.merge",
+            "grep -rnwE \"defaultsDeep|mergeWith|zipObjectDeep|pick|set|setWith|update|updateWith|template|toNumber|trim|trimEnd|words|camelCase|kebabCase|snakeCase|startCase|lowerCase|upperCase|unset|omit\" --include=*.js . -\u003e no matches",
+            "grep -n \"baseSet(\" lodash@4.17.4/lodash.js -\u003e 3782, 4337, 13652, 13681; none in baseMerge/baseMergeDeep"
+          ],
+          "vulnerableSymbols": [
+            "pick",
+            "set",
+            "setWith",
+            "update",
+            "updateWith",
+            "zipObjectDeep"
+          ],
+          "state": "unknown",
+          "band": "insufficient_information",
+          "analysisConfidence": "medium",
+          "confidenceCriteria": [
+            "localisation method patch_reference",
+            "parse coverage 100.0 percent",
+            "no second deterministic method available to corroborate"
+          ],
+          "justification": "Localised to an internal function with no resolved public entry point (visibility of baseSet is unknown).",
+          "basedOn": {
+            "usageObservationIds": [
+              "obs-2bc33c5825c88ccee6f35db159456b5f"
+            ],
+            "localisationMethod": "patch_reference",
+            "localisationConfidence": "high",
+            "matchedSymbols": [],
+            "evidenceLevel": 3,
+            "coverageSummary": {
+              "parseCoveragePercent": 100,
+              "unresolvedImportsInScope": 0,
+              "scanStatus": "complete"
+            }
+          }
+        },
+        {
+          "findingId": "find-cb6987956252",
+          "vulnerabilityId": "GHSA-qwcr-r2fm-qrc7",
+          "purl": "pkg:npm/body-parser@1.18.3",
+          "outcome": "abstained",
+          "downgrade": false,
+          "label": "no_genuine_usage",
+          "labelVulnerabilityId": "GHSA-qwcr-r2fm-qrc7",
+          "labelPurl": "pkg:npm/body-parser@1.18.3",
+          "labelReasoning": "Only bodyParser.json() is used (index.js:34); urlencoded is never mounted.",
+          "labelEvidence": [
+            "grep -rnoE \"bodyParser\\.[A-Za-z]+\\([^)]*\\)\" --include=*.js . -\u003e index.js:34 bodyParser.json()"
+          ],
+          "vulnerableSymbols": [
+            "urlencoded"
+          ],
+          "state": "unknown",
+          "band": "insufficient_information",
+          "analysisConfidence": "medium",
+          "confidenceCriteria": [
+            "localisation method patch_reference",
+            "parse coverage 100.0 percent",
+            "no second deterministic method available to corroborate"
+          ],
+          "justification": "Localised to an internal function with no resolved public entry point (default, extendedparser, queryparse, urlencoded and urlencodedParser has no complete, code-derived list of public entry points).",
+          "basedOn": {
+            "usageObservationIds": [
+              "obs-21dd1adf37030007650be8ad4cea89a9"
+            ],
+            "localisationMethod": "patch_reference",
+            "localisationConfidence": "medium",
+            "matchedSymbols": [],
+            "evidenceLevel": 3,
+            "coverageSummary": {
+              "parseCoveragePercent": 100,
+              "unresolvedImportsInScope": 0,
+              "scanStatus": "complete"
+            }
+          }
+        },
+        {
+          "findingId": "find-cf2d7f62f4f2",
+          "vulnerabilityId": "GHSA-jf85-cpcp-j695",
+          "purl": "pkg:npm/lodash@4.17.4",
+          "outcome": "abstained",
+          "downgrade": false,
+          "label": "genuine_usage",
+          "labelVulnerabilityId": "GHSA-jf85-cpcp-j695",
+          "labelPurl": "pkg:npm/lodash@4.17.4",
+          "labelReasoning": "The advisory names only defaultsDeep, which is not called. The 4.17.12 fix adds a constructor check to safeGet, used by baseMerge and baseMergeDeep; _.merge calls baseMerge and 4.17.4 has no such check, so index.js:55 executes the code path the fix changed (rule 3: a public function that reaches it). See CASE.md 'Decision: CVE-2019-10744'.",
+          "labelEvidence": [
+            "index.js:55 _.merge(message, req.body.message, {...}) in the PUT / handler",
+            "lodash@4.17.12 lodash.js:6609 safeGet constructor check; used at 3607 (baseMerge), 3634-3635 (baseMergeDeep)",
+            "lodash@4.17.12 lodash.js:13437-13438 merge = createAssigner -\u003e baseMerge",
+            "grep -c safeGet lodash@4.17.4/lodash.js -\u003e 0"
+          ],
+          "vulnerableSymbols": [
+            "defaultsDeep"
+          ],
+          "state": "unknown",
+          "band": "insufficient_information",
+          "analysisConfidence": "medium",
+          "confidenceCriteria": [
+            "localisation method patch_reference",
+            "parse coverage 100.0 percent",
+            "no second deterministic method available to corroborate"
+          ],
+          "justification": "Localised to an internal function with no resolved public entry point (visibility of safeGet is unknown).",
+          "basedOn": {
+            "usageObservationIds": [
+              "obs-2bc33c5825c88ccee6f35db159456b5f"
+            ],
+            "localisationMethod": "patch_reference",
+            "localisationConfidence": "high",
+            "matchedSymbols": [],
+            "evidenceLevel": 3,
+            "coverageSummary": {
+              "parseCoveragePercent": 100,
+              "unresolvedImportsInScope": 0,
+              "scanStatus": "complete"
+            }
+          }
+        },
+        {
+          "findingId": "find-eeecb3d50058",
+          "vulnerabilityId": "GHSA-r5fr-rjxr-66jc",
+          "purl": "pkg:npm/lodash@4.17.4",
+          "outcome": "abstained",
+          "downgrade": false,
+          "label": "no_genuine_usage",
+          "labelVulnerabilityId": "GHSA-r5fr-rjxr-66jc",
+          "labelPurl": "pkg:npm/lodash@4.17.4",
+          "labelReasoning": "_.template (imports option) is not called; the only lodash call is _.merge at index.js:55.",
+          "labelEvidence": [
+            "grep -rnoE \"\\b_\\.[A-Za-z]+\" --include=*.js . | sort | uniq -c -\u003e one call: index.js:55 _.merge",
+            "grep -rnwE \"defaultsDeep|mergeWith|zipObjectDeep|pick|set|setWith|update|updateWith|template|toNumber|trim|trimEnd|words|camelCase|kebabCase|snakeCase|startCase|lowerCase|upperCase|unset|omit\" --include=*.js . -\u003e no matches"
+          ],
+          "vulnerableSymbols": [
+            "template"
+          ],
+          "state": "unknown",
+          "band": "insufficient_information",
+          "analysisConfidence": "medium",
+          "confidenceCriteria": [
+            "localisation method patch_reference",
+            "parse coverage 100.0 percent",
+            "no second deterministic method available to corroborate"
+          ],
+          "justification": "Localised to an internal function with no resolved public entry point (visibility of template is unknown).",
+          "basedOn": {
+            "usageObservationIds": [
+              "obs-2bc33c5825c88ccee6f35db159456b5f"
+            ],
+            "localisationMethod": "patch_reference",
+            "localisationConfidence": "high",
+            "matchedSymbols": [],
+            "evidenceLevel": 3,
+            "coverageSummary": {
+              "parseCoveragePercent": 100,
+              "unresolvedImportsInScope": 0,
+              "scanStatus": "complete"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
