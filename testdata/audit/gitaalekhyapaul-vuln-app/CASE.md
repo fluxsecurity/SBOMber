@@ -97,7 +97,15 @@ tsc-watch 4.4.0, cross-spawn 7.0.3, strip-ansi 6.0.0, ansi-regex 5.0.0.
 
 ### Added after the scan listing
 
-(none yet)
+Labelled on 2026-10-25, after canonical-scan.json, usage-graph.json and
+localisation.json had been produced and the `decide` output for this case had
+been seen (3 findings `usage_detected`, node-serialize and the two express
+redirect advisories; the other 29 `insufficient_information`). Rule 2 asks for labels before any SBOMber output;
+this row was not, and is recorded here so a reviewer can weigh it.
+
+| Package | Advisory | Symbols / trigger the advisory names | Label | Evidence / reasoning |
+|---|---|---|---|---|
+| proxy-addr 2.0.7 (via express) | GHSA-jqcg-44mw-7w3h / CVE-2026-90711 | `proxyaddr(req, trust)` with a trust subnet of zero leading bits (e.g. `::ffff:10.0.0.0/8`, `::/1`) | no_genuine_usage (rule 8) | the app never sets `trust proxy` (`app.set` only at :9 view engine, :10 views), so express's default trusts no address |
 
 ## Known limitations of this case
 

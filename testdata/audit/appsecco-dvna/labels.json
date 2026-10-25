@@ -1,0 +1,642 @@
+{
+  "schemaVersion": "1.0.0",
+  "caseId": "appsecco-dvna",
+  "repository": {
+    "url": "https://github.com/appsecco/dvna",
+    "commit": "9ba473add536f66ac9007966acb2a775dd31277a"
+  },
+  "labelledBy": "Zane Wylie",
+  "labelledAt": "25-10-2026",
+  "labels": [
+    {
+      "findingId": "find-61edfdc8551a",
+      "vulnerabilityId": "GHSA-5wg4-74h6-q47v",
+      "purl": "pkg:npm/bcrypt",
+      "label": "genuine_usage",
+      "vulnerableSymbols": [
+        "hashSync",
+        "compareSync"
+      ],
+      "reasoning": "The advisory names no function (input over 255 bytes truncated). Request passwords are hashed and compared with hashSync/compareSync, and the bcrypt 5.0.0 fix changes exactly these paths (EncryptSync, CompareSync, bcrypt_node.cc 151, 188, 209, 246).",
+      "evidence": [
+        "core/appHandler.js:153 bCrypt.hashSync",
+        "core/authHandler.js:79 bCrypt.hashSync",
+        "core/passport.js:86 bCrypt.hashSync",
+        "core/passport.js:47 bCrypt.compareSync",
+        "diff -r bcrypt@4.0.1/src bcrypt@5.0.0/src -> fix in EncryptSync/CompareSync"
+      ]
+    },
+    {
+      "findingId": "find-18ebcfc0b1e9",
+      "vulnerabilityId": "GHSA-3w5v-p54c-f74x",
+      "purl": "pkg:npm/ejs",
+      "label": "no_genuine_usage",
+      "vulnerableSymbols": [],
+      "reasoning": "Labelled at the package.json range floor (no lockfile, so canonical-scan.json records no version; see CASE.md 'Added after the scan listing'). The advisory's vulnerable range (fixed 2.5.5) ends below the declared floor ejs@2.5.7, so no version the package.json range allows contains the vulnerable code; nothing the application calls can reach it.",
+      "evidence": [
+        "package.json: ejs range floor 2.5.7",
+        "POST https://registry.npmjs.org/-/npm/v1/security/advisories/bulk with the package.json range floors {\"ejs\":[\"2.5.7\"],\"express\":[\"4.16.2\"],\"express-fileupload\":[\"0.4.0\"],\"libxmljs\":[\"0.19.1\"],\"morgan\":[\"1.9.0\"],\"mysql2\":[\"1.4.2\"],\"sequelize\":[\"4.13.10\"]} (2026-10-25) -> advisory not returned for ejs@2.5.7"
+      ]
+    },
+    {
+      "findingId": "find-b20e224205c4",
+      "vulnerabilityId": "GHSA-6x77-rpqf-j6mw",
+      "purl": "pkg:npm/ejs",
+      "label": "no_genuine_usage",
+      "vulnerableSymbols": [],
+      "reasoning": "Labelled at the package.json range floor (no lockfile, so canonical-scan.json records no version; see CASE.md 'Added after the scan listing'). The advisory's vulnerable range (fixed 2.5.5) ends below the declared floor ejs@2.5.7, so no version the package.json range allows contains the vulnerable code; nothing the application calls can reach it.",
+      "evidence": [
+        "package.json: ejs range floor 2.5.7",
+        "POST https://registry.npmjs.org/-/npm/v1/security/advisories/bulk with the package.json range floors {\"ejs\":[\"2.5.7\"],\"express\":[\"4.16.2\"],\"express-fileupload\":[\"0.4.0\"],\"libxmljs\":[\"0.19.1\"],\"morgan\":[\"1.9.0\"],\"mysql2\":[\"1.4.2\"],\"sequelize\":[\"4.13.10\"]} (2026-10-25) -> advisory not returned for ejs@2.5.7"
+      ]
+    },
+    {
+      "findingId": "find-13bdcb6e25fb",
+      "vulnerabilityId": "GHSA-ghr5-ch3p-vcr6",
+      "purl": "pkg:npm/ejs",
+      "label": "genuine_usage",
+      "vulnerableSymbols": [
+        "renderFile"
+      ],
+      "reasoning": "Rule 8: same render path: server.js:14 view engine ejs and res.render throughout.",
+      "evidence": [
+        "server.js:14 app.set('view engine', 'ejs')",
+        "routes/app.js:23 res.render(...) with req.query.legacy as data (res.render used throughout)"
+      ]
+    },
+    {
+      "findingId": "find-5424af04d1ea",
+      "vulnerabilityId": "GHSA-hwcf-pp87-7x6p",
+      "purl": "pkg:npm/ejs",
+      "label": "no_genuine_usage",
+      "vulnerableSymbols": [],
+      "reasoning": "Labelled at the package.json range floor (no lockfile, so canonical-scan.json records no version; see CASE.md 'Added after the scan listing'). The advisory's vulnerable range (fixed 2.5.5) ends below the declared floor ejs@2.5.7, so no version the package.json range allows contains the vulnerable code; nothing the application calls can reach it.",
+      "evidence": [
+        "package.json: ejs range floor 2.5.7",
+        "POST https://registry.npmjs.org/-/npm/v1/security/advisories/bulk with the package.json range floors {\"ejs\":[\"2.5.7\"],\"express\":[\"4.16.2\"],\"express-fileupload\":[\"0.4.0\"],\"libxmljs\":[\"0.19.1\"],\"morgan\":[\"1.9.0\"],\"mysql2\":[\"1.4.2\"],\"sequelize\":[\"4.13.10\"]} (2026-10-25) -> advisory not returned for ejs@2.5.7"
+      ]
+    },
+    {
+      "findingId": "find-794b6c29fa0f",
+      "vulnerabilityId": "GHSA-phwq-j96m-2c2q",
+      "purl": "pkg:npm/ejs",
+      "label": "genuine_usage",
+      "vulnerableSymbols": [
+        "renderFile"
+      ],
+      "reasoning": "Rule 8: server.js:14 sets ejs as the view engine and res.render runs throughout (e.g. routes/app.js:23 passes req.query.legacy as data); express runs ejs.renderFile.",
+      "evidence": [
+        "server.js:14 app.set('view engine', 'ejs')",
+        "routes/app.js:23 res.render(...) with req.query.legacy as data (res.render used throughout)"
+      ]
+    },
+    {
+      "findingId": "find-f79900ae7632",
+      "vulnerabilityId": "GHSA-cm5g-3pgc-8rg4",
+      "purl": "pkg:npm/express",
+      "label": "no_genuine_usage",
+      "vulnerableSymbols": [],
+      "reasoning": "Labelled at the package.json range floor (no lockfile, so canonical-scan.json records no version; see CASE.md 'Added after the scan listing'). The advisory's vulnerable range (fixed 4.0.0-rc1) ends below the declared floor express@4.16.2, so no version the package.json range allows contains the vulnerable code; nothing the application calls can reach it.",
+      "evidence": [
+        "package.json: express range floor 4.16.2",
+        "POST https://registry.npmjs.org/-/npm/v1/security/advisories/bulk with the package.json range floors {\"ejs\":[\"2.5.7\"],\"express\":[\"4.16.2\"],\"express-fileupload\":[\"0.4.0\"],\"libxmljs\":[\"0.19.1\"],\"morgan\":[\"1.9.0\"],\"mysql2\":[\"1.4.2\"],\"sequelize\":[\"4.13.10\"]} (2026-10-25) -> advisory not returned for express@4.16.2"
+      ]
+    },
+    {
+      "findingId": "find-53f265fa6ecc",
+      "vulnerabilityId": "GHSA-gpvr-g6gh-9mc2",
+      "purl": "pkg:npm/express",
+      "label": "no_genuine_usage",
+      "vulnerableSymbols": [],
+      "reasoning": "Labelled at the package.json range floor (no lockfile, so canonical-scan.json records no version; see CASE.md 'Added after the scan listing'). The advisory's vulnerable range (fixed 3.11.0) ends below the declared floor express@4.16.2, so no version the package.json range allows contains the vulnerable code; nothing the application calls can reach it.",
+      "evidence": [
+        "package.json: express range floor 4.16.2",
+        "POST https://registry.npmjs.org/-/npm/v1/security/advisories/bulk with the package.json range floors {\"ejs\":[\"2.5.7\"],\"express\":[\"4.16.2\"],\"express-fileupload\":[\"0.4.0\"],\"libxmljs\":[\"0.19.1\"],\"morgan\":[\"1.9.0\"],\"mysql2\":[\"1.4.2\"],\"sequelize\":[\"4.13.10\"]} (2026-10-25) -> advisory not returned for express@4.16.2"
+      ]
+    },
+    {
+      "findingId": "find-d73ddf394bcd",
+      "vulnerabilityId": "GHSA-qw6h-vgh9-j6wx",
+      "purl": "pkg:npm/express",
+      "label": "genuine_usage",
+      "vulnerableSymbols": [
+        "res.redirect"
+      ],
+      "reasoning": "core/appHandler.js:188 calls res.redirect(req.query.url) in GET /app/redirect (routes/app.js:48).",
+      "evidence": [
+        "core/appHandler.js:188 res.redirect(req.query.url), route GET /app/redirect (routes/app.js:48)"
+      ]
+    },
+    {
+      "findingId": "find-0178f6bea73d",
+      "vulnerabilityId": "GHSA-rv95-896h-c2vc",
+      "purl": "pkg:npm/express",
+      "label": "genuine_usage",
+      "vulnerableSymbols": [
+        "res.location",
+        "res.redirect"
+      ],
+      "reasoning": "core/appHandler.js:188 res.redirect with a URL taken from the query string.",
+      "evidence": [
+        "core/appHandler.js:188 res.redirect(req.query.url), route GET /app/redirect (routes/app.js:48)"
+      ]
+    },
+    {
+      "findingId": "find-e7b2e19950fa",
+      "vulnerabilityId": "GHSA-9wcg-jrwf-8gg7",
+      "purl": "pkg:npm/express-fileupload",
+      "label": "no_genuine_usage",
+      "vulnerableSymbols": [
+        "parseNested"
+      ],
+      "reasoning": "Rule 8: the trigger is the parseNested option. server.js:17 calls fileUpload() with no options; parseNested appears nowhere.",
+      "evidence": [
+        "grep -rnE \"morgan\\(|fileUpload\\(|parseNested|\\.mv\\(|bodyParser\\.[a-z]+\\(\" server.js core routes -> server.js:15 morgan('tiny'), :16 bodyParser.urlencoded({ extended: false }), :17 fileUpload(); no parseNested, no .mv("
+      ]
+    },
+    {
+      "findingId": "find-082d54012e79",
+      "vulnerabilityId": "GHSA-q3w9-g74q-vp5f",
+      "purl": "pkg:npm/express-fileupload",
+      "label": "no_genuine_usage",
+      "vulnerableSymbols": [],
+      "reasoning": "Labelled at the package.json range floor (no lockfile, so canonical-scan.json records no version; see CASE.md 'Added after the scan listing'). Rule 8: DoS via a large filename of '.' characters. In express-fileupload 0.4.0 the only code that processes the filename (split on '.', extension handling) runs inside `if (options.safeFileNames)`; server.js:17 calls fileUpload() with no options, so that code is skipped and the filename is only stored. The advisory names no function, so this rests on 0.4.0 having no other filename processing.",
+      "evidence": [
+        "server.js:17 fileUpload() (no options)",
+        "express-fileupload@0.4.0 lib/index.js:105-137 filename split/replace only inside if (options.safeFileNames)",
+        "express-fileupload@0.4.0 lib/index.js:140-147 otherwise name: filename is stored unchanged"
+      ]
+    },
+    {
+      "findingId": "find-977d05a0f08a",
+      "vulnerabilityId": "GHSA-w4m6-x6c2-j5c9",
+      "purl": "pkg:npm/express-fileupload",
+      "label": "no_genuine_usage",
+      "vulnerableSymbols": [
+        "mv"
+      ],
+      "reasoning": "Labelled at the package.json range floor (no lockfile, so canonical-scan.json records no version; see CASE.md 'Added after the scan listing'). Same-name uploads overwriting files on the server (disputed by the author). In 0.4.0 the only filesystem write is file.mv() (createWriteStream); uploads are otherwise kept in memory. The application never calls .mv() and reads req.files.products.data directly.",
+      "evidence": [
+        "grep -rnE \"\\.mv\\(\" server.js core routes -> no matches (S4)",
+        "express-fileupload@0.4.0 lib/index.js:147-173 mv() -> fs.createWriteStream(path) is the only write",
+        "core/appHandler.js:218, :235 read req.files.products.data in memory"
+      ]
+    },
+    {
+      "findingId": "find-3fc57cb51da1",
+      "vulnerabilityId": "GHSA-6433-x5p4-8jc7",
+      "purl": "pkg:npm/libxmljs",
+      "label": "no_genuine_usage",
+      "vulnerableSymbols": [
+        "attrs"
+      ],
+      "reasoning": "attrs() is not called; core/appHandler.js:236-241 uses only root(), childNodes(), text().",
+      "evidence": [
+        "grep -rnE \"unserialize|mathjs\\.|libxmljs\\.|\\.attrs\\(|\\.namespaces\\(|\\.config\\(|\\.import\\(\" server.js core routes -> core/appHandler.js:197 mathjs.eval, :218 serialize.unserialize, :235 libxmljs.parseXmlString; no attrs, namespaces, config, import"
+      ]
+    },
+    {
+      "findingId": "find-6820d17592d9",
+      "vulnerabilityId": "GHSA-773h-w45w-f2f9",
+      "purl": "pkg:npm/libxmljs",
+      "label": "no_genuine_usage",
+      "vulnerableSymbols": [
+        "parseXml",
+        "parseXmlString"
+      ],
+      "reasoning": "Labelled at the package.json range floor (no lockfile, so canonical-scan.json records no version; see CASE.md 'Added after the scan listing'). Rule 8: the crash needs parseXml called with a non-Buffer argument whose toString is not a function. parseXmlString is the same function in 0.19.1, but the application always passes a string (Buffer.toString('utf8')), whose toString is String.prototype.toString.",
+      "evidence": [
+        "core/appHandler.js:235 libxmljs.parseXmlString(req.files.products.data.toString('utf8'), {noent:true,noblanks:true})",
+        "libxmljs@0.19.1 index.js:10, :32 parseXmlString = parseXml = Document.fromXml",
+        "libxmljs@0.19.1 src/xml_document.cc:442-444 non-Buffer argument -> ToString()"
+      ]
+    },
+    {
+      "findingId": "find-0659d06b6694",
+      "vulnerabilityId": "GHSA-jv72-59wq-8rxm",
+      "purl": "pkg:npm/libxmljs",
+      "label": "no_genuine_usage",
+      "vulnerableSymbols": [
+        "_ref"
+      ],
+      "reasoning": "Labelled at the package.json range floor (no lockfile, so canonical-scan.json records no version; see CASE.md 'Added after the scan listing'). The segfault needs the _ref property read on entity_ref or entity_decl nodes. The application reads only root(), childNodes() and text() (S2), never _ref; 0.19.1's lib/ and src/ define no _ref property at all. Parsing uses noent:true, which substitutes entities rather than keeping entity_ref nodes.",
+      "evidence": [
+        "core/appHandler.js:235-241 root(), childNodes(), text() only",
+        "grep -rn _ref libxmljs@0.19.1/lib libxmljs@0.19.1/src -> no matches"
+      ]
+    },
+    {
+      "findingId": "find-fc277c42f6a0",
+      "vulnerabilityId": "GHSA-mg49-jqgw-gcj6",
+      "purl": "pkg:npm/libxmljs",
+      "label": "no_genuine_usage",
+      "vulnerableSymbols": [
+        "namespaces"
+      ],
+      "reasoning": "namespaces() is not called.",
+      "evidence": [
+        "grep -rnE \"unserialize|mathjs\\.|libxmljs\\.|\\.attrs\\(|\\.namespaces\\(|\\.config\\(|\\.import\\(\" server.js core routes -> core/appHandler.js:197 mathjs.eval, :218 serialize.unserialize, :235 libxmljs.parseXmlString; no attrs, namespaces, config, import"
+      ]
+    },
+    {
+      "findingId": "find-b2e825236639",
+      "vulnerabilityId": "GHSA-pv8x-p9hq-j328",
+      "purl": "pkg:npm/mathjs@3.10.1",
+      "label": "genuine_usage",
+      "vulnerableSymbols": [
+        "eval"
+      ],
+      "reasoning": "Request expressions are evaluated at core/appHandler.js:197 mathjs.eval(req.body.eqn), the path through which private properties can be replaced via unicode.",
+      "evidence": [
+        "core/appHandler.js:197 mathjs.eval(req.body.eqn)"
+      ]
+    },
+    {
+      "findingId": "find-56e8bfac9606",
+      "vulnerabilityId": "GHSA-vx5c-87qx-cv6c",
+      "purl": "pkg:npm/mathjs@3.10.1",
+      "label": "genuine_usage",
+      "vulnerableSymbols": [
+        "eval"
+      ],
+      "reasoning": "The advisory names no function (typed function creation with code in the name). core/appHandler.js:197 calls mathjs.eval(req.body.eqn) in POST /app/calc (routes/app.js:60); the repository's docs/solution/a9 describes code execution through this call.",
+      "evidence": [
+        "core/appHandler.js:197 mathjs.eval(req.body.eqn)"
+      ]
+    },
+    {
+      "findingId": "find-2a326a94a56d",
+      "vulnerabilityId": "GHSA-x2fc-mxcx-w4mf",
+      "purl": "pkg:npm/mathjs@3.10.1",
+      "label": "no_genuine_usage",
+      "vulnerableSymbols": [
+        "config",
+        "import"
+      ],
+      "reasoning": "The trigger is deepExtend during configuration updates. No math.config or import call; the application only calls eval.",
+      "evidence": [
+        "grep -rnE \"unserialize|mathjs\\.|libxmljs\\.|\\.attrs\\(|\\.namespaces\\(|\\.config\\(|\\.import\\(\" server.js core routes -> core/appHandler.js:197 mathjs.eval, :218 serialize.unserialize, :235 libxmljs.parseXmlString; no attrs, namespaces, config, import"
+      ]
+    },
+    {
+      "findingId": "find-1ab267104895",
+      "vulnerabilityId": "GHSA-9f6g-j8ch-79g4",
+      "purl": "pkg:npm/morgan",
+      "label": "no_genuine_usage",
+      "vulnerableSymbols": [
+        "compile"
+      ],
+      "reasoning": "Rule 8: the trigger is quoted fields (combined, common, default or custom quoted tokens). server.js:15 uses tiny, which has no quoted fields.",
+      "evidence": [
+        "grep -rnE \"morgan\\(|fileUpload\\(|parseNested|\\.mv\\(|bodyParser\\.[a-z]+\\(\" server.js core routes -> server.js:15 morgan('tiny'), :16 bodyParser.urlencoded({ extended: false }), :17 fileUpload(); no parseNested, no .mv(",
+        "morgan@1.9.0 index.js:177 tiny = ':method :url :status :res[content-length] - :response-time ms' (no :remote-user, no quoted fields)"
+      ]
+    },
+    {
+      "findingId": "find-984648b19aae",
+      "vulnerabilityId": "GHSA-gwg9-rgvj-4h5j",
+      "purl": "pkg:npm/morgan",
+      "label": "genuine_usage",
+      "vulnerableSymbols": [
+        "compile"
+      ],
+      "reasoning": "Rule 8: server.js:15 morgan('tiny') runs compile(), the code the 1.9.1 fix changed (index.js 378-388) via getFormatFunction (453). The format is constant; recorded.",
+      "evidence": [
+        "server.js:15 morgan('tiny')",
+        "diff morgan@1.9.0/index.js morgan@1.9.1/index.js -> fix in compile() 378-388"
+      ]
+    },
+    {
+      "findingId": "find-6adae3956e99",
+      "vulnerabilityId": "GHSA-jxfw-x594-9x9m",
+      "purl": "pkg:npm/morgan",
+      "label": "genuine_usage",
+      "vulnerableSymbols": [
+        "compile",
+        "url"
+      ],
+      "reasoning": "Labelled at the package.json range floor (no lockfile, so canonical-scan.json records no version; see CASE.md 'Added after the scan listing'). Rule 8: the advisory lists :url among the affected tokens; server.js:15 morgan('tiny') logs :url for every request, and 1.9.0 neutralises nothing in token values (the C0 escaping came in 1.11.0). tiny is not in the advisory's list of formats, but it contains :url; recorded. The label is about the executed path, not whether a client can get U+2028 into the URL.",
+      "evidence": [
+        "server.js:15 morgan('tiny')",
+        "morgan@1.9.0 index.js:177 tiny = ':method :url :status :res[content-length] - :response-time ms'",
+        "morgan@1.9.0 index.js:212 url token returns req.originalUrl || req.url unescaped"
+      ]
+    },
+    {
+      "findingId": "find-2ab3026e57d6",
+      "vulnerabilityId": "GHSA-3f6p-5ww8-9rcr",
+      "purl": "pkg:npm/mysql2",
+      "label": "no_genuine_usage",
+      "vulnerableSymbols": [],
+      "reasoning": "Labelled at the package.json range floor (no lockfile, so canonical-scan.json records no version; see CASE.md 'Added after the scan listing'). The vulnerable code is the mysql_clear_password auth plugin registered as a standard plugin (lib/auth_plugins/mysql_clear_password.js, lib/commands/auth_switch.js). mysql2 1.4.2 has neither file nor any clear-password plugin, so the code is absent at the floor.",
+      "evidence": [
+        "ls mysql2@1.4.2/lib/auth_plugins -> does not exist",
+        "grep -rn clear_password mysql2@1.4.2/lib -> no matches",
+        "ls mysql2@1.4.2/lib/commands -> no auth_switch.js"
+      ]
+    },
+    {
+      "findingId": "find-26b5e5155b4b",
+      "vulnerabilityId": "GHSA-49j4-86m8-q2jw",
+      "purl": "pkg:npm/mysql2",
+      "label": "genuine_usage",
+      "vulnerableSymbols": [
+        "parserFn"
+      ],
+      "reasoning": "Labelled at the package.json range floor (no lockfile, so canonical-scan.json records no version; see CASE.md 'Added after the scan listing'). Rule 8: every query result is parsed by generated code that assigns each column with this[<field name>] on the row object, so a column named __proto__ sets the row's prototype. No option is needed; result column names are client-influenced through the raw SQL at core/appHandler.js:10. Recorded; the label is about the executed path.",
+      "evidence": [
+        "mysql2@1.4.2 lib/compile_text_parser.js:88 lvalue = 'this[' + fieldName + ']'",
+        "mysql2@1.4.2 lib/commands/query.js:201 text parser compiled/used for every result",
+        "core/appHandler.js:10-11 query = \"SELECT name,id FROM Users WHERE login='\" + req.body.login + \"'\"; db.sequelize.query(query, ...)"
+      ]
+    },
+    {
+      "findingId": "find-4e6487556528",
+      "vulnerabilityId": "GHSA-4rch-2fh8-94vw",
+      "purl": "pkg:npm/mysql2",
+      "label": "no_genuine_usage",
+      "vulnerableSymbols": [
+        "readCodeFor"
+      ],
+      "reasoning": "Labelled at the package.json range floor (no lockfile, so canonical-scan.json records no version; see CASE.md 'Added after the scan listing'). Rule 8: the injection is through the timezone value in readCodeFor. In 1.4.2 readCodeFor does not use timezone at all (it is only used for escaping in connection.js); sequelize passes its own default timezone and DVNA sets none.",
+      "evidence": [
+        "grep -n timezone mysql2@1.4.2/lib/compile_text_parser.js -> no matches",
+        "mysql2@1.4.2 lib/connection.js:549-566 timezone used only in SqlString.escape/format",
+        "models/index.js:12-15 new Sequelize(...) with no timezone option"
+      ]
+    },
+    {
+      "findingId": "find-9807a9a7478d",
+      "vulnerabilityId": "GHSA-fpw7-j2hg-69v5",
+      "purl": "pkg:npm/mysql2",
+      "label": "no_genuine_usage",
+      "vulnerableSymbols": [
+        "readCodeFor"
+      ],
+      "reasoning": "Labelled at the package.json range floor (no lockfile, so canonical-scan.json records no version; see CASE.md 'Added after the scan listing'). Rule 8: the trigger is an attacker-chosen supportBigNumbers/bigNumberStrings value concatenated into generated parser code. In 1.4.2 readCodeFor does concatenate supportBigNumbers, but sequelize 4.13.10 sets it to the constant true (bigNumberStrings false), and DVNA passes no dialectOptions. Like an invalid body-parser limit, the triggering value is not set.",
+      "evidence": [
+        "mysql2@1.4.2 lib/compile_text_parser.js:136-151 'packet.parseLengthCodedInt(' + supportBigNumbers + ')'",
+        "sequelize@4.13.10 lib/dialects/mysql/connection-manager.js:73-90 supportBigNumbers: true, bigNumberStrings: false; dialectOptions copied only if set",
+        "config/db.js, models/index.js:12-15: no dialectOptions"
+      ]
+    },
+    {
+      "findingId": "find-5507fe7a9e2e",
+      "vulnerabilityId": "GHSA-mqr2-w7wj-jjgr",
+      "purl": "pkg:npm/mysql2",
+      "label": "genuine_usage",
+      "vulnerableSymbols": [
+        "keyFromFields"
+      ],
+      "reasoning": "Labelled at the package.json range floor (no lockfile, so canonical-scan.json records no version; see CASE.md 'Added after the scan listing'). Rule 8: keyFromFields builds the parser-cache key by joining result field names with ':' and runs for every query result. No option is needed. Field names come from the query, and the application's own raw SQL concatenates req.body.login, so a client can choose result column names. Recorded; the label is about the executed path.",
+      "evidence": [
+        "mysql2@1.4.2 lib/connection.js:642-657 keyFromFields: '/' + fields[i].name + ':' + columnType + ':' + flags",
+        "mysql2@1.4.2 lib/commands/query.js:201 parserKey = connection.keyFromFields(fields, this.options) for every result",
+        "core/appHandler.js:10-11 query = \"SELECT name,id FROM Users WHERE login='\" + req.body.login + \"'\"; db.sequelize.query(query, ...)"
+      ]
+    },
+    {
+      "findingId": "find-4dff63ffc5c1",
+      "vulnerabilityId": "GHSA-pmh2-wpjm-fj45",
+      "purl": "pkg:npm/mysql2",
+      "label": "no_genuine_usage",
+      "vulnerableSymbols": [],
+      "reasoning": "Labelled at the package.json range floor (no lockfile, so canonical-scan.json records no version; see CASE.md 'Added after the scan listing'). Rule 8: the advisory's trigger is field and table names when nestTables is used. sequelize 4.13.10 never sets nestTables and DVNA does not either, so the nestTables branches of the parser compiler do not run.",
+      "evidence": [
+        "grep -rn nestTables sequelize@4.13.10/lib -> no matches",
+        "mysql2@1.4.2 lib/compile_text_parser.js:63-84 nestTables-only branches"
+      ]
+    },
+    {
+      "findingId": "find-4749f580c7de",
+      "vulnerabilityId": "GHSA-rgwj-5xj2-c3m3",
+      "purl": "pkg:npm/mysql2",
+      "label": "no_genuine_usage",
+      "vulnerableSymbols": [
+        "handleCompressedPacket"
+      ],
+      "reasoning": "Labelled at the package.json range floor (no lockfile, so canonical-scan.json records no version; see CASE.md 'Added after the scan listing'). Rule 8: the trigger needs the client created with compress: true. sequelize 4.13.10 does not set compress and DVNA passes no dialectOptions; mysql2 defaults compress to false.",
+      "evidence": [
+        "mysql2@1.4.2 lib/connection_config.js:65 this.compress = options.compress || false",
+        "sequelize@4.13.10 lib/dialects/mysql/connection-manager.js:73-90 no compress",
+        "config/db.js: no dialectOptions"
+      ]
+    },
+    {
+      "findingId": "find-3cbfc75f01f8",
+      "vulnerabilityId": "GHSA-q4v7-4rhw-9hqm",
+      "purl": "pkg:npm/node-serialize@0.0.4",
+      "label": "genuine_usage",
+      "vulnerableSymbols": [
+        "unserialize"
+      ],
+      "reasoning": "core/appHandler.js:218 calls serialize.unserialize on an uploaded file in POST /app/bulkproductslegacy (routes/app.js:64).",
+      "evidence": [
+        "core/appHandler.js:218 serialize.unserialize(req.files.products.data...)"
+      ]
+    },
+    {
+      "findingId": "find-940d41412024",
+      "vulnerabilityId": "GHSA-v923-w3x8-wh69",
+      "purl": "pkg:npm/passport",
+      "label": "genuine_usage",
+      "vulnerableSymbols": [
+        "authenticate",
+        "logout"
+      ],
+      "reasoning": "Session handling on login and logout runs through passport.authenticate and req.logout.",
+      "evidence": [
+        "routes/main.js:51 passport.authenticate('login', ...)",
+        "routes/main.js:57 passport.authenticate('signup', ...)",
+        "routes/main.js:41 req.logout()"
+      ]
+    },
+    {
+      "findingId": "find-6be28fec6eb7",
+      "vulnerabilityId": "GHSA-2598-2f59-rmhq",
+      "purl": "pkg:npm/sequelize",
+      "label": "no_genuine_usage",
+      "vulnerableSymbols": [],
+      "reasoning": "Labelled at the package.json range floor (no lockfile, so canonical-scan.json records no version; see CASE.md 'Added after the scan listing'). The advisory's vulnerable range (fixed 3.35.1) ends below the declared floor sequelize@4.13.10, so no version the package.json range allows contains the vulnerable code; nothing the application calls can reach it.",
+      "evidence": [
+        "package.json: sequelize range floor 4.13.10",
+        "POST https://registry.npmjs.org/-/npm/v1/security/advisories/bulk with the package.json range floors {\"ejs\":[\"2.5.7\"],\"express\":[\"4.16.2\"],\"express-fileupload\":[\"0.4.0\"],\"libxmljs\":[\"0.19.1\"],\"morgan\":[\"1.9.0\"],\"mysql2\":[\"1.4.2\"],\"sequelize\":[\"4.13.10\"]} (2026-10-25) -> advisory not returned for sequelize@4.13.10"
+      ]
+    },
+    {
+      "findingId": "find-cec36fdfd5d9",
+      "vulnerabilityId": "GHSA-2v7q-2xqx-f4q5",
+      "purl": "pkg:npm/sequelize",
+      "label": "no_genuine_usage",
+      "vulnerableSymbols": [],
+      "reasoning": "Labelled at the package.json range floor (no lockfile, so canonical-scan.json records no version; see CASE.md 'Added after the scan listing'). The advisory's vulnerable range (fixed 3.0.0) ends below the declared floor sequelize@4.13.10, so no version the package.json range allows contains the vulnerable code; nothing the application calls can reach it.",
+      "evidence": [
+        "package.json: sequelize range floor 4.13.10",
+        "POST https://registry.npmjs.org/-/npm/v1/security/advisories/bulk with the package.json range floors {\"ejs\":[\"2.5.7\"],\"express\":[\"4.16.2\"],\"express-fileupload\":[\"0.4.0\"],\"libxmljs\":[\"0.19.1\"],\"morgan\":[\"1.9.0\"],\"mysql2\":[\"1.4.2\"],\"sequelize\":[\"4.13.10\"]} (2026-10-25) -> advisory not returned for sequelize@4.13.10"
+      ]
+    },
+    {
+      "findingId": "find-6392efe7c03a",
+      "vulnerabilityId": "GHSA-8c25-f3mj-v6h8",
+      "purl": "pkg:npm/sequelize",
+      "label": "no_genuine_usage",
+      "vulnerableSymbols": [
+        "getWhereConditions"
+      ],
+      "reasoning": "Labelled at the package.json range floor (no lockfile, so canonical-scan.json records no version; see CASE.md 'Added after the scan listing'). Rule 8: the advisory gives no trigger beyond 'malicious queries'; it shares its fix (sequelize PRs #15375, #15699, 6.28.1) with GHSA-vqfx-gj96-3w95, the unsafe where fall-through. Labelled on that basis: every where in the application is an object literal. Weakest of the DVNA labels; check the PRs before relying on it.",
+      "evidence": [
+        "core/appHandler.js:59-63, :86-88, :108-110, :146-148 where: { ... } literals",
+        "core/authHandler.js:22-24, :44-46, :73-75 where: { 'login': ... } literals",
+        "GHSA-8c25-f3mj-v6h8 references sequelize#15375, #15699 (same as GHSA-vqfx-gj96-3w95)"
+      ]
+    },
+    {
+      "findingId": "find-63db82af3ce3",
+      "vulnerabilityId": "GHSA-98pq-pmw9-4gpm",
+      "purl": "pkg:npm/sequelize",
+      "label": "no_genuine_usage",
+      "vulnerableSymbols": [],
+      "reasoning": "Labelled at the package.json range floor (no lockfile, so canonical-scan.json records no version; see CASE.md 'Added after the scan listing'). The advisory's vulnerable range (fixed 3.17.0) ends below the declared floor sequelize@4.13.10, so no version the package.json range allows contains the vulnerable code; nothing the application calls can reach it.",
+      "evidence": [
+        "package.json: sequelize range floor 4.13.10",
+        "POST https://registry.npmjs.org/-/npm/v1/security/advisories/bulk with the package.json range floors {\"ejs\":[\"2.5.7\"],\"express\":[\"4.16.2\"],\"express-fileupload\":[\"0.4.0\"],\"libxmljs\":[\"0.19.1\"],\"morgan\":[\"1.9.0\"],\"mysql2\":[\"1.4.2\"],\"sequelize\":[\"4.13.10\"]} (2026-10-25) -> advisory not returned for sequelize@4.13.10"
+      ]
+    },
+    {
+      "findingId": "find-abc848c6d565",
+      "vulnerabilityId": "GHSA-9c2p-jw8p-f84v",
+      "purl": "pkg:npm/sequelize",
+      "label": "no_genuine_usage",
+      "vulnerableSymbols": [],
+      "reasoning": "Labelled at the package.json range floor (no lockfile, so canonical-scan.json records no version; see CASE.md 'Added after the scan listing'). The advisory's vulnerable range (fixed 3.20.0) ends below the declared floor sequelize@4.13.10, so no version the package.json range allows contains the vulnerable code; nothing the application calls can reach it.",
+      "evidence": [
+        "package.json: sequelize range floor 4.13.10",
+        "POST https://registry.npmjs.org/-/npm/v1/security/advisories/bulk with the package.json range floors {\"ejs\":[\"2.5.7\"],\"express\":[\"4.16.2\"],\"express-fileupload\":[\"0.4.0\"],\"libxmljs\":[\"0.19.1\"],\"morgan\":[\"1.9.0\"],\"mysql2\":[\"1.4.2\"],\"sequelize\":[\"4.13.10\"]} (2026-10-25) -> advisory not returned for sequelize@4.13.10"
+      ]
+    },
+    {
+      "findingId": "find-657b7c6451fb",
+      "vulnerabilityId": "GHSA-f598-mfpv-gmfx",
+      "purl": "pkg:npm/sequelize",
+      "label": "no_genuine_usage",
+      "vulnerableSymbols": [
+        "findAll"
+      ],
+      "reasoning": "Rule 8: the trigger is the attributes option with parentheses. No attributes option anywhere.",
+      "evidence": [
+        "grep -rnE \"sequelize\\.query\\(|replacements|attributes|dialect|DATABASE_URL\" core models config -> core/appHandler.js:11 db.sequelize.query(query, { model: db.User }); config/db.js:7 dialect mysql; no replacements, no attributes"
+      ]
+    },
+    {
+      "findingId": "find-d82ede587593",
+      "vulnerabilityId": "GHSA-fw4p-36j9-rrj3",
+      "purl": "pkg:npm/sequelize",
+      "label": "no_genuine_usage",
+      "vulnerableSymbols": [],
+      "reasoning": "Labelled at the package.json range floor (no lockfile, so canonical-scan.json records no version; see CASE.md 'Added after the scan listing'). Rule 8: the uncaught TypeError is in the SQLite dialect only. config/db.js:7 sets dialect mysql.",
+      "evidence": [
+        "config/db.js:7 dialect: 'mysql'"
+      ]
+    },
+    {
+      "findingId": "find-860df807076e",
+      "vulnerabilityId": "GHSA-j9xp-92vc-559j",
+      "purl": "pkg:npm/sequelize",
+      "label": "no_genuine_usage",
+      "vulnerableSymbols": [],
+      "reasoning": "Labelled at the package.json range floor (no lockfile, so canonical-scan.json records no version; see CASE.md 'Added after the scan listing'). Rule 8: the injection is through JSON path keys in the MySQL dialect. In 4.13.10 those paths are built only for JSON-typed attributes (_whereJSON, or a dotted key on a JSON attribute). The User and Product models have no JSON attributes, so a nested object from req.query (extended qs) takes the plain equality branch instead.",
+      "evidence": [
+        "sequelize@4.13.10 lib/dialects/abstract/query-generator.js:2003-2005, :2068-2069 JSON path only when the attribute type is DataTypes.JSON",
+        "models/user.js, models/product.js: INTEGER, STRING, TEXT only",
+        "core/appHandler.js:86-88 where: { 'id': req.query.id }"
+      ]
+    },
+    {
+      "findingId": "find-a8199b2ee084",
+      "vulnerabilityId": "GHSA-m9jw-237r-gvfv",
+      "purl": "pkg:npm/sequelize",
+      "label": "no_genuine_usage",
+      "vulnerableSymbols": [
+        "json"
+      ],
+      "reasoning": "Labelled at the package.json range floor (no lockfile, so canonical-scan.json records no version; see CASE.md 'Added after the scan listing'). The vulnerable function is sequelize.json() with a user-supplied sub-path; the application never calls it.",
+      "evidence": [
+        "grep -rnE \"sequelize\\.json\\(|Sequelize\\.json\\(\" core models routes -> no matches"
+      ]
+    },
+    {
+      "findingId": "find-ea9e94ee7db3",
+      "vulnerabilityId": "GHSA-v8fg-2rw7-q452",
+      "purl": "pkg:npm/sequelize",
+      "label": "no_genuine_usage",
+      "vulnerableSymbols": [],
+      "reasoning": "Rule 8: Oracle dialect only. config/db.js:7 sets dialect mysql; models/index.js:10 takes the dialect from DATABASE_URL when set, which the repository does not set to Oracle.",
+      "evidence": [
+        "grep -rnE \"sequelize\\.query\\(|replacements|attributes|dialect|DATABASE_URL\" core models config -> core/appHandler.js:11 db.sequelize.query(query, { model: db.User }); config/db.js:7 dialect mysql; no replacements, no attributes"
+      ]
+    },
+    {
+      "findingId": "find-a9b8b333f19d",
+      "vulnerabilityId": "GHSA-vqfx-gj96-3w95",
+      "purl": "pkg:npm/sequelize",
+      "label": "no_genuine_usage",
+      "vulnerableSymbols": [
+        "getWhereConditions"
+      ],
+      "reasoning": "Labelled at the package.json range floor (no lockfile, so canonical-scan.json records no version; see CASE.md 'Added after the scan listing'). Rule 8: the trigger is an invalid value (e.g. a Date) passed as the top-level where option, which is then silently skipped. Every where in the application is an object literal with constant keys.",
+      "evidence": [
+        "core/appHandler.js:59-63, :86-88, :108-110, :146-148 where: { ... } literals",
+        "core/authHandler.js:22-24, :44-46, :73-75 where: { 'login': ... } literals"
+      ]
+    },
+    {
+      "findingId": "find-25b761f80e13",
+      "vulnerabilityId": "GHSA-wfp9-vr4j-f49j",
+      "purl": "pkg:npm/sequelize",
+      "label": "no_genuine_usage",
+      "vulnerableSymbols": [],
+      "reasoning": "Labelled at the package.json range floor (no lockfile, so canonical-scan.json records no version; see CASE.md 'Added after the scan listing'). The advisory's vulnerable range (fixed 4.12.0) ends below the declared floor sequelize@4.13.10, so no version the package.json range allows contains the vulnerable code; nothing the application calls can reach it.",
+      "evidence": [
+        "package.json: sequelize range floor 4.13.10",
+        "POST https://registry.npmjs.org/-/npm/v1/security/advisories/bulk with the package.json range floors {\"ejs\":[\"2.5.7\"],\"express\":[\"4.16.2\"],\"express-fileupload\":[\"0.4.0\"],\"libxmljs\":[\"0.19.1\"],\"morgan\":[\"1.9.0\"],\"mysql2\":[\"1.4.2\"],\"sequelize\":[\"4.13.10\"]} (2026-10-25) -> advisory not returned for sequelize@4.13.10"
+      ]
+    },
+    {
+      "findingId": "find-5a91ee2b1957",
+      "vulnerabilityId": "GHSA-wrh9-cjv3-2hpw",
+      "purl": "pkg:npm/sequelize",
+      "label": "no_genuine_usage",
+      "vulnerableSymbols": [
+        "query"
+      ],
+      "reasoning": "Rule 8: the trigger is replacements together with where. The only sequelize.query (core/appHandler.js:11) passes no replacements, and none appears anywhere.",
+      "evidence": [
+        "grep -rnE \"sequelize\\.query\\(|replacements|attributes|dialect|DATABASE_URL\" core models config -> core/appHandler.js:11 db.sequelize.query(query, { model: db.User }); config/db.js:7 dialect mysql; no replacements, no attributes"
+      ]
+    },
+    {
+      "findingId": "find-91b7a3b8217e",
+      "vulnerabilityId": "GHSA-x2jc-pwfj-h9p3",
+      "purl": "pkg:npm/sequelize",
+      "label": "no_genuine_usage",
+      "vulnerableSymbols": [],
+      "reasoning": "Labelled at the package.json range floor (no lockfile, so canonical-scan.json records no version; see CASE.md 'Added after the scan listing'). The advisory's vulnerable range (fixed 1.7.0) ends below the declared floor sequelize@4.13.10, so no version the package.json range allows contains the vulnerable code; nothing the application calls can reach it.",
+      "evidence": [
+        "package.json: sequelize range floor 4.13.10",
+        "POST https://registry.npmjs.org/-/npm/v1/security/advisories/bulk with the package.json range floors {\"ejs\":[\"2.5.7\"],\"express\":[\"4.16.2\"],\"express-fileupload\":[\"0.4.0\"],\"libxmljs\":[\"0.19.1\"],\"morgan\":[\"1.9.0\"],\"mysql2\":[\"1.4.2\"],\"sequelize\":[\"4.13.10\"]} (2026-10-25) -> advisory not returned for sequelize@4.13.10"
+      ]
+    },
+    {
+      "findingId": "find-18f79de12bb3",
+      "vulnerabilityId": "GHSA-xqg8-cv3h-xppv",
+      "purl": "pkg:npm/sequelize",
+      "label": "no_genuine_usage",
+      "vulnerableSymbols": [],
+      "reasoning": "Labelled at the package.json range floor (no lockfile, so canonical-scan.json records no version; see CASE.md 'Added after the scan listing'). The advisory's vulnerable range (fixed 2.0.0-rc8) ends below the declared floor sequelize@4.13.10, so no version the package.json range allows contains the vulnerable code; nothing the application calls can reach it.",
+      "evidence": [
+        "package.json: sequelize range floor 4.13.10",
+        "POST https://registry.npmjs.org/-/npm/v1/security/advisories/bulk with the package.json range floors {\"ejs\":[\"2.5.7\"],\"express\":[\"4.16.2\"],\"express-fileupload\":[\"0.4.0\"],\"libxmljs\":[\"0.19.1\"],\"morgan\":[\"1.9.0\"],\"mysql2\":[\"1.4.2\"],\"sequelize\":[\"4.13.10\"]} (2026-10-25) -> advisory not returned for sequelize@4.13.10"
+      ]
+    }
+  ]
+}
