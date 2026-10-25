@@ -71,7 +71,7 @@ for entry in "${cases[@]}"; do
 	dest="$root/testdata/audit/$id"
 	[ -f "$dest/CASE.md" ] || { echo "$dest/CASE.md missing" >&2; exit 2; }
 	grep -q "$commit" "$dest/CASE.md" || { echo "$id: commit $commit is not the one in CASE.md" >&2; exit 2; }
-	[ ! -e "$dest/labels.json" ] || { echo "$id: labels.json exists; refresh inputs and labels together in a separate reviewed change." >&2; exit 2; }
+	[ ! -e "$dest/labels.json" ] && [ ! -e "$dest/labels.provisional.json" ] || { echo "$id: active or provisional labels exist; refresh inputs and labels together in a separate reviewed change." >&2; exit 2; }
 
 	# The workspace holds only this repository, so scan finds exactly one.
 	ws="$work/$id"

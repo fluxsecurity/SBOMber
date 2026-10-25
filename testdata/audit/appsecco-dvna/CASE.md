@@ -1,3 +1,28 @@
+# Evaluation status: provisional, excluded from the active audit
+
+The proposed labels are preserved byte-for-byte as `labels.provisional.json`.
+There is intentionally no `labels.json`, so the existing harness excludes this
+case under README labelling rule 6. This does not assert that all labels are
+wrong: four findings have exact-version identities. It prevents a partially
+unresolved case from being presented as a completed labelled repository.
+
+Forty-three of the 47 findings lack exact component versions; 29 label proposals
+assume declaration floors and one trigger explanation is explicitly speculative.
+These proposals need a reproducible version context / direct trigger evidence
+before promotion. The original 47-row run is preserved in
+`docs/evidence/s5-14/audit-results.original-93.json`; its labels are not counted
+in the active audit or any validated usage denominator. No verdict or label was
+invented to replace an uncertain one. Known-version rows are retained here rather
+than creating a filtered inventory and claiming it is a complete original scan.
+
+The 12 below-floor advisory exclusions are applicability assertions, not usage
+absence observations. Keep them separate from usage evaluation when verifying
+ranges. Shared fix references do not establish the weak Sequelize trigger.
+
+The historical source worksheet and original reviewer notes follow unchanged
+except for the correction of the component-version count above. Issue #124 remains
+open until at least three evaluable real-repository cases are available.
+
 # appsecco-dvna
 
 - Repository: <https://github.com/appsecco/dvna>
@@ -116,8 +141,9 @@ not happen. Rule 2 asks for labels first, so a reviewer should weigh these 29
 rows accordingly. The 18 worksheet rows above were written before any SBOMber
 run.
 
-**Version used.** The repository has no lockfile and canonical-scan.json records
-no version for any DVNA package (purls such as `pkg:npm/ejs`). These rows are
+**Version used.** The repository has no lockfile. The scan has exact versions for mathjs,
+node-serialize and express-flash, but not the other 16 components. Of 47
+findings, 43 reference unversioned components (purls such as `pkg:npm/ejs`). These rows are
 labelled at the `package.json` range floor: ejs 2.5.7, express 4.16.2,
 express-fileupload 0.4.0, libxmljs 0.19.1, morgan 1.9.0, mysql2 1.4.2 (loaded by
 sequelize for dialect `mysql`), sequelize 4.13.10. Which advisories affect each
