@@ -1,0 +1,11 @@
+{
+  "file": "checks/original-wording-regression.log",
+  "rawArchive": "original-wording-regression.raw.zip",
+  "rawSha256": "a94914fac5d1b98bf14ca361def944799cc140e38a1349e6f7348b78ab2de3e9",
+  "normalisedSha256": "dc4bd31ee51326acf4c54553ca1cc14d9307c0dad050622a476aa3617e4cf40a",
+  "operation": "Remove trailing spaces/tabs/CR per line in the readable text copy only",
+  "changedLines": 16,
+  "rawBytesPreserved": true,
+  "testOrProductionSourceChanged": false,
+  "newTestRunClaimed": false
+}
