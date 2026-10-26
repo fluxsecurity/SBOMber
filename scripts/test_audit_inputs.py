@@ -135,6 +135,14 @@ class AuditInputPublicationTests(unittest.TestCase):
             self.assertEqual((dest / "labels.json").read_text(), "existing labels\n")
             self.assert_preserved(dest)
 
+    def test_provisional_labels_prevent_input_refresh(self):
+        with sandbox() as (_, dest, run):
+            (dest / "labels.provisional.json").write_text("conditional labels\n")
+            result = run()
+            self.assertNotEqual(result.returncode, 0, result.stdout + result.stderr)
+            self.assertEqual((dest / "labels.provisional.json").read_text(), "conditional labels\n")
+            self.assert_preserved(dest)
+
     def test_previous_run_output_and_log_are_preserved(self):
         with sandbox() as (root, _, run):
             result = run()

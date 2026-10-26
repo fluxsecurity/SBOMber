@@ -1,0 +1,115 @@
+[
+  {
+    "argv": [
+      "gofmt",
+      "-w",
+      "/home/sbomber1/dev/sbomber/pr181-label-review-uycy5i5e/source/internal/audit/review181_gate_wording_test.go"
+    ],
+    "exitCode": 0,
+    "log": "format-test.log"
+  },
+  {
+    "argv": [
+      "go",
+      "test",
+      "-count=1",
+      "-run",
+      "^TestReview181GateWordingMatchesClassifications$",
+      "./internal/audit"
+    ],
+    "exitCode": 1,
+    "log": "original-wording-regression.log"
+  },
+  {
+    "argv": [
+      "gofmt",
+      "-w",
+      "/home/sbomber1/dev/sbomber/pr181-label-review-uycy5i5e/source/internal/audit/render.go"
+    ],
+    "exitCode": 0,
+    "log": "format-renderer.log"
+  },
+  {
+    "argv": [
+      "go",
+      "test",
+      "-count=1",
+      "-v",
+      "./internal/audit"
+    ],
+    "exitCode": 0,
+    "log": "audit-tests.log"
+  },
+  {
+    "argv": [
+      "make",
+      "build"
+    ],
+    "exitCode": 0,
+    "log": "build.log"
+  },
+  {
+    "argv": [
+      "make",
+      "test"
+    ],
+    "exitCode": 0,
+    "log": "go-tests.log"
+  },
+  {
+    "argv": [
+      "make",
+      "vet"
+    ],
+    "exitCode": 0,
+    "log": "vet.log"
+  },
+  {
+    "argv": [
+      "make",
+      "lint"
+    ],
+    "exitCode": 0,
+    "log": "lint.log"
+  },
+  {
+    "argv": [
+      "/usr/bin/python3",
+      "-B",
+      "contracts/validate.py"
+    ],
+    "exitCode": 0,
+    "log": "contracts.log"
+  },
+  {
+    "argv": [
+      "bin/sbomber",
+      "audit",
+      "--out",
+      "/home/sbomber1/shared-folder/VM_shared_SBOMber/SBOMber-pr181-validation-twnqjral/audit-results-corrected.json"
+    ],
+    "exitCode": 0,
+    "log": "audit-run-corrected.txt"
+  },
+  {
+    "argv": [
+      "git",
+      "diff",
+      "--exit-code",
+      "--",
+      "testdata/audit",
+      "docs/evidence/s5-14"
+    ],
+    "exitCode": 0,
+    "log": "original-evidence-unchanged.log"
+  },
+  {
+    "argv": [
+      "git",
+      "diff",
+      "--check"
+    ],
+    "exitCode": 0,
+    "log": "whitespace.log"
+  }
+]

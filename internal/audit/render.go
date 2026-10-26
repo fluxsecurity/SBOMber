@@ -69,7 +69,7 @@ func RenderText(w io.Writer, rep Report) error {
 	if rep.Totals.Failed() {
 		p.f("\nRESULT: FAIL")
 		if rep.Totals.MissedUsage > 0 {
-			p.f(" - %d finding(s) labelled genuine usage were moved out of usage detected", rep.Totals.MissedUsage)
+			p.f(" - %d finding(s) labelled genuine usage were classified no_usage_detected", rep.Totals.MissedUsage)
 		}
 		if rep.Totals.Unlabelled > 0 || rep.Totals.NoDecision > 0 || rep.Totals.Mismatched > 0 {
 			p.f(" - labels and decisions do not line up (%d unlabelled, %d without a decision, %d naming a different vulnerability or package); re-label the case",
@@ -77,8 +77,9 @@ func RenderText(w io.Writer, rep Report) error {
 		}
 		p.f("\n")
 	} else {
-		p.f("\nRESULT: PASS - no labelled genuine usage was moved out of usage detected.\n")
+		p.f("\nRESULT: PASS - no finding labelled genuine_usage was classified no_usage_detected.\n")
 	}
+	p.f("Abstentions are not successful usage detections.\n")
 	return p.err
 }
 

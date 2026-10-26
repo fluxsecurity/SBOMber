@@ -1,0 +1,62 @@
+--- FAIL: TestReview181GateWordingMatchesClassifications (0.00s)
+    --- FAIL: TestReview181GateWordingMatchesClassifications/genuine_usage_abstained (0.00s)
+        review181_gate_wording_test.go:32: gate wording overstates retained usage: SBOMber audit harness: 1 case(s) under fixture
+            Labels are hand-made judgements. Counts are reported, not an accuracy rate: a handful of repositories cannot support one.
+
+            == fixture  ( @ )
+               analysis -; files discovered 0, parsed 0, parsed with errors 0, failed 0, skipped 0
+
+               FINDING      VULNERABILITY        LABEL             SBOMBER STATE                                      BAND                     OUTCOME
+               finding      -                    genuine_usage     insufficient information                           -                        abstained (insufficient information)
+               1 finding(s): 0 agree usage, 0 agree no usage found, 0 missed usage, 0 over-reported, 1 abstained, 0 unlabelled, 0 without decision, 0 label mismatch; 0 downgrade(s)
+
+            == All cases
+               1 finding(s): 0 agree usage, 0 agree no usage found, 0 missed usage, 0 over-reported, 1 abstained, 0 unlabelled, 0 without decision, 0 label mismatch; 0 downgrade(s)
+
+            No finding was moved into "No direct usage evidence found within the analysed scope" in this run.
+
+            RESULT: PASS - no labelled genuine usage was moved out of usage detected.
+    --- FAIL: TestReview181GateWordingMatchesClassifications/genuine_usage_detected (0.00s)
+        review181_gate_wording_test.go:32: gate wording overstates retained usage: SBOMber audit harness: 1 case(s) under fixture
+            Labels are hand-made judgements. Counts are reported, not an accuracy rate: a handful of repositories cannot support one.
+
+            == fixture  ( @ )
+               analysis -; files discovered 0, parsed 0, parsed with errors 0, failed 0, skipped 0
+
+               FINDING      VULNERABILITY        LABEL             SBOMBER STATE                                      BAND                     OUTCOME
+               finding      -                    genuine_usage     usage detected                                     -                        agrees (usage)
+               1 finding(s): 1 agree usage, 0 agree no usage found, 0 missed usage, 0 over-reported, 0 abstained, 0 unlabelled, 0 without decision, 0 label mismatch; 0 downgrade(s)
+
+            == All cases
+               1 finding(s): 1 agree usage, 0 agree no usage found, 0 missed usage, 0 over-reported, 0 abstained, 0 unlabelled, 0 without decision, 0 label mismatch; 0 downgrade(s)
+
+            No finding was moved into "No direct usage evidence found within the analysed scope" in this run.
+
+            RESULT: PASS - no labelled genuine usage was moved out of usage detected.
+    --- FAIL: TestReview181GateWordingMatchesClassifications/genuine_usage_assigned_negative (0.00s)
+        review181_gate_wording_test.go:32: gate wording overstates retained usage: SBOMber audit harness: 1 case(s) under fixture
+            Labels are hand-made judgements. Counts are reported, not an accuracy rate: a handful of repositories cannot support one.
+
+            == fixture  ( @ )
+               analysis -; files discovered 0, parsed 0, parsed with errors 0, failed 0, skipped 0
+
+               FINDING      VULNERABILITY        LABEL             SBOMBER STATE                                      BAND                     OUTCOME
+               finding      -                    genuine_usage     no usage evidence found within the analysed scope  -                        MISSED USAGE
+               1 finding(s): 0 agree usage, 0 agree no usage found, 1 missed usage, 0 over-reported, 0 abstained, 0 unlabelled, 0 without decision, 0 label mismatch; 1 downgrade(s)
+
+            == All cases
+               1 finding(s): 0 agree usage, 0 agree no usage found, 1 missed usage, 0 over-reported, 0 abstained, 0 unlabelled, 0 without decision, 0 label mismatch; 1 downgrade(s)
+
+            == Downgrades to inspect (1)
+
+            -- fixture / finding  -  -
+               outcome:       MISSED USAGE
+               human label:   genuine_usage
+               reasoning:     -
+               SBOMber state: no usage evidence found within the analysed scope (band -, confidence -)
+               justification: -
+
+            RESULT: FAIL - 1 finding(s) labelled genuine usage were moved out of usage detected
+FAIL
+FAIL	github.com/Xsamsx/SBOMber/internal/audit	0.005s
+FAIL
