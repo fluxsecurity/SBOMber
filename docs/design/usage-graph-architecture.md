@@ -882,8 +882,9 @@ record in follow-up PR #176 merges.
 
 ## 20. Indirect dependency usage policy (#172)
 
-**Status:** proposed implementation; explicit Component 4 agreement and Component 3
-paired review pending. This record does not claim policy approval.
+**Status:** accepted. Component 4 agreement was recorded on 25 October 2026;
+[Component 3 approval](https://github.com/fluxsecurity/SBOMber/pull/179#pullrequestreview-5645862782) reviewed `987d50a`.
+PR #179 merged at `8f7adedb2e1d6425b213cbeaa6300391b4cc90ee`.
 
 Component 2 analyses application source only. A dependency being declared directly
 in the inventory does not prevent another dependency from invoking it. Preserve
@@ -907,7 +908,7 @@ configuration, runtime loading or another dependency invokes them. Expected cost
 more abstentions, fewer scoped negative decisions; not measured noise reduction.
 
 An occurrence with an observed import and a call to a different symbol may still
-receive a scoped negative under existing rules. This proposal does not prove absence
+receive a scoped negative under existing rules. This policy does not prove absence
 of dependency-internal use for those cases, nor resolve all indirect-use limitations.
 
 Precise copied-function attribution is deferred for this delivery. Keep unresolved
@@ -920,6 +921,19 @@ Labels cite the application and dependency implementation source; only `app/` is
 analysed. Localisation is a hand-authored closed-candidate policy input, not a real
 vulnerability or generated provenance claim. See its README for reproduction.
 
-**Component 4 agreement:** pending; record owner, date and durable comment URL.
-**Paired review:** pending. Keep #172 open until validation, agreement and review
-are complete and the accepted change merges. Review #150 against the final policy.
+**Component 4 agreement:** [Zane (XUZANE), 25 October 2026](https://github.com/fluxsecurity/SBOMber/pull/179#issuecomment-6395120754).
+Checked implementation: `987d50a0a906963678bbd43247aaa325635ce20a`. Zane agreed that an
+unimported occurrence alone yields unknown / insufficient_information, while
+matched positive evidence remains usage_detected. He independently reported
+unchanged decisions for all 93 existing audit findings (zero scoped negatives);
+this is not a label-accuracy or whole-program non-use result.
+**Paired review:** [Bob (Xsamsx), Component 3](https://github.com/fluxsecurity/SBOMber/pull/179#pullrequestreview-5645862782) approved the
+implementation. His independent six-case rerun confirmed positive, unknown and
+scoped-negative control outcomes. PR #179 has merged; its agreement, validation,
+paired-review and merge requirements are recorded. This record supports #172
+closure without asserting that every residual indirect-use limitation is solved.
+Review #150 against the accepted-main record and final handover.
+
+The 93-finding comparison above describes Zane's historical policy check.
+After #181, the active labelled audit has two cases / 46 findings and excludes
+all 47 provisional DVNA labels. Neither result is an accuracy claim.

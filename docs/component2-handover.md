@@ -2,9 +2,14 @@
 
 Owner: Yevhen Hrekov. Paired reviewer: Bob (Component 3).
 
-**Status:** handover prepared against the #179 implementation. This is not a
-release sign-off or a claim that pending agreement/review has completed. The
-source baseline is recorded in `evidence/s6-05/completion-draft-baseline.json`.
+**Status:** ready for final documentation review after the recorded accepted-main
+checks pass. PR #179 merged into main at `8f7adedb2e1d6425b213cbeaa6300391b4cc90ee`.
+[Component 4 agreement](https://github.com/fluxsecurity/SBOMber/pull/179#issuecomment-6395120754)
+and [Component 3 approval](https://github.com/fluxsecurity/SBOMber/pull/179#pullrequestreview-5645862782) are recorded.
+The original preparation baseline is preserved in
+`evidence/s6-05/completion-draft-baseline.json`; current verification is recorded
+in `evidence/s6-05/accepted-main-20261026/`. This is Component 2 handover evidence,
+not a whole-project release sign-off.
 
 ## Delivered scope
 
@@ -27,20 +32,22 @@ aliases and unsupported frameworks/formats remain documented in the README.
 
 | Deliverable | Evidence | Remaining step |
 |---|---|---|
-| Production JS/TS analysis, coverage and usage CLI | `internal/sourceanalysis/`, `internal/usagegraph/`, `internal/cli/usage.go`, `contracts/usage-graph.schema.json` | Verify once on final accepted main. |
+| Production JS/TS analysis, coverage and usage CLI | `internal/sourceanalysis/`, `internal/usagegraph/`, `internal/cli/usage.go`, `contracts/usage-graph.schema.json` | Accepted-main checks are recorded under `evidence/s6-05/accepted-main-20261026/`; final documentation review remains. |
 | Narrow R1.3 reachability | Architecture sections 10-11; path and callback safety tests | Preserve documented boundary; no feature expansion required for handover. |
 | Per-construct usage evaluation (#149) | `evidence/s6-04/report.md`, `manifest.json`; labelled usage fixtures | Issue closure confirmed. Historical report has its own analyser commit. |
 | Reachability evaluation (#152) | `evidence/s6-14/report.md`, original run-01 and review-status.json | Issue closure confirmed. Preserve original figures and denominators. |
 | Computed-import and MDX policy (#151) | Architecture section 19; `evidence/s6-06/`; explicit C4 comment link | Issue closure confirmed. Existing source policy retained. |
-| Indirect-use decision guard (#172 / PR #179) | Architecture section 20; six labelled policy cases; `evidence/issue172/run-01/` | Record C4 agreement, C3 review and accepted merge. Copied-function precision remains deferred. |
-| Plain-language limitations (#150) | README; `evidence/s6-05/final-consistency-review.md` | Final paired consistency review and accepted-main record, then closure. |
+| Indirect-use decision guard (#172 / PR #179) | Architecture section 20; six labelled policy cases; `evidence/issue172/run-01/` | C4 agreement, C3 approval and #179 merge are recorded. Copied-function precision remains deferred. |
+| Plain-language limitations (#150) | README; `evidence/s6-05/final-consistency-review.md` | Review the accepted-main record and this final documentation, merge, then close #150. |
 
 Archived evaluations and new policy regressions are not one blended accuracy
-score. Cross-component audit labels under #124 remain outstanding independently.
+score. PR #181 supplies two active audit repositories / 46 findings; all 47 DVNA
+proposals remain provisional and excluded. #124 is still incomplete and is
+independent of Component 2 handover. Historical 93-row reports are preserved.
 
 ## Controlled demo
 
-Run from the repository root after #179 is accepted, using the documented Go
+Run from the repository root on accepted main, using the documented Go
 version and CGO toolchain. These commands use hand-authored synthetic inventories
 and localisation policy inputs. They demonstrate analysis and the join, not live
 vulnerability discovery, production localisation or real-world accuracy.
@@ -68,7 +75,7 @@ vulnerability discovery, production localisation or real-world accuracy.
 )
 ```
 
-Expected outcomes after the policy is accepted:
+Expected outcomes on the accepted policy:
 
 | Case | Usage evidence | Decision |
 |---|---|---|
@@ -83,8 +90,9 @@ Do not substitute the controlled demo for the integrated installation/scan demo.
 
 ## Final accepted-main verification
 
-After #179 and the documentation have been accepted, use a new clean worktree
-at the agreed final main SHA; preserve existing worktrees and historical evidence.
+The implementation baseline for this handover is the merged main SHA recorded
+in the accepted-main verification record. Checks run in a separate clean worktree.
+For a later release, use a new identified output directory and preserve old evidence.
 
 1. Record the full Git commit, Go version, CGO configuration and parser versions.
 2. Build and run the standard required Go/contract checks with inherited GitHub
@@ -100,8 +108,13 @@ at the agreed final main SHA; preserve existing worktrees and historical evidenc
 7. Record reviewer agreement, exact accepted SHA and remaining limitations in a
    final validation record. Close issues only when their acceptance criteria hold.
 
-No final-main run or second-person reproduction is claimed by this prepared
-handover. No release date or completed S6-13 freeze is inferred from older plans.
+Bob [reported a second-person demo run](https://github.com/fluxsecurity/SBOMber/pull/180#pullrequestreview-5645863494) on
+`cc278a00909bcfdc3116a3ba45fad432f0f2a3a4`, reproducing all three expected states.
+The accepted-main record compares the reviewed implementation paths to merged
+main and records a fresh local demo. It does not claim Bob reran merged main.
+Final approval of this updated documentation remains pending; after its merge,
+confirm the reviewed files are present on main before closing #150.
+No release date or completed S6-13 freeze is inferred from older plans.
 
 ## Short explanation for the presentation
 

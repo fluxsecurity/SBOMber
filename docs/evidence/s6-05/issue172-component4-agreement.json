@@ -1,0 +1,15 @@
+{
+  "issue": 172,
+  "component": 4,
+  "owner": "Zane",
+  "githubLogin": "XUZANE",
+  "agreementDate": "2026-10-25",
+  "createdAt": "2026-10-25T07:56:29Z",
+  "commentUrl": "https://github.com/fluxsecurity/SBOMber/pull/179#issuecomment-6395120754",
+  "checkedHead": "987d50a0a906963678bbd43247aaa325635ce20a",
+  "commentBody": "Component 4 agreement (#172): agreed.\n\nAbsence of an application import is not evidence that a dependency is unused,\nbecause another dependency can call it. no_usage_detected now needs an\nobserved import with no matching call on a closed candidate set, an\nunimported occurrence alone gives unknown / insufficient_information. Matched\npositive evidence still gives usage_detected. This matches Component 4's rule\nthat incomplete evidence cannot produce a negative.\n\nChecked at 987d50a:\n- internal/decision and internal/audit tests pass; go vet and golangci-lint\n  clean.\n- DetermineState applies the check after positive evidence and adds one\n  justification reason (5d); the wording is lint-clean.\n- validate.py's occurrence-or-purl match mirrors findingScope.tied(); purl is\n  required on findings.\n- The three real S5-14 audit cases (#124) give the same decisions on main and\n  on this PR (0 no_usage_detected in 93 findings), so S6-10/S6-11 inputs are\n  unaffected.\n\nFollow-up on my side: S6-10 (#157) and S6-12 (#159) will describe the\n\"no direct usage evidence\" section as imported-but-not-called only.\n\nZane (Component 4), 25 October 2026",
+  "recordedAt": "2026-10-25T10:10:37.563461+00:00",
+  "scope": "absence-only dependency evidence cannot support a negative; matched positive evidence retained",
+  "independentChecksReportedByOwner": true,
+  "pairedReview": "not established by this agreement record"
+}

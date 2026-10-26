@@ -1,0 +1,57 @@
+{
+  "schemaVersion": "1.1.0",
+  "scanId": "synthetic-172-direct-unimported-b",
+  "distribution": {
+    "totalFindings": 1,
+    "usageDetected": 0,
+    "noUsageDetected": 0,
+    "unknown": 1,
+    "unsupported": 0
+  },
+  "decisions": [
+    {
+      "findingId": "find-172",
+      "vulnerabilityId": "SYNTHETIC-172",
+      "purl": "pkg:npm/dep-b@1.0.0",
+      "state": "unknown",
+      "analysisConfidence": "medium",
+      "confidenceCriteria": [
+        "localisation method patch_reference",
+        "parse coverage 100.0 percent",
+        "no second deterministic method available to corroborate"
+      ],
+      "riskPriority": {
+        "band": "insufficient_information",
+        "severity": "high",
+        "relationship": "direct",
+        "fixAvailable": false
+      },
+      "justification": "No direct application import was found for a package occurrence; dependency-internal usage was not analysed.",
+      "basedOn": {
+        "usageObservationIds": [],
+        "localisationMethod": "patch_reference",
+        "localisationConfidence": "high",
+        "matchedSymbols": [],
+        "coverageSummary": {
+          "parseCoveragePercent": 100,
+          "unresolvedImportsInScope": 0,
+          "scanStatus": "complete"
+        }
+      },
+      "vexMapping": {
+        "statement": "under_investigation"
+      }
+    }
+  ],
+  "remediationGroups": [
+    {
+      "purl": "pkg:npm/dep-b@1.0.0",
+      "installedVersion": "1.0.0",
+      "findingIds": [
+        "find-172"
+      ],
+      "highestBand": "insufficient_information",
+      "relationship": "direct"
+    }
+  ]
+}

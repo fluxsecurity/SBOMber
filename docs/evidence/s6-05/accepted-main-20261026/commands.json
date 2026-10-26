@@ -1,0 +1,208 @@
+[
+  {
+    "argv": [
+      "go",
+      "version"
+    ],
+    "cwd": "/home/sbomber1/dev/sbomber/pr180-final-9svy3ft3/accepted-main",
+    "exitCode": 0,
+    "log": "go-version.log"
+  },
+  {
+    "argv": [
+      "go",
+      "env",
+      "CGO_ENABLED",
+      "GOOS",
+      "GOARCH"
+    ],
+    "cwd": "/home/sbomber1/dev/sbomber/pr180-final-9svy3ft3/accepted-main",
+    "exitCode": 0,
+    "log": "go-env.log"
+  },
+  {
+    "argv": [
+      "/usr/bin/python3",
+      "-B",
+      "-c",
+      "import jsonschema"
+    ],
+    "cwd": "/home/sbomber1/dev/sbomber/pr180-final-9svy3ft3/accepted-main",
+    "exitCode": 0,
+    "log": "jsonschema-preflight.log"
+  },
+  {
+    "argv": [
+      "make",
+      "build"
+    ],
+    "cwd": "/home/sbomber1/dev/sbomber/pr180-final-9svy3ft3/accepted-main",
+    "exitCode": 0,
+    "log": "build.log"
+  },
+  {
+    "argv": [
+      "make",
+      "test"
+    ],
+    "cwd": "/home/sbomber1/dev/sbomber/pr180-final-9svy3ft3/accepted-main",
+    "exitCode": 0,
+    "log": "test.log"
+  },
+  {
+    "argv": [
+      "make",
+      "vet"
+    ],
+    "cwd": "/home/sbomber1/dev/sbomber/pr180-final-9svy3ft3/accepted-main",
+    "exitCode": 0,
+    "log": "vet.log"
+  },
+  {
+    "argv": [
+      "make",
+      "lint"
+    ],
+    "cwd": "/home/sbomber1/dev/sbomber/pr180-final-9svy3ft3/accepted-main",
+    "exitCode": 0,
+    "log": "lint.log"
+  },
+  {
+    "argv": [
+      "/usr/bin/python3",
+      "-B",
+      "contracts/validate.py"
+    ],
+    "cwd": "/home/sbomber1/dev/sbomber/pr180-final-9svy3ft3/accepted-main",
+    "exitCode": 0,
+    "log": "contracts.log"
+  },
+  {
+    "argv": [
+      "/usr/bin/python3",
+      "-B",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "contracts",
+      "-p",
+      "test_*.py",
+      "-v"
+    ],
+    "cwd": "/home/sbomber1/dev/sbomber/pr180-final-9svy3ft3/accepted-main",
+    "exitCode": 0,
+    "log": "contract-tests.log"
+  },
+  {
+    "argv": [
+      "/usr/bin/python3",
+      "-B",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "scripts",
+      "-p",
+      "test_*.py",
+      "-v"
+    ],
+    "cwd": "/home/sbomber1/dev/sbomber/pr180-final-9svy3ft3/accepted-main",
+    "exitCode": 0,
+    "log": "script-tests.log"
+  },
+  {
+    "argv": [
+      "go",
+      "test",
+      "-count=1",
+      "-run",
+      "^TestIssue172",
+      "-v",
+      "./internal/cli",
+      "./internal/decision"
+    ],
+    "cwd": "/home/sbomber1/dev/sbomber/pr180-final-9svy3ft3/accepted-main",
+    "exitCode": 0,
+    "log": "issue172-tests.log"
+  },
+  {
+    "argv": [
+      "gofmt",
+      "-l",
+      "cmd",
+      "internal"
+    ],
+    "cwd": "/home/sbomber1/dev/sbomber/pr180-final-9svy3ft3/accepted-main",
+    "exitCode": 0,
+    "log": "gofmt.log"
+  },
+  {
+    "argv": [
+      "/usr/bin/python3",
+      "-B",
+      "scripts/run_issue172_policy.py",
+      "--binary",
+      "/home/sbomber1/dev/sbomber/pr180-final-9svy3ft3/accepted-main/bin/sbomber",
+      "--out",
+      "/home/sbomber1/dev/sbomber/pr180-final-9svy3ft3/documentation/docs/evidence/s6-05/accepted-main-20261026/policy-cases"
+    ],
+    "cwd": "/home/sbomber1/dev/sbomber/pr180-final-9svy3ft3/accepted-main",
+    "exitCode": 0,
+    "log": "policy-cases.log"
+  },
+  {
+    "argv": [
+      "bash",
+      "/home/sbomber1/dev/sbomber/pr180-final-9svy3ft3/documentation/docs/evidence/s6-05/accepted-main-20261026/checks/documented-demo.sh"
+    ],
+    "cwd": "/home/sbomber1/dev/sbomber/pr180-final-9svy3ft3/accepted-main",
+    "exitCode": 0,
+    "log": "documented-demo.log"
+  },
+  {
+    "argv": [
+      "git",
+      "diff",
+      "--exit-code",
+      "8f7adedb2e1d6425b213cbeaa6300391b4cc90ee",
+      "--",
+      "internal/sourceanalysis",
+      "internal/usagegraph",
+      "internal/decision",
+      "internal/cli",
+      "contracts",
+      "testdata/fixtures/indirect-usage-172",
+      "go.mod",
+      "go.sum"
+    ],
+    "cwd": "/home/sbomber1/dev/sbomber/pr180-final-9svy3ft3/documentation",
+    "exitCode": 0,
+    "log": "documentation-code-unchanged.log"
+  },
+  {
+    "argv": [
+      "git",
+      "diff",
+      "--exit-code",
+      "8f7adedb2e1d6425b213cbeaa6300391b4cc90ee",
+      "--",
+      "docs/evidence/s6-04",
+      "docs/evidence/s6-14",
+      "docs/evidence/issue172/run-01"
+    ],
+    "cwd": "/home/sbomber1/dev/sbomber/pr180-final-9svy3ft3/documentation",
+    "exitCode": 0,
+    "log": "historical-evidence-unchanged.log"
+  },
+  {
+    "argv": [
+      "git",
+      "diff",
+      "--check"
+    ],
+    "cwd": "/home/sbomber1/dev/sbomber/pr180-final-9svy3ft3/documentation",
+    "exitCode": 0,
+    "log": "whitespace.log"
+  }
+]

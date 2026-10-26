@@ -1,0 +1,12 @@
+{
+  "fixture": "destructured-copy",
+  "labelType": "author_labelled_synthetic_policy_case",
+  "reasoning": "index.js:2 copies merge by destructuring. Preserve unresolved-use evidence; precise attribution is deferred.",
+  "candidateSymbol": "merge",
+  "expectedState": "unknown",
+  "expectedOriginalState": "unknown",
+  "expectedUnanalysedReason": null,
+  "requiresUnresolvedUse": true,
+  "analysisScope": "app/ only; dependency-source/ is supplied for manual labels and intentionally outside analysis",
+  "vulnerabilityClaim": false
+}

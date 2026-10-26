@@ -1,9 +1,11 @@
 # S6-05: final limitations consistency review
 
 Issue: [#150](https://github.com/fluxsecurity/SBOMber/issues/150).
-Prepared: 24 October 2026. Status: documentation review prepared against the
-#179 implementation; final accepted-main verification and paired review remain
-required. Exact source revision is recorded in `completion-draft-baseline.json`.
+Prepared: 24 October 2026. Updated: 26 October 2026.
+PR #179 is accepted on main at `8f7adedb2e1d6425b213cbeaa6300391b4cc90ee`.
+The original preparation revision remains in `completion-draft-baseline.json`.
+Fresh checks and the evidence-map result are saved under `accepted-main-20261026/`.
+Final review of this documentation and its merge remain pending.
 
 This supplements `README-known-limitations-review.md`. That file is a historical
 18 October review: its references to pending #151/#152 work and the pre-#172
@@ -64,14 +66,26 @@ production localisation provenance is explicitly not claimed for them.
 This documentation change requires a whitespace and local-link check. No new
 runtime test is introduced merely to restate the implementation.
 
+Component 4 agreement for #172 is [recorded by Zane, 25 October 2026](https://github.com/fluxsecurity/SBOMber/pull/179#issuecomment-6395120754).
+The fetched comment and checked head are saved in `issue172-component4-agreement.json`.
+[Bob's Component 3 approval of #179](https://github.com/fluxsecurity/SBOMber/pull/179#pullrequestreview-5645862782)
+and its merge are now recorded. His [#180 documentation review](https://github.com/fluxsecurity/SBOMber/pull/180#pullrequestreview-5645863494)
+found no blockers and reported an independent three-case demo on the draft head.
+The accepted-main record distinguishes that run from the fresh local main run;
+implementation-tree equality is checked rather than claiming a new Bob run.
+
+The #181 audit scope is now two active repositories / 46 findings (1 agree usage,
+4 over-reported, 41 abstained). All 47 DVNA proposals remain provisional and
+excluded. Historical 93-row evidence and the original #152 measurements are
+preserved. #124 remains open; audit-set completion is not a C2 accuracy claim.
+
 Before closing #150:
 
-- Confirm the accepted #179 policy and explicit Component 4 agreement are recorded.
-- Obtain Bob's Component 3 paired review of final limitations consistency.
-- Check this evidence map and README against the final main revision, recording
-  that commit and the review URL.
-- Merge the accepted documentation and link it from #150 before closure.
+- Review the accepted-main checks, evidence map and updated handover.
+- Obtain final paired approval on #180 after retargeting it to main.
+- Merge #180 and confirm its reviewed documentation on main, then link the
+  accepted record from #150 before closure.
 
-Do not close #172 from this checklist. Its agreement, review, accepted scope and
-merge are tracked separately. #124 labels and the full labelled audit remain
-shared Component 4 work and are not evidence of Component 2 completion.
+#172's implementation agreement, paired approval and merge are recorded in this
+handover. Its closure does not imply whole-program or dependency-internal tracing.
+#124 remains shared audit work independent of Component 2 handover.

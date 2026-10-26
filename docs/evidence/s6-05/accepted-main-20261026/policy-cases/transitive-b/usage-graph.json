@@ -1,0 +1,105 @@
+{
+  "schemaVersion": "1.4.0",
+  "scanId": "synthetic-172-transitive-b",
+  "analysis": {
+    "status": "complete",
+    "ecosystem": "npm",
+    "analyzerId": "component2-js-ts-tree-sitter"
+  },
+  "analyser": {
+    "parser": "tree-sitter",
+    "binding": "github.com/tree-sitter/go-tree-sitter",
+    "bindingVersion": "0.25.0",
+    "cgoEnabled": true,
+    "grammarVersions": {
+      "javascript": "0.25.0",
+      "typescript": "0.23.2"
+    },
+    "ecosystems": [
+      "npm"
+    ],
+    "reachabilityAnalysed": true
+  },
+  "entryPoints": [
+    {
+      "entryPointId": "ep-ac70615c90bab9c7793e9141388b3869",
+      "kind": "exported_module",
+      "function": "main",
+      "file": "index.js",
+      "line": 2,
+      "repositoryId": "repo-172"
+    }
+  ],
+  "coverage": {
+    "filesDiscovered": 1,
+    "filesParsed": 1,
+    "filesParsedWithErrors": 0,
+    "filesFailed": 0,
+    "filesSkipped": 0,
+    "thirdPartyImportsResolved": 1,
+    "thirdPartyImportsTypeOnly": 0,
+    "thirdPartyImportsUnresolved": 0,
+    "thirdPartyCallSitesResolved": 1,
+    "thirdPartyCallSitesUnresolved": 0,
+    "limitsHit": [],
+    "perRepository": [
+      {
+        "repositoryId": "repo-172",
+        "filesDiscovered": 1,
+        "filesParsed": 1,
+        "filesParsedWithErrors": 0,
+        "filesFailed": 0,
+        "filesSkipped": 0
+      }
+    ],
+    "entryPointsDetected": 1,
+    "callPathsResolved": 1,
+    "callPathsUnresolved": 0
+  },
+  "observations": [
+    {
+      "observationId": "obs-7b1ec41fe5570206c58a184d5736bfe0",
+      "occurrenceId": "occ-dep-a",
+      "purl": "pkg:npm/dep-a@1.0.0",
+      "importedSpecifier": "dep-a",
+      "localAlias": "run",
+      "importedSymbol": "run",
+      "importKind": "esm_named",
+      "resolution": "resolved",
+      "location": {
+        "repositoryId": "repo-172",
+        "file": "index.js",
+        "line": 1,
+        "column": 9
+      },
+      "evidenceLevel": 3,
+      "callSites": [
+        {
+          "file": "index.js",
+          "line": 2,
+          "column": 33,
+          "calledSymbol": "run",
+          "enclosingFunction": "main",
+          "resolution": "resolved",
+          "reachability": "reachable",
+          "entryPointId": "ep-ac70615c90bab9c7793e9141388b3869",
+          "callPath": [
+            {
+              "function": "main",
+              "file": "index.js",
+              "line": 2
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "unanalysedOccurrences": [
+    {
+      "occurrenceId": "occ-dep-b",
+      "purl": "pkg:npm/dep-b@1.0.0",
+      "reason": "nested_under_dependency"
+    }
+  ],
+  "parseFailures": []
+}
