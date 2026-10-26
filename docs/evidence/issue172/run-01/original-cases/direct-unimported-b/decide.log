@@ -1,0 +1,4 @@
+Decided 1 finding(s) for synthetic-172-direct-unimported-b
+  find-172   SYNTHETIC-172      no usage evidence found within the analysed scope medium lower_priority
+Distribution: 0 usage detected, 1 no usage evidence within the analysed scope, 0 unknown, 0 unsupported
+Wrote /mnt/hgfs/VM_shared_SBOMber/SBOMber-issue172-validation-i6jlcsvh/original-cases/direct-unimported-b/decision-results.json

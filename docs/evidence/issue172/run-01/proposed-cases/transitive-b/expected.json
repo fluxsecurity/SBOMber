@@ -1,0 +1,12 @@
+{
+  "fixture": "transitive-b",
+  "labelType": "author_labelled_synthetic_policy_case",
+  "reasoning": "Application index.js:2 calls dep-a.run; dependency-source/dep-a/index.js:2 calls dep-b.merge. B is transitive.",
+  "candidateSymbol": "merge",
+  "expectedState": "unknown",
+  "expectedOriginalState": "unknown",
+  "expectedUnanalysedReason": "nested_under_dependency",
+  "requiresUnresolvedUse": false,
+  "analysisScope": "app/ only; dependency-source/ is supplied for manual labels and intentionally outside analysis",
+  "vulnerabilityClaim": false
+}

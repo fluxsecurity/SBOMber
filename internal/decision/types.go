@@ -109,9 +109,9 @@ const (
 type UnanalysedReason string
 
 const (
-	// ReasonNotImportedByAnalysedSource is the ONLY reason that may support
-	// a no_usage_detected verdict: the analysis completed and genuinely
-	// found no import.
+	// ReasonNotImportedByAnalysedSource records absence of an application
+	// import, not absence of dependency-internal usage. DetermineState checks
+	// it after preserving matched positive evidence and forbids a negative.
 	ReasonNotImportedByAnalysedSource UnanalysedReason = "not_imported_by_analysed_source"
 
 	// ReasonNestedUnderDependency: reachable only from inside another
@@ -131,7 +131,8 @@ const (
 
 // blocksNegativeVerdict reports whether an unanalysed occurrence carrying
 // this reason forbids a no_usage_detected verdict for the finding it belongs
-// to. Every reason except ReasonNotImportedByAnalysedSource blocks it.
+// to before positive evidence is considered. ReasonNotImportedByAnalysedSource
+// is checked separately after positive evidence (#172).
 func (r UnanalysedReason) blocksNegativeVerdict() bool {
 	return r != ReasonNotImportedByAnalysedSource
 }

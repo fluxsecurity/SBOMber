@@ -1,0 +1,5 @@
+--- FAIL: TestIssue172AbsentImportCannotSupportNegative (0.00s)
+    indirect_usage_policy_test.go:16: absence of application imports supported a negative: {State:no_usage_detected Reasons:[no usage evidence found within the analysed scope: analysis completed and no application call reached any public entry point of the localised functions]}
+FAIL
+FAIL	github.com/Xsamsx/SBOMber/internal/decision	0.007s
+FAIL

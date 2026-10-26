@@ -1,0 +1,9 @@
+{
+  "name": "synthetic-direct-unimported-b",
+  "version": "1.0.0",
+  "type": "module",
+  "dependencies": {
+    "dep-a": "1.0.0",
+    "dep-b": "1.0.0"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "fixture": "copied-function",
+  "labelType": "author_labelled_synthetic_policy_case",
+  "reasoning": "index.js:2 copies merge. Require conservative unresolved-use evidence at import, without invented attribution of the later f call.",
+  "candidateSymbol": "merge",
+  "expectedState": "unknown",
+  "expectedOriginalState": "unknown",
+  "expectedUnanalysedReason": null,
+  "requiresUnresolvedUse": true,
+  "analysisScope": "app/ only; dependency-source/ is supplied for manual labels and intentionally outside analysis",
+  "vulnerabilityClaim": false
+}

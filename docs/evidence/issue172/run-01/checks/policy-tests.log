@@ -1,0 +1,20 @@
+=== RUN   TestIssue172UsageToDecide
+=== RUN   TestIssue172UsageToDecide/transitive-b
+=== RUN   TestIssue172UsageToDecide/direct-unimported-b
+=== RUN   TestIssue172UsageToDecide/direct-positive-b
+=== RUN   TestIssue172UsageToDecide/copied-function
+=== RUN   TestIssue172UsageToDecide/destructured-copy
+=== RUN   TestIssue172UsageToDecide/observed-other-symbol
+--- PASS: TestIssue172UsageToDecide (0.04s)
+    --- PASS: TestIssue172UsageToDecide/transitive-b (0.02s)
+    --- PASS: TestIssue172UsageToDecide/direct-unimported-b (0.00s)
+    --- PASS: TestIssue172UsageToDecide/direct-positive-b (0.00s)
+    --- PASS: TestIssue172UsageToDecide/copied-function (0.00s)
+    --- PASS: TestIssue172UsageToDecide/destructured-copy (0.00s)
+    --- PASS: TestIssue172UsageToDecide/observed-other-symbol (0.00s)
+PASS
+ok  	github.com/Xsamsx/SBOMber/internal/cli	0.054s
+=== RUN   TestIssue172AbsentImportCannotSupportNegative
+--- PASS: TestIssue172AbsentImportCannotSupportNegative (0.00s)
+PASS
+ok  	github.com/Xsamsx/SBOMber/internal/decision	0.003s
