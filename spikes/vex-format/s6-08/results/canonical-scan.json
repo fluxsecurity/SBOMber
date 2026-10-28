@@ -1,12 +1,14 @@
 {
   "schemaVersion": "1.0.0",
   "scan": {
-    "scanId": "scan-s6-08-demo-app",
-    "startedAt": "2026-10-18T11:06:09Z",
-    "completedAt": "2026-10-18T11:06:09Z",
+    "scanId": "scan-20261018T000000Z-cf1d8d4d",
+    "startedAt": "2026-10-18T00:00:00Z",
+    "completedAt": "2026-10-18T00:00:00Z",
     "toolVersions": {
-      "grype": "0.112.0",
-      "bridge": "spikes/vex-format/s6-08/build_canonical_scan.py"
+      "go": "go1.26.9",
+      "grype": "0.120.1",
+      "grype-db": "v6.1.10 built 2026-10-28T06:23:30Z",
+      "sbomber": "0.1.1"
     },
     "status": "complete",
     "statusDetail": {
@@ -19,29 +21,31 @@
       {
         "repositoryId": "repo-demo-app",
         "path": "demo-app",
+        "commit": "e356d2b240e8c81fbcce96bdeea4563a1bac58b4",
         "source": "local"
       }
     ],
     "enrichment": [
       {
         "source": "epss",
-        "status": "skipped",
-        "detail": "not run by the S6-08 bridge; Component 1 enriches"
+        "status": "success"
       },
       {
         "source": "cisa_kev",
-        "status": "skipped",
-        "detail": "not run by the S6-08 bridge; Component 1 enriches"
+        "status": "success"
+      },
+      {
+        "source": "ghsa",
+        "status": "success"
       },
       {
         "source": "registry",
-        "status": "skipped",
-        "detail": "not run by the S6-08 bridge; Component 1 enriches"
+        "status": "success"
       },
       {
         "source": "malware",
         "status": "skipped",
-        "detail": "not run by the S6-08 bridge; Component 1 enriches"
+        "detail": "malware scanning is not yet implemented"
       }
     ]
   },
@@ -50,34 +54,30 @@
       "purl": "pkg:npm/decode-uri-component@0.2.0",
       "ecosystem": "npm",
       "name": "decode-uri-component",
-      "version": "0.2.0",
-      "versionKnown": true
+      "version": "0.2.0"
     },
     {
       "purl": "pkg:npm/ini@1.3.5",
       "ecosystem": "npm",
       "name": "ini",
-      "version": "1.3.5",
-      "versionKnown": true
+      "version": "1.3.5"
     },
     {
       "purl": "pkg:npm/lodash@4.17.20",
       "ecosystem": "npm",
       "name": "lodash",
-      "version": "4.17.20",
-      "versionKnown": true
+      "version": "4.17.20"
     },
     {
       "purl": "pkg:npm/minimist@1.2.2",
       "ecosystem": "npm",
       "name": "minimist",
-      "version": "1.2.2",
-      "versionKnown": true
+      "version": "1.2.2"
     }
   ],
   "occurrences": [
     {
-      "occurrenceId": "occ-001",
+      "occurrenceId": "occ-c101e9a1d990",
       "purl": "pkg:npm/decode-uri-component@0.2.0",
       "repositoryId": "repo-demo-app",
       "manifest": "package.json",
@@ -87,7 +87,7 @@
       "scope": "runtime"
     },
     {
-      "occurrenceId": "occ-002",
+      "occurrenceId": "occ-9439dd0737c0",
       "purl": "pkg:npm/ini@1.3.5",
       "repositoryId": "repo-demo-app",
       "manifest": "package.json",
@@ -97,7 +97,7 @@
       "scope": "runtime"
     },
     {
-      "occurrenceId": "occ-003",
+      "occurrenceId": "occ-393ab45089f6",
       "purl": "pkg:npm/lodash@4.17.20",
       "repositoryId": "repo-demo-app",
       "manifest": "package.json",
@@ -107,7 +107,7 @@
       "scope": "runtime"
     },
     {
-      "occurrenceId": "occ-004",
+      "occurrenceId": "occ-ce6b62856573",
       "purl": "pkg:npm/minimist@1.2.2",
       "repositoryId": "repo-demo-app",
       "manifest": "package.json",
@@ -119,175 +119,292 @@
   ],
   "findings": [
     {
-      "findingId": "find-001",
-      "vulnerabilityId": "CVE-2026-45822",
+      "findingId": "find-346e424c5137",
+      "vulnerabilityId": "GHSA-vcc3-ghjq-m6fr",
       "aliases": [
-        "GHSA-vcc3-ghjq-m6fr"
+        "CVE-2026-45822"
       ],
       "purl": "pkg:npm/decode-uri-component@0.2.0",
       "occurrenceIds": [
-        "occ-001"
+        "occ-c101e9a1d990"
       ],
       "severity": "medium",
+      "cvssScore": 6.6,
+      "fixedVersion": "0.5.0",
+      "epss": {
+        "score": 0.00507,
+        "percentile": 0.43114
+      },
+      "cisaKev": false,
       "provenance": {
         "scanner": "grype",
-        "scannerVersion": "0.112.0"
-      },
-      "fixedVersion": "0.5.0"
+        "scannerVersion": "0.120.1",
+        "enrichedBy": [
+          "epss",
+          "cisa_kev",
+          "ghsa"
+        ]
+      }
     },
     {
-      "findingId": "find-002",
-      "vulnerabilityId": "CVE-2022-38900",
+      "findingId": "find-d2a5d7f3001d",
+      "vulnerabilityId": "GHSA-w573-4hg7-7wgq",
       "aliases": [
-        "GHSA-w573-4hg7-7wgq"
+        "CVE-2022-38900"
       ],
       "purl": "pkg:npm/decode-uri-component@0.2.0",
       "occurrenceIds": [
-        "occ-001"
+        "occ-c101e9a1d990"
       ],
       "severity": "high",
+      "cvssScore": 7.5,
+      "fixedVersion": "0.2.1",
+      "epss": {
+        "score": 0.2361,
+        "percentile": 0.978
+      },
+      "cisaKev": false,
       "provenance": {
         "scanner": "grype",
-        "scannerVersion": "0.112.0"
-      },
-      "fixedVersion": "0.2.1"
+        "scannerVersion": "0.120.1",
+        "enrichedBy": [
+          "epss",
+          "cisa_kev",
+          "ghsa"
+        ]
+      }
     },
     {
-      "findingId": "find-003",
-      "vulnerabilityId": "CVE-2020-7788",
+      "findingId": "find-6698b616f730",
+      "vulnerabilityId": "GHSA-qqgx-2p2h-9c37",
       "aliases": [
-        "GHSA-qqgx-2p2h-9c37"
+        "CVE-2020-7788"
       ],
       "purl": "pkg:npm/ini@1.3.5",
       "occurrenceIds": [
-        "occ-002"
+        "occ-9439dd0737c0"
       ],
       "severity": "high",
+      "cvssScore": 7.3,
+      "fixedVersion": "1.3.6",
+      "epss": {
+        "score": 0.03655,
+        "percentile": 0.89575
+      },
+      "cisaKev": false,
       "provenance": {
         "scanner": "grype",
-        "scannerVersion": "0.112.0"
-      },
-      "fixedVersion": "1.3.6"
+        "scannerVersion": "0.120.1",
+        "enrichedBy": [
+          "epss",
+          "cisa_kev",
+          "ghsa"
+        ]
+      }
     },
     {
-      "findingId": "find-004",
-      "vulnerabilityId": "CVE-2020-28500",
+      "findingId": "find-dfdf2e9d5cba",
+      "vulnerabilityId": "GHSA-29mw-wpgm-hmr9",
       "aliases": [
-        "GHSA-29mw-wpgm-hmr9"
+        "CVE-2020-28500"
       ],
       "purl": "pkg:npm/lodash@4.17.20",
       "occurrenceIds": [
-        "occ-003"
+        "occ-393ab45089f6"
       ],
       "severity": "medium",
+      "cvssScore": 5.3,
+      "fixedVersion": "4.17.21",
+      "epss": {
+        "score": 0.07336,
+        "percentile": 0.94371
+      },
+      "cisaKev": false,
       "provenance": {
         "scanner": "grype",
-        "scannerVersion": "0.112.0"
-      },
-      "fixedVersion": "4.17.21"
+        "scannerVersion": "0.120.1",
+        "enrichedBy": [
+          "epss",
+          "cisa_kev",
+          "ghsa"
+        ]
+      }
     },
     {
-      "findingId": "find-005",
-      "vulnerabilityId": "CVE-2021-23337",
+      "findingId": "find-ab7656081bde",
+      "vulnerabilityId": "GHSA-35jh-r3h4-6jhm",
       "aliases": [
-        "GHSA-35jh-r3h4-6jhm"
+        "CVE-2021-23337"
       ],
       "purl": "pkg:npm/lodash@4.17.20",
       "occurrenceIds": [
-        "occ-003"
+        "occ-393ab45089f6"
       ],
       "severity": "high",
+      "cvssScore": 7.2,
+      "fixedVersion": "4.17.21",
+      "epss": {
+        "score": 0.21333,
+        "percentile": 0.97592
+      },
+      "cisaKev": false,
       "provenance": {
         "scanner": "grype",
-        "scannerVersion": "0.112.0"
-      },
-      "fixedVersion": "4.17.21"
+        "scannerVersion": "0.120.1",
+        "enrichedBy": [
+          "epss",
+          "cisa_kev",
+          "ghsa"
+        ]
+      }
     },
     {
-      "findingId": "find-006",
-      "vulnerabilityId": "CVE-2026-2950",
+      "findingId": "find-48910c48f6d0",
+      "vulnerabilityId": "GHSA-f23m-r3pf-42rh",
       "aliases": [
-        "GHSA-f23m-r3pf-42rh"
+        "CVE-2026-2950"
       ],
       "purl": "pkg:npm/lodash@4.17.20",
       "occurrenceIds": [
-        "occ-003"
+        "occ-393ab45089f6"
       ],
       "severity": "medium",
+      "cvssScore": 6.5,
+      "fixedVersion": "4.18.0",
+      "epss": {
+        "score": 0.00337,
+        "percentile": 0.27057
+      },
+      "cisaKev": false,
       "provenance": {
         "scanner": "grype",
-        "scannerVersion": "0.112.0"
-      },
-      "fixedVersion": "4.18.0"
+        "scannerVersion": "0.120.1",
+        "enrichedBy": [
+          "epss",
+          "cisa_kev",
+          "ghsa"
+        ]
+      }
     },
     {
-      "findingId": "find-007",
-      "vulnerabilityId": "CVE-2026-4800",
+      "findingId": "find-fa3de04c9908",
+      "vulnerabilityId": "GHSA-r5fr-rjxr-66jc",
       "aliases": [
-        "GHSA-r5fr-rjxr-66jc"
+        "CVE-2026-4800"
       ],
       "purl": "pkg:npm/lodash@4.17.20",
       "occurrenceIds": [
-        "occ-003"
+        "occ-393ab45089f6"
       ],
       "severity": "high",
+      "cvssScore": 8.1,
+      "fixedVersion": "4.18.0",
+      "epss": {
+        "score": 0.02808,
+        "percentile": 0.86457
+      },
+      "cisaKev": false,
       "provenance": {
         "scanner": "grype",
-        "scannerVersion": "0.112.0"
-      },
-      "fixedVersion": "4.18.0"
+        "scannerVersion": "0.120.1",
+        "enrichedBy": [
+          "epss",
+          "cisa_kev",
+          "ghsa"
+        ]
+      }
     },
     {
-      "findingId": "find-008",
-      "vulnerabilityId": "CVE-2025-13465",
+      "findingId": "find-41606c2de111",
+      "vulnerabilityId": "GHSA-xxjr-mmjv-4gpg",
       "aliases": [
-        "GHSA-xxjr-mmjv-4gpg"
+        "CVE-2025-13465"
       ],
       "purl": "pkg:npm/lodash@4.17.20",
       "occurrenceIds": [
-        "occ-003"
+        "occ-393ab45089f6"
       ],
       "severity": "medium",
+      "cvssScore": 6.9,
+      "fixedVersion": "4.17.23",
+      "epss": {
+        "score": 0.01823,
+        "percentile": 0.787
+      },
+      "cisaKev": false,
       "provenance": {
         "scanner": "grype",
-        "scannerVersion": "0.112.0"
-      },
-      "fixedVersion": "4.17.23"
+        "scannerVersion": "0.120.1",
+        "enrichedBy": [
+          "epss",
+          "cisa_kev",
+          "ghsa"
+        ]
+      }
     },
     {
-      "findingId": "find-009",
-      "vulnerabilityId": "CVE-2020-7598",
+      "findingId": "find-dc4da9a92620",
+      "vulnerabilityId": "GHSA-vh95-rmgr-6w4m",
       "aliases": [
-        "GHSA-vh95-rmgr-6w4m"
+        "CVE-2020-7598"
       ],
       "purl": "pkg:npm/minimist@1.2.2",
       "occurrenceIds": [
-        "occ-004"
+        "occ-ce6b62856573"
       ],
       "severity": "medium",
+      "cvssScore": 5.6,
+      "fixedVersion": "1.2.3",
+      "epss": {
+        "score": 0.01931,
+        "percentile": 0.7994
+      },
+      "cisaKev": false,
       "provenance": {
         "scanner": "grype",
-        "scannerVersion": "0.112.0"
-      },
-      "fixedVersion": "1.2.3"
+        "scannerVersion": "0.120.1",
+        "enrichedBy": [
+          "epss",
+          "cisa_kev",
+          "ghsa"
+        ]
+      }
     },
     {
-      "findingId": "find-010",
-      "vulnerabilityId": "CVE-2021-44906",
+      "findingId": "find-a6e97c1b4e5c",
+      "vulnerabilityId": "GHSA-xvch-5gv4-984h",
       "aliases": [
-        "GHSA-xvch-5gv4-984h"
+        "CVE-2021-44906"
       ],
       "purl": "pkg:npm/minimist@1.2.2",
       "occurrenceIds": [
-        "occ-004"
+        "occ-ce6b62856573"
       ],
       "severity": "critical",
+      "cvssScore": 9.8,
+      "fixedVersion": "1.2.6",
+      "epss": {
+        "score": 0.04581,
+        "percentile": 0.916
+      },
+      "cisaKev": false,
       "provenance": {
         "scanner": "grype",
-        "scannerVersion": "0.112.0"
-      },
-      "fixedVersion": "1.2.6"
+        "scannerVersion": "0.120.1",
+        "enrichedBy": [
+          "epss",
+          "cisa_kev",
+          "ghsa"
+        ]
+      }
     }
   ],
-  "supplyChainWarnings": []
+  "supplyChainWarnings": [
+    {
+      "warningId": "warn-ccb339f88455",
+      "purl": "pkg:npm/ini@1.3.5",
+      "kind": "deprecated",
+      "detail": "Please update to ini \u003e=1.3.6 to avoid a prototype pollution issue"
+    }
+  ]
 }

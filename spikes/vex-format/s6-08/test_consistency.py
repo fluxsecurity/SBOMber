@@ -22,6 +22,10 @@ class ConsistencyTests(unittest.TestCase):
         for f in RESULTS.iterdir():
             shutil.copy(f, out / f.name)
         if edit:
+            # An edited copy is no longer the live run, so drop its manifest:
+            # the check under test must be what fails, not the hashes. Tests
+            # of the manifest itself build a synthetic one inside their edit.
+            (out / "run-metadata.json").unlink(missing_ok=True)
             edit(out)
         res = subprocess.run(
             [sys.executable, str(SCRIPT), str(out)], text=True, capture_output=True

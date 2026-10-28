@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.1.0",
-  "scanId": "scan-s6-08-demo-app",
+  "scanId": "scan-20261018T000000Z-cf1d8d4d",
   "summary": {
     "findingsProcessed": 10,
     "byMethod": {
@@ -11,8 +11,8 @@
   },
   "results": [
     {
-      "findingId": "find-001",
-      "vulnerabilityId": "CVE-2026-45822",
+      "findingId": "find-346e424c5137",
+      "vulnerabilityId": "GHSA-vcc3-ghjq-m6fr",
       "purl": "pkg:npm/decode-uri-component@0.2.0",
       "method": "patch_reference",
       "confidence": "medium",
@@ -201,8 +201,8 @@
       "notes": "Selected patch_reference with 7 candidate symbol(s). advisory_metadata: empty. Non-function changes: multiMatcher (index.js), hexPair (index.js), singleMatcher (index.js). Visibility read from npm:decode-uri-component@0.2.0: 3 of 7 candidate(s) public or completely resolved."
     },
     {
-      "findingId": "find-002",
-      "vulnerabilityId": "CVE-2022-38900",
+      "findingId": "find-d2a5d7f3001d",
+      "vulnerabilityId": "GHSA-w573-4hg7-7wgq",
       "purl": "pkg:npm/decode-uri-component@0.2.0",
       "method": "patch_reference",
       "confidence": "high",
@@ -340,8 +340,8 @@
       "notes": "Selected patch_reference with 2 candidate symbol(s). advisory_metadata: empty. Visibility read from npm:decode-uri-component@0.2.0: 2 of 2 candidate(s) public or completely resolved."
     },
     {
-      "findingId": "find-003",
-      "vulnerabilityId": "CVE-2020-7788",
+      "findingId": "find-6698b616f730",
+      "vulnerabilityId": "GHSA-qqgx-2p2h-9c37",
       "purl": "pkg:npm/ini@1.3.5",
       "method": "patch_reference",
       "confidence": "high",
@@ -466,8 +466,8 @@
       "notes": "Selected patch_reference with 2 candidate symbol(s). advisory_metadata: empty. Visibility read from npm:ini@1.3.5: 2 of 2 candidate(s) public or completely resolved."
     },
     {
-      "findingId": "find-004",
-      "vulnerabilityId": "CVE-2020-28500",
+      "findingId": "find-dfdf2e9d5cba",
+      "vulnerabilityId": "GHSA-29mw-wpgm-hmr9",
       "purl": "pkg:npm/lodash@4.17.20",
       "method": "patch_reference",
       "confidence": "medium",
@@ -687,8 +687,8 @@
       "notes": "Selected patch_reference with 5 candidate symbol(s). advisory_metadata: empty. Visibility read from npm:lodash@4.17.20: 0 of 5 candidate(s) public or completely resolved."
     },
     {
-      "findingId": "find-005",
-      "vulnerabilityId": "CVE-2021-23337",
+      "findingId": "find-ab7656081bde",
+      "vulnerabilityId": "GHSA-35jh-r3h4-6jhm",
       "purl": "pkg:npm/lodash@4.17.20",
       "method": "patch_reference",
       "confidence": "high",
@@ -804,8 +804,8 @@
       "notes": "Selected patch_reference with 1 candidate symbol(s). advisory_metadata: empty. Visibility read from npm:lodash@4.17.20: 0 of 1 candidate(s) public or completely resolved."
     },
     {
-      "findingId": "find-006",
-      "vulnerabilityId": "CVE-2026-2950",
+      "findingId": "find-48910c48f6d0",
+      "vulnerabilityId": "GHSA-f23m-r3pf-42rh",
       "purl": "pkg:npm/lodash@4.17.20",
       "method": "advisory_text",
       "confidence": "medium",
@@ -846,8 +846,8 @@
       "notes": "Selected advisory_text with 2 candidate symbol(s). advisory_metadata: empty. patch_reference: empty."
     },
     {
-      "findingId": "find-007",
-      "vulnerabilityId": "CVE-2026-4800",
+      "findingId": "find-fa3de04c9908",
+      "vulnerabilityId": "GHSA-r5fr-rjxr-66jc",
       "purl": "pkg:npm/lodash@4.17.20",
       "method": "patch_reference",
       "confidence": "high",
@@ -963,8 +963,8 @@
       "notes": "Selected patch_reference with 1 candidate symbol(s). advisory_metadata: empty. Visibility read from npm:lodash@4.17.20: 0 of 1 candidate(s) public or completely resolved."
     },
     {
-      "findingId": "find-008",
-      "vulnerabilityId": "CVE-2025-13465",
+      "findingId": "find-41606c2de111",
+      "vulnerabilityId": "GHSA-xxjr-mmjv-4gpg",
       "purl": "pkg:npm/lodash@4.17.20",
       "method": "patch_reference",
       "confidence": "high",
@@ -1144,8 +1144,8 @@
       "notes": "Selected patch_reference with 2 candidate symbol(s). advisory_metadata: empty. Visibility read from npm:lodash@4.17.20: 0 of 2 candidate(s) public or completely resolved."
     },
     {
-      "findingId": "find-009",
-      "vulnerabilityId": "CVE-2020-7598",
+      "findingId": "find-dc4da9a92620",
+      "vulnerabilityId": "GHSA-vh95-rmgr-6w4m",
       "purl": "pkg:npm/minimist@1.2.2",
       "method": "patch_reference",
       "confidence": "high",
@@ -1340,8 +1340,8 @@
       "notes": "Selected patch_reference with 1 candidate symbol(s). advisory_metadata: empty. Visibility read from npm:minimist@1.2.2: 1 of 1 candidate(s) public or completely resolved."
     },
     {
-      "findingId": "find-010",
-      "vulnerabilityId": "CVE-2021-44906",
+      "findingId": "find-a6e97c1b4e5c",
+      "vulnerabilityId": "GHSA-xvch-5gv4-984h",
       "purl": "pkg:npm/minimist@1.2.2",
       "method": "patch_reference",
       "confidence": "high",

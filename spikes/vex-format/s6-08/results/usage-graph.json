@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.4.0",
-  "scanId": "scan-s6-08-demo-app",
+  "scanId": "scan-20261018T000000Z-cf1d8d4d",
   "analysis": {
     "status": "complete",
     "ecosystem": "npm",
@@ -74,8 +74,8 @@
   },
   "observations": [
     {
-      "observationId": "obs-fa4e52c9103ec68b0a0af839b61a0489",
-      "occurrenceId": "occ-004",
+      "observationId": "obs-4c4713f9b40cf98eda1cdf7dca0d0565",
+      "occurrenceId": "occ-ce6b62856573",
       "purl": "pkg:npm/minimist@1.2.2",
       "importedSpecifier": "minimist",
       "localAlias": "minimist",
@@ -115,8 +115,8 @@
       ]
     },
     {
-      "observationId": "obs-4b2986fa2701ec68d0fe37c164520b85",
-      "occurrenceId": "occ-002",
+      "observationId": "obs-4d3c59b1e766692f91d28b85ce4c909e",
+      "occurrenceId": "occ-9439dd0737c0",
       "purl": "pkg:npm/ini@1.3.5",
       "importedSpecifier": "ini",
       "localAlias": "ini",
@@ -156,8 +156,8 @@
       ]
     },
     {
-      "observationId": "obs-2892557280466c1614d5fa2c95ca2d22",
-      "occurrenceId": "occ-003",
+      "observationId": "obs-05a97a7123e8dabe43ebee05750db414",
+      "occurrenceId": "occ-393ab45089f6",
       "purl": "pkg:npm/lodash@4.17.20",
       "importedSpecifier": "lodash",
       "localAlias": "_",
@@ -197,8 +197,8 @@
       ]
     },
     {
-      "observationId": "obs-f2d0c52720ff8add78cdebd5e42b5f84",
-      "occurrenceId": "occ-001",
+      "observationId": "obs-6d2843fbceddcdb7975261a37a4d1249",
+      "occurrenceId": "occ-c101e9a1d990",
       "purl": "pkg:npm/decode-uri-component@0.2.0",
       "importedSpecifier": "decode-uri-component",
       "localAlias": "decode",
