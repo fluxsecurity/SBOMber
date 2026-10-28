@@ -28,6 +28,6 @@
 // rule 1: the scanned application at a commit is the product and the
 // vulnerable package is a subcomponent. SubjectPackage, which makes the
 // package purl the product, stays available for tools: it is the shape Grype
-// 0.112.0 and Trivy 0.70.0 actually act on. SBOMber's own report remains the
+// (0.112.0 and 0.120.1 tested) and Trivy 0.70.0 actually act on. SBOMber's own report remains the
 // primary surface for the investigation state.
 package vex

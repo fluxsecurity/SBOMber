@@ -2349,7 +2349,7 @@ func runVEX(args []string, stdout io.Writer, stderr io.Writer) int {
 		return 0
 	}
 	if subject == vex.SubjectApplication {
-		_, _ = fmt.Fprintf(stdout, "  note: Grype 0.112.0 and Trivy 0.70.0 do not act on application-scoped statements (issue #128); use --subject package for a document those consumers act on\n")
+		_, _ = fmt.Fprintf(stdout, "  note: Grype (0.112.0 and 0.120.1 tested) and Trivy 0.70.0 do not act on application-scoped statements (issue #128); use --subject package for a document those consumers act on\n")
 	}
 	if err := writeJSONFile(*out, res.Document); err != nil {
 		_, _ = fmt.Fprintf(stderr, "Error: %v\n", err)

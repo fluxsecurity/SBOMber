@@ -18,7 +18,7 @@ type SubjectModel string
 const (
 	// SubjectApplication is R5 rule 1: the scanned application at a commit
 	// is the product and the vulnerable package is a versioned subcomponent.
-	// Grype 0.112.0 and Trivy 0.70.0 do not act on this shape (issue #128).
+	// Grype (0.112.0 and 0.120.1 tested) and Trivy 0.70.0 do not act on this shape (issue #128).
 	SubjectApplication SubjectModel = "application"
 	// SubjectPackage makes the vulnerable package purl the product. This is
 	// the shape the pinned consumers act on, but it reads as a claim about
