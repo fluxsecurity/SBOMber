@@ -87,8 +87,10 @@ $S vex --decisions "$OUT/decision-results.json" --canonical-scan "$OUT/canonical
   --subject application --product "pkg:npm/s6-08-demo-app@1.0.0" --out "$OUT/demo-app.application.openvex.json"
 $S vex --decisions "$OUT/decision-results.json" --canonical-scan "$OUT/canonical-scan.json" \
   --subject package --out "$OUT/demo-app.package.openvex.json"
-$S localise --verify "$OUT/localisation.json" --online --timeout 10m \
-  --verify-report "$OUT/localisation-verify.json" > "$OUT/localisation-verify.txt"
+# Verified from the results directory with a relative path: the text report
+# names the file it was given, and the committed evidence carries no local path.
+(cd "$OUT" && "$ROOT/bin/sbomber" localise --verify localisation.json --online --timeout 10m \
+  --verify-report localisation-verify.json > localisation-verify.txt)
 
 # The pinned consumer. grype.json is the consumer's own view of the app;
 # every finding in it is ignored by rule, and with vex-add:
