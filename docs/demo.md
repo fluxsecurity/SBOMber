@@ -66,11 +66,25 @@ different days can differ: the database and the enrichment sources (EPSS,
 KEV) change. `canonical-scan.json` records the Grype database each run used
 (`scan.toolVersions["grype-db"]`).
 
-Expected result on the demo repository (database of October 2026):
-14 findings, 2 under "Update first" (express, used from `index.js`) and 12
-under "Insufficient information". The scan is `partial` because the
+Expected result on the demo repository (Grype database of 28 October 2026):
+15 findings, 2 under "Update first" (both express) and 13 under
+"Insufficient information". The total depends on the Grype database, so it can
+change from day to day; the two runs of `--twice` always agree because the
+database is frozen for the run. The scan is `partial` because the
 repository has no lockfile: the versions are as declared in `package.json`
 and transitive dependencies are not listed.
+
+Read the two "Update first" findings with the audit in mind. They are
+GHSA-rv95-896h-c2vc and GHSA-qw6h-vgh9-j6wx, which concern `res.location` and
+`res.redirect`. The hand labels in
+[`testdata/audit`](../testdata/audit/README.md) record that the application
+never calls either, so the audit counts both as over-reported usage. SBOMber
+matched them because the application calls express, which exposes the affected
+code, and the route to it could only be resolved one hop. The `_.merge` call in
+`index.js:55`, which the labels record as genuine usage of lodash, is reported
+under "Insufficient information". "Update first" means usage evidence at a
+public entry point of the package, not a confirmed call to the vulnerable
+function.
 
 ## The pipeline, one command at a time
 
@@ -107,6 +121,8 @@ repository that could not be scanned makes `scan` exit `2`; it still writes
 
 - **`remediation-report.html`**: start here. "Update first" lists packages
   with usage evidence, most urgent first, with the version to update to.
+  Usage evidence can be an application call to a public entry point of the
+  package; it is not proof that the vulnerable function runs.
   "Insufficient information" lists findings SBOMber could not decide, and
   why, with the analysis coverage at the top. "No direct usage evidence found
   within the analysed scope" is not a statement that a package is safe.
