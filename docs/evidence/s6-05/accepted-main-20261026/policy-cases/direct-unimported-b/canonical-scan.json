@@ -1,0 +1,60 @@
+{
+  "schemaVersion": "1.0.0",
+  "scan": {
+    "scanId": "synthetic-172-direct-unimported-b",
+    "startedAt": "2026-10-24T00:00:00Z",
+    "status": "complete",
+    "repositories": [
+      {
+        "repositoryId": "repo-172",
+        "path": "app",
+        "source": "local"
+      }
+    ]
+  },
+  "components": [
+    {
+      "purl": "pkg:npm/dep-a@1.0.0",
+      "ecosystem": "npm",
+      "name": "dep-a",
+      "version": "1.0.0"
+    },
+    {
+      "purl": "pkg:npm/dep-b@1.0.0",
+      "ecosystem": "npm",
+      "name": "dep-b",
+      "version": "1.0.0"
+    }
+  ],
+  "occurrences": [
+    {
+      "occurrenceId": "occ-dep-a",
+      "purl": "pkg:npm/dep-a@1.0.0",
+      "repositoryId": "repo-172",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/dep-a"
+    },
+    {
+      "occurrenceId": "occ-dep-b",
+      "purl": "pkg:npm/dep-b@1.0.0",
+      "repositoryId": "repo-172",
+      "manifest": "package.json",
+      "relationship": "direct",
+      "dependencyPath": [],
+      "installPath": "node_modules/dep-b"
+    }
+  ],
+  "findings": [
+    {
+      "findingId": "find-172",
+      "vulnerabilityId": "SYNTHETIC-172",
+      "purl": "pkg:npm/dep-b@1.0.0",
+      "severity": "high",
+      "occurrenceIds": [
+        "occ-dep-b"
+      ]
+    }
+  ]
+}

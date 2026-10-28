@@ -1,0 +1,61 @@
+{
+  "schemaVersion": "1.1.0",
+  "scanId": "synthetic-172-copied-function",
+  "distribution": {
+    "totalFindings": 1,
+    "usageDetected": 0,
+    "noUsageDetected": 0,
+    "unknown": 1,
+    "unsupported": 0
+  },
+  "decisions": [
+    {
+      "findingId": "find-172",
+      "vulnerabilityId": "SYNTHETIC-172",
+      "purl": "pkg:npm/dep-b@1.0.0",
+      "state": "unknown",
+      "analysisConfidence": "medium",
+      "confidenceCriteria": [
+        "localisation method patch_reference",
+        "parse coverage 100.0 percent",
+        "1 unresolved call site(s) for this package",
+        "no second deterministic method available to corroborate"
+      ],
+      "riskPriority": {
+        "band": "insufficient_information",
+        "severity": "high",
+        "relationship": "direct",
+        "fixAvailable": false
+      },
+      "justification": "A call on this package at index.js:1 could not be resolved (outside_supported_syntax) and could reach a candidate function.",
+      "basedOn": {
+        "usageObservationIds": [
+          "obs-d9a6573060269e9713ab55eb4ea9de5d"
+        ],
+        "localisationMethod": "patch_reference",
+        "localisationConfidence": "high",
+        "matchedSymbols": [],
+        "evidenceLevel": 1,
+        "coverageSummary": {
+          "parseCoveragePercent": 100,
+          "unresolvedImportsInScope": 0,
+          "scanStatus": "complete"
+        }
+      },
+      "vexMapping": {
+        "statement": "under_investigation"
+      }
+    }
+  ],
+  "remediationGroups": [
+    {
+      "purl": "pkg:npm/dep-b@1.0.0",
+      "installedVersion": "1.0.0",
+      "findingIds": [
+        "find-172"
+      ],
+      "highestBand": "insufficient_information",
+      "relationship": "direct"
+    }
+  ]
+}

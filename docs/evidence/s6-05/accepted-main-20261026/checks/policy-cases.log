@@ -1,0 +1,7 @@
+copied-function: unknown; schemas/policy invariants PASS
+destructured-copy: unknown; schemas/policy invariants PASS
+direct-positive-b: usage_detected; schemas/policy invariants PASS
+direct-unimported-b: unknown; schemas/policy invariants PASS
+observed-other-symbol: no_usage_detected; schemas/policy invariants PASS
+transitive-b: unknown; schemas/policy invariants PASS
+Saved 6 labelled policy cases: /home/sbomber1/dev/sbomber/pr180-final-9svy3ft3/documentation/docs/evidence/s6-05/accepted-main-20261026/policy-cases

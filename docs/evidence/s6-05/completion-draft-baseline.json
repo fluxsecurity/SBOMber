@@ -1,0 +1,14 @@
+{
+  "sourcePr": 179,
+  "sourceCommit": "987d50a0a906963678bbd43247aaa325635ce20a",
+  "sourceBranch": "fix/172-indirect-usage-policy",
+  "documentationBranch": "docs/component2-completion",
+  "reviewStatus": "prepared_not_final_signoff",
+  "productionCodeChanged": false,
+  "newRuntimeTestRunClaimed": false,
+  "pending": [
+    "verify and record Component 4 policy agreement",
+    "Component 3 paired limitations review",
+    "final accepted-main verification"
+  ]
+}

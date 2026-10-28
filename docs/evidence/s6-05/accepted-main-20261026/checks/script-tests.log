@@ -1,0 +1,45 @@
+test_dirty_cached_checkout_is_not_reset (test_audit_inputs.AuditInputPublicationTests.test_dirty_cached_checkout_is_not_reset) ... ok
+test_existing_labels_prevent_input_refresh (test_audit_inputs.AuditInputPublicationTests.test_existing_labels_prevent_input_refresh) ... ok
+test_previous_run_output_and_log_are_preserved (test_audit_inputs.AuditInputPublicationTests.test_previous_run_output_and_log_are_preserved) ... ok
+test_provisional_labels_prevent_input_refresh (test_audit_inputs.AuditInputPublicationTests.test_provisional_labels_prevent_input_refresh) ... ok
+test_success_publishes_validated_inputs (test_audit_inputs.AuditInputPublicationTests.test_success_publishes_validated_inputs) ... ok
+test_uncommitted_production_source_is_rejected (test_audit_inputs.AuditInputPublicationTests.test_uncommitted_production_source_is_rejected) ... ok
+test_validation_failure_preserves_case_inputs (test_audit_inputs.AuditInputPublicationTests.test_validation_failure_preserves_case_inputs) ... ok
+test_wrong_cached_commit_is_not_reset (test_audit_inputs.AuditInputPublicationTests.test_wrong_cached_commit_is_not_reset) ... ok
+test_invented_reexport_symbol_is_rejected (test_check_s6_usage_safety.SafetyTests.test_invented_reexport_symbol_is_rejected) ... ok
+test_matching_computed_uncertainty_passes (test_check_s6_usage_safety.SafetyTests.test_matching_computed_uncertainty_passes) ... ok
+test_missing_computed_flag_fails (test_check_s6_usage_safety.SafetyTests.test_missing_computed_flag_fails) ... ok
+test_omitted_false_flag_uses_contract_default (test_check_s6_usage_safety.SafetyTests.test_omitted_false_flag_uses_contract_default) ... ok
+test_partial_analysis_fails (test_check_s6_usage_safety.SafetyTests.test_partial_analysis_fails) ... ok
+test_reexport_reachability_must_remain_unknown (test_check_s6_usage_safety.SafetyTests.test_reexport_reachability_must_remain_unknown) ... ok
+test_unanalysed_occurrence_must_stay_visible (test_check_s6_usage_safety.SafetyTests.test_unanalysed_occurrence_must_stay_visible) ... ok
+test_wrong_purl_cannot_match_the_expected_binding (test_check_s6_usage_safety.SafetyTests.test_wrong_purl_cannot_match_the_expected_binding) ... ok
+test_wrong_uncertainty_reason_fails (test_check_s6_usage_safety.SafetyTests.test_wrong_uncertainty_reason_fails) ... ok
+test_coverage_mismatch_is_not_published (test_evaluate_reachability.MeasurementTests.test_coverage_mismatch_is_not_published) ... ok
+test_does_not_mutate_saved_graph (test_evaluate_reachability.MeasurementTests.test_does_not_mutate_saved_graph) ... ok
+test_empty_call_scope_has_na_rate (test_evaluate_reachability.MeasurementTests.test_empty_call_scope_has_na_rate) ... ok
+test_marker_does_not_inflate_resolved_symbol_subset (test_evaluate_reachability.MeasurementTests.test_marker_does_not_inflate_resolved_symbol_subset) ... ok
+test_no_pass_has_na_rate_not_zero_or_success (test_evaluate_reachability.MeasurementTests.test_no_pass_has_na_rate_not_zero_or_success) ... ok
+test_unknown_cannot_carry_a_path (test_evaluate_reachability.MeasurementTests.test_unknown_cannot_carry_a_path) ... ok
+test_unresolved_import_cannot_be_reachable (test_evaluate_reachability.MeasurementTests.test_unresolved_import_cannot_be_reachable) ... ok
+test_aggregate_uses_counts_and_reports_denominators (test_evaluate_usage_constructs.EvaluationTests.test_aggregate_uses_counts_and_reports_denominators) ... ok
+test_duplicate_observation_counts_false_positive (test_evaluate_usage_constructs.EvaluationTests.test_duplicate_observation_counts_false_positive) ... ok
+test_empty_call_metrics_are_undefined (test_evaluate_usage_constructs.EvaluationTests.test_empty_call_metrics_are_undefined) ... ok
+test_excluded_shadow_detected (test_evaluate_usage_constructs.EvaluationTests.test_excluded_shadow_detected) ... ok
+test_misattribution_to_other_import_is_false_positive (test_evaluate_usage_constructs.EvaluationTests.test_misattribution_to_other_import_is_false_positive) ... ok
+test_missing_expected_call_counts_false_negative (test_evaluate_usage_constructs.EvaluationTests.test_missing_expected_call_counts_false_negative) ... ok
+test_partial_scan_is_rejected (test_evaluate_usage_constructs.EvaluationTests.test_partial_scan_is_rejected) ... ok
+test_provenance_tracks_build_inputs (test_evaluate_usage_constructs.EvaluationTests.test_provenance_tracks_build_inputs) ... ok
+test_runner_preserves_git_status_leading_space (test_evaluate_usage_constructs.EvaluationTests.test_runner_preserves_git_status_leading_space) ... ok
+test_type_only_import_and_no_calls (test_evaluate_usage_constructs.EvaluationTests.test_type_only_import_and_no_calls) ... ok
+test_unresolved_import_is_separate_from_resolved_call (test_evaluate_usage_constructs.EvaluationTests.test_unresolved_import_is_separate_from_resolved_call) ... ok
+test_wrong_purl_is_misattribution (test_evaluate_usage_constructs.EvaluationTests.test_wrong_purl_is_misattribution) ... ok
+test_changed_label_identity_is_rejected (test_summarise_audit_label_provenance.AuditLabelProvenanceTests.test_changed_label_identity_is_rejected) ... ok
+test_duplicate_report_row_is_rejected (test_summarise_audit_label_provenance.AuditLabelProvenanceTests.test_duplicate_report_row_is_rejected) ... ok
+test_provisional_case_cannot_be_reintroduced (test_summarise_audit_label_provenance.AuditLabelProvenanceTests.test_provisional_case_cannot_be_reintroduced) ... ok
+test_scope_and_timing_are_separate (test_summarise_audit_label_provenance.AuditLabelProvenanceTests.test_scope_and_timing_are_separate) ... ok
+
+----------------------------------------------------------------------
+Ran 40 tests in 0.770s
+
+OK

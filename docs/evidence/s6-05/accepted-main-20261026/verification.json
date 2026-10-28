@@ -1,0 +1,287 @@
+{
+  "verifiedMainCommit": "8f7adedb2e1d6425b213cbeaa6300391b4cc90ee",
+  "reviewedImplementationCommit": "987d50a0a906963678bbd43247aaa325635ce20a",
+  "documentationParentCommit": "612a9ddf9c6a510aaa11fa376c54d011b6f7044d",
+  "documentationWorktree": "/home/sbomber1/dev/sbomber/pr180-final-9svy3ft3/documentation",
+  "branch": "docs/pr180-final-9svy3ft3",
+  "verificationWorktree": "/home/sbomber1/dev/sbomber/pr180-final-9svy3ft3/accepted-main",
+  "reviewedImplementationPathsIdenticalToMain": [
+    "internal/sourceanalysis",
+    "internal/usagegraph",
+    "internal/decision",
+    "internal/cli",
+    "contracts",
+    "testdata/fixtures/indirect-usage-172",
+    "go.mod",
+    "go.sum"
+  ],
+  "evidenceMapPaths": [
+    "internal/cli/indirect_usage_policy_test.go",
+    "internal/cli/usage.go",
+    "internal/decision/indirect_usage_policy_test.go",
+    "internal/decision/results.go",
+    "internal/sourceanalysis/copied_imports_test.go",
+    "internal/sourceanalysis/extract.go",
+    "internal/sourceanalysis/functions.go",
+    "internal/sourceanalysis/repository.go",
+    "internal/sourceanalysis/routes.go",
+    "internal/usagegraph/computed_import_safety_test.go",
+    "internal/usagegraph/coverage.go",
+    "internal/usagegraph/dynamic_alias_test.go",
+    "internal/usagegraph/empty_source_test.go",
+    "internal/usagegraph/entrypoints.go",
+    "internal/usagegraph/import_forms_safety_test.go",
+    "internal/usagegraph/model.go",
+    "internal/usagegraph/path_aliases.go",
+    "internal/usagegraph/producer.go",
+    "internal/usagegraph/producer_callback_test.go",
+    "internal/usagegraph/route_safety_test.go",
+    "internal/usagegraph/s606_scope_policy_test.go",
+    "internal/vex/"
+  ],
+  "evidenceMapTests": [
+    "TestAwaitedDynamicImportRespectsBlockScope",
+    "TestBuildPartialCoverageCountsOnlyInScopeFiles",
+    "TestCopiedImportsRemainUnresolved",
+    "TestDynamicImportsResolveSymbolsAndEdges",
+    "TestFrozenDisconnectedCallHasNoPath",
+    "TestFrozenReachabilityPath",
+    "TestIssue172UsageToDecide",
+    "TestMissingAliasTargetCannotSupportNegative",
+    "TestNestedCallbackInsideRouteDoesNotBecomeReachable",
+    "TestParseTSConfigPaths",
+    "TestProduceCallbackReferenceRemainsUnknown",
+    "TestProduceWithoutReachabilityUsesNotAnalysed",
+    "TestS606ComputedImportRepositoryBoundary",
+    "TestS606ComputedImportScope",
+    "TestS606ExcludedComputedImport",
+    "TestS606MDXScope"
+  ],
+  "documentedDemoStates": {
+    "direct-positive-b": "usage_detected",
+    "copied-function": "unknown",
+    "direct-unimported-b": "unknown"
+  },
+  "secondPersonDemo": {
+    "reviewer": "Xsamsx",
+    "reviewUrl": "https://github.com/fluxsecurity/SBOMber/pull/180#pullrequestreview-5645863494",
+    "testedHead": "cc278a00909bcfdc3116a3ba45fad432f0f2a3a4",
+    "mergedMainRerunByReviewerClaimed": false
+  },
+  "auditScope": {
+    "activeCases": 2,
+    "findings": 46,
+    "provisionalDvnaLabels": 47,
+    "issue124Complete": false
+  },
+  "finalDocumentationApproval": "pending",
+  "historicalMeasurementsChanged": false,
+  "commands": [
+    {
+      "argv": [
+        "go",
+        "version"
+      ],
+      "cwd": "/home/sbomber1/dev/sbomber/pr180-final-9svy3ft3/accepted-main",
+      "exitCode": 0,
+      "log": "go-version.log"
+    },
+    {
+      "argv": [
+        "go",
+        "env",
+        "CGO_ENABLED",
+        "GOOS",
+        "GOARCH"
+      ],
+      "cwd": "/home/sbomber1/dev/sbomber/pr180-final-9svy3ft3/accepted-main",
+      "exitCode": 0,
+      "log": "go-env.log"
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-c",
+        "import jsonschema"
+      ],
+      "cwd": "/home/sbomber1/dev/sbomber/pr180-final-9svy3ft3/accepted-main",
+      "exitCode": 0,
+      "log": "jsonschema-preflight.log"
+    },
+    {
+      "argv": [
+        "make",
+        "build"
+      ],
+      "cwd": "/home/sbomber1/dev/sbomber/pr180-final-9svy3ft3/accepted-main",
+      "exitCode": 0,
+      "log": "build.log"
+    },
+    {
+      "argv": [
+        "make",
+        "test"
+      ],
+      "cwd": "/home/sbomber1/dev/sbomber/pr180-final-9svy3ft3/accepted-main",
+      "exitCode": 0,
+      "log": "test.log"
+    },
+    {
+      "argv": [
+        "make",
+        "vet"
+      ],
+      "cwd": "/home/sbomber1/dev/sbomber/pr180-final-9svy3ft3/accepted-main",
+      "exitCode": 0,
+      "log": "vet.log"
+    },
+    {
+      "argv": [
+        "make",
+        "lint"
+      ],
+      "cwd": "/home/sbomber1/dev/sbomber/pr180-final-9svy3ft3/accepted-main",
+      "exitCode": 0,
+      "log": "lint.log"
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "contracts/validate.py"
+      ],
+      "cwd": "/home/sbomber1/dev/sbomber/pr180-final-9svy3ft3/accepted-main",
+      "exitCode": 0,
+      "log": "contracts.log"
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "contracts",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "cwd": "/home/sbomber1/dev/sbomber/pr180-final-9svy3ft3/accepted-main",
+      "exitCode": 0,
+      "log": "contract-tests.log"
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "scripts",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "cwd": "/home/sbomber1/dev/sbomber/pr180-final-9svy3ft3/accepted-main",
+      "exitCode": 0,
+      "log": "script-tests.log"
+    },
+    {
+      "argv": [
+        "go",
+        "test",
+        "-count=1",
+        "-run",
+        "^TestIssue172",
+        "-v",
+        "./internal/cli",
+        "./internal/decision"
+      ],
+      "cwd": "/home/sbomber1/dev/sbomber/pr180-final-9svy3ft3/accepted-main",
+      "exitCode": 0,
+      "log": "issue172-tests.log"
+    },
+    {
+      "argv": [
+        "gofmt",
+        "-l",
+        "cmd",
+        "internal"
+      ],
+      "cwd": "/home/sbomber1/dev/sbomber/pr180-final-9svy3ft3/accepted-main",
+      "exitCode": 0,
+      "log": "gofmt.log"
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "scripts/run_issue172_policy.py",
+        "--binary",
+        "/home/sbomber1/dev/sbomber/pr180-final-9svy3ft3/accepted-main/bin/sbomber",
+        "--out",
+        "/home/sbomber1/dev/sbomber/pr180-final-9svy3ft3/documentation/docs/evidence/s6-05/accepted-main-20261026/policy-cases"
+      ],
+      "cwd": "/home/sbomber1/dev/sbomber/pr180-final-9svy3ft3/accepted-main",
+      "exitCode": 0,
+      "log": "policy-cases.log"
+    },
+    {
+      "argv": [
+        "bash",
+        "/home/sbomber1/dev/sbomber/pr180-final-9svy3ft3/documentation/docs/evidence/s6-05/accepted-main-20261026/checks/documented-demo.sh"
+      ],
+      "cwd": "/home/sbomber1/dev/sbomber/pr180-final-9svy3ft3/accepted-main",
+      "exitCode": 0,
+      "log": "documented-demo.log"
+    },
+    {
+      "argv": [
+        "git",
+        "diff",
+        "--exit-code",
+        "8f7adedb2e1d6425b213cbeaa6300391b4cc90ee",
+        "--",
+        "internal/sourceanalysis",
+        "internal/usagegraph",
+        "internal/decision",
+        "internal/cli",
+        "contracts",
+        "testdata/fixtures/indirect-usage-172",
+        "go.mod",
+        "go.sum"
+      ],
+      "cwd": "/home/sbomber1/dev/sbomber/pr180-final-9svy3ft3/documentation",
+      "exitCode": 0,
+      "log": "documentation-code-unchanged.log"
+    },
+    {
+      "argv": [
+        "git",
+        "diff",
+        "--exit-code",
+        "8f7adedb2e1d6425b213cbeaa6300391b4cc90ee",
+        "--",
+        "docs/evidence/s6-04",
+        "docs/evidence/s6-14",
+        "docs/evidence/issue172/run-01"
+      ],
+      "cwd": "/home/sbomber1/dev/sbomber/pr180-final-9svy3ft3/documentation",
+      "exitCode": 0,
+      "log": "historical-evidence-unchanged.log"
+    },
+    {
+      "argv": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "cwd": "/home/sbomber1/dev/sbomber/pr180-final-9svy3ft3/documentation",
+      "exitCode": 0,
+      "log": "whitespace.log"
+    }
+  ]
+}
