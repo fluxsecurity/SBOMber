@@ -1,13 +1,14 @@
-Provenance of results/localisation.json (1.1.0, offline)
+Provenance of localisation.json (1.1.0, online, 40 artefact(s) re-fetched)
   results 10, candidates 25, traced to a verified artefact 25, artefacts 49
   tag checks: verified 17, mismatch 1, unavailable 0
-  warning find-004: tag check fixed 4.17.21: npm's gitHead c6e281b878 could not be compared in lodash/lodash, so the git tag 4.17.21 was used
-  warning find-004: tag check vulnerable 4.17.20: npm's gitHead f2e7063ee4 could not be compared in lodash/lodash, so the git tag 4.17.20 was used
-  warning find-005: tag check fixed 4.17.21: npm's gitHead c6e281b878 could not be compared in lodash/lodash, so the git tag 4.17.21 was used
-  warning find-005: tag check vulnerable 4.17.20: npm's gitHead f2e7063ee4 could not be compared in lodash/lodash, so the git tag 4.17.20 was used
-  warning find-007: tag check fixed 4.18.0: npm's gitHead 0c9b60c1ae could not be compared in lodash/lodash, so the git tag 4.18.0 was used
-  warning find-007: tag check vulnerable 4.17.20: npm's gitHead f2e7063ee4 could not be compared in lodash/lodash, so the git tag 4.17.20 was used
-  warning find-008: tag check fixed 4.17.23: npm's gitHead 835a537f36 could not be compared in lodash/lodash, so the git tag 4.17.23 was used
-  warning find-008: tag check vulnerable 4.17.20: npm's gitHead f2e7063ee4 could not be compared in lodash/lodash, so the git tag 4.17.20 was used
-  warning find-009: tag check vulnerable 1.2.2: mismatch (Tag v1.2.2 and npm's gitHead agree. Vulnerable release 1.2.2 already contains linked commit 63e7ed05aa, so that commit was a partial fix or the version range is wrong.)
+  warning find-41606c2de111: tag check fixed 4.17.23: npm's gitHead 835a537f36 could not be compared in lodash/lodash, so the git tag 4.17.23 was used
+  warning find-41606c2de111: tag check vulnerable 4.17.20: npm's gitHead f2e7063ee4 could not be compared in lodash/lodash, so the git tag 4.17.20 was used
+  warning find-ab7656081bde: tag check fixed 4.17.21: npm's gitHead c6e281b878 could not be compared in lodash/lodash, so the git tag 4.17.21 was used
+  warning find-ab7656081bde: tag check vulnerable 4.17.20: npm's gitHead f2e7063ee4 could not be compared in lodash/lodash, so the git tag 4.17.20 was used
+  warning find-dc4da9a92620: tag check vulnerable 1.2.2: mismatch (Tag v1.2.2 and npm's gitHead agree. Vulnerable release 1.2.2 already contains linked commit 63e7ed05aa, so that commit was a partial fix or the version range is wrong.)
+  warning find-dfdf2e9d5cba: tag check fixed 4.17.21: npm's gitHead c6e281b878 could not be compared in lodash/lodash, so the git tag 4.17.21 was used
+  warning find-dfdf2e9d5cba: tag check vulnerable 4.17.20: npm's gitHead f2e7063ee4 could not be compared in lodash/lodash, so the git tag 4.17.20 was used
+  warning find-fa3de04c9908: tag check fixed 4.18.0: npm's gitHead 0c9b60c1ae could not be compared in lodash/lodash, so the git tag 4.18.0 was used
+  warning find-fa3de04c9908: tag check vulnerable 4.17.20: npm's gitHead f2e7063ee4 could not be compared in lodash/lodash, so the git tag 4.17.20 was used
+Wrote localisation-verify.json
 OK: every candidate is traceable to a verified artefact

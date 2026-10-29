@@ -1,60 +1,60 @@
-SBOMber Remediation Report — scan-s6-08-demo-app
+SBOMber Remediation Report — scan-20261018T000000Z-cf1d8d4d
 
 == Update first ==
 
-pkg:npm/lodash@4.17.20 (installed 4.17.20) [direct]
-  Why: 2 findings with usage detected in the application.
-  Update to 4.18.0 (highest reported fixed version); covers 5 of 5 finding(s) on this package by reported fixed version (not verified).
-  - CVE-2020-28500 [unknown, confidence medium, medium, EPSS not reported, reported fix 4.17.21]
-    Localised to an internal function with no resolved public entry point (visibility of baseTrim, toNumber, trim, trimEnd and trimmedEndIndex is unknown).
-    Referenced import obs-2892557280466c1614d5fa2c95ca2d22: src/render.js:2
-    Observed call in obs-2892557280466c1614d5fa2c95ca2d22: src/render.js:5 template
-  - CVE-2021-23337 [usage_detected, confidence high, high, EPSS not reported, reported fix 4.17.21]
-    The application calls template, which localisation names as a candidate or a public entry point to one.
-    Matched symbols: template
-    Referenced import obs-2892557280466c1614d5fa2c95ca2d22: src/render.js:2
-    Observed call in obs-2892557280466c1614d5fa2c95ca2d22: src/render.js:5 template
-  - CVE-2026-2950 [unknown, confidence medium, medium, EPSS not reported, reported fix 4.18.0]
-    Localised to an internal function with no resolved public entry point (localisation 1.1.0 does not record whether omit and unset is public or internal; candidates came from advisory text, which cannot show the set is complete).
-    Referenced import obs-2892557280466c1614d5fa2c95ca2d22: src/render.js:2
-    Observed call in obs-2892557280466c1614d5fa2c95ca2d22: src/render.js:5 template
-  - CVE-2026-4800 [usage_detected, confidence high, high, EPSS not reported, reported fix 4.18.0]
-    The application calls template, which localisation names as a candidate or a public entry point to one.
-    Matched symbols: template
-    Referenced import obs-2892557280466c1614d5fa2c95ca2d22: src/render.js:2
-    Observed call in obs-2892557280466c1614d5fa2c95ca2d22: src/render.js:5 template
-  - CVE-2025-13465 [unknown, confidence medium, medium, EPSS not reported, reported fix 4.17.23]
-    Localised to an internal function with no resolved public entry point (visibility of baseUnset is unknown).
-    Referenced import obs-2892557280466c1614d5fa2c95ca2d22: src/render.js:2
-    Observed call in obs-2892557280466c1614d5fa2c95ca2d22: src/render.js:5 template
-
 pkg:npm/decode-uri-component@0.2.0 (installed 0.2.0) [direct]
-  Why: 2 findings with usage detected in the application.
+  Why: 2 findings with usage detected in the application; highest EPSS 0.2361; highest CVSS 7.5.
   Update to 0.5.0 (highest reported fixed version); covers 2 of 2 finding(s) on this package by reported fixed version (not verified).
-  - CVE-2026-45822 [usage_detected, confidence high, medium, EPSS not reported, reported fix 0.5.0]
-    The application calls default, which localisation names as a candidate or a public entry point to one.
+  - GHSA-vcc3-ghjq-m6fr [usage_detected, confidence high, medium, EPSS 0.0051, reported fix 0.5.0]
+    The application calls default, which localisation names as a candidate or a public entry point to one. A resolved call path reaches the call to default at src/url.js:5 from application entry point ep-687048a3e3f16d75140af8a4b3d544db: main (src/index.js:6) -> decodePath (src/url.js:4).
     Matched symbols: default
-    Referenced import obs-f2d0c52720ff8add78cdebd5e42b5f84: src/url.js:2
-    Observed call in obs-f2d0c52720ff8add78cdebd5e42b5f84: src/url.js:5 default
-  - CVE-2022-38900 [usage_detected, confidence high, high, EPSS not reported, reported fix 0.2.1]
-    The application calls default, which localisation names as a candidate or a public entry point to one.
+    Referenced import obs-6d2843fbceddcdb7975261a37a4d1249: src/url.js:2
+    Observed call in obs-6d2843fbceddcdb7975261a37a4d1249: src/url.js:5 default
+  - GHSA-w573-4hg7-7wgq [usage_detected, confidence high, high, EPSS 0.2361, reported fix 0.2.1]
+    The application calls default, which localisation names as a candidate or a public entry point to one. A resolved call path reaches the call to default at src/url.js:5 from application entry point ep-687048a3e3f16d75140af8a4b3d544db: main (src/index.js:6) -> decodePath (src/url.js:4).
     Matched symbols: default
-    Referenced import obs-f2d0c52720ff8add78cdebd5e42b5f84: src/url.js:2
-    Observed call in obs-f2d0c52720ff8add78cdebd5e42b5f84: src/url.js:5 default
+    Referenced import obs-6d2843fbceddcdb7975261a37a4d1249: src/url.js:2
+    Observed call in obs-6d2843fbceddcdb7975261a37a4d1249: src/url.js:5 default
+
+pkg:npm/lodash@4.17.20 (installed 4.17.20) [direct]
+  Why: 2 findings with usage detected in the application; highest EPSS 0.2133; highest CVSS 8.1.
+  Update to 4.18.0 (highest reported fixed version); covers 5 of 5 finding(s) on this package by reported fixed version (not verified).
+  - GHSA-xxjr-mmjv-4gpg [unknown, confidence medium, medium, EPSS 0.0182, reported fix 4.17.23]
+    Localised to an internal function with no resolved public entry point (visibility of baseUnset is unknown).
+    Referenced import obs-05a97a7123e8dabe43ebee05750db414: src/render.js:2
+    Observed call in obs-05a97a7123e8dabe43ebee05750db414: src/render.js:5 template
+  - GHSA-f23m-r3pf-42rh [unknown, confidence medium, medium, EPSS 0.0034, reported fix 4.18.0]
+    Localised to an internal function with no resolved public entry point (localisation 1.1.0 does not record whether omit and unset is public or internal; candidates came from advisory text, which cannot show the set is complete).
+    Referenced import obs-05a97a7123e8dabe43ebee05750db414: src/render.js:2
+    Observed call in obs-05a97a7123e8dabe43ebee05750db414: src/render.js:5 template
+  - GHSA-35jh-r3h4-6jhm [usage_detected, confidence high, high, EPSS 0.2133, reported fix 4.17.21]
+    The application calls template, which localisation names as a candidate or a public entry point to one. A resolved call path reaches the call to template at src/render.js:5 from application entry point ep-687048a3e3f16d75140af8a4b3d544db: main (src/index.js:6) -> render (src/render.js:4).
+    Matched symbols: template
+    Referenced import obs-05a97a7123e8dabe43ebee05750db414: src/render.js:2
+    Observed call in obs-05a97a7123e8dabe43ebee05750db414: src/render.js:5 template
+  - GHSA-29mw-wpgm-hmr9 [unknown, confidence medium, medium, EPSS 0.0734, reported fix 4.17.21]
+    Localised to an internal function with no resolved public entry point (visibility of baseTrim, toNumber, trim, trimEnd and trimmedEndIndex is unknown).
+    Referenced import obs-05a97a7123e8dabe43ebee05750db414: src/render.js:2
+    Observed call in obs-05a97a7123e8dabe43ebee05750db414: src/render.js:5 template
+  - GHSA-r5fr-rjxr-66jc [usage_detected, confidence high, high, EPSS 0.0281, reported fix 4.18.0]
+    The application calls template, which localisation names as a candidate or a public entry point to one. A resolved call path reaches the call to template at src/render.js:5 from application entry point ep-687048a3e3f16d75140af8a4b3d544db: main (src/index.js:6) -> render (src/render.js:4).
+    Matched symbols: template
+    Referenced import obs-05a97a7123e8dabe43ebee05750db414: src/render.js:2
+    Observed call in obs-05a97a7123e8dabe43ebee05750db414: src/render.js:5 template
 
 pkg:npm/minimist@1.2.2 (installed 1.2.2) [direct]
-  Why: 2 findings with usage detected in the application.
+  Why: 2 findings with usage detected in the application; highest EPSS 0.0458; highest CVSS 9.8.
   Update to 1.2.6 (highest reported fixed version); covers 2 of 2 finding(s) on this package by reported fixed version (not verified).
-  - CVE-2020-7598 [usage_detected, confidence high, medium, EPSS not reported, reported fix 1.2.3]
-    The application calls default, which localisation names as a candidate or a public entry point to one.
+  - GHSA-xvch-5gv4-984h [usage_detected, confidence high, critical, EPSS 0.0458, reported fix 1.2.6]
+    The application calls default, which localisation names as a candidate or a public entry point to one. A resolved call path reaches the call to default at src/args.js:5 from application entry point ep-687048a3e3f16d75140af8a4b3d544db: main (src/index.js:6) -> parseArgs (src/args.js:4).
     Matched symbols: default
-    Referenced import obs-fa4e52c9103ec68b0a0af839b61a0489: src/args.js:2
-    Observed call in obs-fa4e52c9103ec68b0a0af839b61a0489: src/args.js:5 default
-  - CVE-2021-44906 [usage_detected, confidence high, critical, EPSS not reported, reported fix 1.2.6]
-    The application calls default, which localisation names as a candidate or a public entry point to one.
+    Referenced import obs-4c4713f9b40cf98eda1cdf7dca0d0565: src/args.js:2
+    Observed call in obs-4c4713f9b40cf98eda1cdf7dca0d0565: src/args.js:5 default
+  - GHSA-vh95-rmgr-6w4m [usage_detected, confidence high, medium, EPSS 0.0193, reported fix 1.2.3]
+    The application calls default, which localisation names as a candidate or a public entry point to one. A resolved call path reaches the call to default at src/args.js:5 from application entry point ep-687048a3e3f16d75140af8a4b3d544db: main (src/index.js:6) -> parseArgs (src/args.js:4).
     Matched symbols: default
-    Referenced import obs-fa4e52c9103ec68b0a0af839b61a0489: src/args.js:2
-    Observed call in obs-fa4e52c9103ec68b0a0af839b61a0489: src/args.js:5 default
+    Referenced import obs-4c4713f9b40cf98eda1cdf7dca0d0565: src/args.js:2
+    Observed call in obs-4c4713f9b40cf98eda1cdf7dca0d0565: src/args.js:5 default
 
 == Insufficient information ==
 Analysis coverage:
@@ -73,7 +73,7 @@ These findings had no direct usage evidence within the analysed scope. They are 
 
 pkg:npm/ini@1.3.5 (installed 1.3.5) [direct]
   Reported fixed version: 1.3.6; covers 1 of 1 finding(s) on this package by reported fixed version (not verified).
-  - CVE-2020-7788 [no_usage_detected, confidence medium, high, EPSS not reported, reported fix 1.3.6]
+  - GHSA-qqgx-2p2h-9c37 [no_usage_detected, confidence medium, high, EPSS 0.0365, reported fix 1.3.6]
     No usage evidence found within the analysed scope: analysis completed and no application call reached any public entry point of the localised functions.
-    Referenced import obs-4b2986fa2701ec68d0fe37c164520b85: src/config.js:2
-    Observed call in obs-4b2986fa2701ec68d0fe37c164520b85: src/config.js:5 stringify
+    Referenced import obs-4d3c59b1e766692f91d28b85ce4c909e: src/config.js:2
+    Observed call in obs-4d3c59b1e766692f91d28b85ce4c909e: src/config.js:5 stringify

@@ -22,6 +22,10 @@ class ConsistencyTests(unittest.TestCase):
         for f in RESULTS.iterdir():
             shutil.copy(f, out / f.name)
         if edit:
+            # An edited copy is no longer the live run, so drop its manifest:
+            # the check under test must be what fails, not the hashes. Tests
+            # of the manifest itself build a synthetic one inside their edit.
+            (out / "run-metadata.json").unlink(missing_ok=True)
             edit(out)
         res = subprocess.run(
             [sys.executable, str(SCRIPT), str(out)], text=True, capture_output=True
@@ -35,16 +39,29 @@ class ConsistencyTests(unittest.TestCase):
         fn(d)
         p.write_text(json.dumps(d))
 
+    def finding(self, alias, out=RESULTS):
+        """The committed finding whose vulnerabilityId or aliases include alias."""
+        scan = json.loads((out / "canonical-scan.json").read_text())
+        for f in scan["findings"]:
+            if alias in {f["vulnerabilityId"], *f.get("aliases", [])}:
+                return f
+        raise KeyError(alias)
+
+    def names(self, finding):
+        return {finding["vulnerabilityId"], *finding.get("aliases", [])}
+
     def test_committed_run_is_consistent(self):
         res = self.run_on()
         self.assertEqual(res.returncode, 0, res.stdout[-2000:] + res.stderr)
         self.assertIn("No problems.", res.stdout)
 
     def test_vex_status_that_disagrees_with_the_decision_fails(self):
+        ini = self.finding("CVE-2020-7788")  # no_usage_detected -> under_investigation
+
         def edit(out):
             def flip(d):
                 for st in d["statements"]:
-                    if st["vulnerability"]["name"] == "CVE-2020-7788":
+                    if st["vulnerability"]["name"] in self.names(ini):
                         st["status"] = "affected"
                         st["action_statement"] = "Upgrade ini."
 
@@ -53,27 +70,32 @@ class ConsistencyTests(unittest.TestCase):
         res = self.run_on(edit)
         self.assertNotEqual(res.returncode, 0)
         self.assertIn(
-            "package VEX says affected for find-003, decision maps to under_investigation",
+            f"package VEX says affected for {ini['findingId']}, decision maps to under_investigation",
             res.stdout,
         )
 
     def test_finding_missing_from_the_human_report_fails(self):
+        lodash = self.finding("CVE-2020-28500")  # unknown
+
         def edit(out):
             p = out / "report.html"
             s = p.read_text()
-            start = s.index('<tr data-finding-id="find-004">')
+            start = s.index(f'<tr data-finding-id="{lodash["findingId"]}">')
             p.write_text(s[:start] + s[s.index("</tr>", start) + 5 :])
             t = out / "report.txt"
             t.write_text(
                 "\n".join(
-                    l for l in t.read_text().splitlines() if "CVE-2020-28500" not in l
+                    l
+                    for l in t.read_text().splitlines()
+                    if lodash["vulnerabilityId"] not in l
                 )
             )
 
         res = self.run_on(edit)
         self.assertNotEqual(res.returncode, 0)
         self.assertIn(
-            "find-004 (CVE-2020-28500, unknown) is missing from report.html", res.stdout
+            f"{lodash['findingId']} ({lodash['vulnerabilityId']}, unknown) is missing from report.html",
+            res.stdout,
         )
         self.assertIn("is missing from report.txt", res.stdout)
 
@@ -141,7 +163,31 @@ class ConsistencyTests(unittest.TestCase):
                 lambda d: d["descriptor"].update(version="99.0.0"),
             )
 
-        self.assertNotEqual(self.run_on(edit).returncode, 0)
+        res = self.run_on(edit)
+        self.assertNotEqual(res.returncode, 0)
+        self.assertIn("package: expected pinned Grype", res.stdout)
+
+    def test_scan_from_unpinned_grype_fails(self):
+        def edit(out):
+            self.edit_json(
+                out,
+                "canonical-scan.json",
+                lambda d: d["scan"]["toolVersions"].update(grype="99.0.0"),
+            )
+
+        res = self.run_on(edit)
+        self.assertNotEqual(res.returncode, 0)
+        self.assertIn("canonical scan was made with Grype 99.0.0", res.stdout)
+
+    def test_partial_scan_fails(self):
+        def edit(out):
+            self.edit_json(
+                out, "canonical-scan.json", lambda d: d["scan"].update(status="partial")
+            )
+
+        res = self.run_on(edit)
+        self.assertNotEqual(res.returncode, 0)
+        self.assertIn("canonical scan status is partial", res.stdout)
 
     def test_missing_original_scanner_findings_fails(self):
         def edit(out):
@@ -245,15 +291,17 @@ class ConsistencyTests(unittest.TestCase):
         self.edit_json(out, "grype-consumer-package.json", change_consumer)
 
     def test_unsupported_stays_in_reports_but_is_omitted_from_vex(self):
+        fid = self.finding("CVE-2020-28500")["findingId"]  # unknown
         res = self.run_on(
-            lambda out: self.set_policy_case(out, "find-004", "unsupported", "omit")
+            lambda out: self.set_policy_case(out, fid, "unsupported", "omit")
         )
         self.assertEqual(res.returncode, 0, res.stdout[-2500:] + res.stderr)
 
     def test_guarded_positive_may_stay_under_investigation(self):
+        fid = self.finding("CVE-2026-45822")["findingId"]  # usage_detected
         res = self.run_on(
             lambda out: self.set_policy_case(
-                out, "find-001", "usage_detected", "under_investigation"
+                out, fid, "usage_detected", "under_investigation"
             )
         )
         self.assertEqual(res.returncode, 0, res.stdout[-2500:] + res.stderr)

@@ -396,6 +396,20 @@ Per-construct usage precision/recall ([#149](https://github.com/fluxsecurity/SBO
 and reachability measurements ([#152](https://github.com/fluxsecurity/SBOMber/issues/152))
 are separate evaluations. This section makes no accuracy or resolution-rate claim.
 
+### Localisation and VEX (`localisation.json`, OpenVEX; Component 3)
+
+`sbomber localise` names the functions an advisory implicates and records how
+it found them; `sbomber vex` turns decisions into an OpenVEX 0.2.0 document.
+Both are evidence, not verdicts.
+
+| Limitation | What it means |
+|---|---|
+| **Consumers and the application subject** | `sbomber vex` writes the application-subject document by default (R5 rule 1, settled on [#128](https://github.com/fluxsecurity/SBOMber/issues/128)): the scanned application is the product and the vulnerable package a subcomponent. Grype (0.112.0 on 18 October 2026 and the pinned 0.120.1 on 29 October 2026) and Trivy 0.70.0 resolve a statement's product against the vulnerable package's own purl on a directory scan, so they act on nothing in that document. `--subject package` writes the shape they act on, which reads as a claim about the package rather than this application. SBOMber's own report is the primary surface; the consumer evidence is in [`spikes/vex-format/s6-08/results/CONSISTENCY.md`](spikes/vex-format/s6-08/results/CONSISTENCY.md). |
+| **Never `not_affected`** | `usage_detected` exports as `affected` only when the decision guards allow it; `no_usage_detected`, `unknown` and guarded positives export as `under_investigation`; `unsupported` is omitted from VEX and kept in the report. A `not_affected` statement is a human decision and is never generated. |
+| **Where candidates come from** | Methods run in fallback order: the advisory's patch commit, the advisory's prose, then the fixed-minus-vulnerable tarball diff. A prose or tarball result is weaker and is marked so (`advisory_text`, `low` confidence); an advisory with no patch reference and no named function gives an open candidate set. `localise --verify --online` re-fetches every artefact and re-runs the release tag checks; a tag check can report `mismatch` when the vulnerable release already contains the linked commit (minimist 1.2.2, a partial first fix). |
+| **Open candidate sets** | A finding can only become `no_usage_detected` when its candidate set is closed: every candidate's visibility resolved by export resolution, exhaustively. On the frozen evaluation set 3/10 sets close and 8/10 are joinable, so most findings stay `unknown` or `usage_detected` on localisation evidence alone. |
+| **npm JavaScript/TypeScript only** | Functions are resolved in npm tarballs with tree-sitter JavaScript/TypeScript. Findings in other ecosystems get an honest `unknown` localisation result, never a candidate list. |
+
 ---
 
 ## Development

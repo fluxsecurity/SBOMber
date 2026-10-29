@@ -1,0 +1,44 @@
+{
+  "mode": "live",
+  "sbomberRevision": "33aeabf03bbcd341b4883501819defa46f83deaa",
+  "sourceDirty": false,
+  "binarySha256": "5db6e4a9ee7b172cc0c8b584234d49a75faddc0f9f002609393920c14795400b",
+  "scanId": "scan-20261018T000000Z-cf1d8d4d",
+  "toolVersions": {
+    "go": "go1.26.9",
+    "grype": "0.120.1",
+    "grype-db": "v6.1.10 built 2026-10-28T06:23:30Z",
+    "sbomber": "0.1.1"
+  },
+  "consumer": {
+    "grype": "0.120.1",
+    "db": "2026-10-28T06:23:30Z"
+  },
+  "inputSha256": {
+    "demo-app/package-lock.json": "343e6f2a45b5c0e55102108d2b1c26e11d6dfa2d661938e0f8eaf6fe1268edc0",
+    "demo-app/package.json": "ea7b05d801868d5ccce3c7c44ce8c95ab9003dfce606f4c93906cc076ce33439",
+    "demo-app/src/args.js": "c77c79b45cac1f44f9c8521e3438686002e30cf025f7b3319c16512a17155143",
+    "demo-app/src/config.js": "a5b6f80cda845fc402ad76a043fc025c366b485641f3488c45bcb13de63e2630",
+    "demo-app/src/index.js": "82b14729c59f09055a70210cd7ad4935988c5abbb9c0b6115ee343ac6bd709b9",
+    "demo-app/src/render.js": "1a3a195cf9cbc7a3c5f4c561b575e401b436e668a824e07204a02efacdd7d7b2",
+    "demo-app/src/url.js": "95ae88e2894bcf6e01417ae056c0ef7f0e13a994963c8a6137fcf93b844c0fd4"
+  },
+  "sha256": {
+    "canonical-scan.json": "4a2f28e57015a7970ef0cda48f9b3e264c1b47d8022debe67478eaadc5066881",
+    "usage-graph.json": "e56cec2ca4c9014b481b19744885baaf485254433e0c19894c9a81b39d412a9b",
+    "localisation.json": "f5aa36ba647ae3a0abe030a4b43d9e4ecfc3f031896fbc4a670749558e319aa1",
+    "decision-results.json": "cd5309061eb3d54395e7454c220cbd5e95ff556df00bfe2cfd86f7f602212943",
+    "report.html": "1dcefaa594721851d6ba7f9c57b09910aa3728c7c9b18d5ce69700c993b4aefe",
+    "report.txt": "78f294f198b8975dbceefa98283dcb6e8444b37cf8d82b5bc675639f10930a09",
+    "demo-app.application.openvex.json": "24cb49545f3a4a4549d519de8ba343680ba0c97e4dbbecf28a54ea6a6d367a4c",
+    "demo-app.package.openvex.json": "aa3e752705ad4bb8d9ca53645a09c0471b0b3605a8cdb87e658a3ba4aeb646b8",
+    "grype.json": "8dd81ef50912a671dafe59ee5f086720a45fcaff46345271403ca504da4ed589",
+    "grype-consumer-baseline.json": "0b4ed2764d66645d185ffe06d7e1e6a7d1a0fdb7d1ba95ae31119d4388452ac4",
+    "grype-consumer-application.json": "ace1803a654ed7e8c6c8fcccc03013b335fd40270a1bccd292e36764a6629c33",
+    "grype-consumer-package.json": "bf084c2eba4637c6d4806abc3dd02c558621143d5dacf2bf5104aee1a79b3f28",
+    "grype-ignore-all.yaml": "cb59737f42132032ef20cc1f356dfacfed8ac417080bb700dae014c21b44c902",
+    "localisation-trace.json": "689d6dc6e46ac8bdb5e08fafc83451d605d04ca8c8f44987e106bed8b31b322a",
+    "localisation-verify.txt": "e29b0110823f20e89a7886e1390f380dde14a22fea7a1484dfb14aff9acf01d3",
+    "localisation-verify.json": "8d55fdbece785913290dffb670c844a536d75297f3db6097a168984bce1bfda8"
+  }
+}

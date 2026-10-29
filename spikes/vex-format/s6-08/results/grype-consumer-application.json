@@ -46,8 +46,8 @@
      {
       "cve": "CVE-2020-28500",
       "epss": 0.07336,
-      "percentile": 0.94328,
-      "date": "2026-10-17"
+      "percentile": 0.94362,
+      "date": "2026-10-27"
      }
     ],
     "cwes": [
@@ -139,8 +139,8 @@
       {
        "cve": "CVE-2020-28500",
        "epss": 0.07336,
-       "percentile": 0.94328,
-       "date": "2026-10-17"
+       "percentile": 0.94362,
+       "date": "2026-10-27"
       }
      ],
      "cwes": [
@@ -247,8 +247,8 @@
      {
       "cve": "CVE-2021-23337",
       "epss": 0.21333,
-      "percentile": 0.97577,
-      "date": "2026-10-17"
+      "percentile": 0.97588,
+      "date": "2026-10-27"
      }
     ],
     "cwes": [
@@ -339,8 +339,8 @@
       {
        "cve": "CVE-2021-23337",
        "epss": 0.21333,
-       "percentile": 0.97577,
-       "date": "2026-10-17"
+       "percentile": 0.97588,
+       "date": "2026-10-27"
       }
      ],
      "cwes": [
@@ -433,9 +433,9 @@
     "epss": [
      {
       "cve": "CVE-2026-2950",
-      "epss": 0.00402,
-      "percentile": 0.32883,
-      "date": "2026-10-17"
+      "epss": 0.00325,
+      "percentile": 0.25438,
+      "date": "2026-10-27"
      }
     ],
     "cwes": [
@@ -460,7 +460,7 @@
      ]
     },
     "advisories": [],
-    "risk": 0.23114999999999997
+    "risk": 0.18687499999999999
    },
    "relatedVulnerabilities": [
     {
@@ -502,9 +502,9 @@
      "epss": [
       {
        "cve": "CVE-2026-2950",
-       "epss": 0.00402,
-       "percentile": 0.32883,
-       "date": "2026-10-17"
+       "epss": 0.00325,
+       "percentile": 0.25438,
+       "date": "2026-10-27"
       }
      ],
      "cwes": [
@@ -600,8 +600,8 @@
      {
       "cve": "CVE-2020-7788",
       "epss": 0.03655,
-      "percentile": 0.89467,
-      "date": "2026-10-17"
+      "percentile": 0.89557,
+      "date": "2026-10-27"
      }
     ],
     "cwes": [
@@ -682,8 +682,8 @@
       {
        "cve": "CVE-2020-7788",
        "epss": 0.03655,
-       "percentile": 0.89467,
-       "date": "2026-10-17"
+       "percentile": 0.89557,
+       "date": "2026-10-27"
       }
      ],
      "cwes": [
@@ -778,9 +778,9 @@
     "epss": [
      {
       "cve": "CVE-2026-4800",
-      "epss": 0.02618,
-      "percentile": 0.85199,
-      "date": "2026-10-17"
+      "epss": 0.02759,
+      "percentile": 0.86188,
+      "date": "2026-10-27"
      }
     ],
     "cwes": [
@@ -811,7 +811,7 @@
      ]
     },
     "advisories": [],
-    "risk": 2.0420399999999996
+    "risk": 2.15202
    },
    "relatedVulnerabilities": [
     {
@@ -943,9 +943,9 @@
      "epss": [
       {
        "cve": "CVE-2026-4800",
-       "epss": 0.02618,
-       "percentile": 0.85199,
-       "date": "2026-10-17"
+       "epss": 0.02759,
+       "percentile": 0.86188,
+       "date": "2026-10-27"
       }
      ],
      "cwes": [
@@ -1046,8 +1046,8 @@
      {
       "cve": "CVE-2026-45822",
       "epss": 0.00507,
-      "percentile": 0.41922,
-      "date": "2026-10-17"
+      "percentile": 0.43041,
+      "date": "2026-10-27"
      }
     ],
     "cwes": [
@@ -1108,8 +1108,8 @@
       {
        "cve": "CVE-2026-45822",
        "epss": 0.00507,
-       "percentile": 0.41922,
-       "date": "2026-10-17"
+       "percentile": 0.43041,
+       "date": "2026-10-27"
       }
      ],
      "cwes": [
@@ -1214,8 +1214,8 @@
      {
       "cve": "CVE-2020-7598",
       "epss": 0.01931,
-      "percentile": 0.7968,
-      "date": "2026-10-17"
+      "percentile": 0.79909,
+      "date": "2026-10-27"
      }
     ],
     "cwes": [
@@ -1283,8 +1283,8 @@
       {
        "cve": "CVE-2020-7598",
        "epss": 0.01931,
-       "percentile": 0.7968,
-       "date": "2026-10-17"
+       "percentile": 0.79909,
+       "date": "2026-10-27"
       }
      ],
      "cwes": [
@@ -1384,9 +1384,9 @@
     "epss": [
      {
       "cve": "CVE-2022-38900",
-      "epss": 0.23789,
-      "percentile": 0.97805,
-      "date": "2026-10-17"
+      "epss": 0.2361,
+      "percentile": 0.97796,
+      "date": "2026-10-27"
      }
     ],
     "cwes": [
@@ -1417,7 +1417,7 @@
      ]
     },
     "advisories": [],
-    "risk": 17.84175
+    "risk": 17.7075
    },
    "relatedVulnerabilities": [
     {
@@ -1464,9 +1464,9 @@
      "epss": [
       {
        "cve": "CVE-2022-38900",
-       "epss": 0.23789,
-       "percentile": 0.97805,
-       "date": "2026-10-17"
+       "epss": 0.2361,
+       "percentile": 0.97796,
+       "date": "2026-10-27"
       }
      ],
      "cwes": [
@@ -1577,8 +1577,8 @@
      {
       "cve": "CVE-2021-44906",
       "epss": 0.04581,
-      "percentile": 0.91516,
-      "date": "2026-10-17"
+      "percentile": 0.91585,
+      "date": "2026-10-27"
      }
     ],
     "cwes": [
@@ -1650,8 +1650,8 @@
       {
        "cve": "CVE-2021-44906",
        "epss": 0.04581,
-       "percentile": 0.91516,
-       "date": "2026-10-17"
+       "percentile": 0.91585,
+       "date": "2026-10-27"
       }
      ],
      "cwes": [
@@ -1755,8 +1755,8 @@
      {
       "cve": "CVE-2025-13465",
       "epss": 0.01823,
-      "percentile": 0.78429,
-      "date": "2026-10-17"
+      "percentile": 0.78667,
+      "date": "2026-10-27"
      }
     ],
     "cwes": [
@@ -1927,8 +1927,8 @@
       {
        "cve": "CVE-2025-13465",
        "epss": 0.01823,
-       "percentile": 0.78429,
-       "date": "2026-10-17"
+       "percentile": 0.78667,
+       "date": "2026-10-27"
       }
      ],
      "cwes": [
@@ -2002,7 +2002,7 @@
  ],
  "source": {
   "type": "directory",
-  "target": "./spikes/vex-format/s6-08/demo-app"
+  "target": "./demo-out/s6-08/demo-app"
  },
  "distro": {
   "name": "",
@@ -2011,7 +2011,7 @@
  },
  "descriptor": {
   "name": "grype",
-  "version": "0.112.0",
+  "version": "0.120.1",
   "configuration": {
    "output": [
     "json"
@@ -2273,6 +2273,24 @@
      "namespace": "",
      "fix-state": "",
      "package": {
+      "name": "linux-kbuild-.*",
+      "version": "",
+      "language": "",
+      "type": "deb",
+      "location": "",
+      "upstream-name": "linux.*"
+     },
+     "vex-status": "",
+     "vex-justification": "",
+     "match-type": "exact-indirect-match"
+    },
+    {
+     "vulnerability": "",
+     "include-aliases": false,
+     "reason": "",
+     "namespace": "",
+     "fix-state": "",
+     "package": {
       "name": "",
       "version": "",
       "language": "",
@@ -2342,7 +2360,7 @@
     },
     "golang": {
      "using-cpes": false,
-     "always-use-cpe-for-stdlib": true,
+     "always-use-cpe-for-stdlib": false,
      "allow-main-module-pseudo-version-comparison": false
     },
     "javascript": {
@@ -2381,6 +2399,7 @@
     "ca-cert": ""
    },
    "show-suppressed": false,
+   "include-matcher-suppressions": false,
    "by-cve": false,
    "SortBy": {
     "sort-by": "risk"
@@ -2399,6 +2418,10 @@
     "redhat-eus": {
      "apply": "auto",
      "versions": ">= 8.0"
+    },
+    "ubuntu-esm": {
+     "apply": "auto",
+     "versions": ""
     }
    },
    "timestamp": true,
@@ -2409,7 +2432,7 @@
     "cache-dir": "~/Library/Caches/grype/db",
     "update-url": "https://grype.anchore.io/databases",
     "ca-cert": "",
-    "auto-update": true,
+    "auto-update": false,
     "validate-by-hash-on-start": true,
     "validate-age": true,
     "max-allowed-built-age": 432000000000000,
@@ -2428,118 +2451,118 @@
   "db": {
    "status": {
     "schemaVersion": "v6.1.10",
-    "from": "https://grype.anchore.io/databases/v6/vulnerability-db_v6.1.10_2026-10-17T00:31:44Z_1792304837.tar.zst?checksum=sha256%3Ae3d1010ec6e5dee9d3e84b2d5723c534d799e104e6573160e05b22c5292f091e",
-    "built": "2026-10-18T06:27:17Z",
+    "from": "https://grype.anchore.io/databases/v6/vulnerability-db_v6.1.10_2026-10-28T00:24:28Z_1793168610.tar.zst?checksum=sha256%3Ab08902b91738f1a9bc7fd61942f331d8e5e76a5df0c0b5f8c17c18bd787ee278",
+    "built": "2026-10-28T06:23:30Z",
     "path": "~/Library/Caches/grype/db/6/vulnerability.db",
     "valid": true
    },
    "providers": {
     "alma": {
-     "captured": "2026-10-18T00:33:35Z",
-     "input": "xxh64:f4dc2abc7982af84"
+     "captured": "2026-10-28T00:24:35Z",
+     "input": "xxh64:1dd22ddfb6ebcb75"
     },
     "alpine": {
-     "captured": "2026-10-18T00:33:06Z",
-     "input": "xxh64:c87e245998d1b631"
+     "captured": "2026-10-28T00:24:41Z",
+     "input": "xxh64:492dd17262189872"
     },
     "amazon": {
-     "captured": "2026-10-18T00:33:10Z",
-     "input": "xxh64:928cedcf363fd8e0"
+     "captured": "2026-10-28T00:29:02Z",
+     "input": "xxh64:6faabe791f61b6d0"
     },
     "arch": {
-     "captured": "2026-10-18T00:33:37Z",
-     "input": "xxh64:3306ecbbde7c609b"
+     "captured": "2026-10-28T00:24:38Z",
+     "input": "xxh64:e53c5ed5fa35e12d"
     },
     "bitnami": {
-     "captured": "2026-10-18T00:33:39Z",
-     "input": "xxh64:4fa0fabe936ac4c4"
+     "captured": "2026-10-28T00:25:15Z",
+     "input": "xxh64:4c354cb62d7e4f3f"
     },
     "chainguard": {
-     "captured": "2026-10-18T00:33:18Z",
-     "input": "xxh64:2c4db28300c6c345"
+     "captured": "2026-10-28T00:24:54Z",
+     "input": "xxh64:06bd48594b3b2185"
     },
     "chainguard-libraries": {
-     "captured": "2026-10-18T00:33:06Z",
-     "input": "xxh64:9013a4b217c58ff3"
+     "captured": "2026-10-28T00:24:46Z",
+     "input": "xxh64:0668319f4e4b4c26"
     },
     "debian": {
-     "captured": "2026-10-18T00:33:39Z",
-     "input": "xxh64:aae7b11059392b1f"
+     "captured": "2026-10-28T00:24:59Z",
+     "input": "xxh64:9865cf64b39c7987"
     },
     "echo": {
-     "captured": "2026-10-18T00:33:29Z",
-     "input": "xxh64:0a260ebc38db6ae9"
+     "captured": "2026-10-28T00:24:44Z",
+     "input": "xxh64:d39f1fcca23a9ab6"
     },
     "eol": {
-     "captured": "2026-10-18T00:33:10Z",
-     "input": "xxh64:9abb588554735961"
+     "captured": "2026-10-28T00:24:55Z",
+     "input": "xxh64:a3af50d7954f296c"
     },
     "epss": {
-     "captured": "2026-10-18T00:33:10Z",
-     "input": "xxh64:be5c783147ec4339"
+     "captured": "2026-10-28T00:25:41Z",
+     "input": "xxh64:1c648a9874b68f38"
     },
     "fedora": {
-     "captured": "2026-10-18T00:33:16Z",
-     "input": "xxh64:7833e1fa13a95140"
+     "captured": "2026-10-28T00:24:55Z",
+     "input": "xxh64:cf2b00611836b8fa"
     },
     "github": {
-     "captured": "2026-10-18T00:33:30Z",
-     "input": "xxh64:6f80224d8464246e"
+     "captured": "2026-10-28T00:25:24Z",
+     "input": "xxh64:efb629555e4babb5"
     },
     "govulndb": {
-     "captured": "2026-10-18T00:33:07Z",
-     "input": "xxh64:eff296e164cd7cfa"
+     "captured": "2026-10-28T00:24:31Z",
+     "input": "xxh64:47f7eb44624ee1dd"
     },
     "hummingbird": {
-     "captured": "2026-10-18T00:36:53Z",
-     "input": "xxh64:8e0b9aba58864a84"
+     "captured": "2026-10-28T00:26:39Z",
+     "input": "xxh64:4a5fc6c9e60b9a68"
     },
     "kev": {
-     "captured": "2026-10-18T00:33:05Z",
-     "input": "xxh64:0e36abba80f004a5"
+     "captured": "2026-10-28T00:24:40Z",
+     "input": "xxh64:5e2266de1a882b2b"
     },
     "mariner": {
-     "captured": "2026-10-18T00:34:34Z",
-     "input": "xxh64:47be149d8a8feef1"
+     "captured": "2026-10-28T00:24:28Z",
+     "input": "xxh64:8822b9be6e778838"
     },
     "minimos": {
-     "captured": "2026-10-18T00:33:39Z",
-     "input": "xxh64:b4cd93dd6012d3ab"
+     "captured": "2026-10-28T00:26:29Z",
+     "input": "xxh64:b1ac8e58781518a1"
     },
     "nvd": {
-     "captured": "2026-10-18T00:34:11Z",
-     "input": "xxh64:d2a80fb87018a838"
+     "captured": "2026-10-28T00:25:26Z",
+     "input": "xxh64:2ddfadc34e69cced"
     },
     "oracle": {
-     "captured": "2026-10-18T00:33:33Z",
-     "input": "xxh64:b4034548afc6165c"
+     "captured": "2026-10-28T00:25:44Z",
+     "input": "xxh64:7e54a837e8555b0e"
     },
     "photon": {
-     "captured": "2026-10-18T00:33:15Z",
-     "input": "xxh64:42e761e12c6f2fda"
+     "captured": "2026-10-28T00:24:40Z",
+     "input": "xxh64:e40a7d4149e2ac55"
     },
     "rhel": {
-     "captured": "2026-10-18T00:34:59Z",
-     "input": "xxh64:49698474dce4fda6"
+     "captured": "2026-10-28T00:25:44Z",
+     "input": "xxh64:b6331b208ecaba69"
     },
     "secureos": {
-     "captured": "2026-10-18T00:33:02Z",
-     "input": "xxh64:bd49cbecf59c52cb"
+     "captured": "2026-10-28T00:24:49Z",
+     "input": "xxh64:88dcac30a995616d"
     },
     "sles": {
-     "captured": "2026-10-17T00:31:44Z",
-     "input": "xxh64:c8dbf4a92d7b0083"
+     "captured": "2026-10-28T00:26:11Z",
+     "input": "xxh64:c5d51b4e53a650bd"
     },
     "ubuntu": {
-     "captured": "2026-10-18T00:34:05Z",
-     "input": "xxh64:09e65095c724211e"
+     "captured": "2026-10-28T00:25:21Z",
+     "input": "xxh64:69fce9a1f48745df"
     },
     "wolfi": {
-     "captured": "2026-10-18T00:33:10Z",
-     "input": "xxh64:c58337357f7e0ef2"
+     "captured": "2026-10-28T00:24:46Z",
+     "input": "xxh64:7e5f9576c5125dd5"
     }
    }
   },
-  "timestamp": "2026-10-18T22:07:18.444334+11:00"
+  "timestamp": "2026-10-29T10:55:59.470572+11:00"
  }
 }
