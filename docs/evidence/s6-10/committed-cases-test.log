@@ -1,0 +1,6 @@
+=== RUN   TestCommittedCases
+    cases_test.go:41: gitaalekhyapaul-vuln-app: 32 finding(s): 1 agree usage, 0 agree no usage found, 0 missed usage, 2 over-reported, 29 abstained, 0 unlabelled, 0 without decision, 0 label mismatch; 0 downgrade(s)
+    cases_test.go:41: kirill89-prototype-pollution-explained: 14 finding(s): 0 agree usage, 0 agree no usage found, 0 missed usage, 2 over-reported, 12 abstained, 0 unlabelled, 0 without decision, 0 label mismatch; 0 downgrade(s)
+--- PASS: TestCommittedCases (0.01s)
+PASS
+ok  	github.com/Xsamsx/SBOMber/internal/audit	0.009s
